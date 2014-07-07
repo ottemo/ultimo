@@ -1,0 +1,46 @@
+/* Mobile Header Styles */
+
+@media only screen and (min-width : 320px) and (max-width : 720px) {
+  .GlobalWrapper {
+    width: 100%;
+    .GlobalHeader {
+      width: 100%;
+      height: 140px;
+      padding: 0 6.25%;
+      background: $GlobalHeaderBack;
+      -moz-box-sizing:    border-box;
+      -webkit-box-sizing: border-box;
+      box-sizing:        border-box;
+      position: relative;
+      z-index: 10;
+      border-bottom: 1px solid $GlobalHeaderBorder;
+      @include box-shadow(0px, 2px, 3px, $GlobalHeaderShadow);
+      .left-header-menu {
+        float: left;
+        padding-top: 54px;
+        .open {
+        position: relative;
+        padding-left: 1.25em;
+        font-size: 36px;
+        color: $MenuOpenLinkColor;
+        top: -12px;
+        &:before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 0.25em;
+          width: 0.8em;
+          height: 0.15em;
+          background: $MenuOpenLinkColor;
+          box-shadow:
+          0 0.25em 0 0 $MenuOpenLinkColor,
+          0 0.5em 0 0 $MenuOpenLinkColor;
+        }
+      }
+        #nav {
+          display: none;
+        }
+     }
+    }
+   }
+ }

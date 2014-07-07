@@ -1,0 +1,48 @@
+/* Mixins */
+#pageslide {
+  display: none;
+  position: absolute;
+  position: fixed;
+  top: 142px;
+  height: 100%;
+  z-index: 9;
+  width: 70.75%;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #efefef;
+  color: #FFF; }
+
+/* Mobile Header Styles */
+@media only screen and (min-width: 320px) and (max-width: 720px) {
+  .GlobalWrapper {
+    width: 100%; }
+    .GlobalWrapper .GlobalHeader {
+      width: 100%;
+      height: 140px;
+      padding: 0 6.25%;
+      background: #efefef;
+      box-sizing: border-box;
+      position: relative;
+      z-index: 10;
+      border-bottom: 1px solid #cccccc;
+      box-shadow: 0px 2px 3px #cccccc; }
+      .GlobalWrapper .GlobalHeader .left-header-menu {
+        float: left;
+        padding-top: 54px; }
+        .GlobalWrapper .GlobalHeader .left-header-menu .open {
+          position: relative;
+          padding-left: 1.25em;
+          font-size: 36px;
+          color: #cabf45;
+          top: -12px; }
+          .GlobalWrapper .GlobalHeader .left-header-menu .open:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.25em;
+            width: 0.8em;
+            height: 0.15em;
+            background: #cabf45;
+            box-shadow: 0 0.25em 0 0 #cabf45, 0 0.5em 0 0 #cabf45; }
+        .GlobalWrapper .GlobalHeader .left-header-menu #nav {
+          display: none; } }

@@ -1,0 +1,14 @@
+<div id="pageTable" class="GlobalWrapper">
+
+        <div id="cellPageHeader" class="GlobalHeader">
+            <ng-include src="getTemplate('common/header.html')"></ng-include>
+        </div>
+
+        <div id="cellPageContent">
+            <ng-view></ng-view>
+        </div>
+
+        <div id="cellPageFooter">
+            <ng-include src="getTemplate('common/footer.html')" ng-if="false"></ng-include>
+        </div>
+</div>
