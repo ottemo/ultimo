@@ -19,6 +19,10 @@
          *
          */
         angular.module.designModule = angular.module('designModule',[])
+
+            .constant("MEDIA_BASE_PATH", "images/")
+            .constant("PRODUCT_DEFAULT_IMG", "images/placeholder.png")
+
             /*
              *  Startup for designModule - registration globally visible functions
              */
