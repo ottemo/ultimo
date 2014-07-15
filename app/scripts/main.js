@@ -39,6 +39,7 @@ require([
         "common/module",
 
         "category/module"
+        "pdp/module"
     ],
     function (angular) {
         angular.element(document).ready(function () {

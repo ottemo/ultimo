@@ -6,9 +6,9 @@
      *  (make sure module present in main.js requireJS list)
      */
     define([
+			"design/directives/guiListBar",
+            "design/service/image",
             "design/services",
-
-            "design/directives/guiListBar",
             "design/directives/design"
         ],
         function (designModule) {
