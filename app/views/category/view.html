@@ -37,9 +37,9 @@
 </div>
 
 <div class="list-bar">
-    <span class="glyphicon glyphicon-sort" ng-click="toggleBlock('sort')">SORT</span>
-    <span class="glyphicon glyphicon-search" ng-click="toggleBlock('search')">SEARCH</span>
-    <span class="glyphicon glyphicon-filter" ng-click="toggleBlock('filter')">FILTER</span>
+    <span class="glyphicon glyphicon-sort" ng-click="toggleBlock('sort')"> SORT</span>&nbsp;&nbsp;|
+    <span class="glyphicon glyphicon-search" ng-click="toggleBlock('search')"> SEARCH</span>&nbsp;&nbsp;|
+    <span class="glyphicon glyphicon-filter" ng-click="toggleBlock('filter')"> FILTER</span>
 </div>
 <div style="float: left; width: 100%; margin: 0 0 10px 0;">
     <div ng-show="blocks.sort" style="border: 1px solid; height: 28px">
@@ -57,18 +57,25 @@
 </div>
 
 <div class="row">
+    {{paths}}
     <div class="my-col-xs-1" ng-repeat="_item in productsList | filter:searchText">
 
         <div class="row">
             <div class="tile">
                 <div class="thumbnail">
-                    <img ng-src="images/placeholder.png" alt="_item.name" style="max-width: 75px; max-height: 75px;">
+                    <div style="float: left; width: 100%; position: relative; padding-left: 15px;">
+                        <a class="col-md-2" href="#/product/{{_item._id}}">
+                            <img ng-src="images/placeholder.png" alt="_item.name"
+                                 style="max-width: 75px; max-height: 75px;">
+                        </a>
+                    </div>
 
                     <div class="caption">
-                        <a class="col-md-2" href="#/product/{{_item._id}}" target="_self" ng-click="sortByPrice('asc')">
-                            <h3>{{_item.name}}</h3>
+                        <div style="float: left; width: 100%; position: relative;">
+                            <a class="col-md-2" href="#/product/{{_item._id}}">
+                                <h4>{{_item.name}}</h4>
                             </a>
-
+                        </div>
                         <p>${{_item.price}}</p>
                     </div>
                 </div>

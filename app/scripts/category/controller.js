@@ -9,7 +9,7 @@
                 "$categoryApiService",
                 function ($scope, $routeParams, $categoryApiService) {
                     $scope.productsList = [];
-                    $scope.paths = {};
+                    $scope.paths = [];
                     $scope.categoryId = $routeParams.id;
                     $scope.category = {};
 
@@ -28,7 +28,28 @@
                             var result = response.result || [];
                             $scope.productsList = result;
                         }
-                    )
+                    );
+
+                    var imageReload = function(){
+                        if(!$scope.productsList.length || $scope.productsList[0].hasOwnProperty("image_path")){
+                            return true;
+                        }
+                        for(var i = 0; i < $scope.productsList.length; i += 1) {
+                            var prod = $scope.productsList[i];
+                            $categoryApiService.getPath({"productId": prod._id, "mediaType": "image"}).$promise.then(
+                                function (response) {
+                                    var result = response.result || [];
+                                    $scope.paths.push(result);
+                                    return result;
+                                }
+                            );
+                        };
+                        for(var i = 0; i < $scope.productsList.length; i += 1) {
+
+                        }
+                    }
+
+                    $scope.$watch("productsList", imageReload);
 
                     $categoryApiService.load({"id": $scope.categoryId}).$promise.then(
                         function (response) {

@@ -20,19 +20,6 @@
                         .when("/category/products/:id", { templateUrl: "views/category/view.html", controller: "categoryListController" });
                 }])
 
-//                .run(["$designService", "$route", "$dashboardSidebarService", "$dashboardHeaderService",
-//
-//                    function ($designService, $route, $dashboardSidebarService, $dashboardHeaderService) {
-//
-//                        // NAVIGATION
-//                        // Adds item in the left top-menu
-//                        $dashboardHeaderService.addMenuItem("/category", "Category", "/category");
-//
-//                        // Adds item in the left sidebar
-//                        $dashboardSidebarService.addItem("Category manage", "category", "glyphicon glyphicon-tasks", 80);
-//                    }
-//                ]);
-
             return angular.module.categoryModule;
         });
 

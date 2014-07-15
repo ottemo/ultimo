@@ -38,7 +38,7 @@ require([
         "design/module",
         "common/module",
 
-        "category/module"
+        "category/module",
         "pdp/module"
     ],
     function (angular) {
