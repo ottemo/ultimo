@@ -1,0 +1,78 @@
+<style>
+    .tile {
+        margin: 0 10px;
+        min-height: 215px;
+    }
+
+    .thumbnail {
+        min-height: 215px;
+    }
+
+    .my-col-xs-1 {
+        float: left;
+        width: 10%;
+        margin: 0 10px;
+    }
+
+    .list-bar {
+        float: right;
+        width: 100%;
+        text-align: right;
+        top: -33px;
+        position: relative;
+    }
+
+    .list-bar span:hover {
+        cursor: pointer;
+    }
+
+    .page-title {
+        float: left;
+        width: 100%;
+        text-transform: uppercase;
+    }
+</style>
+<div class="page-title">
+    <h3>{{category.name}}</h3>
+</div>
+
+<div class="list-bar">
+    <span class="glyphicon glyphicon-sort" ng-click="toggleBlock('sort')">SORT</span>
+    <span class="glyphicon glyphicon-search" ng-click="toggleBlock('search')">SEARCH</span>
+    <span class="glyphicon glyphicon-filter" ng-click="toggleBlock('filter')">FILTER</span>
+</div>
+<div style="float: left; width: 100%; margin: 0 0 10px 0;">
+    <div ng-show="blocks.sort" style="border: 1px solid; height: 28px">
+        <a class="col-md-2" href="" target="_self" ng-click="sortByPrice('asc')">PRICE LOW TO HIGH</a>
+        <a class="col-md-2" href="" target="_self" ng-click="sortByPrice('desc')">PRICE JIGH TO LOW</a>
+        <a class="col-md-2" href="" target="_self" ng-click="sortByName('asc')">NAME ASC</a>
+        <a class="col-md-2" href="" target="_self" ng-click="sortByName('desc')">NAME DESC</a>
+    </div>
+    <div ng-show="blocks.search" style="border: 1px solid; padding: 5px">
+        <input type="text" class="form-control" placeholder="Search" ng-model="searchText"/>
+    </div>
+    <div ng-show="blocks.filter" style="border: 1px solid">
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="my-col-xs-1" ng-repeat="_item in productsList | filter:searchText">
+
+        <div class="row">
+            <div class="tile">
+                <div class="thumbnail">
+                    <img ng-src="images/placeholder.png" alt="_item.name" style="max-width: 75px; max-height: 75px;">
+
+                    <div class="caption">
+                        <a class="col-md-2" href="#/product/{{_item._id}}" target="_self" ng-click="sortByPrice('asc')">
+                            <h3>{{_item.name}}</h3>
+                            </a>
+
+                        <p>${{_item.price}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
