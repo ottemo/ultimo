@@ -45,6 +45,7 @@
                         $pdpApiService.listImages({"productId": $scope.product._id}).$promise.then(
                             function (response) {
                                 $scope.productImages = response.result || [];
+                                console.log($scope.productImages)
                             });
                     }
                 };
@@ -62,6 +63,7 @@
                  * @returns {string}        - full path to image
                  */
                 $scope.getImage = function (path, image) {
+                    console.log(path + " - " + image)
                     return $designImageService.getFullImagePath(path, image);
                 };
             }])

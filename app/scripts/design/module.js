@@ -7,6 +7,7 @@
      */
     define([
 			"design/directives/guiListBar",
+			"design/directives/guiPaginator",
             "design/service/image",
             "design/services",
             "design/directives/design"

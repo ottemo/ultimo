@@ -1,0 +1,5 @@
+<ul class="pagination">
+    <li class="{{getClass('prev')}}"><a href="#{{getURI('prev')}}">&laquo;</a></li>
+    <li class="{{getClass(page)}}" data-ng-repeat="page in getPages()"><a href="#{{getURI(page)}}">{{page}}</a></li>
+    <li class="{{getClass('next')}}"><a href="#{{getURI('next')}}">&raquo;</a></li>
+</ul>

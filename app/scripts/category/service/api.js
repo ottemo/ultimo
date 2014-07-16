@@ -15,7 +15,7 @@
 
                 return $resource(categoryBaseURL, {}, {
                     "getProducts": {
-                        method: "GET",
+                        method: "POST",
                         params: { id: "@id" },
                         url: categoryBaseURL + "/products/:id"
                     },
@@ -23,6 +23,11 @@
                         method: "GET",
                         params: { id: "@id" },
                         url: categoryBaseURL + "/get/:id"
+                    },
+                    "getCountProducts": {
+                        method: "GET",
+                        params: { id: "@id" },
+                        url: categoryBaseURL + "/product/count/:id"
                     },
                     "getPath":{
                         method: "GET",
