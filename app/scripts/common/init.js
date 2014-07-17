@@ -28,12 +28,7 @@
                         .otherwise({ redirectTo: "/"});
                 }])
 
-                .run(["$designService", "$route", "$commonSidebarService", function ($designService, $route, $commonSidebarService) {
-
-                    $commonSidebarService.addItem("Home", "/home", "glyphicon glyphicon-user");
-                    $commonSidebarService.addItem("Home", "/home", "glyphicon glyphicon-user");
-                    $commonSidebarService.addItem("Home", "/home", "glyphicon glyphicon-user");
-
+                .run(["$designService", "$route", function ($designService, $route) {
                     // hack to allow browser page refresh work with routes
                     $route.reload();
                 }]);

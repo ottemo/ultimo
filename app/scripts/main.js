@@ -38,6 +38,7 @@ require([
         "design/module",
         "common/module",
 
+        "visitor/module",
         "category/module",
         "pdp/module"
     ],

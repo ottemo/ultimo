@@ -1,0 +1,46 @@
+<div class="modal fade" id="form-registration" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                REGISTRATION
+                <button class="btn btn-primary pull-right" ng-click="save()">Save</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="panel panel-default">
+                    <form role="form">
+                        <div class="panel-body">
+                            <div>
+                                <label for="email">Email</label>
+                                <input type="text" id="email" placeholder="email" ng-model="visitor.email"/>
+                            </div>
+
+                            <div>
+                                <label for="fname">First Name</label>
+                                <input type="text" id="fname" placeholder="fname" ng-model="visitor.fname"/>
+                            </div>
+
+                            <div>
+                                <label for="lname">Last Name</label>
+                                <input type="text" id="lname" placeholder="lname" ng-model="visitor.lname"
+                                       autocomplete="off"/>
+                            </div>
+                            <div>
+                                <label for="password">Password</label>
+                                <input type="password" id="password" placeholder="password" ng-model="visitor.password"
+                                       autocomplete="off"/>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                <ng-include src="getTemplate('visitor/social/facebook.html')"></ng-include>
+                <ng-include src="getTemplate('visitor/social/google.html')"></ng-include>
+            </div>
+
+        </div>
+
+    </div>
+</div>
