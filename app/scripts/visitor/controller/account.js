@@ -6,11 +6,10 @@
 
             .controller("visitorAccountController", [
                 "$scope",
-                "$visitorApiService",
-                function ($scope, $visitorApiService) {
-                    $scope.visitor = {};
+                function ($scope) {
                     $scope.addresses = [];
                     $scope.address = {};
+//                    $scope.visitor = $visitorService.getVisitor();
 
 //                    $scope.getInfo = function() {
 //                        $visitorApiService.getInfo().$promise.then(

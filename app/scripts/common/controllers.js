@@ -1,26 +1,23 @@
 (function (define) {
-    'use strict';
+    "use strict";
 
-    define(['common/init'], function (commonModule) {
+    define(["common/init"], function (commonModule) {
 
         commonModule
             /*
              *  HTML top page header manipulator (direct service mapping)
              */
-            .controller('commonHeaderController', ['$scope', '$commonHeaderService', function ($scope, $commonHeaderService) {
+            .controller("commonHeaderController", ["$scope", "$commonHeaderService", function ($scope, $commonHeaderService) {
                 $scope.it = $commonHeaderService;
-//                $scope.leftMenu= $commonHeaderService.getItems();
-
-
             }])
 
-            .controller('commonSidebarController', ['$scope', '$commonSidebarService', function ($scope, $commonSidebarService) {
+            .controller("commonSidebarController", ["$scope", "$commonSidebarService", function ($scope, $commonSidebarService) {
                 $scope.it = $commonSidebarService;
                 $scope.items = $commonSidebarService.getItems();
             }])
 
-            .controller('commonController', ['$scope', function($scope) {
-                $scope.x = 'commonController';
+            .controller("commonController", ["$scope", function($scope) {
+                $scope.x = "commonController";
             }]);
 
         return commonModule;

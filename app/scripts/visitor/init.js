@@ -5,19 +5,18 @@
             "angular",
             "angular-route",
             "angular-resource",
-            "angular-cookies",
             "visitor/service/facebook",
             "visitor/service/google"
         ],
-        function (angular, aRoute, aResource, ngCookie, fb, gl) {
+        function (angular, aRoute, aResource, fb, gl) {
             /*
              *  Angular "visitorModule" declaration
              */
-            angular.module.visitorModule = angular.module("visitorModule", ["ngRoute", "ngResource",  "designModule", "ngCookies"])
+            angular.module.visitorModule = angular.module("visitorModule", ["ngRoute", "ngResource",  "designModule"])
 
-            /**
-             *  Basic routing configuration
-             */
+                /**
+                 *  Basic routing configuration
+                 */
                 .config(["$routeProvider", function ($routeProvider) {
 
                     fb.init();
@@ -37,12 +36,11 @@
                             controller: "visitorAccountController"
                         });
                 }])
-                .run(["$designService", "$route", "$commonSidebarService", "$http", "$cookieStore", function ($designService, $route, $commonSidebarService, $http, $cookieStore) {
-//                    console.log($cookieStore.get("OTTEMOSESSION"))
-//                    $http.defaults.headers.post.Cookies = $cookieStore.get("SSID");
+                .run(["$designService", "$route", "$commonSidebarService", function ($designService, $route, $commonSidebarService) {
 
                     $commonSidebarService.addItem("registration", "registration", "glyphicon glyphicon-user");
                     $commonSidebarService.addItem("login", "login", "glyphicon glyphicon-user");
+                    $commonSidebarService.addItem("account", "account", "glyphicon glyphicon-user");
 
                     // hack to allow browser page refresh work with routes
                     $route.reload();

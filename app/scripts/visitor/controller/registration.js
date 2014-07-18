@@ -11,18 +11,8 @@
                 function ($scope, $routeParams, $visitorApiService) {
                     $scope.credentialsFacebook = {};
                     $scope.formId = "form-registration";
-                    var getDefaultVisitor = function () {
-                        return {
-                            "facebook_id": "",
-                            "google_id": "",
-                            "email": "",
-                            "fname": "",
-                            "lname": "",
-                            "password": ""
-                        };
-                    };
 
-                    $scope.visitor = getDefaultVisitor();
+                    $scope.visitor = {};
 
                     $scope.show = function () {
                         $("#" + $scope.formId).modal("show");
@@ -54,9 +44,14 @@
                                     function (response) {
                                         $visitorApiService.info().$promise.then(
                                             function (response) {
-                                                console.log(response);
+                                                console.log(response.result);
+                                                $scope.visitor = {
+                                                    "email": "test@test.com",
+                                                    "fname": "f_name",
+                                                    "lname": "l_name"
+                                                };
                                             }
-                                        )
+                                        );
                                     }
                                 );
                             },
@@ -71,7 +66,6 @@
                     window.loginCallback = $scope.loginCallback = function (response) {
                         console.log(gl.loginCallback(response));
                     };
-
                 }
             ]);
         return visitorModule;

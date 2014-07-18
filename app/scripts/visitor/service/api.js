@@ -13,7 +13,7 @@
 
                 var visitorBaseURL = REST_SERVER_URI + "/visitor";
 
-                return $resource(visitorBaseURL,{},
+                return $resource(visitorBaseURL, {},
                     {
                         "register": {
                             method: "POST",
@@ -29,12 +29,7 @@
                         },
                         "info": {
                             method: "GET",
-                            url: visitorBaseURL + "/info",
-                            "withCredentials": true,
-                            "transformRequest": angular.identity,
-                            "headers": {
-                                "Cookie" : "key=11231232123123123123123"
-                            }
+                            url: visitorBaseURL + "/info"
                         }
                     });
             }]);
