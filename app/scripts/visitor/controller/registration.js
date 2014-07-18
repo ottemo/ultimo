@@ -1,7 +1,7 @@
 (function (define) {
     "use strict";
 
-    define(["visitor/init", "visitor/service/facebook"], function (visitorModule, fb) {
+    define(["visitor/init", "visitor/service/google"], function (visitorModule, gl) {
         visitorModule
 
             .controller("visitorRegistrationController", [
@@ -13,12 +13,12 @@
                     $scope.formId = "form-registration";
                     var getDefaultVisitor = function () {
                         return {
-                            "facebook_id":  "",
-                            "google_id":    "",
-                            "email":        "",
-                            "fname":        "",
-                            "lname":        "",
-                            "password":     ""
+                            "facebook_id": "",
+                            "google_id": "",
+                            "email": "",
+                            "fname": "",
+                            "lname": "",
+                            "password": ""
                         };
                     };
 
@@ -47,45 +47,31 @@
                     $scope.facebookLogin = function () {
                         FB.login(
                             function (response) {
-
-                                FB.api("/" + response.authResponse.userID,
+                                $visitorApiService.loginFacebook({
+                                    "user_id": response.authResponse.userID,
+                                    "access_token": response.authResponse.accessToken
+                                }).$promise.then(
                                     function (response) {
-                                        if (response && !response.error) {
-                                            $scope.credentialsFacebook = response || {};
-                                            /**
-                                             * @todo : not working without apply - find reason why
-                                             */
-                                            $scope.$apply();
-                                        }
+                                        $visitorApiService.info().$promise.then(
+                                            function (response) {
+                                                console.log(response);
+                                            }
+                                        )
                                     }
                                 );
-
                             },
                             {scope: "email"}
                         );
                     };
 
-                    var saveFacebook = function () {
-                        if (typeof $scope.credentialsFacebook === "undefined" ||
-                            typeof $scope.credentialsFacebook.email === "undefined" ||
-                            $scope.credentialsFacebook.email === "") {
-                            return true;
-                        }
-                        $scope.visitor = {
-                            "facebook_id": $scope.credentialsFacebook.id,
-                            "email": $scope.credentialsFacebook.email,
-                            "fname": $scope.credentialsFacebook.first_name,
-                            "lname": $scope.credentialsFacebook.last_name,
-                            "password": ""
-                        }
-                        $scope.save();
-                    }
+                    $scope.googleLogin = function () {
+                        gl.login();
+                    };
 
-                    var signinCallback = function () {
-                        alert(1);
-                    }
+                    window.loginCallback = $scope.loginCallback = function (response) {
+                        console.log(gl.loginCallback(response));
+                    };
 
-                    $scope.$watch("credentialsFacebook", saveFacebook);
                 }
             ]);
         return visitorModule;

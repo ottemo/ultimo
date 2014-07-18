@@ -15,9 +15,7 @@
             if (d.getElementById("facebook-jssdk")) {
                 return;
             }
-
             js = d.createElement("script");
-
             js.id = "facebook-jssdk";
             js.src = "//connect.facebook.net/ru_RU/sdk.js#xfbml=1&appId=483159925160897&version=v2.0";
             fjs.parentNode.insertBefore(js, fjs);
