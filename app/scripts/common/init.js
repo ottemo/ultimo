@@ -30,12 +30,10 @@
                 }])
 
                 .run(["$designService", "$route", "$http", "$cookieStore", function ($designService, $route, $http, $cookieStore) {
-                    $cookieStore.put("test", "hello");
-                    var cookie = $cookieStore.get("test");
-//                    var cookie = $cookieStore.get("OTTEMOSESSION");
-                    $http.defaults.headers.common.Cookies = cookie;
-                    $http.defaults.headers.common.Cookie = cookie;
-                    $http.defaults.headers.common.Aaa = cookie;
+
+                    // ajax cookies support fix
+                    $http.defaults.withCredentials = true;
+                    delete $http.defaults.headers.common["X-Requested-With"];
 
                     // hack to allow browser page refresh work with routes
                     $route.reload();
