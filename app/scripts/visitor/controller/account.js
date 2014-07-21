@@ -6,30 +6,31 @@
 
             .controller("visitorAccountController", [
                 "$scope",
-                function ($scope) {
+                "$visitorService",
+                function ($scope, $visitorService) {
                     $scope.addresses = [];
                     $scope.address = {};
-//                    $scope.visitor = $visitorService.getVisitor();
+                    $scope.visitor = $visitorService.getVisitor();
 
-//                    $scope.getInfo = function() {
-//                        $visitorApiService.getInfo().$promise.then(
-//                            function(response){
-//                                var result = response.result || {};
-//                                console.log(response);
-//                                $scope.visitor = result;
-//                            }
-//                        );
-//                    };
+                    $scope.getInfo = function() {
+                        $visitorApiService.getInfo().$promise.then(
+                            function(response){
+                                var result = response.result || {};
+                                console.log(response);
+                                $scope.visitor = result;
+                            }
+                        );
+                    };
 
-//                    $scope.getAddressesList = function() {
-//                        $visitorApiService.getAddresses().$promise.then(
-//                            function (response) {
-//                                var result = response.result || [];
-//                                console.log(response);
-//                                $scope.addresses= result;
-//                            }
-//                        );
-//                    };
+                    $scope.getAddressesList = function() {
+                        $visitorApiService.getAddresses().$promise.then(
+                            function (response) {
+                                var result = response.result || [];
+                                console.log(response);
+                                $scope.addresses= result;
+                            }
+                        );
+                    };
                 }
             ]);
         return visitorModule;

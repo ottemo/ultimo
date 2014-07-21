@@ -3,9 +3,13 @@
 
     define(function () {
 
-        var init, secretKey, appId;
+        var init, secretKey, appId, avatarLarge, avatarMedium , avatarSmall, avatarSquare;
         appId = "483159925160897";
         secretKey = "9a362f8b5cd91dbdd908bff472468c7e";
+        avatarLarge = "graph.facebook.com/##facebookId##/picture?type=large";
+        avatarMedium = "graph.facebook.com/##facebookId##/picture?type=normal";
+        avatarSmall = "graph.facebook.com/##facebookId##/picture?type=small";
+        avatarSquare = "graph.facebook.com/##facebookId##/picture?type=square";
 
         /**
          *

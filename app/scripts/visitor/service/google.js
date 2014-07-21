@@ -3,15 +3,17 @@
 
     define(["angular"], function (angular) {
 
-        var init, clientId, requestData, login, loginCallback, userData;
+        var init, clientId, requestData, login, loginCallback, userData, avatar;
         userData = {"access_token": ""};
 
         clientId = "1074763412644-qq25glj3tb87bq7bk5m8793da11ddheh.apps.googleusercontent.com";
 
+        avatar = "https://plus.google.com/s2/photos/profile/##googleId##?sz=150"
+
         requestData = {
-            "clientid": clientId, //You need to set client id
+            "clientid": clientId,
             "cookiepolicy": "single_host_origin",
-            "callback": "loginCallback", //callback function
+            "callback": "loginCallback",
             "approvalprompt": "force",
             "redirecturi": "postmessage",
             "scope": "https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"
@@ -34,6 +36,7 @@
         }
 
         loginCallback = function (response) {
+            console.log(response)
             if (response.status.signed_in) {
                 userData = {
                     access_token: response.access_token

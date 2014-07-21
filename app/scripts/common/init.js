@@ -7,16 +7,15 @@
      */
     define([
             "angular",
-            "angular-route",
-            "angular-cookies"
+            "angular-route"
         ],
         function (angular) {
             /*
              *  Angular "commonModule" declaration
              */
-            angular.module.commonModule = angular.module("commonModule", ["ngRoute", "designModule", "ngCookies"])
+            angular.module.commonModule = angular.module("commonModule", ["ngRoute", "designModule"])
 
-                .constant("REST_SERVER_URI", "http://localhost:3000")
+                .constant("REST_SERVER_URI", "http://dev.ottemo.com:3000")
 
                 /*
                  *  Basic routing configuration
@@ -29,7 +28,7 @@
                         .otherwise({ redirectTo: "/"});
                 }])
 
-                .run(["$designService", "$route", "$http", "$cookieStore", function ($designService, $route, $http, $cookieStore) {
+                .run(["$designService", "$route", "$http", function ($designService, $route, $http) {
 
                     // ajax cookies support fix
                     $http.defaults.withCredentials = true;

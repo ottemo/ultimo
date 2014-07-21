@@ -6,13 +6,16 @@
             "angular-route",
             "angular-resource",
             "visitor/service/facebook",
-            "visitor/service/google"
+            "visitor/service/google",
+            "angular-cookies"
         ],
         function (angular, aRoute, aResource, fb, gl) {
             /*
              *  Angular "visitorModule" declaration
              */
-            angular.module.visitorModule = angular.module("visitorModule", ["ngRoute", "ngResource",  "designModule"])
+            angular.module.visitorModule = angular.module("visitorModule", ["ngRoute", "ngResource", "ngCookies", "designModule","ngCookies"])
+
+                .constant("LOGIN_COOKIE", "OTTEMOSESSION")
 
                 /**
                  *  Basic routing configuration
@@ -42,8 +45,6 @@
                     $commonSidebarService.addItem("login", "login", "glyphicon glyphicon-user");
                     $commonSidebarService.addItem("account", "account", "glyphicon glyphicon-user");
 
-                    // hack to allow browser page refresh work with routes
-                    $route.reload();
                 }]);
             return angular.module.visitorModule;
         });

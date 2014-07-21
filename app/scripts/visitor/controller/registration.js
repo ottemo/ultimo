@@ -8,17 +8,19 @@
                 "$scope",
                 "$routeParams",
                 "$visitorApiService",
-                function ($scope, $routeParams, $visitorApiService) {
+                "$visitorService",
+                "$location",
+                function ($scope, $routeParams, $visitorApiService, $visitorService, $location) {
                     $scope.credentialsFacebook = {};
                     $scope.formId = "form-registration";
 
-                    $scope.visitor = {};
+                    $scope.visitor = $visitorService.getVisitor();
 
                     $scope.show = function () {
                         $("#" + $scope.formId).modal("show");
                     };
 
-                    $scope.hide = function () {
+                    $scope.hide = function (callback) {
                         $("#" + $scope.formId).modal("hide");
                     };
 
@@ -41,17 +43,9 @@
                                     "user_id": response.authResponse.userID,
                                     "access_token": response.authResponse.accessToken
                                 }).$promise.then(
-                                    function (response) {
-                                        $visitorApiService.info().$promise.then(
-                                            function (response) {
-                                                console.log(response.result);
-                                                $scope.visitor = {
-                                                    "email": "test@test.com",
-                                                    "fname": "f_name",
-                                                    "lname": "l_name"
-                                                };
-                                            }
-                                        );
+                                    function () {
+                                        $scope.hide();
+                                        $location.path("/account");
                                     }
                                 );
                             },
@@ -64,7 +58,17 @@
                     };
 
                     window.loginCallback = $scope.loginCallback = function (response) {
-                        console.log(gl.loginCallback(response));
+                        var data = gl.loginCallback(response);
+                        $visitorApiService.loginGoolge(data).$promise.then(
+                            function () {
+                                $visitorApiService.info().$promise.then(
+                                    function () {
+                                        $scope.hide(function(){$location.path("/account");});
+
+                                    }
+                                );
+                            }
+                        );
                     };
                 }
             ]);

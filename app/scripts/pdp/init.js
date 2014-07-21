@@ -16,8 +16,6 @@
              */
             angular.module.pdpModule = angular.module("pdpModule", ["ngRoute", "ngResource"])
 
-                .constant("REST_SERVER_URI", "http://localhost:3000")
-
                 /*
                  *  Basic routing configuration
                  */

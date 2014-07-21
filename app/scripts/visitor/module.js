@@ -7,6 +7,7 @@
      */
     define([
             "visitor/service/api",
+            "visitor/service/visitor",
 
             "visitor/controller/registration",
             "visitor/controller/account",

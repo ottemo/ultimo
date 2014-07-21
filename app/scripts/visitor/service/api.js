@@ -23,6 +23,10 @@
                             method: "POST",
                             url: visitorBaseURL + "/login-facebook"
                         },
+                        "loginGoolge": {
+                            method: "POST",
+                            url: visitorBaseURL + "/login-google"
+                        },
                         "login": {
                             method: "POST",
                             url: visitorBaseURL + "/login"
