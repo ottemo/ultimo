@@ -28,15 +28,19 @@
 
                     $scope.login = function () {
                         $visitorApiService.login($scope.loginCredentials).$promise.then(function (response) {
-                            console.log(response);
+                            console.log(response)
+                            if(response.result ==="ok"){
+                                $visitorService.init();
+                                $scope.visitor = $visitorService.getVisitor();
+                                $(".modal").modal("hide");
+                                $location.path("/account");
+                            }
+
                         });
                     };
 
                     $scope.logout = function () {
                         $cookieStore.put(LOGIN_COOKIE, "");
-                        $visitorService.cleanVisitor();
-                        $visitorService.init();
-                        $scope.visitor = $visitorService.getVisitor();
                         $(".modal").modal("hide");
                         $location.path("/");
                     };

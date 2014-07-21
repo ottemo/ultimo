@@ -13,7 +13,6 @@
 
                 <div class="modal-header">
                     LOGIN
-                    <button class="btn btn-primary pull-right" ng-click="login()">Login</button>
                 </div>
 
                 <div class="modal-body">
@@ -34,8 +33,17 @@
                             </div>
                         </form>
                     </div>
-                    <ng-include src="getTemplate('visitor/social/facebook.html')"></ng-include>
-                    <ng-include src="getTemplate('visitor/social/google.html')"></ng-include>
+                    <div class="social-box">
+                        <div class="btn-soc">
+                            <ng-include src="getTemplate('visitor/social/facebook.html')"></ng-include>
+                        </div>
+                        <div class="btn-soc">
+                            <ng-include src="getTemplate('visitor/social/google.html')"></ng-include>
+                        </div>
+                        <div class="btn-soc btn-soc-right">
+                            <button class="btn btn-primary pull-right" ng-click="login()">Login</button>
+                        </div>
+                    </div>
                 </div>
 
             </div>

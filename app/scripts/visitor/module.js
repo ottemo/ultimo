@@ -10,6 +10,7 @@
             "visitor/service/visitor",
 
             "visitor/controller/visitor",
+            "visitor/controller/address",
             "visitor/controller/account"
         ],
         function (visitorModule) {

@@ -22,7 +22,7 @@
                  */
                 .config(["$routeProvider", function ($routeProvider) {
                     $routeProvider
-                        .when("/", { templateUrl: "views/common/welcome.html" })
+                        .when("/", { templateUrl: "views/common/home.html", controller: "commonController" })
                         .when("/help", { templateUrl: "views/help.html"})
 
                         .otherwise({ redirectTo: "/"});

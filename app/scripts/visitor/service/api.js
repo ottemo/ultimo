@@ -43,6 +43,25 @@
                             method: "GET",
                             params: {visitorId: "@visitorId"},
                             url: visitorBaseURL + "/address/list/:visitorId"
+                        },
+                        "addressUpdate":{
+                            method: "PUT",
+                            params: {id: "@id"},
+                            url: visitorBaseURL + "/address/update/:id"
+                        },
+                        "saveAddress": {
+                            method: "POST",
+                            url: visitorBaseURL + "/address/create"
+                        },
+                        "loadAddress": {
+                            method: "GET",
+                            params: {id: "@id"},
+                            url: visitorBaseURL + "/address/load/:id"
+                        },
+                        "deleteAddress": {
+                            method: "DELETE",
+                            params: { id: "@id" },
+                            url: visitorBaseURL + "/address/delete/:id"
                         }
                     });
             }]);

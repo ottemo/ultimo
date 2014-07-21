@@ -2,25 +2,21 @@
     "use strict";
 
     define([
-        "visitor/init",
-        "visitor/service/facebook",
-        "visitor/service/google"
-    ], function (visitorModule, fb, gl) {
+        "visitor/init"
+    ], function (visitorModule) {
         visitorModule
 
             .controller("visitorAccountController", [
                 "$scope",
                 "$visitorService",
                 "$visitorApiService",
-                "$location",
-                "VISITOR_DEFAULT_AVATAR",
-                function ($scope, $visitorService, $visitorApiService, $location, VISITOR_DEFAULT_AVATAR) {
+                function ($scope, $visitorService, $visitorApiService) {
                     $scope.addresses = [];
                     $scope.address = {};
                     $scope.visitor = $visitorService.getVisitor();
+                    $scope.visitorService = $visitorService;
 
                     var getAddressList = function(){
-                        console.log($scope.visitor);
                         $visitorApiService.getAddresses({"visitorId":$scope.visitor._id}).$promise.then(
                             function (response) {
                                 var result = response.result || [];
@@ -28,21 +24,6 @@
                             }
                         );
                     }
-
-                    $scope.getAvatar = function () {
-                        var avatar;
-                        avatar = VISITOR_DEFAULT_AVATAR;
-                        if ($scope.visitor.facebook_id !== "") {
-                            avatar = "http://" + fb.getAvatar($scope.visitor.facebook_id, "large");
-                        } else if ($scope.visitor.google_id !== "") {
-                            avatar = gl.getAvatar($scope.visitor.google_id);
-                        }
-                        return avatar;
-                    };
-
-                    $scope.getFullName = function () {
-                        return $scope.visitor.fname + " " + $scope.visitor.lname;
-                    };
 
                     $scope.saveVisitor = function () {
                         alert("Implement this!!! Don't saved in DB");
@@ -55,8 +36,28 @@
                                 console.log(result)
                             }
                         );
-                    }
+                    };
 
+                    $scope.shippingUpdate = function(){
+                        $scope.visitor.shipping_address.id = $scope.visitor.shipping_address_id;
+                        $visitorApiService.addressUpdate($scope.visitor.shipping_address);
+                    };
+
+                    $scope.billingUpdate = function(){
+                        $scope.visitor.billing_address.id = $scope.visitor.billing_address_id;
+                        $visitorApiService.addressUpdate($scope.visitor.billing_address);
+                    };
+
+                    $scope.updateDefaultAddress = function(){
+                        delete $scope.visitor.billing_address;
+                        delete $scope.visitor.shipping_address;
+                        $visitorApiService.update($scope.visitor).$promise.then(
+                            function () {
+                                $visitorService.init();
+                                $scope.visitor = $visitorService.getVisitor();
+                            }
+                        );
+                    };
 
                     $scope.$watch("visitor", getAddressList);
                 }

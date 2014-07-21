@@ -30,6 +30,11 @@
                         .when("/account", {
                             templateUrl: "views/visitor/account.html",
                             controller: "visitorAccountController"
+                        })
+                        .when("/account/address", {
+
+                            templateUrl: "views/visitor/account-page/address-manager.html",
+                            controller: "visitorAddressController"
                         });
                 }])
                 .run(["$designService", "$route", "$commonHeaderService", function ($designService, $route, $commonHeaderService) {

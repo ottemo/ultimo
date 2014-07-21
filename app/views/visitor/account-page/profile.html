@@ -1,4 +1,4 @@
-<div class="block-details">
+<div class="block-details profile">
     <div>
         Email:
         <label ng-bind="visitor.email" for="visitor-email"/>
@@ -20,3 +20,15 @@
     </div>
     <button type="submit" id="account-edit">Edit</button>
 </div>
+<script>
+    $("#account-edit").click(function () {
+        $(".profile").find("label").hide();
+        $(".profile").find(".editable").removeClass("hidden");
+
+    })
+    $("#account-save").click(function () {
+        $(".profile").find("label").show();
+        $(".profile").find(".editable").addClass("hidden");
+
+    })
+</script>

@@ -8,6 +8,7 @@
     define([
             'common/controllers',
 
+            'common/services/api',
             'common/services/header',
             'common/services/sidebar'
         ],

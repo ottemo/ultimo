@@ -90,7 +90,7 @@
                                 }
                             );
                         }
-                    }
+                    };
 
                     /**
                      * Gets full path to image
@@ -112,7 +112,7 @@
                         }
 
                         return $designImageService.getFullImagePath(path, product.default_image);
-                    }
+                    };
 
                     /**
                      * Gets category

@@ -17,8 +17,29 @@
                 $scope.items = $commonSidebarService.getItems();
             }])
 
-            .controller("commonController", ["$scope", function($scope) {
-                $scope.x = "commonController";
+            .controller("commonController", ["$scope", "$commonApiService", "$designImageService", function($scope, $commonApiService, $designImageService) {
+                $scope.products = [];
+
+
+                $commonApiService.getProducts({
+                    "limit": "0,5",
+                }).$promise.then(
+                    function (response) {
+                        var result = response.result || [];
+                        $scope.products = result;
+                    }
+                );
+
+                /**
+                 * Gets full path to image
+                 *
+                 * @param {object} product
+                 * @returns {string}
+                 */
+                $scope.getImage = function (img) {
+                     return $designImageService.getFullImagePath("", img);
+                };
+
             }]);
 
         return commonModule;
