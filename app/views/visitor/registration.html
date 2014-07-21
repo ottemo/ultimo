@@ -1,4 +1,7 @@
-<div class="modal fade" id="form-registration" tabindex="-1" role="dialog">
+<li class="ng-scope open">
+    <a href="" class="ng-scope ng-binding" target="_self" id="modal-registration">registration</a>
+</li>
+<div class="modal fade" id="form-registration" tabindex="-1" role="dialog" ng-controller="visitorController">
     <div class="modal-dialog">
 
         <div class="modal-content">
@@ -44,3 +47,8 @@
 
     </div>
 </div>
+<script>
+    $("#modal-registration").click(function(){
+        $("#form-registration").modal("show");
+    });
+</script>

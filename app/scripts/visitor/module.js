@@ -9,9 +9,8 @@
             "visitor/service/api",
             "visitor/service/visitor",
 
-            "visitor/controller/registration",
-            "visitor/controller/account",
-            "visitor/controller/login"
+            "visitor/controller/visitor",
+            "visitor/controller/account"
         ],
         function (visitorModule) {
 

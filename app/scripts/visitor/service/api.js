@@ -34,6 +34,15 @@
                         "info": {
                             method: "GET",
                             url: visitorBaseURL + "/info"
+                        },
+                        "update": {
+                            method: "PUT",
+                            url: visitorBaseURL + "/update"
+                        },
+                        "getAddresses": {
+                            method: "GET",
+                            params: {visitorId: "@visitorId"},
+                            url: visitorBaseURL + "/address/list/:visitorId"
                         }
                     });
             }]);

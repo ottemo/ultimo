@@ -16,6 +16,7 @@
             angular.module.visitorModule = angular.module("visitorModule", ["ngRoute", "ngResource", "ngCookies", "designModule","ngCookies"])
 
                 .constant("LOGIN_COOKIE", "OTTEMOSESSION")
+                .constant("VISITOR_DEFAULT_AVATAR", "images/avatar-placeholder.png")
 
                 /**
                  *  Basic routing configuration
@@ -26,24 +27,14 @@
                     gl.init();
 
                     $routeProvider
-                        .when("/registration", {
-                            templateUrl: "views/visitor/registration.html",
-                            controller: "visitorRegistrationController"
-                        })
-                        .when("/login", {
-                            templateUrl: "views/visitor/login.html",
-                            controller: "visitorLoginController"
-                        })
                         .when("/account", {
                             templateUrl: "views/visitor/account.html",
                             controller: "visitorAccountController"
                         });
                 }])
-                .run(["$designService", "$route", "$commonSidebarService", function ($designService, $route, $commonSidebarService) {
+                .run(["$designService", "$route", "$commonHeaderService", function ($designService, $route, $commonHeaderService) {
 
-                    $commonSidebarService.addItem("registration", "registration", "glyphicon glyphicon-user");
-                    $commonSidebarService.addItem("login", "login", "glyphicon glyphicon-user");
-                    $commonSidebarService.addItem("account", "account", "glyphicon glyphicon-user");
+                    $commonHeaderService.addMenuItem("/account", "account", "/account");
 
                 }]);
             return angular.module.visitorModule;

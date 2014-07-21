@@ -9,6 +9,7 @@
              */
             .controller("commonHeaderController", ["$scope", "$commonHeaderService", function ($scope, $commonHeaderService) {
                 $scope.it = $commonHeaderService;
+                $scope.rightMenu= $commonHeaderService.getMenuLeft();
             }])
 
             .controller("commonSidebarController", ["$scope", "$commonSidebarService", function ($scope, $commonSidebarService) {

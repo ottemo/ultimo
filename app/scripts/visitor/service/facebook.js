@@ -3,7 +3,7 @@
 
     define(function () {
 
-        var init, secretKey, appId, avatarLarge, avatarMedium , avatarSmall, avatarSquare;
+        var init, secretKey, appId, avatarLarge, avatarMedium , avatarSmall, avatarSquare, getAvatar;
         appId = "483159925160897";
         secretKey = "9a362f8b5cd91dbdd908bff472468c7e";
         avatarLarge = "graph.facebook.com/##facebookId##/picture?type=large";
@@ -25,10 +25,31 @@
             fjs.parentNode.insertBefore(js, fjs);
         };
 
+        getAvatar = function (userId, size) {
+            var url, regexp;
+            regexp = /##facebookId##/;
+            switch (size) {
+                case "large" :
+                    url = avatarLarge.replace(regexp, userId);
+                    break;
+                case "medium" :
+                    url = avatarMedium.replace(regexp, userId);
+                    break;
+                case "square" :
+                    url = avatarSquare.replace(regexp, userId);
+                    break;
+                case "small":
+                default:
+                    url = avatarSmall.replace(regexp, userId);
+            }
+            return url;
+        };
+
         return{
             appId: appId,
             secretKey: secretKey,
-            init: init
+            init: init,
+            getAvatar: getAvatar
         };
 
     });

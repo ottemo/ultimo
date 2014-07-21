@@ -4,27 +4,18 @@
     define(["visitor/init", "visitor/service/google"], function (visitorModule, gl) {
         visitorModule
 
-            .controller("visitorRegistrationController", [
+            .controller("visitorController", [
                 "$scope",
                 "$routeParams",
                 "$visitorApiService",
                 "$visitorService",
                 "$location",
-                function ($scope, $routeParams, $visitorApiService, $visitorService, $location) {
-                    $scope.credentialsFacebook = {};
-                    $scope.formId = "form-registration";
-
+                "$cookieStore",
+                "LOGIN_COOKIE",
+                function ($scope, $routeParams, $visitorApiService, $visitorService, $location, $cookieStore, LOGIN_COOKIE) {
+                    $visitorService.init();
                     $scope.visitor = $visitorService.getVisitor();
-
-                    $scope.show = function () {
-                        $("#" + $scope.formId).modal("show");
-                    };
-
-                    $scope.hide = function (callback) {
-                        $("#" + $scope.formId).modal("hide");
-                    };
-
-                    $scope.show();
+                    $scope.loginCredentials = {};
 
                     $scope.save = function () {
                         $visitorApiService.register($scope.visitor).$promise.then(
@@ -32,9 +23,23 @@
                                 console.log(response);
                             }
                         )
-                        $scope.hide();
+                        $(".modal").modal("hide");
                     };
 
+                    $scope.login = function () {
+                        $visitorApiService.login($scope.loginCredentials).$promise.then(function (response) {
+                            console.log(response);
+                        });
+                    };
+
+                    $scope.logout = function () {
+                        $cookieStore.put(LOGIN_COOKIE, "");
+                        $visitorService.cleanVisitor();
+                        $visitorService.init();
+                        $scope.visitor = $visitorService.getVisitor();
+                        $(".modal").modal("hide");
+                        $location.path("/");
+                    };
 
                     $scope.facebookLogin = function () {
                         FB.login(
@@ -44,7 +49,9 @@
                                     "access_token": response.authResponse.accessToken
                                 }).$promise.then(
                                     function () {
-                                        $scope.hide();
+                                        $visitorService.init();
+                                        $scope.visitor = $visitorService.getVisitor();
+                                        $(".modal").modal("hide");
                                         $location.path("/account");
                                     }
                                 );
@@ -63,12 +70,18 @@
                             function () {
                                 $visitorApiService.info().$promise.then(
                                     function () {
-                                        $scope.hide(function(){$location.path("/account");});
-
+                                        $visitorService.init();
+                                        $scope.visitor = $visitorService.getVisitor();
+                                        $(".modal").modal("hide");
+                                        $location.path("/account");
                                     }
                                 );
                             }
                         );
+                    };
+
+                    $scope.isLoggedIn = function () {
+                        return $visitorService.isLoggedIn();
                     };
                 }
             ]);

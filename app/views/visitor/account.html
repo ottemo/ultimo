@@ -1,17 +1,98 @@
-<div class="account-left">
+<div ng-init="init()">
+    <div class="account-left">
 
-    <div class="block-avatar">
+        <!-- AVATAR -->
+        <div class="block-avatar">
+            <img ng-src="{{getAvatar()}}" alt="{{visitor.getFullName()}}">
+        </div>
+        <!-- MENU -->
+        <ng-include src="getTemplate('visitor/account-page/menu.html')" ></ng-include>
 
     </div>
 
-    <div class="account-menu">
+    <div class="account-right">
+        <!-- HELLO -->
+        <div class="block-hello">
+            Hello, {{getFullName()}}
+        </div>
+
+        <!-- PROFILE DETAILS AND EDIT FORM -->
+        <ng-include src="getTemplate('visitor/account-page/profile.html')" ></ng-include>
+
+        <!-- BILLING ADDRESS  -->
+        <ng-include src="getTemplate('visitor/account-page/billing-address.html')" ></ng-include>
+
+        <!-- SHIPPING ADDRESS  -->
+        <ng-include src="getTemplate('visitor/account-page/billing-address.html')" ></ng-include>
 
     </div>
-
 </div>
 
-<div class="account-right">
-    <div id="account-content">
-        {{visitor}}
-    </div>
-</div>
+<script>
+    $("#account-edit").click(function () {
+        $(".account-info").find("label").hide();
+        $(".editable").removeClass("hidden");
+
+    })
+    $("#account-save").click(function () {
+        $(".account-info").find("label").show();
+        $(".editable").addClass("hidden");
+
+    })
+</script>
+
+<style>
+    .block-hello {
+        margin: 0px 0px 20px 0px;
+        font-size: 18px;
+    }
+
+    .btn-save {
+        float: right;
+    }
+
+    .account-left {
+        border-right: 2px solid #b3b3b3;
+    }
+
+    .account-left {
+        width: 20%;
+        float: left;
+        margin: 10 20px;
+        padding: 10px;
+        min-height: 580px;
+    }
+
+    .block-avatar {
+        border-bottom: 2px solid #b3b3b3;
+        text-align: center;
+        padding: 10px 0px;
+        margin: 0px 0px 10px 0px;
+        height: 150px;
+    }
+    .block-avatar img{
+
+        max-width: 98%;
+        height: 120px;
+    }
+
+    .account-right {
+        width: 80%;
+        float: left;
+        margin: 10 20px;
+        padding: 10px;
+    }
+
+    .block-details {
+        border: 2px solid #b3b3b3;
+        border-radius: 7px;
+        padding: 10px;
+        min-height: 100px;
+        margin: 0 10px 15px 0px;
+
+    }
+    .block-details select{
+        width: 100%;
+
+    }
+</style>

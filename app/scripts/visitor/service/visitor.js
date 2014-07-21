@@ -24,29 +24,24 @@
                         "password": ""
                     };
                 };
+                visitor = getDefaultVisitor();
 
                 init = function () {
                     $visitorApiService.info().$promise.then(
                         function (response) {
                             if (response.error === "") {
+
                                 setVisitor({
-                                    "facebook_id": response.result.facebook_id,
-                                    "google_id": response.result.google_id,
-                                    "email": response.result.email,
-                                    "fname": response.result.first_name,
-                                    "lname": response.result.last_name
+                                    "facebook_id": response.result.facebook_id || "",
+                                    "google_id": response.result.google_id || "",
+                                    "email": response.result.email || "",
+                                    "fname": response.result.first_name || "",
+                                    "lname": response.result.last_name || ""
                                 });
-                            } else {
-                                visitor = getDefaultVisitor();
                             }
                         }
-
                     );
-
                 };
-                init();
-
-                visitor = getDefaultVisitor();
 
                 setVisitor = function (obj) {
                     var field;
@@ -70,7 +65,7 @@
                     init: init,
                     cleanVisitor: cleanVisitor,
                     setVisitor: setVisitor,
-                    getVisitor: getVisitor
+                    getVisitor: getVisitor,
                 };
             }]);
 

@@ -1,1 +1,22 @@
-// Profile information and the form for edit
+<div class="block-details">
+    <div>
+        Email:
+        <label ng-bind="visitor.email" for="visitor-email"/>
+        <input type="text" class="editable hidden" ng-model="visitor.email" id="visitor-email">
+    </div>
+    <div>
+        First name:
+        <label ng-bind="visitor.fname" for="visitor-fname"/>
+        <input type="text" class="editable hidden" ng-model="visitor.fname" id="visitor-fname">
+    </div>
+    <div>
+        Last: name:
+        <label ng-bind="visitor.lname" for="visitor-lname"/>
+        <input type="text" class="editable hidden" ng-model="visitor.lname" id="visitor-lname">
+    </div>
+    <div>
+        <button type="submit" class="editable hidden btn-save" id="account-save" ng-click="update()">Save
+        </button>
+    </div>
+    <button type="submit" id="account-edit">Edit</button>
+</div>

@@ -1,36 +1,52 @@
-<div class="modal fade" id="form-login" tabindex="-1" role="dialog" >
-    <div class="modal-dialog">
+<div ng-controller="visitorController">
+    <li class="ng-scope open" ng-hide="visitor.email">
+        <a href="" class="ng-scope ng-binding" target="_self" id="modal-login">login</a>
+    </li>
+    <li class="ng-scope open" ng-show="visitor.email">
+        <a href="#" class="ng-scope ng-binding" ng-click="logout()">logout</a>
+    </li>
 
-        <div class="modal-content">
+    <div class="modal fade" id="form-login" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
 
-            <div class="modal-header">
-                LOGIN
-                <button class="btn btn-primary pull-right" ng-click="logout()">Logout</button>
-                <button class="btn btn-primary pull-right" ng-click="login()">Login</button>
-            </div>
+            <div class="modal-content">
 
-            <div class="modal-body">
-                <div class="panel panel-default">
-                    <form role="form">
-                        <div class="panel-body">
-                            <div>
-                                <label for="email">Email</label>
-                                <input type="text" id="email" placeholder="email" ng-model="visitor.email"/>
-                            </div>
-                            <div>
-                                <label for="password">Password</label>
-                                <input type="password" id="password" placeholder="password" ng-model="visitor.password"
-                                       autocomplete="off"/>
-                            </div>
-
-                        </div>
-                    </form>
+                <div class="modal-header">
+                    LOGIN
+                    <button class="btn btn-primary pull-right" ng-click="login()">Login</button>
                 </div>
-                <ng-include src="getTemplate('visitor/social/facebook.html')"></ng-include>
-                <ng-include src="getTemplate('visitor/social/google.html')"></ng-include>
+
+                <div class="modal-body">
+                    <div class="panel panel-default">
+                        <form role="form">
+                            <div class="panel-body">
+                                <div>
+                                    <label for="email">Email</label>
+                                    <input type="text" id="email" placeholder="email" ng-model="loginCredentials.email"/>
+                                </div>
+                                <div>
+                                    <label for="password">Password</label>
+                                    <input type="password" id="password" placeholder="password"
+                                           ng-model="loginCredentials.password"
+                                           autocomplete="off"/>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                    <ng-include src="getTemplate('visitor/social/facebook.html')"></ng-include>
+                    <ng-include src="getTemplate('visitor/social/google.html')"></ng-include>
+                </div>
+
             </div>
 
         </div>
-
     </div>
+
 </div>
+
+<script>
+    $("#modal-login").click(function () {
+        $("#form-login").modal("show");
+    });
+</script>
