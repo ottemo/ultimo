@@ -39,6 +39,8 @@
                     url = avatarSquare.replace(regexp, userId);
                     break;
                 case "small":
+                    url = avatarSmall.replace(regexp, userId);
+                    break;
                 default:
                     url = avatarSmall.replace(regexp, userId);
             }
@@ -53,4 +55,4 @@
         };
 
     });
-})(window.define, window.document)
+})(window.define, window.document);

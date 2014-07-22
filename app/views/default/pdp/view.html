@@ -29,11 +29,20 @@
 </div>
 <!--Info block-->
 <div class="col-md-9">
-    <h2>{{product.name}}</h2>
-    <b>$</b><span>{{product.price}}</span>
+    <div>
+        <h2>{{product.name}}</h2>
+    </div>
+    <div>
+        <label for="sku">Sku:</label>
+        <span id="sku">{{product.sku}}</span>
+    </div>
+    <div>
+        <label for="price">Price:</label>
+        <span id="price"><b>$</b>{{product.price}}</span>
+    </div>
 
     <div>
-        <label for="qty">Qty</label>
+        <label for="qty">Qty:</label>
         <select name="qty" id="qty" ng-model="qty">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -52,7 +61,7 @@
     <button type="button" class="btn btn-warning glyphicon glyphicon-plus"> Cart</button>
 </div>
 <div style="float: left; width:100%; border-top: 1px dotted; margin-top: 30px; margin-bottom: 20px">
-    <div class="panel-group col-md-3" id="accordion" style=" margin-top: 10px">
+    <div class="panel-group" id="accordion">
         <div class="form-group">
             <div class="panel panel-default">
 

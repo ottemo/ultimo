@@ -14,152 +14,180 @@
              *  $productApiService interaction service
              */
 
-            .service("$loginService", ["$resource", "$loginApiService", "VISITOR_DEFAULT_AVATAR", "$q", function ($resource, $loginApiService, VISITOR_DEFAULT_AVATAR, $q) {
+            .service("$loginService", [
+                "$resource",
+                "$loginApiService",
+                "$cookieStore",
+                "$q",
+                "VISITOR_DEFAULT_AVATAR",
+                "LOGIN_COOKIE",
+                function ($resource, $loginApiService, $cookieStore, $q, VISITOR_DEFAULT_AVATAR, LOGIN_COOKIE) {
 
-                var init, login, loginId, getLogin, getLoginId, setLogin, cleanLogin, getAvatar, getFullName, isLoggedIn, f_isLoggedIn, getDefaultLogin;
+                    /** Variables */
+                    var login, loginId, isLoggedIn, deferIsLoggedIn , mapFields, deferLogOut;
+                    /** Functions */
+                    var init, getLogin, getLoginId, setLogin, cleanLogin, getVisitorProperty,
+                        getAvatar, getFullName, fIsLoggedIn, getDefaultLogin, logout;
 
-                isLoggedIn = null;
-                var deferIsLoggedIn = $q.defer();
+                    isLoggedIn = null;
 
-                getDefaultLogin = function () {
-                    return {
-                        "facebook_id": "",
-                        "google_id": "",
-                        "billing_address_id": "",
-                        "shipping_address_id": "",
-                        "email": "",
-                        "fname": "",
-                        "lname": "",
-                        "password": "",
-                        "billing_address": {},
-                        "shipping_address": {}
+                    getDefaultLogin = function () {
+                        return {
+                            "facebook_id": "",
+                            "google_id": "",
+                            "billing_address_id": "",
+                            "shipping_address_id": "",
+                            "email": "",
+                            "fname": "",
+                            "lname": "",
+                            "password": "",
+                            "billing_address": {},
+                            "shipping_address": {}
+                        };
                     };
-                };
 
-                login = getDefaultLogin();
-
-                init = function () {
-                    $loginApiService.info().$promise.then(
-                        function (response) {
-                            if (response.error === "") {
-                                loginId = response.result._id || "";
-                                if (loginId !== "") {
-                                    isLoggedIn = true;
-                                    deferIsLoggedIn.resolve(isLoggedIn);
+                    getVisitorProperty = function (field) {
+                        var res, i, f;
+                        for (res in mapFields) {
+                            if (mapFields.hasOwnProperty(res)) {
+                                for (i = 0; i < mapFields[res].length; i += 1) {
+                                    f = mapFields[res][i];
+                                    if (f === field) {
+                                        return res;
+                                    }
                                 }
-                                setLogin({
-                                    "facebook_id": response.result.facebook_id || "",
-                                    "google_id": response.result.google_id || "",
-                                    "email": response.result.email || "",
-                                    "fname": response.result.first_name || "",
-                                    "lname": response.result.last_name || "",
-                                    "billing_address_id": response.result.billing_address && response.result.billing_address._id || "",
-                                    "shipping_address_id": response.result.shipping_address && response.result.shipping_address._id || "",
-
-                                    "billing_address": response.result.billing_address || "",
-                                    "shipping_address": response.result.shipping_address || ""
-                                });
-                            } else {
-
-                                isLoggedIn = false;
-                                cleanLogin();
-                                deferIsLoggedIn.resolve(isLoggedIn);
                             }
                         }
-                    );
 
-                    return deferIsLoggedIn.promise;
-                };
+                        return null;
+                    };
+                    mapFields = {
+                        "facebook_id": ["facebook_id", "facebookId", "facebookID"],
+                        "google_id": ["google_id", "googleId", "googleID"],
+                        "billing_address_id": ["billing_address_id", "billing_id", "billingId", "billingID"],
+                        "shipping_address_id": ["shipping_address_id", "shipping_id", "shippingId", "shippingID"],
+                        "email": ["email", "e-mail", "Email", "EMail", "E-Mail"],
+                        "fname": ["fname", "f-name", "f_name", "first_name", "first-name"],
+                        "lname": ["lname", "l-name", "l_name", "last_name", "last-name"],
+                        "billing_address": ["billing_address"],
+                        "shipping_address": ["shipping_address"]
+                    };
 
-                setLogin = function (obj) {
-                    var field;
-                    for (field in obj) {
-                        if (!obj.hasOwnProperty(field)) {
-                            continue;
-                        }
-                        login[field] = obj[field];
-                    }
-                };
-
-                getLogin = function () {
-                    return login;
-                };
-
-                cleanLogin = function () {
                     login = getDefaultLogin();
-                    isLoggedIn === null;
-                };
 
-                getAvatar = function () {
-                    var avatar;
-                    avatar = VISITOR_DEFAULT_AVATAR;
-                    if (login.facebook_id !== "") {
-                        avatar = "http://" + fb.getAvatar(login.facebook_id, "large");
-                    } else if (login.google_id !== "") {
-                        avatar = gl.getAvatar(login.google_id);
-                    }
-                    return avatar;
-                };
+                    init = function () {
+                        deferIsLoggedIn = $q.defer();
 
-                getFullName = function () {
-                    return login.fname + " " + login.lname;
-                };
-
-                getLoginId = function () {
-                    return loginId;
-                }
-/*
-                var deferIsLoggedIn = $q.defer();
-
-                f_isLoggedIn = function (callback) {
-                    if (isLoggedIn === null) {
-                        isLoggedIn = "In progress";
                         $loginApiService.info().$promise.then(
+
                             function (response) {
-                                var result = response.result || "";
-                                if (result !== "") {
-                                    isLoggedIn = true;
-                                    deferIsLoggedIn.resolve(isLoggedIn);
+                                if (response.error === "") {
+                                    loginId = response.result._id || "";
+                                    if (loginId !== "") {
+                                        isLoggedIn = true;
+                                        deferIsLoggedIn.resolve(isLoggedIn);
+                                    }
+                                    setLogin(response.result);
                                 } else {
+
                                     isLoggedIn = false;
+                                    cleanLogin();
                                     deferIsLoggedIn.resolve(isLoggedIn);
                                 }
-
-                                if (typeof callback === "function") {
-                                    callback(isLoggedIn);
-                                }
-
+                                console.log("Login init = " + isLoggedIn);
                             }
+
                         );
 
-                    } else {
-                        if (typeof isLoggedIn === "boolean") {
-                            deferIsLoggedIn.resolve(isLoggedIn);
-                            if (typeof callback === "function") {
-                                callback(isLoggedIn);
+                        return deferIsLoggedIn.promise;
+                    };
+
+                    logout = function () {
+                        deferLogOut = $q.defer();
+
+                        $cookieStore.remove(LOGIN_COOKIE);
+                        isLoggedIn = false;
+                        login = getDefaultLogin();
+                        deferLogOut.resolve(true);
+
+                        return deferLogOut.promise;
+                    };
+
+                    getVisitorProperty = function (field) {
+                        var res, i, f;
+                        for (res in mapFields) {
+                            if (mapFields.hasOwnProperty(res)) {
+                                for (i = 0; i < mapFields[res].length; i += 1) {
+                                    f = mapFields[res][i];
+                                    if (f === field) {
+                                        return res;
+                                    }
+                                }
                             }
                         }
-                    }
-//                    deferIsLoggedIn.resolve(isLoggedIn);
 
-                    return deferIsLoggedIn.promise;
-                }
-*/
-                f_isLoggedIn = function () {
-                    return isLoggedIn;
-                }
+                        return null;
+                    };
 
-                return {
-                    init: init,
-                    cleanLogin: cleanLogin,
-                    setLogin: setLogin,
-                    getVisitor: getLogin,
-                    getAvatar: getAvatar,
-                    getFullName: getFullName,
-                    getVisitorId: getLoginId,
-                    isLoggedIn: f_isLoggedIn
-                };
-            }]);
+                    setLogin = function (obj) {
+                        var field, prop;
+                        for (field in obj) {
+                            if (obj.hasOwnProperty(field)) {
+                                prop = getVisitorProperty(field);
+                                if (prop !== null) {
+                                    login[prop] = obj[field];
+                                }
+                            }
+                        }
+                        if (obj !== null) {
+                            login.billing_address_id = obj.billing_address && obj.billing_address._id || "";
+                            login.shipping_address_id = obj.shipping_address && obj.shipping_address._id || "";
+                        }
+                    };
+
+                    getLogin = function () {
+                        return login;
+                    };
+
+                    cleanLogin = function () {
+                        login = getDefaultLogin();
+                    };
+
+                    getAvatar = function () {
+                        var avatar;
+                        avatar = VISITOR_DEFAULT_AVATAR;
+                        if ("" !== login.facebook_id) {
+                            avatar = "http://" + fb.getAvatar(login.facebook_id, "large");
+                        } else if (login.google_id !== "") {
+                            avatar = gl.getAvatar(login.google_id);
+                        }
+                        return avatar;
+                    };
+
+                    getFullName = function () {
+                        return login.fname + " " + login.lname;
+                    };
+
+                    getLoginId = function () {
+                        return loginId;
+                    };
+
+                    fIsLoggedIn = function () {
+                        return isLoggedIn;
+                    };
+
+                    return {
+                        init: init,
+                        cleanLogin: cleanLogin,
+                        setLogin: setLogin,
+                        getVisitor: getLogin,
+                        getAvatar: getAvatar,
+                        getFullName: getFullName,
+                        getVisitorId: getLoginId,
+                        isLoggedIn: fIsLoggedIn,
+                        logout: logout
+                    };
+                }]);
 
         return productModule;
     });

@@ -1,18 +1,18 @@
 (function (define) {
-    'use strict';
+    "use strict";
 
-    define(['design/init'], function (designModule) {
+    define(["design/init"], function (designModule) {
         designModule
             /**
              *  Directive that allows to declare CSS inside module templates
              *  (TODO: not working currently as html creation going before)
              */
-            .directive('addCss', ['$designService', function ($designService) {
+            .directive("addCss", ["$designService", function ($designService) {
                 return {
-                    restrict: 'E',
+                    restrict: "E",
                     link: function (scope, elem, attrs) {
-                        var cssFile = attrs['href'];
-                        if (cssFile != 'undefined' && cssFile != '') {
+                        var cssFile = attrs.href;
+                        if (typeof cssFile !== "undefined" && cssFile !== "") {
                             $designService.addCss(cssFile);
                         }
                     }
@@ -22,9 +22,9 @@
             /*
              *  Directive to solve browser auto-fill issue on model
              */
-            .directive('autoFillSync', ['$timeout', function ($timeout) {
+            .directive("autoFillSync", ["$timeout", function ($timeout) {
                 return {
-                    require: 'ngModel',
+                    require: "ngModel",
                     link: function (scope, elem, attrs, ngModel) {
                         var origVal = elem.val();
                         $timeout(function () {
@@ -40,14 +40,14 @@
             /*
              *  jQuery layout directive
              */
-            .directive('jqLayout', function () {
+            .directive("jqLayout", function () {
                 return {
-                    restrict: 'A',
-                    link: function (scope, elem, attrs) {
+                    restrict: "A",
+                    link: function (scope, elem) {
                         jQuery(elem).layout({ applyDefaultStyles: true });
                     }
                 };
-            })
+            });
 
         return designModule;
     });

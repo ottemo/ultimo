@@ -21,7 +21,7 @@
                         if (!status) {
                             $location.path("/");
                         }
-                    }
+                    };
 
                     /**
                      * Clears the form to create a new address
@@ -45,11 +45,17 @@
                      * @param id
                      */
                     $scope.select = function (id) {
-                        console.log(id)
                         $visitorApiService.loadAddress({"id": id}).$promise.then(
                             function (response) {
                                 var result = response.result || {};
-                                $scope.address = result;
+                                console.log(result);
+                                $scope.address = {
+                                    "Id" : result._id,
+                                    "Name" : result.zip_code +
+                                        " " + result.state +
+                                        ", " + result.city +
+                                        ", " + result.street
+                                };
                             });
                     };
 
@@ -58,7 +64,7 @@
                      *
                      * @param {string} id
                      */
-                    $scope.delete = function (id) {
+                    $scope.remove = function (id) {
                         var i, answer;
                         answer = window.confirm("You really want to remove this address");
                         if (answer) {
@@ -96,8 +102,7 @@
                          *
                          * @param response
                          */
-                        saveError = function (response) {
-                        };
+                        saveError = function () {};
 
                         /**
                          *
@@ -118,11 +123,10 @@
                          *
                          * @param response
                          */
-                        updateError = function (response) {
-                        };
+                        updateError = function () {};
 
                         if (!id) {
-                            $scope.address.visitor_id = $loginService.getVisitorId();
+                            $scope.address.visitor_id = $loginService.getVisitorId(); // jshint ignore:line
                             $visitorApiService.saveAddress($scope.address, saveSuccess, saveError);
                         } else {
                             $scope.address.id = id;

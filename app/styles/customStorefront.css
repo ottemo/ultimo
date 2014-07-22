@@ -95,6 +95,10 @@ span.buttonText {
     width: 100px;
 }
 
+.panel-group{
+    margin: 10px 15px 20px 15px;
+}
+
 .btn:hover {
     color: white !important;
 }

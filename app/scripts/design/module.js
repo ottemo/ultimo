@@ -9,7 +9,7 @@
 			"design/directives/guiListBar",
 			"design/directives/guiPaginator",
             "design/service/image",
-            "design/services",
+            "design/service/design",
             "design/directives/design"
         ],
         function (designModule) {

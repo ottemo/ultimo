@@ -27,18 +27,6 @@
                             controller: "visitorAddressController"
                         })
                         .otherwise({redirectTo: "/"});
-                }])
-                .run(["$designService", "$route", "$commonSidebarService", "$loginService", function ($designService, $route, $commonSidebarService, $loginService) {
-
-                    $loginService.init().then(
-                        function () {
-                            if ($loginService.isLoggedIn()) {
-                                $commonSidebarService.addItem("ACCOUNT", "account", "glyphicon glyphicon-user");
-                            }
-                        }
-                    );
-
-
                 }]);
             return angular.module.visitorModule;
         });

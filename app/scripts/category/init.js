@@ -19,7 +19,7 @@
                     $routeProvider
                         .when("/category/:id/", { templateUrl: "views/default/category/view.html", controller: "categoryListController" })
                         .when("/category/:id/p/:currentPage", { templateUrl: "views/default/category/view.html", controller: "categoryListController" });
-                }])
+                }]);
 
             return angular.module.categoryModule;
         });

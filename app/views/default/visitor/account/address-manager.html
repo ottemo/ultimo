@@ -27,6 +27,8 @@
                         </button>
                     </div>
                     <div style="float: left; width: 95%">
+                        {{address}}
+                        {{addresses}}
                         <select class="form-control" id="shipping_id" ng-change="select(address)"
                                 ng-init="address = address || addresses[0]"
                                 data-ng-model="address"

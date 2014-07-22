@@ -23,7 +23,7 @@
                             result.push(p);
                         }
                         return result;
-                    }
+                    };
 
                     /**
                      * Gets class for item of paginator
@@ -31,7 +31,7 @@
                      * @param {string} page
                      * @returns {string}
                      */
-                    $scope.getClass = function (page) {
+                    $scope.getClass = function (page) { // jshint ignore:line
                         var _class;
                         _class = "";
                         switch (page){
@@ -46,7 +46,7 @@
                                 }
                                 break;
                             default:
-                                if (page === parseInt($scope.parent.currentPage) + 1) {
+                                if (page === parseInt(($scope.parent.currentPage+1), 10)) {
                                     _class = "active";
                                 }
                         }
@@ -83,7 +83,7 @@
                     };
                 }
             };
-        }])
+        }]);
 
         return designModule;
     });

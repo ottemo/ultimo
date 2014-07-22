@@ -46,7 +46,7 @@
                         limit.push(start);
                         limit.push(count);
                         return limit.join(",");
-                    }
+                    };
 
                     /**
                      * Gets number items into collection

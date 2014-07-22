@@ -24,9 +24,10 @@
                                 $scope.addresses = result;
                             }
                         );
-                    }
+                    };
 
                     $scope.init = function () {
+                        console.log("isLoggedIn = " + $scope.visitorService.isLoggedIn());
                         if (!$scope.visitorService.isLoggedIn()) {
                             $location.path("/");
                         }
@@ -42,35 +43,28 @@
                     };
 
                     $scope.shippingUpdate = function () {
-                        $scope.visitor.shipping_address.id = $scope.visitor.shipping_address_id;
-                        $visitorApiService.addressUpdate($scope.visitor.shipping_address);
+                        $scope.visitor.shipping_address.id = $scope.visitor.shipping_address_id; // jshint ignore:line
+                        $visitorApiService.addressUpdate($scope.visitor.shipping_address); // jshint ignore:line
                     };
 
                     $scope.billingUpdate = function () {
-                        $scope.visitor.billing_address.id = $scope.visitor.billing_address_id;
-                        $visitorApiService.addressUpdate($scope.visitor.billing_address);
+                        $scope.visitor.billing_address.id = $scope.visitor.billing_address_id; // jshint ignore:line
+                        $visitorApiService.addressUpdate($scope.visitor.billing_address); // jshint ignore:line
                     };
 
                     $scope.updateDefaultAddress = function () {
-                        delete $scope.visitor.billing_address;
-                        delete $scope.visitor.shipping_address;
+                        delete $scope.visitor.billing_address; // jshint ignore:line
+                        delete $scope.visitor.shipping_address; // jshint ignore:line
+                        if($scope.visitor.shipping_address_id === ""){
+                            delete $scope.visitor.shipping_address_id;
+                        }
+                        if($scope.visitor.billing_address_id === ""){
+                            delete $scope.visitor.billing_address_id;
+                        }
                         $visitorApiService.update($scope.visitor).$promise.then(
 
                             function (response) {
-
-                                $loginService.setLogin({
-                                    "facebook_id": response.result.facebook_id || "",
-                                    "google_id": response.result.google_id || "",
-                                    "email": response.result.email || "",
-                                    "fname": response.result.first_name || "",
-                                    "lname": response.result.last_name || "",
-                                    "billing_address_id": response.result.billing_address && response.result.billing_address._id || "",
-                                    "shipping_address_id": response.result.shipping_address && response.result.shipping_address._id || "",
-
-                                    "billing_address": response.result.billing_address || "",
-                                    "shipping_address": response.result.shipping_address || ""
-                                });
-
+                                $loginService.setLogin(response.result);
                                 $scope.visitor = $loginService.getVisitor();
                             }
 

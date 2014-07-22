@@ -12,7 +12,7 @@
 
                 defaultProduct = function () {
                     return {};
-                }
+                };
 
                 $scope.productId = $routeParams.id;
 
@@ -28,7 +28,7 @@
 
                 $scope.getTotal = function(){
                     return $scope.qty * $scope.product.price;
-                }
+                };
 
                 //-----------------
                 // IMAGE FUNCTIONS
@@ -64,7 +64,7 @@
                 $scope.getImage = function (path, image) {
                     return $designImageService.getFullImagePath(path, image);
                 };
-            }])
+            }]);
 
         return pdpModule;
     });

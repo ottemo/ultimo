@@ -17,7 +17,7 @@
                         var categories = response.result || [];
                         $scope.categories = categories;
                     }
-                )
+                );
             }])
 
             .controller("commonSidebarController", ["$scope", "$commonSidebarService", function ($scope, $commonSidebarService) {

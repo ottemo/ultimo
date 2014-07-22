@@ -24,7 +24,7 @@
                 .config(["$routeProvider", function () {
                     fb.init();
                     gl.init();
-                }])
+                }]);
             return angular.module.loginModule;
         });
 

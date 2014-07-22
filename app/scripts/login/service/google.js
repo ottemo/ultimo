@@ -1,14 +1,14 @@
 (function (define) {
     "use strict";
 
-    define(["angular"], function (angular) {
+    define(["angular"], function () {
 
             var init, clientId, requestData, login, loginCallback, userData, avatar, getAvatar;
             userData = {"access_token": ""};
 
             clientId = "1074763412644-qq25glj3tb87bq7bk5m8793da11ddheh.apps.googleusercontent.com";
 
-            avatar = "https://plus.google.com/s2/photos/profile/##googleId##?sz=150"
+            avatar = "https://plus.google.com/s2/photos/profile/##googleId##?sz=150";
 
             requestData = {
                 "clientid": clientId,
@@ -17,7 +17,7 @@
                 "approvalprompt": "force",
                 "redirecturi": "postmessage",
                 "scope": "https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"
-            }
+            };
 
             /**
              *
@@ -32,8 +32,8 @@
             };
 
             login = function () {
-                gapi.auth.signIn(requestData);
-            }
+                gapi.auth.signIn(requestData);// jshint ignore:line
+            };
 
             loginCallback = function (response) {
                 if (response.status.signed_in) {
@@ -66,4 +66,4 @@
         }
     )
     ;
-})(window.define)
+})(window.define);

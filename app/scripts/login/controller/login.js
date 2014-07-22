@@ -10,10 +10,7 @@
                 "$loginApiService",
                 "$loginService",
                 "$location",
-                "$cookieStore",
-                "LOGIN_COOKIE",
-                "$commonSidebarService",
-                function ($scope, $routeParams, $loginApiService, $loginService, $location, $cookieStore, LOGIN_COOKIE, $commonSidebarService) {
+                function ($scope, $routeParams, $loginApiService, $loginService, $location) {
                     $loginService.init();
                     $scope.login = $loginService.getVisitor();
                     $scope.loginCredentials = {};
@@ -29,11 +26,9 @@
 
                     $scope.login = function () {
                         $loginApiService.login($scope.loginCredentials).$promise.then(function (response) {
-                            console.log(response);
                             if (response.result === "ok") {
                                 $loginService.init().then(
                                     function () {
-                                        $commonSidebarService.addItem("ACCOUNT", "account", "glyphicon glyphicon-user");
                                         $(".modal").modal("hide");
                                         $location.path("/account");
                                     }
@@ -43,24 +38,19 @@
                     };
 
                     $scope.logout = function () {
-                        $cookieStore.put(LOGIN_COOKIE, "");
-                        $loginService.init();
-                        $(".modal").modal("hide");
-                        $location.path("/");
+                        $loginService.logout();
                     };
 
                     $scope.facebookLogin = function () {
-                        FB.login(
+                        FB.login(                                               // jshint ignore:line
                             function (response) {
                                 $loginApiService.loginFacebook({
                                     "user_id": response.authResponse.userID,
                                     "access_token": response.authResponse.accessToken
                                 }).$promise.then(
                                     function () {
-                                        $commonSidebarService.addItem("ACCOUNT", "account", "glyphicon glyphicon-user");
                                         $loginService.init().then(
                                             function () {
-//                                                $commonSidebarService.addItem("ACCOUNT", "account", "glyphicon glyphicon-user");
                                                 $(".modal").modal("hide");
                                                 $location.path("/account");
                                             }
@@ -80,15 +70,10 @@
                         var data = gl.loginCallback(response);
                         $loginApiService.loginGoolge(data).$promise.then(
                             function () {
-                                $loginApiService.info().$promise.then(
+                                $loginService.init().then(
                                     function () {
-                                        $loginService.init().then(
-                                            function () {
-                                                $commonSidebarService.addItem("ACCOUNT", "account", "glyphicon glyphicon-user");
-                                                $(".modal").modal("hide");
-                                                $location.path("/account");
-                                            }
-                                        );
+                                        $(".modal").modal("hide");
+                                        $location.path("/account", false);
                                     }
                                 );
                             }
