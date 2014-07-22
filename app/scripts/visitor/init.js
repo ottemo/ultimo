@@ -4,42 +4,40 @@
     define([
             "angular",
             "angular-route",
-            "angular-resource",
-            "visitor/service/facebook",
-            "visitor/service/google",
-            "angular-cookies"
+            "angular-resource"
         ],
-        function (angular, aRoute, aResource, fb, gl) {
+        function (angular) {
             /*
              *  Angular "visitorModule" declaration
              */
-            angular.module.visitorModule = angular.module("visitorModule", ["ngRoute", "ngResource", "ngCookies", "designModule","ngCookies"])
+            angular.module.visitorModule = angular.module("visitorModule", ["ngRoute", "ngResource", "designModule"])
 
-                .constant("LOGIN_COOKIE", "OTTEMOSESSION")
-                .constant("VISITOR_DEFAULT_AVATAR", "images/avatar-placeholder.png")
-
-                /**
-                 *  Basic routing configuration
-                 */
+            /**
+             *  Basic routing configuration
+             */
                 .config(["$routeProvider", function ($routeProvider) {
-
-                    fb.init();
-                    gl.init();
 
                     $routeProvider
                         .when("/account", {
-                            templateUrl: "views/visitor/account.html",
+                            templateUrl: "views/default/visitor/account.html",
                             controller: "visitorAccountController"
                         })
                         .when("/account/address", {
-
-                            templateUrl: "views/visitor/account-page/address-manager.html",
+                            templateUrl: "views/default/visitor/account/address-manager.html",
                             controller: "visitorAddressController"
-                        });
+                        })
+                        .otherwise({redirectTo: "/"});
                 }])
-                .run(["$designService", "$route", "$commonHeaderService", function ($designService, $route, $commonHeaderService) {
+                .run(["$designService", "$route", "$commonSidebarService", "$loginService", function ($designService, $route, $commonSidebarService, $loginService) {
 
-                    $commonHeaderService.addMenuItem("/account", "account", "/account");
+                    $loginService.init().then(
+                        function () {
+                            if ($loginService.isLoggedIn()) {
+                                $commonSidebarService.addItem("ACCOUNT", "account", "glyphicon glyphicon-user");
+                            }
+                        }
+                    );
+
 
                 }]);
             return angular.module.visitorModule;

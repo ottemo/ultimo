@@ -9,7 +9,7 @@
 
 .my-col-xs-1 {
     float: left;
-    width: 10%;
+    width: 170px;
     margin: 0 10px;
 }
 
@@ -61,7 +61,7 @@ span.icon {
     display: inline-block;
     vertical-align: middle;
     width: 35px;
-    height: 35px;
+    height: 34px;
     border-right: #bb3f30 1px solid;
 }
 
@@ -155,7 +155,7 @@ span.buttonText {
 
 }
 .block-details label{
-    width: 100px;
+    width: 128px;
 }
 .static{
     margin: 0 0 30px 0;
@@ -166,5 +166,5 @@ span.buttonText {
 }
 .input-group-btn{
     float: left !important;
-    width: 5% !important;;
+    width: 72px !important;;
 }

@@ -1,0 +1,14 @@
+<a href="#/category/{{item.id}}" target="{{item.id != null ? '' : '_self'}}">
+    {{item.name}}<b class="caret" ng-if="item.child.length &gt; 0"></b>
+</a>
+<div class="mobnav-subarrow" ng-if="item.child.length &gt 0"></div>
+<ul ng-if="item.child.length &gt 0">
+    <li ng-repeat="item in item.child;" ng-include="getTemplate('common/header/menuItem.html')"></li>
+</ul>
+<script type="text/javascript">
+    $(".mobnav-subarrow").on("click",
+            function () {
+                console.log(jQuery(this).parent())
+                jQuery(this).parent().toggleClass("xpopdrop");
+            });
+</script>

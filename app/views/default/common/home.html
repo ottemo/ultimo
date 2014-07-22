@@ -1,3 +1,13 @@
+<div class="HomeGlobalContent">
+    <div class="home-slider-container">
+        <div id="slides">
+            <img src="images/slider/slider.jpg" alt="">
+            <img src="images/slider/slider.jpg" alt="">
+            <img src="images/slider/slider.jpg" alt="">
+            <img src="images/slider/slider.jpg" alt="">
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="my-col-xs-1" ng-repeat="_item in products">
 
@@ -24,3 +34,11 @@
 
     </div>
 </div>
+<script>
+    jQuery(function() {
+        jQuery('#slides').slidesjs({
+            width: 943,
+            height: 393
+        });
+    });
+</script>

@@ -1,4 +1,4 @@
-<div>
+<div ng-init="init()">
     <div class="account-left">
 
         <!-- AVATAR -->
@@ -6,7 +6,7 @@
             <img ng-src="{{visitorService.getAvatar()}}" alt="{{visitorService.getFullName()}}">
         </div>
         <!-- MENU -->
-        <ng-include src="getTemplate('visitor/account-page/menu.html')" ></ng-include>
+        <ng-include src="getTemplate('visitor/account/menu.html')"></ng-include>
 
     </div>
 
@@ -17,13 +17,13 @@
         </div>
 
         <!-- PROFILE DETAILS AND EDIT FORM -->
-        <ng-include src="getTemplate('visitor/account-page/profile.html')" ></ng-include>
+        <ng-include src="getTemplate('visitor/account/profile.html')"></ng-include>
 
         <!-- BILLING ADDRESS  -->
-        <ng-include src="getTemplate('visitor/account-page/billing-address.html')" ></ng-include>
+        <ng-include src="getTemplate('visitor/account/billing-address.html')"></ng-include>
 
         <!-- SHIPPING ADDRESS  -->
-        <ng-include src="getTemplate('visitor/account-page/shipping-address.html')" ></ng-include>
+        <ng-include src="getTemplate('visitor/account/shipping-address.html')"></ng-include>
 
     </div>
 </div>

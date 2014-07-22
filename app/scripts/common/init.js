@@ -22,17 +22,27 @@
                  */
                 .config(["$routeProvider", function ($routeProvider) {
                     $routeProvider
-                        .when("/", { templateUrl: "views/common/home.html", controller: "commonController" })
+                        .when("/", { templateUrl: "views/default/common/home.html", controller: "commonController" })
                         .when("/help", { templateUrl: "views/help.html"})
 
                         .otherwise({ redirectTo: "/"});
                 }])
 
-                .run(["$designService", "$route", "$http", function ($designService, $route, $http) {
+                .run(["$designService", "$route", "$http", "$commonSidebarService", function ($designService, $route, $http, $commonSidebarService) {
 
                     // ajax cookies support fix
                     $http.defaults.withCredentials = true;
                     delete $http.defaults.headers.common["X-Requested-With"];
+
+                    $designService.setTheme("default");
+                    $commonSidebarService.addItem("Home", "", "glyphicon glyphicon-home");
+//                    $commonSidebarService.addItem("ACCOUNT", "account", "glyphicon glyphicon-user");
+                    $commonSidebarService.addItem("CONTACTS", "contacts", "glyphicon glyphicon-user");
+                    $commonSidebarService.addItem("BLOG", "blog", "glyphicon glyphicon-edit");
+                    $commonSidebarService.addItem("STOCKISTS", "stockists", "glyphicon glyphicon-screenshot");
+                    $commonSidebarService.addItem("ABOUT", "about", "glyphicon glyphicon-info-sign");
+                    $commonSidebarService.addItem("PRESS", "press", "glyphicon glyphicon-book");
+
 
                     // hack to allow browser page refresh work with routes
                     $route.reload();

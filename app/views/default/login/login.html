@@ -1,10 +1,6 @@
-<div ng-controller="visitorController">
-    <li class="ng-scope open" ng-hide="visitor.email">
-        <a href="" class="ng-scope ng-binding" target="_self" id="modal-login">login</a>
-    </li>
-    <li class="ng-scope open" ng-show="visitor.email">
-        <a href="#" class="ng-scope ng-binding" ng-click="logout()">logout</a>
-    </li>
+<div ng-controller="loginController">
+    <a href="" class="ng-scope ng-binding" target="_self" id="modal-login" ng-hide="isLoggedIn()">login</a>
+    <a href="#" class="ng-scope ng-binding" ng-click="logout()" ng-show="isLoggedIn()">logout</a>
 
     <div class="modal fade" id="form-login" tabindex="-1" role="dialog">
         <div class="modal-dialog">
@@ -21,7 +17,8 @@
                             <div class="panel-body">
                                 <div>
                                     <label for="email">Email</label>
-                                    <input type="text" id="email" placeholder="email" ng-model="loginCredentials.email"/>
+                                    <input type="text" id="email" placeholder="email"
+                                           ng-model="loginCredentials.email"/>
                                 </div>
                                 <div>
                                     <label for="password">Password</label>
@@ -35,10 +32,10 @@
                     </div>
                     <div class="social-box">
                         <div class="btn-soc">
-                            <ng-include src="getTemplate('visitor/social/facebook.html')"></ng-include>
+                            <ng-include src="getTemplate('login/social/facebook.html')"></ng-include>
                         </div>
                         <div class="btn-soc">
-                            <ng-include src="getTemplate('visitor/social/google.html')"></ng-include>
+                            <ng-include src="getTemplate('login/social/google.html')"></ng-include>
                         </div>
                         <div class="btn-soc btn-soc-right">
                             <button class="btn btn-primary pull-right" ng-click="login()">Login</button>

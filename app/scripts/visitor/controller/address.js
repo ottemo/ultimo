@@ -6,20 +6,28 @@
 
             .controller("visitorAddressController", [
                 "$scope",
-                "$visitorService",
+                "$location",
+                "$loginService",
                 "$visitorApiService",
-                function ($scope, $visitorService, $visitorApiService) {
+                function ($scope, $location, $loginService, $visitorApiService) {
                     $scope.addresses = [];
                     $scope.address = {};
-                    $scope.visitor = $visitorService.getVisitor();
-                    $scope.visitorService = $visitorService;
+                    $scope.visitor = $loginService.getVisitor();
+                    $scope.visitorService = $loginService;
 
+                    $scope.init = function () {
+                        var status = $scope.visitorService.isLoggedIn();
+                        console.log(status);
+                        if (!status) {
+                            $location.path("/");
+                        }
+                    }
 
                     /**
                      * Clears the form to create a new address
                      */
                     $scope.clearForm = function () {
-                        $scope.address = {"visitor_id": $scope.visitor._d};
+                        $scope.address = {"visitor_id": $scope.visitor._id};
                     };
 
                     $scope.clearForm();
@@ -114,7 +122,7 @@
                         };
 
                         if (!id) {
-                            $scope.address.visitor_id = $visitorService.getVisitorId();
+                            $scope.address.visitor_id = $loginService.getVisitorId();
                             $visitorApiService.saveAddress($scope.address, saveSuccess, saveError);
                         } else {
                             $scope.address.id = id;

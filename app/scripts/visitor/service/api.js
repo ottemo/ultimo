@@ -15,26 +15,6 @@
 
                 return $resource(visitorBaseURL, {},
                     {
-                        "register": {
-                            method: "POST",
-                            url: visitorBaseURL + "/register"
-                        },
-                        "loginFacebook": {
-                            method: "POST",
-                            url: visitorBaseURL + "/login-facebook"
-                        },
-                        "loginGoolge": {
-                            method: "POST",
-                            url: visitorBaseURL + "/login-google"
-                        },
-                        "login": {
-                            method: "POST",
-                            url: visitorBaseURL + "/login"
-                        },
-                        "info": {
-                            method: "GET",
-                            url: visitorBaseURL + "/info"
-                        },
                         "update": {
                             method: "PUT",
                             url: visitorBaseURL + "/update"

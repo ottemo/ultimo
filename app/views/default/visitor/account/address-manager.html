@@ -1,11 +1,11 @@
-<div>
+<div ng-init="init()">
     <div class="account-left">
         <!-- AVATAR -->
         <div class="block-avatar">
             <img ng-src="{{visitor.getAvatar()}}" alt="{{visitor.getFullName()}}">
         </div>
         <!-- MENU -->
-        <ng-include src="getTemplate('visitor/account-page/menu.html')"></ng-include>
+        <ng-include src="getTemplate('visitor/account/menu.html')"></ng-include>
 
     </div>
 
@@ -28,14 +28,14 @@
                     </div>
                     <div style="float: left; width: 95%">
                         <select class="form-control" id="shipping_id" ng-change="select(address)"
-                                ng-init="address.Id = address.Id || addresses[0]"
+                                ng-init="address = address || addresses[0]"
                                 data-ng-model="address"
                                 data-ng-options="choice.Id as choice.Name for choice in addresses">
                         </select>
                     </div>
                 </div>
 
-                <div ng-show="visitor.shipping_address_id">
+                <div>
                     <div class="row">
                         <label for="address-street">Street</label>
                         <input type="text" ng-model="address.street" id="address-street">

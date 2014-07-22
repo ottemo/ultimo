@@ -6,14 +6,14 @@
      *  (to use that module you should include it to main.js)
      */
     define([
-            "visitor/service/api",
+            "login/service/api",
+            "login/service/login",
 
-            "visitor/controller/address",
-            "visitor/controller/account"
+            "login/controller/login"
         ],
-        function (visitorModule) {
+        function (loginModule) {
 
-            return visitorModule;
+            return loginModule;
         });
 
 })(window.define);

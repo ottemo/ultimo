@@ -20,7 +20,7 @@
                     $scope.productsList = [];
                     $scope.paths = [];
                     $scope.categoryId = $routeParams.id;
-                    $scope.uri = "/category/products/" + $routeParams.id + "/p/:page";
+                    $scope.uri = "/category/" + $routeParams.id + "/p/:page";
                     $scope.category = {};
 
                     $scope.blocks = {
@@ -73,45 +73,13 @@
                     );
 
                     /**
-                     * Gets paths for images
-                     *
-                     * @returns {boolean}
-                     */
-                    var imageReload = function () {
-                        if (!$scope.productsList.length || $scope.productsList[0].hasOwnProperty("image_path")) {
-                            return true;
-                        }
-                        for (var i = 0; i < $scope.productsList.length; i += 1) {
-                            var prod = $scope.productsList[i];
-                            $categoryApiService.getPath({"productId": prod._id, "mediaType": "image"}).$promise.then(
-                                function (response) {
-                                    var result = response.result || [];
-                                    $scope.paths.push(result);
-                                }
-                            );
-                        }
-                    };
-
-                    /**
                      * Gets full path to image
                      *
                      * @param {object} product
                      * @returns {string}
                      */
                     $scope.getImage = function (product) {
-                        var i, path, tmpPath, reg;
-
-                        for (i = 0; i < $scope.paths.length; i += 1) {
-                            path = "";
-                            tmpPath = $scope.paths[i];
-                            reg = new RegExp(".+" + product._id + ".+");
-                            if (reg.test(tmpPath)) {
-                                path = tmpPath;
-                                break;
-                            }
-                        }
-
-                        return $designImageService.getFullImagePath(path, product.default_image);
+                        return $designImageService.getFullImagePath("", product.default_image);
                     };
 
                     /**
@@ -144,7 +112,6 @@
                         });
                     };
 
-                    $scope.$watch("productsList", imageReload);
                 }
             ]);
         return categoryModule;

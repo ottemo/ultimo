@@ -1,46 +1,160 @@
 /* Mobile Header Styles */
 
-@media only screen and (min-width : 320px) and (max-width : 720px) {
+@media only screen and (min-width: 320px) and (max-width: 720px) {
+  .category-open {
+    overflow: hidden !important;
+  }
+  .category-open-left {
+    overflow: hidden !important;
+  }
   .GlobalWrapper {
     width: 100%;
     .GlobalHeader {
       width: 100%;
-      height: 140px;
+      height: 104px;
       padding: 0 6.25%;
       background: $GlobalHeaderBack;
-      -moz-box-sizing:    border-box;
+      -moz-box-sizing: border-box;
       -webkit-box-sizing: border-box;
-      box-sizing:        border-box;
-      position: relative;
-      z-index: 10;
+      box-sizing: border-box;
+      position: fixed;
+      top: 0;
+      z-index: 13;
       border-bottom: 1px solid $GlobalHeaderBorder;
       @include box-shadow(0px, 2px, 3px, $GlobalHeaderShadow);
-      .left-header-menu {
-        float: left;
-        padding-top: 54px;
-        .open {
+      .header-logo {
+        margin: 0 auto;
+        text-align: center;
+        padding-top: 25px;
+        padding-bottom: 13px;
+        width: 100%;
         position: relative;
-        padding-left: 1.25em;
-        font-size: 36px;
-        color: $MenuOpenLinkColor;
-        top: -12px;
-        &:before {
-          content: "";
-          position: absolute;
-          left: 0;
-          top: 0.25em;
-          width: 0.8em;
-          height: 0.15em;
-          background: $MenuOpenLinkColor;
-          box-shadow:
-          0 0.25em 0 0 $MenuOpenLinkColor,
-          0 0.5em 0 0 $MenuOpenLinkColor;
+        z-index: 8;
+        background: $CategoryMenuBack;
+
+        .header-logo-content {
+          left: -1.25em;
+          position: relative;
         }
       }
-        #nav {
-          display: none;
-        }
-     }
+      .pageHeaderInner {
+        width: 100%;
+      }
+      #pageHeader {
+        width: 100%;
+      }
+      .CartHeader {
+        float: right;
+        position: relative;
+        z-index: 10;
+        top: 39px;
+      }
     }
-   }
- }
+  }
+  .mobnav-subarrow {
+    display: none;
+  }
+  #mobnav-btn {
+    display: inline-block;
+
+  }
+  .mobnav-subarrow {
+    display: block;
+    background-color: $CategoryMenuCloseSub;
+    opacity: 1;
+    height: 20px;
+    width: 30px;
+    background-position: top left !important;
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-transition: all .1s ease-in-out;
+    -moz-transition: all .1s ease-in-out;
+    -ms-transition: all .1s ease-in-out;
+    -o-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
+  }
+  .sf-menu-container {
+    height: 100%;
+    position: fixed;
+    display: none;
+    left: 0;
+    top: 0;
+    padding-top: 100px;
+    width: 100%;
+    overflow: auto;
+    &.xactive-open {
+      display: block;
+    }
+  }
+  .sf-menu {
+    width: 100% !important;
+    display: none;
+    padding: 0;
+    position: relative;
+    z-index: 3;
+    top: 4px;
+    padding: 0 6.25%;
+    &.xactive {
+      display: block !important;
+      overflow: auto;
+    }
+    li {
+      background: $CategoryMenuBack;
+      float: none !important;
+      display: block !important;
+      width: 100% !important;
+      position: relative;
+      padding: 15px 0;
+      border-bottom: 1px solid $CategoryMenuBackBorder;
+      text-align: center;
+      a {
+        font-size: 24px;
+        text-transform: uppercase;
+        color: $CategoryMenuFontColor;
+      }
+      &.superfish-close-inner {
+        border: 0;
+        padding-top: 80px;
+        a {
+          background: image-url('header/category-close.png') top left no-repeat;
+          display: inline-block;
+          width: 37px;
+          height: 37px;
+        }
+      }
+      &.xpopdrop {
+        .mobnav-subarrow {
+          background-color: $CategoryMenuOpenSub;
+        }
+        ul {
+          display: block !important;
+          padding: 0;
+          margin: 0;
+          li {
+            border-bottom: 0;
+            padding: 8px 0 8px 0;
+            &:first-child {
+              padding-top: 15px;
+            }
+            a {
+              font-size: 18px;
+              text-transform: none;
+            }
+          }
+        }
+
+      }
+    }
+    ul {
+      position: static !important;
+      display: none !important;
+    }
+  }
+}
+

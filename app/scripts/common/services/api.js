@@ -17,6 +17,10 @@
                     "getProducts": {
                         method: "POST",
                         url: categoryBaseURL + "/product/list"
+                    },
+                    "getCategories": {
+                        method: "GET",
+                        url: categoryBaseURL + "/category/tree"
                     }
                 });
             }]);

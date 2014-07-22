@@ -1,14 +1,11 @@
-<li class="ng-scope open">
-    <a href="" class="ng-scope ng-binding" target="_self" id="modal-registration">registration</a>
-</li>
-<div class="modal fade" id="form-registration" tabindex="-1" role="dialog" ng-controller="visitorController">
+<a href="" class="ng-scope ng-binding" target="_self" id="modal-registration">registration</a>
+<div class="modal fade" id="form-registration" tabindex="-1" role="dialog" ng-controller="loginController">
     <div class="modal-dialog">
 
         <div class="modal-content">
 
             <div class="modal-header">
                 REGISTRATION
-
             </div>
 
             <div class="modal-body">
@@ -41,13 +38,13 @@
                 </div>
                 <div class="social-box">
                     <div class="btn-soc">
-                        <ng-include src="getTemplate('visitor/social/facebook.html')"></ng-include>
+                        <ng-include src="getTemplate('login/social/facebook.html')"></ng-include>
                     </div>
                     <div class="btn-soc">
-                        <ng-include src="getTemplate('visitor/social/google.html')"></ng-include>
+                        <ng-include src="getTemplate('login/social/google.html')"></ng-include>
                     </div>
                     <div class="btn-soc btn-soc-right">
-                        <button class="btn btn-primary pull-right" ng-click="save()">Save</button>
+                        <button class="btn btn-primary pull-right" ng-click="save()">Register</button>
                     </div>
                 </div>
             </div>
@@ -57,7 +54,7 @@
     </div>
 </div>
 <script>
-    $("#modal-registration").click(function(){
+    $("#modal-registration").click(function () {
         $("#form-registration").modal("show");
     });
 </script>
