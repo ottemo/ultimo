@@ -21,14 +21,16 @@
 
     </div>
 </div>
-
-<div class="row">
+<div class="paginator-center">
+    <gui-paginator object="this"></gui-paginator>
+</div>
+<div class="row align-center">
     <div class="my-col-xs-1" ng-repeat="_item in productsList | filter:searchText">
 
         <div class="row">
             <div class="tile">
                 <div class="thumbnail">
-                    <div style="float: left; width: 100%; position: relative; padding-left: 15px;">
+                    <div style="float: left; width: 100%; position: relative; padding-left: 15px; margin-top: 10px">
                         <a class="col-md-2" href="#/product/{{_item._id}}">
                             <img ng-src="{{getImage(_item)}}" alt="_item.name"
                                  style="max-width: 75px; max-height: 75px;">
@@ -37,11 +39,11 @@
 
                     <div class="caption">
                         <div style="float: left; width: 100%; position: relative;">
-                            <a class="col-md-2" href="#/product/{{_item._id}}">
+                            <a class="col-md-2 prod-name" href="#/product/{{_item._id}}">
                                 <h4>{{_item.name}}</h4>
                             </a>
                         </div>
-                        <p>${{_item.price}}</p>
+                        <p>Price: ${{_item.price}}</p>
                     </div>
                 </div>
             </div>
@@ -50,4 +52,6 @@
     </div>
 </div>
 
-<gui-paginator object="this"></gui-paginator>
+<div class="paginator-center">
+    <gui-paginator object="this"></gui-paginator>
+</div>

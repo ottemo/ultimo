@@ -25,6 +25,10 @@
                         return result;
                     };
 
+                    $scope.isShow = function() {
+                        return $scope.parent.pages;
+                    };
+
                     /**
                      * Gets class for item of paginator
                      *
@@ -75,6 +79,9 @@
                                 } else {
                                     _page = $scope.parent.pages;
                                 }
+                                break;
+                            case "all":
+                                    _page = page;
                                 break;
                             default:
                                 _page = page;

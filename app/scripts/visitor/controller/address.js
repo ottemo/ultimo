@@ -10,16 +10,34 @@
                 "$loginService",
                 "$visitorApiService",
                 function ($scope, $location, $loginService, $visitorApiService) {
+                    var getFullName;
                     $scope.addresses = [];
                     $scope.address = {};
                     $scope.visitor = $loginService.getVisitor();
                     $scope.visitorService = $loginService;
 
+                    getFullName = function (obj) {
+                        return obj.zip_code +
+                            " " + obj.state +
+                            ", " + obj.city +
+                            ", " + obj.street;
+                    };
+
                     $scope.init = function () {
-                        var status = $scope.visitorService.isLoggedIn();
-                        console.log(status);
-                        if (!status) {
-                            $location.path("/");
+                        var isLoggedIn;
+                        isLoggedIn = $scope.visitorService.isLoggedIn();
+                        if (isLoggedIn === null) {
+                            $scope.visitorService.init().then(
+                                function () {
+                                    if (!$scope.visitorService.isLoggedIn()) {
+                                        $location.path("/");
+                                    }
+                                }
+                            );
+                        } else {
+                            if (!$scope.visitorService.isLoggedIn()) {
+                                $location.path("/");
+                            }
                         }
                     };
 
@@ -32,12 +50,13 @@
 
                     $scope.clearForm();
 
-                    $visitorApiService.getAddresses({"visitorId":$scope.visitor._id}).$promise.then(
+                    $visitorApiService.getAddresses({"visitorId": $scope.visitor._id}).$promise.then(
                         function (response) {
                             var result = response.result || [];
                             $scope.addresses = result;
                         }
                     );
+
 
                     /**
                      * Handler event when selecting the address in the list
@@ -48,14 +67,9 @@
                         $visitorApiService.loadAddress({"id": id}).$promise.then(
                             function (response) {
                                 var result = response.result || {};
-                                console.log(result);
-                                $scope.address = {
-                                    "Id" : result._id,
-                                    "Name" : result.zip_code +
-                                        " " + result.state +
-                                        ", " + result.city +
-                                        ", " + result.street
-                                };
+                                $scope.address = result;
+                                $scope.address.Id = result._id;
+                                $scope.address.Name = getFullName(result);
                             });
                     };
 
@@ -102,28 +116,33 @@
                          *
                          * @param response
                          */
-                        saveError = function () {};
-
-                        /**
-                         *
-                         * @param response
-                         */
-                        updateSuccess = function (response) {
-                            var i;
-                            if (response.error === "") {
-                                for (i = 0; i < $scope.addresses.length; i += 1) {
-                                    if ($scope.addresses[i].Id === response.result._id) {
-                                        $scope.addresses[i] = response.result;
-                                    }
-                                }
-                            }
+                        saveError = function () {
                         };
 
                         /**
                          *
                          * @param response
                          */
-                        updateError = function () {};
+                        updateSuccess = function (response) {
+                            var i, addr;
+                            if (response.error === "") {
+                                addr = response.result;
+                                for (i = 0; i < $scope.addresses.length; i += 1) {
+                                    if ($scope.addresses[i].Id === addr._id) {
+                                        $scope.addresses[i].Id = addr._id;
+                                        $scope.addresses[i].Name = getFullName(addr);
+                                    }
+                                }
+                            }
+                            console.log($scope.address);
+                        };
+
+                        /**
+                         *
+                         * @param response
+                         */
+                        updateError = function () {
+                        };
 
                         if (!id) {
                             $scope.address.visitor_id = $loginService.getVisitorId(); // jshint ignore:line

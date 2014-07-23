@@ -9,6 +9,9 @@
 
                 <div class="modal-header">
                     LOGIN
+                    <div class="modal-link">
+                        <a href="#" target="_self" id="modal-registration">Register</a>
+                    </div>
                 </div>
 
                 <div class="modal-body">
@@ -38,7 +41,7 @@
                             <ng-include src="getTemplate('login/social/google.html')"></ng-include>
                         </div>
                         <div class="btn-soc btn-soc-right">
-                            <button class="btn btn-primary pull-right" ng-click="login()">Login</button>
+                            <button class="btn btn-primary pull-right" ng-click="signIn()">Login</button>
                         </div>
                     </div>
                 </div>
@@ -53,5 +56,9 @@
 <script>
     $("#modal-login").click(function () {
         $("#form-login").modal("show");
+    });
+    $("#modal-registration").click(function () {
+        $(".modal").modal("hide");
+        $("#form-registration").modal("show");
     });
 </script>

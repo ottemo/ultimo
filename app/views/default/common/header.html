@@ -1,49 +1,58 @@
 <div id="pageHeader">
-        <div class="pageHeaderInner">
-    <!--Left Menu-->
-<div class="left-header-menu" ng-controller="commonSidebarController">
-        <a class="open" href="#nav"></a>
-        <div id="nav">
-            <div class="left-header-menu-inner">
-            <ul class="left-header-menu-items">
-                <li ng-repeat="item in items">
-                <a href="#/{{item.link}}" title="{{item.title}}"
-                   ng-class="it.getType(item.icon) == 'image' ? 'nav-left-link' : ''"
+    <div class="pageHeaderInner">
+        <!--Left Menu-->
+        <div class="left-header-menu" ng-controller="commonSidebarController">
+            <a class="open" href="#nav"></a>
 
-                   ng-switch="it.getType(item.icon)">
+            <div id="nav">
+                <div class="left-header-menu-inner">
+                    <ul class="left-header-menu-items">
+                        <li ng-repeat="item in items">
+                            <a href="#/{{item.link}}" title="{{item.title}}"
+                               ng-class="it.getType(item.icon) == 'image' ? 'nav-left-link' : ''"
+
+                               ng-switch="it.getType(item.icon)">
 
 
-                    <span ng-switch-when="glyphicon" class="{{item.icon}}" />
-                    <img ng-switch-when="image" class="button-image" ng-src="{{item.icon}}" />
-                    <span class="nav-left-link-text">{{item.title}}</span>
-                </a>
-                </li>
-              </ul>
+                                <span ng-switch-when="glyphicon" class="{{item.icon}}"/>
+                                <img ng-switch-when="image" class="button-image" ng-src="{{item.icon}}"/>
+                                <span class="nav-left-link-text">{{item.title}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-</div>
-<div class="CartHeader">
-      <a href="#" title=""><img src="images/header/cart.png"></a>
-    <ng-include src="getTemplate('login/registration.html')"></ng-include>
-    <ng-include src="getTemplate('login/login.html')"></ng-include>
- </div>
- <div ng-controller="commonHeaderController">
-    <div class="header-logo">
-        <div class="header-logo-content">
-            <a href="#" title="Logo" id="mobnav-btn">
-                <img src="images/header/logo.png" alt="" />
-            </a>
+        <div class="CartHeader">
+            <ul>
+                <li>
+                    <a href="" title="" target="_self" id="cart-menu"><img src="images/header/cart.png"></a>
+                    <ul class="hidden">
+                        <li>
+                            <ng-include src="getTemplate('login/login.html')"></ng-include>
+                            <ng-include src="getTemplate('login/registration.html')"></ng-include>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </div>
-    </div>
-    <div class="sf-menu-container">
-        <ul class="sf-menu">
-            <li ng-repeat="item in categories;" ng-include="getTemplate('common/header/menuItem.html')"></li>
-            <li class="superfish-close-inner"><a class="superfish-close" href="" target="_self">&nbsp;</a></li>
-        </ul>
-    </div>
- </div>
+        <div ng-controller="commonHeaderController">
+            <div class="header-logo">
+                <div class="header-logo-content">
+                    <a href="#" title="Logo" id="mobnav-btn">
+                        <img src="images/header/logo.png" alt=""/>
+                    </a>
+                </div>
+            </div>
+            <div class="sf-menu-container">
+                <ul class="sf-menu">
+                    <li ng-repeat="item in categories;" ng-include="getTemplate('common/header/menuItem.html')"></li>
+                    <li class="superfish-close-inner"><a class="superfish-close" href="" target="_self">&nbsp;</a></li>
+                </ul>
+            </div>
+        </div>
 
-</div>
+    </div>
 </div>
 <script type="text/javascript">
     jQuery(".open").pageslide();
@@ -53,18 +62,25 @@
                 jQuery('.sf-menu-container').toggleClass('xactive-open');
                 jQuery('html, body').toggleClass('category-open');
                 jQuery('li').removeClass('xpopdrop');
-            });
+            }
+    );
     jQuery('.mobnav-subarrow').click(
             function () {
                 jQuery(this).parent().toggleClass("xpopdrop");
-            });
+            }
+    );
     jQuery('.superfish-close').click(
             function () {
                 jQuery('ul').removeClass("xactive");
                 jQuery('.sf-menu-container').removeClass('xactive-open');
                 jQuery('html, body').removeClass('category-open');
                 jQuery('li').removeClass('xpopdrop');
-            });
-
+            }
+    );
+    jQuery('#cart-menu').click(
+            function () {
+                jQuery(this).parent().find("ul").toggleClass("hidden");
+            }
+    );
 </script>
 

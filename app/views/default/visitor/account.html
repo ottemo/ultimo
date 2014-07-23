@@ -3,7 +3,7 @@
 
         <!-- AVATAR -->
         <div class="block-avatar">
-            <img ng-src="{{visitorService.getAvatar()}}" alt="{{visitorService.getFullName()}}">
+            <a href="#/account"><img ng-src="{{visitorService.getAvatar()}}" alt="{{visitorService.getFullName()}}"></a>
         </div>
         <!-- MENU -->
         <ng-include src="getTemplate('visitor/account/menu.html')"></ng-include>

@@ -16,6 +16,8 @@
                     $scope.loginCredentials = {};
 
                     $scope.save = function () {
+                        delete $scope.login.billing_address_id;
+                        delete $scope.login.shipping_address_id;
                         $loginApiService.register($scope.login).$promise.then(
                             function (response) {
                                 console.log(response);
@@ -24,7 +26,7 @@
                         $(".modal").modal("hide");
                     };
 
-                    $scope.login = function () {
+                    $scope.signIn = function () {
                         $loginApiService.login($scope.loginCredentials).$promise.then(function (response) {
                             if (response.result === "ok") {
                                 $loginService.init().then(

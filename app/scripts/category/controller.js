@@ -10,12 +10,27 @@
                 "$categoryApiService",
                 "$designImageService",
                 function ($scope, $routeParams, $categoryApiService, $designImageService) {
-                    var getLimit;
+                    var getLimit, getPage;
+
+                    getPage = function () {
+                        var param, page;
+
+                        page = 0;
+                        param = $routeParams.currentPage;
+
+                        if (param === "all") {
+                            page = param;
+                        } else {
+                            page = (param - 1) || 0;
+                        }
+
+                        return page;
+                    }
                     /**
                      * Variables for paginator
                      */
-                    $scope.currentPage = ($routeParams.currentPage - 1) || 0;
-                    $scope.itemsPerPage = 2;
+                    $scope.currentPage = getPage();
+                    $scope.itemsPerPage = 5;
 
                     $scope.productsList = [];
                     $scope.paths = [];
@@ -23,14 +38,33 @@
                     $scope.uri = "/category/" + $routeParams.id + "/p/:page";
                     $scope.category = {};
 
+
                     $scope.blocks = {
                         "sort": false,
                         "search": false,
                         "filter": false
                     };
 
-                    $scope.toggleBlock = function (block) {
-                        return $scope.blocks[block] ? $scope.blocks[block] = false : $scope.blocks[block] = true;
+                    $scope.toggleBlock = function (activeBlock) {
+                        var block;
+
+                        for (block in $scope.blocks) {
+
+                            if ($scope.blocks.hasOwnProperty(block)) {
+                                if (block === activeBlock) {
+                                    if ($scope.blocks[block]) {
+                                        $scope.blocks[block] = false;
+                                    } else {
+                                        $scope.blocks[block] = true;
+                                    }
+                                } else {
+                                    $scope.blocks[block] = false;
+                                }
+                            }
+
+                        }
+
+                        return true;
                     };
 
                     /**
@@ -40,6 +74,9 @@
                      */
                     getLimit = function () {
                         var limit, start, count;
+                        if ($scope.currentPage === "all"){
+                            return "0,-1";
+                        }
                         limit = [];
                         count = $scope.itemsPerPage;
                         start = $scope.currentPage * $scope.itemsPerPage;
@@ -55,7 +92,11 @@
                         function (response) {
                             var result = response.result || [];
                             $scope.totalItems = result;
-                            $scope.pages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
+                            if ($scope.currentPage === "all"){
+                                $scope.pages = 0;
+                            } else {
+                                $scope.pages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
+                            }
                         }
                     );
 

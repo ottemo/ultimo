@@ -57,6 +57,9 @@
             <option value="11">11</option>
         </select>
     </div>
+    <div>
+        <span id="short_description">{{product.short_description}}</span>
+    </div>
     <h3>Total: ${{getTotal() | number : 2}}</h3>
     <button type="button" class="btn btn-warning glyphicon glyphicon-plus"> Cart</button>
 </div>
@@ -77,6 +80,23 @@
                 <div id="collapseDetails" class="panel-collapse collapse">
                     <div class="panel-body">
                         {{product.description}}
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseReviews"
+                           target="_self">
+                            Reviews
+                        </a>
+                    </h4>
+                </div>
+
+                <div id="collapseReviews" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        &nbsp;
                     </div>
                 </div>
             </div>

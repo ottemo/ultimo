@@ -94,7 +94,6 @@
                                     cleanLogin();
                                     deferIsLoggedIn.resolve(isLoggedIn);
                                 }
-                                console.log("Login init = " + isLoggedIn);
                             }
 
                         );
@@ -111,22 +110,6 @@
                         deferLogOut.resolve(true);
 
                         return deferLogOut.promise;
-                    };
-
-                    getVisitorProperty = function (field) {
-                        var res, i, f;
-                        for (res in mapFields) {
-                            if (mapFields.hasOwnProperty(res)) {
-                                for (i = 0; i < mapFields[res].length; i += 1) {
-                                    f = mapFields[res][i];
-                                    if (f === field) {
-                                        return res;
-                                    }
-                                }
-                            }
-                        }
-
-                        return null;
                     };
 
                     setLogin = function (obj) {

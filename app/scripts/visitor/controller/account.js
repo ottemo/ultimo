@@ -27,9 +27,20 @@
                     };
 
                     $scope.init = function () {
-                        console.log("isLoggedIn = " + $scope.visitorService.isLoggedIn());
-                        if (!$scope.visitorService.isLoggedIn()) {
-                            $location.path("/");
+                        var isLoggedIn;
+                        isLoggedIn = $scope.visitorService.isLoggedIn();
+                        if (isLoggedIn === null) {
+                            $scope.visitorService.init().then(
+                                function () {
+                                    if (!$scope.visitorService.isLoggedIn()) {
+                                        $location.path("/");
+                                    }
+                                }
+                            );
+                        } else {
+                            if (!$scope.visitorService.isLoggedIn()) {
+                                $location.path("/");
+                            }
                         }
                     };
 
@@ -55,19 +66,17 @@
                     $scope.updateDefaultAddress = function () {
                         delete $scope.visitor.billing_address; // jshint ignore:line
                         delete $scope.visitor.shipping_address; // jshint ignore:line
-                        if($scope.visitor.shipping_address_id === ""){
+                        if ($scope.visitor.shipping_address_id === "") {
                             delete $scope.visitor.shipping_address_id;
                         }
-                        if($scope.visitor.billing_address_id === ""){
+                        if ($scope.visitor.billing_address_id === "") {
                             delete $scope.visitor.billing_address_id;
                         }
                         $visitorApiService.update($scope.visitor).$promise.then(
-
                             function (response) {
                                 $loginService.setLogin(response.result);
                                 $scope.visitor = $loginService.getVisitor();
                             }
-
                         );
                     };
 

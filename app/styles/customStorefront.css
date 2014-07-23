@@ -8,7 +8,7 @@
 }
 
 .my-col-xs-1 {
-    float: left;
+    display: inline-block;
     width: 170px;
     margin: 0 10px;
 }
@@ -171,4 +171,27 @@ span.buttonText {
 .input-group-btn{
     float: left !important;
     width: 72px !important;;
+}
+.CartHeader li {
+    list-style-type: none;
+}
+.modal-link{
+    float: right;
+}
+.paginator-center{
+    float: left;
+    margin: 0 15px;
+    width: 100%;
+    text-align: center;
+}
+.prod-name {
+    padding: 0px !important;
+    width: 100% !important;
+}
+
+.prod-name h4{
+    min-height: 85px;
+}
+.align-center{
+    text-align: center;
 }
