@@ -9,7 +9,8 @@
                 "$routeParams",
                 "$categoryApiService",
                 "$designImageService",
-                function ($scope, $routeParams, $categoryApiService, $designImageService) {
+                "$commonBreadcrumbsService",
+                function ($scope, $routeParams, $categoryApiService, $designImageService, $commonBreadcrumbsService) {
                     var getLimit, getPage;
 
                     getPage = function () {
@@ -44,6 +45,13 @@
                         "search": false,
                         "filter": false
                     };
+
+                    $scope.$on("give-me-breadcrumbs", function(event, args) {
+console.log(event)
+console.log(args)
+                        $commonBreadcrumbsService.addItem("Category", "#/category/53cf83ab6bc4de4734000001/");
+                    });
+
 
                     $scope.toggleBlock = function (activeBlock) {
                         var block;

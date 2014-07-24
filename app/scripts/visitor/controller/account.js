@@ -30,10 +30,16 @@
 
                     var checkPassword = function () {
                         var status;
-                        if ($scope.changePswCredentials.password === $scope.changePswCredentials.confirm) {
+                        if(typeof $scope.changePswCredentials.password === "undefined" ||
+                            $scope.changePswCredentials.password.trim() === ""){
+                            $scope.changeMsg = "Password can not be blank";
+                            $scope.isCoincide = false;
+                            status = false;
+                        } else if ($scope.changePswCredentials.password === $scope.changePswCredentials.confirm) {
                             $scope.isCoincide = true;
                             status = true;
                         } else {
+                            $scope.changeMsg = "Passwords don't match";
                             $scope.isCoincide = false;
                             status = false;
                         }
@@ -62,12 +68,7 @@
                         delete $scope.visitor.password;
                         delete $scope.visitor.billing_address;
                         delete $scope.visitor.shipping_address;
-                        $visitorApiService.update($scope.visitor).$promise.then(
-                            function (response) {
-                                var result = response.result || [];
-                                console.log(result);
-                            }
-                        );
+                        $visitorApiService.update($scope.visitor);
                     };
 
                     $scope.changePassword = function () {
@@ -81,6 +82,11 @@
                             $("#not-match").show().delay(1000).fadeOut();
                         }
                     };
+
+                    $scope.closePopUp = function() {
+                        $(".modal").modal("hide");
+                    };
+
 
                     $scope.shippingUpdate = function () {
                         $scope.visitor.shipping_address.id = $scope.visitor.shipping_address_id; // jshint ignore:line

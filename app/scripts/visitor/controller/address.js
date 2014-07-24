@@ -134,7 +134,6 @@
                                     }
                                 }
                             }
-                            console.log($scope.address);
                         };
 
                         /**

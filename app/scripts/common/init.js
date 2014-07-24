@@ -28,24 +28,36 @@
                         .otherwise({ redirectTo: "/"});
                 }])
 
-                .run(["$designService", "$route", "$http", "$commonSidebarService", function ($designService, $route, $http, $commonSidebarService) {
+                .run([
+                    "$rootScope",
+                    "$designService",
+                    "$route",
+                    "$http",
+                    "$commonSidebarService",
+                    "$commonBreadcrumbsService",
+                    function ($rootScope, $designService, $route, $http, $commonSidebarService, $commonBreadcrumbsService) {
 
-                    // ajax cookies support fix
-                    $http.defaults.withCredentials = true;
-                    delete $http.defaults.headers.common["X-Requested-With"];
+                        // ajax cookies support fix
+                        $http.defaults.withCredentials = true;
+                        delete $http.defaults.headers.common["X-Requested-With"];
 
-                    $designService.setTheme("default");
-                    $commonSidebarService.addItem("Home", "", "glyphicon glyphicon-home");
-                    $commonSidebarService.addItem("CONTACTS", "contacts", "glyphicon glyphicon-user");
-                    $commonSidebarService.addItem("BLOG", "blog", "glyphicon glyphicon-edit");
-                    $commonSidebarService.addItem("STOCKISTS", "stockists", "glyphicon glyphicon-screenshot");
-                    $commonSidebarService.addItem("ABOUT", "about", "glyphicon glyphicon-info-sign");
-                    $commonSidebarService.addItem("PRESS", "press", "glyphicon glyphicon-book");
+                        // Left navigation menu
+                        $designService.setTheme("default");
+                        $commonSidebarService.addItem("Home", "", "glyphicon glyphicon-home");
+                        $commonSidebarService.addItem("CONTACTS", "contacts", "glyphicon glyphicon-user");
+                        $commonSidebarService.addItem("BLOG", "blog", "glyphicon glyphicon-edit");
+                        $commonSidebarService.addItem("STOCKISTS", "stockists", "glyphicon glyphicon-screenshot");
+                        $commonSidebarService.addItem("ABOUT", "about", "glyphicon glyphicon-info-sign");
+                        $commonSidebarService.addItem("PRESS", "press", "glyphicon glyphicon-book");
 
+                        // Breadcrumbs
+                        $commonBreadcrumbsService.addItem("Home", "#");
 
-                    // hack to allow browser page refresh work with routes
-                    $route.reload();
-                }]);
+                        // hack to allow browser page refresh work with routes
+                        $route.reload();
+                    }
+                ]
+            );
 
             return angular.module.commonModule;
         });

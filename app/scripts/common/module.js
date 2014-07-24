@@ -10,6 +10,7 @@
 
             "common/service/api",
             "common/service/header",
+            "common/service/breadcrumbs",
             "common/service/sidebar"
         ],
         function (commonModule) {

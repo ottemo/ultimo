@@ -26,11 +26,7 @@
                     $scope.save = function () {
                         delete $scope.login.billing_address_id;
                         delete $scope.login.shipping_address_id;
-                        $loginApiService.register($scope.login).$promise.then(
-                            function (response) {
-                                console.log(response);
-                            }
-                        );
+                        $loginApiService.register($scope.login);
                         $(".modal").modal("hide");
                     };
 

@@ -206,3 +206,10 @@ span.buttonText {
 .sf-menu-container ul.active{
     display: block !important;
 }
+.GlobalBreadcrumbs {
+    position: absolute;
+    margin-top: 105px;
+}
+.GlobalBreadcrumbs div{
+    display: inherit;
+}

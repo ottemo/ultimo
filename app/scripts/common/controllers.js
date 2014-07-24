@@ -20,6 +20,11 @@
                 );
             }])
 
+            .controller("commonBreadcrumbsController", ["$scope", "$commonBreadcrumbsService", function ($scope, $commonBreadcrumbsService) {
+                $scope.it = $commonBreadcrumbsService;
+                $scope.crumbs = $commonBreadcrumbsService.getItems();
+            }])
+
             .controller("commonSidebarController", ["$scope", "$commonSidebarService", function ($scope, $commonSidebarService) {
                 $scope.it = $commonSidebarService;
                 $scope.items = $commonSidebarService.getItems();
@@ -37,7 +42,9 @@
 
                 $scope.products = [];
 
-
+//                        $rootScope.$on("$locationChangeSuccess", function () {
+//                $scope.$broadcast("give-me-breadcrumbs");
+//                        });
 
                 $commonApiService.getProducts({
                     "limit": "0,5"

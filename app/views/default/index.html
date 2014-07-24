@@ -4,6 +4,10 @@
             <ng-include src="getTemplate('common/header.html')"></ng-include>
         </div>
 
+        <div id="cellPageBreadcrumbs" class="GlobalBreadcrumbs">
+            <ng-include src="getTemplate('common/breadcrumbs.html')"></ng-include>
+        </div>
+
         <div id="cellPageContent">
             <ng-view></ng-view>
             <ng-include src="getTemplate('login/login.html')"></ng-include>
