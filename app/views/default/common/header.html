@@ -76,5 +76,12 @@
                 jQuery(this).parent().find("ul").toggleClass("hidden");
             }
     );
+
+    jQuery(window).resize( function(event) {
+        pageHeight = jQuery(window).height();
+        headerHeight = 125; //jQuery('#pageHeader').height();
+        
+        jQuery('#cellPageContent').css({'height': pageHeight - headerHeight });
+    });
 </script>
 

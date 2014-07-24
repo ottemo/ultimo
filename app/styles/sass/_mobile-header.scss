@@ -1,6 +1,17 @@
 /* Mobile Header Styles */
 
-@media only screen and (min-width: 320px) and (max-width: 720px) {
+/* @media only screen and (min-width: 320px) and (max-width: 720px) { */
+
+  #cellPageContent {
+    margin-top: 125px;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: inline;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
   .category-open {
     overflow: hidden !important;
   }
@@ -156,5 +167,4 @@
       display: none !important;
     }
   }
-}
-
+/* } */
