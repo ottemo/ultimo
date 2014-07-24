@@ -15,20 +15,23 @@
         <input type="text" class="editable hidden" ng-model="visitor.lname" id="visitor-lname">
     </div>
     <div>
-        <button type="submit" class="editable hidden btn-save" id="account-save" ng-click="update()">Save
-        </button>
+
+
     </div>
-    <button type="submit" id="account-edit">Edit</button>
+    <button type="submit" id="account-edit" class="btn btn-primary">Edit</button>
+    <button type="submit" class="btn btn-primary hidden" id="account-save" ng-click="update()">Save</button>
 </div>
 <script>
     $("#account-edit").click(function () {
         $(".profile").find("label").hide();
         $(".profile").find(".editable").removeClass("hidden");
-
-    })
+        $("#account-save").removeClass("hidden");
+        $("#account-edit").addClass("hidden");
+    });
     $("#account-save").click(function () {
         $(".profile").find("label").show();
         $(".profile").find(".editable").addClass("hidden");
-
-    })
+        $("#account-save").addClass("hidden");
+        $("#account-edit").removeClass("hidden");
+    });
 </script>

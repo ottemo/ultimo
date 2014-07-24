@@ -26,15 +26,34 @@
             }])
 
             .controller("commonController", ["$scope", "$commonApiService", "$designImageService", function ($scope, $commonApiService, $designImageService) {
+                var splitName;
+                splitName = function (string) {
+                    var parts;
+                    var regExp = /\[(.+)\](.+)/i;
+                    parts = string.match(regExp);
+
+                    return parts;
+                };
+
                 $scope.products = [];
+
 
 
                 $commonApiService.getProducts({
                     "limit": "0,5"
                 }).$promise.then(
                     function (response) {
-                        var result = response.result || [];
-                        $scope.products = result;
+                        var result, i, parts;
+                        result = response.result || [];
+                        for(i = 0; i < result.length; i += 1) {
+                            parts = splitName(result[i].Name);
+                            $scope.products.push({
+                                "Id" : result[i].Id,
+                                "Image" : result[i].Image,
+                                "Name" : parts[1],
+                                "Sku" : parts[2]
+                            });
+                        }
                     }
                 );
 

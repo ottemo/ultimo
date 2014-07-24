@@ -5,6 +5,7 @@
         <div class="block-avatar">
             <a href="#/account"><img ng-src="{{visitorService.getAvatar()}}" alt="{{visitorService.getFullName()}}"></a>
         </div>
+
         <!-- MENU -->
         <ng-include src="getTemplate('visitor/account/menu.html')"></ng-include>
 
@@ -14,6 +15,10 @@
         <!-- HELLO -->
         <div class="block-hello">
             Hello, {{visitorService.getFullName()}}
+            <!-- LogOut -->
+            <div class="btn-account-logout" ng-controller="loginController">
+                <button type="button" class="btn btn-primary" ng-click="logout()">Logout</button>
+            </div>
         </div>
 
         <!-- PROFILE DETAILS AND EDIT FORM -->
@@ -26,4 +31,6 @@
         <ng-include src="getTemplate('visitor/account/shipping-address.html')"></ng-include>
 
     </div>
+    <!-- Change password popUp -->
+    <ng-include src="getTemplate('visitor/account/change-password.html')"></ng-include>
 </div>

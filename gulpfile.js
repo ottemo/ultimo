@@ -26,7 +26,7 @@
     var sources = {
         app: require('./bower.json').appPath || './app',
         dist: './dist',
-        serverPort: 9000,
+        serverPort: 8080,
         liveReloadPort: 35729
     };
 

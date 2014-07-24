@@ -119,9 +119,15 @@ span.buttonText {
 .account-left {
     width: 20%;
     float: left;
-    margin: 10 20px;
-    padding: 10px;
+    margin: 10px 20px;
     min-height: 580px;
+}
+
+.account-right {
+    width: 72%;
+    float: left;
+    margin: 10px 20px;
+    padding: 10px;
 }
 
 .block-avatar {
@@ -138,19 +144,12 @@ span.buttonText {
     height: 120px;
 }
 
-.account-right {
-    width: 80%;
-    float: left;
-    margin: 10 20px;
-    padding: 10px;
-}
-
 .block-details {
     border: 2px solid #b3b3b3;
     border-radius: 7px;
     padding: 10px;
     min-height: 100px;
-    margin: 0 10px 15px 0px;
+    margin: 0 0 15px 0;
 
 }
 
@@ -194,4 +193,10 @@ span.buttonText {
 }
 .align-center{
     text-align: center;
+}
+.btn-account-logout {
+    float: right;
+}
+.label-middle{
+    width: 135px !important;
 }

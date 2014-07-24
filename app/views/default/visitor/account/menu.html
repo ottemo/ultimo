@@ -5,10 +5,15 @@
         <li><a href="">Payments</a></li>
         <li><a href="">Shippings</a></li>
         <hr/>
-        <li><a href="#/account/address">Addresses</a></li>
+        <li><a href="#/account/address"><b>Addresses</b></a></li>
         <hr/>
         <li><a href="">Messages</a></li>
         <hr/>
-        <li><a href="">ChangePassword</a></li>
+        <li><a href="" id="changePassword"><b>ChangePassword</b></a></li>
     </ul>
 </div>
+<script>
+    jQuery("#changePassword").on("click", function () {
+        jQuery("#form-change-password").modal("show");
+    });
+</script>

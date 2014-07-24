@@ -1,4 +1,4 @@
-(function (define) {
+(function (define, $) {
     "use strict";
 
     define(["login/init", "login/service/google"], function (loginModule, gl) {
@@ -14,6 +14,14 @@
                     $loginService.init();
                     $scope.login = $loginService.getVisitor();
                     $scope.loginCredentials = {};
+
+                    $scope.clickToCart = function () {
+                        if ($loginService.isLoggedIn()) {
+                            $location.path("/account");
+                        } else {
+                            $("#form-login").modal("show");
+                        }
+                    };
 
                     $scope.save = function () {
                         delete $scope.login.billing_address_id;
@@ -40,7 +48,15 @@
                     };
 
                     $scope.logout = function () {
-                        $loginService.logout();
+                        $loginService.logout().then(
+                            function(){
+                                $location.path("/");
+                            }
+                        );
+                    };
+
+                    $scope.isLoggedIn = function () {
+                        return $loginService.isLoggedIn();
                     };
 
                     $scope.facebookLogin = function () {
@@ -68,7 +84,7 @@
                         gl.login();
                     };
 
-                    window.loginCallback = $scope.loginCallback = function (response) {
+                    $scope.loginCallback = window.loginCallback = function (response) {
                         var data = gl.loginCallback(response);
                         $loginApiService.loginGoolge(data).$promise.then(
                             function () {
@@ -81,12 +97,8 @@
                             }
                         );
                     };
-
-                    $scope.isLoggedIn = function () {
-                        return $loginService.isLoggedIn();
-                    };
                 }
             ]);
         return loginModule;
     });
-})(window.define);
+})(window.define, jQuery);

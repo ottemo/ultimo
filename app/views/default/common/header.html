@@ -23,16 +23,10 @@
                 </div>
             </div>
         </div>
-        <div class="CartHeader">
+        <div class="CartHeader" ng-controller="loginController">
             <ul>
                 <li>
-                    <a href="" title="" target="_self" id="cart-menu"><img src="images/header/cart.png"></a>
-                    <ul class="hidden">
-                        <li>
-                            <ng-include src="getTemplate('login/login.html')"></ng-include>
-                            <ng-include src="getTemplate('login/registration.html')"></ng-include>
-                        </li>
-                    </ul>
+                    <a href="" title="" target="_self" id="cart-menu" ng-click="clickToCart()"><img src="images/header/cart.png"></a>
                 </li>
             </ul>
         </div>

@@ -170,7 +170,9 @@
                         isLoggedIn: fIsLoggedIn,
                         logout: logout
                     };
-                }]);
+                }
+            ]
+        );
 
         return productModule;
     });

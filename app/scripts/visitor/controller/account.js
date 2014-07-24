@@ -16,6 +16,8 @@
                     $scope.address = {};
                     $scope.visitor = $loginService.getVisitor();
                     $scope.visitorService = $loginService;
+                    $scope.changePswCredentials = {};
+                    $scope.isCoincide = false;
 
                     var getAddressList = function () {
                         $visitorApiService.getAddresses({"visitorId": $scope.visitor._id}).$promise.then(
@@ -25,6 +27,18 @@
                             }
                         );
                     };
+
+                    var checkPassword = function () {
+                        var status;
+                        if ($scope.changePswCredentials.password === $scope.changePswCredentials.confirm) {
+                            $scope.isCoincide = true;
+                            status = true;
+                        } else {
+                            $scope.isCoincide = false;
+                            status = false;
+                        }
+                        return status;
+                    }
 
                     $scope.init = function () {
                         var isLoggedIn;
@@ -45,12 +59,27 @@
                     };
 
                     $scope.update = function () {
+                        delete $scope.visitor.password;
+                        delete $scope.visitor.billing_address;
+                        delete $scope.visitor.shipping_address;
                         $visitorApiService.update($scope.visitor).$promise.then(
                             function (response) {
                                 var result = response.result || [];
                                 console.log(result);
                             }
                         );
+                    };
+
+                    $scope.changePassword = function () {
+                        if (checkPassword()) {
+                            $visitorApiService.update($scope.changePswCredentials).$promise.then(
+                                function () {
+                                    $(".modal").modal("hide");
+                                }
+                            );
+                        } else {
+                            $("#not-match").show().delay(1000).fadeOut();
+                        }
                     };
 
                     $scope.shippingUpdate = function () {
@@ -81,6 +110,7 @@
                     };
 
                     $scope.$watch("visitor", getAddressList);
+                    $scope.$watch("changePswCredentials", checkPassword);
                 }
             ]);
         return visitorModule;

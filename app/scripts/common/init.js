@@ -36,7 +36,6 @@
 
                     $designService.setTheme("default");
                     $commonSidebarService.addItem("Home", "", "glyphicon glyphicon-home");
-//                    $commonSidebarService.addItem("ACCOUNT", "account", "glyphicon glyphicon-user");
                     $commonSidebarService.addItem("CONTACTS", "contacts", "glyphicon glyphicon-user");
                     $commonSidebarService.addItem("BLOG", "blog", "glyphicon glyphicon-edit");
                     $commonSidebarService.addItem("STOCKISTS", "stockists", "glyphicon glyphicon-screenshot");

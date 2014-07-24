@@ -6,6 +6,8 @@
 
         <div id="cellPageContent">
             <ng-view></ng-view>
+            <ng-include src="getTemplate('login/login.html')"></ng-include>
+            <ng-include src="getTemplate('login/registration.html')"></ng-include>
         </div>
 
         <div id="cellPageFooter">
