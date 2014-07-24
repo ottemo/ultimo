@@ -1,7 +1,8 @@
 <!--Slider Block-->
 <div class="col-md-3">
 
-    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel"
+         ng-show="productImages.length">
         <!-- Indicators -->
         <ol class="carousel-indicators">
             <li data-target="#carousel-example-generic" ng-repeat="img in productImages" data-slide-to="{{$index}}"
@@ -24,6 +25,9 @@
            data-slide="next">
             <span class="glyphicon glyphicon-chevron-right"></span>
         </a>
+    </div>
+    <div class="item" ng-hide="productImages.length">
+        <img src="images/placeholder.png" alt="" class="img-thumbnail" width="250px" height="250px"/>
     </div>
 
 </div>

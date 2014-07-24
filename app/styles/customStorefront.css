@@ -200,3 +200,9 @@ span.buttonText {
 .label-middle{
     width: 135px !important;
 }
+.sf-menu-container ul{
+    display: none;
+}
+.sf-menu-container ul.active{
+    display: block !important;
+}
