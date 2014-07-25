@@ -14,19 +14,20 @@
         <div class="row">
             <div class="tile">
                 <div class="thumbnail">
-                    <div style="float: left; width: 100%; position: relative; padding-left: 15px; margin-top: 10px">
-                        <a class="col-md-2" href="#/product/{{_item.Id}}">
+                    <div>
+                        <a class="" href="#/product/{{_item.Id}}">
                             <img ng-src="{{getImage(_item.Image)}}" alt="_item.Name"
                                  style="max-width: 75px; max-height: 75px;">
                         </a>
                     </div>
 
                     <div class="caption">
-                        <div style="float: left; width: 100%; position: relative;">
-                            <a class="col-md-2" href="#/product/{{_item.Id}}">
+                        <div>
+                            <a class="" href="#/product/{{_item.Id}}">
                                 <h4>{{_item.Name}}</h4>
                             </a>
                         </div>
+                        <p>Price: ${{_item.Price | number : 2}}</p>
                     </div>
                 </div>
             </div>

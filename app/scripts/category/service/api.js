@@ -36,6 +36,10 @@
                             mediaType: "@mediaType"
                         },
                         url: REST_SERVER_URI + "/product/media/path/:productId/:mediaType"
+                    },
+                    "getCategories": {
+                        method: "GET",
+                        url: categoryBaseURL + "/tree"
                     }
                 });
             }]);

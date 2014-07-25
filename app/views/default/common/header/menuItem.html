@@ -10,8 +10,6 @@
     toggleChild = function(el){
         var isActive;
         isActive = jQuery(el).parent().find("ul:first").hasClass("active");
-        console.log(isActive)
-        console.log(jQuery(el).parent().find("ul:first"))
         if(isActive){
             jQuery(el).parent().find("ul").removeClass("active");
         } else {

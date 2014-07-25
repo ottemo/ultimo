@@ -9,9 +9,9 @@
                 "$routeParams",
                 "$categoryApiService",
                 "$designImageService",
-                "$commonBreadcrumbsService",
-                function ($scope, $routeParams, $categoryApiService, $designImageService, $commonBreadcrumbsService) {
-                    var getLimit, getPage;
+                "$categoryService",
+                function ($scope, $routeParams, $categoryApiService, $designImageService, $categoryService) {
+                    var getLimit, getPage, addCategoryCrumbs;
 
                     getPage = function () {
                         var param, page;
@@ -26,7 +26,19 @@
                         }
 
                         return page;
-                    }
+                    };
+
+                    addCategoryCrumbs = function () {
+                        var list, i, category;
+
+                        list = $categoryService.getChainCategories($scope.categoryId);
+
+                        for (i = 0; i < list.length; i += 1) {
+                            category = list[i];
+                            $scope.$emit("add-breadcrumbs", {"label": category.name, "url": "/category/" + category.id + "/"});
+                        }
+                    };
+
                     /**
                      * Variables for paginator
                      */
@@ -39,19 +51,26 @@
                     $scope.uri = "/category/" + $routeParams.id + "/p/:page";
                     $scope.category = {};
 
-
                     $scope.blocks = {
                         "sort": false,
                         "search": false,
                         "filter": false
                     };
 
-                    $scope.$on("give-me-breadcrumbs", function(event, args) {
-console.log(event)
-console.log(args)
-                        $commonBreadcrumbsService.addItem("Category", "#/category/53cf83ab6bc4de4734000001/");
-                    });
+                    $scope.init = function () {
+                        var tree;
 
+                        tree = $categoryService.getTree();
+                        if (typeof tree === "undefined") {
+                            $categoryApiService.getCategories().$promise.then(
+                                function (response) {
+                                    var categories = response.result || [];
+                                    $categoryService.setTree(categories);
+                                    addCategoryCrumbs();
+                                }
+                            );
+                        }
+                    };
 
                     $scope.toggleBlock = function (activeBlock) {
                         var block;
@@ -82,7 +101,7 @@ console.log(args)
                      */
                     getLimit = function () {
                         var limit, start, count;
-                        if ($scope.currentPage === "all"){
+                        if ($scope.currentPage === "all") {
                             return "0,-1";
                         }
                         limit = [];
@@ -100,7 +119,7 @@ console.log(args)
                         function (response) {
                             var result = response.result || [];
                             $scope.totalItems = result;
-                            if ($scope.currentPage === "all"){
+                            if ($scope.currentPage === "all") {
                                 $scope.pages = 0;
                             } else {
                                 $scope.pages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
@@ -161,6 +180,7 @@ console.log(args)
                         });
                     };
 
+                    $scope.$watch("categoryId", addCategoryCrumbs);
                 }
             ]);
         return categoryModule;

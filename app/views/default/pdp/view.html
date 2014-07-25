@@ -38,11 +38,19 @@
     </div>
     <div>
         <label for="sku">Sku:</label>
-        <span id="sku">{{product.sku}}</span>
+        <span id="sku"> {{product.sku}}</span>
     </div>
     <div>
         <label for="price">Price:</label>
-        <span id="price"><b>$</b>{{product.price}}</span>
+        <span id="price"> <b>$</b>{{product.price}}</span>
+    </div>
+    <div>
+        <label for="size">Size:</label>
+        <span id="size"> {{product.size}}</span>
+    </div>
+    <div>
+        <label for="weight">Weight:</label>
+        <span id="weight"> {{product.weight}}</span>
     </div>
 
     <div>
@@ -62,6 +70,7 @@
         </select>
     </div>
     <div>
+        <br />
         <span id="short_description">{{product.short_description}}</span>
     </div>
     <h3>Total: ${{getTotal() | number : 2}}</h3>

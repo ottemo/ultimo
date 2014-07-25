@@ -25,6 +25,11 @@
 
                     $scope.init = function () {
                         var isLoggedIn;
+
+                        // BREADCRUMBS
+                        $scope.$emit("add-breadcrumbs", {"label": "myAccount", "url": "/account"});
+                        $scope.$emit("add-breadcrumbs", {"label": "Addresses", "url": "/account/address"});
+
                         isLoggedIn = $scope.visitorService.isLoggedIn();
                         if (isLoggedIn === null) {
                             $scope.visitorService.init().then(

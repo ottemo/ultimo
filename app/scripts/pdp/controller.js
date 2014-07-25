@@ -23,6 +23,9 @@
                     function (response) {
                         var result = response.result || defaultProduct();
                         $scope.product = result;
+
+                        // BREADCRUMBS
+                        $scope.$emit("add-breadcrumbs", {"label": $scope.product.name, "url": "/product/"+$scope.product._id + "/"});
                     }
                 );
 

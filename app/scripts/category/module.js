@@ -7,6 +7,7 @@
      */
     define([
             "category/service/api",
+            "category/service/category",
             "category/controller"
         ],
         function (categoryModule) {

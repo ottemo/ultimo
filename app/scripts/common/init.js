@@ -34,8 +34,7 @@
                     "$route",
                     "$http",
                     "$commonSidebarService",
-                    "$commonBreadcrumbsService",
-                    function ($rootScope, $designService, $route, $http, $commonSidebarService, $commonBreadcrumbsService) {
+                    function ($rootScope, $designService, $route, $http, $commonSidebarService) {
 
                         // ajax cookies support fix
                         $http.defaults.withCredentials = true;
@@ -49,9 +48,6 @@
                         $commonSidebarService.addItem("STOCKISTS", "stockists", "glyphicon glyphicon-screenshot");
                         $commonSidebarService.addItem("ABOUT", "about", "glyphicon glyphicon-info-sign");
                         $commonSidebarService.addItem("PRESS", "press", "glyphicon glyphicon-book");
-
-                        // Breadcrumbs
-                        $commonBreadcrumbsService.addItem("Home", "#");
 
                         // hack to allow browser page refresh work with routes
                         $route.reload();

@@ -1,7 +1,7 @@
 (function (define) {
     "use strict";
 
-    /*
+    /**
      *  HTML top page header manipulation stuff
      */
     define([
@@ -10,15 +10,15 @@
         function (commonModule) {
 
             commonModule
-                /*
+                /**
                  *  $commonBreadcrumbsService implementation
                  */
                 .service("$commonBreadcrumbsService", [function () {
-                    var addItem, getItems, items;
+                    var addItem, getItems, items, clear;
                     items = [];
 
                     /**
-                     * Adds item in the left sidebar
+                     * Adds item
                      *
                      * @param {string} label
                      * @param {string} url
@@ -26,19 +26,19 @@
                     addItem = function (label, url) {
                         var i, isPresent, item;
                         isPresent = false;
-                        for(i = 0; i < items.length; i += 1){
+                        for (i = 0; i < items.length; i += 1) {
                             item = items[i];
-                            if(item.label === label && item.url === url){
+                            if (item.label === label && item.url === url) {
                                 isPresent = true;
                             }
                         }
-                        if(!isPresent){
-                            items.push({"label": label, "url": url});
+                        if (!isPresent) {
+                            items.push({"label": label, "url": "#" + url});
                         }
                     };
 
                     /**
-                     * Gets items for left sidebar
+                     * Gets items
                      *
                      * @returns {Array}
                      */
@@ -46,9 +46,17 @@
                         return items;
                     };
 
+                    /**
+                     * Removes all items
+                     */
+                    clear = function () {
+                        items = [];
+                    };
+
                     return {
                         addItem: addItem,
-                        getItems: getItems
+                        getItems: getItems,
+                        clear: clear
                     };
                 }]);
 

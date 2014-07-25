@@ -44,10 +44,14 @@
                             status = false;
                         }
                         return status;
-                    }
+                    };
 
                     $scope.init = function () {
                         var isLoggedIn;
+
+                        // BREADCRUMBS
+                        $scope.$emit("add-breadcrumbs", {"label": "myAccount", "url": "/account"});
+
                         isLoggedIn = $scope.visitorService.isLoggedIn();
                         if (isLoggedIn === null) {
                             $scope.visitorService.init().then(
