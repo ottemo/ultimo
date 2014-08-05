@@ -1,15 +1,17 @@
 (function (define) {
-    'use strict';
+    "use strict";
 
     /*
      *  requireJS module entry point
      *  (to use that module you should include it to main.js)
      */
     define([
-            'common/controllers',
+            "common/controllers",
 
-            'common/services/header',
-            'common/services/sidebar'
+            "common/service/api",
+            "common/service/header",
+            "common/service/breadcrumbs",
+            "common/service/sidebar"
         ],
         function (commonModule) {
 

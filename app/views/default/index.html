@@ -1,0 +1,20 @@
+<div id="pageTable" class="GlobalWrapper">
+
+        <div id="cellPageHeader" class="GlobalHeader">
+            <ng-include src="getTemplate('common/header.html')"></ng-include>
+        </div>
+
+        <div id="cellPageBreadcrumbs" class="GlobalBreadcrumbs">
+            <ng-include src="getTemplate('common/breadcrumbs.html')"></ng-include>
+        </div>
+
+        <div id="cellPageContent">
+            <ng-view></ng-view>
+            <ng-include src="getTemplate('login/login.html')"></ng-include>
+            <ng-include src="getTemplate('login/registration.html')"></ng-include>
+        </div>
+
+        <div id="cellPageFooter">
+            <ng-include src="getTemplate('common/footer.html')" ng-if="false"></ng-include>
+        </div>
+</div>

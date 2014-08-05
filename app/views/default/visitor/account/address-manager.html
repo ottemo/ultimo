@@ -1,0 +1,65 @@
+<div ng-init="init()">
+    <div class="account-left">
+        <!-- AVATAR -->
+        <div class="block-avatar">
+            <a href="#/account"><img ng-src="{{visitorService.getAvatar()}}" alt="{{visitorService.getFullName()}}" title="Account"></a>
+        </div>
+        <!-- MENU -->
+        <ng-include src="getTemplate('visitor/account/menu.html')"></ng-include>
+
+    </div>
+
+    <div class="account-right">
+        <!-- HELLO -->
+        <div class="block-hello">
+            Hello, {{visitorService.getFullName()}}
+        </div>
+
+        <div class="block-details shipping-address">
+            <div>
+                <div class="static">
+                    <label for="shipping_id">Addresses: </label>
+                    <br/>
+
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="clearForm()"><span
+                                class="glyphicon glyphicon-plus"></span> New
+                        </button>
+                    </div>
+                    <div style="float: left; width: 90%">
+                        <select class="form-control" id="shipping_id" ng-change="select(address.Id)"
+                                ng-init="address.Id = address.Id || addresses[0].Id"
+                                data-ng-model="address.Id"
+                                data-ng-options="choice.Id as choice.Name for choice in addresses">
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="row">
+                        <label for="address-street">Street</label>
+                        <input type="text" ng-model="address.street" id="address-street">
+                    </div>
+                    <div class="row">
+                        <label for="address-city">City</label>
+                        <input type="text" ng-model="address.city" id="address-city">
+                    </div>
+                    <div class="row">
+                        <label for="address-state">State</label>
+                        <input type="text" ng-model="address.state" id="address-state">
+                    </div>
+                    <div class="row">
+                        <label for="address-phone">Phone</label>
+                        <input type="text" ng-model="address.phone" id="address-phone">
+                    </div>
+                    <div class="row">
+                        <label for="address-zip">Zip code</label>
+                        <input type="text" ng-model="address.zip_code" id="address-zip">
+                    </div>
+                </div>
+            </div>
+            <button type="submit" id="shipping-update" ng-click="save()">Save</button>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,67 @@
+<div ng-init="init()">
+    <div class="page-title">
+        <h3>{{category.name}}</h3>
+    </div>
+
+    <div class="list-bar">
+        <span class="glyphicon glyphicon-sort" ng-click="toggleBlock('sort')"> SORT</span>&nbsp;&nbsp;|
+        <span class="glyphicon glyphicon-search" ng-click="toggleBlock('search')"> SEARCH</span>&nbsp;&nbsp;|
+        <span class="glyphicon glyphicon-filter" ng-click="toggleBlock('filter')"> FILTER</span>
+    </div>
+    <div class="category-tools">
+        <div ng-show="blocks.sort">
+            <a href="" target="_self" ng-click="sortByPrice('asc')">PRICE LOW TO HIGH</a>
+            <a href="" target="_self" ng-click="sortByPrice('desc')">PRICE HIGH TO LOW</a>
+            <a href="" target="_self" ng-click="sortByName('asc')">NAME ASC</a>
+            <a href="" target="_self" ng-click="sortByName('desc')">NAME DESC</a>
+            <a href="" target="_self" ng-click="sortByName('desc')">NAME DESC</a>
+            <a href="" target="_self" ng-click="sortByName('desc')">NAME DESC</a>
+            <a href="" target="_self" ng-click="sortByName('desc')">NAME DESC</a>
+            <a href="" target="_self" ng-click="sortByName('desc')">NAME DESC</a>
+            <a href="" target="_self" ng-click="sortByName('desc')">NAME DESC</a>
+            <a href="" target="_self" ng-click="sortByName('desc')">NAME DESC</a>
+            <a href="" target="_self" ng-click="sortByName('desc')">NAME DESC</a>
+            <a href="" target="_self" ng-click="sortByName('desc')">NAME DESC</a>
+        </div>
+        <div ng-show="blocks.search" style="">
+            <input type="text" class="form-control" placeholder="Search" ng-model="searchText"/>
+        </div>
+        <div ng-show="blocks.filter" style="">
+
+        </div>
+    </div>
+    <div class="paginator-center">
+        <gui-paginator object="this"></gui-paginator>
+    </div>
+    <div class="row align-center">
+        <div class="my-col-xs-1" ng-repeat="_item in productsList | filter:searchText">
+
+            <div class="row">
+                <div class="tile">
+                    <div class="thumbnail">
+                        <div>
+                            <a class="" href="#/product/{{_item._id}}">
+                                <img ng-src="{{getImage(_item)}}" alt="_item.Name"
+                                     style="max-width: 75px; max-height: 75px;">
+                            </a>
+                        </div>
+
+                        <div class="caption">
+                            <div>
+                                <a class="" href="#/product/{{_item._id}}">
+                                    <h4>{{_item.name}}</h4>
+                                </a>
+                            </div>
+                            <p>Price: ${{_item.price | number : 2}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="paginator-center">
+        <gui-paginator object="this"></gui-paginator>
+    </div>
+</div>

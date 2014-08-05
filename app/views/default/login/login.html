@@ -1,0 +1,62 @@
+<div ng-controller="loginController">
+
+    <div class="modal fade" id="form-login" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    LOGIN
+                    <div class="modal-link">
+                        <a href="" target="_self" id="modal-registration">Register</a>
+                    </div>
+                </div>
+
+                <div class="modal-body">
+                    <div class="panel panel-default">
+                        <form role="form">
+                            <div class="panel-body">
+                                <div>
+                                    <label for="email">Email</label>
+                                    <input type="text" id="email" placeholder="email"
+                                           ng-model="loginCredentials.email"/>
+                                </div>
+                                <div>
+                                    <label for="password">Password</label>
+                                    <input type="password" id="password" placeholder="password"
+                                           ng-model="loginCredentials.password"
+                                           autocomplete="off"/>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                    <div class="social-box">
+                        <div class="btn-soc">
+                            <ng-include src="getTemplate('login/social/facebook.html')"></ng-include>
+                        </div>
+                        <div class="btn-soc">
+                            <ng-include src="getTemplate('login/social/google.html')"></ng-include>
+                        </div>
+                        <div class="btn-soc btn-soc-right">
+                            <button class="btn btn-primary pull-right" ng-click="signIn()">Login</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $("#modal-login").click(function () {
+        $("#form-login").modal("show");
+    });
+    $("#modal-registration").click(function () {
+        $(".modal").modal("hide");
+        $("#form-registration").modal("show");
+    });
+</script>

@@ -1,0 +1,5 @@
+<div ng-controller="commonBreadcrumbsController">
+    <div ng-repeat="item in it.getItems()">
+        <a href="{{item.url}}">{{item.label}}</a><span ng-hide="$last">&nbsp;&ndash;&nbsp;</span>
+    </div>
+</div>

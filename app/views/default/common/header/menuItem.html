@@ -1,0 +1,27 @@
+<a href="#/category/{{item.id}}" target="{{item.id != null ? '' : '_self'}}" class="menu-item">
+    {{item.name}}<b class="caret" ng-if="item.child.length &gt; 0"></b>
+</a>
+<div class="mobnav-subarrow" ng-if="item.child.length &gt 0" onclick="toggleChild(this)"></div>
+<ul ng-if="item.child.length &gt 0" >
+    <li ng-repeat="item in item.child;" ng-include="getTemplate('common/header/menuItem.html')"></li>
+</ul>
+<script type="text/javascript">
+
+    toggleChild = function(el){
+        var isActive;
+        isActive = jQuery(el).parent().find("ul:first").hasClass("active");
+        if(isActive){
+            jQuery(el).parent().find("ul").removeClass("active");
+        } else {
+            jQuery(el).parent().find("ul:first").addClass("active");
+        }
+    }
+
+    jQuery(".menu-item").click(function () {
+        jQuery('ul').removeClass("xactive");
+        jQuery('.sf-menu-container').removeClass('xactive-open');
+        jQuery('html, body').removeClass('category-open');
+        jQuery('li').removeClass('xpopdrop');
+    });
+</script>
+
