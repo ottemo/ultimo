@@ -61,6 +61,7 @@
 
                         return null;
                     };
+
                     mapFields = {
                         "facebook_id": ["facebook_id", "facebookId", "facebookID"],
                         "google_id": ["google_id", "googleId", "googleID"],
@@ -79,15 +80,17 @@
                         deferIsLoggedIn = $q.defer();
 
                         $loginApiService.info().$promise.then(
-
                             function (response) {
                                 if (response.error === "") {
                                     loginId = response.result._id || "";
                                     if (loginId !== "") {
                                         isLoggedIn = true;
                                         deferIsLoggedIn.resolve(isLoggedIn);
+                                        setLogin(response.result);
+                                    } else {
+                                        isLoggedIn = false;
+                                        deferIsLoggedIn.resolve(isLoggedIn);
                                     }
-                                    setLogin(response.result);
                                 } else {
 
                                     isLoggedIn = false;
@@ -95,7 +98,6 @@
                                     deferIsLoggedIn.resolve(isLoggedIn);
                                 }
                             }
-
                         );
 
                         return deferIsLoggedIn.promise;

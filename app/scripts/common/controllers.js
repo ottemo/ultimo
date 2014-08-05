@@ -56,7 +56,8 @@
                 "$commonApiService",
                 "$designImageService",
                 "$commonBreadcrumbsService",
-                function ($scope, $commonApiService, $designImageService, $commonBreadcrumbsService) {
+                "$cartService",
+                function ($scope, $commonApiService, $designImageService, $commonBreadcrumbsService, $cartService) {
                     var splitName;
                     splitName = function (string) {
                         var parts;
@@ -111,6 +112,10 @@
                     //
                     // HANDLERS FOR BREADCRUMBS (START)
 
+                    /**
+                     * Cart initialization
+                     */
+                    $cartService.init();
                 }
             ]
         );

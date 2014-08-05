@@ -74,7 +74,7 @@
         <span id="short_description">{{product.short_description}}</span>
     </div>
     <h3>Total: ${{getTotal() | number : 2}}</h3>
-    <button type="button" class="btn btn-warning glyphicon glyphicon-plus"> Cart</button>
+    <button type="button" class="btn btn-warning glyphicon glyphicon-plus" ng-click="addToCart()"> Cart</button>
 </div>
 <div style="float: left; width:100%; border-top: 1px dotted; margin-top: 30px; margin-bottom: 20px">
     <div class="panel-group" id="accordion">
