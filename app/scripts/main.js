@@ -42,7 +42,8 @@ require([
         "visitor/module",
         "category/module",
         "pdp/module",
-        "cart/module"
+        "cart/module",
+        "checkout/module"
     ],
     function (angular) {
         angular.element(document).ready(function () {
