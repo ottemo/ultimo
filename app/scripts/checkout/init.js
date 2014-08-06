@@ -17,7 +17,10 @@
                  */
                 .config(["$routeProvider", function ($routeProvider) {
                     $routeProvider
-                        .when("/checkout", { templateUrl: "views/default/checkout/view.html", controller: "checkoutController" });
+                        .when("/checkout", {
+                            templateUrl: angular.getTheme("checkout/view.html"),
+                            controller: "checkoutController"
+                        });
                 }]);
 
             return angular.module.checkoutModule;

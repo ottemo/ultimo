@@ -15,15 +15,24 @@
             .service("$cartService", [
                 "$resource",
                 "$cartApiService",
+                "$cookieStore",
+                "LOGIN_COOKIE",
                 "$q",
-                function ($resource, $cartApiService, $q) {
+                function ($resource, $cartApiService, $cookieStore, LOGIN_COOKIE,$q) {
 
                     /** Variables */
                     var isInit, items, cartInfo, visitorId, subtotal, saleTax, shipping, total;
                     /** Functions */
                     var addItem, init, reload, loadCartInfo, getItems, remove, update,
                         getSubtotal, getSalesTax, getShipping, getTotal,
-                        setSubtotal, setSalesTax, setShipping, setTotal, getCountItems;
+                        setSubtotal, setSalesTax, setShipping, setTotal, getCountItems,
+                        getItemsForMiniCart;
+
+                    items = [];
+                    subtotal = 0;
+                    saleTax = 0;
+                    shipping = 0;
+                    total = 0;
 
                     init = function () {
                         if (typeof isInit === "undefined") {
@@ -38,6 +47,19 @@
 
                     getItems = function () {
                         return items;
+                    };
+
+                    getItemsForMiniCart = function () {
+                        var i, count, maxCount, res;
+                        maxCount = 3;
+                        res = [];
+                        if (items instanceof Array && items.length) {
+                            for (i = items.length-1, count = 0; (i >= 0) && (count < maxCount); i -= 1, count += 1) {
+                                res.push(items[i]);
+                            }
+                        }
+
+                        return res;
                     };
 
                     getSubtotal = function () {
@@ -61,9 +83,7 @@
                     };
 
                     getSalesTax = function () {
-                        saleTax = 20;
-
-                        return saleTax;
+                        return saleTax || 0;
                     };
 
                     setSalesTax = function (value) {
@@ -73,9 +93,7 @@
                     };
 
                     getShipping = function () {
-                        shipping = 5;
-
-                        return shipping;
+                        return shipping || 0;
                     };
 
                     setShipping = function (value) {
@@ -102,14 +120,10 @@
                      * @returns {number}
                      */
                     getCountItems = function () {
-                        var i, count;
-                        count = 0;
+                        var count = 0;
 
                         if (typeof items !== "undefined") {
-                            for (i = 0; i < items.length; i += 1) {
-
-                                count += items[i].qty;
-                            }
+                            count = items.length;
                         }
 
                         return count;
@@ -117,7 +131,7 @@
 
                     reload = function () {
                         var deferReload = $q.defer();
-                        deferReload.resolve(false);
+
                         loadCartInfo().then(
                             function () {
                                 isInit = true;
@@ -209,6 +223,7 @@
                         "remove": remove,
                         "update": update,
                         "getItems": getItems,
+                        "getItemsForMiniCart": getItemsForMiniCart,
                         "getCountItems": getCountItems,
 
                         "getSubtotal": getSubtotal,

@@ -1,4 +1,4 @@
-(function (define) {
+(function (define, $) {
     "use strict";
 
     define(["cart/init"], function (cartModule) {
@@ -9,26 +9,26 @@
                 "$cartApiService",
                 "$cartService",
                 "$designImageService",
-                "$loginService",
+                "$visitorLoginService",
                 "$location",
-                function ($scope, $cartApiService, $cartService, $designImageService, $loginService, $location) {
+                function ($scope, $cartApiService, $cartService, $designImageService, $visitorLoginService, $location) {
 
                     var isLoggedIn;
 
                     $scope.it = $cartService;
 
                     $scope.init = function () {
-                        isLoggedIn = $loginService.isLoggedIn();
+                        isLoggedIn = $visitorLoginService.isLoggedIn();
                         if (isLoggedIn === null) {
-                            $loginService.init().then(
+                            $visitorLoginService.init().then(
                                 function () {
-                                    if (!$loginService.isLoggedIn()) {
+                                    if (!$visitorLoginService.isLoggedIn()) {
                                         $location.path("/");
                                     }
                                 }
                             );
                         } else {
-                            if (!$loginService.isLoggedIn()) {
+                            if (!$visitorLoginService.isLoggedIn()) {
                                 $location.path("/");
                             }
                         }
@@ -72,9 +72,28 @@
                         return $cartService.getTotal();
                     };
 
+                    $scope.changeQty = function(item, action){
+
+                        if(action === "up"){
+                            item.qty = item.qty + 1;
+                        }
+                        else if(action === "down"){
+                            if(item.qty > 1){
+                                item.qty = item.qty - 1;
+                            }
+                        }
+                    };
+
+                    /**
+                     * Hides mini-cart after change url
+                     */
+                    $scope.$on("$locationChangeSuccess", function () {
+                        $(".mini-cart").hide();
+                    });
+
                 }
             ])
         ;
         return cartModule;
     });
-})(window.define);
+})(window.define, jQuery);

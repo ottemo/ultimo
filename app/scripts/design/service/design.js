@@ -1,59 +1,81 @@
 (function (define) {
     "use strict";
 
-    define(["design/init"], function (designModule) {
+    define(["angular", "design/init"], function (angular, designModule) {
         designModule
-            /*
-             *  $designService allows to do operations over very top HTML page
-             */
+        /**
+         *  $designService allows to do operations over very top HTML page
+         */
             .service("$designService", [function () {
-                var data = { theme: "", topPage: "index.html", cssList: []};
 
+                var data = { theme: "default", topPage: "index.html", cssList: []};
                 var isFullPathRegex = new RegExp("^http[s]?://", "i");
                 var isCssRegex = new RegExp(".css$", "i");
+                var themesDir = "themes/";
 
                 return {
-                    getTheme: function() { return data.theme; },
-                    setTheme: function(newTheme) {
-                        data.theme = newTheme;
+                    getTheme: function () {
                         return data.theme;
                     },
 
-                    getTopPage: function() {
-                        return this.getTemplate( data.topPage );
+                    setTheme: function (newTheme) {
+                        data.theme = newTheme;
+
+                        angular.activeTheme = newTheme;
+                        data.cssList = [];
+
+                        return data.theme;
                     },
-                    setTopPage: function(newTopPage) {
+
+                    getTopPage: function () {
+                        return this.getTemplate(data.topPage);
+                    },
+
+                    setTopPage: function (newTopPage) {
                         data.topPage = newTopPage;
+
                         return data.topPage;
                     },
 
-                    getTemplate: function(templateName) {
-                        return ("views/" + data.theme + "/" + templateName).replace(/\/+/, "/");
+                    getTemplate: function (templateName) {
+                        var template;
+
+                        template = angular.getTheme(templateName)();
+
+                        return template;
                     },
 
-                    addCss: function(cssName) {
-                        if ( isFullPathRegex.test(cssName) === false && isCssRegex.test(cssName) === true ) {
-                            cssName = "styles/" + data.theme + "/" + cssName;
-                            cssName = cssName.replace(/\/+/, "/");
+                    addCss: function (cssName) {
+                        var fileName;
+
+                        if (isFullPathRegex.test(cssName) === false && isCssRegex.test(cssName) === true) {
+                            fileName = "/styles/" + cssName;
+
+                            if (angular.isExistFile(fileName)) {
+                                cssName = (themesDir + data.theme + fileName).replace(/\/+/, "/");
+                            } else {
+                                cssName = (themesDir + "default" + fileName).replace(/\/+/, "/");
+                            }
                         }
                         data.cssList.push(cssName);
 
                         return cssName;
                     },
 
-                    getCssList: function() {
+                    getCssList: function () {
                         return data.cssList;
                     },
 
-                    getCssHeadLinks: function() {
-                        var html = "";
-                        for (var idx in data.cssList) {
-                            if(data.cssList.hasOwnProperty(idx)) {
-                                var cssFile = data.cssList[idx];
-                                html += "<link rel=\"stylesheet\" href=\"" + cssFile + "\" type=\"text/css\" />" + "\n";
-                            }
+                    getImage: function (img) {
+                        var image;
+
+                        if (angular.isExistFile(img)) {
+                            image = themesDir + data.theme + "/images/" + img;
+                        } else {
+                            image = themesDir + "default/images/" + img;
                         }
-                        return html;
+
+                        return image;
                     }
                 };
             }]);

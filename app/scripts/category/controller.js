@@ -6,11 +6,15 @@
 
             .controller("categoryListController", [
                 "$scope",
+                "$route",
                 "$routeParams",
                 "$categoryApiService",
+                "$designService",
                 "$designImageService",
                 "$categoryService",
-                function ($scope, $routeParams, $categoryApiService, $designImageService, $categoryService) {
+                "$visitorLoginService",
+                "$cartService",
+                function ($scope, $route, $routeParams, $categoryApiService, $designService, $designImageService, $categoryService, $visitorLoginService, $cartService) {
                     var getLimit, getPage, addCategoryCrumbs;
 
                     getPage = function () {
@@ -43,7 +47,7 @@
                      * Variables for paginator
                      */
                     $scope.currentPage = getPage();
-                    $scope.itemsPerPage = 5;
+                    $scope.itemsPerPage = 15;
 
                     $scope.productsList = [];
                     $scope.paths = [];
@@ -92,6 +96,29 @@
                         }
 
                         return true;
+                    };
+
+                    $scope.closeBlock = function (nameBlock) {
+                        $scope.blocks[nameBlock] = false;
+                        jQuery('.list-bar span').removeClass('active');
+                        jQuery('.shadow').css('display','none');
+                    };
+
+                    $scope.addToCart = function(productId){
+                        var miniCart;
+                        miniCart = $(".mini-cart");
+
+
+                        if ($visitorLoginService.isLoggedIn()) {
+                            $cartService.add(productId, 1);
+
+                            miniCart.css("display", "table");
+                            setTimeout(function () {
+                                miniCart.hide();
+                            }, 1500);
+                        } else {
+                            $("#form-login").modal("show");
+                        }
                     };
 
                     /**

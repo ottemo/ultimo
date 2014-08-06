@@ -1,15 +1,17 @@
 (function (define) {
     "use strict";
 
-    /*
-     *  Module contains general purpose directives and services used to render HTML page
-     *  (make sure module present in main.js requireJS list)
+    /**
+     *
      */
     define([
+			"design/service/states",
 			"design/directives/guiListBar",
 			"design/directives/guiPaginator",
+			"design/directives/guiMessageManager",
             "design/service/image",
             "design/service/design",
+            "design/service/api",
             "design/directives/design"
         ],
         function (designModule) {

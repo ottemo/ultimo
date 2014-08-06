@@ -11,7 +11,7 @@
                 return {
                     restrict: "E",
                     link: function (scope, elem, attrs) {
-                        var cssFile = attrs.href;
+                        var cssFile = attrs.src;
                         if (typeof cssFile !== "undefined" && cssFile !== "") {
                             $designService.addCss(cssFile);
                         }

@@ -10,10 +10,12 @@
             .controller("pdpController", [
                 "$scope",
                 "$routeParams",
+                "$location",
                 "$pdpApiService",
                 "$designImageService",
                 "$cartService",
-                function ($scope, $routeParams, $pdpApiService, $designImageService, $cartService) {
+                "$visitorLoginService",
+                function ($scope, $routeParams, $location, $pdpApiService, $designImageService, $cartService, $visitorLoginService) {
                     var defaultProduct;
 
                     defaultProduct = function () {
@@ -27,11 +29,15 @@
 
                     $pdpApiService.getProduct({"id": $scope.productId}).$promise.then(
                         function (response) {
-                            var result = response.result || defaultProduct();
-                            $scope.product = result;
+                            if (response.error === "") {
+                                var result = response.result || defaultProduct();
+                                $scope.product = result;
 
-                            // BREADCRUMBS
-                            $scope.$emit("add-breadcrumbs", {"label": $scope.product.name, "url": "/product/" + $scope.product._id + "/"});
+                                // BREADCRUMBS
+                                $scope.$emit("add-breadcrumbs", {"label": $scope.product.name, "url": "/product/" + $scope.product._id + "/"});
+                            } else {
+                                $location.path("/");
+                            }
                         }
                     );
 
@@ -77,13 +83,66 @@
                         var miniCart;
                         miniCart = $(".mini-cart");
 
-                        $cartService.add($scope.productId, $scope.qty);
 
-                        miniCart.css("display", "table");
-                        setTimeout(function() {
-                            miniCart.hide();
-                        }, 1500);
+                        if ($visitorLoginService.isLoggedIn()) {
+                            $cartService.add($scope.productId, $scope.qty);
+
+                            miniCart.css("display", "table");
+                            setTimeout(function () {
+                                miniCart.hide();
+                            }, 1500);
+                        } else {
+                            $("#form-login").modal("show");
+                        }
+
+
                     };
+
+                    $scope.products = [];
+
+                    var splitName;
+                    splitName = function (string) {
+                        var parts;
+                        var regExp = /\[(.+)\](.+)/i;
+                        parts = string.match(regExp);
+
+                        return parts;
+                    };
+
+                    $pdpApiService.getProducts({
+                        "limit": "0,5",
+                        "extra": "price"
+                    }).$promise.then(
+                        function (response) {
+                            var result, i, parts;
+                            result = response.result || [];
+
+                            for (i = 0; i < result.length; i += 1) {
+                                parts = splitName(result[i].Name);
+                                $scope.products.push({
+                                    "Id": result[i].Id,
+                                    "Image": result[i].Image,
+                                    "Name": parts[2],
+                                    "Sku": parts[1],
+                                    "Price": result[i].Extra.price
+                                });
+                            }
+
+                        }
+                    );
+
+                    $scope.changeQty = function (qtyItem, action) {
+                        if (action === "up") {
+                            $scope.qty = parseInt(qtyItem) + 1;
+                        }
+                        else if (action === "down") {
+                            if (qtyItem > 1) {
+                                $scope.qty = parseInt(qtyItem) - 1;
+                            }
+                        }
+                    };
+
+
                 }
             ]
         );

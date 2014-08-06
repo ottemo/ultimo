@@ -14,7 +14,7 @@
                  *  $pageSidebarService implementation
                  */
                 .service("$commonSidebarService", [function () {
-                    var addItem, getItems, getType, items, isImagePathRegex;
+                    var addItem, getItems, getType, items, isImagePathRegex, removeItem;
                     items = [];
                     isImagePathRegex = new RegExp(".gif|png|jpg|ico$", "i");
 
@@ -53,17 +53,36 @@
                         if (isImagePathRegex.test(icon) === true) {
                             type = "image";
                         }
-                        if (icon.indexOf("glyphicon") !== -1) {
+                        if (typeof icon !== "undefined" && icon.indexOf("glyphicon") !== -1) {
                             type = "glyphicon";
                         }
 
                         return type;
                     };
 
+                    /**
+                     *
+                     * @param link
+                     * @returns {boolean}
+                     */
+                    removeItem = function (link) {
+                        var i, sidebarItem;
+
+                        for (i = 0; i < items.length; i += 1) {
+                            sidebarItem = items[i];
+                            if (sidebarItem.link === link) {
+                                items.splice(i, 1);
+                            }
+                        }
+
+                        return false;
+                    };
+
                     return {
-                        addItem: addItem,
-                        getItems: getItems,
-                        getType: getType
+                        "addItem": addItem,
+                        "getItems": getItems,
+                        "getType": getType,
+                        "removeItem": removeItem
                     };
                 }]);
 

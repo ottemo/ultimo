@@ -5,6 +5,7 @@ window.name = "NG_DEFER_BOOTSTRAP!"; // http://code.angularjs.org/1.2.1/docs/gui
 require.config({
     "baseUrl": "scripts",
     "paths": {
+        "themeFiles": "design/themeFiles",
         "angular": "../lib/angular/angular.min",
 
         "angular-scenario": "../lib/angular/angular-scenario.min",
@@ -38,7 +39,6 @@ require([
         "design/module",
         "common/module",
 
-        "login/module",
         "visitor/module",
         "category/module",
         "pdp/module",
@@ -48,8 +48,16 @@ require([
     function (angular) {
         angular.element(document).ready(function () {
 
-            var modules = Object.keys( angular.module );
-            angular.resumeBootstrap( modules );
+            var modules = Object.keys(angular.module);
+            angular.resumeBootstrap(modules);
+
+            jQuery(document).ready(function ($) {
+                jQuery(".accordion a").on("click", function () {
+                    console.log($(this).parent());
+                    $(this).parent().toggleClass("active");
+
+                });
+            });
         });
     }
 );

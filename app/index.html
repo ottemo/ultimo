@@ -1,50 +1,57 @@
 <!doctype html>
-<html class="no-js lt-ie9 lt-ie8" id="ng-app">
-    <head>
+<html class="no-js lt-ie9 lt-ie8" id="ng-app" ng-app="commonModule">
+<head>
 
-        <base href="/" />
+    <base href="/"/>
 
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <title></title>
+    <title></title>
 
-        <meta name="description" content="">
-        <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
 
-        <meta name="viewport" content="width=device-width initial-scale=1">
+    <meta name="viewport" content="width=device-width initial-scale=1">
 
-        <link rel="stylesheet" href="styles/storefront.css">
-        <link rel="stylesheet" href="styles/customStorefront.css">
+    <link rel="stylesheet" href="styles/social-buttons.css">
+    <link rel="stylesheet" href="styles/slider.css">
 
-        <link rel="stylesheet" href="styles/social-buttons.css">
-        <link rel="stylesheet" href="styles/slider.css">
-        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css"/>
 
-        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css" />
-        <link rel="shortcut icon" href="favicon.ico"  type="image/x-icon" />
-    </head>
+    <link ng-repeat="stylesheet in getCss()" ng-href="{{stylesheet}}" type="text/css" rel="stylesheet"/>
 
-    <body class="metro" ng-app="commonModule" ng-controller="commonController">
-        <!--[if lt IE 7]>
-        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
 
-        <ng-include src="getTopPage()"></ng-include>
+    <link rel="stylesheet" href="styles/social-buttons.css">
+   
+</head>
 
-        <!--[if lt IE 9]>
-        <script src="lib/es5-shim/es5-shim.js"></script>
-        <script src="lib/json3.min.js"></script>
-        <![endif]-->
+<body class="metro" ng-controller="commonController">
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script src="lib/jquery.layout.min.js"></script>
-        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<ng-include src="getTopPage()"></ng-include>
 
-        <script src="lib/require.js"></script>
-        <script src="scripts/main.js"></script>
-        <script src="lib/jquery.pageslide.min.js"></script>
-        <script src="lib/jquery.slides.min.js"></script>
-    </body>
+<!--[if lt IE 9]>
+<script src="lib/es5-shim/es5-shim.js"></script>
+<script src="lib/json3.min.js"></script>
+<![endif]-->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="lib/jquery.layout.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+<script src="lib/responsiveCarousel.js"></script>
+<script src="lib/require.js"></script>
+<script src="scripts/main.js"></script>
+<script src="lib/jquery.pageslide.min.js"></script>
+<script src="lib/jquery.slides.min.js"></script>
+<script src="lib/responsiveslides.js"></script>
+
+
+</body>
 </html>

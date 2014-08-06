@@ -17,7 +17,10 @@
                  */
                 .config(["$routeProvider", function ($routeProvider) {
                     $routeProvider
-                        .when("/cart", { templateUrl: "views/default/cart/view.html", controller: "cartListController" });
+                        .when("/cart", {
+                            templateUrl: angular.getTheme("cart/view.html"),
+                            controller: "cartListController"
+                        });
                 }]);
 
             return angular.module.cartModule;

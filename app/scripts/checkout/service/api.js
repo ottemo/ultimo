@@ -17,38 +17,36 @@
                     var checkoutBaseURL = REST_SERVER_URI + "/checkout";
 
                     return $resource(checkoutBaseURL, {}, {
-        /*            "add": {
-                        method: "POST",
-                        params: {
-                            productId: "@productId",
-                            qty: "@qty"
-                        },
-                        url: checkoutBaseURL + "/add/:productId/:qty"
-                    },
-                    "remove": {
-                        method: "DELETE",
-                        params: { itemIdx: "@itemIdx" },
-                        url: checkoutBaseURL + "/delete/:itemIdx"
-                    },
-                    "info": {
-                        method: "GET",
-                        url: checkoutBaseURL + "/info"
-                    },
-                    "update": {
-                        method: "PUT",
-                        params: {
-                            itemIdx: "@itemIdx",
-                            qty: "@qty"
-                        },
-                        url: checkoutBaseURL + "/update/:itemIdx/:qty"
-                    }*/
                         "shippingMethod": {
                             method: "GET",
                             url: checkoutBaseURL + "/shipping/methods"
                         },
+                        "setShippingMethod": {
+                            method: "POST",
+                            params: {
+                                method: "@method",
+                                rate: "@rate"
+                            },
+                            url: checkoutBaseURL + "/set/shipping/method/:method/:rate"
+                        },
                         "paymentMethod": {
                             method: "GET",
                             url: checkoutBaseURL + "/payment/methods"
+                        },
+                        "setPaymentMethod": {
+                            method: "POST",
+                            params: {
+                                method: "@method"
+                            },
+                            url: checkoutBaseURL + "/set/payment/method/:method"
+                        },
+                        "setShippingAddress": {
+                            method: "POST",
+                            url: checkoutBaseURL + "/set/shipping/address"
+                        },
+                        "setBillingAddress": {
+                            method: "POST",
+                            url: checkoutBaseURL + "/set/billing/address"
                         },
                         "totals": {
                             method: "GET",
@@ -64,7 +62,25 @@
                         },
                         "info": {
                             method: "GET",
-                            url: REST_SERVER_URI + "/cart/info"
+                            url: checkoutBaseURL + "/info"
+                        },
+                        "save": {
+                            method: "POST",
+                            url: checkoutBaseURL + "/submit"
+                        },
+                        "discountApply": {
+                            method: "GET",
+                            params: {
+                                code: "@code"
+                            },
+                            url: REST_SERVER_URI + "/discount/apply/:code"
+                        },
+                        "discountNeglect": {
+                            method: "GET",
+                            params: {
+                                code: "@code"
+                            },
+                            url: REST_SERVER_URI + "/discount/neglect/:code"
                         }
                     });
                 }

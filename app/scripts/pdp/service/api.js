@@ -28,7 +28,11 @@
                         method: "GET",
                         params: { productId: "@productId" },
                         url: pdpBaseURL + "/media/list/:productId/image"
-                    }
+                    },
+                    "getProducts": {
+                        method: "POST",
+                        url: REST_SERVER_URI + "/product/list"
+                    },
                 });
             }]);
 
