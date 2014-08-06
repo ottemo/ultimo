@@ -244,6 +244,7 @@ span.buttonText {
     min-height: 28px;
     line-height: 24px;
 }
+
 .category-tools a {
     padding: 5px 15px;
 }
@@ -251,42 +252,55 @@ span.buttonText {
 .caption {
     display: inline-table;
 }
-.caption p{
+
+.caption p {
     text-align: left;
 }
-.cart-item{
+
+.cart {
+    padding: 15px;
+}
+
+.cart-item {
     width: 100%;
-    margin: 10px;
     display: inline-block;
 }
-.cart .image{
+
+.cart .image {
     display: inherit;
     margin-right: 10px;
+    width: 100px;
+    height: 100px;
 }
-.cart .image img{
+
+.cart .image img {
     max-width: 100px;
     max-height: 100px;
 }
 
-.cart .info{
+.cart .info {
     display: inherit;
     top: 0px;
     vertical-align: top;
-    width: 90%;
+    width: 85%;
 }
 
-.cart .info input{
+.cart .info input {
     width: 50px;
 }
-.cart .info .remove{
+
+.cart .info .remove {
     float: right;
     cursor: pointer;
     padding: 3px;
     border-radius: 4px;
+    top: -65px;
 }
-.cart .info .remove:hover{
+
+.cart .info .remove:hover {
     background: rgba(0, 0, 0, 0.13);
 }
+
 .mini-cart {
     display: none;
     border: 1px solid #444444;
@@ -312,11 +326,12 @@ span.buttonText {
     background-color: #cecece;
 }
 
-.mini-cart .content .item{
+.mini-cart .content .item {
     margin-bottom: 7px;
     padding: 0 10px 0 5px;
 }
-.mini-cart .content .item .remove{
+
+.mini-cart .content .item .remove {
     margin-left: 5px;
 }
 
@@ -331,4 +346,86 @@ span.buttonText {
 
 .mini-cart .right {
     float: right;
+}
+
+.step {
+    border: 1.5px solid #444444;
+    border-radius: 3px;
+    display: inherit;
+    margin: 10px 8px;
+}
+
+.half {
+    display: inline-table;
+    width: 48%;
+}
+
+.review .step-content {
+    display: flex;
+}
+
+.step-title {
+    background-color: #00517e;
+    color: #ffffff;
+    padding: 10px;
+}
+
+.step-content {
+    padding: 10px;
+}
+
+.step-content .cart {
+    display: inline-block;
+    width: 70%;
+}
+
+.step-content .cart-item {
+    width: 98%;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #444444;
+}
+
+.step-content .last {
+    border-bottom: 0px;
+}
+
+.step-content .cart .info {
+    display: inline-block;
+}
+
+.step-content .total {
+    padding: 0 10px;
+    border-left: 2px solid darkgray;
+    display: inline-block;
+    width: 29%;
+}
+
+.step-content label {
+    width: 100px;
+}
+
+.step-content .address-form {
+    margin-top: 15px;
+}
+
+.save-in-account {
+    width: 30% !important;
+}
+
+.address-form .address-checkbox {
+    top: 2px;
+    position: relative;
+}
+
+.total .total-line {
+    float: left;
+    width: 100%;
+}
+
+.total .value {
+    float: right;
+}
+
+.total .total-title {
+    float: left;
 }

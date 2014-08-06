@@ -1,0 +1,153 @@
+<div ng-init="init()">
+    <!-- Shipping Block -->
+    <div class="step half">
+        <div class="step-title">Shipping</div>
+        <div class="step-content">
+            <select class="form-control" id="shipping_id" ng-change="update()"
+                    ng-init="checkout.shipping_address_id = checkout.shipping_address_id || addresses[0]"
+                    data-ng-model="checkout.shipping_address_id"
+                    data-ng-options="choice.Id as choice.Name for choice in addresses">
+            </select>
+            <!-- Form to add shipping addresses -->
+            <div class="address-form" ng-show="isVisibleShippingForm()">
+                <div>
+                    <label for="shippingAddressStreet">Street:</label>
+                    <input type="text" ng-model="shipping_address.street" id="shippingAddressStreet">
+                </div>
+                <div>
+                    <label for="shippingAddressCity">City:</label>
+                    <input type="text" ng-model="shipping_address.city" id="shippingAddressCity">
+                </div>
+                <div>
+                    <label for="shippingAddressState">State:</label>
+                    <input type="text" ng-model="shipping_address.state" id="shippingAddressState">
+                </div>
+                <div>
+                    <label for="shippingAddressPhone">Phone:</label>
+                    <input type="text" ng-model="shipping_address.phone" id="shippingAddressPhone">
+                </div>
+                <div>
+                    <label for="shippingAddressZip">Zip code:</label>
+                    <input type="text" ng-model="shipping_address.zip_code" id="shippingAddressZip">
+                </div>
+                <div>
+                    <label></label>
+                    <input class="address-checkbox" type="checkbox" ng-model="shipping_address.address_save" id="shippingAddressSave">
+                    <label for="shippingAddressSave" class="save-in-account">Save in account</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Billing Block -->
+    <div class="step half">
+        <div class="step-title">Billing</div>
+        <div class="step-content">
+            <select class="form-control" id="billing_id"
+                    ng-init="checkout.billing_address_id = checkout.billing_address_id || addresses[0]"
+                    data-ng-model="checkout.billing_address_id"
+                    data-ng-options="choice.Id as choice.Name for choice in addresses">
+            </select>
+            <!-- Form to add billing addresses -->
+            <div class="address-form" ng-show="isVisibleBillingForm()">
+                <div>
+                    <label for="billingAddressStreet">Street:</label>
+                    <input type="text" ng-model="billing_address.street" id="billingAddressStreet">
+                </div>
+                <div>
+                    <label for="billingAddressCity">City:</label>
+                    <input type="text" ng-model="billing_address.city" id="billingAddressCity">
+                </div>
+                <div>
+                    <label for="billingAddressState">State:</label>
+                    <input type="text" ng-model="billing_address.state" id="billingAddressState">
+                </div>
+                <div>
+                    <label for="billingAddressPhone">Phone:</label>
+                    <input type="text" ng-model="billing_address.phone" id="billingAddressPhone">
+                </div>
+                <div>
+                    <label for="billingAddressZip">Zip code:</label>
+                    <input type="text" ng-model="billing_address.zip_code" id="billingAddressZip">
+                </div>
+                <div>
+                    <label></label>
+                    <input class="address-checkbox" type="checkbox" ng-model="billing_address.address_save" id="billingAddressSave">
+                    <label for="billingAddressSave" class="save-in-account">Save in account</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Payment Method -->
+    <div class="step half">
+        <div class="step-title">Payment Method</div>
+        <div class="step-content">
+            <select class="form-control" id="payment_method_id"
+                    ng-init="checkout.payment_method_id = checkout.payment_method_id || paymentMethods[0]"
+                    data-ng-model="checkout.payment_method_id"
+                    data-ng-options="choice.Id as choice.Name for choice in paymentMethods">
+            </select>
+        </div>
+    </div>
+    <!-- Shipping Method -->
+    <div class="step half">
+        <div class="step-title">Shipping Method</div>
+        <div class="step-content">
+            <select class="form-control" id="shipping_method_id"
+                    ng-init="checkout.shipping_method_id = checkout.shipping_method_id || shippingMethods[0]"
+                    data-ng-model="checkout.shipping_method_id"
+                    data-ng-options="choice.Id as choice.Name for choice in shippingMethods">
+            </select>
+        </div>
+    </div>
+    <!-- Review -->
+    <div class="step review">
+        <div class="step-title">Review</div>
+        <div class="step-content">
+            <div class="cart">
+                <div class="cart-item" ng-repeat="item in cart.getItems()" ng-show="cart.getCountItems()"
+                     ng-class="{'last':$last}">
+                    <div class="image">
+                        <a href="#/product/{{item.pid}}"><img ng-src="{{getImage(item.product)}}"
+                                                              alt="{{item.product.name}}"/></a>
+                    </div>
+                    <div class="info">
+                        <span><b>{{item.product.name}}</b></span> <br/>
+                        <span><b>QTY</b>: <input type="number" ng-model="item.qty" min="1"
+                                                 ng-blur="cart.update(item.idx, item.qty)"/></span><br/>
+                        <span><b>Price</b>: ${{item.product.price | number: 2}}</span><br/>
+                        <span class="remove glyphicon glyphicon-remove" ng-click="cart.remove(item.idx)"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="total">
+                <div class="total-line">
+                    <div class="total-title">Subtotal:</div>
+                    <div class="value">{{cart.getSubtotal()}}</div>
+                </div>
+                <div class="total-line">
+                    <div class="total-title">Sales Tax:</div>
+                    <div class="value">{{cart.getSalesTax()}}</div>
+                </div>
+                <div class="total-line">
+                    <div class="total-title">Shipping:</div>
+                    <div class="value">{{cart.getShipping()}}</div>
+                </div>
+                <div class="total-line">
+                    <div class="total-title">Total:</div>
+                    <div class="value">{{cart.getTotal()}}</div>
+                </div>
+                <div class="total-line">
+                    <div class="total-title"></div>
+                    <div class="value">
+                        <button class="btn btn-success" ng-click="save()">Save Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+
+
+</style>

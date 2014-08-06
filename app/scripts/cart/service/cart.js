@@ -1,4 +1,4 @@
-(function (define) {
+(function (w, define) {
     "use strict";
 
     /**
@@ -41,38 +41,58 @@
                     };
 
                     getSubtotal = function () {
+                        var i, item;
+
+                        subtotal = 0;
+                        if (typeof items !== "undefined") {
+                            for (i = 0; i < items.length; i += 1) {
+                                item = items[i];
+                                subtotal += item.qty * item.product.price;
+                            }
+                        }
+
                         return subtotal;
                     };
 
-                    setSubtotal = function (subtotal) {
-                        subtotal = subtotal;
+                    setSubtotal = function (value) {
+                        subtotal = value;
+
                         return subtotal;
                     };
 
                     getSalesTax = function () {
+                        saleTax = 20;
+
                         return saleTax;
                     };
 
-                    setSalesTax = function (saleTax) {
-                        saleTax = saleTax;
+                    setSalesTax = function (value) {
+                        saleTax = value;
+
                         return saleTax;
                     };
 
                     getShipping = function () {
+                        shipping = 5;
+
                         return shipping;
                     };
 
-                    setShipping = function (shipping) {
-                        shipping = shipping;
+                    setShipping = function (value) {
+                        shipping = value;
+
                         return shipping;
                     };
 
                     getTotal = function () {
+                        total = subtotal + saleTax + shipping;
+
                         return total;
                     };
 
-                    setTotal = function (total) {
-                        total = total;
+                    setTotal = function (value) {
+                        total = value;
+
                         return total;
                     };
 
@@ -146,19 +166,21 @@
                     };
 
                     remove = function (itemIdx) {
-                        var deferRemoveItem = $q.defer();
+                        if (w.confirm("You really want remove this item from shopping cart?")) {
+                            var deferRemoveItem = $q.defer();
 
-                        $cartApiService.remove({"itemIdx": itemIdx}).$promise.then(
-                            function () {
-                                loadCartInfo().then(
-                                    function () {
-                                        deferRemoveItem.resolve(true);
-                                    }
-                                );
-                            }
-                        );
+                            $cartApiService.remove({"itemIdx": itemIdx}).$promise.then(
+                                function () {
+                                    loadCartInfo().then(
+                                        function () {
+                                            deferRemoveItem.resolve(true);
+                                        }
+                                    );
+                                }
+                            );
 
-                        return deferRemoveItem.promise;
+                            return deferRemoveItem.promise;
+                        }
                     };
 
                     update = function (itemIdx, qty) {
@@ -205,4 +227,4 @@
         return cartModule;
     });
 
-})(window.define);
+})(window, window.define);
