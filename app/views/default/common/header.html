@@ -26,7 +26,9 @@
         <div class="CartHeader" ng-controller="loginController">
             <ul>
                 <li>
+                    <span><b>{{getItemsInCart()}}</b></span>
                     <a href="" title="" target="_self" id="cart-menu" ng-click="clickToCart()"><img src="images/header/cart.png"></a>
+                    <ng-include src="getTemplate('cart/minicart.html')"></ng-include>
                 </li>
             </ul>
         </div>

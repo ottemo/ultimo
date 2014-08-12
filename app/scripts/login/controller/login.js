@@ -10,14 +10,28 @@
                 "$loginApiService",
                 "$loginService",
                 "$location",
-                function ($scope, $routeParams, $loginApiService, $loginService, $location) {
+                "$cartService",
+                function ($scope, $routeParams, $loginApiService, $loginService, $location, $cartService) {
                     $loginService.init();
                     $scope.login = $loginService.getVisitor();
                     $scope.loginCredentials = {};
 
+                    $scope.cart = $cartService;
+
+                    $scope.getItemsInCart = function () {
+                        return $cartService.getCountItems();
+                    };
+
                     $scope.clickToCart = function () {
+                        var miniCart;
+                        miniCart = $(".mini-cart");
+
                         if ($loginService.isLoggedIn()) {
-                            $location.path("/account");
+                            if (miniCart.css("display") === "none") {
+                                miniCart.css("display", "table");
+                            } else {
+                                miniCart.hide();
+                            }
                         } else {
                             $("#form-login").modal("show");
                         }
@@ -36,6 +50,7 @@
                                 $loginService.init().then(
                                     function () {
                                         $(".modal").modal("hide");
+                                        $cartService.reload();
                                         $location.path("/account");
                                     }
                                 );
@@ -45,7 +60,8 @@
 
                     $scope.logout = function () {
                         $loginService.logout().then(
-                            function(){
+                            function () {
+                                $cartService.reload();
                                 $location.path("/");
                             }
                         );
@@ -66,6 +82,7 @@
                                         $loginService.init().then(
                                             function () {
                                                 $(".modal").modal("hide");
+                                                $cartService.reload();
                                                 $location.path("/account");
                                             }
                                         );
@@ -78,6 +95,7 @@
 
                     $scope.googleLogin = function () {
                         gl.login();
+                        $cartService.reload();
                     };
 
                     $scope.loginCallback = window.loginCallback = function (response) {

@@ -41,7 +41,8 @@ require([
         "login/module",
         "visitor/module",
         "category/module",
-        "pdp/module"
+        "pdp/module",
+        "cart/module"
     ],
     function (angular) {
         angular.element(document).ready(function () {

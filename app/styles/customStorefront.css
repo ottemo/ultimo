@@ -254,3 +254,81 @@ span.buttonText {
 .caption p{
     text-align: left;
 }
+.cart-item{
+    width: 100%;
+    margin: 10px;
+    display: inline-block;
+}
+.cart .image{
+    display: inherit;
+    margin-right: 10px;
+}
+.cart .image img{
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.cart .info{
+    display: inherit;
+    top: 0px;
+    vertical-align: top;
+    width: 90%;
+}
+
+.cart .info input{
+    width: 50px;
+}
+.cart .info .remove{
+    float: right;
+    cursor: pointer;
+    padding: 3px;
+    border-radius: 4px;
+}
+.cart .info .remove:hover{
+    background: rgba(0, 0, 0, 0.13);
+}
+.mini-cart {
+    display: none;
+    border: 1px solid #444444;
+    background: rgba(196, 196, 196, 1);
+    padding: 10px;
+    width: 250px;
+    height: 200px;
+    z-index: 10;
+    position: absolute;
+    right: 0px;
+    top: 40px;
+}
+
+.mini-cart .content {
+    min-height: 120px;
+}
+
+.mini-cart .content .odd {
+    background-color: #e7e7e7;
+}
+
+.mini-cart .content .even {
+    background-color: #cecece;
+}
+
+.mini-cart .content .item{
+    margin-bottom: 7px;
+    padding: 0 10px 0 5px;
+}
+.mini-cart .content .item .remove{
+    margin-left: 5px;
+}
+
+.mini-cart .footer {
+    position: relative;
+    bottom: 0px;
+}
+
+.mini-cart .left {
+    float: left;
+}
+
+.mini-cart .right {
+    float: right;
+}
