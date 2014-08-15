@@ -1,7 +1,7 @@
 {
-  "name": "ottemo-dashboard",
+  "name": "ottemo-storefront",
   "version": "0.0.0",
-  "description": "ottemo dashboard",
+  "description": "ottemo storefront",
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
