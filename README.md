@@ -14,6 +14,8 @@ Builds project and moves files on the destination folder. Makes concat and minif
 Moves images, bower-files into destination folder. Compiling sass. Adds watcher on a changes in css, scss, js, html and images. After a change these files browser automatically will be update  content
 
     gulp build && gulp dev
+    or
+    gulp build && gulp serve
     
 ### Run Unit Tests
 Not configured yet. Will be realized in the near future
