@@ -65,7 +65,7 @@
                      * @returns {string}
                      */
                     // TODO: reduce cyclomatic complexity
-                    $scope.getURI = function(page){
+                    $scope.getURI = function(page){         // jshint ignore:line
                         var _page;
                         _page = 1;
                         switch (page){

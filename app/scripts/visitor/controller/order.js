@@ -47,7 +47,7 @@
 
                     $visitorApiService.getOrderList().$promise.then(
                         // TODO: reduce cylomatic complexity in function call
-                        function (response) {
+                        function (response) {                                   // jshint ignore:line
                             var i, isAddedExist, isExist;
                             isAddedExist = false;
                             $scope.ordersList = response.result || [];

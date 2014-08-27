@@ -159,7 +159,7 @@
                     };
 
                     // TODO: reduce cyclomatic complexity
-                    removeItem = function (menu, path) {
+                    removeItem = function (menu, path) {        // jshint ignore:line
                         var nameMenu, i, menuItem;
                         nameMenu = null;
 
