@@ -126,6 +126,17 @@ a:hover,
 ul {
     margin: 0;
 }
+a.button{
+    color: #ffffff;
+    display: block;
+    font: 16px 'overlockregular',sans-serif;
+    height: 72px;
+    padding-top: 22px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 325px;
+    background-color: #cabf45;
+}
 
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////  start header */
 
@@ -1033,13 +1044,13 @@ li.active .nav-active {
 .content {
     position: relative;
     max-width: 1446px;
-    margin: 0 auto -60px;
+    margin: 0 auto;
 }
 .mini-cart .content {
     margin: 0 auto;
 }
 .cellPageContent {
-    padding-bottom: 195px;
+    padding-bottom: 130px;
 }
 .c-img {
     max-width: 1342px;
@@ -1346,18 +1357,6 @@ li.active .nav-active {
     padding: 5px 0 5px 20px;
     width: 52%;
 }
-.rating {
-    float: right;
-    padding: 9px 20px 0 0;
-    width: 40%;
-}
-.rating i {
-    font-size: 0.75em;
-    color: #C2C2C2;
-}
-.rating span i {
-    color: #EE771B;
-}
 .pdp-zoom-btn {
     display: block;
     float: left;
@@ -1407,7 +1406,79 @@ li.active .nav-active {
     margin-top: 0;
 }
 .cat {
-    margin-bottom: -57px;
+    margin-bottom: 10x;
+}
+.parent_popup .quickshop {
+    width: 740px;
+}
+.quickshop .left-block {
+    width: 258px;
+    float: left;
+    margin-top: 10px;
+}
+.quickshop .right-block {
+    width: 395px;
+    float: right;
+}
+.cat + .parent_popup {
+    display: block;
+}
+.quickshop .ch-form {
+    padding: 14px 28px 15px;
+}
+.quickshop .left-block img {
+    width: 100%;
+}
+.quickshop .ch-content {
+    border: none;
+}
+.quickshop h3 {
+    font: 32px 'overlockbold', sans-serif;
+    color: #242425;
+    margin: 0 0 5px 14px;
+    text-transform: uppercase;
+}
+.rating {
+    padding: 0 0 0 15px;
+}
+.rating i {
+    font-size: 1em;
+    color: #C2C2C2;
+}
+.rating i.active {
+    color: #CABF45;
+}
+.rating a {
+    color: #2a74ee;
+    font: 12px 'robotoregular', sans-serif;
+    margin-left: 10px;
+}
+.quickshop p {
+    color: #242425;
+    margin-left: 14px;
+    font: 18px 'overlockregular', sans-serif;
+}
+.quickshop p.status {
+    font-size: 16px;
+}
+.quickshop p.price {
+    font: 36px 'overlockbold', sans-serif;
+}
+.quickshop hr {
+    background-color: #e2e2e2;
+    border: medium none;
+    height: 1px;
+    margin: 15px 0;
+    width: 100%;
+}
+.quickshop a.button {
+    background-color: #cabf45;
+    font-size: 16px;
+    height: 48px;
+    padding-top: 13px;
+    width: 162px;
+    border-radius: none;
+    margin-left: 14px;
 }
 
 /* //////////////////////////////////////////////////////////////////////////////////////////////////// end category */
@@ -1417,12 +1488,12 @@ li.active .nav-active {
 .pdp-slider {
     float: right;
     margin: 28px 55px 0 0;
-    width: 525px;
+    width: 36.3%;
     height: 580px;
 }
 .pdp-info {
     float: left;
-    width: 755px;
+    width: 52.3%;
     margin: 17px 0 0 55px;
 }
 .pdp-info h2 {
@@ -2355,13 +2426,21 @@ footer nav li span {
         width: 94%;
     }
     .tablet-shadow {
-        bottom: 0.54%;
+        bottom: 0;
         width: 94%;
         background-color: rgba(0,0,0,0.6);
         top: inherit;
         display: block;
         left: 3%;
     }
+    .content .tablet-shadow {
+         bottom: 0.54%;
+         width: 100%;
+         background-color: rgba(0,0,0,0.6);
+         top: inherit;
+         display: block;
+         left: 0;
+     }
     .tablet-shadow h6,
     .tablet-shadow p {
         font: 25px 'overlockblack',sans-serif;
@@ -2668,7 +2747,8 @@ footer nav li span {
 /* ////////////////////////////////////////////////////////////////////////////////////  start responsive design 480 */
 
 @media screen and (max-width: 480px){
-    .tablet-shadow {
+    .tablet-shadow,
+    .content .tablet-shadow{
         display: none;
     }
     .cat-prod {
