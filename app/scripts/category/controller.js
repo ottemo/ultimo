@@ -174,7 +174,7 @@
                      * @returns {string}
                      */
                     $scope.getImage = function (product) {
-                        return $designImageService.getFullImagePath("", product.default_image);
+                        return $designImageService.getFullImagePath("", product.default_image); // jshint ignore:line
                     };
 
                     /**

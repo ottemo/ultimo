@@ -1,27 +1,27 @@
 (function (define) {
-    "use strict";
+    'use strict';
 
     /*
      *  HTML top page header manipulation stuff
      */
     define([
-        "visitor/init",
-        "visitor/service/facebook",
-        "visitor/service/google"
+        'visitor/init',
+        'visitor/service/facebook',
+        'visitor/service/google'
     ], function (visitorModule, fb, gl) {
         visitorModule
             /*
              *  $visitorApiService interaction service
              */
 
-            .service("$visitorLoginService", [
-                "$resource",
-                "$visitorApiService",
-                "$cookieStore",
-                "$q",
-                "$designService",
-                "VISITOR_DEFAULT_AVATAR",
-                "LOGIN_COOKIE",
+            .service('$visitorLoginService', [
+                '$resource',
+                '$visitorApiService',
+                '$cookieStore',
+                '$q',
+                '$designService',
+                'VISITOR_DEFAULT_AVATAR',
+                'LOGIN_COOKIE',
                 function ($resource, $visitorApiService, $cookieStore, $q, $designService, VISITOR_DEFAULT_AVATAR, LOGIN_COOKIE) {
 
                     /** Variables */
@@ -34,16 +34,16 @@
 
                     getDefaultLogin = function () {
                         return {
-                            "facebook_id": "",
-                            "google_id": "",
-                            "billing_address_id": "",
-                            "shipping_address_id": "",
-                            "email": "",
-                            "fname": "",
-                            "lname": "",
-                            "password": "",
-                            "billing_address": {},
-                            "shipping_address": {}
+                            'facebook_id': '',
+                            'google_id': '',
+                            'billing_address_id': '',
+                            'shipping_address_id': '',
+                            'email': '',
+                            'fname': '',
+                            'lname': '',
+                            'password': '',
+                            'billing_address': {},
+                            'shipping_address': {}
                         };
                     };
 
@@ -64,15 +64,15 @@
                     };
 
                     mapFields = {
-                        "facebook_id": ["facebook_id", "facebookId", "facebookID"],
-                        "google_id": ["google_id", "googleId", "googleID"],
-                        "billing_address_id": ["billing_address_id", "billing_id", "billingId", "billingID"],
-                        "shipping_address_id": ["shipping_address_id", "shipping_id", "shippingId", "shippingID"],
-                        "email": ["email", "e-mail", "Email", "EMail", "E-Mail"],
-                        "fname": ["fname", "f-name", "f_name", "first_name", "first-name"],
-                        "lname": ["lname", "l-name", "l_name", "last_name", "last-name"],
-                        "billing_address": ["billing_address"],
-                        "shipping_address": ["shipping_address"]
+                        'facebook_id': ['facebook_id', 'facebookId', 'facebookID'],
+                        'google_id': ['google_id', 'googleId', 'googleID'],
+                        'billing_address_id': ['billing_address_id', 'billing_id', 'billingId', 'billingID'],
+                        'shipping_address_id': ['shipping_address_id', 'shipping_id', 'shippingId', 'shippingID'],
+                        'email': ['email', 'e-mail', 'Email', 'EMail', 'E-Mail'],
+                        'fname': ['fname', 'f-name', 'f_name', 'first_name', 'first-name'],
+                        'lname': ['lname', 'l-name', 'l_name', 'last_name', 'last-name'],
+                        'billing_address': ['billing_address'],
+                        'shipping_address': ['shipping_address']
                     };
 
                     login = getDefaultLogin();
@@ -82,9 +82,9 @@
 
                         $visitorApiService.info().$promise.then(
                             function (response) {
-                                if (response.error === "") {
-                                    loginId = response.result._id || "";
-                                    if (loginId !== "") {
+                                if (response.error === '') {
+                                    loginId = response.result._id || '';
+                                    if (loginId !== '') {
                                         isLoggedIn = true;
                                         deferIsLoggedIn.resolve(isLoggedIn);
                                         setLogin(response.result);
@@ -116,7 +116,8 @@
                         return deferLogOut.promise;
                     };
 
-                    setLogin = function (obj) {
+                    // TODO: reduce cyclomatic complexity of this function
+                    setLogin = function (obj) {     // jshint ignore:line
                         var field, prop;
                         for (field in obj) {
                             if (obj.hasOwnProperty(field)) {
@@ -127,8 +128,8 @@
                             }
                         }
                         if (obj !== null) {
-                            login.billing_address_id = obj.billing_address && obj.billing_address._id || "";
-                            login.shipping_address_id = obj.shipping_address && obj.shipping_address._id || "";
+                            login.billing_address_id = obj.billing_address && obj.billing_address._id || '';        // jshint ignore:line
+                            login.shipping_address_id = obj.shipping_address && obj.shipping_address._id || '';     // jshint ignore:line
                         }
                     };
 
@@ -144,16 +145,16 @@
                         var avatar;
                         avatar = $designService.getImage(VISITOR_DEFAULT_AVATAR);
 
-                        if ("" !== login.facebook_id) {
-                            avatar = "http://" + fb.getAvatar(login.facebook_id, "large");
-                        } else if (login.google_id !== "") {
-                            avatar = gl.getAvatar(login.google_id);
+                        if ('' !== login.facebook_id) {                                         // jshint ignore:line
+                            avatar = 'http://' + fb.getAvatar(login.facebook_id, 'large');      // jshint ignore:line
+                        } else if (login.google_id !== '') {                                    // jshint ignore:line
+                            avatar = gl.getAvatar(login.google_id);                             // jshint ignore:line
                         }
                         return avatar;
                     };
 
                     getFullName = function () {
-                        return login.fname + " " + login.lname;
+                        return login.fname + ' ' + login.lname;
                     };
 
                     getLoginId = function () {

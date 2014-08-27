@@ -1,15 +1,15 @@
 (function (define) {
-    "use strict";
+    'use strict';
 
-    define(["visitor/init"], function (visitorModule) {
+    define(['visitor/init'], function (visitorModule) {
         visitorModule
 
-            .controller("visitorOrderController", [
-                "$scope",
-                "$location",
-                "$routeParams",
-                "$visitorLoginService",
-                "$visitorApiService",
+            .controller('visitorOrderController', [
+                '$scope',
+                '$location',
+                '$routeParams',
+                '$visitorLoginService',
+                '$visitorApiService',
                 function ($scope, $location, $routeParams, $visitorLoginService, $visitorApiService) {
 
                     $scope.addedOrderId = $routeParams.successId;
@@ -22,11 +22,11 @@
                         var isLoggedIn;
 
                         // BREADCRUMBS
-                        $scope.$emit("add-breadcrumbs", {"label": "myAccount", "url": "/account"});
-                        $scope.$emit("add-breadcrumbs", {"label": "Order", "url": "/account/order/list"});
+                        $scope.$emit('add-breadcrumbs', {'label': 'myAccount', 'url': '/account'});
+                        $scope.$emit('add-breadcrumbs', {'label': 'Order', 'url': '/account/order/list'});
                         if ($scope.orderId) {
 
-                            $scope.$emit("add-breadcrumbs", {"label": $scope.orderId, "url": "/account/order/" + $scope.orderId});
+                            $scope.$emit('add-breadcrumbs', {'label': $scope.orderId, 'url': '/account/order/' + $scope.orderId});
                         }
 
                         isLoggedIn = $scope.visitorService.isLoggedIn();
@@ -34,40 +34,41 @@
                             $scope.visitorService.init().then(
                                 function () {
                                     if (!$scope.visitorService.isLoggedIn()) {
-                                        $location.path("/");
+                                        $location.path('/');
                                     }
                                 }
                             );
                         } else {
                             if (!$scope.visitorService.isLoggedIn()) {
-                                $location.path("/");
+                                $location.path('/');
                             }
                         }
                     };
 
                     $visitorApiService.getOrderList().$promise.then(
+                        // TODO: reduce cylomatic complexity in function call
                         function (response) {
                             var i, isAddedExist, isExist;
                             isAddedExist = false;
                             $scope.ordersList = response.result || [];
 
                             for (i = 0; i < $scope.ordersList.length; i += 1) {
-                                if ($scope.addedOrderId === $scope.ordersList[i].increment_id) {
+                                if ($scope.addedOrderId === $scope.ordersList[i].increment_id) {        // jshint ignore:line
                                     isAddedExist = true;
                                 }
-                                if ($scope.orderId === $scope.ordersList[i].increment_id) {
+                                if ($scope.orderId === $scope.ordersList[i].increment_id) {             // jshint ignore:line
                                     isExist = true;
                                 }
                             }
 
-                            if (typeof $scope.addedOrderId !== "undefined" && !isAddedExist) {
+                            if (typeof $scope.addedOrderId !== 'undefined' && !isAddedExist) {
                                 $scope.addedOrderId = null;
-                                $location.path("/account/order/list");
+                                $location.path('/account/order/list');
                             }
 
-                            if (typeof $scope.orderId !== "undefined" && !isExist) {
+                            if (typeof $scope.orderId !== 'undefined' && !isExist) {
                                 $scope.orderId = null;
-                                $location.path("/account/order/list");
+                                $location.path('/account/order/list');
                             }
                         }
                     );
@@ -76,18 +77,18 @@
                         var date, month, day;
 
                         date = new Date(str);
-                        month = date.getMonth().toString().length < 2 ? "0" + date.getMonth() : date.getMonth();
-                        day = date.getDay().toString().length < 2 ? "0" + date.getDay() : date.getDay();
+                        month = date.getMonth().toString().length < 2 ? '0' + date.getMonth() : date.getMonth();
+                        day = date.getDay().toString().length < 2 ? '0' + date.getDay() : date.getDay();
 
-                        return date.getFullYear() + "/" + month + "/" + day;
+                        return date.getFullYear() + '/' + month + '/' + day;
                     };
 
-                    $scope.$watch("addedOrderId", function () {
-                        if(typeof $scope.addedOrderId !== "undefined") {
+                    $scope.$watch('addedOrderId', function () {
+                        if(typeof $scope.addedOrderId !== 'undefined') {
                             $scope.message = {
-                                "type": "success",
-                                "message": "THANK YOU FOR YOUR PURCHASE!<br/>" +
-                                    "Your order # is: <a href=\"#/account/order/{{addedOrderId}}\">" + $scope.addedOrderId + "</a>"
+                                'type': 'success',
+                                'message': 'THANK YOU FOR YOUR PURCHASE!<br/>' +
+                                    'Your order # is: <a href=\'#/account/order/{{addedOrderId}}\'>' + $scope.addedOrderId + '</a>'
                             };
                         }
                     });

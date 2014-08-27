@@ -1,20 +1,20 @@
 (function (define, $) {
-    "use strict";
+    'use strict';
 
-    define(["visitor/init"], function (visitorModule) {
+    define(['visitor/init'], function (visitorModule) {
         visitorModule
 
-            .controller("visitorAddressController", [
-                "$scope",
-                "$location",
-                "$visitorLoginService",
-                "$visitorApiService",
-                "$designStateService",
+            .controller('visitorAddressController', [
+                '$scope',
+                '$location',
+                '$visitorLoginService',
+                '$visitorApiService',
+                '$designStateService',
                 function ($scope, $location, $visitorLoginService, $visitorApiService, $designStateService) {
                     var getFullName;
 
                     $scope.countries = [
-                        { Code: "US", Name: "USA" }
+                        { Code: 'US', Name: 'USA' }
                     ];
                     $scope.states = $designStateService;
                     $scope.addresses = [];
@@ -23,32 +23,32 @@
                     $scope.visitorService = $visitorLoginService;
 
                     getFullName = function (obj) {
-                        return obj.zip_code +
-                            " " + obj.state +
-                            ", " + obj.city +
-                            ", " + obj.address_line1 +
-                            (obj.address_line2 ? ", " + obj.address_line2 : "");
+                        return obj.zip_code +                                      // jshint ignore:line
+                            ' ' + obj.state +
+                            ', ' + obj.city +
+                            ', ' + obj.address_line1 +                             // jshint ignore:line
+                            (obj.address_line2 ? ', ' + obj.address_line2 : '');   // jshint ignore:line
                     };
 
                     $scope.init = function () {
                         var isLoggedIn;
 
                         // BREADCRUMBS
-                        $scope.$emit("add-breadcrumbs", {"label": "myAccount", "url": "/account"});
-                        $scope.$emit("add-breadcrumbs", {"label": "Addresses", "url": "/account/address"});
+                        $scope.$emit('add-breadcrumbs', {'label': 'myAccount', 'url': '/account'});
+                        $scope.$emit('add-breadcrumbs', {'label': 'Addresses', 'url': '/account/address'});
 
                         isLoggedIn = $scope.visitorService.isLoggedIn();
                         if (isLoggedIn === null) {
                             $scope.visitorService.init().then(
                                 function () {
                                     if (!$scope.visitorService.isLoggedIn()) {
-                                        $location.path("/");
+                                        $location.path('/');
                                     }
                                 }
                             );
                         } else {
                             if (!$scope.visitorService.isLoggedIn()) {
-                                $location.path("/");
+                                $location.path('/');
                             }
                         }
                     };
@@ -57,12 +57,12 @@
                      * Clears the form to create a new address
                      */
                     $scope.clearForm = function () {
-                        $scope.address = {"visitor_id": $scope.visitor._id};
+                        $scope.address = {'visitor_id': $scope.visitor._id};
                     };
 
                     $scope.clearForm();
 
-                    $visitorApiService.getAddresses({"visitorId": $scope.visitor._id}).$promise.then(
+                    $visitorApiService.getAddresses({'visitorId': $scope.visitor._id}).$promise.then(
                         function (response) {
                             var result = response.result || [];
                             $scope.addresses = result;
@@ -76,7 +76,7 @@
                      * @param id
                      */
                     $scope.select = function (id) {
-                        $visitorApiService.loadAddress({"id": id}).$promise.then(
+                        $visitorApiService.loadAddress({'id': id}).$promise.then(
                             function (response) {
                                 var result = response.result || {};
                                 $scope.address = result;
@@ -92,10 +92,10 @@
                      */
                     $scope.remove = function (id) {
                         var i, answer;
-                        answer = window.confirm("You really want to remove this address");
+                        answer = window.confirm('You really want to remove this address');
                         if (answer) {
-                            $visitorApiService.deleteAddress({"id": id}, function (response) {
-                                if (response.result === "ok") {
+                            $visitorApiService.deleteAddress({'id': id}, function (response) {
+                                if (response.result === 'ok') {
                                     for (i = 0; i < $scope.addresses.length; i += 1) {
                                         if ($scope.addresses[i].Id === id) {
                                             $scope.addresses.splice(i, 1);
@@ -108,13 +108,13 @@
                     };
 
                     $scope.setAsDefault = function (id) {
-                        $visitorApiService.update({"shipping_address_id": id}).$promise.then(
+                        $visitorApiService.update({'shipping_address_id': id}).$promise.then(
                             function (response) {
                                 $visitorLoginService.setLogin(response.result);
                                 $scope.visitor = $visitorLoginService.getVisitor();
                                 $scope.message = {
-                                    "type": "success",
-                                    "message": "Address was selected as default with success"
+                                    'type': 'success',
+                                    'message': 'Address was selected as default with success'
                                 };
                             }
                         );
@@ -128,7 +128,7 @@
                             return false;
                         }
 
-                        if (typeof $scope.address !== "undefined") {
+                        if (typeof $scope.address !== 'undefined') {
                             id = $scope.address.id || $scope.address._id;
                         }
 
@@ -137,18 +137,18 @@
                          * @param response
                          */
                         saveSuccess = function (response) {
-                            if (response.error === "") {
+                            if (response.error === '') {
                                 $scope.addresses.push({
-                                        "Id": response.result._id,
-                                        "Name": getFullName(response.result)
+                                        'Id': response.result._id,
+                                        'Name': getFullName(response.result)
                                     }
                                 );
                             }
-                            $("#parent_popup_address").hide();
+                            $('#parent_popup_address').hide();
                             $scope.submitted = false;
                             $scope.message = {
-                                "type": "success",
-                                "message": "New address was added with success"
+                                'type': 'success',
+                                'message': 'New address was added with success'
                             };
                         };
 
@@ -165,7 +165,7 @@
                          */
                         updateSuccess = function (response) {
                             var i, addr;
-                            if (response.error === "") {
+                            if (response.error === '') {
                                 addr = response.result;
                                 for (i = 0; i < $scope.addresses.length; i += 1) {
                                     if ($scope.addresses[i].Id === addr._id) {
@@ -174,11 +174,11 @@
                                     }
                                 }
                             }
-                            $("#parent_popup_address").hide();
+                            $('#parent_popup_address').hide();
                             $scope.submitted = false;
                             $scope.message = {
-                                "type": "success",
-                                "message": "Address was changed with success"
+                                'type': 'success',
+                                'message': 'Address was changed with success'
                             };
                         };
 
@@ -199,20 +199,20 @@
                     };
 
                     $scope.popUpOpen = function (addressId) {
-                        if (typeof addressId === "undefined") {
+                        if (typeof addressId === 'undefined') {
                             $scope.address = {};
-                            $("#parent_popup_address").show();
+                            $('#parent_popup_address').show();
                         } else {
-                            $visitorApiService.loadAddress({"id": addressId}).$promise.then(
+                            $visitorApiService.loadAddress({'id': addressId}).$promise.then(
                                 function (response) {
                                     $scope.address = response.result || [];
 
-                                    $scope.shippingAddressId = (typeof $scope.visitor.shipping_address !== "undefined" && $scope.visitor.shipping_address !== null) ?
-                                        $scope.visitor.shipping_address._id : null;
-                                    $scope.billingAddressId = (typeof $scope.visitor.billing_address !== "undefined" && $scope.visitor.billing_address !== null) ?
-                                        $scope.visitor.billing_address._id : null;
+                                    $scope.shippingAddressId = (typeof $scope.visitor.shipping_address !== 'undefined' && $scope.visitor.shipping_address !== null) ?    // jshint ignore:line
+                                        $scope.visitor.shipping_address._id : null;                                                                                      // jshint ignore:line
+                                    $scope.billingAddressId = (typeof $scope.visitor.billing_address !== 'undefined' && $scope.visitor.billing_address !== null) ?       // jshint ignore:line
+                                        $scope.visitor.billing_address._id : null;                                                                                       // jshint ignore:line
 
-                                    $("#parent_popup_address").show();
+                                    $('#parent_popup_address').show();
 
                                 }
                             );
@@ -226,7 +226,7 @@
                         if (!$scope.shippingAddressId) { // jshint ignore:line
                             delete $scope.visitor.shipping_address_id; // jshint ignore:line
                         }
-                        $scope.visitor.shipping_address_id = id;
+                        $scope.visitor.shipping_address_id = id;        // jshint ignore:line
                         $visitorApiService.update($scope.visitor).$promise.then(
                             function (response) {
                                 $visitorLoginService.setLogin(response.result);
@@ -241,7 +241,7 @@
                         if (!$scope.billingAddressId) { // jshint ignore:line
                             delete $scope.visitor.billing_address_id; // jshint ignore:line
                         }
-                        $scope.visitor.billing_address_id = id;
+                        $scope.visitor.billing_address_id = id;                     // jshint ignore:line
                         $visitorApiService.update($scope.visitor).$promise.then(
                             function (response) {
                                 $visitorLoginService.setLogin(response.result);
@@ -254,19 +254,19 @@
                         var _default, name;
                         name = addr.Name;
                         _default = [];
-                        if (typeof $scope.visitor.billing_address !== "undefined" &&
-                            $scope.visitor.billing_address !== null &&
-                            addr.Id === $scope.visitor.billing_address._id) {
-                            _default.push("default billing");
+                        if (typeof $scope.visitor.billing_address !== 'undefined' &&    // jshint ignore:line
+                            $scope.visitor.billing_address !== null &&                  // jshint ignore:line
+                            addr.Id === $scope.visitor.billing_address._id) {           // jshint ignore:line
+                            _default.push('default billing');
                         }
-                        if (typeof $scope.visitor.shipping_address !== "undefined" &&
-                            $scope.visitor.shipping_address !== null &&
-                            addr.Id === $scope.visitor.shipping_address._id) {
-                            _default.push("default shipping");
+                        if (typeof $scope.visitor.shipping_address !== 'undefined' &&   // jshint ignore:line
+                            $scope.visitor.shipping_address !== null &&                 // jshint ignore:line
+                            addr.Id === $scope.visitor.shipping_address._id) {          // jshint ignore:line
+                            _default.push('default shipping');
                         }
 
                         if (_default.length > 0) {
-                            name += "( " + _default.join(", ") + ")";
+                            name += '( ' + _default.join(', ') + ')';
                         }
 
                         return name;

@@ -1,16 +1,16 @@
 (function (define, $) {
-    "use strict";
+    'use strict';
 
-    define(["visitor/init", "visitor/service/google"], function (loginModule, gl) {
-        loginModule.controller("visitorLoginController", [
-            "$scope",
-            "$routeParams",
-            "$visitorApiService",
-            "$visitorLoginService",
-            "$location",
-            "$cartService",
-            "$commonHeaderService",
-            "$commonSidebarService",
+    define(['visitor/init', 'visitor/service/google'], function (loginModule, gl) {
+        loginModule.controller('visitorLoginController', [
+            '$scope',
+            '$routeParams',
+            '$visitorApiService',
+            '$visitorLoginService',
+            '$location',
+            '$cartService',
+            '$commonHeaderService',
+            '$commonSidebarService',
             function ($scope, $routeParams, $visitorApiService, $visitorLoginService, $location, $cartService, $commonHeaderService, $commonSidebarService) {
                 $visitorLoginService.init();
                 $scope.login = $visitorLoginService.getVisitor();
@@ -22,43 +22,43 @@
 
                 $scope.clickToCartDesktop = function () {
                     var miniCart;
-                    miniCart = $(".mini-cart");
+                    miniCart = $('.mini-cart');
 
                     if ($visitorLoginService.isLoggedIn()) {
-                        if (miniCart.css("display") === "none") {
-                            miniCart.css("display", "table");
+                        if (miniCart.css('display') === 'none') {
+                            miniCart.css('display', 'table');
                         } else {
                             miniCart.hide();
                         }
                     } else {
-                        $("#form-login").modal("show");
+                        $('#form-login').modal('show');
                     }
                 };
 
                 $scope.save = function () {
-                    delete $scope.login.billing_address_id;
-                    delete $scope.login.shipping_address_id;
+                    delete $scope.login.billing_address_id;         // jshint ignore:line
+                    delete $scope.login.shipping_address_id;        // jshint ignore:line
                     $visitorApiService.register($scope.login);
-                    $(".modal").modal("hide");
+                    $('.modal').modal('hide');
                 };
 
                 $scope.signIn = function () {
                     $visitorApiService.login($scope.loginCredentials).$promise.then(function (response) {
-                        if (response.result === "ok") {
+                        if (response.result === 'ok') {
                             $visitorLoginService.init().then(
                                 function () {
-                                    $(".modal").modal("hide");
+                                    $('.modal').modal('hide');
                                     $cartService.reload();
 
                                     // Update right menu
-                                    $commonHeaderService.removeItem("right", "/login");
-                                    $commonHeaderService.addMenuRightItem("/account", "My Account", "/account");
-                                    $commonHeaderService.addMenuRightItem("/logout", "Logout", "/logout");
+                                    $commonHeaderService.removeItem('right', '/login');
+                                    $commonHeaderService.addMenuRightItem('/account', 'My Account', '/account');
+                                    $commonHeaderService.addMenuRightItem('/logout', 'Logout', '/logout');
 
                                     // Update sidebar
-                                    $commonSidebarService.addItem("ACCOUNT", "account", "glyphicon glyphicon-user", 90);
+                                    $commonSidebarService.addItem('ACCOUNT', 'account', 'glyphicon glyphicon-user', 90);
 
-                                    $location.path("/account");
+                                    $location.path('/account');
                                 }
                             );
                         }
@@ -73,30 +73,30 @@
                     FB.login(                                               // jshint ignore:line
                         function (response) {
                             $visitorApiService.loginFacebook({
-                                "user_id": response.authResponse.userID,
-                                "access_token": response.authResponse.accessToken
+                                'user_id': response.authResponse.userID,
+                                'access_token': response.authResponse.accessToken
                             }).$promise.then(
                                 function () {
                                     $visitorLoginService.init().then(
                                         function () {
-                                            $(".modal").modal("hide");
+                                            $('.modal').modal('hide');
                                             $cartService.reload();
 
                                             // Update right menu
-                                            $commonHeaderService.removeItem("right", "/login");
-                                            $commonHeaderService.addMenuRightItem("/account", "My Account", "/account");
-                                            $commonHeaderService.addMenuRightItem("/logout", "Logout", "/logout");
+                                            $commonHeaderService.removeItem('right', '/login');
+                                            $commonHeaderService.addMenuRightItem('/account', 'My Account', '/account');
+                                            $commonHeaderService.addMenuRightItem('/logout', 'Logout', '/logout');
 
                                             // Update sidebar
-                                            $commonSidebarService.addItem("ACCOUNT", "account", "glyphicon glyphicon-user", 90);
+                                            $commonSidebarService.addItem('ACCOUNT', 'account', 'glyphicon glyphicon-user', 90);
 
-                                            $location.path("/account");
+                                            $location.path('/account');
                                         }
                                     );
                                 }
                             );
                         },
-                        {scope: "email"}
+                        {scope: 'email'}
                     );
                 };
 
@@ -110,18 +110,18 @@
                         function () {
                             $visitorLoginService.init().then(
                                 function () {
-                                    $(".modal").modal("hide");
+                                    $('.modal').modal('hide');
                                     $cartService.reload();
 
                                     // Update right menu
-                                    $commonHeaderService.removeItem("right", "/login");
-                                    $commonHeaderService.addMenuRightItem("/account", "My Account", "/account");
-                                    $commonHeaderService.addMenuRightItem("/logout", "Logout", "/logout");
+                                    $commonHeaderService.removeItem('right', '/login');
+                                    $commonHeaderService.addMenuRightItem('/account', 'My Account', '/account');
+                                    $commonHeaderService.addMenuRightItem('/logout', 'Logout', '/logout');
 
                                     // Update sidebar
-                                    $commonSidebarService.addItem("ACCOUNT", "account", "glyphicon glyphicon-user", 90);
+                                    $commonSidebarService.addItem('ACCOUNT', 'account', 'glyphicon glyphicon-user', 90);
 
-                                    $location.path("/account", false);
+                                    $location.path('/account', false);
                                 }
                             );
                         }

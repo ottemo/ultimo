@@ -1,12 +1,12 @@
 (function (define) {
-    "use strict";
+    'use strict';
 
     /*
      *  HTML top page header manipulation stuff
      */
     define([
 
-            "common/init"
+            'common/init'
         ],
         function (commonModule) {
 
@@ -51,7 +51,7 @@
                          * Item belongs to the upper level.
                          * He has only one level in path
                          */
-                        if (item.path.split("/").length <= 2) {
+                        if (item.path.split('/').length <= 2) {
                             tmpMenu.push(item);
                         } else {
                             /**
@@ -65,9 +65,9 @@
                              *
                              * @type {string}
                              */
-                            parentPath = item.path.substr(0, item.path.lastIndexOf("/"));
-                            if (getParentItem(menu, "path", parentPath)) {
-                                if (typeof parentItem.items === "undefined") {
+                            parentPath = item.path.substr(0, item.path.lastIndexOf('/'));
+                            if (getParentItem(menu, 'path', parentPath)) {
+                                if (typeof parentItem.items === 'undefined') {
                                     parentItem.items = [];
                                 }
                                 parentItem.items.push(item);
@@ -80,12 +80,12 @@
 
             prepareLink = function (link) {
                 var fullUrlRegex, href;
-                fullUrlRegex = new RegExp("^http|https.", "i");
+                fullUrlRegex = new RegExp('^http|https.', 'i');
 
                 if (fullUrlRegex.test(link)) {
                     href = link;
                 } else {
-                    href = (link !== null ? "#" + link : null);
+                    href = (link !== null ? '#' + link : null);
                 }
 
                 return href;
@@ -95,7 +95,7 @@
                 /*
                  *  $pageHeaderService implementation
                  */
-                .service("$commonHeaderService", [function () {
+                .service('$commonHeaderService', [function () {
                     // Variables
                     var it;
                     // Functions
@@ -112,7 +112,7 @@
                         for (i = 0; i < arr.length; i += 1) {
                             item = arr[i];
 
-                            if (typeof item !== "undefined") {
+                            if (typeof item !== 'undefined') {
                                 if (tmp.indexOf(item.path) > 0) {
                                     delete arr[i];
                                     continue;
@@ -158,16 +158,17 @@
                         return transformMenu(it.menuLeft);
                     };
 
+                    // TODO: reduce cyclomatic complexity
                     removeItem = function (menu, path) {
                         var nameMenu, i, menuItem;
                         nameMenu = null;
 
                         switch (menu) {
-                            case "left":
-                                nameMenu = "menuLeft";
+                            case 'left':
+                                nameMenu = 'menuLeft';
                                 break;
-                            case "right":
-                                nameMenu = "menuRight";
+                            case 'right':
+                                nameMenu = 'menuRight';
                                 break;
                         }
 
@@ -188,11 +189,11 @@
 
                     return {
 
-                        "addMenuRightItem": addMenuRightItem,
-                        "getMenuRight": getMenuRight,
-                        "addMenuLeftItem": addMenuLeftItem,
-                        "getMenuLeft": getMenuLeft,
-                        "removeItem": removeItem
+                        'addMenuRightItem': addMenuRightItem,
+                        'getMenuRight': getMenuRight,
+                        'addMenuLeftItem': addMenuLeftItem,
+                        'getMenuLeft': getMenuLeft,
+                        'removeItem': removeItem
                     };
                 }]);
 

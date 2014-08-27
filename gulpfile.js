@@ -170,26 +170,26 @@
 
     gulp.task('default',['build']);
 
-    gulp.task("retrieve-files",
+    gulp.task('retrieve-files',
         function () {
             var themesDir, jsCode, fs, request, themes, themesData, recursive;
             themes = [];
-            themesData = "";
-            fs = require("fs");
-            request = require("request");
-            recursive = require("recursive-readdir");
+            themesData = '';
+            fs = require('fs');
+            request = require('request');
+            recursive = require('recursive-readdir');
 
-            themesDir = "./app/themes";
+            themesDir = './app/themes';
 
             recursive(themesDir, function (err, files) {
                 var i, theme, filePath, parts, regExp;
                 theme = null;
-                regExp = new RegExp("app[/\\\\]themes[/\\\\](\\w+)[/\\\\](.+)", "i");
+                regExp = new RegExp('app[/\\\\]themes[/\\\\](\\w+)[/\\\\](.+)', 'i');
 
-                jsCode = "(function (define) {" +
-                    "/* jshint ignore:start */" +
-                    "define(function () {" +
-                    "return {\n";
+                jsCode = '(function (define) {' +
+                    '/* jshint ignore:start */' +
+                    'define(function () {' +
+                    'return {\n';
 
                 for (i = 0; i < files.length; i += 1) {
                     filePath = files[i];
@@ -197,65 +197,65 @@
                     if (parts instanceof Array) {
                         if (theme !== parts[1] && theme === null) {
                             themes.push(parts[1]);
-                            jsCode += "\"" + parts[1] + "\" : [\n";
+                            jsCode += '\'' + parts[1] + '\' : [\n';
                         }
                         if (theme !== parts[1] && theme !== null) {
                             themes.push(parts[1]);
-                            jsCode += "],\n\"" + parts[1] + "\" : [\n";
+                            jsCode += '],\n\'' + parts[1] + '\' : [\n';
                         }
-                        jsCode += "\"/" + parts[2] + "\",\n";
+                        jsCode += '\'/' + parts[2] + '\',\n';
                         theme = parts[1];
                     }
                 }
 
-                jsCode += "]\n};});" +
-                    "/* jshint ignore:end */" +
-                    "})(window.define);";
+                jsCode += ']\n};});' +
+                    '/* jshint ignore:end */' +
+                    '})(window.define);';
 
-                fs.writeFile("./app/scripts/design/themeFiles.js", jsCode, function (err, data) {
+                fs.writeFile('./app/scripts/design/themeFiles.js', jsCode, function (err, data) {
                     if (err) {
                         return console.log(err);
                     }
                 });
-                themesData = "{";
+                themesData = '{';
                 for (i = 0; i < themes.length; i += 1) {
-                    themesData += "'" + themes[i] + "':'" + themes[i] + "'";
+                    themesData += '"' + themes[i] + '":"' + themes[i] + "'";
                     if (i < themes.length - 1) {
-                        themesData += ",";
+                        themesData += ',';
                     }
                 }
-                themesData += "}";
+                themesData += '}';
 
                 // Create group
                 request({
-                    uri: "http://dev.ottemo.com:3000/config/unregister/themes.list",
-                    method: "DELETE"
+                    uri: 'http://dev.ottemo.com:3000/config/unregister/themes.list',
+                    method: 'DELETE'
                 }, function () {
-                    var r = request.post("http://dev.ottemo.com:3000/config/register");
+                    var r = request.post('http://dev.ottemo.com:3000/config/register');
 
                     var form = r.form();
-                    form.append("path", "themes.list");
-                    form.append("value", "");
-                    form.append("type", "group");
-                    form.append("editor", "");
-                    form.append("options", "");
-                    form.append("label", "Themes");
-                    form.append("description", "");
+                    form.append('path', 'themes.list');
+                    form.append('value', '');
+                    form.append('type', 'group');
+                    form.append('editor', '');
+                    form.append('options', '');
+                    form.append('label', 'Themes');
+                    form.append('description', '');
                 });
                 request({
-                    uri: "http://dev.ottemo.com:3000/config/unregister/themes.list.active",
-                    method: "DELETE"
+                    uri: 'http://dev.ottemo.com:3000/config/unregister/themes.list.active',
+                    method: 'DELETE'
                 }, function () {
-                    var r = request.post("http://dev.ottemo.com:3000/config/register");
+                    var r = request.post('http://dev.ottemo.com:3000/config/register');
 
                     var form = r.form();
-                    form.append("path", "themes.list.active");
-                    form.append("value", "default");
-                    form.append("type", "");
-                    form.append("editor", "select");
-                    form.append("options", themesData);
-                    form.append("label", "Active theme");
-                    form.append("description", "Active theme on storefront");
+                    form.append('path', 'themes.list.active');
+                    form.append('value', 'default');
+                    form.append('type', '');
+                    form.append('editor', 'select');
+                    form.append('options', themesData);
+                    form.append('label', 'Active theme');
+                    form.append('description', 'Active theme on storefront');
                 });
 
 

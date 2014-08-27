@@ -28,7 +28,7 @@
                 "$designStateService",
                 "$anchorScroll",
                 "$q",
-                function ($scope, $location, $checkoutApiService, $designImageService, $visitorLoginService, $cartService, $designStateService, $anchorScroll, $q) {
+                function ($scope, $location, $checkoutApiService, $designImageService, $visitorLoginService, $cartService, $designStateService, $anchorScroll, $q) {    // jshint ignore:line
 
                     var isLoggedIn, info, getDefaultAddress, getAddresses, getCurrentBillingID, getCurrentShippingID;
 
@@ -56,15 +56,15 @@
                     $scope.creditTypes = [
                         {"Code": "visa", "Name": "Visa"},
                         {"Code": "master_card", "Name": "Master Card"}
-                    ]
+                    ];
 
                     $scope.useAsBilling = false;
                     $scope.states = $designStateService;
                     $scope.cart = $cartService;
                     $scope.shippingMethods = [];
                     $scope.checkout = {};
-                    $scope.shipping_address = getDefaultAddress();
-                    $scope.billing_address = getDefaultAddress();
+                    $scope.shipping_address = getDefaultAddress();      // jshint ignore:line
+                    $scope.billing_address = getDefaultAddress();       // jshint ignore:line
                     $scope.totals = 0;
 
                     /**
@@ -74,7 +74,8 @@
                     info = function () {
                         var defer = $q.defer();
                         $checkoutApiService.info().$promise.then(
-                            function (response) {
+                            // TODO: Line 77 - reduce cyclomatic complexity here
+                            function (response) {           // jshint ignore:line
                                 var i, result, item;
                                 result = response.result || [];
                                 $scope.checkout = result;
@@ -82,8 +83,8 @@
                                 for (i = 0; i < $scope.shippingMethods.length; i += 1) {
                                     item = $scope.shippingMethods[i];
 
-                                    if ($scope.checkout.shipping_method_code === item.Method &&
-                                        $scope.checkout.shipping_rate.Code === item.Rate) {
+                                    if ($scope.checkout.shipping_method_code === item.Method &&         // jshint ignore:line
+                                        $scope.checkout.shipping_rate.Code === item.Rate) {         // jshint ignore:line
 
                                         $scope.indexShippingMethod = i;
                                     }
@@ -91,18 +92,18 @@
 
                                 for (i = 0; i < $scope.paymentMethods.length; i += 1) {
                                     item = $scope.paymentMethods[i];
-                                    if ($scope.checkout.payment_method_code === item.Code) {
+                                    if ($scope.checkout.payment_method_code === item.Code) {        // jshint ignore:line
 
                                         $scope.paymentType = item.Type;
                                     }
                                 }
 
-                                if ($scope.checkout.shipping_address !== null) {
-                                    $scope.shipping_address = clone($scope.checkout.shipping_address);
+                                if ($scope.checkout.shipping_address !== null) {        // jshint ignore:line
+                                    $scope.shipping_address = clone($scope.checkout.shipping_address);      // jshint ignore:line
                                 }
 
-                                if ($scope.checkout.billing_address !== null) {
-                                    $scope.billing_address = clone($scope.checkout.billing_address);
+                                if ($scope.checkout.billing_address !== null) {         // jshint ignore:line
+                                    $scope.billing_address = clone($scope.checkout.billing_address);        // jshint ignore:line
                                 }
                                 defer.resolve(true);
                             }
@@ -115,7 +116,8 @@
                          * Gets shipping methods
                          */
                         $checkoutApiService.shippingMethod().$promise.then(
-                            function (response) {
+                            // TODO: reduce cyclomatic complexity here
+                            function (response) {                           // jshint ignore:line
                                 var i, j, result, method, rate;
                                 result = response.result || [];
 
@@ -181,7 +183,7 @@
                      * @returns {boolean}
                      */
                     $scope.isVisibleShippingForm = function () {
-                        if ($scope.shipping_address_id === 0) {
+                        if ($scope.shipping_address_id === 0) {         // jshint ignore:line
                             return true;
                         }
 
@@ -194,8 +196,8 @@
                      * @returns {boolean}
                      */
                     $scope.isVisibleBillingForm = function () {
-                        if (typeof $scope.billing_address !== "undefined" &&
-                            $scope.billing_address_id === 0) {
+                        if (typeof $scope.billing_address !== "undefined" &&        // jshint ignore:line
+                            $scope.billing_address_id === 0) {      // jshint ignore:line
                             return true;
                         }
 
@@ -248,7 +250,7 @@
                         method = {};
 
                         for (i = 0; i < $scope.paymentMethods.length; i += 1) {
-                            if ($scope.paymentMethods[i].Code === $scope.checkout.payment_method_code) {
+                            if ($scope.paymentMethods[i].Code === $scope.checkout.payment_method_code) {        // jshint ignore:line
                                 method = $scope.paymentMethods[i];
                                 form = method.form;
                             }
@@ -268,7 +270,7 @@
                                         info();
                                         $cartService.reload().then(
                                             function () {
-                                                $location.path("/account/order/success/" + response.result.increment_id);
+                                                $location.path("/account/order/success/" + response.result.increment_id);       // jshint ignore:line
                                             }
                                         );
                                     } else {
@@ -298,11 +300,11 @@
                      * Sets payment method
                      */
                     $scope.$watch("checkout.payment_method_code", function () {
-                        if (typeof $scope.checkout.payment_method_code !== "undefined" &&
-                            $scope.checkout.payment_method_code !== "" &&
-                            $scope.checkout.payment_method_code !== null) {
+                        if (typeof $scope.checkout.payment_method_code !== "undefined" &&       // jshint ignore:line
+                            $scope.checkout.payment_method_code !== "" &&       // jshint ignore:line
+                            $scope.checkout.payment_method_code !== null) {         // jshint ignore:line
                             $checkoutApiService.setPaymentMethod({
-                                "method": $scope.checkout.payment_method_code
+                                "method": $scope.checkout.payment_method_code       // jshint ignore:line
                             }).$promise.then(
                                 function (response) {
                                     if (response.result === "ok") {
@@ -315,33 +317,33 @@
 
                     getCurrentShippingID = function () {
                         var id;
-                        if (typeof $scope.checkout.shipping_address !== "undefined" &&
-                            $scope.checkout.shipping_address !== null) {
-                            id = $scope.checkout.shipping_address._id;
+                        if (typeof $scope.checkout.shipping_address !== "undefined" &&      // jshint ignore:line
+                            $scope.checkout.shipping_address !== null) {        // jshint ignore:line
+                            id = $scope.checkout.shipping_address._id;      // jshint ignore:line
                         }
                         return id;
                     };
 
                     getCurrentBillingID = function () {
                         var id;
-                        if (typeof $scope.checkout.billing_address !== "undefined" &&
-                            $scope.checkout.billing_address !== null) {
-                            id = $scope.checkout.billing_address._id;
+                        if (typeof $scope.checkout.billing_address !== "undefined" &&       // jshint ignore:line
+                            $scope.checkout.billing_address !== null) {         // jshint ignore:line
+                            id = $scope.checkout.billing_address._id;       // jshint ignore:line
                         }
                         return id;
                     };
 
                     $scope.choiceBilling = function (billingId) {
-                        if (typeof $scope.billing_address === "undefined") {
-                            $scope.billing_address = {};
+                        if (typeof $scope.billing_address === "undefined") {        // jshint ignore:line
+                            $scope.billing_address = {};        // jshint ignore:line
                         }
-                        $scope.billing_address._id = billingId;
+                        $scope.billing_address._id = billingId;         // jshint ignore:line
                         var currentBillingID = getCurrentBillingID();
 
-                        if ($scope.billing_address._id !== currentBillingID) {
-                            if ($scope.billing_address._id !== 0) {
+                        if ($scope.billing_address._id !== currentBillingID) {      // jshint ignore:line
+                            if ($scope.billing_address._id !== 0) {         // jshint ignore:line
                                 $checkoutApiService.setBillingAddress({
-                                    "id": $scope.billing_address._id
+                                    "id": $scope.billing_address._id        // jshint ignore:line
                                 }).$promise.then(
                                     function (response) {
                                         if (response.error === "") {
@@ -354,13 +356,13 @@
                     };
 
                     $scope.choiceShipping = function (shippingId) {
-                        $scope.shipping_address._id = shippingId;
+                        $scope.shipping_address._id = shippingId;       // jshint ignore:line
                         var currentShippingID = getCurrentShippingID();
 
-                        if ($scope.shipping_address._id !== currentShippingID) {
-                            if ($scope.shipping_address._id !== 0) {
+                        if ($scope.shipping_address._id !== currentShippingID) {        // jshint ignore:line
+                            if ($scope.shipping_address._id !== 0) {        // jshint ignore:line
                                 $checkoutApiService.setShippingAddress({
-                                    "id": $scope.shipping_address._id
+                                    "id": $scope.shipping_address._id       // jshint ignore:line
                                 }).$promise.then(
                                     function (response) {
                                         if (response.error === "") {
@@ -374,11 +376,11 @@
                     };
 
                     $scope.newBilling = function () {
-                        $scope.billing_address = getDefaultAddress();
+                        $scope.billing_address = getDefaultAddress();       // jshint ignore:line
                     };
 
                     $scope.newShipping = function () {
-                        $scope.shipping_address = getDefaultAddress();
+                        $scope.shipping_address = getDefaultAddress();      // jshint ignore:line
                     };
 
                     $scope.choiceShippingMethod = function (index) {
@@ -400,18 +402,18 @@
                     $scope.saveShippingAddress = function (invalid) {
                         var currentShippingID = getCurrentShippingID();
 
-                        if ($scope.shipping_address._id !== currentShippingID &&
-                            $scope.shipping_address._id === 0 && !invalid) {
+                        if ($scope.shipping_address._id !== currentShippingID &&        // jshint ignore:line
+                            $scope.shipping_address._id === 0 && !invalid) {        // jshint ignore:line
 
-                            delete $scope.shipping_address._id;
-                            $checkoutApiService.setShippingAddress($scope.shipping_address).$promise.then(
+                            delete $scope.shipping_address._id;         // jshint ignore:line
+                            $checkoutApiService.setShippingAddress($scope.shipping_address).$promise.then(      // jshint ignore:line
                                 function (response) {
                                     if (response.error === "") {
                                         getAddresses();
                                         info().then(
                                             function () {
                                                 if ($scope.useAsBilling) {
-                                                    $scope.choiceBilling($scope.checkout.shipping_address._id)
+                                                    $scope.choiceBilling($scope.checkout.shipping_address._id)      // jshint ignore:line
                                                 }
                                             }
                                         );
@@ -426,16 +428,16 @@
                     $scope.saveBillingAddress = function (invalid) {
                         var currentBillingID = getCurrentBillingID();
 
-                        if ($scope.billing_address._id !== currentBillingID &&
-                            $scope.billing_address._id === 0 && !invalid) {
+                        if ($scope.billing_address._id !== currentBillingID &&      // jshint ignore:line
+                            $scope.billing_address._id === 0 && !invalid) {         // jshint ignore:line
 
-                            delete $scope.billing_address._id;
-                            $checkoutApiService.setBillingAddress($scope.billing_address).$promise.then(
+                            delete $scope.billing_address._id;      // jshint ignore:line
+                            $checkoutApiService.setBillingAddress($scope.billing_address).$promise.then(        // jshint ignore:line
                                 function (response) {
                                     if (response.error === "") {
                                         getAddresses();
                                         info();
-                                        $scope.billing_address = getDefaultAddress();
+                                        $scope.billing_address = getDefaultAddress();       // jshint ignore:line
                                     }
                                 }
                             );
@@ -474,26 +476,26 @@
                     $scope.$watch("useAsBilling", function () {
                         if ($scope.useAsBilling) {
 
-                            if ($scope.shipping_address._id !== 0 &&
-                                typeof $scope.shipping_address._id !== "undefined") {
-                                $scope.choiceBilling($scope.shipping_address._id);
+                            if ($scope.shipping_address._id !== 0 &&        // jshint ignore:line
+                                typeof $scope.shipping_address._id !== "undefined") {       // jshint ignore:line
+                                $scope.choiceBilling($scope.shipping_address._id);      // jshint ignore:line
                             }
-                            $scope.billing_address = clone($scope.shipping_address);
+                            $scope.billing_address = clone($scope.shipping_address);        // jshint ignore:line
                         } else {
-                            $scope.billing_address = clone($scope.checkout.billing_address);
+                            $scope.billing_address = clone($scope.checkout.billing_address);        // jshint ignore:line
                         }
 
                     }, true);
 
                     $scope.$watch("shipping_address", function () {
                         if ($scope.useAsBilling) {
-                            if ($scope.shipping_address._id === 0 ||
-                                typeof $scope.shipping_address._id === "undefined") {
-                                $scope.billing_address = clone($scope.shipping_address);
+                            if ($scope.shipping_address._id === 0 ||        // jshint ignore:line
+                                typeof $scope.shipping_address._id === "undefined") {       // jshint ignore:line
+                                $scope.billing_address = clone($scope.shipping_address);        // jshint ignore:line
                             }
 
                         }
-                    }, true)
+                    }, true);
 
                 }
             ])

@@ -1,23 +1,23 @@
 (function (w, define) {
-    "use strict";
+    'use strict';
 
     /**
      *  HTML top page header manipulation stuff
      */
     define([
-        "cart/init"
+        'cart/init'
     ], function (cartModule) {
         cartModule
 
         /**
          *  $cartService interaction service
          */
-            .service("$cartService", [
-                "$resource",
-                "$cartApiService",
-                "$cookieStore",
-                "LOGIN_COOKIE",
-                "$q",
+            .service('$cartService', [
+                '$resource',
+                '$cartApiService',
+                '$cookieStore',
+                'LOGIN_COOKIE',
+                '$q',
                 function ($resource, $cartApiService, $cookieStore, LOGIN_COOKIE,$q) {
 
                     /** Variables */
@@ -35,7 +35,7 @@
                     total = 0;
 
                     init = function () {
-                        if (typeof isInit === "undefined") {
+                        if (typeof isInit === 'undefined') {
                             loadCartInfo().then(
                                 function () {
                                     isInit = true;
@@ -66,7 +66,7 @@
                         var i, item;
 
                         subtotal = 0;
-                        if (typeof items !== "undefined") {
+                        if (typeof items !== 'undefined') {
                             for (i = 0; i < items.length; i += 1) {
                                 item = items[i];
                                 subtotal += item.qty * item.product.price;
@@ -122,7 +122,7 @@
                     getCountItems = function () {
                         var count = 0;
 
-                        if (typeof items !== "undefined") {
+                        if (typeof items !== 'undefined') {
                             count = items.length;
                         }
 
@@ -147,10 +147,10 @@
 
                         $cartApiService.info().$promise.then(
                             function (response) {
-                                if (response.error === "") {
+                                if (response.error === '') {
                                     items = response.result.items;
-                                    cartInfo = response.result.cart_info;
-                                    visitorId = response.result.visitor_id;
+                                    cartInfo = response.result.cart_info;       // jshint ignore:line
+                                    visitorId = response.result.visitor_id;     // jshint ignore:line
                                     deferLoadCart.resolve(true);
                                 } else {
                                     items = undefined;
@@ -167,8 +167,8 @@
                     addItem = function (productId, qty) {
                         var deferAddItem = $q.defer();
                         $cartApiService.add({
-                            "productId": productId,
-                            "qty": qty
+                            'productId': productId,
+                            'qty': qty
                         }).$promise.then(
                             function () {
                                 loadCartInfo();
@@ -180,10 +180,10 @@
                     };
 
                     remove = function (itemIdx) {
-                        if (w.confirm("You really want remove this item from shopping cart?")) {
+                        if (w.confirm('You really want remove this item from shopping cart?')) {
                             var deferRemoveItem = $q.defer();
 
-                            $cartApiService.remove({"itemIdx": itemIdx}).$promise.then(
+                            $cartApiService.remove({'itemIdx': itemIdx}).$promise.then(
                                 function () {
                                     loadCartInfo().then(
                                         function () {
@@ -201,8 +201,8 @@
                         var deferRemoveItem = $q.defer();
 
                         $cartApiService.update({
-                            "itemIdx": itemIdx,
-                            "qty": qty
+                            'itemIdx': itemIdx,
+                            'qty': qty
                         }).$promise.then(
                             function () {
                                 loadCartInfo().then(
@@ -217,23 +217,23 @@
                     };
 
                     return {
-                        "init": init,
-                        "reload": reload,
-                        "add": addItem,
-                        "remove": remove,
-                        "update": update,
-                        "getItems": getItems,
-                        "getItemsForMiniCart": getItemsForMiniCart,
-                        "getCountItems": getCountItems,
+                        'init': init,
+                        'reload': reload,
+                        'add': addItem,
+                        'remove': remove,
+                        'update': update,
+                        'getItems': getItems,
+                        'getItemsForMiniCart': getItemsForMiniCart,
+                        'getCountItems': getCountItems,
 
-                        "getSubtotal": getSubtotal,
-                        "setSubtotal": setSubtotal,
-                        "getSalesTax": getSalesTax,
-                        "setSalesTax": setSalesTax,
-                        "getShipping": getShipping,
-                        "setShipping": setShipping,
-                        "getTotal": getTotal,
-                        "setTotal": setTotal
+                        'getSubtotal': getSubtotal,
+                        'setSubtotal': setSubtotal,
+                        'getSalesTax': getSalesTax,
+                        'setSalesTax': setSalesTax,
+                        'getShipping': getShipping,
+                        'setShipping': setShipping,
+                        'getTotal': getTotal,
+                        'setTotal': setTotal
                     };
                 }
             ]
