@@ -1,0 +1,79 @@
+<div class="mini-cart">
+    <div class="head">
+    </div>
+    <div class="content">
+        <div class="item" ng-repeat="item in it.getItemsForMiniCart()">
+            <a href="#/product/{{item.pid}}">
+                <img ng-src="{{getImage(item.product)}}" alt="{{item.product.name}}">
+            </a>
+            <div class="mini-cart-block">
+                <h3>
+                    {{item.product.name}}
+                </h3>
+                <span class="remove glyphicon glyphicon-remove" ng-click="it.remove(item.idx)"></span>
+
+                <p>
+                    <span class="minicart-price"> {{item.product.price | currency}}</span>
+                </p>
+
+                <!-- Attributes -->
+<!--                <div class="rating">
+                    <span>
+                        <i class="fa fa-star"></i>
+                    </span>
+                    <span>
+                        <i class="fa fa-star"></i>
+                    </span>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                </div>
+                <div class="mini-cart-review">
+                    <a href>20 reviews</a>
+                    <a href>Add Review</a>
+                </div>
+                <div class="clear"></div>
+                <p class="mini-cart-filter">
+                    <span>Color: Black,</span>
+                    <span>Style: XL</span>
+                </p>-->
+
+                <div class="container">
+                    <div class="input-group spinner mini-cart-spinner">
+                        <input placeholder="Qtl" type="text" class="form-control" value="{{item.qty}}"
+                               ng-model="item.qty" ng-change="update(item.idx, item.qty)">
+
+                        <div class="input-group-btn-vertical">
+                            <button class="btn" ng-click="changeQty(item,'up')"><i></i></button>
+                            <button class="btn" ng-click="changeQty(item,'down')"><i></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="$last && (it.getCountItems() > it.getItemsForMiniCart().length)" class="mini-cart-more right"><a href="#/cart">{{it.getCountItems() - 3}} items more ...</a></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="mini-cart-total" ng-hide="!it.getCountItems()">
+            <p>total: <span>{{it.getSubtotal() | number : 2 | currency}}</span></p>
+        </div>
+        <div class="item" ng-hide="it.getCountItems()">
+            <p>Cart is empty</p>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="mini-cart-footer" ng-hide="!it.getCountItems()">
+        <a href="#/checkout" target="_self" class="right">checkout</a>
+        <a href="#/cart" target="_self" class="left">view cart</a>
+    </div>
+</div>
+
+<script>
+    jQuery(".mini-cart").find(".footer > a").click(function () {
+        jQuery(".mini-cart").hide();
+    });
+</script>
+<style>
+    .mini-cart-more a {
+        color: #3e4146;
+    }
+</style>

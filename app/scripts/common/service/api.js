@@ -4,8 +4,9 @@
     /*
      *  HTML top page header manipulation stuff
      */
-    define(["category/init"], function (productModule) {
-        productModule
+    define(["common/init"], function (commonModule) {
+
+        commonModule
             /*
              *  $productApiService interaction service
              */
@@ -25,7 +26,7 @@
                 });
             }]);
 
-        return productModule;
+        return commonModule;
     });
 
 })(window.define);

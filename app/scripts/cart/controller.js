@@ -1,4 +1,4 @@
-(function (w, define) {
+(function (define, $) {
     "use strict";
 
     define(["cart/init"], function (cartModule) {
@@ -9,38 +9,37 @@
                 "$cartApiService",
                 "$cartService",
                 "$designImageService",
-                "$loginService",
+                "$visitorLoginService",
                 "$location",
-                function ($scope, $cartApiService, $cartService, $designImageService, $loginService, $location) {
+                function ($scope, $cartApiService, $cartService, $designImageService, $visitorLoginService, $location) {
 
-                    var isLoggedIn, subtotal, saleTax, shipping, total;
+                    var isLoggedIn;
 
                     $scope.it = $cartService;
 
                     $scope.init = function () {
-                        isLoggedIn = $loginService.isLoggedIn();
+                        isLoggedIn = $visitorLoginService.isLoggedIn();
                         if (isLoggedIn === null) {
-                            $loginService.init().then(
+                            $visitorLoginService.init().then(
                                 function () {
-                                    if (!$loginService.isLoggedIn()) {
+                                    if (!$visitorLoginService.isLoggedIn()) {
                                         $location.path("/");
                                     }
                                 }
                             );
                         } else {
-                            if (!$loginService.isLoggedIn()) {
+                            if (!$visitorLoginService.isLoggedIn()) {
                                 $location.path("/");
                             }
                         }
                         $cartService.reload();
 
+                        $scope.$emit("add-breadcrumbs", {"label": "My Account", "url": "/account"});
                         $scope.$emit("add-breadcrumbs", {"label": "Shopping Cart", "url": "/cart"});
                     };
 
                     $scope.remove = function (itemIdx) {
-                        if (w.confirm("You really want remove this item from shopping cart?")) {
-                            $cartService.remove(itemIdx);
-                        }
+                        $cartService.remove(itemIdx);
                     };
 
                     $scope.update = function (itemIdx, qty) {
@@ -58,47 +57,43 @@
                     };
 
                     $scope.getSubtotal = function () {
-                        var i, item, items;
-                        subtotal = 0;
-                        items = $scope.it.getItems();
-
-                        if (typeof items !== "undefined") {
-                            for (i = 0; i < items.length; i += 1) {
-                                item = items[i];
-                                subtotal += item.qty * item.product.price;
-                            }
-                        }
-
-                        $cartService.setSubtotal(subtotal);
-
-                        return subtotal;
+                        return $cartService.getSubtotal();
                     };
 
                     $scope.getSalesTax = function () {
-                        saleTax = 20;
-                        $cartService.setSalesTax(saleTax);
-
-                        return saleTax;
+                        return $cartService.getSalesTax();
                     };
 
                     $scope.getShipping = function () {
-                        shipping = 5;
-                        $cartService.setShipping(shipping);
-
-                        return shipping;
+                        return $cartService.getShipping();
                     };
 
                     $scope.getTotal = function () {
-                        total = subtotal + saleTax + shipping;
-
-                        $cartService.setTotal(total);
-
-                        return total;
+                        return $cartService.getTotal();
                     };
+
+                    $scope.changeQty = function(item, action){
+
+                        if(action === "up"){
+                            item.qty = item.qty + 1;
+                        }
+                        else if(action === "down"){
+                            if(item.qty > 1){
+                                item.qty = item.qty - 1;
+                            }
+                        }
+                    };
+
+                    /**
+                     * Hides mini-cart after change url
+                     */
+                    $scope.$on("$locationChangeSuccess", function () {
+                        $(".mini-cart").hide();
+                    });
 
                 }
             ])
         ;
         return cartModule;
     });
-})(window, window.define);
+})(window.define, jQuery);

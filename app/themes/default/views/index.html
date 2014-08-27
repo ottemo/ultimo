@@ -1,0 +1,22 @@
+<add-css src="customStorefront.css"></add-css>
+<add-css src="style.css"></add-css>
+
+<div id="pageTable" class="GlobalWrapper">
+    <div id="cellPageHeader" class="GlobalHeader">
+        <ng-include src="getTemplate('common/header.html')"></ng-include>
+    </div>
+    <div id="cellPageContent" class="cellPageContent">
+        <div id="cellPageBreadcrumbs" class="GlobalBreadcrumbs">
+            <ng-include src="getTemplate('common/breadcrumbs.html')"></ng-include>
+        </div>
+        <ng-view></ng-view>
+        <ng-include src="getTemplate('visitor/login.html')"></ng-include>
+        <ng-include src="getTemplate('visitor/registration.html')"></ng-include>
+    </div>
+</div>
+
+<div id="cellPageFooter" class="cellPageFooter">
+    <ng-include src="getTemplate('common/footer.html')"></ng-include>
+</div>
+</div>
+<script src="themes/default/scripts/main.js"></script>

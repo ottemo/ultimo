@@ -21,7 +21,10 @@
                  */
                 .config(["$routeProvider", function ($routeProvider) {
                     $routeProvider
-                        .when("/product/:id", { templateUrl: "views/default/pdp/view.html", controller: "pdpController"});
+                        .when("/product/:id", {
+                            templateUrl: angular.getTheme("pdp/view.html"),
+                            controller: "pdpController"
+                        });
                 }]);
 
             return angular.module.pdpModule;

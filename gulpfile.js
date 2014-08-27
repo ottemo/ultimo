@@ -13,8 +13,8 @@
         sass = require('gulp-sass'),
         rjs = require('gulp-requirejs'),
         minifyCSS = require('gulp-minify-css'),
-        // protractor = require('gulp-protractor'),
-        // jasmine = require('gulp-jasmine'),
+    // protractor = require('gulp-protractor'),
+    // jasmine = require('gulp-jasmine'),
         browserSync = require('browser-sync'),
         del = require('del');
 
@@ -78,10 +78,10 @@
     // will auto-update browsers
     gulp.task('sass', function () {
         return gulp.src(paths.sass)
-        .pipe(sass({imagePath: '../../images'}))
-        .pipe(autoprefix('last 1 version'))
-        .pipe(gulp.dest(paths.dist + '/styles'))
-        .pipe(gulp.dest(paths.app + '/styles'));
+            .pipe(sass({imagePath: '../../images'}))
+            .pipe(autoprefix('last 1 version'))
+            .pipe(gulp.dest(paths.dist + '/styles'))
+            .pipe(gulp.dest(paths.app + '/styles'));
     });
 
     // minify new images
@@ -145,7 +145,7 @@
     gulp.task('browser-sync', function() {
         browserSync({
             server: {
-                baseDir: './app' 
+                baseDir: './app'
             },
             port: host.port
         });
@@ -164,9 +164,104 @@
         gulp.watch('app/scripts/**/*.js', ['vendor', 'requirejs', browserSync.reload]);
     });
 
-    gulp.task('serve', ['dev']);
+    gulp.task('serve', ['dev', 'retrieve-files']);
 
     gulp.task('build', ['requirejs', 'vendor', 'misc', 'html', 'autoprefixer', 'imagemin']);
 
     gulp.task('default',['build']);
+
+    gulp.task('retrieve-files',
+        function () {
+            var themesDir, jsCode, fs, request, themes, themesData, recursive;
+            themes = [];
+            themesData = '';
+            fs = require('fs');
+            request = require('request');
+            recursive = require('recursive-readdir');
+
+            themesDir = './app/themes';
+
+            recursive(themesDir, function (err, files) {
+                var i, theme, filePath, parts, regExp;
+                theme = null;
+                regExp = new RegExp('app[/\\\\]themes[/\\\\](\\w+)[/\\\\](.+)', 'i');
+
+                jsCode = '(function (define) {' +
+                    '/* jshint ignore:start */' +
+                    'define(function () {' +
+                    'return {\n';
+
+                for (i = 0; i < files.length; i += 1) {
+                    filePath = files[i];
+                    parts = filePath.match(regExp);
+                    if (parts instanceof Array) {
+                        if (theme !== parts[1] && theme === null) {
+                            themes.push(parts[1]);
+                            jsCode += '\'' + parts[1] + '\' : [\n';
+                        }
+                        if (theme !== parts[1] && theme !== null) {
+                            themes.push(parts[1]);
+                            jsCode += '],\n\'' + parts[1] + '\' : [\n';
+                        }
+                        jsCode += '\'/' + parts[2] + '\',\n';
+                        theme = parts[1];
+                    }
+                }
+
+                jsCode += ']\n};});' +
+                    '/* jshint ignore:end */' +
+                    '})(window.define);';
+
+                fs.writeFile('./app/scripts/design/themeFiles.js', jsCode, function (err, data) {
+                    if (err) {
+                        return console.log(err);
+                    }
+                });
+                themesData = '{';
+                for (i = 0; i < themes.length; i += 1) {
+                    themesData += '"' + themes[i] + '":"' + themes[i] + "'";
+                    if (i < themes.length - 1) {
+                        themesData += ',';
+                    }
+                }
+                themesData += '}';
+
+                // Create group
+                request({
+                    uri: 'http://dev.ottemo.com:3000/config/unregister/themes.list',
+                    method: 'DELETE'
+                }, function () {
+                    var r = request.post('http://dev.ottemo.com:3000/config/register');
+
+                    var form = r.form();
+                    form.append('path', 'themes.list');
+                    form.append('value', '');
+                    form.append('type', 'group');
+                    form.append('editor', '');
+                    form.append('options', '');
+                    form.append('label', 'Themes');
+                    form.append('description', '');
+                });
+                request({
+                    uri: 'http://dev.ottemo.com:3000/config/unregister/themes.list.active',
+                    method: 'DELETE'
+                }, function () {
+                    var r = request.post('http://dev.ottemo.com:3000/config/register');
+
+                    var form = r.form();
+                    form.append('path', 'themes.list.active');
+                    form.append('value', 'default');
+                    form.append('type', '');
+                    form.append('editor', 'select');
+                    form.append('options', themesData);
+                    form.append('label', 'Active theme');
+                    form.append('description', 'Active theme on storefront');
+                });
+
+
+            });
+
+        }
+    );
+
 })();
