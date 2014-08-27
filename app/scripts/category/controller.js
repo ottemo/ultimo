@@ -54,6 +54,7 @@
                     $scope.categoryId = $routeParams.id;
                     $scope.uri = "/category/" + $routeParams.id + "/p/:page";
                     $scope.category = {};
+                    $scope.popupProduct = {};
 
                     $scope.blocks = {
                         "sort": false,
@@ -206,6 +207,12 @@
                             }
                         });
                     };
+
+                    $scope.openPopUp = function(product){
+                        $scope.popupProduct = product;
+
+                        $("#parent_popup_quickShop").show();
+                    }
 
                     $scope.$watch("categoryId", addCategoryCrumbs);
                 }
