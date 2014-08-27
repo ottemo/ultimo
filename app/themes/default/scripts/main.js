@@ -74,6 +74,7 @@ $(document).ready(function ($) {
         $("#pageslide").css("display", "none");
     });
 
+
     // accordion for checkout page
     $(document).on("click", '.checkout-accordion .next',function(){
       $(this).parent().parent().parent().slideUp("slow").next().next().slideDown();
@@ -86,31 +87,22 @@ $(document).ready(function ($) {
         $(this).next().slideDown('slow');
     });
 
-//$(".center-align > div").after("<div class="clear"></div>");
-    /*
-     if($(window).width() <= 1024 && $(window).width() > 480){
-     console.log($(".center-align").children().length + " len");
-     var i = 6;//$(".center-align").children().length / 3;
-     var numImg = 3;
-     appendClear(i,numImg);
-     }
-
-     function appendClear(i,numImg){
-
-     $(".center-align").css("border","1px solid red");
-     console.log(numImg + " num");
-     console.log(i + " i");
-     if(numImg === 3){
-     i = Math.floor(i);
-     for(i; i > 0; i--){
-     if(!$(".center-align > div:nth-child("+i*3+")").next().hasClass("clear")){
-     $(".center-align > div:nth-child("+i*3+")").after("<div class="clear"></div>");
-     }
-     }
-     }
-     };
-     */
-
+            $("#input-21f").rating({
+                starCaptions: function(val) {
+                    if (val < 3) {
+                        return val;
+                    } else {
+                        return 'high';
+                    }
+                },
+                starCaptionClasses: function(val) {
+                    if (val < 3) {
+                        return 'label label-danger';
+                    } else {
+                        return 'label label-success';
+                    }
+                }
+            });
 
 });
 
