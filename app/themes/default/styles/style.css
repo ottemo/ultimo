@@ -1481,14 +1481,22 @@ li.active .nav-active {
     width: 100%;
 }
 .quickshop a.button {
+    color: #ffffff;
+    display: block;
+    font: 16px 'overlockregular',sans-serif;
+    height: 72px;
+    padding-top: 22px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 325px;
     background-color: #cabf45;
-    font-size: 16px;
     height: 48px;
     padding-top: 13px;
     width: 162px;
     border-radius: none;
     margin-left: 14px;
 }
+
 
 /* //////////////////////////////////////////////////////////////////////////////////////////////////// end category */
 
