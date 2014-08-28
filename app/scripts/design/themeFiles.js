@@ -272,6 +272,7 @@
 '/views/cart/view.html',
 '/views/category/view.html',
 '/views/checkout/view.html',
+'/views/checkout/view2.html',
 '/views/pdp/view.html',
 '/views/common/breadcrumbs.html',
 '/views/common/footer.html',

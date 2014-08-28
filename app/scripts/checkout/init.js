@@ -20,6 +20,10 @@
                         .when("/checkout", {
                             templateUrl: angular.getTheme("checkout/view.html"),
                             controller: "checkoutController"
+                        })
+                        .when("/checkout2", {
+                            templateUrl: angular.getTheme("checkout/view2.html"),
+                            controller: "checkoutController"
                         });
                 }]);
 

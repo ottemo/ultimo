@@ -1722,7 +1722,7 @@ select {
 .ch-content {
     border: 1px solid #000000;
 }
-.ch-title {
+.ch-title, .acc-title {
     background-color: #242425;
     color: #ffffff;
     padding: 12px 18px 0 15px;
@@ -1752,16 +1752,22 @@ select {
     float: left;
     font: 21px 'overlockregular', sans-serif;
 }
-.ch-title h3 {
+.ch-title h3, .acc-title,
+.ch-title h3,
+.acc-title > span:last-child {
     text-transform: uppercase;
     margin: 2px 0 0 20px;
+}
+.acc-title,.acc-title > span:last-child {
+    font: 21px 'overlockregular', sans-serif;
 }
 .ch-title ul li > a > span {
     float: right;
     color: #555555;
     font-size: 1.6em;
 }
-.ch-title > span:first-child {
+.ch-title > span:first-child,
+.acc-title > span:last-child {
     background-color: #F0F2F5;
     border-radius: 25px;
     width: 30px;
@@ -1946,6 +1952,12 @@ select {
 }
 
 /* //////////////////////////////////////////////////////////////////////////////////////////////////// end checkout */
+
+/* ///////////////////////////////////////////////////////////////////////////////////////////////// start checkout2 */
+
+
+
+/* /////////////////////////////////////////////////////////////////////////////////////////////////// end checkout2 */
 
 /* //////////////////////////////////////////////////////////////////////////////////////////////// start my account */
 
@@ -2930,4 +2942,151 @@ footer nav li span {
 /* //////////////////////////////////////////////////////////////////////////////////////  end responsive design 480 */
 
 /* //////////////////////////////////////////////////////////////////////////////////////////  end responsive design */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.ui-helper-hidden {
+	display: none;
+}
+.ui-helper-hidden-accessible {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+.ui-helper-reset {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	line-height: 1.3;
+	text-decoration: none;
+	font-size: 100%;
+	list-style: none;
+}
+.ui-helper-clearfix:before,
+.ui-helper-clearfix:after {
+	content: "";
+	display: table;
+	border-collapse: collapse;
+}
+.ui-helper-clearfix:after {
+	clear: both;
+}
+.ui-helper-clearfix {
+	min-height: 0; /* support: IE7 */
+}
+.ui-helper-zfix {
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	position: absolute;
+	opacity: 0;
+	filter:Alpha(Opacity=0); /* support: IE8 */
+}
+
+.ui-front {
+	z-index: 100;
+}
+
+
+/* Interaction Cues
+----------------------------------*/
+.ui-state-disabled {
+	cursor: default !important;
+}
+
+
+/* Icons
+----------------------------------*/
+
+/* states and images */
+.ui-icon {
+	display: block;
+	text-indent: -99999px;
+	overflow: hidden;
+	background-repeat: no-repeat;
+}
+
+
+/* Misc visuals
+----------------------------------*/
+
+/* Overlays */
+.ui-widget-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.ui-accordion .ui-accordion-header {
+	display: block;
+	cursor: pointer;
+	position: relative;
+	margin: 2px 0 0 0;
+	padding: .5em .5em .5em .7em;
+	min-height: 0; /* support: IE7 */
+	font-size: 100%;
+}
+.ui-accordion .ui-accordion-header .ui-accordion-header-icon {
+	position: absolute;
+	left: .5em;
+	top: 50%;
+	margin-top: -8px;
+}
+.ui-accordion .ui-accordion-content {
+	padding: 1em 2.2em;
+	border-top: 0;
+	overflow: auto;
+}
+
+
+
+
+/* Overlays */
+.ui-widget-overlay {
+	background: #666666 url("images/ui-bg_diagonals-thick_20_666666_40x40.png") 50% 50% repeat;
+	opacity: .5;
+	filter: Alpha(Opacity=50); /* support: IE8 */
+}
+.ui-widget-shadow {
+	margin: -5px 0 0 -5px;
+	padding: 5px;
+	background: #000000 url("images/ui-bg_flat_10_000000_40x100.png") 50% 50% repeat-x;
+	opacity: .2;
+	filter: Alpha(Opacity=20); /* support: IE8 */
+	border-radius: 5px;
+}
+
+
+
+
+
 
