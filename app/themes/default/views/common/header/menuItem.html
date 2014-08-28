@@ -1,0 +1,32 @@
+<a href="#/category/{{item.id}}" target="{{item.id != null ? '' : '_self'}}" class="menu-item"
+   onclick="clickLink(this)">
+    {{item.name}}
+</a>
+<b class="caret" ng-if="item.child.length &gt; 0"></b>
+<div class="mobnav-subarrow nav-active" ng-if="item.child.length &gt 0"></div>
+<ul ng-if="item.child.length &gt 0">
+    <li ng-repeat="item in item.child;" ng-include="getTemplate('common/header/menuItem.html')"></li>
+</ul>
+<script type="text/javascript">
+
+    clickLink = function(el){
+        jQuery(el).parent().siblings().removeClass('active');
+    }
+    jQuery('.h-block nav > ul > li a').click(
+        function () {
+            jQuery(this).parent().siblings().removeClass('active');
+        }
+    );
+    jQuery('.h-block nav > ul > li ul li').click(
+        function () {
+            jQuery('.h-block nav > ul > li').removeClass('active');
+        }
+    );
+    jQuery(".menu-item").click(function () {
+        jQuery('ul').removeClass("xactive");
+        jQuery('.sf-menu-container').removeClass('xactive-open');
+        jQuery('html, body').removeClass('category-open');
+        jQuery('li').removeClass('xpopdrop');
+    });
+</script>
+

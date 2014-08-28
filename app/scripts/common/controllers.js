@@ -1,7 +1,7 @@
-(function (define) {
+(function (define, $) {
     "use strict";
 
-    define(["common/init"], function (commonModule) {
+    define(["angular", "common/init"], function (angular, commonModule) {
 
         commonModule
             /*
@@ -13,8 +13,17 @@
                 "$commonApiService",
                 "$categoryService",
                 function ($scope, $commonHeaderService, $commonApiService, $categoryService) {
+                    
+                    $scope.hideNav = function () {
+                        $("#pageslide").css("display","none");
+                        $(".mini-cart").css("display","none");
+                        $(".h-block ul li.active").removeClass("active");
+                        $(".h-block nav").removeClass("active");
+                        $(".shadow").css("display","none");
+                    };
+                    
                     $scope.it = $commonHeaderService;
-                    $scope.rightMenu = $commonHeaderService.getMenuRight();
+                    $scope.rightMenu = $commonHeaderService;
                     $scope.categories = [];
 
                     var tree;
@@ -46,18 +55,29 @@
                 "$scope",
                 "$commonSidebarService",
                 function ($scope, $commonSidebarService) {
-                    $scope.it = $commonSidebarService;
-                    $scope.items = $commonSidebarService.getItems();
+                    $scope.sidebar = $commonSidebarService;
+                    
+                    
+                    $scope.hideNav = function () {
+                        $("#pageslide").css("display","none");
+                        $(".mini-cart").css("display","none");
+                        $(".h-block ul li.active").removeClass("active");
+                    };
+                    
                 }
+
             ])
 
             .controller("commonController", [
                 "$scope",
+                "$designService",
                 "$commonApiService",
                 "$designImageService",
                 "$commonBreadcrumbsService",
                 "$cartService",
-                function ($scope, $commonApiService, $designImageService, $commonBreadcrumbsService, $cartService) {
+                "$route",
+                function ($scope, $designService, $commonApiService, $designImageService, $commonBreadcrumbsService, $cartService, $route) {
+
                     var splitName;
                     splitName = function (string) {
                         var parts;
@@ -112,6 +132,14 @@
                     //
                     // HANDLERS FOR BREADCRUMBS (START)
 
+
+                    // Switching themes
+                    $scope.theme = angular.activeTheme;
+                    $scope.setTheme = function(){
+                        $designService.setTheme($scope.theme);
+                        $route.reload();
+                    };
+
                     /**
                      * Cart initialization
                      */
@@ -122,4 +150,4 @@
 
         return commonModule;
     });
-})(window.define);
+})(window.define, jQuery);

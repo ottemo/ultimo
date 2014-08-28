@@ -1,0 +1,77 @@
+<div class="page-title"></div>
+<div class="cart" ng-init="init()">
+    <div class="cart-block">
+        <div class="cart-item" ng-repeat="item in it.getItems()" ng-show="it.getCountItems()">
+            <div class="image">
+                <a href="#/product/{{item.pid}}"><img ng-src="{{getImage(item.product)}}" alt="{{item.product.name}}"/></a>
+            </div>
+            <div class="info">
+                <h3>{{item.product.name}}</h3>
+                <p>{{item.product.price | number: 2 | currency}}</p>
+
+                <div class="cart-details">
+                    <p>
+                        <span>details</span>
+                    </p>
+                    <!--<p>-->
+                        <!--Color: Black-->
+                    <!--</p>-->
+                    <!--<p>-->
+                        <!--Size: XL-->
+                    <!--</p>-->
+                </div>
+                <div class="cart-qty">
+                    <p>Qty</p>
+
+                    <!--<input type="number" ng-model="item.qty" min="1" ng-blur="update(item.idx, item.qty)"/>-->
+
+                    <div class="container">
+                        <div class="input-group spinner mini-cart-spinner">
+
+                            <input placeholder="Qtl" type="text" class="form-control" value="{{item.qty}}"
+                                   ng-model="item.qty" ng-blur="update(item.idx, item.qty)">
+
+                            <div class="input-group-btn-vertical">
+                                <button class="btn" ng-click="changeQty(item,'up')" ng-blur="update(item.idx, item.qty)"><i></i></button>
+                                <button class="btn" ng-click="changeQty(item,'down')" ng-blur="update(item.idx, item.qty)"><i></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <span class="remove glyphicon glyphicon-remove" ng-click="remove(item.idx)"></span>
+                <p class="right">{{item.product.price * item.qty | number: 2 | currency}}</p>
+            </div>
+            <hr/>
+        </div>
+        <div class="cart-item" ng-hide="it.getCountItems()">
+            <h3>Cart is empty</h3>
+            <hr/>
+        </div>
+    </div>
+    <!-- Totals -->
+    <div class="cart-total" ng-hide="!it.getCountItems()">
+        <h6>summary</h6>
+        <div class="total-line">
+            <p class="total-title">Cart items</p>
+            <div class="value">{{it.getCountItems()}}</div>
+        </div>
+        <!--<div class="total-line">-->
+            <!--<p class="total-title">Sales Tax</p>-->
+            <!--<div class="value">{{getSalesTax() | currency}}</div>-->
+        <!--</div>-->
+        <!--<div class="total-line">-->
+            <!--<p class="total-title">Shipping</p>-->
+            <!--<div class="value">{{getShipping() | currency}}</div>-->
+        <!--</div>-->
+        <div class="total-line">
+            <p class="total-title">Cart total</p>
+            <div class="value">{{getSubtotal() | currency}}</div>
+            <div class="clear"></div>
+        </div>
+        <div class="cart-btn">
+            <a href="#/checkout">Checkout</a>
+        <!--    <a href=""></a>-->
+        </div>
+    </div>
+</div>

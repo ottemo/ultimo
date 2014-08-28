@@ -1,15 +1,15 @@
 (function (define) {
-    "use strict";
+    'use strict';
 
-    define(["design/init"], function (designModule) {
+    define(['design/init'], function (designModule) {
 
-        designModule.directive("guiPaginator", ["$location", "$designService", function ($location, $designService) {
+        designModule.directive('guiPaginator', ['$location', '$designService', function ($location, $designService) {
             return {
-                restrict: "E",
+                restrict: 'E',
                 scope: {
-                    "parent": "=object"
+                    'parent': '=object'
                 },
-                templateUrl: $designService.getTemplate("design/gui/guiPaginator.html"),
+                templateUrl: $designService.getTemplate('design/gui/guiPaginator.html'),
                 controller: function ($scope) {
                     /**
                      * Prepares array of pages
@@ -37,21 +37,21 @@
                      */
                     $scope.getClass = function (page) { // jshint ignore:line
                         var _class;
-                        _class = "";
+                        _class = '';
                         switch (page){
-                            case "prev":
+                            case 'prev':
                                 if($scope.parent.currentPage === 0){
-                                    _class = "disabled";
+                                    _class = 'disabled';
                                 }
                                 break;
-                            case "next":
+                            case 'next':
                                 if($scope.parent.currentPage + 1 >= $scope.parent.pages){
-                                    _class = "disabled";
+                                    _class = 'disabled';
                                 }
                                 break;
                             default:
                                 if (page === parseInt(($scope.parent.currentPage+1), 10)) {
-                                    _class = "active";
+                                    _class = 'active';
                                 }
                         }
 
@@ -64,29 +64,30 @@
                      * @param {string} page
                      * @returns {string}
                      */
-                    $scope.getURI = function(page){
+                    // TODO: reduce cyclomatic complexity
+                    $scope.getURI = function(page){         // jshint ignore:line
                         var _page;
                         _page = 1;
                         switch (page){
-                            case "prev":
+                            case 'prev':
                                 if($scope.parent.currentPage !== 0){
                                     _page = $scope.parent.currentPage;
                                 }
                                 break;
-                            case "next":
+                            case 'next':
                                 if($scope.parent.currentPage < $scope.parent.pages - 1){
                                     _page = $scope.parent.currentPage + 2;
                                 } else {
                                     _page = $scope.parent.pages;
                                 }
                                 break;
-                            case "all":
+                            case 'all':
                                     _page = page;
                                 break;
                             default:
                                 _page = page;
                         }
-                        return $scope.parent.uri.replace(":page",_page);
+                        return $scope.parent.uri.replace(':page',_page);
                     };
                 }
             };

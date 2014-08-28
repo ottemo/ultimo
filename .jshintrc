@@ -1,5 +1,4 @@
 {
-    "es3": true,
     "forin": true,
     "noempty": true,
     "nonew": true,
