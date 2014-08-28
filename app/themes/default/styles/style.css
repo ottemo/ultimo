@@ -2,6 +2,16 @@
 @import url(font-awesome.css);
 
 @font-face {
+    font-family: 'MavenProRegular';
+    src: url('fonts/maven/maven_pro_regular-webfont.eot');
+    src: url('fonts/maven/maven_pro_regular-webfont.eot?#iefix') format('eot'),
+         url('fonts/maven/maven_pro_regular-webfont.woff') format('woff'),
+         url('fonts/maven/maven_pro_regular-webfont.ttf') format('truetype'),
+         url('fonts/maven/maven_pro_regular-webfont.svg#webfontOM8fITNz') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
     font-family: 'robotoregular';
     src: url('fonts/roboto/roboto-regular.eot');
     src: url('fonts/roboto/roboto-regular.eot?#iefix') format('embedded-opentype'),
@@ -1357,6 +1367,7 @@ li.active .nav-active {
     padding: 5px 0 5px 20px;
     width: 52%;
 }
+/*
 .rating {
     float: right;
     padding: 9px 20px 0 0;
@@ -1369,6 +1380,7 @@ li.active .nav-active {
 .rating span i {
     color: #EE771B;
 }
+*/
 .pdp-zoom-btn {
     display: block;
     float: left;
@@ -1635,6 +1647,147 @@ li.active .nav-active {
 }
 .pdp-img img {
     border: 1px solid #DBDBDB;
+}
+
+.rating {
+    border-top: 1px solid #E2E2E2;
+    margin-top: 30px;
+}
+.rating h5 {
+    font: 18px 'MavenProRegular', sans-serif;
+    color: #000000;
+    text-transform: capitalize;
+}
+.rating .left-block form {
+    float: left;
+    width: 100px;
+}
+.rating .left-block > p {
+    color: #888888;
+    font: 14px 'MavenProRegular', sans-serif;
+    float: left;
+}.rating .left-block {
+    width: 310px;
+    float: left;
+    padding-left: 55px;
+}
+.rating .right-block {
+    width: 60%;
+    float: right;
+    padding-right: 55px;
+}
+.rating .review-sort {
+    width: 100%;
+    background-color: #242425;
+    height: 50px;
+}
+.rating .right-block > div > a {
+    background-color: #cabf45;
+    color: #ffffff;
+    display: block;
+    font: 14px 'MavenProRegular', sans-serif;
+    height: 36px;
+    margin: 15px 0;
+    padding-top: 9px;
+    text-align: center;
+    text-transform: capitalize;
+    width: 107px;
+    float: right;
+}
+.progressbar table tr td:first-child {
+    color: #0066c0;
+    font: 14px 'MavenProRegular', sans-serif;
+}
+.progressbar table tr td:last-child {
+    color: #888888;
+    font: 14px 'MavenProRegular', sans-serif;
+}
+.progressbar table tr td:nth-child(2) progress[value] {
+   -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: 1px solid #E5E5E5;
+  width: 133px;
+  height: 16px;
+  color: #CABF45; 
+}
+progress[value]::-webkit-progress-bar {
+  background-color: #f1f1f1;
+  border: 1px solid #E5E5E5;
+}
+progress::-webkit-progress-bar {  
+    background-color: #CABF45;
+}  
+progress::-webkit-progress-value {  
+    background-color: #CABF45; 
+}  
+progress::-moz-progress-bar {  
+    background-color: #CABF45;
+}  
+.review-sort .caret {
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid;
+    color: #555555;
+    display: inline-block;
+    height: 10px;
+    margin-left: 2px;
+    vertical-align: middle;
+    width: 0;
+}
+.review-sort .navbar-nav.navbar-right:last-child {
+    margin-right: 0;
+}
+.review-sort > ul > li > a {
+    display: block;
+    margin: 6px 10px 0 0;
+    padding: 0 0 15px;
+}
+.review-sort ul > li > a p {
+    display: inline-block;
+    margin: 3px 3px 0 0;
+    font: 18px 'robotobold', sans-serif;
+    color: #ffffff;
+}
+.review-sort ul > li > a p span {
+    font: 18px 'robotoregular', sans-serif;
+}
+.review-sort .dropdown-menu > li > a {
+    color: #29292c;
+    width: 200px;
+    font: 18px 'robotoregular', sans-serif;
+}
+.reviews {
+    -webkit-box-shadow: inset 0px 22px 26px -6px rgba(224,224,224,1);
+    -moz-box-shadow: inset 0px 22px 26px -6px rgba(224,224,224,1);
+    box-shadow: inset 0px 22px 26px -6px rgba(224,224,224,1);
+    border-bottom: 1px solid #E2E2E2;
+    padding: 20px 55px;
+    margin-bottom: 1px;
+}
+.reviews .col-md-9 h5,
+.reviews .col-md-3 h6 {
+    font: 18px 'robotobold', sans-serif;
+    color: #29292c;
+}
+.reviews .col-md-9 p,
+.reviews .col-md-3 p {
+    font: 14px 'robotoregular', sans-serif;
+    color: #29292c;
+}
+.reviews .col-md-9 > span {
+    font: 14px 'robotoregular', sans-serif;
+    color: #868686;
+    margin: 8px 0;
+}
+.reviews .col-md-3 p span {
+    font: 14px 'robotobold', sans-serif;
+}
+.reviews .col-md-3 > span {
+    outline: 1px solid yellow;
+}
+.reviews .col-md-3 {
+    border-right: 1px solid #E2E2E2;
 }
 
 /* ////////////////////////////////////////////////////////////////////////////////////////////////////////  end pdp */

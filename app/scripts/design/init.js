@@ -13,12 +13,10 @@
         angular.activeTheme = "default";
 
         angular.isExistFile = function (path) {
-
-            if (files[angular.activeTheme].indexOf(path) !== -1) {
-                return true;
-            }
-
-            return false;
+        //if (files[angular.activeTheme].indexOf(path) !== -1) {
+        //return true;
+        //}
+        return false;
         };
 
         angular.getTheme = function (path) {
