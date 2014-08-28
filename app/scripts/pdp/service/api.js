@@ -29,9 +29,33 @@
                         params: { productId: '@productId' },
                         url: pdpBaseURL + '/media/list/:productId/image'
                     },
-                    'getProducts': {
-                        method: 'POST',
-                        url: REST_SERVER_URI + '/product/list'
+                    "addRating": {
+                        method: "GET",
+                        params: {
+                            pid: "@pid",
+                            stars: "@stars"
+                        },
+                        url: pdpBaseURL + "/rating/add/:pid/:stars"
+                    },
+                    "ratingInfo": {
+                        method: "GET",
+                        params: { pid: "@pid" },
+                        url: pdpBaseURL + "/rating/info/:pid"
+                    },
+                    "addReview": {
+                        method: "POST",
+                        params: { pid: "@pid" },
+                        url: pdpBaseURL + "/review/add/:pid"
+                    },
+                    "reviewList": {
+                        method: "GET",
+                        params: { pid: "@pid" },
+                        url: pdpBaseURL + "/review/list/:pid"
+                    },
+                    "reviewRemove": {
+                        method: "DELETE",
+                        params: { reviewId: "@reviewId" },
+                        url: pdpBaseURL + "/review/remove/:reviewId"
                     }
                 });
             }]);

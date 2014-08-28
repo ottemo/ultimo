@@ -1,51 +1,23 @@
-$(document).ready(function ($) {
+(function ($) {
     "use strict";
 
-    // accordion for pdp page
-    $(document).on("click dblclick", ".accordion a", function () {
-        $(this).parent().toggleClass("active");
-    });
+    $(document).ready(function ($) {
 
-    // slider for pdp page
-    $(document).on("click", ".small img", function () {
-        $(".big img").hide().attr("src", $(this).attr("src"));
-
-        $(".big img").load(function () {
-            $(this).fadeIn(2000);
+        // accordion for pdp page
+        $(document).on("click dblclick", ".accordion a", function () {
+            $(this).parent().toggleClass("active");
         });
-        $(".big img").css('display','block');
-    });
 
-    // spinner for pdp, mini-cart, cart pages
-    $(document).on("click", ".btn-up", function () {
-        $(this).parent().prev().val(parseInt($(this).parent().prev().val(), 10) + 1);
-    });
-    $(document).on("click", ".btn-down", function () {
-        if ($(this).parent().prev().val() > 1) {
-            $(this).parent().prev().val(parseInt($(this).parent().prev().val(), 10) - 1);
-        }
-    });
+        // slider for pdp page
+        $(document).on("click", ".small img", function () {
+            $(".big img").hide().attr("src", $(this).attr("src"));
 
-    // droping subcategories from menu
-    $(document).on("click", ".h-block nav ul li .caret", function () {
-        $(this).parent().siblings().removeClass("active");
-        $(this).parent().toggleClass("active");
-    });
+            $(".big img").load(function () {
+                $(this).fadeIn(2000);
+            });
+            $(".big img").css('display', 'block');
+        });
 
-    // hide mini-card block
-    $(document).on("click", ".mini-cart-footer, .mini-cart-more", function () {
-        $(".mini-cart").hide();
-    });
-
-
-    // open popup on my account pages
-    $(document).on("click", ".popup-close", function () {
-        $(".parent_popup").hide();
-    });
-
-//    $(document).on("click", ".popup-open", function () {
-//        $("parent_popup").show();
-//    });
 
 
     // loader for checkout page
@@ -59,20 +31,26 @@ $(document).ready(function ($) {
     // dropdown for checkout page
     $(".ch-form .dropdown-toggle").dropdown();
 
-    // open more filters for pdp category
-    $(document).on("click", ".filter-left-block a", function () {
-        $(this).parent().toggleClass("active");
-        if ($(this).parent().hasClass("active")) {
-            $(this).html("Close<b class=\"caret\"></b>");
-        } else {
-            $(this).html("View more<b class=\"caret\"></b>");
-        }
-    });
+        // spinner for pdp, mini-cart, cart pages
+        $(document).on("click", ".btn-up", function () {
+            $(this).parent().prev().val(parseInt($(this).parent().prev().val(), 10) + 1);
+        });
+        $(document).on("click", ".btn-down", function () {
+            if ($(this).parent().prev().val() > 1) {
+                $(this).parent().prev().val(parseInt($(this).parent().prev().val(), 10) - 1);
+            }
+        });
 
+        // droping subcategories from menu
+        $(document).on("click", ".h-block nav ul li .caret", function () {
+            $(this).parent().siblings().removeClass("active");
+            $(this).parent().toggleClass("active");
+        });
 
-    $("#pageslide").on("click", "ul > li", function () {
-        $("#pageslide").css("display", "none");
-    });
+        // hide mini-card block
+        $(document).on("click", ".mini-cart-footer, .mini-cart-more", function () {
+            $(".mini-cart").hide();
+        });
 
 
     // accordion for checkout page
@@ -103,6 +81,30 @@ $(document).ready(function ($) {
                     }
                 }
             });
+            
+        // open popup on my account pages
+        $(document).on("click", ".popup-close", function () {
+            $(".parent_popup").hide();
+        });
 
-});
+        // dropdown for checkout page
+        $(".ch-form .dropdown-toggle").dropdown();
+
+        // open more filters for pdp category
+        $(document).on("click", ".filter-left-block a", function () {
+            $(this).parent().toggleClass("active");
+            if ($(this).parent().hasClass("active")) {
+                $(this).html("Close<b class=\"caret\"></b>");
+            } else {
+                $(this).html("View more<b class=\"caret\"></b>");
+            }
+        });
+
+
+        $("#pageslide").on("click", "ul > li", function () {
+            $("#pageslide").css("display", "none");
+        });
+
+    });
+})(jQuery);
 

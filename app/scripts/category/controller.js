@@ -48,7 +48,6 @@
                      */
                     $scope.currentPage = getPage();
                     $scope.itemsPerPage = 15;
-
                     $scope.productsList = [];
                     $scope.paths = [];
                     $scope.categoryId = $routeParams.id;

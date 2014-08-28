@@ -2,10 +2,10 @@
 <!--Slider Block-->
 <div class="pdp-slider">
     <div class="big">
-        <img ng-src="{{getImage(imagesPath, productImages[0])}}" alt="" />
+        <img ng-src="{{getImage(imagesPath, productImages[0])}}" alt=""/>
     </div>
     <div class="small" ng-repeat="img in productImages">
-         <img ng-src="{{getImage(imagesPath, img)}}" alt="" />
+        <img ng-src="{{getImage(imagesPath, img)}}" alt=""/>
     </div>
     <div id="carousel-example-generic" class="carousel slide pdp-tablet-slider" data-ride="carousel"
          ng-show="productImages.length">
@@ -45,18 +45,17 @@
     <div class="pdp-filters">
 
 
-
-
         <div class="container">
             <div class="input-group spinner pdp-spinner">
                 <label>Quantity</label>
+
                 <div class="spinner-block">
-<!--                    <input placeholder="Qtl" type="text" class="form-control" value="{{item.qty}}"
-                           name="qty" id="qty" ng-model="qty">
-                    <div class="input-group-btn-vertical">
-                        <button class="btn btn-up"><i></i></button>
-                        <button class="btn btn-down"><i></i></button>
-                    </div>-->
+                    <!--                    <input placeholder="Qtl" type="text" class="form-control" value="{{item.qty}}"
+                                               name="qty" id="qty" ng-model="qty">
+                                        <div class="input-group-btn-vertical">
+                                            <button class="btn btn-up"><i></i></button>
+                                            <button class="btn btn-down"><i></i></button>
+                                        </div>-->
                     <input placeholder="Qtl" type="text" class="form-control" value="{{qty}}"
                            ng-model="qty" ng-change="update(idx, qty)">
 
@@ -69,28 +68,26 @@
         </div>
 
 
-        
-        
-    <!--    <div class="container">
-            <div class="input-group spinner">
-                <label>Size</label>
-                <input placeholder="Qtl" type="text" class="form-control" value="{{item.qty}}">
-                <div class="input-group-btn-vertical">
-                    <button class="btn"><i></i></button>
-                    <button class="btn"><i></i></button>
+        <!--    <div class="container">
+                <div class="input-group spinner">
+                    <label>Size</label>
+                    <input placeholder="Qtl" type="text" class="form-control" value="{{item.qty}}">
+                    <div class="input-group-btn-vertical">
+                        <button class="btn"><i></i></button>
+                        <button class="btn"><i></i></button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="container">
-            <div class="input-group spinner">
-                <label>Size</label>
-                <input placeholder="Qtl" type="text" class="form-control" value="{{item.qty}}">
-                <div class="input-group-btn-vertical">
-                    <button class="btn"><i></i></button>
-                    <button class="btn"><i></i></button>
+            <div class="container">
+                <div class="input-group spinner">
+                    <label>Size</label>
+                    <input placeholder="Qtl" type="text" class="form-control" value="{{item.qty}}">
+                    <div class="input-group-btn-vertical">
+                        <button class="btn"><i></i></button>
+                        <button class="btn"><i></i></button>
+                    </div>
                 </div>
-            </div>
-        </div>-->
+            </div>-->
         <div class="clear"></div>
     </div>
     <div class="pdp-btn">
@@ -98,53 +95,53 @@
             <span class="remove glyphicon glyphicon-plus"></span>
             cart
         </a>
-     <!--   <a href="#/stockist" target="_self">
-            <span class="glyphicon glyphicon-screenshot"></span>
-            stockist
-        </a>-->
+        <!--   <a href="#/stockist" target="_self">
+               <span class="glyphicon glyphicon-screenshot"></span>
+               stockist
+           </a>-->
     </div>
     <div class="clear"></div>
-<!--
-    <div>
-        <label for="sku">Sku:</label>
-        <span id="sku"> {{product.sku}}</span>
-    </div>
-    <div>
-        <label for="price">Price:</label>
-        <span id="price"> <b>$</b>{{product.price}}</span>
-    </div>
-    <div>
-        <label for="size">Size:</label>
-        <span id="size"> {{product.size}}</span>
-    </div>
-    <div>
-        <label for="weight">Weight:</label>
-        <span id="weight"> {{product.weight}}</span>
-    </div>
+    <!--
+        <div>
+            <label for="sku">Sku:</label>
+            <span id="sku"> {{product.sku}}</span>
+        </div>
+        <div>
+            <label for="price">Price:</label>
+            <span id="price"> <b>$</b>{{product.price}}</span>
+        </div>
+        <div>
+            <label for="size">Size:</label>
+            <span id="size"> {{product.size}}</span>
+        </div>
+        <div>
+            <label for="weight">Weight:</label>
+            <span id="weight"> {{product.weight}}</span>
+        </div>
 
-    <div>
-        <label for="qty">Qty:</label>
-        <select name="qty" id="qty" ng-model="qty">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-        </select>
-    </div>
-    <div>
-        <br />
-        <span id="short_description">{{product.short_description}}</span>
-    </div>
-    <h3>Total: ${{getTotal() | number : 2}}</h3>
-    <button type="button" class="btn btn-warning glyphicon glyphicon-plus" ng-click="addToCart()"> Cart</button>
-</div>-->
+        <div>
+            <label for="qty">Qty:</label>
+            <select name="qty" id="qty" ng-model="qty">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+            </select>
+        </div>
+        <div>
+            <br />
+            <span id="short_description">{{product.short_description}}</span>
+        </div>
+        <h3>Total: ${{getTotal() | number : 2}}</h3>
+        <button type="button" class="btn btn-warning glyphicon glyphicon-plus" ng-click="addToCart()"> Cart</button>
+    </div>-->
 
     <div id="accordion">
         <div class="accordion active">
@@ -169,9 +166,13 @@
         </div>
         <div id="collapseReviews" class="panel-collapse collapse">
             <div class="acc-text">
-                <p>If you bought something in a shop and then just change your mind about it, you do not have any legal right to return the goods. However, many shops have a returns policy which lets you to take your items back to the shop for any reason and get a refund.
+                <p>If you bought something in a shop and then just change your mind about it, you do not have any legal
+                    right to return the goods. However, many shops have a returns policy which lets you to take your
+                    items back to the shop for any reason and get a refund.
                 </p>
-                <p> But you may have rights if you're not happy with the quality of the goods or the item is broken or faulty in some way.
+
+                <p> But you may have rights if you're not happy with the quality of the goods or the item is broken or
+                    faulty in some way.
                 </p>
             </div>
         </div>
@@ -185,11 +186,47 @@
         </a>
     </div>
 </section>
-<section class="c-img pdp-img" ng-hide="products.length">
     <div ng-repeat="_item in products">
         <a class="" href="#/product/{{_item.Id}}">
-            <img ng-src="{{getImg('placeholder.png')}}" alt="placeholder"/>
+            <img ng-src="{{getImage('',_item.Image)}}" alt="_item.Name"/>
         </a>
     </div>
+    <div class="clear"></div>
 </section>
-<div class="clear"></div>
+<section class="rating">
+    <div class="left-block">
+        <h5>customers reviews</h5>
+
+        <form>
+            <input id="input-21d" value="2" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs">
+        </form>
+
+</section>
+
+<script>
+    (function ($) {
+
+        $(document).ready(function () {
+            setTimeout(function () {
+                $("#input-21d").rating({
+                    showCaption: false,
+                    showClear: false,
+                    starCaptions: function (val) {
+                        if (val < 3) {
+                            return val;
+                        } else {
+                            return 'high';
+                        }
+                    },
+                    starCaptionClasses: function (val) {
+                        if (val < 3) {
+                            return 'label label-danger';
+                        } else {
+                            return 'label label-success';
+                        }
+                    }
+                });
+            }, 100)
+        })
+
+    })(jQuery)
