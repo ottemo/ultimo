@@ -29,13 +29,9 @@
                         params: { productId: '@productId' },
                         url: pdpBaseURL + '/media/list/:productId/image'
                     },
-                    "addRating": {
-                        method: "GET",
-                        params: {
-                            pid: "@pid",
-                            stars: "@stars"
-                        },
-                        url: pdpBaseURL + "/rating/add/:pid/:stars"
+                    "getProducts": {
+                        method: "POST",
+                        url: pdpBaseURL + "/list"
                     },
                     "ratingInfo": {
                         method: "GET",
@@ -44,8 +40,12 @@
                     },
                     "addReview": {
                         method: "POST",
-                        params: { pid: "@pid" },
-                        url: pdpBaseURL + "/review/add/:pid"
+                        params: {
+                            pid: "@pid",
+                            stars: "@stars"
+                        },
+                        headers: {"Content-Type": "text/plain"},
+                        url: pdpBaseURL + "/review/add/:pid/:stars"
                     },
                     "reviewList": {
                         method: "GET",

@@ -39,6 +39,16 @@
     font-style: normal;
 }
 @font-face {
+    font-family: 'robotobold';
+    src: url('fonts/roboto/roboto-bold.eot');
+    src: url('fonts/roboto/roboto-bold.eot?#iefix') format('embedded-opentype'),
+         url('fonts/roboto/roboto-bold.woff') format('woff'),
+         url('fonts/roboto/roboto-bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+
+}
+@font-face {
     font-family: 'overlockblack';
     src: url('fonts/overlock/overlock-black.eot');
     src: url('fonts/overlock/overlock-black.eot?#iefix') format('embedded-opentype'),
@@ -1651,37 +1661,46 @@ li.active .nav-active {
 
 .rating {
     border-top: 1px solid #E2E2E2;
-    margin-top: 30px;
+    margin-top: 36px;
+    padding: 15px 0;
+    -webkit-box-shadow: 0 37px 27px -35px #e4e4e4 inset;
+    -moz-box-shadow: 0 37px 27px -35px #e4e4e4 inset;
+    box-shadow: 0 37px 27px -35px #e4e4e4 inset;
+    margin-bottom: -97px;
 }
 .rating h5 {
     font: 18px 'MavenProRegular', sans-serif;
     color: #000000;
     text-transform: capitalize;
 }
-.rating .left-block form {
+.rating > .left-block form {
     float: left;
     width: 100px;
+    margin: 9px 0 12px;
 }
-.rating .left-block > p {
+.rating > .left-block > p {
     color: #888888;
     font: 14px 'MavenProRegular', sans-serif;
     float: left;
-}.rating .left-block {
+    margin: 12px 0 0
+}
+.rating > .left-block {
     width: 310px;
     float: left;
     padding-left: 55px;
 }
-.rating .right-block {
-    width: 60%;
+.rating > .right-block {
+    width: 1065px;
     float: right;
-    padding-right: 55px;
+    margin-right: 55px;
 }
 .rating .review-sort {
     width: 100%;
     background-color: #242425;
     height: 50px;
+    margin-top: 6px;
 }
-.rating .right-block > div > a {
+.rating > .right-block > div > a {
     background-color: #cabf45;
     color: #ffffff;
     display: block;
@@ -1694,9 +1713,23 @@ li.active .nav-active {
     width: 107px;
     float: right;
 }
+.rating > .right-block .col-md-12 {
+    padding: 0;
+}
+.rating > .right-block form {
+    margin: 8px 0 21px;
+}
+.form-control {
+    background-color: #efefef;
+    border-radius: 0;
+    height: 58px;
+}
 .progressbar table tr td:first-child {
     color: #0066c0;
     font: 14px 'MavenProRegular', sans-serif;
+}
+.progressbar table tr td {
+    vertical-align: middle;
 }
 .progressbar table tr td:last-child {
     color: #888888;
@@ -1704,12 +1737,15 @@ li.active .nav-active {
 }
 .progressbar table tr td:nth-child(2) progress[value] {
    -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-  border: 1px solid #E5E5E5;
-  width: 133px;
-  height: 16px;
-  color: #CABF45; 
+    -moz-appearance: none;
+    appearance: none;
+    border: 1px solid #d8d8d8;
+    width: 133px;
+    height: 18px;
+    color: #CABF45;
+}
+.progressbar table tr td:nth-child(2) {
+    padding: 0 7px;
 }
 progress[value]::-webkit-progress-bar {
   background-color: #f1f1f1;
@@ -1735,12 +1771,18 @@ progress::-moz-progress-bar {
     vertical-align: middle;
     width: 0;
 }
+.review-sort .navbar-nav > li > .dropdown-menu {
+    margin-right: 55px;
+}
 .review-sort .navbar-nav.navbar-right:last-child {
     margin-right: 0;
 }
+.review-sort .dropdown-menu > li > a {
+     padding: 7px 20px;
+ }
 .review-sort > ul > li > a {
     display: block;
-    margin: 6px 10px 0 0;
+    margin: 6px 63px 0 0;
     padding: 0 0 15px;
 }
 .review-sort ul > li > a p {
@@ -1758,36 +1800,45 @@ progress::-moz-progress-bar {
     font: 18px 'robotoregular', sans-serif;
 }
 .reviews {
-    -webkit-box-shadow: inset 0px 22px 26px -6px rgba(224,224,224,1);
-    -moz-box-shadow: inset 0px 22px 26px -6px rgba(224,224,224,1);
-    box-shadow: inset 0px 22px 26px -6px rgba(224,224,224,1);
+    -webkit-box-shadow: 0 37px 27px -35px #e4e4e4 inset;
+    -moz-box-shadow: 0 37px 27px -35px #e4e4e4 inset;
+    box-shadow: 0 37px 27px -35px #e4e4e4 inset;
     border-bottom: 1px solid #E2E2E2;
-    padding: 20px 55px;
+    padding: 26px 55px;
     margin-bottom: 1px;
 }
-.reviews .col-md-9 h5,
-.reviews .col-md-3 h6 {
-    font: 18px 'robotobold', sans-serif;
+.reviews form {
+    margin-bottom: 13px;
+}
+.reviews .right-block h5,
+.reviews .left-block h6 {
+    font: 18px/18px 'robotobold', sans-serif;
     color: #29292c;
 }
-.reviews .col-md-9 p,
-.reviews .col-md-3 p {
+.reviews .left-block h6 {
+    margin-bottom: 10px;
+}
+.reviews .right-block p,
+.reviews .left-block p {
     font: 14px 'robotoregular', sans-serif;
     color: #29292c;
 }
-.reviews .col-md-9 > span {
+.reviews .right-block > span {
     font: 14px 'robotoregular', sans-serif;
     color: #868686;
-    margin: 8px 0;
+    margin: 2px 0 10px;
 }
-.reviews .col-md-3 p span {
+.reviews .left-block p span {
     font: 14px 'robotobold', sans-serif;
 }
-.reviews .col-md-3 > span {
-    outline: 1px solid yellow;
-}
-.reviews .col-md-3 {
+.reviews .left-block {
     border-right: 1px solid #E2E2E2;
+    width: 225px;
+    float: left;
+}
+.reviews .right-block {
+    width: 1070px;
+    float: right;
 }
 
 /* ////////////////////////////////////////////////////////////////////////////////////////////////////////  end pdp */
@@ -3522,7 +3573,7 @@ footer nav li span {
     top: 0;
     white-space: nowrap;
     overflow: hidden;
-    color: #fde16d;
+    color: #cabf45;
     transition: all 0.25s ease-out;
     -o-transition: all 0.25s ease-out;
     -moz-transition: all 0.25s ease-out;
@@ -3531,7 +3582,6 @@ footer nav li span {
 
 .rating-container .rating-stars:before {
     content: attr(data-content);
-    text-shadow: 0 0 1px rgba(0, 0, 0, 0.7);
 }
 
 .rating-container-rtl {

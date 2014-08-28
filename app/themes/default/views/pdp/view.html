@@ -196,116 +196,113 @@
 <section class="rating">
     <div class="left-block">
         <h5>customers reviews</h5>
+
         <form>
-            <input id="input-21d" value="2" type="number" class="rating" min=0 max=5 step=0.5 data-size="sm">
+            <input id="input-21d" value="{{ratingInfo.averageValue | number:2}}" type="number" class="rating disabled" min=0 max=5 step=0.1
+                   data-size="xxs">
         </form>
-        <p>4.3 out of 5</p>
+        <p>{{ratingInfo.averageValue | number:2}} out of 5</p>
+
         <div class="clear"></div>
         <div class="progressbar">
             <table>
                 <tr>
                     <td>5 star</td>
                     <td>
-                        <progress value="80" max="100">50%</progress> 
+                        <progress value="{{ratingInfo.fifeStarPersent}}" max="100">{{ratingInfo.fifeStarPersent}}</progress>
                     </td>
-                    <td>8.004</td>
+                    <td>{{ratingInfo.5star}}</td>
                 </tr>
                 <tr>
                     <td>4 star</td>
                     <td>
-                        <progress value="60" max="100">50%</progress> 
+                        <progress value="{{ratingInfo.fourStarPersent}}" max="100">{{ratingInfo.fourStarPersent}}%</progress>
                     </td>
-                    <td>8.004</td>
+                    <td>{{ratingInfo.4star}}</td>
+                </tr>
+                <tr>
+                    <td>3 star</td>
+                    <td>
+                        <progress value="{{ratingInfo.threeStarPersent}}" max="100">{{ratingInfo.threeStarPersent}}%</progress>
+                    </td>
+                    <td>{{ratingInfo.3star}}</td>
+                </tr>
+                <tr>
+                    <td>2 star</td>
+                    <td>
+                        <progress value="{{ratingInfo.twoStarPersent}}" max="100">{{ratingInfo.twoStarPersent}}%</progress>
+                    </td>
+                    <td>{{ratingInfo.2star}}</td>
+                </tr>
+                <tr>
+                    <td>1 star</td>
+                    <td>
+                        <progress value="{{ratingInfo.oneStarPersent}}" max="100">{{ratingInfo.oneStarPersent}}%</progress>
+                    </td>
+                    <td>{{ratingInfo.1star}}</td>
                 </tr>
             </table>
         </div>
     </div>
     <div class="right-block">
         <h5>your rating</h5>
-        <form>
-            <input id="input-21d" value="2" type="number" class="rating" min=0 max=5 step=0.5 data-size="sm">
+
+        <form name="reviewForm">
+            <input id="input-21d" value="1" ng-model="review.stars" type="number" class="rating" min=0 max=5 step=1
+                   data-size="xxs">
+
+            <div class="col-md-12">
+                <gui-message-manager item="message"></gui-message-manager>
+                <div ng-class="{ 'has-error' : (submitted && reviewForm.review.$error.required) || (reviewForm.review.$invalid && !reviewForm.review.$pristine) }">
+                    <input class="form-control" type="text" name="review" ng-model="review.comment" required>
+
+                    <p ng-show="(submitted && reviewForm.review.$error.required) || (reviewForm.review.$invalid && !reviewForm.review.$pristine)"
+                       class="help-block">This field is required.</p>
+
+                </div>
+            </div>
         </form>
-        <div class="col-md-12">
-            <input class="form-control" type="text">
-            <a href>submit</a>
+        <div>
+            <a href ng-click="saveReview()">submit</a>
         </div>
+
     </div>
     <div class="clear"></div>
     <div class="review-sort">
         <ul class="navbar-nav navbar-right">
             <li class="dropdown">
                 <a href role="button" data-toggle="dropdown">
-                    
-                    <p>Sort by: <span>Most helpful</span></p>
+
+                    <p>Sort by: <span>{{sort.name}}</span></p>
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
                     <li role="presentation">
-                        <a role="menuitem">Most helpful</a>
-                    </li>
-                    <li role="presentation">
                         <a role="menuitem">High to Low</a>
                     </li>
                     <li role="presentation">
-                        <a role="menuitem" >Low to High</a>
+                        <a role="menuitem">Low to High</a>
                     </li>
                 </ul>
             </li>
         </ul>
     </div>
-    <div class="reviews">
-        <div class="col-md-3">
-            <span>stars</span>
-            <h6>Anonymous</h6>
-            <p>I'm from: <span>River Ridge, LA, USA</span></p>
-            <p>Age: <span>35-44A</span></p>
-            <p>Gender: <span>Male</span></p>
+    <div class="reviews" ng-repeat="_item in reviewsList">
+        <div class="left-block">
+            <form>
+                <input id="input-21d" value="{{_item.rating}}" type="number" class="rating disabled" min=0 max=5
+                       step=0.1 data-size="xxs">
+            </form>
+            <h6>{{_item.username}}</h6>
         </div>
-        <div class="col-md-9">
+        <div class="right-block">
             <h5>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                {{getReviewTitle(_item)}}
             </h5>
-            <span>August 6, 2014</span>
+            <span>{{getDate(_item.created_at)}}</span>
+
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-            </p>
-        </div>
-        <div class="clear"></div>
-    </div>
-    <div class="reviews">
-        <div class="col-md-3">
-            <span>stars</span>
-            <h6>Anonymous</h6>
-            <p>I'm from: <span>River Ridge, LA, USA</span></p>
-            <p>Age: <span>35-44A</span></p>
-            <p>Gender: <span>Male</span></p>
-        </div>
-        <div class="col-md-9">
-            <h5>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            </h5>
-            <span>August 6, 2014</span>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-            </p>
-        </div>
-        <div class="clear"></div>
-    </div>
-    <div class="reviews">
-        <div class="col-md-3">
-            <span>stars</span>
-            <h6>Anonymous</h6>
-            <p>I'm from: <span>River Ridge, LA, USA</span></p>
-            <p>Age: <span>35-44A</span></p>
-            <p>Gender: <span>Male</span></p>
-        </div>
-        <div class="col-md-9">
-            <h5>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            </h5>
-            <span>August 6, 2014</span>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                {{_item.review}}
             </p>
         </div>
         <div class="clear"></div>
@@ -317,25 +314,25 @@
 
         $(document).ready(function () {
             setTimeout(function () {
-                $("#input-21d").rating({
-                    showCaption: false,
-                    showClear: false,
-                    starCaptions: function (val) {
-                        if (val < 3) {
-                            return val;
-                        } else {
-                            return 'high';
-                        }
-                    },
-                    starCaptionClasses: function (val) {
-                        if (val < 3) {
-                            return 'label label-danger';
-                        } else {
-                            return 'label label-success';
-                        }
+                $("input.rating").each(function () {
+
+                    if ($(this).hasClass("disabled")) {
+                        $(this).rating({
+                            readonly: true,
+                            disabled: true,
+                            showCaption: false,
+                            showClear: false
+                        });
+                    } else {
+                        $(this).rating({
+                            showCaption: false,
+                            showClear: false
+                        });
                     }
-                });
-            }, 100)
+
+                })
+
+            }, 500)
         })
 
     })(jQuery)

@@ -16,10 +16,56 @@
                 "$cartService",
                 "$visitorLoginService",
                 function ($scope, $routeParams, $location, $pdpApiService, $designImageService, $cartService, $visitorLoginService) {
-                    var defaultProduct;
+                    var defaultProduct, reinitializeStars, getAverageValue, getStarsPercents;
 
                     defaultProduct = function () {
                         return {};
+                    };
+
+                    reinitializeStars = function () {
+                        setTimeout(function () {
+                            $("input.rating").each(function () {
+
+                                if ($(this).hasClass("disabled")) {
+                                    $(this).rating({
+                                        readonly: true,
+                                        disabled: true,
+                                        showCaption: false,
+                                        showClear: false
+                                    });
+                                } else {
+                                    $(this).rating({
+                                        showCaption: false,
+                                        showClear: false
+                                    });
+                                }
+
+                            })
+
+                        }, 500);
+                    };
+
+                    getAverageValue = function () {
+                        if (typeof $scope.ratingInfo === "undefined") {
+                            return false;
+                        }
+                        $scope.count = $scope.ratingInfo['1star'] + $scope.ratingInfo['2star'] + $scope.ratingInfo['3star'] + $scope.ratingInfo['4star'] + $scope.ratingInfo['5star'];
+                        $scope.ratingInfo.averageValue = ((1 * $scope.ratingInfo['1star']) +
+                            (2 * $scope.ratingInfo['2star']) +
+                            (3 * $scope.ratingInfo['3star']) +
+                            (4 * $scope.ratingInfo['4star']) +
+                            (5 * $scope.ratingInfo['5star'])) / ($scope.count);
+                    };
+
+                    getStarsPercents = function () {
+                        if (typeof $scope.ratingInfo === "undefined") {
+                            return false;
+                        }
+                        $scope.ratingInfo.oneStarPersent = ($scope.ratingInfo['1star'] / $scope.count) * 100;
+                        $scope.ratingInfo.twoStarPersent = ($scope.ratingInfo['2star'] / $scope.count) * 100;
+                        $scope.ratingInfo.threeStarPersent = ($scope.ratingInfo['3star'] / $scope.count) * 100;
+                        $scope.ratingInfo.fourStarPersent = ($scope.ratingInfo['4star'] / $scope.count) * 100;
+                        $scope.ratingInfo.fifeStarPersent = ($scope.ratingInfo['5star'] / $scope.count) * 100;
                     };
 
                     $scope.productId = $routeParams.id;
@@ -64,9 +110,7 @@
                         }
                     };
 
-                    $scope.$watch("product", function () {
-                        $scope.reloadImages();
-                    });
+
 
                     /**
                      * Returns full path to image
@@ -145,22 +189,102 @@
                         }
                     };
 
-
+                    /**
+                     * Gets reviews list
+                     */
                     $pdpApiService.reviewList({"pid": $scope.productId}).$promise.then(
                         function (response) {
                             $scope.reviewsList = response.result || [];
                         }
-                    )
+                    );
 
-                    $scope.saveReview = function () {
-                        $scope.review.pid = $scope.productId;
-                        $pdpApiService.addReview($scope.review).$promise.then(
-                            function (response) {
+                    /**
+                     * Gets rating info
+                     */
+                    $pdpApiService.ratingInfo({"pid": $scope.productId}).$promise.then(
+                        function (response) {
+                            $scope.ratingInfo = response.result[0] || [];
+                            getAverageValue();
+                            getStarsPercents();
+                        }
+                    );
 
-                            }
-                        );
+                    /**
+                     * Gets date in format {Month} {day}, {year}
+                     *
+                     * @param {string} str
+                     * @returns {string}
+                     */
+                    $scope.getDate = function (str) {
+                        var date, month, day;
+                        var months = [
+                            "January", "February", "March", "April", "May", "June",
+                            "July", "August", "September", "October", "November", "December"
+                        ];
+
+                        date = new Date(str);
+                        month = date.getMonth();
+                        day = date.getDay().toString().length < 2 ? "0" + date.getDay() : date.getDay();
+
+                        return months[month] + " " + day + ", " + date.getFullYear();
                     };
 
+                    /**
+                     * Gets title for review
+                     *
+                     * @param {object} obj
+                     * @returns {string}
+                     */
+                    $scope.getReviewTitle = function (obj) {
+                        var pos;
+                        pos = obj.review.indexOf(".") !== -1 ? obj.review.indexOf(".") : obj.review.length;
+                        return obj.review.substring(0, pos);
+                    };
+
+                    /**
+                     * Saves review and rating for product
+                     */
+                    $scope.saveReview = function () {
+                        $scope.submitted = true;
+                        if (!$scope.reviewForm.$invalid) {
+                            $pdpApiService.addReview(
+                                {
+                                    "pid": $scope.productId,
+                                    "stars": $scope.review.stars
+                                }, $scope.review.comment).$promise.then(
+                                function (response) {
+
+                                    if (response.error === "") {
+                                        $scope.reviewsList.push(response.result || []);
+
+                                        if (response.result.rating > 0) {
+                                            $scope.ratingInfo[response.result.rating + "star"] += 1;
+                                        }
+                                        $scope.review = {};
+                                        $scope.submitted = false;
+                                        $scope.reviewForm.review.$pristine = true;
+                                        reinitializeStars();
+                                    } else {
+                                        $scope.message = {
+                                            'type': 'danger',
+                                            'message': response.error
+                                        };
+                                    }
+                                }
+                            );
+                        }
+                    };
+
+
+                    $scope.$watch("ratingInfo", function () {
+                        getAverageValue();
+                        getStarsPercents();
+
+                    }, true);
+
+                    $scope.$watch("product", function () {
+                        $scope.reloadImages();
+                    });
                 }
             ]
         );

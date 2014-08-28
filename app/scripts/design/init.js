@@ -8,15 +8,15 @@
      *  (check other modules dependency before exclude this module from include list)
      *
      */
-    define(["angular", "themeFiles"], function (angular, files) {
+    define(["angular", "themeFiles"], function (angular) {
 
         angular.activeTheme = "default";
 
-        angular.isExistFile = function (path) {
-        //if (files[angular.activeTheme].indexOf(path) !== -1) {
-        //return true;
-        //}
-        return false;
+        angular.isExistFile = function () {
+            //if (files[angular.activeTheme].indexOf(path) !== -1) {
+            //return true;
+            //}
+            return false;
         };
 
         angular.getTheme = function (path) {
