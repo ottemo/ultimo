@@ -48,47 +48,30 @@
          */
         angular.module.designModule = angular.module("designModule", [])
 
-            .constant("MEDIA_BASE_PATH", "http://dev.ottemo.com:9000/media/")
-            .constant("PRODUCT_DEFAULT_IMG", "placeholder.png")
-            .constant("THEME_ACTIVE_PATH", "themes.list.active")
+            .constant("MEDIA_BASE_PATH", "http://dev.ottemo.io:9000/media/")
+            .constant("PRODUCT_DEFAULT_IMG", "images/placeholder.png")
 
-        /**
-         *  Startup for designModule - registration globally visible functions
-         */
-            .run(
-            [
-                "$designService",
-                "$designApiService",
-                "$rootScope",
-                "THEME_ACTIVE_PATH",
-                function ($designService, $designApiService, $rootScope, THEME_ACTIVE_PATH) {
+            /*
+             *  Startup for designModule - registration globally visible functions
+             */
+            .run(["$designService", "$rootScope", function ($designService, $rootScope) {
 
-                    // Sets active theme
-                    $designApiService.getActiveTheme({"path": THEME_ACTIVE_PATH}).$promise.then(
-                        function (response) {
-                            var theme = "theme2";
+                /**
+                 *  Global functions you can use in any angular template
+                 */
+                $rootScope.getTemplate = $designService.getTemplate;
+                $rootScope.getCss = $designService.getCss;
+                $rootScope.getTopPage = $designService.getTopPage;
 
-                            if (response.error === "") {
-                                theme = response.result;
-                            }
+                /**
+                 *  CSS appending in head of document after document ready
+                 *  TODO: should work with "addCss" directive but is buggy, review/update needed
+                 */
+                // angular.element(document).ready(function() {
+                //     angular.element(document.head).append( $designService.getCssHeadLinks() );
+                // });
 
-                            $designService.setTheme(theme);
-
-                        }
-                    );
-
-                    /**
-                     *  Global functions you can use in any angular template
-                     */
-                    $rootScope.setTheme = $designService.setTheme;
-                    $rootScope.getTemplate = $designService.getTemplate;
-                    $rootScope.getTopPage = $designService.getTopPage;
-                    $rootScope.getCss = $designService.getCssList;
-                    $rootScope.getImg = $designService.getImage;
-
-                }
-            ]
-        );
+            }]);
 
         return angular.module.designModule;
     });
