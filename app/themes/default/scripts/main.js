@@ -51,6 +51,7 @@ $(document).ready(function ($) {
     // loader for checkout page
     $(document).on("click", ".total-line a", function () {
         $('html, body').animate({scrollTop:0}, 'slow');
+        $(".loader").css('height',$(document).height() );
         $(".loader").show();
         return false;
     });
