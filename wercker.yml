@@ -6,7 +6,7 @@ build:
     # A step that executes `npm install` command
     - npm-install
     - script:
-        name: install bower
+        name: install bower and gulp
         code: sudo npm install -g bower gulp
     - script:
         name: run bower install
