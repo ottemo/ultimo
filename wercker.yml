@@ -25,3 +25,18 @@ build:
         token: $HIPCHAT_TOKEN
         room-id: 394852
         from-name: Wercker
+deploy:
+    steps:
+        - wercker/add-ssh-key:
+            keyname: REMOTE_HOST_KEY
+        - add-to-known_hosts:
+            hostname: $REMOTE_HOST
+        - script:
+            name: Copy Fig.yml
+            code: scp fig.yml root@REMOTE_HOST:/tmp/fig.yml
+        - script:
+            name: Fig Up
+            code: ssh root@REMOTE_HOST "cd /tmp/; fig kill; fig up -d"
+
+
+
