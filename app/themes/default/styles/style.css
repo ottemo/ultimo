@@ -126,6 +126,17 @@ a:hover,
 ul {
     margin: 0;
 }
+.btns {
+    background-color: #000000;
+    color: #ffffff;
+    display: block;
+    font: 21px 'overlockregular',sans-serif;
+    height: 56px;
+    padding-top: 13px;
+    text-align: center;
+    text-transform: capitalize;
+    width: 100%;
+}
 
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////  start header */
 
@@ -1722,7 +1733,7 @@ select {
 .ch-content {
     border: 1px solid #000000;
 }
-.ch-title, .acc-title {
+.ch-title, .checkout-accordion h3 {
     background-color: #242425;
     color: #ffffff;
     padding: 12px 18px 0 15px;
@@ -1752,22 +1763,22 @@ select {
     float: left;
     font: 21px 'overlockregular', sans-serif;
 }
-.ch-title h3, .acc-title,
+.ch-title h3, .checkout-accordion h3,
 .ch-title h3,
-.acc-title > span:last-child {
+.checkout-accordion .num {
     text-transform: uppercase;
     margin: 2px 0 0 20px;
-}
-.acc-title,.acc-title > span:last-child {
-    font: 21px 'overlockregular', sans-serif;
 }
 .ch-title ul li > a > span {
     float: right;
     color: #555555;
     font-size: 1.6em;
 }
+.ch-payment .myCheckbox {
+    margin-left: 15px;
+}
 .ch-title > span:first-child,
-.acc-title > span:last-child {
+.checkout-accordion .num {
     background-color: #F0F2F5;
     border-radius: 25px;
     width: 30px;
@@ -1777,6 +1788,7 @@ select {
     padding-top: 2px;
     color: #242425;
 }
+
 .ch-title  .navbar-nav.navbar-right:last-child {
     margin-right: -18px;
 }
@@ -1854,6 +1866,9 @@ select {
 }
 .ch-shipping .ch-form {
     padding: 25px 15px 0 15px;
+}
+.ch-shipping .discounts {
+    padding-bottom: 15px;
 }
 .ch-shipping .checkboxes + label {
     margin: 0;
@@ -1945,22 +1960,184 @@ select {
     padding-left: 10px;
     padding-right: 10px;
 }
+.card-data .form-group:first-child {
+    padding-left: 15px;
+
+}
+.card-data .form-group:last-child {;
+    padding-right: 15px;
+}
 .card-data label {
     left: 15px;
     position: absolute;
     top: 0;
+}
+.loader img {
+    position: absolute;
+    left: 49%;
+    top: 230px;
+}
+.loader {
+    display: none;
+    background: rgba(0, 0, 0, 0.8);
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
 }
 
 /* //////////////////////////////////////////////////////////////////////////////////////////////////// end checkout */
 
 /* ///////////////////////////////////////////////////////////////////////////////////////////////// start checkout2 */
 
+.checkout-accordion h3 {
+    margin: 3px 0 0;
+}
+.checkout-accordion .num {
+    margin: 2px 0 0;
+    float: left;
+}
+.checkout-accordion .h3,.num {
+    display: block;
+    float: left;
+    font: 21px 'overlockregular',sans-serif;
+    margin: 3px 0 0 20px;
+}
+.checkout-accordion .next,
+.checkout-accordion .back,
+.checkout-accordion .yellow {
+    background-color: #242425;
+    color: #ffffff;
+    display: block;
+    font: 21px 'overlockbold',sans-serif;
+    height: 56px;
+    padding-top: 13px;
+    text-align: center;
+    text-transform: capitalize;
+    width: 270px;
+    float: left;
+    margin: 13px 0 12px 15px;
+}
+.checkout-accordion a.yellow {
+    background-color: #cabf45;
+}
+.checkout-accordion .ch-shipping .next,
+.checkout-accordion .ch-shipping .back {
+    margin-top: 0;
+}
+.checkout-accordion .ch-ship div:first-child {
+    margin: 26px 0 0;
+}
+.payment-dt {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 75%;
+}
+.checkout-accordion .ch-form input,
+.checkout-accordion .ch-form select {
+    color: #242425;
+    font: 24px 'overlockregular',sans-serif;
+}
+.checkout-accordion .ch-payment .next,
+.checkout-accordion .ch-payment .back {
+    margin-top: 30px;
+}
+.checkout-accordion .ch-review .yellow,
+.checkout-accordion .ch-review .back {
+    margin-top: 25px;
+}
+.accordion > div {
+    display: none;
+}
+.accordion > div.active {
+    display: block;
+}
+.accordion .discounts > div > a {
+    padding: 8px 0 0;
+    text-align: center;
+    width: 100px;
+}
+.checkout-accordion .ch-total tr td:first-child {
+    text-align: left;
+    width: 90%;
+}
+.checkout-accordion table.ch-total {
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 20px;
+}
+.checkout-accordion .ch-total tr td:last-child {
+    width: 10%;
+}
+.checkout-accordion .payment-dt .col-md-4 {
+    margin-bottom: 16px;
+}
 
 
 /* /////////////////////////////////////////////////////////////////////////////////////////////////// end checkout2 */
 
-/* //////////////////////////////////////////////////////////////////////////////////////////////// start my account */
+/* //////////////////////////////////////////////////////////////////////////////////////////////// start login-page */
 
+.login-page .col-md-4 {
+    height: 310px;
+}
+.login-page > div:nth-child(2),
+.login-page > div:nth-child(3) {
+    border-right: 1px solid #DADADA;
+}
+.login-page .col-md-4 {
+    height: 320px;
+}
+.login-page .col-md-10 {
+    float: none;
+    margin: 0 auto;
+}
+.login-page .col-md-10 .col-md-12 {
+    padding: 0;
+}
+.login-page > div:nth-child(2) h5 {
+    text-align: right;
+}
+.login-page > div:nth-child(2) > div a:nth-child(3) {
+    background: url(../images/login-facebook.jpg) no-repeat top left;
+    display: block;
+    float: right;
+    height: 70px;
+    width: 70px;
+}
+.login-page > div:nth-child(2) > div a:nth-child(2) {
+    background: url(../images/login-google.jpg) no-repeat top left;
+    display: block;
+    float: right;
+    height: 70px;
+    width: 70px;
+    margin-left: 30px;
+}
+.login-page .ch-form {
+    padding: 15px;
+}
+.login-page .btns {
+    float: left;
+    margin: 12px 0 20px;
+}
+.login-page > div:nth-child(2) > div a:last-child {
+    color: #0f64bc;
+    font: 16px 'overlockregular', sans-serif;
+}
+.login-page .ch-form .form-control {
+    height: 45px;
+}
+.login-page .btns:focus,
+.login-page .btns:hover {
+    color: #ffffff;
+}
+
+/* ////////////////////////////////////////////////////////////////////////////////////////////////// end login-page */
+
+/* //////////////////////////////////////////////////////////////////////////////////////////////// start my account */
 
 .account-left {
     width: 16%;
@@ -1974,11 +2151,15 @@ select {
     margin: 10px 55px 10px 0;
 }
 .account-left h3,
-.account-right h3{
+.account-right h3,
+.login-page h3,.login-page h5 {
     font: 36px 'overlockregular', sans-serif;
     color: #3e4146;
     text-transform: capitalize;
     margin-bottom: 25px;
+}
+.login-page h5 {
+    font-size: 24px;
 }
 .account-left li {
     width: 100%;
@@ -3060,11 +3241,6 @@ footer nav li span {
 	left: .5em;
 	top: 50%;
 	margin-top: -8px;
-}
-.ui-accordion .ui-accordion-content {
-	padding: 1em 2.2em;
-	border-top: 0;
-	overflow: auto;
 }
 
 

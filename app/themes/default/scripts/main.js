@@ -47,6 +47,14 @@ $(document).ready(function ($) {
 //        $("parent_popup").show();
 //    });
 
+
+    // loader for checkout page
+    $(document).on("click", ".total-line a", function () {
+        $('html, body').animate({scrollTop:0}, 'slow');
+        $(".loader").show();
+        return false;
+    });
+
     // dropdown for checkout page
     $(".ch-form .dropdown-toggle").dropdown();
 
@@ -63,6 +71,18 @@ $(document).ready(function ($) {
 
     $("#pageslide").on("click", "ul > li", function () {
         $("#pageslide").css("display", "none");
+    });
+
+    // accordion for checkout page
+    $(document).on("click", '.checkout-accordion .next',function(){
+      $(this).parent().parent().parent().slideUp("slow").next().next().slideDown();
+    });
+    $(document).on("click", '.checkout-accordion .back', function(){
+      $(this).parent().parent().parent().slideUp("slow").prev().prev().slideDown();
+    });
+    $(document).on("click", '.accordion h3',function(){
+        $('.accordion > div').slideUp('slow');
+        $(this).next().slideDown('slow');
     });
 
 //$(".center-align > div").after("<div class="clear"></div>");

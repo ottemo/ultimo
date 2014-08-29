@@ -1,12 +1,10 @@
 <div class="page-title"></div>
 <div class="checkout">
 <div ng-init="init()">
-
 <!-- Billing Block -->
 <div class="col-md-4">
     <div class="ch-title">
         <span>1</span>
-
         <h3>Bill to</h3>
         <ul class="nav navbar-nav navbar-right">
             <li>
@@ -63,7 +61,6 @@
                            name="address1"
                            ng-model="billing_address.address_line1" ng-disabled="billing_address._id || useAsBilling"
                            required>
-
                     <p ng-show="billingAddress.address1.$invalid && !billingAddress.address1.$pristine"
                        class="help-block">This field is required.</p>
                 </div>
@@ -81,7 +78,6 @@
                            name="zip_code"
                            ng-model="billing_address.zip_code" ng-disabled="billing_address._id || useAsBilling"
                            required>
-
                     <p ng-show="billingAddress.zip_code.$invalid && !billingAddress.zip_code.$pristine"
                        class="help-block">This field is required.</p>
                 </div>
@@ -91,7 +87,6 @@
                     <label for="billingAddressCity">City*</label>
                     <input type="text" class="form-control" id="billingAddressCity" placeholder="City" name="city"
                            ng-model="billing_address.city" ng-disabled="billing_address._id || useAsBilling" required>
-
                     <p ng-show="billingAddress.city.$invalid && !billingAddress.city.$pristine"
                        class="help-block">This field is required.</p>
                 </div>
@@ -99,14 +94,12 @@
                 <div class="form-group col-md-12"
                      ng-class="{ 'has-error' : billingAddress.country.$invalid && !billingAddress.country.$pristine }">
                     <label for="billingAddressCity">Country*</label>
-
                     <div class="select">
                         <select name="country" ng-model="billing_address.country" required
                                 ng-options="c.Code as c.Name for c in countries"
                                 ng-disabled="billing_address._id || useAsBilling">
                         </select>
                     </div>
-
                     <p ng-show="billingAddress.country.$invalid && !billingAddress.country.$pristine"
                        class="help-block">This field is required.</p>
                 </div>
@@ -114,14 +107,12 @@
                 <div class="form-group col-md-12"
                      ng-class="{ 'has-error' : billingAddress.address1.$invalid && !billingAddress.address1.$pristine }">
                     <label for="billingAddressCity">State / Province / Region*</label>
-
                     <div class="select">
                         <select name="state" ng-model="billing_address.state" required
                                 ng-options="c.Code as c.Name for c in states"
                                 ng-disabled="billing_address._id || useAsBilling">
                         </select>
                     </div>
-
                     <p ng-show="billingAddress.state.$invalid && !billingAddress.state.$pristine"
                        class="help-block">This field is required.</p>
                 </div>
@@ -140,7 +131,6 @@
 <div class="col-md-4">
     <div class="ch-title">
         <span>2</span>
-
         <h3>Ship to</h3>
         <ul class="nav navbar-nav navbar-right">
             <li>
@@ -207,7 +197,6 @@
                     <input type="text" class="form-control" id="shippingInputAddress" placeholder="Address 1"
                            name="address1"
                            ng-model="shipping_address.address_line1" ng-disabled="shipping_address._id" required>
-
                     <p ng-show="shippingAddress.address1.$invalid && !shippingAddress.address1.$pristine"
                        class="help-block">This field is required.</p>
                 </div>
@@ -224,7 +213,6 @@
                     <input type="text" class="form-control" id="shippingAddressZip" placeholder="Zip / Postal Code"
                            name="zip_code"
                            ng-model="shipping_address.zip_code" ng-disabled="shipping_address._id" required>
-
                     <p ng-show="shippingAddress.zip_code.$invalid && !shippingAddress.zip_code.$pristine"
                        class="help-block">This field is required.</p>
                 </div>
@@ -234,7 +222,6 @@
                     <label for="shippingAddressCity">City*</label>
                     <input type="text" class="form-control" id="shippingAddressCity" placeholder="City" name="city"
                            ng-model="shipping_address.city" ng-disabled="shipping_address._id" required>
-
                     <p ng-show="shippingAddress.city.$invalid && !shippingAddress.city.$pristine"
                        class="help-block">This field is required.</p>
                 </div>
@@ -242,7 +229,6 @@
                 <div class="form-group col-md-12"
                      ng-class="{ 'has-error' : shippingAddress.country.$invalid && !shippingAddress.country.$pristine }">
                     <label for="shippingAddressCity">Country*</label>
-
                     <div class="select">
                         <select name="country" ng-model="shipping_address.country" required
                                 ng-options="c.Code as c.Name for c in countries" ng-disabled="shipping_address._id">
@@ -256,13 +242,11 @@
                 <div class="form-group col-md-12"
                      ng-class="{ 'has-error' : shippingAddress.address1.$invalid && !shippingAddress.address1.$pristine }">
                     <label for="shippingAddressCity">State / Province / Region*</label>
-
                     <div class="select">
                         <select name="state" ng-model="shipping_address.state" required
                                 ng-options="c.Code as c.Name for c in states" ng-disabled="shipping_address._id">
                         </select>
                     </div>
-
                     <p ng-show="shippingAddress.state.$invalid && !shippingAddress.state.$pristine"
                        class="help-block">This field is required.</p>
                 </div>
@@ -281,7 +265,6 @@
 <div class="col-md-4">
     <div class="ch-title">
         <span>3</span>
-
         <h3>Shipping</h3>
     </div>
     <div class="ch-content ch-shipping">
@@ -304,12 +287,11 @@
 <div class="col-md-4">
     <div class="ch-title">
         <span>4</span>
-
         <h3>payment</h3>
     </div>
-    <div class="ch-content ch-shipping">
+    <div class="ch-content ch-shipping ch-payment">
         <div class="ch-form">
-            <div class="form-group col-md-12" ng-repeat="method in paymentMethods">
+            <div class="form-group" ng-repeat="method in paymentMethods">
                 <div class="checkboxes">
                     <label class="myCheckbox">
                         <input type="radio" name="test" value="{{method.Code}}" ng-model="checkout.payment_method_code"
@@ -318,13 +300,11 @@
                     </label>
                 </div>
                 <label>{{method.Name}}</label>
-                <!--</div>-->
                 <div ng-show="isCreditCard()" ng-if="method.Type === 'cc'">
                     <form name="method.form" novalidate>
                         <div class="form-group col-md-12"
                              ng-class="{ 'has-error' : method.form.type.$invalid && !method.form.type.$pristine }">
                             <label>Credit Card Type</label>
-
                             <div class="select">
                                 <select name="type" ng-model="method.cc.type" required
                                         ng-options="c.Code as c.Name for c in creditTypes">
@@ -338,7 +318,6 @@
                             <label for="paymentCardNumber">Number</label>
                             <input type="text" class="form-control" id="paymentCardNumber" ng-model="method.cc.number"
                                    placeholder="Credit Card Number" name="number" required>
-
                             <p ng-show="method.form.number.$invalid && !method.form.number.$pristine"
                                class="help-block">This field is required.</p>
                         </div>
@@ -394,7 +373,6 @@
 <div class="col-md-4">
     <div class="ch-title">
         <span>5</span>
-
         <h3>discounts</h3>
     </div>
     <div class="ch-content ch-shipping">
@@ -403,7 +381,6 @@
                 <input type="text" class="form-control" id="discount" placeholder="Discount code"
                        name="discount"
                        ng-model="discount">
-
             </div>
             <div class="form-group col-md-4">
                 <a href ng-click="discountApply()" class="btn left">Apply code</a>
@@ -424,7 +401,6 @@
 <div class="col-md-4">
     <div class="ch-title">
         <span>6</span>
-
         <h3>order review</h3>
     </div>
     <div class="ch-content">
@@ -454,7 +430,6 @@
                     <td>Shipping</td>
                     <td>{{checkout.shipping_amount | currency}}</td>
                 </tr>
-
                 <tr>
                     <td>Total</td>
                     <td>{{checkout.grandtotal | currency}}</td>
@@ -469,6 +444,5 @@
     </div>
 </div>
 <div class="clear"></div>
-</div>
 </div>
 </div>

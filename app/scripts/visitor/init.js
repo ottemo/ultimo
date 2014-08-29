@@ -53,6 +53,10 @@
                             templateUrl: angular.getTheme("visitor/account/order.html"),
                             controller: "visitorOrderController"
                         })
+                        .when("/login-page", {
+                            templateUrl: angular.getTheme("visitor/login-page.html"),
+                            controller: "visitorLoginController"
+                        })
                         .otherwise({redirectTo: "/"});
                 }])
                 .run([
