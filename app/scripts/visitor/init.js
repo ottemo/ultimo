@@ -56,8 +56,7 @@
                         .when("/login-page", {
                             templateUrl: angular.getTheme("visitor/login-page.html"),
                             controller: "visitorLoginController"
-                        })
-                        .otherwise({redirectTo: "/"});
+                        });
                 }])
                 .run([
                     "$commonHeaderService",

@@ -79,6 +79,7 @@
                 function ($scope, $designService, $commonApiService, $designImageService, $commonBreadcrumbsService, $cartService, $route) {
 
                     var splitName;
+
                     splitName = function (string) {
                         var parts;
                         var regExp = /\[(.+)\](.+)/i;
