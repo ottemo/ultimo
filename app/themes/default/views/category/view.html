@@ -299,24 +299,14 @@
             </div>
         </aside>
         <div class="center-align">
-            <div class="cat-prod" ng-repeat="_item in productsList | filter:searchText">
+            <div class="cat-prod" ng-repeat="_item in productsList | filter:searchText" ng-show="productsList.length">
                 <a href="#/product/{{_item._id}}">
-                    <img ng-src="{{getImage(_item)}}" alt="_item.Name">
+                    <img ng-src="{{getImage(_item)}}" alt="_item.Name" ng-show="productsList.length">
+                    <img ng-src="{{getImg('placeholder.png')}}" alt="placeholder" ng-hide="productsList.length">
                 </a>
                 <div class="tablet-shadow">
                     <h6 class="ng-binding">{{_item.name}}</h6>
                     <p class="ng-binding">{{_item.price | number : 2 | currency}}</p>
-                <!--   <div class="rating">
-                        <span>
-                            <i class="fa fa-star"></i>
-                        </span>
-                        <span>
-                            <i class="fa fa-star"></i>
-                        </span>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>-->
                     <a href class="pdp-zoom-btn">
                         <i class="fa fa-search-plus"></i>
                     </a>
@@ -324,6 +314,11 @@
                         <i class="fa fa-shopping-cart" ng-click="addToCart(_item._id)"></i>
                     </a>
                 </div>
+            </div>
+            <div class="cat-prod" ng-repeat="_item in productsList | filter:searchText" ng-hide="productsList.length" ng-hide="_item.length">
+                <a href="#/product/{{_item._id}}">
+                    <img ng-src="{{getImg('placeholder.png')}}" alt="placeholder"/>
+                </a>
             </div>
         </div>
         <div class="clear"></div>
