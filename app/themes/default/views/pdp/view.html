@@ -186,13 +186,6 @@
         </a>
     </div>
 </section>
-    <div ng-repeat="_item in products">
-        <a class="" href="#/product/{{_item.Id}}">
-            <img ng-src="{{getImage('',_item.Image)}}" alt="_item.Name"/>
-        </a>
-    </div>
-    <div class="clear"></div>
-</section>
 <section class="rating">
     <div class="left-block">
         <h5>customers reviews</h5>
@@ -273,15 +266,15 @@
             <li class="dropdown">
                 <a href role="button" data-toggle="dropdown">
 
-                    <p>Sort by: <span>{{sort.name}}</span></p>
+                    <p>Sort by: <span>{{sorting}}</span></p>
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
                     <li role="presentation">
-                        <a role="menuitem">High to Low</a>
+                        <a role="menuitem" href="" target="_self" ng-click="sortByRating('desc')">High to Low</a>
                     </li>
                     <li role="presentation">
-                        <a role="menuitem">Low to High</a>
+                        <a role="menuitem" href="" target="_self" ng-click="sortByRating('asc')">Low to High</a>
                     </li>
                 </ul>
             </li>

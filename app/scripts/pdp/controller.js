@@ -111,7 +111,6 @@
                     };
 
 
-
                     /**
                      * Returns full path to image
                      *
@@ -275,6 +274,25 @@
                         }
                     };
 
+                    $scope.sortByRating = function (order) {
+                        switch (order) {
+                            case "asc" :
+                                $scope.sorting = "Low to High";
+                                break;
+                            case "desc" :
+                                $scope.sorting = "High to Low";
+                                break;
+                        }
+
+                        $scope.reviewsList.sort(function (a, b) {
+                            if (order === "asc") {
+                                return a.rating > b.rating;
+                            } else {
+                                return a.rating < b.rating;
+                            }
+                        });
+
+                    };
 
                     $scope.$watch("ratingInfo", function () {
                         getAverageValue();
