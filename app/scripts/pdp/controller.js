@@ -16,12 +16,27 @@
                 "$cartService",
                 "$visitorLoginService",
                 function ($scope, $routeParams, $location, $pdpApiService, $designImageService, $cartService, $visitorLoginService) {
-                    var defaultProduct, reinitializeStars, getAverageValue, getStarsPercents;
+                    var defaultProduct, reinitializeStars, getAverageValue, getStarsPercents, getDefaultRatingInfo;
+
+                    getDefaultRatingInfo = function () {
+                        return {
+                            "1star": 0,
+                            "2star": 0,
+                            "3star": 0,
+                            "4star": 0,
+                            "5star": 0,
+                            "averageValue": 0,
+                            "fifeStarPersent": 0,
+                            "fourStarPersent": 0,
+                            "oneStarPersent": 0,
+                            "threeStarPersent": 0,
+                            "twoStarPersent": 0
+                        };
+                    };
 
                     defaultProduct = function () {
                         return {};
                     };
-
                     reinitializeStars = function () {
                         setTimeout(function () {
                             $("input.rating").each(function () {
@@ -40,27 +55,32 @@
                                     });
                                 }
 
-                            })
+                            });
 
-                        }, 500);
+                        }, 300);
                     };
 
                     getAverageValue = function () {
+
                         if (typeof $scope.ratingInfo === "undefined") {
                             return false;
                         }
+
                         $scope.count = $scope.ratingInfo['1star'] + $scope.ratingInfo['2star'] + $scope.ratingInfo['3star'] + $scope.ratingInfo['4star'] + $scope.ratingInfo['5star'];
-                        $scope.ratingInfo.averageValue = ((1 * $scope.ratingInfo['1star']) +
-                            (2 * $scope.ratingInfo['2star']) +
-                            (3 * $scope.ratingInfo['3star']) +
-                            (4 * $scope.ratingInfo['4star']) +
-                            (5 * $scope.ratingInfo['5star'])) / ($scope.count);
+                        if ($scope.count > 0) {
+                            $scope.ratingInfo.averageValue = ((1 * $scope.ratingInfo['1star']) +
+                                (2 * $scope.ratingInfo['2star']) +
+                                (3 * $scope.ratingInfo['3star']) +
+                                (4 * $scope.ratingInfo['4star']) +
+                                (5 * $scope.ratingInfo['5star'])) / ($scope.count);
+                        }
                     };
 
                     getStarsPercents = function () {
                         if (typeof $scope.ratingInfo === "undefined") {
                             return false;
                         }
+
                         $scope.ratingInfo.oneStarPersent = ($scope.ratingInfo['1star'] / $scope.count) * 100;
                         $scope.ratingInfo.twoStarPersent = ($scope.ratingInfo['2star'] / $scope.count) * 100;
                         $scope.ratingInfo.threeStarPersent = ($scope.ratingInfo['3star'] / $scope.count) * 100;
@@ -72,6 +92,9 @@
 
                     $scope.product = defaultProduct();
                     $scope.qty = 1;
+
+                    $scope.ratingInfo = getDefaultRatingInfo();
+
 
                     $pdpApiService.getProduct({"id": $scope.productId}).$promise.then(
                         function (response) {
@@ -202,7 +225,7 @@
                      */
                     $pdpApiService.ratingInfo({"pid": $scope.productId}).$promise.then(
                         function (response) {
-                            $scope.ratingInfo = response.result[0] || [];
+                            $scope.ratingInfo = response.result[0] || getDefaultRatingInfo();
                             getAverageValue();
                             getStarsPercents();
                         }
@@ -252,7 +275,7 @@
                                     "stars": $scope.review.stars
                                 }, $scope.review.comment).$promise.then(
                                 function (response) {
-
+                                    console.log($scope.ratingInfo)
                                     if (response.error === "") {
                                         $scope.reviewsList.push(response.result || []);
 
@@ -269,6 +292,7 @@
                                             'message': response.error
                                         };
                                     }
+
                                 }
                             );
                         }

@@ -194,7 +194,7 @@
             <input id="input-21d" value="{{ratingInfo.averageValue | number:2}}" type="number" class="rating disabled" min=0 max=5 step=0.1
                    data-size="xxs">
         </form>
-        <p>{{ratingInfo.averageValue | number:2}} out of 5</p>
+        <p>{{ratingInfo.averageValue | number}} out of 5</p>
 
         <div class="clear"></div>
         <div class="progressbar">
@@ -204,35 +204,35 @@
                     <td>
                         <progress value="{{ratingInfo.fifeStarPersent}}" max="100">{{ratingInfo.fifeStarPersent}}</progress>
                     </td>
-                    <td>{{ratingInfo.5star}}</td>
+                    <td>{{ratingInfo.5star | number}}</td>
                 </tr>
                 <tr>
                     <td>4 star</td>
                     <td>
                         <progress value="{{ratingInfo.fourStarPersent}}" max="100">{{ratingInfo.fourStarPersent}}%</progress>
                     </td>
-                    <td>{{ratingInfo.4star}}</td>
+                    <td>{{ratingInfo.4star | number}}</td>
                 </tr>
                 <tr>
                     <td>3 star</td>
                     <td>
                         <progress value="{{ratingInfo.threeStarPersent}}" max="100">{{ratingInfo.threeStarPersent}}%</progress>
                     </td>
-                    <td>{{ratingInfo.3star}}</td>
+                    <td>{{ratingInfo.3star | number}}</td>
                 </tr>
                 <tr>
                     <td>2 star</td>
                     <td>
                         <progress value="{{ratingInfo.twoStarPersent}}" max="100">{{ratingInfo.twoStarPersent}}%</progress>
                     </td>
-                    <td>{{ratingInfo.2star}}</td>
+                    <td>{{ratingInfo.2star | number}}</td>
                 </tr>
                 <tr>
                     <td>1 star</td>
                     <td>
                         <progress value="{{ratingInfo.oneStarPersent}}" max="100">{{ratingInfo.oneStarPersent}}%</progress>
                     </td>
-                    <td>{{ratingInfo.1star}}</td>
+                    <td>{{ratingInfo.1star | number}}</td>
                 </tr>
             </table>
         </div>
