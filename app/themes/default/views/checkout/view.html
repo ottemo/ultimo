@@ -300,7 +300,8 @@
                     </label>
                 </div>
                 <label>{{method.Name}}</label>
-                <div ng-show="isCreditCard()" ng-if="method.Type === 'cc'">
+                <!--</div>-->
+                <div ng-show="isCreditCard()" ng-if="showFormCc(method)">
                     <form name="method.form" novalidate>
                         <div class="form-group col-md-12"
                              ng-class="{ 'has-error' : method.form.type.$invalid && !method.form.type.$pristine }">

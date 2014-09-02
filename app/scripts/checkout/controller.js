@@ -1,4 +1,4 @@
-(function (w, define) {
+(function (w, define, $) {
     "use strict";
 
     define(["checkout/init"], function (checkoutModule) {
@@ -30,7 +30,7 @@
                 "$q",
                 function ($scope, $location, $checkoutApiService, $designImageService, $visitorLoginService, $cartService, $designStateService, $anchorScroll, $q) {    // jshint ignore:line
 
-                    var isLoggedIn, info, getDefaultAddress, getAddresses, getCurrentBillingID, getCurrentShippingID;
+                    var isLoggedIn, info, getDefaultAddress, getAddresses, getCurrentBillingID, getCurrentShippingID, sendPostForm;
 
                     getDefaultAddress = function () {
                         return {
@@ -245,8 +245,7 @@
                      * Saves checkout
                      */
                     $scope.save = function () {
-                        var i, form, method, checkoutData;
-                        checkoutData = {};
+                        var i, form, method;
                         method = {};
 
                         for (i = 0; i < $scope.paymentMethods.length; i += 1) {
@@ -256,16 +255,14 @@
                             }
                         }
 
-                        if ($cartService.getCountItems() > 0 && $scope.isCreditCard() && !form.$invalid) {
-                            checkoutData = {"cc": method.cc};
-                        }
-
                         if ($cartService.getCountItems() > 0) {
-                            $checkoutApiService.save(checkoutData).$promise.then(
+                            $checkoutApiService.save().$promise.then(
                                 function (response) {
 
-                                    if(method.Type === "remote" && response.result === "redirect") {
+                                    if (method.Type === "remote" && response.result === "redirect") {
                                         window.location.replace(response.redirect);
+                                    } else if (method.Type === "post_cc") {
+                                        sendPostForm(method, response);
                                     } else if (response.error === "") {
                                         info();
                                         $cartService.reload().then(
@@ -286,6 +283,18 @@
                         }
                     };
 
+                    sendPostForm = function (method, response) {
+                        var form;
+
+                        form = "<div class='hidden' id='auth_net_form'>" + response.result;
+                        form = form.replace("$CC_NUM", method.cc.number);
+                        form = form.replace("$CC_MONTH", method.cc.expire_month.toString().length < 2 ? "0" + method.cc.expire_month : method.cc.expire_month);
+                        form = form.replace("$CC_YEAR", method.cc.expire_year)+"</div>";
+
+                        $(".checkout > div").append(form);
+                        $("#auth_net_form").find("form").submit();
+                    };
+
                     /**
                      * Gets full path to image
                      *
@@ -295,25 +304,6 @@
                     $scope.getImage = function (product) {
                         return $designImageService.getFullImagePath("", product.image);
                     };
-
-                    /**
-                     * Sets payment method
-                     */
-                    $scope.$watch("checkout.payment_method_code", function () {
-                        if (typeof $scope.checkout.payment_method_code !== "undefined" &&       // jshint ignore:line
-                            $scope.checkout.payment_method_code !== "" &&       // jshint ignore:line
-                            $scope.checkout.payment_method_code !== null) {         // jshint ignore:line
-                            $checkoutApiService.setPaymentMethod({
-                                "method": $scope.checkout.payment_method_code       // jshint ignore:line
-                            }).$promise.then(
-                                function (response) {
-                                    if (response.result === "ok") {
-                                        info();
-                                    }
-                                }
-                            );
-                        }
-                    });
 
                     getCurrentShippingID = function () {
                         var id;
@@ -468,9 +458,18 @@
                         $scope.paymentType = type;
                     };
 
-
                     $scope.isCreditCard = function () {
-                        return $scope.paymentType === "cc";
+                        if (typeof $scope.paymentType !== "undefined") {
+                            return $scope.paymentType.split("_").indexOf("cc") > 0;
+                        }
+                        return false;
+                    };
+
+                    $scope.showFormCc = function (method) {
+                        if (typeof method !== "undefined") {
+                            return method.Type.split("_").indexOf("cc") > 0;
+                        }
+                        return false;
                     };
 
                     $scope.$watch("useAsBilling", function () {
@@ -497,9 +496,28 @@
                         }
                     }, true);
 
+                    /**
+                     * Sets payment method
+                     */
+                    $scope.$watch("checkout.payment_method_code", function () {
+                        if (typeof $scope.checkout.payment_method_code !== "undefined" &&       // jshint ignore:line
+                            $scope.checkout.payment_method_code !== "" &&       // jshint ignore:line
+                            $scope.checkout.payment_method_code !== null) {         // jshint ignore:line
+                            $checkoutApiService.setPaymentMethod({
+                                "method": $scope.checkout.payment_method_code       // jshint ignore:line
+                            }).$promise.then(
+                                function (response) {
+                                    if (response.result === "ok") {
+                                        info();
+                                    }
+                                }
+                            );
+                        }
+                    });
+
                 }
             ])
         ;
         return checkoutModule;
     });
-})(window, window.define);
+})(window, window.define, jQuery);
