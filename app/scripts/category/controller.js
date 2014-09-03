@@ -14,7 +14,9 @@
                 "$categoryService",
                 "$visitorLoginService",
                 "$cartService",
-                function ($scope, $route, $routeParams, $categoryApiService, $designService, $designImageService, $categoryService, $visitorLoginService, $cartService) {
+                "$pdpProductService",
+                function ($scope, $route, $routeParams, $categoryApiService, $designService, $designImageService,
+                          $categoryService, $visitorLoginService, $cartService, $pdpProductService) {
                     var getLimit, getPage, addCategoryCrumbs;
 
                     getPage = function () {
@@ -39,7 +41,7 @@
 
                         for (i = 0; i < list.length; i += 1) {
                             category = list[i];
-                            $scope.$emit("add-breadcrumbs", {"label": category.name, "url": "/category/" + category.id + "/"});
+                            $scope.$emit("add-breadcrumbs", {"label": category.name, "url": $categoryService.getUrl(category.id)});
                         }
                     };
 
@@ -51,9 +53,10 @@
                     $scope.productsList = [];
                     $scope.paths = [];
                     $scope.categoryId = $routeParams.id;
-                    $scope.uri = "/category/" + $routeParams.id + "/p/:page";
+                    $scope.uri = $categoryService.getUrl($routeParams.id) + "/p/:page";
                     $scope.category = {};
                     $scope.popupProduct = {};
+                    $scope.productService = $pdpProductService;
 
                     $scope.blocks = {
                         "sort": false,
@@ -101,10 +104,10 @@
                     $scope.closeBlock = function (nameBlock) {
                         $scope.blocks[nameBlock] = false;
                         jQuery('.list-bar span').removeClass('active');
-                        jQuery('.shadow').css('display','none');
+                        jQuery('.shadow').css('display', 'none');
                     };
 
-                    $scope.addToCart = function(productId){
+                    $scope.addToCart = function (productId) {
                         var miniCart;
                         miniCart = $(".mini-cart");
 
@@ -207,11 +210,11 @@
                         });
                     };
 
-                    $scope.openPopUp = function(product){
+                    $scope.openPopUp = function (product) {
                         $scope.popupProduct = product;
 
                         $("#parent_popup_quickShop").show();
-                    }
+                    };
 
                     $scope.$watch("categoryId", addCategoryCrumbs);
                 }

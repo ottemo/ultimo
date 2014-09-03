@@ -6,6 +6,7 @@
      */
     define([
             "pdp/service/api",
+            "pdp/service/product",
 
             "pdp/controller"
         ],

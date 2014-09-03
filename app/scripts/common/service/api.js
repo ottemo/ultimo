@@ -22,6 +22,10 @@
                     "getCategories": {
                         method: "GET",
                         url: categoryBaseURL + "/category/tree"
+                    },
+                    "getRewriteUrls": {
+                        method: "GET",
+                        url: REST_SERVER_URI + "/url_rewrite/list"
                     }
                 });
             }]);

@@ -283,10 +283,41 @@
         </div>
     </div>
 </div>
-<!-- Payment Method -->
+<!-- Discounts -->
 <div class="col-md-4">
     <div class="ch-title">
         <span>4</span>
+
+        <h3>discounts</h3>
+    </div>
+    <div class="ch-content ch-shipping">
+        <div class="ch-form discounts">
+            <div class="form-group col-md-8">
+                <input type="text" class="form-control" id="discount" placeholder="Discount code"
+                       name="discount"
+                       ng-model="discount">
+
+            </div>
+            <div class="form-group col-md-4">
+                <a href ng-click="discountApply()" class="btn left">Apply code</a>
+            </div>
+            <div class="form-group col-md-12" ng-show="checkout.discounts.length">
+                <ul>
+                    <li class="form-group col-md-12" ng-repeat="discount in checkout.discounts">
+                        <div>{{discount.Code}} - {{discount.Amount | currency}}</div>
+                        <div class="glyphicon glyphicon-remove right" ng-click="discountNeglect(discount.Code)"></div>
+                    </li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+<!-- Payment Method -->
+<div class="col-md-4">
+    <div class="ch-title">
+        <span>5</span>
+
         <h3>payment</h3>
     </div>
     <div class="ch-content ch-shipping ch-payment">
@@ -315,26 +346,27 @@
                                class="help-block">This field is required.</p>
                         </div>
                         <div class="form-group col-md-12"
-                             ng-class="{ 'has-error' : method.form.number.$invalid && !method.form.number.$pristine }">
+                             ng-class="{ 'has-error' : (!method.form.number.$invalidFormat || method.form.number.$invalid) && !method.form.number.$pristine }">
                             <label for="paymentCardNumber">Number</label>
                             <input type="text" class="form-control" id="paymentCardNumber" ng-model="method.cc.number"
-                                   placeholder="Credit Card Number" name="number" required>
+                                   placeholder="Credit Card Number" name="number" ng-change="validateCcNumber()" required>
+
                             <p ng-show="method.form.number.$invalid && !method.form.number.$pristine"
                                class="help-block">This field is required.</p>
+                            <p ng-show="!method.form.number.$invalidFormat && !method.form.number.$pristine"
+                               class="help-block">Invalid number format.</p>
                         </div>
                         <div class="card-data">
-                            <div class="form-group col-md-4"
-                                ng-class="{ 'has-error' : method.form.cvv.$invalid && !method.form.cvv.$pristine }">
+                            <div class="form-group col-md-4">
                                <label for="paymentCvv">CVV</label>
                                <input type="text" class="form-control" id="paymentCvv" name="cvv" ng-model="method.cc.cvv"
-                                    placeholder="CVV" required>
-                               <p ng-show="method.form.cvv.$invalid && !method.form.cvv.$pristine"
-                                    class="help-block">This field is required.</p>
+                                    placeholder="CVV">
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-4"
+                                 ng-class="{ 'has-error' : (method.form.expire_month.$invalid) && !method.form.expire_month.$pristine }">
                                 <label>Expiration Date</label>
                                 <div class="select">
-                                    <select name="status form-control" ng-model="method.cc.expire_month">
+                                    <select name="status form-control" ng-model="method.cc.expire_month" name="expire_month" required>
                                         <option value="1" selected="selected">01</option>
                                         <option value="2">02</option>
                                         <option value="3">03</option>
@@ -349,10 +381,13 @@
                                         <option value="12">12</option>
                                     </select>
                                 </div>
+                                <p ng-show="method.form.expire_month.$invalid && !method.form.expire_month.$pristine"
+                                         class="help-block">This field is required.</p>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-4"
+                                 ng-class="{ 'has-error' : (method.form.expire_year.$invalid) && !method.form.expire_year.$pristine }">
                                 <div class="select">
-                                    <select name="status form-control" ng-model="method.cc.expire_year">
+                                    <select name="status form-control" ng-model="method.cc.expire_year" name="expire_year" required>
                                         <option value="2014" selected="selected">2014</option>
                                         <option value="2015">2015</option>
                                         <option value="2016">2016</option>
@@ -361,6 +396,8 @@
                                         <option value="2019">2019</option>
                                     </select>
                                 </div>
+                                <p ng-show="method.form.expire_year.$invalid && !method.form.expire_year.$pristine"
+                                   class="help-block">This field is required.</p>
                             </div>
                         </div>     
                     </form>
@@ -368,34 +405,6 @@
             </div>
         </div>
         <div class="clear"></div>
-    </div>
-</div>
-<!-- Discounts -->
-<div class="col-md-4">
-    <div class="ch-title">
-        <span>5</span>
-        <h3>discounts</h3>
-    </div>
-    <div class="ch-content ch-shipping">
-        <div class="ch-form discounts">
-            <div class="form-group col-md-8">
-                <input type="text" class="form-control" id="discount" placeholder="Discount code"
-                       name="discount"
-                       ng-model="discount">
-            </div>
-            <div class="form-group col-md-4">
-                <a href ng-click="discountApply()" class="btn left">Apply code</a>
-            </div>
-            <div class="form-group col-md-12" ng-show="checkout.discounts.length">
-                <ul>
-                    <li class="form-group col-md-12" ng-repeat="discount in checkout.discounts">
-                        <div>{{discount.Code}} - {{discount.Amount | currency}}</div>
-                        <div class="glyphicon glyphicon-remove right" ng-click="discountNeglect(discount.Code)"></div>
-                    </li>
-                </ul>
-            </div>
-            <div class="clear"></div>
-        </div>
     </div>
 </div>
 <!-- Review -->

@@ -14,76 +14,91 @@
              *  $categoryService implementation
              *  Saves in the tree a categories list. Used for the breadcrumbs
              */
-                .service("$categoryService", [function () {
-                    // Variables
-                    var tree;
-                    // Functions
-                    var getTree, setTree, getChainCategories, getSubMenuItem;
+                .service("$categoryService", [
+                    "$commonRewriteService",
+                    function ($commonRewriteService) {
+                        // Variables
+                        var tree, type;
+                        // Functions
+                        var getTree, setTree, getChainCategories, getSubMenuItem, getUrl;
+                        type = "category";
 
-                    /**
-                     * Sets tree
-                     *
-                     * @param {string} label
-                     * @param {string} url
-                     */
-                    setTree = function (arr) {
-                        tree = arr;
-                    };
+                        getUrl = function (id) {
+                            var url;
+                            url = $commonRewriteService.getRewrite(type, id);
 
-                    /**
-                     * Gets tree
-                     *
-                     * @return {array} tree
-                     */
-                    getTree = function () {
-                        return tree;
-                    };
+                            if (!url) {
+                                url = type + "/" + id;
+                            }
 
-                    getSubMenuItem = function (subMenuItems, id, list) {
-                        var found, i, tmpList;
+                            return "#/" + url;
+                        };
 
-                        if (subMenuItems) {
+                        /**
+                         * Sets tree
+                         *
+                         * @param {string} label
+                         * @param {string} url
+                         */
+                        setTree = function (arr) {
+                            tree = arr;
+                        };
 
-                            for (i = 0; i < subMenuItems.length; i += 1) {
+                        /**
+                         * Gets tree
+                         *
+                         * @return {array} tree
+                         */
+                        getTree = function () {
+                            return tree;
+                        };
 
-                                tmpList = list;
-                                tmpList.push(subMenuItems[i]);
+                        getSubMenuItem = function (subMenuItems, id, list) {
+                            var found, i, tmpList;
 
-                                if (subMenuItems[i].id === id) {
-                                    return [subMenuItems[i]];
-                                }
+                            if (subMenuItems) {
 
-                                found = getSubMenuItem(subMenuItems[i].child, id, tmpList);
+                                for (i = 0; i < subMenuItems.length; i += 1) {
 
-                                if (found instanceof Array && found.length > 0) {
-                                    found.push(subMenuItems[i]);
-                                    return found;
+                                    tmpList = list;
+                                    tmpList.push(subMenuItems[i]);
+
+                                    if (subMenuItems[i].id === id) {
+                                        return [subMenuItems[i]];
+                                    }
+
+                                    found = getSubMenuItem(subMenuItems[i].child, id, tmpList);
+
+                                    if (found instanceof Array && found.length > 0) {
+                                        found.push(subMenuItems[i]);
+                                        return found;
+                                    }
                                 }
                             }
-                        }
 
-                        return [];
-                    };
+                            return [];
+                        };
 
-                    /**
-                     *
-                     * @param {string} id
-                     * @returns {Array}
-                     */
-                    getChainCategories = function (id) {
-                        var list = [];
+                        /**
+                         *
+                         * @param {string} id
+                         * @returns {Array}
+                         */
+                        getChainCategories = function (id) {
+                            var list = [];
 
-                        list = getSubMenuItem(tree, id, list);
+                            list = getSubMenuItem(tree, id, list);
 
-                        return list.reverse();
-                    };
+                            return list.reverse();
+                        };
 
-                    return {
-                        setTree: setTree,
-                        getTree: getTree,
-                        getChainCategories: getChainCategories
-                    };
-                }]);
+                        return {
+                            getUrl: getUrl,
+                            setTree: setTree,
+                            getTree: getTree,
+                            getChainCategories: getChainCategories
+                        };
+                    }]);
 
             return commonModule;
         });

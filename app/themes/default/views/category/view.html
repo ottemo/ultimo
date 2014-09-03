@@ -214,7 +214,7 @@
         </aside>
         <div class="center-align">
             <div class="cat-prod" ng-repeat="_item in productsList | filter:searchText" ng-show="productsList.length">
-                <a href="#/product/{{_item._id}}">
+                <a href="{{productService.getUrl(_item._id)}}">
                     <img ng-src="{{getImage(_item)}}" alt="_item.Name" ng-show="productsList.length">
                     <img ng-src="{{getImg('placeholder.png')}}" alt="placeholder" ng-hide="productsList.length">
                 </a>
@@ -231,7 +231,7 @@
                 </div>
             </div>
             <div class="cat-prod" ng-repeat="_item in productsList | filter:searchText" ng-hide="productsList.length" ng-hide="_item.length">
-                <a href="#/product/{{_item._id}}">
+                <a href="{{productService.getUrl(_item._id)}}">
                     <img ng-src="{{getImg('placeholder.png')}}" alt="placeholder"/>
                 </a>
             </div>
@@ -247,7 +247,7 @@
         <div class="popup_form ch-form">
 
             <div class="left-block">
-                <a href="#/product/{{popupProduct._id}}">
+                <a href="{{productService.getUrl(popupProduct._id)}}">
                     <img alt="{{popupProduct.name}}" ng-src="{{getImage(popupProduct)}}">
                 </a>
             </div>

@@ -57,7 +57,8 @@
                     "$location",
                     "$q",
                     "$commonPageService",
-                    function ($rootScope, $designService, $route, $http, $commonSidebarService, $location, $q, $commonPageService) {
+                    "$commonRewriteService",
+                    function ($rootScope, $designService, $route, $http, $commonSidebarService, $location, $q, $commonPageService, $commonRewriteService) {
 
                         // ajax cookies support fix
                         $http.defaults.withCredentials = true;
@@ -67,10 +68,12 @@
 
                         // Left navigation menu
                         $commonSidebarService.addItem("Home", "", "glyphicon glyphicon-home", 100);
-                        $commonSidebarService.addItem("BLOG", "cat1.html", "glyphicon glyphicon-edit");
-                        $commonSidebarService.addItem("STOCKISTS", "cat2.html", "glyphicon glyphicon-screenshot");
-                        $commonSidebarService.addItem("ABOUT", "prod1.html", "glyphicon glyphicon-info-sign");
-                        $commonSidebarService.addItem("PRESS", "prod2.html", "glyphicon glyphicon-book");
+                        $commonSidebarService.addItem("BLOG", "blog.html", "glyphicon glyphicon-edit");
+                        $commonSidebarService.addItem("STOCKISTS", "stocklist.html", "glyphicon glyphicon-screenshot");
+                        $commonSidebarService.addItem("ABOUT", "about.html", "glyphicon glyphicon-info-sign");
+                        $commonSidebarService.addItem("PRESS", "press.html", "glyphicon glyphicon-book");
+
+                        $commonRewriteService.init();
 
                         otherwiseResolveFunc = function () {
                             if (otherwiseResolveFunc.inProgress === undefined) {

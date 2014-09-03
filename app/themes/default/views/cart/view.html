@@ -3,7 +3,7 @@
     <div class="cart-block">
         <div class="cart-item" ng-repeat="item in it.getItems()" ng-show="it.getCountItems()">
             <div class="image">
-                <a href="#/product/{{item.pid}}"><img ng-src="{{getImage(item.product)}}" alt="{{item.product.name}}"/></a>
+                <a href="{{productService.getUrl(item.pid)}}"><img ng-src="{{getImage(item.product)}}" alt="{{item.product.name}}"/></a>
             </div>
             <div class="info">
                 <h3>{{item.product.name}}</h3>

@@ -12,10 +12,11 @@
                 "$routeParams",
                 "$location",
                 "$pdpApiService",
+                "$pdpProductService",
                 "$designImageService",
                 "$cartService",
                 "$visitorLoginService",
-                function ($scope, $routeParams, $location, $pdpApiService, $designImageService, $cartService, $visitorLoginService) {
+                function ($scope, $routeParams, $location, $pdpApiService, $pdpProductService, $designImageService, $cartService, $visitorLoginService) {
                     var defaultProduct, reinitializeStars, getAverageValue, getStarsPercents, getDefaultRatingInfo;
 
                     getDefaultRatingInfo = function () {
@@ -103,7 +104,7 @@
                                 $scope.product = result;
 
                                 // BREADCRUMBS
-                                $scope.$emit("add-breadcrumbs", {"label": $scope.product.name, "url": "/product/" + $scope.product._id + "/"});
+                                $scope.$emit("add-breadcrumbs", {"label": $scope.product.name, "url": $pdpProductService.getUrl($scope.product._id)});
                             } else {
                                 $location.path("/");
                             }
@@ -275,9 +276,11 @@
                                     "stars": $scope.review.stars
                                 }, $scope.review.comment).$promise.then(
                                 function (response) {
-                                    console.log($scope.ratingInfo)
+
                                     if (response.error === "") {
                                         $scope.reviewsList.push(response.result || []);
+
+                                        $scope.sortByRating($scope.orderReviews);
 
                                         if (response.result.rating > 0) {
                                             $scope.ratingInfo[response.result.rating + "star"] += 1;
@@ -285,6 +288,7 @@
                                         $scope.review = {};
                                         $scope.submitted = false;
                                         $scope.reviewForm.review.$pristine = true;
+                                        $scope.review.stars = 0;
                                         reinitializeStars();
                                     } else {
                                         $scope.message = {
@@ -299,6 +303,8 @@
                     };
 
                     $scope.sortByRating = function (order) {
+                        $scope.orderReviews = order;
+
                         switch (order) {
                             case "asc" :
                                 $scope.sorting = "Low to High";

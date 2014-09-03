@@ -231,9 +231,19 @@
                     uri: 'http://dev.ottemo.com:3000/config/unregister/themes.list',
                     method: 'DELETE'
                 }, function () {
+
                     var r = request.post('http://dev.ottemo.com:3000/config/register');
 
                     var form = r.form();
+                    form.append('path', 'themes');
+                    form.append('value', '');
+                    form.append('type', 'group');
+                    form.append('editor', '');
+                    form.append('options', '');
+                    form.append('label', 'Themes');
+                    form.append('description', '');
+
+                    form = r.form();
                     form.append('path', 'themes.list');
                     form.append('value', '');
                     form.append('type', 'group');
