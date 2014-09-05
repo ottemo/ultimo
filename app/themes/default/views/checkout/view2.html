@@ -435,6 +435,26 @@
                 </div>
             </div>
         </div>
+
+        <span target="_self" id="modal-order-success">Order Success</span>
+
+        <div class="modal fade" id="order-success" tabindex="-1" role="dialog" ng-controller="visitorLoginController">
+            <div class="modal-dialog login registration">
+                <div class="login-close"></div>
+                <div class="modal-content ch-form">
+                    <h6>your order has been recieved</h6>
+                    <p><span>Thank you for your purchase!</span></p>
+                    <p>Your order # is:<span>123456789</span></p>
+                    <p>You will recieve an order confirmation email with details of your order
+                        and a link to track its progress.</p>
+                    <div class="form-group col-md-6">
+                        <div class="button btn-black">Continue shopping</div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 </div>
@@ -447,4 +467,10 @@
             }, 500)
         })
     })(jQuery)
+    $("#modal-order-success").click(function () {
+        $("#order-success").modal("show");
+    });
+    $(".login-close").click(function () {
+        $(".modal").modal("hide");
+    });
 </script>

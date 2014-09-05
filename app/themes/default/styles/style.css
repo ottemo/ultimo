@@ -131,6 +131,13 @@ a:hover,
     cursor: pointer;
     text-decoration: none;
 }
+.popup-close,
+.checkout-accordion h3 {
+    cursor: pointer;
+}
+a:focus {
+    text-decoration: none;
+}
 .un-visible {
     display: none;
 }
@@ -1026,31 +1033,6 @@ li.active .nav-active {
 .pdp-tablet-slider {
     display: none;
 }
-/* slider for pdp page */
-.big {
-    width: 380px;
-    height: 580px;
-    float: left;
-}
-.big img {
-    width: 380px;
-    border: 1px solid #DBDBDB;
-}
-.small {
-    margin-top: 10px;
-    margin-left: 33px;
-    float: right;
-    margin: 0 0 10px 0;
-    width: 130px;
-}
-.small img{
-    border: 1px solid #DBDBDB;
-    width: 130px;
-}
-.slider-bottom .thumbnail,
-.slider-bottom.img-thumbnail {
-    box-shadow: none;
-}
 
 /* /////////////////////////////////////////////////////////////////////////////////////////////////////  end slider */
 
@@ -1123,6 +1105,25 @@ li.active .nav-active {
     margin-top: -80px;
     width: 100px;
     color: #ffffff;
+}
+.static-page {
+    padding: 80px 55px 0;
+}
+.static-page h1,
+.static-page h2,
+.static-page h3,
+.static-page h4,
+.static-page h5,
+.static-page h6 {
+    font: 48px 'overlockbold', sans-serif;
+    color: #3e4146;
+    margin-bottom: 15px;
+}
+.static-page p {
+    font: 23px 'overlockregular', sans-serif;
+    color: #3e4146;
+    margin-bottom: 15px;
+    text-align: justify;
 }
 
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////// end content */
@@ -1518,21 +1519,18 @@ li.active .nav-active {
     border-radius: none;
     margin-left: 14px;
 }
-
+.quickshop .right-block .col-md-6 a {
+    color: #2a74ee;
+    font: 12px 'Robotoregular', sans-serif;
+}
 
 /* //////////////////////////////////////////////////////////////////////////////////////////////////// end category */
 
 /* /////////////////////////////////////////////////////////////////////////////////////////////////////// start pdp */
 
-.pdp-slider {
-    float: right;
-    margin: 28px 55px 0 0;
-    width: 525px;
-    height: 580px;
-}
 .pdp-info {
     float: left;
-    width: 755px;
+    width: 52.3%;
     margin: 17px 0 0 55px;
 }
 .pdp-info h2 {
@@ -1581,7 +1579,7 @@ li.active .nav-active {
     margin-bottom: 7px;
 }
 .pdp-filters {
-    width: 400px;
+    width: 53%;
     float: left;
     margin-bottom: 30px;
 }
@@ -1591,6 +1589,12 @@ li.active .nav-active {
 .pdp-btn {
     float: right;
     margin-top: 11px;
+    width: 43%;
+}
+.pdp-img {
+    margin: 0 auto;
+    max-width: inherit;
+    padding: 0 55px;
 }
 .pdp-btn a span {
     font-size: 20px;
@@ -1607,7 +1611,7 @@ li.active .nav-active {
 .pdp-btn a {
     display: block;
     text-align: center;
-    width: 325px;
+    width: 100%;
     height: 72px;
     color: #ffffff;
     font: 24px 'overlockregular', sans-serif;
@@ -1667,6 +1671,7 @@ li.active .nav-active {
     -moz-box-shadow: 0 37px 27px -35px #e4e4e4 inset;
     box-shadow: 0 37px 27px -35px #e4e4e4 inset;
     margin-bottom: -97px;
+    width: 100%;
 }
 .rating h5 {
     font: 18px 'MavenProRegular', sans-serif;
@@ -1685,14 +1690,15 @@ li.active .nav-active {
     margin: 12px 0 0
 }
 .rating > .left-block {
-    width: 310px;
-    float: left;
-    padding-left: 55px;
+    left: 55px;
+    position: absolute;
+    width: 210px;
 }
 .rating > .right-block {
-    width: 1065px;
-    float: right;
+    float: left;
     margin-right: 55px;
+    padding: 0 55px 0 300px;
+    width: 100%;
 }
 .rating .review-sort {
     width: 100%;
@@ -1806,6 +1812,7 @@ progress::-moz-progress-bar {
     border-bottom: 1px solid #E2E2E2;
     padding: 26px 55px;
     margin-bottom: 1px;
+    width: 100%;
 }
 .reviews form {
     margin-bottom: 13px;
@@ -1827,19 +1834,93 @@ progress::-moz-progress-bar {
     font: 14px 'robotoregular', sans-serif;
     color: #868686;
     margin: 2px 0 10px;
+    display: block;
 }
 .reviews .left-block p span {
     font: 14px 'robotobold', sans-serif;
 }
 .reviews .left-block {
     border-right: 1px solid #E2E2E2;
-    width: 225px;
-    float: left;
+    width: 229px;
+    position: absolute;
+    left: 55px;
 }
 .reviews .right-block {
-    width: 1070px;
-    float: right;
+    width: 100%;
+    float: left;
+    padding: 0 55px 0 267px;
 }
+.rating .right-block form .col-md-12 {
+    margin-top: 13px;
+}
+.rating .right-block form .col-md-12 .form-control {
+    background-color: #efefef;
+    background-image: none;
+    border: 1px solid #9c9c9d;
+}
+
+/* slider for pdp page */
+.pdp-slider {
+    float: right;
+    margin: 28px 55px 0 0;
+    width: 36.3%;
+   // height: 580px;
+}
+.big {
+    width: 73%;
+  //  height: 580px;
+    float: left;
+}
+.big img {
+    width: 100%;
+    border: 1px solid #DBDBDB;
+}
+.small {
+    margin-top: 10px;
+    margin-left: 33px;
+    float: right;
+    margin: 0 0 1.5% 0;
+    width: 24.8%;
+}
+.small img{
+    border: 1px solid #DBDBDB;
+    width: 100%;
+}
+.slider-bottom .thumbnail,
+.slider-bottom.img-thumbnail {
+    box-shadow: none;
+}
+    * {
+    margin:0;
+    padding:0;
+    }
+    html, body {
+    width:100%;
+    }
+    #content
+    {
+    width:100%;
+    height:150px;
+    background-color: black;
+    position:relative;
+    }
+    #elastic
+    {
+    width:100%;
+    height:100%;
+    background-color: yellow;
+    float:left;
+
+    }
+    #fixed
+    {
+    position: absolute;
+    left:0;
+    width:150px;
+    height:100%;
+    background-color: green;
+
+    }
 
 /* ////////////////////////////////////////////////////////////////////////////////////////////////////////  end pdp */
 
@@ -2356,6 +2437,25 @@ select {
 .checkout-accordion .payment-dt .col-md-4 {
     margin-bottom: 16px;
 }
+.checkout .modal h6 {
+    font-size: 36px;
+    margin: 10px 0 20px;
+}
+.checkout .modal p span {
+    font: bold 24px 'Myriad Pro',sans-serif;
+}
+.checkout .modal p  {
+    font: 18px 'Myriad Pro',sans-serif;
+    margin: 0 0 12px 0;
+    color: #565656;
+}
+.checkout .modal .col-md-6 {
+    float: right;
+    margin: 6px 0 0;
+}
+.checkout .modal .modal-content  {
+    padding-bottom: 25px;
+}
 
 
 /* /////////////////////////////////////////////////////////////////////////////////////////////////// end checkout2 */
@@ -2414,6 +2514,125 @@ select {
 .login-page .btns:focus,
 .login-page .btns:hover {
     color: #ffffff;
+}
+.login  .modal-dialog {
+    width: 420px;
+}
+.login .col-md-12 {
+    padding: 0;
+}
+.modal-content {
+    border-radius: 15px;
+}
+.login h6 {
+    text-align: center;
+    color: #565656;
+    font: 24px 'overlockbold', sans-serif;
+    text-transform: uppercase;
+    margin-bottom: 17px;
+}
+.login .ch-form {
+    padding: 19px 35px 35px;
+}
+.login .ch-form label,
+.login .ch-form input,
+.login .ch-form select {
+    color: #565656;
+    font: 17px 'overlockregular',sans-serif;
+}
+.login .form-control {
+    text-transform: capitalize;
+}
+.login .button {
+    color: #ffffff;
+    font: 17px 'overlockregular',sans-serif;
+    text-transform: capitalize;
+}
+.login .ch-form .form-control {
+    height: 49px;
+}
+.login .ch-form input {
+    border: 1px solid #c7c7c7;
+    border-radius: 3px;
+    text-transform: lowercase;
+}
+.login .form-group {
+    margin-bottom: 5px;
+}
+.login .btn-black {
+    margin: 14px 0 9px;
+    padding-top: 15px;
+}
+.login a {
+    color: #565656;
+    color: #565656;
+    float: right;
+    font: 14px 'overlockregular',sans-serif;
+    margin-bottom: 20px;
+    text-decoration: none;
+}
+.login .fa {
+   display: block;
+   float: left;
+   font-size: 35px;
+   margin: 0 0 0 21px;
+}
+.login .button span {
+    border-right: 1px solid #c2cfec;
+    display: block;
+    float: left;
+    height: 54px;
+    margin: -13px 0 0 18px;
+}
+.login .button {
+    height: 54px;
+    width: 100%;
+}
+.login .fa-google-plus {
+    font-size: 32px;
+    margin: 0 0 0 14px;
+}
+.login .btn-red span {
+    margin: -13px 0 0 10px;
+}
+.login .btn-red,
+.login .btn-blue {
+    padding-right: 20px;
+    text-align: right;
+}
+.login-close {
+    background: url("../images/popup-close.png") no-repeat scroll left top rgba(0, 0, 0, 0);
+    height: 40px;
+    position: absolute;
+    right: -15px;
+    top: -15px;
+    width: 40px;
+    z-index: 1;
+}
+.login-close:hover {
+    cursor: pointer;
+}
+.login .btn-blue {
+    margin-bottom: 8px;
+}
+.registration {
+    width: 790px;
+}
+.registration .btn-blue {
+    margin-top: 14px;
+}
+.registration-page .ch-form .col-md-2 label {
+    width: 200px;
+}
+.registration-page > div:nth-child(3) {
+    border: none;
+    padding-left: 0;
+}
+.registration-page > div:nth-child(2) {
+    padding-right: 60px;
+}
+.registration-page .col-md-10 > div:last-child {
+    float: none;
 }
 
 /* ////////////////////////////////////////////////////////////////////////////////////////////////// end login-page */
@@ -2829,12 +3048,14 @@ footer nav li span {
         width: 94%;
     }
     .tablet-shadow {
-        bottom: 0.54%;
-        width: 94%;
-        background-color: rgba(0,0,0,0.6);
-        top: inherit;
-        display: block;
+        background-color: rgba(0, 0, 0, 0.6);
+        bottom: 0;
         left: 3%;
+        position: absolute;
+        top: inherit;
+        width: 94%;
+        z-index: 1;
+        display: block;
     }
     .tablet-shadow h6,
     .tablet-shadow p {
@@ -2853,6 +3074,7 @@ footer nav li span {
     .cat-prod {
         width: 33.3333333%;
         margin-top: 1.8%;
+        position: relative;
     }
     .center-align .cat-prod:nth-child(4) {
         margin-top: 1.8%;
