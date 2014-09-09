@@ -10,31 +10,50 @@
     <div class="small" ng-repeat="img in productImages">
         <img ng-src="{{getImage(imagesPath, img)}}" alt=""/>
     </div>
-    <div id="carousel-example-generic" class="carousel slide pdp-tablet-slider" data-ride="carousel"
-         ng-show="productImages.length">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#carousel-example-generic" ng-repeat="img in productImages" data-slide-to="{{$index}}"
-                ng-class="img == product.default_image ? 'active' : ''"></li>
-        </ol>
-
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner">
-            <div class="item" ng-repeat="img in productImages" ng-class="img == product.default_image  ? 'active' : ''">
-                <img ng-src="{{getImage(imagesPath, img)}}" alt="" class="img-thumbnail"/>
-            </div>
+    <section class="slider">
+        <div class="rslides_container">
+            <ul class="rslides" id="slider1">
+                <li ng-repeat="img in productImages">
+                    <img ng-src="{{getImage(imagesPath, img)}}" alt=""/>
+                </li>
+            </ul>
         </div>
+        <div class="slider-show">
+            <div class="slider-soc">
+                <a href=""></a>
+                <a href=""></a>
+                <a href=""></a>
+            </div>
+            <!--    <div class="arrow-bottom"></div>-->
+            <a href="#">shop now</a>
+        </div>
+        <div class="clear"></div>
+    </section>
+    <!--<div id="carousel-example-generic" class="carousel slide pdp-tablet-slider" data-ride="carousel"-->
+         <!--ng-show="productImages.length">-->
+        <!--&lt;!&ndash; Indicators &ndash;&gt;-->
+        <!--<ol class="carousel-indicators">-->
+            <!--<li data-target="#carousel-example-generic" ng-repeat="img in productImages" data-slide-to="{{$index}}"-->
+                <!--ng-class="img == product.default_image ? 'active' : ''"></li>-->
+        <!--</ol>-->
 
-        <!-- Controls -->
-        <a class="left carousel-control" href="#carousel-example-generic" target="_self" role="button"
-           data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-        </a>
-        <a class="right carousel-control" href="#carousel-example-generic" target="_self" role="button"
-           data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right"></span>
-        </a>
-    </div>
+        <!--&lt;!&ndash; Wrapper for slides &ndash;&gt;-->
+        <!--<div class="carousel-inner">-->
+            <!--<div class="item" ng-repeat="img in productImages" ng-class="img == product.default_image  ? 'active' : ''">-->
+                <!--<img ng-src="{{getImage(imagesPath, img)}}" alt="" class="img-thumbnail"/>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--&lt;!&ndash; Controls &ndash;&gt;-->
+        <!--<a class="left carousel-control" href="#carousel-example-generic" target="_self" role="button"-->
+           <!--data-slide="prev">-->
+            <!--<span class="glyphicon glyphicon-chevron-left"></span>-->
+        <!--</a>-->
+        <!--<a class="right carousel-control" href="#carousel-example-generic" target="_self" role="button"-->
+           <!--data-slide="next">-->
+            <!--<span class="glyphicon glyphicon-chevron-right"></span>-->
+        <!--</a>-->
+    <!--</div>-->
     <div class="small" ng-hide="productImages.length">
         <img ng-src="{{getImg('placeholder.png')}}" alt="" class="img-thumbnail" width="250px" height="250px"/>
     </div>
@@ -42,118 +61,120 @@
 </div>
 <!--Info block-->
 <section class="pdp-info">
-    <div>
+    <div class="tab-wrap">
         <h2>{{product.name}}</h2>
-    </div>
-    <div class="pdp-filters">
-
-
-        <div class="container">
-            <div class="input-group spinner pdp-spinner">
-                <label>Quantity</label>
-
-                <div class="spinner-block">
-                    <!--                    <input placeholder="Qtl" type="text" class="form-control" value="{{item.qty}}"
-                                               name="qty" id="qty" ng-model="qty">
-                                        <div class="input-group-btn-vertical">
-                                            <button class="btn btn-up"><i></i></button>
-                                            <button class="btn btn-down"><i></i></button>
-                                        </div>-->
-                    <input placeholder="Qtl" type="text" class="form-control" value="{{qty}}"
-                           ng-model="qty" ng-change="update(idx, qty)">
-
-                    <div class="input-group-btn-vertical">
-                        <button class="btn" ng-click="changeQty(qty,'up')"><i></i></button>
-                        <button class="btn" ng-click="changeQty(qty,'down')"><i></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <!--    <div class="container">
-                <div class="input-group spinner">
-                    <label>Size</label>
-                    <input placeholder="Qtl" type="text" class="form-control" value="{{item.qty}}">
-                    <div class="input-group-btn-vertical">
-                        <button class="btn"><i></i></button>
-                        <button class="btn"><i></i></button>
-                    </div>
-                </div>
-            </div>
+        <p>$35.99</p>
+        <div class="pdp-filters">
             <div class="container">
-                <div class="input-group spinner">
-                    <label>Size</label>
-                    <input placeholder="Qtl" type="text" class="form-control" value="{{item.qty}}">
-                    <div class="input-group-btn-vertical">
-                        <button class="btn"><i></i></button>
-                        <button class="btn"><i></i></button>
+                <div class="input-group spinner pdp-spinner">
+                    <label>Quantity</label>
+
+                    <div class="spinner-block">
+                        <!--                    <input placeholder="Qtl" type="text" class="form-control" value="{{item.qty}}"
+                                                   name="qty" id="qty" ng-model="qty">
+                                            <div class="input-group-btn-vertical">
+                                                <button class="btn btn-up"><i></i></button>
+                                                <button class="btn btn-down"><i></i></button>
+                                            </div>-->
+                        <input placeholder="Qtl" type="text" class="form-control" value="{{qty}}"
+                               ng-model="qty" ng-change="update(idx, qty)">
+
+                        <div class="input-group-btn-vertical">
+                            <button class="btn" ng-click="changeQty(qty,'up')"><i></i></button>
+                            <button class="btn" ng-click="changeQty(qty,'down')"><i></i></button>
+                        </div>
                     </div>
                 </div>
-            </div>-->
+            </div>
+
+
+            <!--    <div class="container">
+                    <div class="input-group spinner">
+                        <label>Size</label>
+                        <input placeholder="Qtl" type="text" class="form-control" value="{{item.qty}}">
+                        <div class="input-group-btn-vertical">
+                            <button class="btn"><i></i></button>
+                            <button class="btn"><i></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="input-group spinner">
+                        <label>Size</label>
+                        <input placeholder="Qtl" type="text" class="form-control" value="{{item.qty}}">
+                        <div class="input-group-btn-vertical">
+                            <button class="btn"><i></i></button>
+                            <button class="btn"><i></i></button>
+                        </div>
+                    </div>
+                </div>-->
+            <div class="clear"></div>
+        </div>
+        <p class="pdp-total">Total:</p>
+        <p>$35.99</p>
         <div class="clear"></div>
-    </div>
-    <div class="pdp-btn">
-        <a href="" target="_self" ng-click="addToCart()">
-            <span class="remove glyphicon glyphicon-plus"></span>
-            cart
-        </a>
-        <!--   <a href="#/stockist" target="_self">
-               <span class="glyphicon glyphicon-screenshot"></span>
-               stockist
-           </a>-->
-    </div>
-    <div class="clear"></div>
-    <!--
-        <div>
-            <label for="sku">Sku:</label>
-            <span id="sku"> {{product.sku}}</span>
+        <div class="pdp-btn">
+            <a href="" target="_self" ng-click="addToCart()">
+                <span class="remove glyphicon glyphicon-plus"></span>
+                cart
+            </a>
+            <!--   <a href="#/stockist" target="_self">
+                   <span class="glyphicon glyphicon-screenshot"></span>
+                   stockist
+               </a>-->
         </div>
-        <div>
-            <label for="price">Price:</label>
-            <span id="price"> <b>$</b>{{product.price}}</span>
-        </div>
-        <div>
-            <label for="size">Size:</label>
-            <span id="size"> {{product.size}}</span>
-        </div>
-        <div>
-            <label for="weight">Weight:</label>
-            <span id="weight"> {{product.weight}}</span>
-        </div>
+        <div class="clear"></div>
+        <!--
+            <div>
+                <label for="sku">Sku:</label>
+                <span id="sku"> {{product.sku}}</span>
+            </div>
+            <div>
+                <label for="price">Price:</label>
+                <span id="price"> <b>$</b>{{product.price}}</span>
+            </div>
+            <div>
+                <label for="size">Size:</label>
+                <span id="size"> {{product.size}}</span>
+            </div>
+            <div>
+                <label for="weight">Weight:</label>
+                <span id="weight"> {{product.weight}}</span>
+            </div>
 
-        <div>
-            <label for="qty">Qty:</label>
-            <select name="qty" id="qty" ng-model="qty">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-            </select>
-        </div>
-        <div>
-            <br />
-            <span id="short_description">{{product.short_description}}</span>
-        </div>
-        <h3>Total: ${{getTotal() | number : 2}}</h3>
-        <button type="button" class="btn btn-warning glyphicon glyphicon-plus" ng-click="addToCart()"> Cart</button>
-    </div>-->
-
+            <div>
+                <label for="qty">Qty:</label>
+                <select name="qty" id="qty" ng-model="qty">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                </select>
+            </div>
+            <div>
+                <br />
+                <span id="short_description">{{product.short_description}}</span>
+            </div>
+            <h3>Total: ${{getTotal() | number : 2}}</h3>
+            <button type="button" class="btn btn-warning glyphicon glyphicon-plus" ng-click="addToCart()"> Cart</button>
+        </div>-->
+    </div>
     <div id="accordion">
         <div class="accordion active">
             <a data-toggle="collapse" data-parent="#accordion" href="#collapseDetails"
                target="_self">
                 Description
-                <span></span>
+                <div>
+                    <span></span>
+                </div>
             </a>
-
             <div id="collapseDetails" class="panel-collapse collapse in">
                 <div class="acc-text">
                     {{product.description}}
@@ -164,7 +185,9 @@
             <a data-toggle="collapse" data-parent="#accordion" href="#collapseReviews"
                target="_self">
                 returns & exchanges
-                <span></span>
+                <div>
+                    <span></span>
+                </div>
             </a>
         </div>
         <div id="collapseReviews" class="panel-collapse collapse">
@@ -284,6 +307,17 @@
             </li>
         </ul>
     </div>
+    <div class="tab-review-sort">
+        <ul>
+            <li>
+                <a href="" target="_self" ng-click="sortByRating('desc')">High to Low</a>
+            </li>
+            <li>
+                <a class="active" href="" target="_self" ng-click="sortByRating('asc')">Low to High</a>
+            </li>
+        </ul>
+    </div>
+    <div class="clear"></div>
     <div class="reviews" ng-repeat="_item in reviewsList">
         <div class="left-block">
             <form>
@@ -309,6 +343,21 @@
 <script>
     (function ($) {
 
+        // slider
+        $(document).ready(function () {
+            setTimeout(function () {
+                $("#slider1").responsiveSlides({
+                    auto: false,
+                    pager: true,
+                    nav: true,
+                    speed: 500,
+                    maxwidth: 1024,
+                    namespace: "centered-btns"
+                });
+            }, 500);
+        });
+
+        // rating
         $(document).ready(function () {
             setTimeout(function () {
                 $("input.rating").each(function () {

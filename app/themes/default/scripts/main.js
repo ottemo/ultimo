@@ -65,46 +65,77 @@
         $(this).next().slideDown('slow');
     });
 
-            $("#input-21f").rating({
-                starCaptions: function(val) {
-                    if (val < 3) {
-                        return val;
-                    } else {
-                        return 'high';
-                    }
-                },
-                starCaptionClasses: function(val) {
-                    if (val < 3) {
-                        return 'label label-danger';
-                    } else {
-                        return 'label label-success';
-                    }
-                }
-            });
-            
-        // open popup on my account pages
-        $(document).on("click", ".popup-close", function () {
-            $(".parent_popup").hide();
-        });
-
-        // dropdown for checkout page
-        $(".ch-form .dropdown-toggle").dropdown();
-
-        // open more filters for pdp category
-        $(document).on("click", ".filter-left-block a", function () {
-            $(this).parent().toggleClass("active");
-            if ($(this).parent().hasClass("active")) {
-                $(this).html("Close<b class=\"caret\"></b>");
-            } else {
-                $(this).html("View more<b class=\"caret\"></b>");
-            }
-        });
-
-
-        $("#pageslide").on("click", "ul > li", function () {
-            $("#pageslide").css("display", "none");
-        });
-
+    // open popup on my account pages
+    $(document).on("click", ".popup-close", function () {
+        $(".parent_popup").hide();
     });
-})(jQuery);
+
+//    $(document).on("click", ".popup-open", function () {
+//        $("parent_popup").show();
+//    });
+
+
+    // dropdown for checkout page
+    $(".ch-form .dropdown-toggle").dropdown();
+
+    // open more filters for pdp category
+    $(document).on("click", ".filter-left-block a", function () {
+        $(this).parent().toggleClass("active");
+        if ($(this).parent().hasClass("active")) {
+            $(this).html("Close<b class=\"caret\"></b>");
+        } else {
+            $(this).html("View more<b class=\"caret\"></b>");
+        }
+    });
+
+
+    $("#pageslide").on("click", "ul > li", function () {
+        $("#pageslide").css("display", "none");
+    });
+
+    // accordion for checkout page
+    $(document).on("click", '.checkout-accordion .next',function(){
+      $(this).parent().parent().parent().slideUp("slow").next().next().slideDown();
+    });
+    $(document).on("click", '.checkout-accordion .back', function(){
+      $(this).parent().parent().parent().slideUp("slow").prev().prev().slideDown();
+    });
+    $(document).on("click", '.accordion h3',function(){
+        $('.accordion > div').slideUp('slow');
+        $(this).next().slideDown('slow');
+    });
+
+    // add active class for rating sort in PDP page
+    $(document).on('click','.tab-review-sort li a',function(){
+        $('.tab-review-sort li a').removeClass('active');
+        $(this).addClass('active');
+    });
+
+//$(".center-align > div").after("<div class="clear"></div>");
+    /*
+     if($(window).width() <= 1024 && $(window).width() > 480){
+     console.log($(".center-align").children().length + " len");
+     var i = 6;//$(".center-align").children().length / 3;
+     var numImg = 3;
+     appendClear(i,numImg);
+     }
+
+     function appendClear(i,numImg){
+
+     $(".center-align").css("border","1px solid red");
+     console.log(numImg + " num");
+     console.log(i + " i");
+     if(numImg === 3){
+     i = Math.floor(i);
+     for(i; i > 0; i--){
+     if(!$(".center-align > div:nth-child("+i*3+")").next().hasClass("clear")){
+     $(".center-align > div:nth-child("+i*3+")").after("<div class="clear"></div>");
+     }
+     }
+     }
+     };
+     */
+
+
+});
 
