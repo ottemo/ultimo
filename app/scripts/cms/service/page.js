@@ -10,11 +10,21 @@
              *  $productApiService interaction service
              */
             .service("$cmsPageService", [
-                function () {
-                    var getUrl;
+                "$commonRewriteService",
+                function ($commonRewriteService) {
+                    var getUrl, type;
 
-                    getUrl = function(id) {
-                        return "/page/" + id;
+                    type = "page";
+
+                    getUrl = function (id) {
+                        var url;
+                        url = $commonRewriteService.getRewrite(type, id);
+
+                        if (!url) {
+                            url = type + "/" + id;
+                        }
+
+                        return "#/" + url;
                     };
 
                     return {

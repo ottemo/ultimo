@@ -56,6 +56,10 @@
                         .when("/login-page", {
                             templateUrl: angular.getTheme("visitor/login-page.html"),
                             controller: "visitorLoginController"
+                        })
+                        .when("/registration", {
+                            templateUrl: angular.getTheme("visitor/registration-page.html"),
+                            controller: "visitorLoginController"
                         });
                 }])
                 .run([

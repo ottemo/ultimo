@@ -226,14 +226,11 @@
                 }
                 themesData += '}';
 
-                // Create group
                 request({
-                    uri: 'http://dev.ottemo.com:3000/config/unregister/themes.list',
+                    uri: 'http://dev.ottemo.io:3000/config/unregister/themes',
                     method: 'DELETE'
                 }, function () {
-
-                    var r = request.post('http://dev.ottemo.com:3000/config/register');
-
+                    var r = request.post('http://dev.ottemo.io:3000/config/register');
                     var form = r.form();
                     form.append('path', 'themes');
                     form.append('value', '');
@@ -242,8 +239,14 @@
                     form.append('options', '');
                     form.append('label', 'Themes');
                     form.append('description', '');
-
-                    form = r.form();
+                });
+                // Create group
+                request({
+                    uri: 'http://dev.ottemo.io:3000/config/unregister/themes.list',
+                    method: 'DELETE'
+                }, function () {
+                    var r = request.post('http://dev.ottemo.io:3000/config/register');
+                    var form = r.form();
                     form.append('path', 'themes.list');
                     form.append('value', '');
                     form.append('type', 'group');
@@ -253,11 +256,10 @@
                     form.append('description', '');
                 });
                 request({
-                    uri: 'http://dev.ottemo.com:3000/config/unregister/themes.list.active',
+                    uri: 'http://dev.ottemo.io:3000/config/unregister/themes.list.active',
                     method: 'DELETE'
                 }, function () {
-                    var r = request.post('http://dev.ottemo.com:3000/config/register');
-
+                    var r = request.post('http://dev.ottemo.io:3000/config/register');
                     var form = r.form();
                     form.append('path', 'themes.list.active');
                     form.append('value', 'default');

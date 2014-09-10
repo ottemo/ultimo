@@ -58,7 +58,9 @@
                     "$q",
                     "$commonPageService",
                     "$commonRewriteService",
-                    function ($rootScope, $designService, $route, $http, $commonSidebarService, $location, $q, $commonPageService, $commonRewriteService) {
+                    "REST_SERVER_URI",
+                    function ($rootScope, $designService, $route, $http, $commonSidebarService, $location, $q,
+                              $commonPageService, $commonRewriteService, REST_SERVER_URI) {
 
                         // ajax cookies support fix
                         $http.defaults.withCredentials = true;
@@ -123,7 +125,7 @@
                                 };
 
                                 $http({
-                                    url: "http://dev.ottemo.com:3000/url_rewrite/get/" + $location.$$path,
+                                    url: REST_SERVER_URI + "/url_rewrite/get" + $location.$$path,
                                     method: "GET"
                                 }).success(successFunction).error(errorFunction);
                             }

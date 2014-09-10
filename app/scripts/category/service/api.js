@@ -15,7 +15,7 @@
 
                 return $resource(categoryBaseURL, {}, {
                     "getProducts": {
-                        method: "POST",
+                        method: "GET",
                         params: { id: "@id" },
                         url: categoryBaseURL + "/products/:id"
                     },
@@ -40,6 +40,11 @@
                     "getCategories": {
                         method: "GET",
                         url: categoryBaseURL + "/tree"
+                    },
+                    "getLayered": {
+                        method: "GET",
+                        params: { id: "@id" },
+                        url: categoryBaseURL + "/layers/:id"
                     }
                 });
             }]);

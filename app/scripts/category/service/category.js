@@ -14,7 +14,8 @@
              *  $categoryService implementation
              *  Saves in the tree a categories list. Used for the breadcrumbs
              */
-                .service("$categoryService", [
+                .service("$categoryService",
+                [
                     "$commonRewriteService",
                     function ($commonRewriteService) {
                         // Variables
@@ -98,7 +99,9 @@
                             getTree: getTree,
                             getChainCategories: getChainCategories
                         };
-                    }]);
+                    }
+                ]
+            );
 
             return commonModule;
         });
