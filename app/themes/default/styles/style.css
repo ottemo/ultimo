@@ -259,6 +259,9 @@ header nav {
     margin: 0 auto;
     position: relative;
 }
+.h-block .cart-num {
+    display: none;
+}
 .h-block > a {
     margin: 0 auto 17px;
     display: block;
@@ -3119,6 +3122,9 @@ footer nav li span {
     .rslides_container {
         margin: 0;
     }
+    .h-block .cart-num {
+        display: block;
+    }
     .cart-num p {
     color: #ffffff;
         font: 40px/0 'overlockblack',sans-serif;
@@ -3814,8 +3820,8 @@ footer nav li span {
     .input-group-btn-vertical i {
         margin: 7px 0 0 9px;
     }
-    .cart-num {
-        display: none
+    .h-block .cart-num {
+        display: none;
     }
 }
 
