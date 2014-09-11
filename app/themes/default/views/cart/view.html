@@ -3,7 +3,7 @@
     <div class="cart-block">
         <div class="cart-item" ng-repeat="item in it.getItems()" ng-show="it.getCountItems()">
             <div class="image">
-                <a href="#/product/{{item.pid}}"><img ng-src="{{getImage(item.product)}}" alt="{{item.product.name}}"/></a>
+                <a href="{{productService.getUrl(item.pid)}}"><img ng-src="{{getImage(item.product)}}" alt="{{item.product.name}}"/></a>
             </div>
             <div class="info">
                 <h3>{{item.product.name}}</h3>
@@ -42,6 +42,7 @@
                 <span class="remove glyphicon glyphicon-remove" ng-click="remove(item.idx)"></span>
                 <p class="right">{{item.product.price * item.qty | number: 2 | currency}}</p>
             </div>
+            <div class="clear"></div>
             <hr/>
         </div>
         <div class="cart-item" ng-hide="it.getCountItems()">
@@ -54,7 +55,7 @@
         <h6>summary</h6>
         <div class="total-line">
             <p class="total-title">Cart items</p>
-            <div class="value">{{it.getCountItems()}}</div>
+            <div class="value">{{it.getCountItems() | currency}}</div>
         </div>
         <!--<div class="total-line">-->
             <!--<p class="total-title">Sales Tax</p>-->

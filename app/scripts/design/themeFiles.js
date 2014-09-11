@@ -1,6 +1,9 @@
-(function (define) {/* jshint ignore:start */define(function () {return {
+/* jshint ignore:start */
+(function (define) {
+"use strict";return {
 'default' : [
 '/scripts/main.js',
+'/scripts/star-rating.min.js',
 '/images/.gitignore',
 '/images/adminTab-active.png',
 '/images/adminTab-background.png',
@@ -36,6 +39,9 @@
 '/images/img3.jpg',
 '/images/img4.jpg',
 '/images/img5.jpg',
+'/images/loader.gif',
+'/images/login-facebook.jpg',
+'/images/login-google.jpg',
 '/images/logo-main.png',
 '/images/logo.png',
 '/images/manu-small.png',
@@ -48,6 +54,7 @@
 '/images/paypal.png',
 '/images/placeholder.png',
 '/images/plus.png',
+'/images/popup-close.png',
 '/images/select.png',
 '/images/select2.png',
 '/images/settings-image.png',
@@ -178,6 +185,11 @@
 '/styles/fonts/lato/lato-thinitalic.ttf',
 '/styles/fonts/lato/lato-thinitalic.woff',
 '/styles/fonts/lato/lato.css',
+'/styles/fonts/maven/maven_pro_regular-webfont.eot',
+'/styles/fonts/maven/maven_pro_regular-webfont.svg',
+'/styles/fonts/maven/maven_pro_regular-webfont.ttf',
+'/styles/fonts/maven/maven_pro_regular-webfont.woff',
+'/styles/fonts/maven/stylesheet.css',
 '/styles/fonts/overlock/overlock-black.eot',
 '/styles/fonts/overlock/overlock-black.ttf',
 '/styles/fonts/overlock/overlock-black.woff',
@@ -267,11 +279,14 @@
 '/styles/fonts/roboto/robotoslab-thin.eot',
 '/styles/fonts/roboto/robotoslab-thin.ttf',
 '/styles/fonts/roboto/robotoslab-thin.woff',
+'/views/help.html',
 '/views/index.html',
 '/views/cart/minicart.html',
 '/views/cart/view.html',
 '/views/category/view.html',
 '/views/checkout/view.html',
+'/views/checkout/view2.html',
+'/views/cms/page.html',
 '/views/pdp/view.html',
 '/views/common/breadcrumbs.html',
 '/views/common/footer.html',
@@ -283,7 +298,9 @@
 '/views/design/gui/guiPaginator.html',
 '/views/design/gui/guiState.html',
 '/views/visitor/account.html',
+'/views/visitor/login-page.html',
 '/views/visitor/login.html',
+'/views/visitor/registration-page.html',
 '/views/visitor/registration.html',
 '/views/visitor/account/address-manager.html',
 '/views/visitor/account/billing-address.html',
@@ -296,4 +313,6 @@
 '/views/visitor/social/facebook.html',
 '/views/visitor/social/google.html',
 ]
-};});/* jshint ignore:end */})(window.define);
+};
+})(window.define);
+/* jshint ignore:end */

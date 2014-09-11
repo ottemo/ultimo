@@ -1,4 +1,4 @@
-<a href="#/category/{{item.id}}" target="{{item.id != null ? '' : '_self'}}" class="menu-item"
+<a href="{{categoryService.getUrl(item.id)}}" target="{{item.id != null ? '' : '_self'}}" class="menu-item"
    onclick="clickLink(this)">
     {{item.name}}
 </a>

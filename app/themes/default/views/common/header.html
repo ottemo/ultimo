@@ -49,6 +49,10 @@
                 <img alt="logo" ng-src="{{getImg('logo-main.png')}}">
             </a>
 
+        <div class="cart-num" ng-controller="cartListController">
+            <p>{{it.getCountItems()}}</p>
+        </div>
+
         <div class="cart-mob un-visible" ng-controller="commonHeaderController">
             <a href="" target="_self" ng-click="clickToCartDesktop()"
                    ng-controller="visitorLoginController">

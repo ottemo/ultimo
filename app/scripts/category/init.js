@@ -17,7 +17,7 @@
              */
                 .config(["$routeProvider", function ($routeProvider) {
                     $routeProvider
-                        .when("/category/:id/", {
+                        .when("/category/:id", {
                             "templateUrl": angular.getTheme("category/view.html"),
                             "controller": "categoryListController"
                         })

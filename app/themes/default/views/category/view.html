@@ -1,306 +1,106 @@
 <div ng-init="init()">
-    <div class="page-title">
-        <!--    <h3>{{category.name}}</h3>-->
-        <div class="list-bar">
-            <span class="glyphicon glyphicon-sort-by-attributes" ng-click="toggleBlock('sort')"></span>
-            <span class="glyphicon glyphicon-search" ng-click="toggleBlock('search')"></span>
-            <span class="glyphicon glyphicon-filter" ng-click="toggleBlock('filter')"></span>
-        </div>
+<div class="page-title">
+    <!--    <h3>{{category.name}}</h3>-->
+    <div class="list-bar">
+        <span class="glyphicon glyphicon-sort-by-attributes" ng-click="toggleBlock('sort')"></span>
+        <span class="glyphicon glyphicon-search" ng-click="toggleBlock('search')"></span>
+        <span class="glyphicon glyphicon-filter" ng-click="toggleBlock('filter')"></span>
     </div>
-    <div class="shadow"></div>
-    <div class="category-tools">
-        <div ng-show="blocks.sort" class="filter-sort">
-            <a href="" target="_self" ng-click="sortByPrice('asc')">PRICE LOW TO HIGH</a>
-            <a href="" target="_self" ng-click="sortByPrice('desc')">PRICE HIGH TO LOW</a>
-            <a href="" target="_self" ng-click="sortByName('asc')">NAME ASC</a>
-            <a href="" target="_self" ng-click="sortByName('desc')">NAME DESC</a>
-            <div class="clear"></div>
-            <div class="nav-close" ng-click="closeBlock('sort')"></div>
-        </div>
-        <div ng-show="blocks.search">
-            <form>
-                <input type="text" class="form-control" placeholder="Search..." ng-model="searchText">
-                <span class="glyphicon glyphicon-search" ng-click=""></span>
-                <!--   <div>
-                       <a href>keyword</a>
-                       <a href>keyword</a>
-                       <a href>keyword</a>
-                       <a href>keyword</a>
-                       <a href>keyword</a>
-                       <a href>keyword</a>
-                       <a href>keyword</a>
-                       <a href>keyword</a>
-                       <a href>keyword</a>
-                       <a href>keyword</a>
-                       <a href>keyword</a>
-                       <a href>keyword</a>
-                   </div>-->
-                <div class="clear"></div>
-            </form>
-            <div class="nav-close" ng-click="closeBlock('search')"></div>
-        </div>
-        <div ng-show="blocks.filter" class="filter">
-            <div class="filters active">
-                <h6>style</h6>
-                <span class="filter-btn"></span>
-                <div class="clear"></div>
-                <hr>
-                <div class="filter-block">
-                    <div class="checkboxes">
-                        <label class="myCheckbox">
-                            <input type="checkbox" name="test">
-                            <span></span>
-                        </label>
-                        <p>V-Neck</p>
-                    </div>
-                    <div class="checkboxes">
-                        <label class="myCheckbox">
-                            <input type="checkbox" name="test">
-                            <span></span>
-                        </label>
-                        <p>Crew</p>
-                    </div>
-                    <div class="checkboxes">
-                        <label class="myCheckbox">
-                            <input type="checkbox" name="test">
-                            <span></span>
-                        </label>
-                        <p>Short</p>
-                    </div>
-                    <div class="checkboxes">
-                        <label class="myCheckbox">
-                            <input type="checkbox" name="test">
-                            <span></span>
-                        </label>
-                        <p>SleevLong</p>
-                    </div>
-                    <div class="checkboxes">
-                        <label class="myCheckbox">
-                            <input type="checkbox" name="test">
-                            <span></span>
-                        </label>
-                        <p>Sleeve</p>
-                    </div>
-                </div>
-            </div>
-            <div class="filters">
-                <h6>size</h6>
-                <span class="filter-btn"></span>
-                <div class="clear"></div>
-                <hr>
-                <div class="filter-block">
-                    <div class="checkboxes">
-                        <label class="myCheckbox">
-                            <input type="checkbox" name="test">
-                            <span></span>
-                        </label>
-                        <p>XS</p>
-                    </div>
-                    <div class="checkboxes">
-                        <label class="myCheckbox">
-                            <input type="checkbox" name="test">
-                            <span></span>
-                        </label>
-                        <p>S</p>
-                    </div>
-                    <div class="checkboxes">
-                        <label class="myCheckbox">
-                            <input type="checkbox" name="test">
-                            <span></span>
-                        </label>
-                        <p>M</p>
-                    </div>
-                    <div class="checkboxes">
-                        <label class="myCheckbox">
-                            <input type="checkbox" name="test">
-                            <span></span>
-                        </label>
-                        <p>L</p>
-                    </div>
-                    <div class="checkboxes">
-                        <label class="myCheckbox">
-                            <input type="checkbox" name="test">
-                            <span></span>
-                        </label>
-                        <p>XL</p>
-                    </div>
-                    <div class="checkboxes">
-                        <label class="myCheckbox">
-                            <input type="checkbox" name="test">
-                            <span></span>
-                        </label>
-                        <p>XXL</p>
-                    </div>
-                </div>
-            </div>
-            <div class="filters">
-                <h6>color</h6>
-                <span class="filter-btn"></span>
-                <div class="clear"></div>
-                <hr>
-                <div class="filter-block">
-                    <div class="checkboxes">
-                        <label class="myCheckbox">
-                            <input type="checkbox" name="test">
-                            <span></span>
-                        </label>
-                        <p>vlack</p>
-                    </div>
-                    <div class="checkboxes">
-                        <label class="myCheckbox">
-                            <input type="checkbox" name="test">
-                            <span></span>
-                        </label>
-                        <p>white</p>
-                    </div>
-                    <div class="checkboxes">
-                        <label class="myCheckbox">
-                            <input type="checkbox" name="test">
-                            <span></span>
-                        </label>
-                        <p>yellow</p>
-                    </div>
-                    <div class="checkboxes">
-                        <label class="myCheckbox">
-                            <input type="checkbox" name="test">
-                            <span></span>
-                        </label>
-                        <p>blue</p>
-                    </div>
-                    <div class="checkboxes">
-                        <label class="myCheckbox">
-                            <input type="checkbox" name="test">
-                            <span></span>
-                        </label>
-                        <p>green</p>
-                    </div>
-                    <div class="checkboxes">
-                        <label class="myCheckbox">
-                            <input type="checkbox" name="test">
-                            <span></span>
-                        </label>
-                        <p>orange</p>
-                    </div>
-                </div>
-            </div>
-            <div class="clear"></div>
-            <div class="nav-close" ng-click="closeBlock('filter')"></div>
-        </div>
+</div>
+<div class="category-tools">
+    <div ng-show="blocks.sort" class="filter-sort">
+        <a href="" target="_self" ng-click="sortByPrice('asc')">PRICE LOW TO HIGH</a>
+        <a href="" target="_self" ng-click="sortByPrice('desc')">PRICE HIGH TO LOW</a>
+        <a href="" target="_self" ng-click="sortByName('asc')">NAME ASC</a>
+        <a href="" target="_self" ng-click="sortByName('desc')">NAME DESC</a>
+
+        <div class="clear"></div>
+        <div class="nav-close" ng-click="closeBlock('sort')"></div>
     </div>
-    <!--    <div class="paginator-center">
-            <gui-paginator object="this"></gui-paginator>
-        </div>-->
-    <div class="clear"></div>
-    <section class="center-block cat">
-        <aside class="filter-left">
-            <h6>color</h6>
+    <div ng-show="blocks.search">
+        <form>
+            <input type="text" class="form-control" placeholder="Search..." ng-model="searchText">
+            <span class="glyphicon glyphicon-search" ng-click=""></span>
+            <!--   <div>
+                   <a href>keyword</a>
+                   <a href>keyword</a>
+                   <a href>keyword</a>
+                   <a href>keyword</a>
+                   <a href>keyword</a>
+                   <a href>keyword</a>
+                   <a href>keyword</a>
+                   <a href>keyword</a>
+                   <a href>keyword</a>
+                   <a href>keyword</a>
+                   <a href>keyword</a>
+                   <a href>keyword</a>
+               </div>-->
+            <div class="clear"></div>
+        </form>
+        <div class="nav-close" ng-click="closeBlock('search')"></div>
+    </div>
+    <div ng-show="blocks.filter" class="filter">
+        <div class="filters" ng-repeat="(filter, items) in layered" ng-if="items.length>0">
+            <h6>{{filter}}</h6>
+            <span class="filter-btn"></span>
+
+            <div class="clear"></div>
+            <hr>
+            <div class="filter-block">
+                <div class="checkboxes" ng-repeat="item in items">
+                    <label class="myCheckbox">
+                        <input type="checkbox" ng-model="filters[filter][item]">
+                        <span></span>
+                    </label>
+
+                    <p>{{item}}</p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!--    <div class="paginator-center">
+        <gui-paginator object="this"></gui-paginator>
+    </div>-->
+<div class="clear"></div>
+<section class="center-block cat">
+    <aside class="filter-left">
+        <div ng-repeat="(filter, items) in layered" ng-if="items.length>0">
+            <h6>{{filter}}</h6>
+
             <div class="filter-left-block filter-color">
-                <div class="checkboxes">
+                <div class="checkboxes" ng-repeat="item in items">
                     <label class="myCheckbox">
-                        <input type="checkbox" name="test">
-                        <span>black</span>
+                        <input type="checkbox" ng-model="filters[filter][item]">
+                        <span>{{item}}</span>
                     </label>
                 </div>
-                <div class="checkboxes">
-                    <label class="myCheckbox">
-                        <input type="checkbox" name="test">
-                        <span>white</span>
-                    </label>
-                </div>
-                <div class="checkboxes">
-                    <label class="myCheckbox">
-                        <input type="checkbox" name="test">
-                        <span>yellow</span>
-                    </label>
-                </div>
-                <div class="checkboxes">
-                    <label class="myCheckbox">
-                        <input type="checkbox" name="test">
-                        <span>blue</span>
-                    </label>
-                </div>
-                <div class="checkboxes">
-                    <label class="myCheckbox">
-                        <input type="checkbox" name="test">
-                        <span>green</span>
-                    </label>
-                </div>
-                <div class="checkboxes">
-                    <label class="myCheckbox">
-                        <input type="checkbox" name="test">
-                        <span>orange</span>
-                    </label>
-                </div>
-                <div class="filter-more">
-                    <div class="checkboxes">
-                        <label class="myCheckbox">
-                            <input type="checkbox" name="test">
-                            <span>purple</span>
-                        </label>
-                    </div>
-                    <div class="checkboxes">
-                        <label class="myCheckbox">
-                            <input type="checkbox" name="test">
-                            <span>pink</span>
-                        </label>
-                    </div>
-                </div>
+
+                <!--<div class="filter-more">-->
+                    <!--<div class="checkboxes">-->
+                        <!--<label class="myCheckbox">-->
+                            <!--<input type="checkbox" name="test">-->
+                            <!--<span>purple</span>-->
+                        <!--</label>-->
+                    <!--</div>-->
+                    <!--<div class="checkboxes">-->
+                        <!--<label class="myCheckbox">-->
+                            <!--<input type="checkbox" name="test">-->
+                            <!--<span>pink</span>-->
+                        <!--</label>-->
+                    <!--</div>-->
+                <!--</div>-->
                 <div class="clear"></div>
-                <a href>View more<b class="caret"></b></a>
+                <!--<a href>View more<b class="caret"></b></a>-->
             </div>
-            <h6>color</h6>
-            <div class="filter-left-block filter-size">
-                <div class="checkboxes">
-                    <label class="myCheckbox">
-                        <input type="checkbox" name="test">
-                        <span>xs</span>
-                    </label>
-                </div>
-                <div class="checkboxes">
-                    <label class="myCheckbox">
-                        <input type="checkbox" name="test">
-                        <span>s</span>
-                    </label>
-                </div>
-                <div class="checkboxes">
-                    <label class="myCheckbox">
-                        <input type="checkbox" name="test">
-                        <span>m</span>
-                    </label>
-                </div>
-                <div class="checkboxes">
-                    <label class="myCheckbox">
-                        <input type="checkbox" name="test">
-                        <span>l</span>
-                    </label>
-                </div>
-                <div class="checkboxes">
-                    <label class="myCheckbox">
-                        <input type="checkbox" name="test">
-                        <span>xl</span>
-                    </label>
-                </div>
-                <div class="checkboxes">
-                    <label class="myCheckbox">
-                        <input type="checkbox" name="test">
-                        <span>xxl</span>
-                    </label>
-                </div>
-                <div class="filter-more">
-                <div class="checkboxes">
-                    <label class="myCheckbox">
-                        <input type="checkbox" name="test">
-                        <span>xxs</span>
-                    </label>
-                </div>
-                </div>
-                <div class="clear"></div>
-                <a href>View more<b class="caret"></b></a>
-            </div>
-        </aside>
+        </div>
+    </aside>
         <div class="center-align">
             <div class="cat-prod" ng-repeat="_item in productsList | filter:searchText" ng-show="productsList.length">
-                <a href="#/product/{{_item._id}}">
+                <a href="{{productService.getUrl(_item._id)}}">
                     <img ng-src="{{getImage(_item)}}" alt="_item.Name" ng-show="productsList.length">
                     <img ng-src="{{getImg('placeholder.png')}}" alt="placeholder" ng-hide="productsList.length">
                 </a>
@@ -308,7 +108,8 @@
                     <h6 class="ng-binding">{{_item.name}}</h6>
                     <p class="ng-binding">{{_item.price | number : 2 | currency}}</p>
                     <a href class="pdp-zoom-btn">
-                        <i class="fa fa-search-plus"></i>
+                        <i class="fa fa-search-plus"
+                           ng-click="openPopUp(_item);"></i>
                     </a>
                     <a href class="pdp-cart-btn">
                         <i class="fa fa-shopping-cart" ng-click="addToCart(_item._id)"></i>
@@ -316,54 +117,142 @@
                 </div>
             </div>
             <div class="cat-prod" ng-repeat="_item in productsList | filter:searchText" ng-hide="productsList.length" ng-hide="_item.length">
-                <a href="#/product/{{_item._id}}">
+                <a href="{{productService.getUrl(_item._id)}}">
                     <img ng-src="{{getImg('placeholder.png')}}" alt="placeholder"/>
                 </a>
             </div>
         </div>
-        <div class="clear"></div>
-    </section>
- <!--   <div class="paginator-center">
-        <gui-paginator object="this"></gui-paginator>
-    </div>-->
-</div>
+    <div class="clear"></div>
+</section>
+<!-- popup for quickshop -->
+<section class="parent_popup" id="parent_popup_quickShop">
+    <div class="popup quickshop">
+        <div class="popup-close">
+            <span class="glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="popup_form ch-form">
+
+            <div class="left-block">
+                <a href="{{productService.getUrl(popupProduct._id)}}">
+                    <img alt="{{popupProduct.name}}" ng-src="{{getImage(popupProduct)}}">
+                </a>
+            </div>
+
+            <form class="right-block" name="visitorForm" novalidate>
+                <h3>{{popupProduct.name}}</h3>
+                <div class="col-md-3">
+                    <input id="input-21d" value="{{productService.getAverageRating()}}" type="number" class="rating disabled" min=0 max=5
+                       step=0.1 data-size="xxs">
+                </div>
+                <div class="col-md-6">
+                    <a href="{{productService.getUrl(popupProduct._id)}}">Read all {{productService.getCountRating()}} reviews</a>
+                </div>
+                <div class="clear"></div>
+                <hr>
+                <p class="price">{{popupProduct.price | currency}}</p>
+
+                <!--<p class="status">product in stock</p>-->
+                <hr>
+                <p>
+                    {{popupProduct.short_description}}
+                </p>
+                <hr>
+                <!--<div class="form-group col-md-4">-->
+                <!--<label>Color</label>-->
+
+                <!--<div class="select">-->
+                <!--<select>-->
+                <!--<option>Blue</option>-->
+                <!--<option>Red</option>-->
+                <!--<option>Green</option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group col-md-4">-->
+                <!--<label>Size</label>-->
+
+                <!--<div class="select">-->
+                <!--<select>-->
+                <!--<option>XL</option>-->
+                <!--<option>X</option>-->
+                <!--<option>L</option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group col-md-4">-->
+                <!--<label>Qty</label>-->
+
+                <!--<div class="select">-->
+                <!--<select>-->
+                <!--<option>1</option>-->
+                <!--<option>2</option>-->
+                <!--<option>3</option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--</div>-->
+                <div class="clear"></div>
+                <a href class="button" ng-click="addToCart(popupProduct._id)">
+                    <span class="remove glyphicon glyphicon-plus"></span>
+                    cart
+                </a>
+            </form>
+            <div class="clear"></div>
+        </div>
+    </div>
+</section>
 <script>
     (function ($) {
-        $('.list-bar span').on('click', function () {
-            $(this).siblings().removeClass('active');
-            $(this).toggleClass('active');
-            if ($(this).hasClass('active')) {
-                $('.shadow').css('display', 'block');
-            } else {
-                $('.shadow').css('display', 'none');
-            }
-        });
+        $(document).ready(function () {
 
-        $('.nav-close').click(
-                function () {
-                    jQuery('.h-block nav').removeClass("active");
+            $('.list-bar span').on('click', function () {
+                $(this).siblings().removeClass('active');
+                $(this).toggleClass('active');
+                if ($(this).hasClass('active')) {
+                    $('.shadow').css('display', 'block');
+                } else {
+                    $('.shadow').css('display', 'none');
                 }
-        );
+            });
 
-        $('.filter-btn').on('click', function () {
-            if ($(this).parent().hasClass('active')) {
-                $(this).parent().removeClass('active');
-            }
-            else {
-                $(this).parent().addClass('active');
-            }
-        });
+            $('.nav-close').click(
+                    function () {
+                        jQuery('.h-block nav').removeClass("active");
+                    }
+            );
 
-        $('.center-align').on('click', '.cat-prod > a', function (event) {
-            if ($(window).width() > 1024) {
-                if (!$(this).parent().hasClass("active")) {
-                    event.preventDefault();
-                    $(this).parent().siblings().removeClass('active');
-                    $(this).parent().toggleClass('active');
+            $('.center-align').on('click', '.cat-prod > a', function (event) {
+                if ($(window).width() > 1024) {
+                    if (!$(this).parent().hasClass("active")) {
+                        event.preventDefault();
+                        $(this).parent().siblings().removeClass('active');
+                        $(this).parent().toggleClass('active');
+                    }
                 }
+            });
 
-            }
-        });
+//            // rating
+            setTimeout(function () {
+                $("input.rating").each(function () {
 
+                    if ($(this).hasClass("disabled")) {
+                        $(this).rating({
+                            readonly: true,
+                            disabled: true,
+                            showCaption: false,
+                            showClear: false
+                        });
+                    } else {
+                        $(this).rating({
+                            showCaption: false,
+                            showClear: false
+                        });
+                    }
+
+                })
+
+            }, 500)
+        
+
+        })
     })(jQuery);
 </script>

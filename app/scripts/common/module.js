@@ -9,9 +9,11 @@
             "common/controllers",
 
             "common/service/api",
+            "common/service/page",
             "common/service/header",
             "common/service/breadcrumbs",
-            "common/service/sidebar"
+            "common/service/sidebar",
+            "common/service/rewrite"
         ],
         function (commonModule) {
 

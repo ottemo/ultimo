@@ -10,12 +10,14 @@
                 "$cartService",
                 "$designImageService",
                 "$visitorLoginService",
+                "$pdpProductService",
                 "$location",
-                function ($scope, $cartApiService, $cartService, $designImageService, $visitorLoginService, $location) {
+                function ($scope, $cartApiService, $cartService, $designImageService, $visitorLoginService, $pdpProductService, $location) {
 
                     var isLoggedIn;
 
                     $scope.it = $cartService;
+                    $scope.productService = $pdpProductService;
 
                     $scope.init = function () {
                         isLoggedIn = $visitorLoginService.isLoggedIn();

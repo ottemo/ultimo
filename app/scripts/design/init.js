@@ -8,16 +8,14 @@
      *  (check other modules dependency before exclude this module from include list)
      *
      */
-    define(["angular", "themeFiles"], function (angular, files) {
+    define(["angular", "themeFiles"], function (angular) {
 
         angular.activeTheme = "default";
 
-        angular.isExistFile = function (path) {
-
-            if (files[angular.activeTheme].indexOf(path) !== -1) {
-                return true;
-            }
-
+        angular.isExistFile = function () {
+            //if (files[angular.activeTheme].indexOf(path) !== -1) {
+            //return true;
+            //}
             return false;
         };
 
@@ -48,10 +46,10 @@
          */
         angular.module.designModule = angular.module("designModule", [])
 
-            .constant("MEDIA_BASE_PATH", "http://dev.ottemo.io/media/")
-            .constant("PRODUCT_DEFAULT_IMG", "images/placeholder.png")
+            .constant("MEDIA_BASE_PATH", "media/")
+            .constant("PRODUCT_DEFAULT_IMG", "placeholder.png")
 
-            /*
+            /**
              *  Startup for designModule - registration globally visible functions
              */
             .run(["$designService", "$rootScope", function ($designService, $rootScope) {
@@ -62,14 +60,6 @@
                 $rootScope.getTemplate = $designService.getTemplate;
                 $rootScope.getCss = $designService.getCss;
                 $rootScope.getTopPage = $designService.getTopPage;
-
-                /**
-                 *  CSS appending in head of document after document ready
-                 *  TODO: should work with "addCss" directive but is buggy, review/update needed
-                 */
-                // angular.element(document).ready(function() {
-                //     angular.element(document.head).append( $designService.getCssHeadLinks() );
-                // });
 
             }]);
 

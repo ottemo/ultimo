@@ -3,7 +3,7 @@
     </div>
     <div class="content">
         <div class="item" ng-repeat="item in it.getItemsForMiniCart()">
-            <a href="#/product/{{item.pid}}">
+            <a href="{{productService.getUrl(item.pid)}}">
                 <img ng-src="{{getImage(item.product)}}" alt="{{item.product.name}}">
             </a>
             <div class="mini-cart-block">

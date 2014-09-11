@@ -186,9 +186,9 @@
                 theme = null;
                 regExp = new RegExp('app[/\\\\]themes[/\\\\](\\w+)[/\\\\](.+)', 'i');
 
-                jsCode = '(function (define) {' +
-                    '/* jshint ignore:start */' +
-                    'define(function () {' +
+                jsCode = '/* jshint ignore:start */\n' +
+                    '(function (define) {\n' +
+                    '"use strict";' +
                     'return {\n';
 
                 for (i = 0; i < files.length; i += 1) {
@@ -208,9 +208,9 @@
                     }
                 }
 
-                jsCode += ']\n};});' +
-                    '/* jshint ignore:end */' +
-                    '})(window.define);';
+                jsCode += ']\n};\n' +
+                    '})(window.define);\n' +
+                    '/* jshint ignore:end */';
 
                 fs.writeFile('./app/scripts/design/themeFiles.js', jsCode, function (err, data) {
                     if (err) {
@@ -226,13 +226,26 @@
                 }
                 themesData += '}';
 
-                // Create group
                 request({
-                    uri: 'http://dev.ottemo.com:3000/config/unregister/themes.list',
+                    uri: 'http://dev.ottemo.io:3000/config/unregister/themes',
                     method: 'DELETE'
                 }, function () {
-                    var r = request.post('http://dev.ottemo.com:3000/config/register');
-
+                    var r = request.post('http://dev.ottemo.io:3000/config/register');
+                    var form = r.form();
+                    form.append('path', 'themes');
+                    form.append('value', '');
+                    form.append('type', 'group');
+                    form.append('editor', '');
+                    form.append('options', '');
+                    form.append('label', 'Themes');
+                    form.append('description', '');
+                });
+                // Create group
+                request({
+                    uri: 'http://dev.ottemo.io:3000/config/unregister/themes.list',
+                    method: 'DELETE'
+                }, function () {
+                    var r = request.post('http://dev.ottemo.io:3000/config/register');
                     var form = r.form();
                     form.append('path', 'themes.list');
                     form.append('value', '');
@@ -243,11 +256,10 @@
                     form.append('description', '');
                 });
                 request({
-                    uri: 'http://dev.ottemo.com:3000/config/unregister/themes.list.active',
+                    uri: 'http://dev.ottemo.io:3000/config/unregister/themes.list.active',
                     method: 'DELETE'
                 }, function () {
-                    var r = request.post('http://dev.ottemo.com:3000/config/register');
-
+                    var r = request.post('http://dev.ottemo.io:3000/config/register');
                     var form = r.form();
                     form.append('path', 'themes.list.active');
                     form.append('value', 'default');

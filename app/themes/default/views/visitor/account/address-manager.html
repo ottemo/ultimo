@@ -136,7 +136,7 @@
                                                 <input type="checkbox" name="billingAddressId" id="billingUseAsBilling"
                                                        ng-model="billingAddressId"
                                                        ng-change="changeBillingAsDefault(address._id)"
-                                                       ng-checked="billingAddressId === address._id">
+                                                       ng-checked="billingAddressId === address._id && billingAddressId">
                                                 <span></span>
                                             </label>
                                         </div>
@@ -148,7 +148,8 @@
                                                 <input type="checkbox" name="shippingAddressId" id="shippingUseAsBilling"
                                                        ng-model="shippingAddressId"
                                                         ng-change="changeShippingAsDefault(address._id)"
-                                                       ng-checked="shippingAddressId === address._id">
+                                                       ng-checked="shippingAddressId === address._id && shippingAddressId">
+
                                                 <span></span>
                                             </label>
                                         </div>

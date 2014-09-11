@@ -1,7 +1,7 @@
 <add-css src="customStorefront.css"></add-css>
 <add-css src="style.css"></add-css>
 
-<div id="pageTable" class="GlobalWrapper">
+<div id="pageTable" class="GlobalWrapper" name="top">
     <div id="cellPageHeader" class="GlobalHeader">
         <ng-include src="getTemplate('common/header.html')"></ng-include>
     </div>
@@ -13,10 +13,15 @@
         <ng-include src="getTemplate('visitor/login.html')"></ng-include>
         <ng-include src="getTemplate('visitor/registration.html')"></ng-include>
     </div>
+    <div class="loader">
+        <img alt="menu" ng-src="{{getImg('loader.gif')}}">
+    </div>
 </div>
 
 <div id="cellPageFooter" class="cellPageFooter">
     <ng-include src="getTemplate('common/footer.html')"></ng-include>
 </div>
 </div>
+
+<script src="themes/default/scripts/star-rating.min.js"></script>
 <script src="themes/default/scripts/main.js"></script>

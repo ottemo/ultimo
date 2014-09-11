@@ -86,9 +86,9 @@
                     $scope.$watch('addedOrderId', function () {
                         if(typeof $scope.addedOrderId !== 'undefined') {
                             $scope.message = {
-                                'type': 'success',
-                                'message': 'THANK YOU FOR YOUR PURCHASE!<br/>' +
-                                    'Your order # is: <a href=\'#/account/order/{{addedOrderId}}\'>' + $scope.addedOrderId + '</a>'
+                                "type": "success",
+                                "message": "THANK YOU FOR YOUR PURCHASE!<br/>" +
+                                    "Your order # is: <a href=\"#/account/order/" + $scope.addedOrderId + "\">" + $scope.addedOrderId + "</a>"
                             };
                         }
                     });

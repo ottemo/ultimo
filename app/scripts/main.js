@@ -43,7 +43,8 @@ require([
         "category/module",
         "pdp/module",
         "cart/module",
-        "checkout/module"
+        "checkout/module",
+        "cms/module"
     ],
     function (angular) {
         angular.element(document).ready(function () {

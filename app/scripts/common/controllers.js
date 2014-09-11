@@ -25,6 +25,7 @@
                     $scope.it = $commonHeaderService;
                     $scope.rightMenu = $commonHeaderService;
                     $scope.categories = [];
+                    $scope.categoryService = $categoryService;
 
                     var tree;
                     tree = $categoryService.getTree();
@@ -75,10 +76,13 @@
                 "$designImageService",
                 "$commonBreadcrumbsService",
                 "$cartService",
+                "$pdpProductService",
                 "$route",
-                function ($scope, $designService, $commonApiService, $designImageService, $commonBreadcrumbsService, $cartService, $route) {
+                function ($scope, $designService, $commonApiService, $designImageService, $commonBreadcrumbsService,
+                          $cartService, $pdpProductService, $route) {
 
                     var splitName;
+
                     splitName = function (string) {
                         var parts;
                         var regExp = /\[(.+)\](.+)/i;
@@ -88,6 +92,7 @@
                     };
 
                     $scope.products = [];
+                    $scope.productService = $pdpProductService;
 
                     $commonApiService.getProducts({
                         "limit": "0,5",

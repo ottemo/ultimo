@@ -6,6 +6,7 @@
 
             .controller("categoryListController", [
                 "$scope",
+                "$location",
                 "$route",
                 "$routeParams",
                 "$categoryApiService",
@@ -14,8 +15,9 @@
                 "$categoryService",
                 "$visitorLoginService",
                 "$cartService",
-                function ($scope, $route, $routeParams, $categoryApiService, $designService, $designImageService, $categoryService, $visitorLoginService, $cartService) {
-                    var getLimit, getPage, addCategoryCrumbs;
+                "$pdpProductService",
+                function ($scope, $location, $route, $routeParams, $categoryApiService, $designService, $designImageService, $categoryService, $visitorLoginService, $cartService, $pdpProductService) {
+                    var getPage, addCategoryCrumbs, getFilters, setFilters;
 
                     getPage = function () {
                         var param, page;
@@ -39,7 +41,7 @@
 
                         for (i = 0; i < list.length; i += 1) {
                             category = list[i];
-                            $scope.$emit("add-breadcrumbs", {"label": category.name, "url": "/category/" + category.id + "/"});
+                            $scope.$emit("add-breadcrumbs", {"label": category.name, "url": $categoryService.getUrl(category.id)});
                         }
                     };
 
@@ -48,18 +50,69 @@
                      */
                     $scope.currentPage = getPage();
                     $scope.itemsPerPage = 15;
-
                     $scope.productsList = [];
                     $scope.paths = [];
                     $scope.categoryId = $routeParams.id;
-                    $scope.uri = "/category/" + $routeParams.id + "/p/:page";
+                    $scope.uri = $categoryService.getUrl($routeParams.id) + "/p/:page";
                     $scope.category = {};
+                    $scope.popupProduct = {};
+                    $scope.productService = $pdpProductService;
+
+                    $scope.filters = {};
 
                     $scope.blocks = {
                         "sort": false,
                         "search": false,
                         "filter": false
                     };
+
+                    setFilters = function () {
+                        var params, values, i;
+                        params = $location.search();
+                        for (var attr in params) {
+                            if (params.hasOwnProperty(attr)
+                                ) {
+                                if (typeof $scope.filters[attr] === "undefined") {
+                                    $scope.filters[attr] = {};
+                                }
+                                values = params[attr].split(",");
+                                for (i = 0; i < values.length; i += 1) {
+                                    $scope.filters[attr.replace("?", "")][values[i]] = true;
+                                }
+                            }
+                        }
+
+
+                    };
+
+                    setFilters();
+
+                    getFilters = function () {
+                        var filters, hasFilter;
+                        filters = [];
+                        hasFilter = false;
+                        for (var attr in $scope.filters) {
+                            if ($scope.filters.hasOwnProperty(attr)) {
+                                var values = [];
+
+                                for (var val in $scope.filters[attr]) {
+                                    if ($scope.filters[attr].hasOwnProperty(val) &&
+                                        $scope.filters[attr][val] === true) {
+                                        values.push(val);
+                                        hasFilter = true;
+                                    }
+                                }
+                                if (values.length > 0) {
+                                    filters.push(attr + "=" + values.join(","));
+                                }
+                            }
+                        }
+                        if (!hasFilter) {
+                            return "";
+                        }
+                        return filters.join("&");
+                    };
+
 
                     $scope.init = function () {
                         var tree;
@@ -101,10 +154,10 @@
                     $scope.closeBlock = function (nameBlock) {
                         $scope.blocks[nameBlock] = false;
                         jQuery('.list-bar span').removeClass('active');
-                        jQuery('.shadow').css('display','none');
+                        jQuery('.shadow').css('display', 'none');
                     };
 
-                    $scope.addToCart = function(productId){
+                    $scope.addToCart = function (productId) {
                         var miniCart;
                         miniCart = $(".mini-cart");
 
@@ -119,24 +172,6 @@
                         } else {
                             $("#form-login").modal("show");
                         }
-                    };
-
-                    /**
-                     * Prepares limit data for request
-                     *
-                     * @returns {string}
-                     */
-                    getLimit = function () {
-                        var limit, start, count;
-                        if ($scope.currentPage === "all") {
-                            return "0,-1";
-                        }
-                        limit = [];
-                        count = $scope.itemsPerPage;
-                        start = $scope.currentPage * $scope.itemsPerPage;
-                        limit.push(start);
-                        limit.push(count);
-                        return limit.join(",");
                     };
 
                     /**
@@ -157,13 +192,28 @@
                     /**
                      * Gets list of products
                      */
-                    $categoryApiService.getProducts({
-                        "id": $scope.categoryId,
-                        "limit": getLimit()
-                    }).$promise.then(
+                    $categoryApiService.getProducts($location.search(), {"id": $scope.categoryId}).$promise.then(
                         function (response) {
                             var result = response.result || [];
                             $scope.productsList = result;
+                        }
+                    );
+
+                    /**
+                     * Gets list of products
+                     */
+                    $categoryApiService.getLayered($location.search(), {
+                        "id": $scope.categoryId
+                    }).$promise.then(
+                        function (response) {
+                            var result = response.result || [];
+                            $scope.layered = result;
+                            for (var filter in $scope.layered) {
+                                if ($scope.layered.hasOwnProperty(filter)) {
+                                    $scope.filters[filter] = {};
+                                }
+                            }
+                            setFilters();
                         }
                     );
 
@@ -188,26 +238,60 @@
                     );
 
                     $scope.sortByPrice = function (order) {
-                        $scope.productsList.sort(function (a, b) {
-                            if (order === "asc") {
-                                return a.price > b.price;
-                            } else {
-                                return a.price < b.price;
-                            }
-                        });
+                        var orderStr;
+
+                        if (order === "asc") {
+                            orderStr = "price";
+                        } else {
+                            orderStr = "^price";
+                        }
+
+                        $scope.filters.sort = {};
+                        $scope.filters.sort[orderStr] = true;
                     };
 
                     $scope.sortByName = function (order) {
-                        $scope.productsList.sort(function (a, b) {
-                            if (order === "asc") {
-                                return a.name > b.name;
-                            } else {
-                                return a.name < b.name;
-                            }
-                        });
+                        var orderStr;
+
+                        if (order === "asc") {
+                            orderStr = "name";
+                        } else {
+                            orderStr = "^name";
+                        }
+
+                        $scope.filters.sort = {};
+                        $scope.filters.sort[orderStr] = true;
+                    };
+
+                    $scope.openPopUp = function (product) {
+                        $scope.popupProduct = product;
+                        $scope.productService.getRatingInfo(product._id);
+                        $("#parent_popup_quickShop").show();
+                        setTimeout(function () {
+                            $('.rating').rating('update', $scope.productService.getAverageRating());
+                        }, 300);
                     };
 
                     $scope.$watch("categoryId", addCategoryCrumbs);
+
+                    $scope.$watch("filters",
+                        function () {
+                            var filterStr, url, path;
+                            filterStr = getFilters();
+                            if (typeof filterStr !== "undefined") {
+                                url = $categoryService.getUrl($scope.categoryId);
+
+                                // removes the  "#" in the begin string
+                                path = url.substr(1, url.length);
+
+                                $location.$$path = path;
+                                $location.$$url = path;
+
+                                $location.search(filterStr);
+                            }
+                        },
+                        true
+                    );
                 }
             ]);
         return categoryModule;

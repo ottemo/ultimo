@@ -1,4 +1,4 @@
-<section class="content">
+<section class="content home">
     <section class="slider">
         <div class="rslides_container">
             <ul class="rslides" id="slider1">
@@ -77,14 +77,15 @@
     </section>
     <section class="c-img">
         <div ng-repeat="_item in products" ng-show="products.length">
-            <a class="" href="#/product/{{_item.Id}}">
+            <a class="" href="{{productService.getUrl(_item.Id)}}">
                 <img ng-src="{{getImage(_item.Image)}}" alt="_item.Name"/>
             </a>
         </div>
+        <div class="clear"></div>
     </section>
     <section class="c-img" ng-hide="products.length">
         <div ng-repeat="_item in products">
-            <a class="" href="#/product/{{_item.Id}}">
+            <a class="" href="{{productService.getUrl(_item.Id)}}">
                 <img ng-src="{{getImg('placeholder.png')}}" alt="placeholder"/>
             </a>
         </div>
@@ -92,7 +93,7 @@
     <div class="clear"></div>
     <section class="c-img-tablet">
         <div class="tablet-block" ng-repeat="_item in products">
-            <a class="" href="#/product/{{_item.Id}}">
+            <a class="" href="{{productService.getUrl(_item.Id)}}">
                 <img ng-src="{{getImage(_item.Image)}}" alt="_item.Name"/>
             </a>
 
@@ -108,7 +109,7 @@
 
 </section><!-- end content -->
 <script>
-    // small slider
+    
     (function ($) {
         // big slider
         $("#slider1").responsiveSlides({
@@ -120,7 +121,7 @@
             namespace: "centered-btns"
         });
 
-
+        // small slider
         $(".crsl-items").carousel({
             visible: 3,
             itemMinWidth: 180,
@@ -139,7 +140,7 @@
                     itemEqualHeight: 370,
                     itemMargin: 9
                 });
-            }, 500)
+            }, 100)
         })
     })(jQuery)
 </script>
