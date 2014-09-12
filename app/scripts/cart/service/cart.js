@@ -18,7 +18,7 @@
                 '$cookieStore',
                 'LOGIN_COOKIE',
                 '$q',
-                function ($resource, $cartApiService, $cookieStore, LOGIN_COOKIE,$q) {
+                function ($resource, $cartApiService, $cookieStore, LOGIN_COOKIE, $q) {
 
                     /** Variables */
                     var isInit, items, cartInfo, visitorId, subtotal, saleTax, shipping, total;
@@ -54,7 +54,7 @@
                         maxCount = 3;
                         res = [];
                         if (items instanceof Array && items.length) {
-                            for (i = items.length-1, count = 0; (i >= 0) && (count < maxCount); i -= 1, count += 1) {
+                            for (i = items.length - 1, count = 0; (i >= 0) && (count < maxCount); i -= 1, count += 1) {
                                 res.push(items[i]);
                             }
                         }
@@ -164,12 +164,12 @@
                         return deferLoadCart.promise;
                     };
 
-                    addItem = function (productId, qty) {
+                    addItem = function (productId, qty, options) {
                         var deferAddItem = $q.defer();
                         $cartApiService.add({
                             'productId': productId,
                             'qty': qty
-                        }).$promise.then(
+                        }, options).$promise.then(
                             function () {
                                 loadCartInfo();
                             }

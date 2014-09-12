@@ -13,6 +13,7 @@
             "common/service/header",
             "common/service/breadcrumbs",
             "common/service/sidebar",
+            "common/service/utils",
             "common/service/rewrite"
         ],
         function (commonModule) {

@@ -8,6 +8,8 @@
             "pdp/service/api",
             "pdp/service/product",
 
+            "pdp/directive/guiCustomOptions",
+
             "pdp/controller"
         ],
         function (pdpModule) {

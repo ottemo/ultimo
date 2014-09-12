@@ -1,0 +1,30 @@
+<div class="input-group spinner" ng-repeat="(key, option) in product.options">
+    <label>{{option.label}}</label>
+
+    <div ng-switch="option.type">
+
+        <div ng-switch-when="field">
+            <input type="text" class="form-control" ng-model="parent.options[option.label]"/>
+        </div>
+
+        <div ng-switch-when="select">
+            <select class="form-control"
+                    data-ng-model="parent.options[option.label]"
+                    data-ng-options="opt.label as opt.label for (key, opt) in option.options">
+            </select>
+        </div>
+
+        <div ng-switch-when="multi_select">
+            <select multiple ng-multiple="true" class="form-control"
+            data-ng-model="parent.options[option.label]"
+            data-ng-options="opt.label as opt.label for (key, opt) in option.options">
+            </select>
+<!---->
+            <!--<label ng-repeat="(key, opt) in option.options">-->
+                <!--<input type="checkbox" value="{{key}}" ng-model="parent.options[option.label][opt.label]" />{{key}}-->
+            <!--</label>-->
+        </div>
+
+    </div>
+
+</div>

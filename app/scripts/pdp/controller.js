@@ -17,7 +17,7 @@
                 "$cartService",
                 "$visitorLoginService",
                 function ($scope, $routeParams, $location, $pdpApiService, $pdpProductService, $designImageService, $cartService, $visitorLoginService) {
-                    var defaultProduct, reinitializeStars, getAverageValue, getStarsPercents, getDefaultRatingInfo;
+                    var defaultProduct, reinitializeStars, getAverageValue, getStarsPercents, getDefaultRatingInfo, splitName;
 
                     getDefaultRatingInfo = function () {
                         return {
@@ -38,6 +38,7 @@
                     defaultProduct = function () {
                         return {};
                     };
+
                     reinitializeStars = function () {
                         setTimeout(function () {
                             $("input.rating").each(function () {
@@ -90,18 +91,19 @@
                     };
 
                     $scope.productId = $routeParams.id;
-
                     $scope.product = defaultProduct();
                     $scope.qty = 1;
-
                     $scope.ratingInfo = getDefaultRatingInfo();
-
+                    $scope.options = {};
+                    $scope.products = [];
 
                     $pdpApiService.getProduct({"id": $scope.productId}).$promise.then(
                         function (response) {
                             if (response.error === "") {
                                 var result = response.result || defaultProduct();
-                                $scope.product = result;
+
+                                $pdpProductService.setProduct(result);
+                                $scope.product = $pdpProductService.getProduct();
 
                                 // BREADCRUMBS
                                 $scope.$emit("add-breadcrumbs", {"label": $scope.product.name, "url": $pdpProductService.getUrl($scope.product._id)});
@@ -152,7 +154,7 @@
 
 
                         if ($visitorLoginService.isLoggedIn()) {
-                            $cartService.add($scope.productId, $scope.qty);
+                            $cartService.add($scope.productId, $scope.qty, $pdpProductService.getOptions());
 
                             miniCart.css("display", "table");
                             setTimeout(function () {
@@ -161,13 +163,8 @@
                         } else {
                             $("#form-login").modal("show");
                         }
-
-
                     };
 
-                    $scope.products = [];
-
-                    var splitName;
                     splitName = function (string) {
                         var parts;
                         var regExp = /\[(.+)\](.+)/i;
@@ -327,12 +324,17 @@
                     $scope.$watch("ratingInfo", function () {
                         getAverageValue();
                         getStarsPercents();
-
                     }, true);
 
                     $scope.$watch("product", function () {
                         $scope.reloadImages();
                     });
+
+                    $scope.$watch("options", function() {
+                        $pdpProductService.setOptions($scope.options);
+                        $scope.product = $pdpProductService.getProduct();
+                    }, true);
+
                 }
             ]
         );

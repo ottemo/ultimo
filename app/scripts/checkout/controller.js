@@ -3,19 +3,6 @@
 
     define(["checkout/init"], function (checkoutModule) {
 
-        var clone = function (obj) {
-            if (null === obj || "object" !== typeof obj) {
-                return obj;
-            }
-            var copy = obj.constructor();
-            for (var attr in obj) {
-                if (obj.hasOwnProperty(attr)) {
-                    copy[attr] = obj[attr];
-                }
-            }
-            return copy;
-        };
-
         checkoutModule
 
             .controller("checkoutController", [
@@ -26,10 +13,10 @@
                 "$visitorLoginService",
                 "$cartService",
                 "$designStateService",
-                "$anchorScroll",
+                "$commonUtilService",
                 "$q",
                 "$http",
-                function ($scope, $location, $checkoutApiService, $designImageService, $visitorLoginService, $cartService, $designStateService, $anchorScroll, $q, $http) {    // jshint ignore:line
+                function ($scope, $location, $checkoutApiService, $designImageService, $visitorLoginService, $cartService, $designStateService, $commonUtilService, $q, $http) {    // jshint ignore:line
 
                     var isLoggedIn, info, getDefaultAddress, getAddresses, getCurrentBillingID, getCurrentShippingID,
                         sendPostForm, retrieve, initAddressesData, initCurrentShippingMethod, initCurrentPaymentType,
@@ -77,11 +64,11 @@
 
                     initAddressesData = function () {
                         if ($scope.checkout.shipping_address !== null) {        // jshint ignore:line
-                            $scope.shipping_address = clone($scope.checkout.shipping_address);      // jshint ignore:line
+                            $scope.shipping_address = $commonUtilService.clone($scope.checkout.shipping_address);      // jshint ignore:line
                         }
 
                         if ($scope.checkout.billing_address !== null) {         // jshint ignore:line
-                            $scope.billing_address = clone($scope.checkout.billing_address);        // jshint ignore:line
+                            $scope.billing_address = $commonUtilService.clone($scope.checkout.billing_address);        // jshint ignore:line
                         }
                     };
 
@@ -543,9 +530,9 @@
                                 typeof $scope.shipping_address._id !== "undefined") {       // jshint ignore:line
                                 $scope.choiceBilling($scope.shipping_address._id);      // jshint ignore:line
                             }
-                            $scope.billing_address = clone($scope.shipping_address);        // jshint ignore:line
+                            $scope.billing_address = $commonUtilService.clone($scope.shipping_address);        // jshint ignore:line
                         } else {
-                            $scope.billing_address = clone($scope.checkout.billing_address);        // jshint ignore:line
+                            $scope.billing_address = $commonUtilService.clone($scope.checkout.billing_address);        // jshint ignore:line
                         }
 
                     }, true);
@@ -554,7 +541,7 @@
                         if ($scope.useAsBilling) {
                             if ($scope.shipping_address._id === 0 ||        // jshint ignore:line
                                 typeof $scope.shipping_address._id === "undefined") {       // jshint ignore:line
-                                $scope.billing_address = clone($scope.shipping_address);        // jshint ignore:line
+                                $scope.billing_address = $commonUtilService.clone($scope.shipping_address);        // jshint ignore:line
                             }
 
                         }

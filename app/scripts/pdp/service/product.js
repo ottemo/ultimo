@@ -5,19 +5,60 @@
      *  HTML top page header manipulation stuff
      */
     define(["pdp/init"], function (pdpModule) {
+
         pdpModule
             /*
              *  $productApiService interaction service
              */
             .service("$pdpProductService", [
                 "$commonRewriteService",
+                "$commonUtilService",
                 "$pdpApiService",
                 "$q",
-                function ($commonRewriteService, $pdpApiService, $q) {
-                    var type, ratingInfo;
-                    var getUrl, getRatingInfo, getDefaultRatingInfo, getAverageRating;
+                function ($commonRewriteService, $commonUtilService, $pdpApiService, $q) {
+                    // Variables
+                    var type, ratingInfo, oldProduct, product, options;
+
+                    // Functions
+                    var getUrl, getRatingInfo, getDefaultRatingInfo, getAverageRating, setProduct, getProduct, applyOptions,
+                        setOptions, getOptions;
 
                     type = "product";
+
+                    getUrl = function (id) {
+                        var url;
+                        url = $commonRewriteService.getRewrite(type, id);
+
+                        if (!url) {
+                            url = type + "/" + id;
+                        }
+
+                        return "#/" + url;
+                    };
+
+                    setProduct = function (obj) {
+                        product = obj;
+                        oldProduct = $commonUtilService.clone(product);
+
+                        return product;
+                    };
+
+                    getProduct = function () {
+
+                        return product;
+                    };
+
+                    setOptions = function (obj) {
+                        options = obj;
+                        applyOptions();
+
+                        return options;
+                    };
+
+                    getOptions = function () {
+
+                        return options;
+                    };
 
                     getDefaultRatingInfo = function () {
                         return {
@@ -34,17 +75,106 @@
                             "twoStarPersent": 0
                         };
                     };
+
                     ratingInfo = getDefaultRatingInfo();
 
-                    getUrl = function (id) {
-                        var url;
-                        url = $commonRewriteService.getRewrite(type, id);
+                    var getSelectOptionInfo = function (data, key) {
+                        var info;
+                        info = $commonUtilService.clone(data);
+                        delete info.options;
 
-                        if (!url) {
-                            url = type + "/" + id;
+                        for (var row in  data.options) {
+                            if (data.options.hasOwnProperty(row)) {
+                                for (var field in  data.options[row]) {
+                                    if (data.options[row].hasOwnProperty(field) && row === key) {
+                                        info[field] = data.options[row][field];
+                                    }
+                                }
+                            }
                         }
 
-                        return "#/" + url;
+                        return info;
+                    };
+
+                    var getMultiSelectOptionInfo = function (data, key) {
+                        var item;
+                        var info = [];
+
+
+                        for (var row in  data.options) {
+
+                            if (data.options.hasOwnProperty(row)) {
+                                for (var field in  data.options[row]) {
+                                    if (data.options[row].hasOwnProperty(field) && (-1 !== key.indexOf(row))) {
+                                        if (typeof item === "undefined") {
+                                            item = $commonUtilService.clone(data);
+                                            delete item.options;
+                                        }
+                                        item[field] = data.options[row][field];
+                                    }
+                                }
+                                if (typeof item !== "undefined") {
+                                    info.push(item);
+                                    item = undefined;
+                                }
+                            }
+                        }
+                        return info;
+                    };
+
+                    var getOptionInfo = function (data, key) {
+                        var info;
+                        info = [];
+
+                        switch (data.type) {
+                            case "select" :
+                                info.push(getSelectOptionInfo(data, key));
+                                break;
+                            case "multi_select" :
+                                info = info.concat(getMultiSelectOptionInfo(data, key));
+                                break;
+                            default:
+                                if ("" === key) {
+                                    info.push({});
+                                } else {
+                                    info.push(data);
+                                }
+                        }
+                        console.warn(info)
+                        return info;
+                    };
+
+                    var applyPrice = function (data) {
+                        data.sort(function (a, b) {
+                            return a.order < b.order;
+                        });
+
+                        for (var i = 0; i < data.length; i += 1) {
+                            if ("fixed" === data[i].price_type) {
+                                product.price = parseFloat(product.price) + parseFloat(data[i].price || 0);
+                            } else if ("percent" === data[i].price_type) {
+                                product.price = parseFloat(product.price) + (parseFloat(product.price) * (parseFloat(data[i].price || 0) / 100));
+                            }
+                        }
+
+                    };
+
+                    applyOptions = function () {
+                        if (typeof product === "undefined" || typeof product.options === "undefined") {
+                            return false;
+                        }
+                        var info = [];
+
+                        product = $commonUtilService.clone(oldProduct);
+
+                        for (var option in  product.options) {
+                            if (product.options.hasOwnProperty(option) && typeof options[option] !== "undefined") {
+                                info = info.concat(getOptionInfo(product.options[option], options[option]));
+                            }
+                        }
+                        applyPrice(info);
+
+                        return product;
                     };
 
                     getRatingInfo = function (productId) {
@@ -68,12 +198,17 @@
                         return defer.promise;
                     };
 
-                    getAverageRating = function(){
+                    getAverageRating = function () {
                         return (typeof ratingInfo.averageValue !== "undefined" ? ratingInfo.averageValue : 0);
                     };
 
                     return {
                         "getUrl": getUrl,
+                        "setProduct": setProduct,
+                        "getProduct": getProduct,
+                        "setOptions": setOptions,
+                        "getOptions": getOptions,
+                        "applyOptions": applyOptions,
                         "getRatingInfo": getRatingInfo,
                         "getAverageRating": getAverageRating
                     };
