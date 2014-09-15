@@ -67,6 +67,7 @@
         <p>{{product.price * qty | number:2}}</p>
         <div class="clear"></div>
         <div class="pdp-btn">
+            <gui-message-manager item="message"></gui-message-manager>
             <a href="" target="_self" ng-click="addToCart()">
                 <span class="remove glyphicon glyphicon-plus"></span>
                 cart

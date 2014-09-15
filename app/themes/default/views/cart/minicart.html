@@ -16,27 +16,11 @@
                     <span class="minicart-price"> {{item.product.price | currency}}</span>
                 </p>
 
-                <!-- Attributes -->
-<!--                <div class="rating">
-                    <span>
-                        <i class="fa fa-star"></i>
-                    </span>
-                    <span>
-                        <i class="fa fa-star"></i>
-                    </span>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                </div>
-                <div class="mini-cart-review">
-                    <a href>20 reviews</a>
-                    <a href>Add Review</a>
-                </div>
-                <div class="clear"></div>
                 <p class="mini-cart-filter">
-                    <span>Color: Black,</span>
-                    <span>Style: XL</span>
-                </p>-->
+                    <span ng-repeat="(key, value) in item.options">
+                        {{key}}: {{productService.getOptStr(value)}}<span ng-if="!$last">,</span>
+                    </span>
+                </p>
 
                 <div class="container">
                     <div class="input-group spinner mini-cart-spinner">

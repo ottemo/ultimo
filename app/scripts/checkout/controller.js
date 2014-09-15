@@ -570,7 +570,12 @@
                      * Sets payment method
                      */
                     $scope.$watch("paymentMethods", function () {
-                        $scope.validateCcNumber();
+                        var payment = getPaymentInfo();
+
+                        if (payment.method !== null && payment.method.Type.split("_").indexOf("cc") > 0) {
+                            $scope.validateCcNumber();
+                        }
+
                     }, true);
 
                     $scope.validateCcNumber = function () {

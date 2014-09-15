@@ -149,17 +149,25 @@
                     };
 
                     $scope.addToCart = function () {
-                        var miniCart;
-                        miniCart = $(".mini-cart");
-
-
                         if ($visitorLoginService.isLoggedIn()) {
-                            $cartService.add($scope.productId, $scope.qty, $pdpProductService.getOptions());
-
-                            miniCart.css("display", "table");
-                            setTimeout(function () {
-                                miniCart.hide();
-                            }, 1500);
+                            $scope.submitted = true;
+                            $cartService.add($scope.productId, $scope.qty, $pdpProductService.getOptions()).then(
+                                function (response) {
+                                    if (response.error !== "") {
+                                        $scope.message = {
+                                            'type': 'danger',
+                                            'message': response.error
+                                        };
+                                    } else {
+                                        var miniCart;
+                                        miniCart = $(".mini-cart");
+                                        miniCart.css("display", "table");
+                                        setTimeout(function () {
+                                            miniCart.hide();
+                                        }, 1500);
+                                    }
+                                }
+                            );
                         } else {
                             $("#form-login").modal("show");
                         }
@@ -330,7 +338,7 @@
                         $scope.reloadImages();
                     });
 
-                    $scope.$watch("options", function() {
+                    $scope.$watch("options", function () {
                         $pdpProductService.setOptions($scope.options);
                         $scope.product = $pdpProductService.getProduct();
                     }, true);

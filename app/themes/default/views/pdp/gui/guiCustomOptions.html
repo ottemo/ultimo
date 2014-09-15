@@ -1,30 +1,49 @@
-<div class="input-group spinner" ng-repeat="(key, option) in product.options">
-    <label>{{option.label}}</label>
+<div data-ng-app>
+    <form name="customOptionsForm">
+        <div class="input-group spinner" data-ng-repeat="(key, option) in product.options | getOrdered">
 
-    <div ng-switch="option.type">
+            <ng-form name="customOptionsFormIn">
 
-        <div ng-switch-when="field">
-            <input type="text" class="form-control" ng-model="parent.options[option.label]"/>
+                <label>{{option.label}} <span class="asterisk" ng-if="option.required">*</span></label>
+
+                <div ng-switch="option.type">
+                    <!-- Input -->
+                    <div ng-switch-when="field">
+
+                        <input type="text" class="form-control" data-ng-model="parent.options[option.label]"
+                               id="{{ option.label }}" name="{{option.label}}" ng-required="option.required"/>
+
+                        <p data-ng-show="parent.submitted && customOptionsFormIn['\{\{field.name\}\}'].$error.required"
+                           class="help-block">This field is required.</p>
+                    </div>
+
+                    <!-- Select -->
+                    <div class="select" ng-switch-when="select">
+                        <select class="form-control" id="{{ option.label }}" name="{{option.label}}"
+                                data-ng-model="parent.options[option.label]"
+                                data-ng-options="opt.label as opt.label for (key, opt) in option.options | getOrdered"
+                                ng-required="option.required">
+                        </select>
+
+                        <p data-ng-show="parent.submitted && customOptionsFormIn['\{\{field.name\}\}'].$error.required"
+                           class="help-block">This field is required.</p>
+                    </div>
+
+                    <!-- Multi-select -->
+                    <div>
+                        <div ng-switch-when="multi_select" ng-init="setOptionName(option.label)">
+                            <label ng-repeat="(key, opt) in option.options">
+                                <input type="checkbox" value="{{key}}" id="{{ option.label }}" name="{{option.label}}[]"
+                                       data-ng-model="options[opt.label]"
+                                       ng-required="option.required"/>{{key}}
+                            </label>
+
+                        </div>
+                        <p data-ng-show="parent.submitted && customOptionsFormIn['\{\{field.name\}\}'].$error.required"
+                           class="help-block">This field is required.</p>
+                    </div>
+                </div>
+            </ng-form>
         </div>
-
-        <div ng-switch-when="select">
-            <select class="form-control"
-                    data-ng-model="parent.options[option.label]"
-                    data-ng-options="opt.label as opt.label for (key, opt) in option.options">
-            </select>
-        </div>
-
-        <div ng-switch-when="multi_select">
-            <select multiple ng-multiple="true" class="form-control"
-            data-ng-model="parent.options[option.label]"
-            data-ng-options="opt.label as opt.label for (key, opt) in option.options">
-            </select>
-<!---->
-            <!--<label ng-repeat="(key, opt) in option.options">-->
-                <!--<input type="checkbox" value="{{key}}" ng-model="parent.options[option.label][opt.label]" />{{key}}-->
-            <!--</label>-->
-        </div>
-
-    </div>
-
+    </form>
 </div>

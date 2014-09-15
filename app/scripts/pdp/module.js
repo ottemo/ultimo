@@ -6,6 +6,7 @@
      */
     define([
             "pdp/service/api",
+            "pdp/service/options",
             "pdp/service/product",
 
             "pdp/directive/guiCustomOptions",

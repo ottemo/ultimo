@@ -14,14 +14,15 @@
                 "$commonRewriteService",
                 "$commonUtilService",
                 "$pdpApiService",
+                "$pdpProductOptionsService",
                 "$q",
-                function ($commonRewriteService, $commonUtilService, $pdpApiService, $q) {
+                function ($commonRewriteService, $commonUtilService, $pdpApiService, $pdpProductOptionsService, $q) {
                     // Variables
                     var type, ratingInfo, oldProduct, product, options;
 
                     // Functions
                     var getUrl, getRatingInfo, getDefaultRatingInfo, getAverageRating, setProduct, getProduct, applyOptions,
-                        setOptions, getOptions;
+                        setOptions, getOptions, getOptStr;
 
                     type = "product";
 
@@ -78,102 +79,9 @@
 
                     ratingInfo = getDefaultRatingInfo();
 
-                    var getSelectOptionInfo = function (data, key) {
-                        var info;
-                        info = $commonUtilService.clone(data);
-                        delete info.options;
-
-                        for (var row in  data.options) {
-                            if (data.options.hasOwnProperty(row)) {
-                                for (var field in  data.options[row]) {
-                                    if (data.options[row].hasOwnProperty(field) && row === key) {
-                                        info[field] = data.options[row][field];
-                                    }
-                                }
-                            }
-                        }
-
-                        return info;
-                    };
-
-                    var getMultiSelectOptionInfo = function (data, key) {
-                        var item;
-                        var info = [];
-
-
-                        for (var row in  data.options) {
-
-                            if (data.options.hasOwnProperty(row)) {
-                                for (var field in  data.options[row]) {
-                                    if (data.options[row].hasOwnProperty(field) && (-1 !== key.indexOf(row))) {
-                                        if (typeof item === "undefined") {
-                                            item = $commonUtilService.clone(data);
-                                            delete item.options;
-                                        }
-                                        item[field] = data.options[row][field];
-                                    }
-                                }
-                                if (typeof item !== "undefined") {
-                                    info.push(item);
-                                    item = undefined;
-                                }
-                            }
-                        }
-                        return info;
-                    };
-
-                    var getOptionInfo = function (data, key) {
-                        var info;
-                        info = [];
-
-                        switch (data.type) {
-                            case "select" :
-                                info.push(getSelectOptionInfo(data, key));
-                                break;
-                            case "multi_select" :
-                                info = info.concat(getMultiSelectOptionInfo(data, key));
-                                break;
-                            default:
-                                if ("" === key) {
-                                    info.push({});
-                                } else {
-                                    info.push(data);
-                                }
-                        }
-                        console.warn(info)
-                        return info;
-                    };
-
-                    var applyPrice = function (data) {
-                        data.sort(function (a, b) {
-                            return a.order < b.order;
-                        });
-
-                        for (var i = 0; i < data.length; i += 1) {
-                            if ("fixed" === data[i].price_type) {
-                                product.price = parseFloat(product.price) + parseFloat(data[i].price || 0);
-                            } else if ("percent" === data[i].price_type) {
-                                product.price = parseFloat(product.price) + (parseFloat(product.price) * (parseFloat(data[i].price || 0) / 100));
-                            }
-                        }
-
-                    };
-
                     applyOptions = function () {
-                        if (typeof product === "undefined" || typeof product.options === "undefined") {
-                            return false;
-                        }
-                        var info = [];
-
                         product = $commonUtilService.clone(oldProduct);
-
-                        for (var option in  product.options) {
-                            if (product.options.hasOwnProperty(option) && typeof options[option] !== "undefined") {
-                                info = info.concat(getOptionInfo(product.options[option], options[option]));
-                            }
-                        }
-                        applyPrice(info);
-
+                        product = $pdpProductOptionsService.applyOptions(product, options);
                         return product;
                     };
 
@@ -202,12 +110,17 @@
                         return (typeof ratingInfo.averageValue !== "undefined" ? ratingInfo.averageValue : 0);
                     };
 
+                    getOptStr = function (value) {
+                        return value instanceof Array ? value.join(", ") : value;
+                    };
+
                     return {
                         "getUrl": getUrl,
                         "setProduct": setProduct,
                         "getProduct": getProduct,
                         "setOptions": setOptions,
                         "getOptions": getOptions,
+                        "getOptStr": getOptStr,
                         "applyOptions": applyOptions,
                         "getRatingInfo": getRatingInfo,
                         "getAverageRating": getAverageRating
