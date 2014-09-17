@@ -150,19 +150,16 @@
                             function (response) {
                                 if (response.error === '') {
 
-                                    /** This block applies custom options for product. But now this going on server side */
-                                    /*
                                     items = [];
                                     // Apply options by all products
                                     for(var i = 0; i < response.result.items.length ; i += 1){
-                                        response.result.items[i].product = $pdpProductOptionsService.applyOptions(response.result.items[i].product, response.result.items[i].options);
+//                                        response.result.items[i].product = $pdpProductOptionsService.applyOptions(response.result.items[i].product, response.result.items[i].options);
+                                        response.result.items[i].product = response.result.items[i].product;
                                         response.result.items[i].hasOptions = JSON.stringify(response.result.items[i].options) === JSON.stringify({}) ? false : true;
 
                                         items.push(response.result.items[i]);
                                     }
-                                    */
 
-                                    items = response.result.items;
                                     visitorId = response.result.visitor_id;     // jshint ignore:line
                                     deferLoadCart.resolve(true);
                                 } else {

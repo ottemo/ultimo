@@ -11,6 +11,7 @@
                 '$visitorLoginService',
                 '$visitorApiService',
                 function ($scope, $location, $routeParams, $visitorLoginService, $visitorApiService) {
+                    var activePath
 
                     $scope.addedOrderId = $routeParams.successId;
                     $scope.orderId = $routeParams.id;
@@ -87,7 +88,7 @@
                     };
 
                     $scope.$watch('addedOrderId', function () {
-                        if(typeof $scope.addedOrderId !== 'undefined') {
+                        if (typeof $scope.addedOrderId !== 'undefined') {
                             $scope.message = {
                                 "type": "success",
                                 "message": "THANK YOU FOR YOUR PURCHASE!<br/>" +
@@ -96,10 +97,10 @@
                         }
                     });
 
-                    $scope.isActive = function(path){
-                        if(activePath === path){
+                    $scope.isActive = function (path) {
+                        if (activePath === path) {
                             $('.account-menu ul li:nth-child(2)').find('span')
-                             .css('background','url("themes/default/images/tablet/tabL.jpg") no-repeat top left');
+                                .css('background', 'url("themes/default/images/tablet/tabL.jpg") no-repeat top left');
                             return true;
                         }
                         return false;
