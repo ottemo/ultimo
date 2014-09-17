@@ -18,16 +18,13 @@
 
                     $scope.visitor = $visitorLoginService.getVisitor();
                     $scope.visitorService = $visitorLoginService;
-
+                    var activePath;
                     $scope.init = function () {
                         var isLoggedIn;
 
                         // BREADCRUMBS
                         $scope.$emit('add-breadcrumbs', {'label': 'myAccount', 'url': '/account'});
                         $scope.$emit('add-breadcrumbs', {'label': 'Order', 'url': '/account/order/list'});
-
-                        activePath = $location.path();
-
                         if ($scope.orderId) {
 
                             $scope.$emit('add-breadcrumbs', {'label': $scope.orderId, 'url': '/account/order/' + $scope.orderId});
