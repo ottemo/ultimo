@@ -8,7 +8,7 @@
          */
             .service("$designService", [function () {
 
-                var data = { theme: "default", topPage: "index.html", cssList: []};
+                var data = { theme: angular.activeTheme, topPage: "index.html", cssList: []};
                 var isFullPathRegex = new RegExp("^http[s]?://", "i");
                 var isCssRegex = new RegExp(".css$", "i");
                 var themesDir = "themes/";

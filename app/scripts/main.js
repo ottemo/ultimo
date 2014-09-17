@@ -49,16 +49,14 @@ require([
     function (angular) {
         angular.element(document).ready(function () {
 
-            var modules = Object.keys(angular.module);
-            angular.resumeBootstrap(modules);
+            angular.element.get(angular.REST_SERVER_URI + "/config/get/themes.list.active", function( data ) {
 
-            jQuery(document).ready(function ($) {
-                jQuery(".accordion a").on("click", function () {
-                    console.log($(this).parent());
-                    $(this).parent().toggleClass("active");
+                angular.activeTheme = data.result;
 
-                });
+                var modules = Object.keys(angular.module);
+                angular.resumeBootstrap(modules);
             });
+
         });
     }
 );

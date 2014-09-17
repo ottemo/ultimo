@@ -25,11 +25,11 @@
                 <div class="container">
                     <div class="input-group spinner mini-cart-spinner">
                         <input placeholder="Qtl" type="text" class="form-control" value="{{item.qty}}"
-                               ng-model="item.qty" ng-change="update(item.idx, item.qty)">
+                               ng-model="item.qty">
 
                         <div class="input-group-btn-vertical">
-                            <button class="btn" ng-click="changeQty(item,'up')"><i></i></button>
-                            <button class="btn" ng-click="changeQty(item,'down')"><i></i></button>
+                            <button class="btn" ng-click="changeQty(item,'up')"  ng-blur="update(item.idx, item.qty)"><i></i></button>
+                            <button class="btn" ng-click="changeQty(item,'down')"  ng-blur="update(item.idx, item.qty)"><i></i></button>
                         </div>
                     </div>
                 </div>

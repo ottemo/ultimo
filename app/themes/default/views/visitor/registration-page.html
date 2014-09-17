@@ -1,6 +1,6 @@
 <div class="page-title"></div>
 
-<div ng-init="init()"  ng-controller="visitorLoginController">
+<div ng-controller="visitorLoginController">
     <div class="login-page registration-page">
         <h3>my account</h3>
         <div class="col-md-4">
@@ -8,7 +8,6 @@
                 <h5>Create Account With</h5>
                 <a href ng-click="googleLogin()"></a>
                 <a href ng-click="facebookLogin()"></a>
-                <div class="clear"></div>
             </div>
         </div>
         <div class="col-md-8">
@@ -34,63 +33,59 @@
                     <input id="password" type="password" class="form-control" name="password" ng-model="loginCredentials.password">
                 </div>
                 <!--Birthday-->
-                <div class="form-group col-md-6">
-                    <div class="form-group col-md-4">
-                        <label>Date of Birth (MM/DD/YYYY)</label>
-                        <div class="select">
-                            <select name="status form-control">
-                                <option value="1" selected="selected">01</option>
-                                <option value="2">02</option>
-                                <option value="3">03</option>
-                                <option value="4">04</option>
-                                <option value="5">05</option>
-                                <option value="6">06</option>
-                                <option value="7">07</option>
-                                <option value="8">08</option>
-                                <option value="9">09</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                            </select>
-                        </div>
+                <div class="form-group col-md-2">
+                    <label>Date of Birth (MM/DD/YYYY)</label>
+                    <div class="select">
+                        <select name="status form-control">
+                            <option value="1" selected="selected">01</option>
+                            <option value="2">02</option>
+                            <option value="3">03</option>
+                            <option value="4">04</option>
+                            <option value="5">05</option>
+                            <option value="6">06</option>
+                            <option value="7">07</option>
+                            <option value="8">08</option>
+                            <option value="9">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
                     </div>
-                    <div class="form-group col-md-4">
-                        <label>&nbsp;</label>
-                        <div class="select">
-                            <select name="status form-control">
-                                <option value="1" selected="selected">01</option>
-                                <option value="2">02</option>
-                                <option value="3">03</option>
-                                <option value="4">04</option>
-                                <option value="5">05</option>
-                                <option value="6">06</option>
-                                <option value="7">07</option>
-                                <option value="8">08</option>
-                                <option value="9">09</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                            </select>
-                        </div>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>&nbsp;</label>
+                    <div class="select">
+                        <select name="status form-control">
+                            <option value="1" selected="selected">01</option>
+                            <option value="2">02</option>
+                            <option value="3">03</option>
+                            <option value="4">04</option>
+                            <option value="5">05</option>
+                            <option value="6">06</option>
+                            <option value="7">07</option>
+                            <option value="8">08</option>
+                            <option value="9">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
                     </div>
-                    <div class="form-group col-md-4">
-                        <label>&nbsp;</label>
-                        <div class="select">
-                            <select name="status form-control">
-                                <option value="1" selected="selected">01</option>
-                                <option value="2">1980</option>
-                                <option value="3">1981</option>
-                                <option value="4">1982</option>
-                            </select>
-                        </div>
+                </div>
+                <div class="form-group col-md-2">
+                    <label>&nbsp;</label>
+                    <div class="select">
+                        <select name="status form-control">
+                            <option value="1" selected="selected">01</option>
+                            <option value="2">1980</option>
+                            <option value="3">1981</option>
+                            <option value="4">1982</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group col-md-6">
                     <a href class="btns" ng-click="signIn()">Submit</a>
                 </div>
-                <div class="clear"></div>
             </div>
         </div>
-        <div class="clear"></div>
     </div>
 </div>
