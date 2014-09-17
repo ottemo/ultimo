@@ -21,6 +21,7 @@
                     $scope.address = {};
                     $scope.visitor = $visitorLoginService.getVisitor();
                     $scope.visitorService = $visitorLoginService;
+                    var activePath;
 
                     getFullName = function (obj) {
                         return obj.zip_code +                                      // jshint ignore:line
@@ -36,6 +37,8 @@
                         // BREADCRUMBS
                         $scope.$emit('add-breadcrumbs', {'label': 'myAccount', 'url': '/account'});
                         $scope.$emit('add-breadcrumbs', {'label': 'Addresses', 'url': '/account/address'});
+
+                        activePath = $location.path();
 
                         isLoggedIn = $scope.visitorService.isLoggedIn();
                         if (isLoggedIn === null) {
@@ -270,6 +273,15 @@
                         }
 
                         return name;
+                    };
+
+                    $scope.isActive = function(path){
+                        if(activePath === path){
+                        $('.account-menu ul li:first-child').find('span')
+                            .css('background','url("themes/default/images/tablet/tabL.jpg") no-repeat top left');
+                            return true;
+                        }
+                        return false;
                     };
                 }
             ])

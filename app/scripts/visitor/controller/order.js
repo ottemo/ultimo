@@ -24,6 +24,9 @@
                         // BREADCRUMBS
                         $scope.$emit('add-breadcrumbs', {'label': 'myAccount', 'url': '/account'});
                         $scope.$emit('add-breadcrumbs', {'label': 'Order', 'url': '/account/order/list'});
+
+                        activePath = $location.path();
+
                         if ($scope.orderId) {
 
                             $scope.$emit('add-breadcrumbs', {'label': $scope.orderId, 'url': '/account/order/' + $scope.orderId});
@@ -92,6 +95,15 @@
                             };
                         }
                     });
+
+                    $scope.isActive = function(path){
+                        if(activePath === path){
+                            $('.account-menu ul li:nth-child(2)').find('span')
+                             .css('background','url("themes/default/images/tablet/tabL.jpg") no-repeat top left');
+                            return true;
+                        }
+                        return false;
+                    };
 
                 }
             ]);

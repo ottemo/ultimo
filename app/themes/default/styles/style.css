@@ -134,11 +134,12 @@ a:hover,
 .arrow-bottom:hover,
 .footer-btn:hover,
 .menu:hover,
-.h-block img,
-.caret, .nav-close,
-.mini-cart .content .item .remove,
-.filters .filter-btn,
- .myCheckbox {
+.h-block img:hover,
+.caret:hover,
+.nav-close:hover,
+.mini-cart .content .item .remove:hover,
+.filters .filter-btn:hover,
+.myCheckbox:hover {
     opacity: 0.8;
     cursor: pointer;
     text-decoration: none;
@@ -2148,16 +2149,15 @@ select {
     font: 15px 'Times New Roman',serif;
     height: 40px;
     padding: 0 0 0 5px;
-    width: 120%;
+    width: 105%;
 }
 .select {
     background: url("../images/select.png") no-repeat #FFFFFF;
-    float: left;
     overflow: hidden;
     background-position: 100% 0;
     border: 1px solid #9C9C9D;
     width: 100%;
-    border-radius: 4px;
+    border-radius: 3px;
 }
 .checkout {
     padding: 80px 40px 0 40px;
@@ -2172,8 +2172,17 @@ select {
     width: 100%;
     height: 53px;
 }
+.accordion .navbar-right {
+    margin-top: -5px;
+}
 .ch-form {
     padding: 15px;
+}
+.checkout .ch-ship form div:first-child {
+    margin-top: 36px;
+}
+.accordion .ch-ship form div:first-child {
+    margin-top: 26px;
 }
 .ch-form label,
 .ch-form input,
@@ -2186,6 +2195,7 @@ select {
 }
 .ch-form  .form-control {
     height: 42px;
+    border-radius: 3px;
 }
 .ch-form  input {
     border: 1px solid #9C9C9D;
@@ -2302,6 +2312,9 @@ select {
 .ch-shipping .discounts {
     padding-bottom: 15px;
 }
+.ch-shipping .discounts .col-md-5 {
+    padding-left: 0;
+}
 .ch-shipping .checkboxes + label {
     margin: 0;
     display: inline;
@@ -2385,6 +2398,7 @@ select {
     font-size: 14px;
     padding-top: 8px;
     text-transform: capitalize;
+    width: 100%;
 }
 .card-data .form-group {
     position: relative;
@@ -2403,6 +2417,7 @@ select {
     left: 15px;
     position: absolute;
     top: 0;
+    width: 100px;
 }
 .loader img {
     position: absolute;
@@ -2418,6 +2433,13 @@ select {
     top: 0;
     width: 100%;
     z-index: 1000;
+}
+.ch-payment .ch-form > div {
+    padding-left: 0;
+    padding-right: 0;
+}
+.ch-payment .ch-form > div .col-md-4 select {
+    width: 120%;
 }
 
 /* //////////////////////////////////////////////////////////////////////////////////////////////////// end checkout */
@@ -2526,6 +2548,27 @@ select {
 .checkout .modal .modal-content  {
     padding-bottom: 25px;
 }
+.checkout-accordion .accordion .navbar-right {
+    margin-top: -3px;
+}
+.checkout-accordion .accordion .navbar-right .glyphicon {
+    color: #555555;
+    font-size: 29px;
+}
+.checkout-accordion .navbar-nav > li > a {
+    padding-top: 0;
+    padding-bottom: 44px;
+    height: auto;
+}
+.checkout-accordion .dropdown-menu > li > a {
+    white-space: inherit;
+}
+.checkout-accordion .accordion > h3:first-child + div{
+    display: block;
+}
+.checkout {
+    min-width: 320px;
+}
 
 
 /* /////////////////////////////////////////////////////////////////////////////////////////////////// end checkout2 */
@@ -2568,11 +2611,12 @@ select {
     margin-left: 30px;
 }
 .login-page .ch-form {
-    padding: 15px;
+    padding: 0 15px 15px;
 }
 .login-page .btns {
     float: left;
     margin: 12px 0 20px;
+    background-color: #242425;
 }
 .login-page > div:nth-child(2) > div a:last-child {
     color: #0f64bc;
@@ -2691,7 +2735,7 @@ select {
 .registration .btn-blue {
     margin-top: 14px;
 }
-.registration-page .ch-form .col-md-2 label {
+.registration-page .ch-form .col-md-4 label {
     width: 200px;
 }
 .registration-page > div:nth-child(3) {
@@ -2704,21 +2748,62 @@ select {
 .registration-page .col-md-10 > div:last-child {
     float: none;
 }
+.registration-page select {
+    width: 120%;
+}
+.login-page h3 {
+    margin-left: 55px;
+}
+.registration-page .col-md-10 .col-md-6:nth-child(1) {
+    padding-left: 0;
+    padding-right: 15px;
+}
+.registration-page .col-md-10 .col-md-6:nth-child(2) {
+    padding-left: 15px;
+    padding-right: 0;;
+}
+.registration-page .col-md-10 .col-md-6:nth-child(3) {
+    padding-left: 0;
+    padding-right: 15px;;
+}
+.registration-page .col-md-10 .col-md-6:nth-child(4) {
+    padding-left: 15px;
+    padding-right: 0px;;
+}
+.registration-page .col-md-10 .col-md-6:nth-child(5) {
+    padding-left: 0;
+    padding-right: 15px;
+}
+.registration-page .col-md-10 .col-md-6:nth-child(5) div:first-child {
+    padding-right: 2px;
+    padding-left: 0;
+}
+.registration-page .col-md-10 .col-md-6:nth-child(5) div:nth-child(2) {
+    padding-right: 2px;
+    padding-left: 2px;
+}
+.registration-page .col-md-10 .col-md-6:nth-child(5) div:last-child {
+    padding-left: 2px;
+    padding-right: 0;
+}
+.registration-page .col-md-10 .col-md-6:nth-child(6) {
+    padding-right: 0;
+}
 
 /* ////////////////////////////////////////////////////////////////////////////////////////////////// end login-page */
 
 /* //////////////////////////////////////////////////////////////////////////////////////////////// start my account */
 
 .account-left {
-    width: 16%;
-    float: left;
-    margin: 10px 0 10px 55px;
+    margin: 70px 0 10px 55px;
     min-height: 320px;
+    position: absolute;
+    width: 240px;
 }
 .account-right {
-    width: 72%;
-    float: right;
     margin: 10px 55px 10px 0;
+    padding: 70px 55px 0 352px;
+    width: 100%;
 }
 .account-left h3,
 .account-right h3,
@@ -2792,6 +2877,7 @@ select {
 }
 .account-address > a {
     width: 108px;
+    right: 10px;
 }
 .account-profile > a {
     position: inherit;
@@ -2803,7 +2889,7 @@ select {
     bottom: 0;
     position: inherit;
     right: 0;
-    width: 80%;
+    width: 100%;
 }
 .account-address table {
     width: 100%;
@@ -2857,6 +2943,9 @@ select {
     height: 100%;
     padding: 5px 0 5px 15px;
 }
+.account-order tr th:first-child {
+    min-width: 105px;
+}
 .account-order table td {
     padding: 11px 0 11px 10px;
     border-bottom: 1px solid #DADADA;
@@ -2885,7 +2974,7 @@ select {
 .parent_popup .ch-form .checkboxes + label {
     float: left;
     margin: -7px 0 0 10px;
-    width: 77%;
+    width: 72%;
 }
 .popup-close {
     height: 53px;
@@ -2924,9 +3013,17 @@ select {
 }
 .button:hover {
     color: #ffffff;
+    opacity: 0.8;
+    cursor: pointer;
 }
 .btn-black {
     background-color: #242425;
+}
+.btn-blue {
+    background-color: #3B66C4;
+}
+.btn-red {
+    background-color: #CF4332;
 }
 .btn-yellow {
     background-color: #CABF45;
@@ -2943,6 +3040,112 @@ select {
 .account-profile .popup {
     min-width: 420px;
     width: 420px;
+}
+.order-detail p,
+.order-detail td {
+    font: 21px 'overlockregular', sans-serif;
+    color: #565656;
+}
+.od-block p {
+    font-size: 18px;
+}
+.order-detail > p .blue {
+    font: 28px 'overlockblack', sans-serif;
+    color: #0679d3;
+}
+.order-detail > p > strong,
+.order-detail h6,
+.order-detail th,
+.od-total td {
+    font: bold 21px 'overlockregular', sans-serif;
+    color: #565656;
+}
+.order-detail td ,
+.order-detail th,
+.od-total td {
+    font-size: 18px;
+}
+.od-total table tr:nth-child(2),
+.order-detail hr,
+.od-total tr:nth-child(2) td {
+    border-bottom: 2px dashed #A7A7A8;
+    width: 100%;
+}
+.order-detail hr {
+    margin: 10px 0;
+}
+.od-block {
+    float: left;
+    width: 240px;
+    margin-right: 55px;
+}
+.od-blocks div:first-child {
+    width: 95px;
+}
+.od-blocks div:nth-child(3) {
+    margin-right: 0;
+}
+.order-detail table {
+    width: 100%;
+}
+.od-total {
+    border-top: 1px solid #d5d6d8;
+    margin-top: 10px;
+    padding-top: 45px;
+}
+.od-product {
+    padding: 0 0 10px;
+}
+.od-product tr th,
+.od-product tr td {
+    width: 10%;
+    min-width: 100px;
+}
+.od-product tr td:last-child ,
+.od-product tr th:last-child {
+    text-align: right;
+}
+.od-product tr td:nth-child(2),
+.od-product tr th:nth-child(2) {
+    text-align: center;
+}
+.od-product tr th:first-child,
+.od-product tr td:first-child {
+    width: 80%;
+    font-size: 21px;
+}
+.od-total tr td:last-child {
+    width: 10%;
+    text-align: right;
+}
+.od-total tr td:first-child {
+    width: 90%;
+    text-align: right;
+    padding-right: 50px;
+}
+.od-total tr:nth-child(2) td {
+    padding-bottom: 4px;
+}
+.od-total tr:last-child td {
+    padding-top: 9px;
+    font-size: 21px;
+}
+.order-detail .btns {
+    background-color: #242425;
+    float: left;
+    font: 28px 'overlockbold',sans-serif;
+    height: 75px;
+    margin: 140px 0 35px;
+    max-width: 355px;
+    padding-top: 19px;
+    text-transform: inherit;
+}
+.order-detail a:hover,
+.order-detail a:focus {
+    color: #ffffff;
+}
+.parent_popup_address select {
+    width: 110%;
 }
 
 /* ////////////////////////////////////////////////////////////////////////////////////////////////// end my account */
@@ -3041,6 +3244,15 @@ footer nav li span {
     .category-tools form div a:nth-child(7n+7)  {
         margin-right: 0;
     }
+    .address-form .check-box {
+        width: 50%;
+    }
+    .parent_popup .ch-form .checkboxes + label {
+        margin-top: 0;
+    }
+    .address-form .check-box {
+        margin-top: 4px;
+    }
 }
 @media screen and (min-width: 1201px) and (max-width: 1300px){   
     .filter-size .checkboxes {
@@ -3066,6 +3278,33 @@ footer nav li span {
     .pdp-info {
         width: 50%;
     }
+    .checkout select {
+        width: 106%;
+    }
+    .card-data label {
+        width: 100px;
+    }
+    .card-data label {
+        width: 100px;
+    }
+    .ch-payment .ch-form > div .col-md-4 {
+        width: 50%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .ch-payment .ch-form > div .col-md-4:first-child {
+        width: 100%;
+    }
+    .address-form .check-box {
+        width: 50%;
+    }
+    .parent_popup .ch-form .checkboxes + label {
+        margin-top: 0;
+    }
+    .address-form .check-box {
+        margin-top: 4px;
+    }
+
 }
 @media screen and (min-width: 1125px) and (max-width: 1200px){  
     .filter-size .checkboxes {
@@ -3086,6 +3325,35 @@ footer nav li span {
     }
     .pdp-info {
         width: 50%;
+    }
+    .checkout form > .col-md-6 {
+        width: 100%;
+    }
+    .checkout select {
+        width: 107%;
+    }
+    .card-data label {
+        width: 100px;
+    }
+    .ch-payment .ch-form > div .col-md-4 {
+        width: 50%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .ch-payment .ch-form > div .col-md-4:first-child {
+        width: 100%;
+    }
+    .checkout-accordion form > .col-md-6 {
+        width: 50%;
+    }
+    .address-form .check-box {
+        width: 50%;
+    }
+    .parent_popup .ch-form .checkboxes + label {
+        margin-top: 0;
+    }
+    .address-form .check-box {
+        margin-top: 4px;
     }
 }
 @media screen and (min-width: 1025px) and (max-width: 1124px){
@@ -3111,16 +3379,452 @@ footer nav li span {
     .pdp-info {
         width: 50%;
     }
+    .checkout form > .col-md-6 {
+        width: 100%;
+    }
+    .checkout-accordion form > .col-md-6 {
+        width: 50%;
+    }
+    .checkout select {
+        width: 108%;
+    }
+    .ch-form .checkboxes + label {
+        margin: -5px 0 0 12px;
+        width: 80%;
+    }
+    .card-data label {
+        width: 100px;
+    }
+    .ch-payment .ch-form > div .col-md-4 select {
+        width: 125%;
+    }
+    .ch-payment .ch-form > div .col-md-4 {
+        width: 50%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .ch-payment .ch-form > div .col-md-4:first-child {
+        width: 100%;
+    }
+    .registration-page select {
+        padding: 0;
+    }
+    .registration-page select {
+        width: 125%;
+    }
+    .od-block {
+        margin-right: 10px;
+    }
+    .address-form .check-box {
+        width: 50%;
+    }
+    .parent_popup .ch-form .checkboxes + label {
+        margin-top: 0;
+    }
+    .address-form .check-box {
+        margin-top: 4px;
+    }
 }
 
 /* ////////////////////////////////////////////////////////////////////////////////////  start responsive design 1024*/
 
 @media screen and (max-width: 1024px){
+    .account-profile {
+        float: left;
+        width: 100%;
+    }
+    .order-detail .btns {
+        float: none;
+        margin: 30px auto;
+    }
+    .parent_popup .ch-form .checkboxes + label {
+        margin-top: 0;
+    }
+    .address-form .check-box {
+        margin-top: 4px;
+    }
+    .parent_popup_address .address-form .col-md-6 {
+        width: 50%;
+        float: left;
+    }
+    .parent_popup_address .ch-form select {
+        width: 110%;
+    }
+    .parent_popup_address .address-form .col-md-3 {
+        width: 25%;
+        float: left;
+    }
+    .parent_popup_address .address-form .check-box {
+        width: 50%;
+        float: left;
+    }
+    .account-left li {
+        float: left;
+        height: 45px;
+        width: auto;
+        background-color: #353535;
+        border-bottom: none;
+        position: relative;
+    }
+    .account-left li span {
+        position: absolute;
+        height: 46px;
+        width: 27px;
+        background: url('../images/tablet/tabM.jpg') no-repeat top left;
+        right: 0;
+        top: 0;
+        z-index: 2;
+    }
+    .account-left ul li:nth-last-child(2) span {
+        background: none;
+    }
+    .account-left ul li.active span {
+        background: url('../images/tablet/tabR.jpg') no-repeat top left;
+    }
+    .account-address > a {
+        position: relative;
+        float: right;
+        margin: 10px 0 0;
+        right: 10px;
+    }
+    .account-left li a{
+        color: #7c7c7c;
+        font: 21px 'overlockregular', sans-serif;
+        padding: 8px 63px 0 50px;
+        display: block;
+    }
+    .account-left li.active a{
+        color: #ffffff;
+    }
+    .account-left li.active {
+        background-color: #242425;
+    }
+    .account-left ul li.active:before {
+        border-bottom: 2px solid #242425;
+        border-right: 28px solid transparent;
+        content: "";
+        height: 0;
+        left: 0;
+        position: absolute;
+        top: 44px;
+        width: 100%;
+        z-index: 2;
+    }
+  /*  .account-left ul li.active:first-child:before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        outline: 1px solid red;
+        z-index: 2;
+        top: 4px;
+        left: 0;
+
+        border-bottom: 47px solid #cccccc;
+        border-right: 28px solid transparent;
+        height: 0;
+        width: 240px;
+    }
+    .account-left ul li.active:first-child {
+        border-bottom: 47px solid #242425;
+        border-right: 28px solid transparent;
+        height: 0;
+        width: 240px;
+    }
+    .account-left ul li:nth-child(2) {
+        background: none repeat scroll 0 0 red;
+        height: 48px;
+        transform: skew(29deg);
+        width: 150px;
+    }
+
+#trapezoid {
+    border-bottom: 100px solid red;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    height: 0;
+    width: 100px;
+}
+#parallelogram {
+    width: 150px;
+    height: 100px;
+    -webkit-transform: skew(20deg);
+       -moz-transform: skew(20deg);
+         -o-transform: skew(20deg);
+    background: red;
+}*/
+    .account-left h3,
+    .account-right h3 {
+        display: none;
+    }
+    .account-left {
+        margin: 0 0 10px;
+        position: inherit;
+        width: 100%;
+        min-height: inherit;
+    }
+    .account-right {
+        padding: 0 30px;
+    }
+    .account-address td a {
+        width: 100%;
+    }
+    .account-menu {
+        padding-bottom: 9px;
+        background-color: #242425;
+    }
+    .account-left ul {
+        width: 100%;
+        border-bottom: 1px solid #cccccc;
+        background-color: #353535;
+    }
     .tab-wrap {
         padding: 0 30px;
     }
+    .checkout form > .col-md-6 {
+        width: 100%;
+    }
+    .login-page > div:nth-child(2), .login-page > div:nth-child(3) {
+        border-right: none;
+    }
+    .registration-page > div.col-md-8:nth-child(3) {
+        padding: 0 55px;
+        width: 100%;
+    }
+    .registration-page .ch-form .select {
+        background: url("../images/select.png") no-repeat scroll 100% 0 #ffffff;
+     }
+    .registration-page .ch-form select {
+        height: 40px;
+    }
+    .registration-page .ch-form select {
+        width: 117%;
+    }
+    .registration-page > div.col-md-8 .col-md-10 div.col-md-6:nth-child(8) {
+        padding: 0 0 0 30px;
+    }
+    .registration-page > div.col-md-8 .col-md-10 .col-md-6 {
+        width: 50%;
+        float: left;
+    }
+    .registration-page > div.col-md-8 .col-md-10 .col-md-6:nth-child(5) {
+        width: 100%;
+        padding-right: 0;
+    }
+    .registration-page > div.col-md-8 .col-md-4 {
+        width: 33.333333%;
+        float: left;
+    }
+    .registration-page .col-md-10 .col-md-6:nth-child(5) div:first-child {
+        padding-right: 15px;
+        padding-left: 0;
+    }
+    .registration-page .col-md-10 .col-md-6:nth-child(5) div:nth-child(2) {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+    .registration-page .col-md-10 .col-md-6:nth-child(5) div:last-child {
+        padding-left: 15px;
+        padding-right: 0;
+    }
+     .registration-page .col-md-10 .col-md-6:nth-child(5) div:last-child label {
+        width: auto;
+    }
+    .registration-page .col-md-10 .col-md-6:nth-child(6) {
+        padding-left: 0;
+        padding-right: 15px;
+    }
+    .registration-page > div.col-md-8 .col-md-10 .col-md-2 {
+        width: 16.6667%;
+        float: left;
+    }
+    .registration-page .col-md-6 .btns {
+        width: 100%;
+    }
+    .registration-page .col-md-10 .col-md-6:nth-child(2) {
+        padding-right: 0;
+    }
+    .registration-page .col-md-10 .col-md-6:nth-child(4) {
+        padding-right: 0;
+    }
+    .login-page .col-md-4 {
+        width: 100%;
+        height: auto;
+        padding: 0 55px;
+    }
+    .login-page .btns {
+        float: left;
+        width: 48%;
+    }
+    .login-page .ch-form {
+        padding: 0 55px;
+    }
+    .login-page .col-md-10 {
+        border-bottom: 2px solid #cecece;
+        margin-bottom: 12px;
+        padding: 0 0 20px;
+        width: 100%;
+    }
+    .login-page .col-md-8 > .col-md-10 {
+        border: 0;
+    }
+    .login-page .col-md-4:nth-child(4) .col-md-10 {
+        border: 0;
+    }
+    .login-page .col-md-10 .col-md-12 {
+        width: 50%;
+        float: left;
+    }
+    .account-left h3, .account-right h3, .login-page h3, .login-page h5 {
+        margin-bottom: 15px;
+    }
+    .login-page .col-md-10 .col-md-12:nth-child(2){
+        padding-right: 2%;
+    }
+    .login-page .col-md-10 .col-md-12::nth-child(3) {
+        padding-left: 15px;
+    }
+    .login-page > div:nth-child(2) > div a:nth-child(2) {
+        margin-left: 0;
+        float: left;
+    }
+    .login-page > div:nth-child(2) h5 {
+        text-align: left;
+    }
+    .login-page > div:nth-child(2) > div a:nth-child(3) {
+        float: left;
+        margin-left: 30px;
+    }
+    .ch-payment > .col-md-12 > .col-md-3 {
+        float: left;
+        padding: 0;
+        width: 100%;
+    }
+    .discounts .col-md-7 {
+        width: 58.3333%;
+        float: left;
+    }
+    .discounts .col-md-5 {
+        width: 41.6667%;
+        float: left;
+    }
+    .ch-payment div.form-group,
+    .ch-payment .ch-form > div {
+        margin-bottom: 20px;
+    }
+    .ch-payment .ch-form > div .col-md-4 select {
+        width: 111%;
+    }
+    .ch-payment .ch-form > div.col-md-12 {
+        position: inherit;
+    }
+    .ch-payment .ch-form > div .col-md-4 {
+        width: 33.333333%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .ch-payment .ch-form > div .col-md-4:first-child {
+        width: 33.333333%;
+    }
+    .checkout .ch-form input,
+    .checkout .ch-form select {
+        color: #242425;
+        font: 24px 'overlockregular',sans-serif;
+    }
     .rslides_container {
         margin: 0;
+    }
+    .checkout .registration {
+        width: 80%;
+        margin: 30px auto;
+        min-width: 260px;
+    }
+    .login .modal-dialog {
+        margin: 30px auto;
+    }
+    .checkout .col-md-6 {
+        width: 100%
+    }
+    .checkout .col-md-3 {
+        width: 50%;
+        float: left;
+    }
+    .checkout .col-md-2 {
+        width: 33.3333333%;
+        float: left;
+    }
+    .checkout .col-md-8 {
+        width: 66.6667%;
+        float: left;
+    }
+    .checkout > div > div {
+        padding: 0;
+    }
+    .ch-content {
+        border: none;
+    }
+    .ch-form .checkboxes + label {
+        margin: 4px 0 18px 12px;
+    }
+    .checkout .col-md-4 {
+        width: 100%;
+        float: left;
+    }
+    .ch-shipping .ch-form div:nth-child(2) a {
+        float: left;
+    }
+    .ch-shipping .ch-form div.col-md-4:nth-child(2) {
+        width: 33.333333%;
+    }
+    .ch-shipping .discounts > div > a {
+        font-size: 21px;
+        height: 58px;
+        padding-top: 13px;
+        width: 150px;
+    }
+    .checkout .navbar-nav > li {
+        float: left;
+    }
+    .checkout {
+        padding: 80px 0 0;
+    }
+    .checkout .navbar-nav .open .dropdown-menu {
+        background-color: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        border-radius: 0;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176);
+        right: 0;
+        left: inherit;
+        margin: 0;
+        min-width: 420px;
+        position: absolute;
+    }
+    .checkout-accordion .accordion .navbar-right {
+        float: right;
+    }
+    .checkout .ch-title .navbar-right {
+        float: right;
+        margin-top: -3px;
+    }
+    .ch-title .navbar-nav > li > a {
+        padding-bottom: 44px;
+    }
+    .dropdown-menu > li > a {
+        white-space: inherit;
+    }
+    .ch-form .form-control,
+    .ch-form select{
+        border-radius: 3px;
+        height: 58px;
+    }
+    .ch-form select {
+        width: 104%;
+    }
+    .ch-form .select {
+        background: url("../images/tablet/select.png") no-repeat scroll 100% 0 #ffffff;
+    }
+    .ch-form .form-group {
+        margin-bottom: 11px;
     }
     .h-block .cart-num {
         display: block;
@@ -3657,7 +4361,23 @@ footer nav li span {
     .cart-num {
         right: 15%;
     }
-
+    .address-form .right {
+        float: right;
+        width: 100%;
+    }
+    .address-form .right .col-md-6 {
+         width: 50%;
+         float: left;
+     }
+    .address-form .right .col-md-6 a {
+        width: 100%;
+    }
+    .quickshop .left-block {
+        width: 38%;
+    }
+    .quickshop .right-block {
+        width: 58%;
+    }
 }
 
 /* //////////////////////////////////////////////////////////////////////////////////////  end responsive design 1024*/
@@ -3665,6 +4385,9 @@ footer nav li span {
 @media screen and (max-width: 768px){
     .center-block {
         margin-top: 0.4%;
+    }
+    .od-block {
+        margin-right: 10px;
     }
     .pdp .rslides_container {
         float: left;
@@ -3708,6 +4431,48 @@ footer nav li span {
     .cart-num {
         right: 17%;
     }
+    .account-order tr th:nth-child(3),
+    .account-order tr td:nth-child(3){
+        display: none;
+    }
+    .account-order tr th,
+    .account-order tr td {
+        width: 25%;
+    }
+    .parent_popup_address .address-form .col-md-6 {
+        width: 100%;
+        float: left;
+    }
+    .parent_popup_address .address-form .col-md-3 {
+        width: 50%;
+        float: left;
+    }
+    .parent_popup_address .address-form .check-box {
+        width: 50%;
+        float: left;
+    }
+    .parent_popup_address .popup {
+        min-width: 270px;
+        width: 80%;
+        margin-bottom: 100px;
+    }
+    .parent_popup_address {
+        overflow-x: scroll;
+    }
+    .parent_popup_address .right {
+        float: left;
+        width: 100%;
+    }
+    .parent_popup_address .right .col-md-6 {
+        width: 50%;
+    }
+    .parent_popup_address .button {
+        color: #ffffff;
+        font-size: 30px;
+        height: 62px;
+        text-transform: capitalize;
+        width: 100%;
+    }
 }
 @media screen and (max-width: 690px){   
     .centered-btns_nav {
@@ -3715,6 +4480,10 @@ footer nav li span {
         height: 28px;
         width: 20px;
         top: 46%;
+    }
+    .parent_popup_address .popup {
+        min-width: 270px;
+        width: 80%;
     }
     .pdp .rslides_container {
         float: left;
@@ -3783,6 +4552,28 @@ footer nav li span {
     .cart-num {
         right: 18%;
     }
+    .ch-form select {
+        width: 105%;
+    }
+    .login-page .btns {
+        width: 100%;
+    }
+    .account-left li a{
+        color: #7c7c7c;
+        font: 21px 'overlockregular', sans-serif;
+        padding: 8px 33px 0 20px;
+        display: block;
+    }
+    .od-blocks div:first-child {
+        margin-right: 25px;
+    }
+    .od-blocks div:nth-child(2) {
+        margin-right: 0;
+    }
+    .od-blocks div:nth-child(3) {
+        margin: 10px 0 0 121px;
+    }
+
 }
 @media screen and (max-width: 585px){   
     .slider-btn {
@@ -3823,6 +4614,37 @@ footer nav li span {
     .h-block .cart-num {
         display: none;
     }
+    .checkout .navbar-nav .open .dropdown-menu {
+        min-width: 300px;
+    }
+    .ch-form select {
+        width: 106%;
+    }
+    .ch-shipping .ch-form div.col-md-8:first-child {
+        width: 50%;
+    }
+    .ch-payment .ch-form > div .col-md-4 {
+        width: 50%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .ch-payment .ch-form > div .col-md-4:first-child {
+        width: 100%;
+    }
+    .ch-payment .ch-form .card-data div.col-md-4:nth-child(2) {
+        width: 50%;
+        padding-right: 0;
+    }
+    .login .button {
+        float: none;
+        width: 100%;
+    }
+    .registration-page .ch-form select {
+        width: 127%;
+    }
+    .od-block {
+        margin-right: 30px;
+    }
 }
 
 /* ////////////////////////////////////////////////////////////////////////////////////  start responsive design 480 */
@@ -3831,9 +4653,72 @@ footer nav li span {
     .pdp-filters {
         width: 100%;
     }
+    .parent_popup_address .address-form .col-md-3 {
+        width: 100%;
+    }
+    .od-blocks {
+        min-width: 320px;
+    }
+    .od-blocks div:nth-child(2),
+    .od-blocks div:nth-child(3) {
+        width: 200px;
+    }
+    .od-blocks div:nth-child(3) {
+        margin: 10px 0 0 105px;
+    }
+    .order-detail .btns {
+        width: 90%;
+    }
+    .account-right {
+        padding: 0 10px;
+    }
+    .od-blocks div:first-child {
+        margin-right: 10px;
+    }
+    .account-profile .popup {
+        min-width: 270px;
+        width: 80%;
+    }
+    .account-left {
+        min-width: 320px;
+    }
+    .account-left li a{
+        color: #7c7c7c;
+        font: 16px 'overlockregular', sans-serif;
+        padding: 10px 27px 0 5px;
+        display: block;
+    }
+    .login-page .col-md-10 .col-md-12 {
+        width: 100%;
+    }
+    .discounts .col-md-7 {
+        width: 50%;
+        float: left;
+    }
+    .discounts .col-md-5 {
+        width: 50%;
+        float: left;
+    }
+    .login .modal-dialog {
+        margin: 30px auto;
+        min-width: 300px;
+        width: 90%;
+    }
+    .checkout-accordion .next, .checkout-accordion .back, .checkout-accordion .yellow {
+        width: 262px;
+    }
+    .ch-shipping .ch-form div.col-md-4:nth-child(2) {
+        width: 50%;
+    }
+    .ch-shipping .discounts > div > a {
+        width: 100%;
+    }
     .cart-item {
         margin-bottom: 20px;
         min-height: 110px;
+    }
+    .ch-form select {
+        width: 107%;
     }
     .GlobalBreadcrumbs a {
         font-size: 1em;
@@ -4172,109 +5057,28 @@ footer nav li span {
     .centered-btns_here a {
         background: url(../images/slider/mob-slider-circle-active.png) no-repeat left top;
     }
+    .registration-page > div.col-md-8 .col-md-10 .col-md-6 {
+        float: left;
+        padding: 0;
+        width: 100%;
+    }
+    .registration-page > div.col-md-8 .col-md-10 .col-md-6 .col-md-4 {
+        width: 100%;
+        padding: 0;
+    }
+    .account-order tr th:first-child {
+        min-width: auto;
+    }
+    .account-order table th {
+        height: 48px;
+    }
+
 
 }
 
 /* //////////////////////////////////////////////////////////////////////////////////////  end responsive design 480 */
 
 /* //////////////////////////////////////////////////////////////////////////////////////////  end responsive design */
-
-.ui-helper-hidden {
-	display: none;
-}
-.ui-helper-hidden-accessible {
-	border: 0;
-	clip: rect(0 0 0 0);
-	height: 1px;
-	margin: -1px;
-	overflow: hidden;
-	padding: 0;
-	position: absolute;
-	width: 1px;
-}
-.ui-helper-reset {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	outline: 0;
-	line-height: 1.3;
-	text-decoration: none;
-	font-size: 100%;
-	list-style: none;
-}
-.ui-helper-clearfix:before,
-.ui-helper-clearfix:after {
-	content: "";
-	display: table;
-	border-collapse: collapse;
-}
-.ui-helper-clearfix:after {
-	clear: both;
-}
-.ui-helper-clearfix {
-	min-height: 0; /* support: IE7 */
-}
-.ui-helper-zfix {
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-	position: absolute;
-	opacity: 0;
-	filter:Alpha(Opacity=0); /* support: IE8 */
-}
-
-.ui-front {
-	z-index: 100;
-}
-
-
-/* Interaction Cues
-----------------------------------*/
-.ui-state-disabled {
-	cursor: default !important;
-}
-
-
-/* Icons
-----------------------------------*/
-
-/* states and images */
-.ui-icon {
-	display: block;
-	text-indent: -99999px;
-	overflow: hidden;
-	background-repeat: no-repeat;
-}
-
-
-/* Misc visuals
-----------------------------------*/
-
-/* Overlays */
-.ui-widget-overlay {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-}
-.ui-accordion .ui-accordion-header {
-	display: block;
-	cursor: pointer;
-	position: relative;
-	margin: 2px 0 0 0;
-	padding: .5em .5em .5em .7em;
-	min-height: 0; /* support: IE7 */
-	font-size: 100%;
-}
-.ui-accordion .ui-accordion-header .ui-accordion-header-icon {
-	position: absolute;
-	left: .5em;
-	top: 50%;
-	margin-top: -8px;
-}
-
 /*!
  * @copyright &copy; Kartik Visweswaran, Krajee.com, 2014
  * @version 2.5.0
@@ -4452,6 +5256,105 @@ footer nav li span {
     padding-right: 5px;
 }
 
+.ui-helper-hidden {
+	display: none;
+}
+.ui-helper-hidden-accessible {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+.ui-helper-reset {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	line-height: 1.3;
+	text-decoration: none;
+	font-size: 100%;
+	list-style: none;
+}
+.ui-helper-clearfix:before,
+.ui-helper-clearfix:after {
+	content: "";
+	display: table;
+	border-collapse: collapse;
+}
+.ui-helper-clearfix:after {
+	clear: both;
+}
+.ui-helper-clearfix {
+	min-height: 0; /* support: IE7 */
+}
+.ui-helper-zfix {
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	position: absolute;
+	opacity: 0;
+	filter:Alpha(Opacity=0); /* support: IE8 */
+}
+
+.ui-front {
+	z-index: 100;
+}
+
+
+/* Interaction Cues
+----------------------------------*/
+.ui-state-disabled {
+	cursor: default !important;
+}
+
+
+/* Icons
+----------------------------------*/
+
+/* states and images */
+.ui-icon {
+	display: block;
+	text-indent: -99999px;
+	overflow: hidden;
+	background-repeat: no-repeat;
+}
+
+
+/* Misc visuals
+----------------------------------*/
+
+/* Overlays */
+.ui-widget-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.ui-accordion .ui-accordion-header {
+	display: block;
+	cursor: pointer;
+	position: relative;
+	margin: 2px 0 0 0;
+	padding: .5em .5em .5em .7em;
+	min-height: 0; /* support: IE7 */
+	font-size: 100%;
+}
+.ui-accordion .ui-accordion-header .ui-accordion-header-icon {
+	position: absolute;
+	left: .5em;
+	top: 50%;
+	margin-top: -8px;
+}
+
+
+
+
 /* Overlays */
 .ui-widget-overlay {
 	background: #666666 url("images/ui-bg_diagonals-thick_20_666666_40x40.png") 50% 50% repeat;
@@ -4466,3 +5369,9 @@ footer nav li span {
 	filter: Alpha(Opacity=20); /* support: IE8 */
 	border-radius: 5px;
 }
+
+
+
+
+
+
