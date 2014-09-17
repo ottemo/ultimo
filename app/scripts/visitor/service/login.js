@@ -28,7 +28,7 @@
                     var login, loginId, isLoggedIn, deferIsLoggedIn , mapFields, deferLogOut;
                     /** Functions */
                     var init, getLogin, getLoginId, setLogin, cleanLogin, getVisitorProperty,
-                        getAvatar, getFullName, fIsLoggedIn, getDefaultLogin, logout;
+                        getAvatar, getFullName, fIsLoggedIn, getDefaultLogin, logout, fillFields;
 
                     isLoggedIn = null;
 
@@ -77,8 +77,13 @@
 
                     login = getDefaultLogin();
 
-                    init = function () {
+                    init = function (force) {
                         deferIsLoggedIn = $q.defer();
+
+                        if (null !== isLoggedIn && !force) {
+                            deferIsLoggedIn.resolve(isLoggedIn);
+                            return deferIsLoggedIn.promise;
+                        }
 
                         $visitorApiService.info().$promise.then(
                             function (response) {
@@ -116,8 +121,7 @@
                         return deferLogOut.promise;
                     };
 
-                    // TODO: reduce cyclomatic complexity of this function
-                    setLogin = function (obj) {     // jshint ignore:line
+                    fillFields = function (obj) {
                         var field, prop;
                         for (field in obj) {
                             if (obj.hasOwnProperty(field)) {
@@ -127,6 +131,10 @@
                                 }
                             }
                         }
+                    };
+
+                    setLogin = function (obj) {
+                        fillFields(obj);
                         if (obj !== null) {
                             login.billing_address_id = obj.billing_address && obj.billing_address._id || '';        // jshint ignore:line
                             login.shipping_address_id = obj.shipping_address && obj.shipping_address._id || '';     // jshint ignore:line

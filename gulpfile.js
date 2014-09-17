@@ -188,7 +188,8 @@
 
                 jsCode = '/* jshint ignore:start */\n' +
                     '(function (define) {\n' +
-                    '"use strict";' +
+                    '"use strict";\n' +
+                    'define(function () {\n' +
                     'return {\n';
 
                 for (i = 0; i < files.length; i += 1) {
@@ -209,6 +210,7 @@
                 }
 
                 jsCode += ']\n};\n' +
+                    '});\n' +
                     '})(window.define);\n' +
                     '/* jshint ignore:end */';
 
@@ -219,7 +221,7 @@
                 });
                 themesData = '{';
                 for (i = 0; i < themes.length; i += 1) {
-                    themesData += '"' + themes[i] + '":"' + themes[i] + "'";
+                    themesData += '"' + themes[i] + '":"' + themes[i] + '"';
                     if (i < themes.length - 1) {
                         themesData += ',';
                     }
@@ -250,7 +252,7 @@
                     form.append('path', 'themes.list');
                     form.append('value', '');
                     form.append('type', 'group');
-                    form.append('editor', '');
+                    form.append('editor', 'themes_manager');
                     form.append('options', '');
                     form.append('label', 'Themes');
                     form.append('description', '');
@@ -264,7 +266,7 @@
                     form.append('path', 'themes.list.active');
                     form.append('value', 'default');
                     form.append('type', '');
-                    form.append('editor', 'select');
+                    form.append('editor', 'themes_manager');
                     form.append('options', themesData);
                     form.append('label', 'Active theme');
                     form.append('description', 'Active theme on storefront');
