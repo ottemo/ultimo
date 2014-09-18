@@ -19,7 +19,8 @@
                         $scope.optionName = name;
                     };
 
-                    $scope.$watch("options", function () {
+                    // TODO: reduce the below function's cyclomatic complexity and remove jshint comment
+                    $scope.$watch("options", function () {          //jshint ignore:line
                         if (typeof $scope.parent.options[$scope.optionName] !== "undefined") {
                             $scope.parent.options[$scope.optionName] = [];
                         }

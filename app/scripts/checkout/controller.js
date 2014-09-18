@@ -95,8 +95,8 @@
 
                                 $scope.paymentMethods[i].cc = {};
                                 $scope.paymentMethods[i].cc.type = "VI";
-                                $scope.paymentMethods[i].cc.expire_month = "12";
-                                $scope.paymentMethods[i].cc.expire_year = "2017";
+                                $scope.paymentMethods[i].cc.expire_month = "12";        //jshint ignore:line
+                                $scope.paymentMethods[i].cc.expire_year = "2017";       //jshint ignore:line
                             }
                         }
                     };
@@ -334,12 +334,12 @@
                     };
 
                     sendPostForm = function (method, response) {
-                        var form, jForm;
+                        var form;
 
                         form = "<div class='hidden' id='auth_net_form'>" + response.result;
                         form = form.replace("$CC_NUM", method.cc.number);
-                        form = form.replace("$CC_MONTH", method.cc.expire_month.toString().length < 2 ? "0" + method.cc.expire_month : method.cc.expire_month);
-                        form = form.replace("$CC_YEAR", method.cc.expire_year) + "</div>";
+                        form = form.replace("$CC_MONTH", method.cc.expire_month.toString().length < 2 ? "0" + method.cc.expire_month : method.cc.expire_month);     //jshint ignore:line
+                        form = form.replace("$CC_YEAR", method.cc.expire_year) + "</div>";  //jshint ignore:line
 
                         $(".checkout > div").append(form);
                         $("#auth_net_form").find("form").submit();
@@ -583,7 +583,8 @@
                         result = false;
 
                         payment = getPaymentInfo();
-                        function validateCreditCard(s) {
+                        // TODO: reduce cyclomatic complexity of function below and remove jshint comment
+                        function validateCreditCard(s) {        //jshint ignore:line
                             // remove non-numerics
                             var v = "0123456789";
                             var w = "";

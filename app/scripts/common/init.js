@@ -108,8 +108,8 @@
                                             $location.$$url = $location.$$path;
 
                                             $commonPageService.setTitle(rewrite.title);
-                                            $commonPageService.setMetaDescription(rewrite.meta_description);
-                                            $commonPageService.setMetaKeywords(rewrite.meta_keywords);
+                                            $commonPageService.setMetaDescription(rewrite.meta_description);        //jshint ignore:line
+                                            $commonPageService.setMetaKeywords(rewrite.meta_keywords);      //jshint ignore:line
 
                                             var route = $route.routes["/" + rewrite.type + "/:id"];
 

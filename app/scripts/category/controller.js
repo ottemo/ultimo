@@ -16,7 +16,8 @@
                 "$visitorLoginService",
                 "$cartService",
                 "$pdpProductService",
-                function ($scope, $location, $route, $routeParams, $categoryApiService, $designService, $designImageService, $categoryService, $visitorLoginService, $cartService, $pdpProductService) {
+                // TODO: reduce the number of statements in the line below
+                function ($scope, $location, $route, $routeParams, $categoryApiService, $designService, $designImageService, $categoryService, $visitorLoginService, $cartService, $pdpProductService) {  //jshint ignore:line
                     var getPage, addCategoryCrumbs, getFilters, setFilters;
 
                     getPage = function () {
@@ -89,7 +90,8 @@
 
                     setFilters();
 
-                    getFilters = function () {
+                    // TODO: reduce the cyclomatic complexity of this function and remove the jshint ignore comment
+                    getFilters = function () {                  //jshint ignore:line
                         var filters, hasFilter;
                         filters = [];
                         hasFilter = false;

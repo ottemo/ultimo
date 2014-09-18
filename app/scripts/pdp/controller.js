@@ -16,7 +16,8 @@
                 "$designImageService",
                 "$cartService",
                 "$visitorLoginService",
-                function ($scope, $routeParams, $location, $pdpApiService, $pdpProductService, $designImageService, $cartService, $visitorLoginService) {
+                // TODO: reduce the number of statements in the function below and remove jshint comment
+                function ($scope, $routeParams, $location, $pdpApiService, $pdpProductService, $designImageService, $cartService, $visitorLoginService) {   //jshint ignore:line
                     var defaultProduct, reinitializeStars, getAverageValue, getStarsPercents, getDefaultRatingInfo, splitName;
 
                     getDefaultRatingInfo = function () {

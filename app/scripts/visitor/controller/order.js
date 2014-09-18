@@ -11,7 +11,7 @@
                 '$visitorLoginService',
                 '$visitorApiService',
                 function ($scope, $location, $routeParams, $visitorLoginService, $visitorApiService) {
-                    var activePath
+                    var activePath;
 
                     $scope.addedOrderId = $routeParams.successId;
                     $scope.orderId = $routeParams.id;
