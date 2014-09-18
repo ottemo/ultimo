@@ -40,12 +40,17 @@
                     delete $scope.login.shipping_address_id;        // jshint ignore:line
                     $visitorApiService.register($scope.login);
                     $('.modal').modal('hide');
+
+                    $scope.message = {
+                        "type": "success",
+                        "message": "Thanks for registration. Please check your email and confirm your account"
+                    };
                 };
 
                 $scope.signIn = function () {
                     $visitorApiService.login($scope.loginCredentials).$promise.then(function (response) {
                         if (response.result === 'ok') {
-                            $visitorLoginService.init().then(
+                            $visitorLoginService.init(true).then(
                                 function () {
                                     $('.modal').modal('hide');
                                     $cartService.reload();
@@ -61,6 +66,11 @@
                                     $location.path('/account');
                                 }
                             );
+                        } else {
+                            $scope.message = {
+                                "type": "warning",
+                                "message": response.error
+                            };
                         }
                     });
                 };
@@ -77,7 +87,7 @@
                                 'access_token': response.authResponse.accessToken
                             }).$promise.then(
                                 function () {
-                                    $visitorLoginService.init().then(
+                                    $visitorLoginService.init(true).then(
                                         function () {
                                             $('.modal').modal('hide');
                                             $cartService.reload();
@@ -108,7 +118,7 @@
                     var data = gl.loginCallback(response);
                     $visitorApiService.loginGoolge(data).$promise.then(
                         function () {
-                            $visitorLoginService.init().then(
+                            $visitorLoginService.init(true).then(
                                 function () {
                                     $('.modal').modal('hide');
                                     $cartService.reload();

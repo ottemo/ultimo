@@ -4,9 +4,32 @@
 <div class="col-md-12">
     <div class="accordion">
         <!-- Billing Block -->
-        <h3>
+        <h3 class="ch-title">
             <span class="num">1</span>
             <span class="h3">Bill to</span>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <button class="btn" ng-disabled="billingAddress.$invalid || billing_address._id"
+                            ng-click="saveBillingAddress(billingAddress.$invalid)"
+                            ng-class="{ 'btn-danger' : billingAddress.$invalid, 'btn-success' : !billingAddress.$invalid}">
+                        Save
+                    </button>
+                </li>
+                <li id="fat-menu" class="dropdown">
+                    <a href id="drop3" role="button" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-edit" ng-disabled="false"></span>
+                    </a>
+                    <ul class="dropdown-menu col-md-10" role="menu" aria-labelledby="drop3">
+                        <li role="presentation" ng-repeat="addr in addresses">
+                            <a role="menuitem" tabindex="-1" ng-click="choiceBilling(addr.Id)">{{addr.Name}}</a>
+                        </li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="" ng-click="newBilling()">New</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </h3>
         <div>
             <!-- Form to add billing addresses -->
@@ -114,9 +137,32 @@
             </div>
         </div>
         <!-- Shipping Block -->
-        <h3>
+        <h3 class="ch-title">
             <span class="num">2</span>
             <span class="h3">Ship to</span>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <button class="btn" ng-disabled="shippingAddress.$invalid || shipping_address._id"
+                            ng-click="saveShippingAddress(shippingAddress.$invalid)"
+                            ng-class="{ 'btn-danger' : shippingAddress.$invalid, 'btn-success' : !shippingAddress.$invalid}">
+                        Save
+                    </button>
+                </li>
+                <li id="fat-menu" class="dropdown">
+                    <a href id="drop3" role="button" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </a>
+                    <ul class="dropdown-menu col-md-10" role="menu" aria-labelledby="drop3">
+                        <li role="presentation" ng-repeat="addr in addresses">
+                            <a role="menuitem" tabindex="-1" href ng-click="choiceShipping(addr.Id)">{{addr.Name}}</a>
+                        </li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href ng-click="newShipping()">New</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </h3>
         <div>
             <!-- Form to add shipping addresses -->
@@ -264,17 +310,15 @@
         <div>
             <div class="ch-form ch-shipping ch-payment">
                 <div class="form-group col-md-12" ng-repeat="method in paymentMethods">
-                    <div class="col-md-3">
-                        <div class="checkboxes">
-                            <label class="myCheckbox">
-                                <input type="radio" name="test" value="{{method.Code}}" ng-model="checkout.payment_method_code"
-                                       ng-change=setPaymentType(method.Type)>
-                                <span></span>
-                            </label>
-                        </div>
-                        <label>{{method.Name}}</label>
-                        <!--</div>-->
+                    <div class="checkboxes">
+                        <label class="myCheckbox">
+                            <input type="radio" name="test" value="{{method.Code}}" ng-model="checkout.payment_method_code"
+                                   ng-change=setPaymentType(method.Type)>
+                            <span></span>
+                        </label>
                     </div>
+                    <label>{{method.Name}}</label>
+                    <!--</div>-->
                     <div class="payment-dt" ng-show="isCreditCard()" ng-if="method.Type === 'cc'">
                         <form name="method.form" novalidate>
                             <div class="form-group col-md-6"
@@ -437,6 +481,7 @@
         </div>
 
         <span target="_self" id="modal-order-success">Order Success</span>
+        <span target="_self" id="modal-purchase-success">Purchase Success</span>
 
         <div class="modal fade" id="order-success" tabindex="-1" role="dialog" ng-controller="visitorLoginController">
             <div class="modal-dialog login registration">
@@ -455,8 +500,26 @@
             </div>
         </div>
 
+        <div class="modal fade" id="purchase-success" tabindex="-1" role="dialog" ng-controller="visitorLoginController">
+            <div class="modal-dialog login registration">
+                <div class="login-close"></div>
+                <div class="modal-content ch-form">
+                    <h6>thank you for your purchase</h6>
+                    <p><span>Thank you for your purchase!</span></p>
+                    <p>Your order # is:<span>123456789</span></p>
+                    <p>You will recieve an order confirmation email with details of your order
+                        and a link to track its progress.</p>
+                    <div class="form-group col-md-6">
+                        <div class="button btn-black">Continue shopping</div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
+<div class="clear"></div>
 </div>
 </div>
 <script>
@@ -469,6 +532,9 @@
     })(jQuery)
     $("#modal-order-success").click(function () {
         $("#order-success").modal("show");
+    });
+    $("#modal-purchase-success").click(function () {
+        $("#purchase-success").modal("show");
     });
     $(".login-close").click(function () {
         $(".modal").modal("hide");

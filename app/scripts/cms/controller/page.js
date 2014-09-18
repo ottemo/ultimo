@@ -1,4 +1,4 @@
-(function (define, $) {
+(function (define) {
     "use strict";
 
     define(["cms/init"], function (cmsModule) {
@@ -32,8 +32,8 @@
                                 $scope.page = result;
 
                                 $commonPageService.setTitle($scope.page.title);
-                                $commonPageService.setMetaDescription($scope.page.meta_description);
-                                $commonPageService.setMetaKeywords($scope.page.meta_keywords);
+                                $commonPageService.setMetaDescription($scope.page.meta_description);    //jshint ignore:line    
+                                $commonPageService.setMetaKeywords($scope.page.meta_keywords);  //jshint ignore:line    
 
                                 // BREADCRUMBS
                                 $scope.$emit("add-breadcrumbs", {"label": $scope.page.identifier, "url": $cmsPageService.getUrl($scope.page._id)});
@@ -49,4 +49,4 @@
 
         return cmsModule;
     });
-})(window.define, jQuery);
+})(window.define);

@@ -3,19 +3,6 @@
 
     define(["checkout/init"], function (checkoutModule) {
 
-        var clone = function (obj) {
-            if (null === obj || "object" !== typeof obj) {
-                return obj;
-            }
-            var copy = obj.constructor();
-            for (var attr in obj) {
-                if (obj.hasOwnProperty(attr)) {
-                    copy[attr] = obj[attr];
-                }
-            }
-            return copy;
-        };
-
         checkoutModule
 
             .controller("checkoutController", [
@@ -26,10 +13,10 @@
                 "$visitorLoginService",
                 "$cartService",
                 "$designStateService",
-                "$anchorScroll",
+                "$commonUtilService",
                 "$q",
                 "$http",
-                function ($scope, $location, $checkoutApiService, $designImageService, $visitorLoginService, $cartService, $designStateService, $anchorScroll, $q, $http) {    // jshint ignore:line
+                function ($scope, $location, $checkoutApiService, $designImageService, $visitorLoginService, $cartService, $designStateService, $commonUtilService, $q, $http) {    // jshint ignore:line
 
                     var isLoggedIn, info, getDefaultAddress, getAddresses, getCurrentBillingID, getCurrentShippingID,
                         sendPostForm, retrieve, initAddressesData, initCurrentShippingMethod, initCurrentPaymentType,
@@ -77,11 +64,11 @@
 
                     initAddressesData = function () {
                         if ($scope.checkout.shipping_address !== null) {        // jshint ignore:line
-                            $scope.shipping_address = clone($scope.checkout.shipping_address);      // jshint ignore:line
+                            $scope.shipping_address = $commonUtilService.clone($scope.checkout.shipping_address);      // jshint ignore:line
                         }
 
                         if ($scope.checkout.billing_address !== null) {         // jshint ignore:line
-                            $scope.billing_address = clone($scope.checkout.billing_address);        // jshint ignore:line
+                            $scope.billing_address = $commonUtilService.clone($scope.checkout.billing_address);        // jshint ignore:line
                         }
                     };
 
@@ -108,8 +95,8 @@
 
                                 $scope.paymentMethods[i].cc = {};
                                 $scope.paymentMethods[i].cc.type = "VI";
-                                $scope.paymentMethods[i].cc.expire_month = "12";
-                                $scope.paymentMethods[i].cc.expire_year = "2017";
+                                $scope.paymentMethods[i].cc.expire_month = "12";        //jshint ignore:line
+                                $scope.paymentMethods[i].cc.expire_year = "2017";       //jshint ignore:line
                             }
                         }
                     };
@@ -347,12 +334,12 @@
                     };
 
                     sendPostForm = function (method, response) {
-                        var form, jForm;
+                        var form;
 
                         form = "<div class='hidden' id='auth_net_form'>" + response.result;
                         form = form.replace("$CC_NUM", method.cc.number);
-                        form = form.replace("$CC_MONTH", method.cc.expire_month.toString().length < 2 ? "0" + method.cc.expire_month : method.cc.expire_month);
-                        form = form.replace("$CC_YEAR", method.cc.expire_year) + "</div>";
+                        form = form.replace("$CC_MONTH", method.cc.expire_month.toString().length < 2 ? "0" + method.cc.expire_month : method.cc.expire_month);     //jshint ignore:line
+                        form = form.replace("$CC_YEAR", method.cc.expire_year) + "</div>";  //jshint ignore:line
 
                         $(".checkout > div").append(form);
                         $("#auth_net_form").find("form").submit();
@@ -543,9 +530,9 @@
                                 typeof $scope.shipping_address._id !== "undefined") {       // jshint ignore:line
                                 $scope.choiceBilling($scope.shipping_address._id);      // jshint ignore:line
                             }
-                            $scope.billing_address = clone($scope.shipping_address);        // jshint ignore:line
+                            $scope.billing_address = $commonUtilService.clone($scope.shipping_address);        // jshint ignore:line
                         } else {
-                            $scope.billing_address = clone($scope.checkout.billing_address);        // jshint ignore:line
+                            $scope.billing_address = $commonUtilService.clone($scope.checkout.billing_address);        // jshint ignore:line
                         }
 
                     }, true);
@@ -554,7 +541,7 @@
                         if ($scope.useAsBilling) {
                             if ($scope.shipping_address._id === 0 ||        // jshint ignore:line
                                 typeof $scope.shipping_address._id === "undefined") {       // jshint ignore:line
-                                $scope.billing_address = clone($scope.shipping_address);        // jshint ignore:line
+                                $scope.billing_address = $commonUtilService.clone($scope.shipping_address);        // jshint ignore:line
                             }
 
                         }
@@ -583,7 +570,12 @@
                      * Sets payment method
                      */
                     $scope.$watch("paymentMethods", function () {
-                        $scope.validateCcNumber();
+                        var payment = getPaymentInfo();
+
+                        if (payment.method !== null && payment.method.Type.split("_").indexOf("cc") > 0) {
+                            $scope.validateCcNumber();
+                        }
+
                     }, true);
 
                     $scope.validateCcNumber = function () {
@@ -591,7 +583,8 @@
                         result = false;
 
                         payment = getPaymentInfo();
-                        function validateCreditCard(s) {
+                        // TODO: reduce cyclomatic complexity of function below and remove jshint comment
+                        function validateCreditCard(s) {        //jshint ignore:line
                             // remove non-numerics
                             var v = "0123456789";
                             var w = "";

@@ -11,6 +11,7 @@
                 '$visitorLoginService',
                 '$visitorApiService',
                 function ($scope, $location, $routeParams, $visitorLoginService, $visitorApiService) {
+                    var activePath;
 
                     $scope.addedOrderId = $routeParams.successId;
                     $scope.orderId = $routeParams.id;
@@ -24,6 +25,9 @@
                         // BREADCRUMBS
                         $scope.$emit('add-breadcrumbs', {'label': 'myAccount', 'url': '/account'});
                         $scope.$emit('add-breadcrumbs', {'label': 'Order', 'url': '/account/order/list'});
+
+                        activePath = $location.path();
+
                         if ($scope.orderId) {
 
                             $scope.$emit('add-breadcrumbs', {'label': $scope.orderId, 'url': '/account/order/' + $scope.orderId});
@@ -84,7 +88,7 @@
                     };
 
                     $scope.$watch('addedOrderId', function () {
-                        if(typeof $scope.addedOrderId !== 'undefined') {
+                        if (typeof $scope.addedOrderId !== 'undefined') {
                             $scope.message = {
                                 "type": "success",
                                 "message": "THANK YOU FOR YOUR PURCHASE!<br/>" +
@@ -92,6 +96,15 @@
                             };
                         }
                     });
+
+                    $scope.isActive = function (path) {
+                        if (activePath === path) {
+                            $('.account-menu ul li:nth-child(2)').find('span')
+                                .css('background', 'url("themes/default/images/tablet/tabL.jpg") no-repeat top left');
+                            return true;
+                        }
+                        return false;
+                    };
 
                 }
             ]);

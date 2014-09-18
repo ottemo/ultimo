@@ -9,16 +9,13 @@
                 <h3>{{item.product.name}}</h3>
                 <p>{{item.product.price | number: 2 | currency}}</p>
 
-                <div class="cart-details">
+                <div class="cart-details" ng-if="item.hasOptions">
                     <p>
                         <span>details</span>
                     </p>
-                    <!--<p>-->
-                        <!--Color: Black-->
-                    <!--</p>-->
-                    <!--<p>-->
-                        <!--Size: XL-->
-                    <!--</p>-->
+                    <p ng-repeat="(key, value) in item.options">
+                        {{key}}: {{productService.getOptStr(value)}}
+                    </p>
                 </div>
                 <div class="cart-qty">
                     <p>Qty</p>
@@ -40,7 +37,7 @@
                 </div>
 
                 <span class="remove glyphicon glyphicon-remove" ng-click="remove(item.idx)"></span>
-                <p class="right">{{item.product.price * item.qty | number: 2 | currency}}</p>
+                <p class="right">{{item.product.price * item.qty | currency}}</p>
             </div>
             <div class="clear"></div>
             <hr/>

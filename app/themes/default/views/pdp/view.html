@@ -24,36 +24,10 @@
                 <a href=""></a>
                 <a href=""></a>
             </div>
-            <!--    <div class="arrow-bottom"></div>-->
             <a href="#">shop now</a>
         </div>
         <div class="clear"></div>
     </section>
-    <!--<div id="carousel-example-generic" class="carousel slide pdp-tablet-slider" data-ride="carousel"-->
-         <!--ng-show="productImages.length">-->
-        <!--&lt;!&ndash; Indicators &ndash;&gt;-->
-        <!--<ol class="carousel-indicators">-->
-            <!--<li data-target="#carousel-example-generic" ng-repeat="img in productImages" data-slide-to="{{$index}}"-->
-                <!--ng-class="img == product.default_image ? 'active' : ''"></li>-->
-        <!--</ol>-->
-
-        <!--&lt;!&ndash; Wrapper for slides &ndash;&gt;-->
-        <!--<div class="carousel-inner">-->
-            <!--<div class="item" ng-repeat="img in productImages" ng-class="img == product.default_image  ? 'active' : ''">-->
-                <!--<img ng-src="{{getImage(imagesPath, img)}}" alt="" class="img-thumbnail"/>-->
-            <!--</div>-->
-        <!--</div>-->
-
-        <!--&lt;!&ndash; Controls &ndash;&gt;-->
-        <!--<a class="left carousel-control" href="#carousel-example-generic" target="_self" role="button"-->
-           <!--data-slide="prev">-->
-            <!--<span class="glyphicon glyphicon-chevron-left"></span>-->
-        <!--</a>-->
-        <!--<a class="right carousel-control" href="#carousel-example-generic" target="_self" role="button"-->
-           <!--data-slide="next">-->
-            <!--<span class="glyphicon glyphicon-chevron-right"></span>-->
-        <!--</a>-->
-    <!--</div>-->
     <div class="small" ng-hide="productImages.length">
         <img ng-src="{{getImg('placeholder.png')}}" alt="" class="img-thumbnail" width="250px" height="250px"/>
     </div>
@@ -63,19 +37,13 @@
 <section class="pdp-info">
     <div class="tab-wrap">
         <h2>{{product.name}}</h2>
-        <p>$35.99</p>
+        <p>{{product.price | currency}}</p>
         <div class="pdp-filters">
             <div class="container">
                 <div class="input-group spinner pdp-spinner">
                     <label>Quantity</label>
 
                     <div class="spinner-block">
-                        <!--                    <input placeholder="Qtl" type="text" class="form-control" value="{{item.qty}}"
-                                                   name="qty" id="qty" ng-model="qty">
-                                            <div class="input-group-btn-vertical">
-                                                <button class="btn btn-up"><i></i></button>
-                                                <button class="btn btn-down"><i></i></button>
-                                            </div>-->
                         <input placeholder="Qtl" type="text" class="form-control" value="{{qty}}"
                                ng-model="qty" ng-change="update(idx, qty)">
 
@@ -86,85 +54,26 @@
                     </div>
                 </div>
             </div>
+            <div class="clear"></div>
 
+            <!-- Custom options -->
+            <div class="container">
+                <gui-custom-options item="product" object="this"></gui-custom-options>
+            </div>
 
-            <!--    <div class="container">
-                    <div class="input-group spinner">
-                        <label>Size</label>
-                        <input placeholder="Qtl" type="text" class="form-control" value="{{item.qty}}">
-                        <div class="input-group-btn-vertical">
-                            <button class="btn"><i></i></button>
-                            <button class="btn"><i></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="container">
-                    <div class="input-group spinner">
-                        <label>Size</label>
-                        <input placeholder="Qtl" type="text" class="form-control" value="{{item.qty}}">
-                        <div class="input-group-btn-vertical">
-                            <button class="btn"><i></i></button>
-                            <button class="btn"><i></i></button>
-                        </div>
-                    </div>
-                </div>-->
             <div class="clear"></div>
         </div>
         <p class="pdp-total">Total:</p>
-        <p>$35.99</p>
+        <p>{{product.price * qty | number:2}}</p>
         <div class="clear"></div>
         <div class="pdp-btn">
+            <gui-message-manager item="message"></gui-message-manager>
             <a href="" target="_self" ng-click="addToCart()">
                 <span class="remove glyphicon glyphicon-plus"></span>
                 cart
             </a>
-            <!--   <a href="#/stockist" target="_self">
-                   <span class="glyphicon glyphicon-screenshot"></span>
-                   stockist
-               </a>-->
         </div>
         <div class="clear"></div>
-        <!--
-            <div>
-                <label for="sku">Sku:</label>
-                <span id="sku"> {{product.sku}}</span>
-            </div>
-            <div>
-                <label for="price">Price:</label>
-                <span id="price"> <b>$</b>{{product.price}}</span>
-            </div>
-            <div>
-                <label for="size">Size:</label>
-                <span id="size"> {{product.size}}</span>
-            </div>
-            <div>
-                <label for="weight">Weight:</label>
-                <span id="weight"> {{product.weight}}</span>
-            </div>
-
-            <div>
-                <label for="qty">Qty:</label>
-                <select name="qty" id="qty" ng-model="qty">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                </select>
-            </div>
-            <div>
-                <br />
-                <span id="short_description">{{product.short_description}}</span>
-            </div>
-            <h3>Total: ${{getTotal() | number : 2}}</h3>
-            <button type="button" class="btn btn-warning glyphicon glyphicon-plus" ng-click="addToCart()"> Cart</button>
-        </div>-->
     </div>
     <div id="accordion">
         <div class="accordion active">

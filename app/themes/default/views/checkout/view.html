@@ -292,13 +292,13 @@
     </div>
     <div class="ch-content ch-shipping">
         <div class="ch-form discounts">
-            <div class="form-group col-md-8">
+            <div class="form-group col-md-7">
                 <input type="text" class="form-control" id="discount" placeholder="Discount code"
                        name="discount"
                        ng-model="discount">
 
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-5">
                 <a href ng-click="discountApply()" class="btn left">Apply code</a>
             </div>
             <div class="form-group col-md-12" ng-show="checkout.discounts.length">
@@ -322,7 +322,7 @@
     </div>
     <div class="ch-content ch-shipping ch-payment">
         <div class="ch-form">
-            <div class="form-group" ng-repeat="method in paymentMethods">
+            <div class="form-group col-md-12" ng-repeat="method in paymentMethods">
                 <div class="checkboxes">
                     <label class="myCheckbox">
                         <input type="radio" name="test" value="{{method.Code}}" ng-model="checkout.payment_method_code"

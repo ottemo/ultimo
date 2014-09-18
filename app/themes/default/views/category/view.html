@@ -157,39 +157,12 @@
                     {{popupProduct.short_description}}
                 </p>
                 <hr>
-                <!--<div class="form-group col-md-4">-->
-                <!--<label>Color</label>-->
 
-                <!--<div class="select">-->
-                <!--<select>-->
-                <!--<option>Blue</option>-->
-                <!--<option>Red</option>-->
-                <!--<option>Green</option>-->
-                <!--</select>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--<div class="form-group col-md-4">-->
-                <!--<label>Size</label>-->
+                <!-- Custom options -->
+                <div class="form-group col-md-4">
+                    <gui-custom-options item="popupProduct" object="this"></gui-custom-options>
+                </div>
 
-                <!--<div class="select">-->
-                <!--<select>-->
-                <!--<option>XL</option>-->
-                <!--<option>X</option>-->
-                <!--<option>L</option>-->
-                <!--</select>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--<div class="form-group col-md-4">-->
-                <!--<label>Qty</label>-->
-
-                <!--<div class="select">-->
-                <!--<select>-->
-                <!--<option>1</option>-->
-                <!--<option>2</option>-->
-                <!--<option>3</option>-->
-                <!--</select>-->
-                <!--</div>-->
-                <!--</div>-->
                 <div class="clear"></div>
                 <a href class="button" ng-click="addToCart(popupProduct._id)">
                     <span class="remove glyphicon glyphicon-plus"></span>
@@ -230,7 +203,25 @@
                 }
             });
 
-//            // rating
+
+    /*    // dropping block hides when mouse goes out from it
+    $('.center-align').on('mousein','.tablet-shadow', function(){
+            console.log('yes');
+        });
+
+        $('.center-align').on('mouseout', '.cat-prod > a', function () {
+          if ($(window).width() > 1024)
+            if ($(this).parent().hasClass("active")) {
+              $(this).parent().removeClass('active');
+            }
+
+            $(document).on('mouseenter','.tablet-shadow', function(){
+
+            });
+
+        });*/
+
+            // rating
             setTimeout(function () {
                 $("input.rating").each(function () {
 

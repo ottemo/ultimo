@@ -5,19 +5,61 @@
      *  HTML top page header manipulation stuff
      */
     define(["pdp/init"], function (pdpModule) {
+
         pdpModule
             /*
              *  $productApiService interaction service
              */
             .service("$pdpProductService", [
                 "$commonRewriteService",
+                "$commonUtilService",
                 "$pdpApiService",
+                "$pdpProductOptionsService",
                 "$q",
-                function ($commonRewriteService, $pdpApiService, $q) {
-                    var type, ratingInfo;
-                    var getUrl, getRatingInfo, getDefaultRatingInfo, getAverageRating;
+                function ($commonRewriteService, $commonUtilService, $pdpApiService, $pdpProductOptionsService, $q) {
+                    // Variables
+                    var type, ratingInfo, oldProduct, product, options;
+
+                    // Functions
+                    var getUrl, getRatingInfo, getDefaultRatingInfo, getAverageRating, setProduct, getProduct, applyOptions,
+                        setOptions, getOptions, getOptStr;
 
                     type = "product";
+
+                    getUrl = function (id) {
+                        var url;
+                        url = $commonRewriteService.getRewrite(type, id);
+
+                        if (!url) {
+                            url = type + "/" + id;
+                        }
+
+                        return "#/" + url;
+                    };
+
+                    setProduct = function (obj) {
+                        product = obj;
+                        oldProduct = $commonUtilService.clone(product);
+
+                        return product;
+                    };
+
+                    getProduct = function () {
+
+                        return product;
+                    };
+
+                    setOptions = function (obj) {
+                        options = obj;
+                        applyOptions();
+
+                        return options;
+                    };
+
+                    getOptions = function () {
+
+                        return options;
+                    };
 
                     getDefaultRatingInfo = function () {
                         return {
@@ -34,17 +76,13 @@
                             "twoStarPersent": 0
                         };
                     };
+
                     ratingInfo = getDefaultRatingInfo();
 
-                    getUrl = function (id) {
-                        var url;
-                        url = $commonRewriteService.getRewrite(type, id);
-
-                        if (!url) {
-                            url = type + "/" + id;
-                        }
-
-                        return "#/" + url;
+                    applyOptions = function () {
+                        product = $commonUtilService.clone(oldProduct);
+                        product = $pdpProductOptionsService.applyOptions(product, options);
+                        return product;
                     };
 
                     getRatingInfo = function (productId) {
@@ -68,12 +106,22 @@
                         return defer.promise;
                     };
 
-                    getAverageRating = function(){
+                    getAverageRating = function () {
                         return (typeof ratingInfo.averageValue !== "undefined" ? ratingInfo.averageValue : 0);
+                    };
+
+                    getOptStr = function (value) {
+                        return value instanceof Array ? value.join(", ") : value;
                     };
 
                     return {
                         "getUrl": getUrl,
+                        "setProduct": setProduct,
+                        "getProduct": getProduct,
+                        "setOptions": setOptions,
+                        "getOptions": getOptions,
+                        "getOptStr": getOptStr,
+                        "applyOptions": applyOptions,
                         "getRatingInfo": getRatingInfo,
                         "getAverageRating": getAverageRating
                     };

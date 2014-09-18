@@ -1,54 +1,32 @@
 <div ng-controller="visitorLoginController">
-
-    <div class="modal fade" id="form-login" tabindex="-1" role="dialog">
+    <div class="modal fade login" id="form-login" tabindex="-1" role="dialog">
         <div class="modal-dialog">
-
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    LOGIN
-                    <div class="modal-link">
-                        <a href="" target="_self" id="modal-registration">Register</a>
+            <div class="login-close"></div>
+            <div class="modal-content ch-form">
+                <h6>LOGIN</h6>
+                <form role="form">
+                    <div class="form-group col-md-12">
+                        <label for="email">Email</label>
+                        <input class="form-control" type="text" id="email" placeholder="email"
+                               ng-model="loginCredentials.email"/>
                     </div>
-                </div>
-
-                <div class="modal-body">
-                    <div class="panel panel-default">
-                        <form role="form">
-                            <div class="panel-body">
-                                <div>
-                                    <label for="email">Email</label>
-                                    <input type="text" id="email" placeholder="email"
-                                           ng-model="loginCredentials.email"/>
-                                </div>
-                                <div>
-                                    <label for="password">Password</label>
-                                    <input type="password" id="password" placeholder="password"
-                                           ng-model="loginCredentials.password"
-                                           autocomplete="off"/>
-                                </div>
-
-                            </div>
-                        </form>
+                    <div class="form-group col-md-12">
+                        <label for="password">Password</label>
+                        <input class="form-control" type="password" id="password" placeholder="password"
+                               ng-model="loginCredentials.password"
+                               autocomplete="off"/>
                     </div>
-                    <div class="social-box">
-                        <div class="btn-soc">
-                            <ng-include src="getTemplate('visitor/social/facebook.html')"></ng-include>
-                        </div>
-                        <div class="btn-soc">
-                            <ng-include src="getTemplate('visitor/social/google.html')"></ng-include>
-                        </div>
-                        <div class="btn-soc btn-soc-right">
-                            <button class="btn btn-primary pull-right" ng-click="signIn()">Login</button>
-                        </div>
-                    </div>
-                </div>
-
+                </form>
+                <div class="clear"></div>
+                <div class="button btn-black" ng-click="signIn()">Login</div>
+                <a href="" target="_self" id="modal-registration">Register</a>
+                <div class="clear"></div>
+                <ng-include src="getTemplate('visitor/social/facebook.html')"></ng-include>
+                <ng-include src="getTemplate('visitor/social/google.html')"></ng-include>
             </div>
-
+            <div class="clear"></div>
         </div>
     </div>
-
 </div>
 
 <script>
@@ -58,5 +36,8 @@
     $("#modal-registration").click(function () {
         $(".modal").modal("hide");
         $("#form-registration").modal("show");
+    });
+    $(".login-close").click(function () {
+        $(".modal").modal("hide");
     });
 </script>

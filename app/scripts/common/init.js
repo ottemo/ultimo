@@ -22,9 +22,11 @@
             var deferTemplateValue = "";
             var deferControllerValue = "";
 
+            angular.REST_SERVER_URI = "http://dev.ottemo.io:3000";
+
             angular.module.commonModule = angular.module("commonModule", ["ngRoute", "ngSanitize", "designModule"])
 
-                .constant("REST_SERVER_URI", "http://dev.ottemo.io:3000")  
+                .constant("REST_SERVER_URI", angular.REST_SERVER_URI)
 
             /**
              *  Basic routing configuration
@@ -106,8 +108,8 @@
                                             $location.$$url = $location.$$path;
 
                                             $commonPageService.setTitle(rewrite.title);
-                                            $commonPageService.setMetaDescription(rewrite.meta_description);
-                                            $commonPageService.setMetaKeywords(rewrite.meta_keywords);
+                                            $commonPageService.setMetaDescription(rewrite.meta_description);        //jshint ignore:line
+                                            $commonPageService.setMetaKeywords(rewrite.meta_keywords);      //jshint ignore:line
 
                                             var route = $route.routes["/" + rewrite.type + "/:id"];
 

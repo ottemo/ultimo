@@ -16,12 +16,13 @@
                 '$resource',
                 '$cartApiService',
                 '$cookieStore',
+                '$pdpProductOptionsService',
                 'LOGIN_COOKIE',
                 '$q',
-                function ($resource, $cartApiService, $cookieStore, LOGIN_COOKIE,$q) {
+                function ($resource, $cartApiService, $cookieStore, $pdpProductOptionsService, LOGIN_COOKIE, $q) {
 
                     /** Variables */
-                    var isInit, items, cartInfo, visitorId, subtotal, saleTax, shipping, total;
+                    var isInit, items, visitorId, subtotal, saleTax, shipping, total;
                     /** Functions */
                     var addItem, init, reload, loadCartInfo, getItems, remove, update,
                         getSubtotal, getSalesTax, getShipping, getTotal,
@@ -54,7 +55,7 @@
                         maxCount = 3;
                         res = [];
                         if (items instanceof Array && items.length) {
-                            for (i = items.length-1, count = 0; (i >= 0) && (count < maxCount); i -= 1, count += 1) {
+                            for (i = items.length - 1, count = 0; (i >= 0) && (count < maxCount); i -= 1, count += 1) {
                                 res.push(items[i]);
                             }
                         }
@@ -148,13 +149,21 @@
                         $cartApiService.info().$promise.then(
                             function (response) {
                                 if (response.error === '') {
-                                    items = response.result.items;
-                                    cartInfo = response.result.cart_info;       // jshint ignore:line
+
+                                    items = [];
+                                    // Apply options by all products
+                                    for(var i = 0; i < response.result.items.length ; i += 1){
+//                                        response.result.items[i].product = $pdpProductOptionsService.applyOptions(response.result.items[i].product, response.result.items[i].options);
+                                        response.result.items[i].product = response.result.items[i].product;
+                                        response.result.items[i].hasOptions = JSON.stringify(response.result.items[i].options) === JSON.stringify({}) ? false : true;
+
+                                        items.push(response.result.items[i]);
+                                    }
+
                                     visitorId = response.result.visitor_id;     // jshint ignore:line
                                     deferLoadCart.resolve(true);
                                 } else {
                                     items = undefined;
-                                    cartInfo = undefined;
                                     visitorId = undefined;
                                     deferLoadCart.resolve(false);
                                 }
@@ -164,13 +173,14 @@
                         return deferLoadCart.promise;
                     };
 
-                    addItem = function (productId, qty) {
+                    addItem = function (productId, qty, options) {
                         var deferAddItem = $q.defer();
                         $cartApiService.add({
                             'productId': productId,
                             'qty': qty
-                        }).$promise.then(
-                            function () {
+                        }, options).$promise.then(
+                            function (response) {
+                                deferAddItem.resolve(response);
                                 loadCartInfo();
                             }
                         );

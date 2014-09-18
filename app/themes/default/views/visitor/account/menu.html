@@ -1,14 +1,19 @@
 <h3>my account</h3>
 <div class="account-menu">
     <ul>
-        <li>
+
+        <li ng-class="{'active': isActive('/account')}">
             <a href="#/account">account settings</a>
+            <span></span>
         </li>
-        <li>
+
+        <li ng-class="{'active': isActive('/account/address')}">
             <a href="#/account/address">Addresses</a>
+            <span></span>
         </li>
-        <li>
+        <li ng-class="{'active': isActive('/account/order/list')}">
             <a href="#/account/order/list">Orders</a>
+            <span></span>
         </li>
         <!--
         <li><a href="">Messages</a></li>
@@ -18,6 +23,7 @@
         <li><a href="">Payments</a></li>
         <li><a href="">Shippings</a></li>
         -->
+        <div class="clear"></div>
     </ul>
 </div>
 <script>

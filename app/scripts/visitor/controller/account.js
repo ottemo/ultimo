@@ -19,6 +19,8 @@
                     $scope.changePswCredentials = {};
                     $scope.isCoincide = false;
 
+                    var activePath;
+
                     var getAddressList = function () {
                         $visitorApiService.getAddresses({"visitorId": $scope.visitor._id}).$promise.then(
                             function (response) {
@@ -51,6 +53,7 @@
 
                         // BREADCRUMBS
                         $scope.$emit("add-breadcrumbs", {"label": "myAccount", "url": "/account"});
+                        activePath = $location.path();
 
                         isLoggedIn = $scope.visitorService.isLoggedIn();
                         if (isLoggedIn === null) {
@@ -136,6 +139,14 @@
 
                     $scope.$watch("visitor", getAddressList);
                     $scope.$watch("changePswCredentials", checkPassword);
+
+                    $scope.isActive = function(path){
+                        if(activePath === path){
+                            return true;
+                        }
+                        return false;
+                    };
+
                 }
             ]);
 

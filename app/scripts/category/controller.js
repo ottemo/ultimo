@@ -16,7 +16,8 @@
                 "$visitorLoginService",
                 "$cartService",
                 "$pdpProductService",
-                function ($scope, $location, $route, $routeParams, $categoryApiService, $designService, $designImageService, $categoryService, $visitorLoginService, $cartService, $pdpProductService) {
+                // TODO: reduce the number of statements in the line below
+                function ($scope, $location, $route, $routeParams, $categoryApiService, $designService, $designImageService, $categoryService, $visitorLoginService, $cartService, $pdpProductService) {  //jshint ignore:line
                     var getPage, addCategoryCrumbs, getFilters, setFilters;
 
                     getPage = function () {
@@ -58,6 +59,8 @@
                     $scope.popupProduct = {};
                     $scope.productService = $pdpProductService;
 
+                    $scope.options = {};
+
                     $scope.filters = {};
 
                     $scope.blocks = {
@@ -87,7 +90,8 @@
 
                     setFilters();
 
-                    getFilters = function () {
+                    // TODO: reduce the cyclomatic complexity of this function and remove the jshint ignore comment
+                    getFilters = function () {                  //jshint ignore:line
                         var filters, hasFilter;
                         filters = [];
                         hasFilter = false;
@@ -163,7 +167,8 @@
 
 
                         if ($visitorLoginService.isLoggedIn()) {
-                            $cartService.add(productId, 1);
+                            $cartService.add(productId, 1, $pdpProductService.getOptions());
+                            $("#parent_popup_quickShop").hide();
 
                             miniCart.css("display", "table");
                             setTimeout(function () {
@@ -224,6 +229,9 @@
                      * @returns {string}
                      */
                     $scope.getImage = function (product) {
+                        if(typeof product === "undefined"){
+                            return $designImageService.getFullImagePath("", null); // jshint ignore:line
+                        }
                         return $designImageService.getFullImagePath("", product.default_image); // jshint ignore:line
                     };
 
@@ -264,7 +272,8 @@
                     };
 
                     $scope.openPopUp = function (product) {
-                        $scope.popupProduct = product;
+                        $pdpProductService.setProduct(product);
+                        $scope.popupProduct = $pdpProductService.getProduct();
                         $scope.productService.getRatingInfo(product._id);
                         $("#parent_popup_quickShop").show();
                         setTimeout(function () {
@@ -292,6 +301,11 @@
                         },
                         true
                     );
+
+                    $scope.$watch("options", function() {
+                        $pdpProductService.setOptions($scope.options);
+                        $scope.popupProduct = $pdpProductService.getProduct();
+                    }, true);
                 }
             ]);
         return categoryModule;
