@@ -38,8 +38,8 @@
     <div class="tab-wrap">
         <h2>{{product.name}}</h2>
         <p>{{product.price | currency}}</p>
-        <div class="pdp-filters">
-            <div class="container">
+        <div class="pdp-filters col-md-9">
+            <div class="col-md-6">
                 <div class="input-group spinner pdp-spinner">
                     <label>Quantity</label>
 
@@ -54,17 +54,16 @@
                     </div>
                 </div>
             </div>
-            <div class="clear"></div>
-
             <!-- Custom options -->
-            <div class="container">
-                <gui-custom-options item="product" object="this"></gui-custom-options>
-            </div>
+            <gui-custom-options item="product" object="this"></gui-custom-options>
 
             <div class="clear"></div>
         </div>
-        <p class="pdp-total">Total:</p>
-        <p>{{product.price * qty | number:2}}</p>
+        <div class="col-md-3">
+            <p class="pdp-total">Total:</p>
+            <div class="clear"></div>
+            <p>{{product.price * qty | number:2 | currency}}</p>
+        </div>
         <div class="clear"></div>
         <div class="pdp-btn">
             <gui-message-manager item="message"></gui-message-manager>
