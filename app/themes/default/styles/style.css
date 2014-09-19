@@ -1602,6 +1602,22 @@ li.active .nav-active {
 .multi_select .form-group {
     width: 33.3333%;
 }
+.quickshop .multi_select .form-group {
+   width: 46%;
+   float: left;
+}
+.custom-option .col-md-6 {
+    margin-bottom: 10px;
+}
+.quickshop select {
+    width: 112%;
+}
+.quickshop .multi_select .form-group:nth-child(even) {
+   float: right;
+}
+.quickshop .multi_select  {
+   padding: 0 15px;
+}
 .pdp-info .col-md-12 {
     margin-bottom: 10px;
     padding: 0;`

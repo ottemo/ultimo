@@ -3,9 +3,7 @@
         <div data-ng-repeat="(key, option) in product.options | getOrdered">
 
             <ng-form name="customOptionsFormIn">
-                <div>
-
-
+                <div class="custom-option">
                     <div ng-switch="option.type">
                         <!-- Input -->
                         <div ng-switch-when="field">
