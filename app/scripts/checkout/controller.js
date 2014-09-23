@@ -15,14 +15,14 @@
                 "$designStateService",
                 "$commonUtilService",
                 "$q",
-                "$http",
-                function ($scope, $location, $checkoutApiService, $designImageService, $visitorLoginService, $cartService, $designStateService, $commonUtilService, $q, $http) {    // jshint ignore:line
+                function ($scope, $location, $checkoutApiService, $designImageService, $visitorLoginService, $cartService,
+                          $designStateService, $commonUtilService, $q) {
 
                     var isLoggedIn, info, getDefaultAddress, getAddresses, getCurrentBillingID, getCurrentShippingID,
                         sendPostForm, retrieve, initAddressesData, initCurrentShippingMethod, initCurrentPaymentType,
-                        isValid, getPaymentInfo;
+                        isValid, getPaymentInfo, creditCartTypes;
 
-                    var creditCartTypes = {
+                    creditCartTypes = {
                         'VI': [new RegExp('^4[0-9]{12}([0-9]{3})?$'), new RegExp('^[0-9]{3}$'), true],
                         'MC': [new RegExp('^5[1-5][0-9]{14}$'), new RegExp('^[0-9]{3}$'), true]
                     };
@@ -302,7 +302,7 @@
                                 function (response) {
 
                                     if (null !== payment.method && payment.method.Type === "remote" && response.result === "redirect") {
-                                        window.location.replace(response.redirect);
+                                        w.location.replace(response.redirect);
                                     } else if (null !== payment.method && payment.method.Type === "post_cc") {
                                         // Handler for direct post form for Authorize.net
                                         sendPostForm(payment.method, response);
@@ -527,7 +527,7 @@
                     $scope.$watch("useAsBilling", function () {
                         if ($scope.useAsBilling) {
 
-                            if ($scope.shipping_address._id !== 0 &&        // jshint ignore:line
+                            if ($scope.shipping_address._id !== 0 && // jshint ignore:line
                                 typeof $scope.shipping_address._id !== "undefined") {       // jshint ignore:line
                                 $scope.choiceBilling($scope.shipping_address._id);      // jshint ignore:line
                             }
@@ -581,7 +581,8 @@
 
                     $scope.closeSuccessPopup = function () {
                         $(".modal").modal("hide");
-                            $location.path("/");
+                        $(".modal-backdrop").remove();
+                        $location.path("/");
                     };
 
                     $scope.validateCcNumber = function () {
@@ -590,7 +591,7 @@
 
                         payment = getPaymentInfo();
 
-                        function validateCreditCard(s) {
+                        var validateCreditCard = function (s) {
                             // remove non-numerics
                             var a, c, m, k, j, x, w, v;
                             v = "0123456789";
@@ -614,7 +615,7 @@
                                 c += w.charAt(i * 2 + 1 - m) * 1;
                             }
                             return (c % 10 === 0);
-                        }
+                        };
 
                         if (payment.method === null && payment.form === null) {
                             return false;
@@ -627,8 +628,9 @@
                         payment.form.number.$invalidFormat = result;
                     };
                 }
-            ])
-        ;
+            ]
+        );
+
         return checkoutModule;
     });
 })(window, window.define, jQuery);

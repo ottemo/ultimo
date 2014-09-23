@@ -27,9 +27,6 @@
                                     // Update sidebar
                                     $commonSidebarService.removeItem("account");
 
-                                    // @todo: redoing this the duplicate request. Why first request thinks that user is logged after removing cookie
-                                    $cartService.reload();
-
                                     $location.path("/");
                                 }
                             );

@@ -91,22 +91,29 @@
 
                     setFilters();
 
-                    // TODO: reduce the cyclomatic complexity of this function and remove the jshint ignore comment
-                    getFilters = function () {                  //jshint ignore:line
-                        var filters, hasFilter;
+                    getFilters = function () {
+                        var filters, getFilterValues, hasFilter;
                         filters = [];
                         hasFilter = false;
+
+                        getFilterValues = function(attr){
+                            var values, val;
+                            values = [];
+
+                            for (val in $scope.filters[attr]) {
+                                if ($scope.filters[attr].hasOwnProperty(val) &&
+                                    $scope.filters[attr][val] === true) {
+                                    values.push(val);
+                                    hasFilter = true;
+                                }
+                            }
+
+                            return values;
+                        };
+
                         for (var attr in $scope.filters) {
                             if ($scope.filters.hasOwnProperty(attr)) {
-                                var values = [];
-
-                                for (var val in $scope.filters[attr]) {
-                                    if ($scope.filters[attr].hasOwnProperty(val) &&
-                                        $scope.filters[attr][val] === true) {
-                                        values.push(val);
-                                        hasFilter = true;
-                                    }
-                                }
+                                var values = getFilterValues(attr);
                                 if (values.length > 0) {
                                     filters.push(attr + "=" + values.join(","));
                                 }
@@ -117,7 +124,6 @@
                         }
                         return filters.join("&");
                     };
-
 
                     $scope.init = function () {
                         var tree;
@@ -172,6 +178,7 @@
                                     if (response.error !== "") {
                                         $location.path($pdpProductService.getUrl(productId).replace("#/", ""));
                                     } else {
+                                        $pdpProductService.setOptions({});
                                         $("#parent_popup_quickShop").hide();
 
                                         miniCart.css("display", "table");
@@ -238,7 +245,7 @@
                      */
                     $scope.getImage = function (product) {
                         if(typeof product === "undefined"){
-                            return $designImageService.getFullImagePath("", null); // jshint ignore:line
+                            return $designImageService.getFullImagePath("", null);
                         }
                         return $designImageService.getFullImagePath("", product.default_image); // jshint ignore:line
                     };

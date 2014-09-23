@@ -64,7 +64,7 @@
                             url: visitorBaseURL + "/address/delete/:id"
                         },
                         "getOrderList": {
-                            method: "GET",
+                            method: "POST",
                             url: visitorBaseURL + "/order/list"
                         },
                         "getOrder": {

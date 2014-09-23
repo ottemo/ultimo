@@ -66,7 +66,7 @@
         </div>
         <div class="clear"></div>
         <div class="pdp-btn">
-            <gui-message-manager item="message" id="options"></gui-message-manager>
+            <gui-message-manager item="messageOptions"></gui-message-manager>
             <a href="" target="_self" ng-click="addToCart()">
                 <span class="remove glyphicon glyphicon-plus"></span>
                 cart
@@ -180,7 +180,7 @@
                    data-size="xxs">
 
             <div class="col-md-12">
-                <gui-message-manager item="message" id="review"></gui-message-manager>
+                <gui-message-manager item="messageReview"></gui-message-manager>
                 <div ng-class="{ 'has-error' : (submittedReview && reviewForm.review.$error.required) || (reviewForm.review.$invalid && !reviewForm.review.$pristine) }">
                     <input class="form-control" type="text" name="review" ng-model="review.comment" required>
 

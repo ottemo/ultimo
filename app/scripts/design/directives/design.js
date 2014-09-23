@@ -5,7 +5,6 @@
         designModule
             /**
              *  Directive that allows to declare CSS inside module templates
-             *  (TODO: not working currently as html creation going before)
              */
             .directive("addCss", ["$designService", function ($designService) {
                 return {

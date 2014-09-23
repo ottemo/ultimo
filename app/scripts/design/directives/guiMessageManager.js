@@ -7,7 +7,6 @@
             return {
                 restrict: "E",
                 scope: {
-                    "id": "=id",
                     "obj": "=item"
                 },
                 templateUrl: $designService.getTemplate("design/gui/guiMessageManager.html"),
@@ -15,7 +14,7 @@
 
                     $scope.$watch("obj", function () {
 
-                        if (typeof $scope.obj !== "undefined" && $scope.id === $scope.obj.id) {
+                        if (typeof $scope.obj !== "undefined") {
 
                             $scope.msg = $scope.obj.message;
                             $scope.type = $scope.obj.type || "success";

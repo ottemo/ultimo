@@ -36,10 +36,10 @@
 
                 <tr ng-repeat="order in ordersList">
                     <td><a href="#/account/order/{{order.Id}}">{{order.Name}}</a></td>
-                    <td>{{getDateCreated(order.created_at)}}</td>
+                    <td>{{getDateCreated(order.Extra.created_at)}}</td>
                     <td>{{order.Desc}}</td>
-                    <td>{{order.subtotal | currency}}</td>
-                    <td>{{order.status}}</td>
+                    <td>{{order.Extra.grand_total | currency}}</td>
+                    <td>{{order.Extra.status}}</td>
                 </tr>
             </table>
         </div>

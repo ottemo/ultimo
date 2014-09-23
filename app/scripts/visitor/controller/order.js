@@ -17,7 +17,7 @@
 
                     $scope.visitor = $visitorLoginService.getVisitor();
                     $scope.visitorService = $visitorLoginService;
-                    var activePath;
+
                     $scope.init = function () {
                         var isLoggedIn;
 
@@ -44,7 +44,7 @@
                     };
 
                     if (!$scope.orderId) {
-                        $visitorApiService.getOrderList().$promise.then(
+                        $visitorApiService.getOrderList({"extra": "created_at,status,grand_total"}).$promise.then(
                             function (response) {                                   // jshint ignore:line
                                 var i, isExist;
                                 $scope.ordersList = response.result || [];

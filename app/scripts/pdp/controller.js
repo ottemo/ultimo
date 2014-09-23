@@ -155,8 +155,7 @@
                             $cartService.add($scope.productId, $scope.qty, $pdpProductService.getOptions()).then(
                                 function (response) {
                                     if (response.error !== "") {
-                                        $scope.message = {
-                                            'id': 'options',
+                                        $scope.messageOptions = {
                                             'type': 'danger',
                                             'message': response.error
                                         };
@@ -298,8 +297,7 @@
                                         $scope.review.stars = 0;
                                         reinitializeStars();
                                     } else {
-                                        $scope.message = {
-                                            'id': 'review',
+                                        $scope.messageReview = {
                                             'type': 'danger',
                                             'message': response.error
                                         };
