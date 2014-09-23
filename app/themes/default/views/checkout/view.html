@@ -453,6 +453,22 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="purchase-success" tabindex="-1" role="dialog" ng-controller="visitorLoginController">
+    <div class="modal-dialog login registration">
+        <div class="login-close" ng-click="closeSuccessPopup()"></div>
+        <div class="modal-content ch-form">
+            <h6>thank you for your purchase</h6>
+            <p><span>Thank you for your purchase!</span></p>
+            <p>Your order # is:<span>{{purchase.increment_id}}</span></p>
+            <p>You will recieve an order confirmation email with details of your order
+                and a link to track its progress.</p>
+            <div class="form-group col-md-6">
+                <div class="button btn-black" ng-click="closeSuccessPopup()">Continue shopping</div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
 <div class="clear"></div>
 </div>
 </div>

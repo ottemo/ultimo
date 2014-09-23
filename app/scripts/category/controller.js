@@ -17,7 +17,8 @@
                 "$cartService",
                 "$pdpProductService",
                 // TODO: reduce the number of statements in the line below
-                function ($scope, $location, $route, $routeParams, $categoryApiService, $designService, $designImageService, $categoryService, $visitorLoginService, $cartService, $pdpProductService) {  //jshint ignore:line
+                function ($scope, $location, $route, $routeParams, $categoryApiService, $designService, $designImageService,
+                          $categoryService, $visitorLoginService, $cartService, $pdpProductService) {  //jshint ignore:line
                     var getPage, addCategoryCrumbs, getFilters, setFilters;
 
                     getPage = function () {
@@ -165,15 +166,22 @@
                         var miniCart;
                         miniCart = $(".mini-cart");
 
-
                         if ($visitorLoginService.isLoggedIn()) {
-                            $cartService.add(productId, 1, $pdpProductService.getOptions());
-                            $("#parent_popup_quickShop").hide();
+                            $cartService.add(productId, 1, $pdpProductService.getOptions()).then(
+                                function(response){
+                                    if (response.error !== "") {
+                                        $location.path($pdpProductService.getUrl(productId).replace("#/", ""));
+                                    } else {
+                                        $("#parent_popup_quickShop").hide();
 
-                            miniCart.css("display", "table");
-                            setTimeout(function () {
-                                miniCart.hide();
-                            }, 1500);
+                                        miniCart.css("display", "table");
+                                        setTimeout(function () {
+                                            miniCart.hide();
+                                        }, 1500);
+                                    }
+                                }
+                            );
+
                         } else {
                             $("#form-login").modal("show");
                         }

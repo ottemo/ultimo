@@ -66,6 +66,11 @@
                         "getOrderList": {
                             method: "GET",
                             url: visitorBaseURL + "/order/list"
+                        },
+                        "getOrder": {
+                            method: "GET",
+                            params: { id: "@id" },
+                            url: visitorBaseURL + "/order/details/:id"
                         }
                     });
             }]);

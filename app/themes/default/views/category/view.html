@@ -97,6 +97,7 @@
                 <!--<a href>View more<b class="caret"></b></a>-->
             </div>
         </div>
+        <div  ng-if="!items.length">&nbsp;</div>
     </aside>
         <div class="center-align">
             <div class="cat-prod" ng-repeat="_item in productsList | filter:searchText" ng-show="productsList.length">

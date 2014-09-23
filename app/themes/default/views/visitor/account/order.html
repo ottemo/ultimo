@@ -33,10 +33,11 @@
                         <span>status</span>
                     </th>
                 </tr>
+
                 <tr ng-repeat="order in ordersList">
-                    <td><a href="#/account/order/{{order.increment_id}}">{{order.increment_id}}</a></td>
+                    <td><a href="#/account/order/{{order.Id}}">{{order.Name}}</a></td>
                     <td>{{getDateCreated(order.created_at)}}</td>
-                    <td>{{order.description}}</td>
+                    <td>{{order.Desc}}</td>
                     <td>{{order.subtotal | currency}}</td>
                     <td>{{order.status}}</td>
                 </tr>

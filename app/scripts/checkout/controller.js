@@ -301,16 +301,17 @@
                             $checkoutApiService.save().$promise.then(
                                 function (response) {
 
-                                    if (payment.method.Type === "remote" && response.result === "redirect") {
+                                    if (null !== payment.method && payment.method.Type === "remote" && response.result === "redirect") {
                                         window.location.replace(response.redirect);
-                                    } else if (payment.method.Type === "post_cc") {
+                                    } else if (null !== payment.method && payment.method.Type === "post_cc") {
                                         // Handler for direct post form for Authorize.net
                                         sendPostForm(payment.method, response);
                                     } else if (response.error === "") {
                                         info();
                                         $cartService.reload().then(
                                             function () {
-                                                $location.path("/account/order/success/" + response.result.increment_id);       // jshint ignore:line
+                                                $scope.purchase = response.result || {};       // jshint ignore:line
+                                                $("#purchase-success").modal("show");
                                             }
                                         );
                                     } else {
@@ -578,29 +579,35 @@
 
                     }, true);
 
+                    $scope.closeSuccessPopup = function () {
+                        $(".modal").modal("hide");
+                            $location.path("/");
+                    };
+
                     $scope.validateCcNumber = function () {
                         var i, payment, result;
                         result = false;
 
                         payment = getPaymentInfo();
-                        // TODO: reduce cyclomatic complexity of function below and remove jshint comment
-                        function validateCreditCard(s) {        //jshint ignore:line
+
+                        function validateCreditCard(s) {
                             // remove non-numerics
-                            var v = "0123456789";
-                            var w = "";
+                            var a, c, m, k, j, x, w, v;
+                            v = "0123456789";
+                            w = "";
                             for (i = 0; i < s.length; i += 1) {
-                                var x = s.charAt(i);
+                                x = s.charAt(i);
                                 if (v.indexOf(x, 0) !== -1) {
                                     w += x;
                                 }
                             }
                             // validate number
-                            var j = w.length / 2;
-                            var k = Math.floor(j);
-                            var m = Math.ceil(j) - k;
-                            var c = 0;
+                            j = w.length / 2;
+                            k = Math.floor(j);
+                            m = Math.ceil(j) - k;
+                            c = 0;
                             for (i = 0; i < k; i += 1) {
-                                var a = w.charAt(i * 2 + m) * 2;
+                                a = w.charAt(i * 2 + m) * 2;
                                 c += a > 9 ? Math.floor(a / 10 + a % 10) : a;
                             }
                             for (i = 0; i < k + m; i += 1) {

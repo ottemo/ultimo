@@ -40,17 +40,13 @@
                             templateUrl: angular.getTheme("visitor/account/address-manager.html"),
                             controller: "visitorAddressController"
                         })
-                        .when("/account/order/list", {
+                        .when("/account/orders", {
                             templateUrl: angular.getTheme("visitor/account/order.html"),
                             controller: "visitorOrderController"
                         })
 
                         .when("/account/order/:id", {
                             templateUrl: angular.getTheme("visitor/account/order-details.html"),
-                            controller: "visitorOrderController"
-                        })
-                        .when("/account/order/success/:successId", {
-                            templateUrl: angular.getTheme("visitor/account/order.html"),
                             controller: "visitorOrderController"
                         })
                         .when("/login", {
