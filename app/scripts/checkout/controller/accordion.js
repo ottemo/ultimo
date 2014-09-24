@@ -5,7 +5,7 @@
 
         checkoutModule
 
-            .controller("checkoutController", [
+            .controller("checkoutAccordionController", [
                 "$scope",
                 "$location",
                 "$checkoutApiService",
@@ -14,17 +14,25 @@
                 "$cartService",
                 "$designStateService",
                 "$commonUtilService",
+                "$checkoutService",
                 "$q",
-                function ($scope, $location, $checkoutApiService, $designImageService, $visitorLoginService, $cartService,
-                          $designStateService, $commonUtilService, $q) {
+                function ($scope, $location, $checkoutApiService, $designImageService, $visitorLoginService, $cartService, $designStateService, $commonUtilService, $checkoutService, $q) {
 
                     var isLoggedIn, info, getDefaultAddress, getAddresses, getCurrentBillingID, getCurrentShippingID,
                         sendPostForm, retrieve, initAddressesData, initCurrentShippingMethod, initCurrentPaymentType,
-                        isValid, getPaymentInfo, creditCartTypes;
+                        isValid, getPaymentInfo, creditCartTypes, isValidSteps;
 
                     creditCartTypes = {
                         'VI': [new RegExp('^4[0-9]{12}([0-9]{3})?$'), new RegExp('^[0-9]{3}$'), true],
                         'MC': [new RegExp('^5[1-5][0-9]{14}$'), new RegExp('^[0-9]{3}$'), true]
+                    };
+
+                    isValidSteps = {
+                        "billingAddress": false,
+                        "shippingAddress": false,
+                        "shippingMethod": false,
+                        "paymentMethod": false,
+                        "discounts": true
                     };
 
                     getDefaultAddress = function () {
@@ -65,10 +73,12 @@
                     initAddressesData = function () {
                         if ($scope.checkout.shipping_address !== null) {        // jshint ignore:line
                             $scope.shipping_address = $commonUtilService.clone($scope.checkout.shipping_address);      // jshint ignore:line
+                            isValidSteps.shippingAddress = true;
                         }
 
                         if ($scope.checkout.billing_address !== null) {         // jshint ignore:line
                             $scope.billing_address = $commonUtilService.clone($scope.checkout.billing_address);        // jshint ignore:line
+                            isValidSteps.billingAddress = true;
                         }
                     };
 
@@ -81,6 +91,7 @@
                                 $scope.checkout.shipping_rate.Code === item.Rate) {         // jshint ignore:line
 
                                 $scope.indexShippingMethod = i;
+                                isValidSteps.shippingMethod = true;
                             }
                         }
                     };
@@ -161,6 +172,7 @@
                             }
                         );
                     };
+
                     /**
                      * Checks visitor on the logged
                      * Adds breadcrumbs
@@ -183,6 +195,10 @@
                         }
                         if ($cartService.getCountItems() === 0) {
                             $location.path("/");
+                        }
+
+                        if("accordion" !== $checkoutService.getType()){
+                            $location.path($checkoutService.getUrl().replace("#/",""));
                         }
 
                         this.getShippingMethods();
@@ -389,6 +405,7 @@
                                 }).$promise.then(
                                     function (response) {
                                         if (response.error === "") {
+                                            isValidSteps.billingAddress = true;
                                             info();
                                         }
                                     }
@@ -418,10 +435,16 @@
                     };
 
                     $scope.newBilling = function () {
+                        $scope.subBillingAddress = false;
+                        isValidSteps.billingAddress = false;
+
                         $scope.billing_address = getDefaultAddress();       // jshint ignore:line
                     };
 
                     $scope.newShipping = function () {
+                        $scope.subShippingAddress = false;
+                        isValidSteps.shippingAddress = false;
+
                         $scope.shipping_address = getDefaultAddress();      // jshint ignore:line
                     };
 
@@ -442,10 +465,13 @@
                     };
 
                     $scope.saveShippingAddress = function (invalid) {
-                        var currentShippingID = getCurrentShippingID();
+                        var defer, currentShippingID;
+                        currentShippingID = getCurrentShippingID();
+                        defer = $q.defer();
+                        $scope.subShippingAddress = true;
 
-                        if ($scope.shipping_address._id !== currentShippingID &&        // jshint ignore:line
-                            $scope.shipping_address._id === 0 && !invalid) {        // jshint ignore:line
+                        if (!invalid && $scope.shipping_address._id !== currentShippingID &&        // jshint ignore:line
+                            $scope.shipping_address._id === 0) {        // jshint ignore:line
 
                             delete $scope.shipping_address._id;         // jshint ignore:line
                             $checkoutApiService.setShippingAddress($scope.shipping_address).$promise.then(      // jshint ignore:line
@@ -457,21 +483,31 @@
                                                 if ($scope.useAsBilling) {
                                                     $scope.choiceBilling($scope.checkout.shipping_address._id);      // jshint ignore:line
                                                 }
+
+                                                $scope.subShippingAddress = false;
+                                                isValidSteps.shippingAddress = true;
+                                                defer.resolve(true);
                                             }
                                         );
-
-
                                     }
                                 }
                             );
+                        } else {
+                            defer.resolve(false);
                         }
+
+                        return defer.promise;
                     };
 
                     $scope.saveBillingAddress = function (invalid) {
-                        var currentBillingID = getCurrentBillingID();
+                        var defer, currentBillingID;
+                        defer = $q.defer();
 
-                        if ($scope.billing_address._id !== currentBillingID &&      // jshint ignore:line
-                            $scope.billing_address._id === 0 && !invalid) {         // jshint ignore:line
+                        currentBillingID = getCurrentBillingID();
+                        $scope.subBillingAddress = true;
+
+                        if (!invalid && $scope.billing_address._id !== currentBillingID &&      // jshint ignore:line
+                            $scope.billing_address._id === 0) {         // jshint ignore:line
 
                             delete $scope.billing_address._id;      // jshint ignore:line
                             $checkoutApiService.setBillingAddress($scope.billing_address).$promise.then(        // jshint ignore:line
@@ -480,10 +516,18 @@
                                         getAddresses();
                                         info();
                                         $scope.billing_address = getDefaultAddress();       // jshint ignore:line
+
+                                        $scope.subBillingAddress = false;
+                                        isValidSteps.billingAddress = true;
+                                        defer.resolve(true);
                                     }
                                 }
                             );
+                        } else {
+                            defer.resolve(false);
                         }
+
+                        return defer.promise;
                     };
 
                     $scope.discountApply = function () {
@@ -507,6 +551,7 @@
                     };
 
                     $scope.setPaymentType = function (type) {
+                        isValidSteps.paymentMethod = true;
                         $scope.paymentType = type;
                     };
 
@@ -560,6 +605,7 @@
                             }).$promise.then(
                                 function (response) {
                                     if (response.result === "ok") {
+                                        isValidSteps.paymentMethod = true;
                                         info();
                                     }
                                 }
@@ -574,7 +620,8 @@
                         var payment = getPaymentInfo();
 
                         if (payment.method !== null && payment.method.Type.split("_").indexOf("cc") > 0) {
-                            $scope.validateCcNumber();
+
+                            isValidSteps.paymentMethod = $scope.validateCcNumber();
                         }
 
                     }, true);
@@ -583,6 +630,45 @@
                         $(".modal").modal("hide");
                         $(".modal-backdrop").remove();
                         $location.path("/");
+                    };
+
+                    $scope.back = function (step) {
+                        $("#" + step).slideUp("slow").prev().prev().slideDown();
+                    };
+
+                    $scope.next = function (step) {
+
+                        switch (step) {
+                            case "billingAddress":
+                                $scope.saveBillingAddress($scope.billingAddress.$invalid).then(
+                                    function () {
+                                        if (isValidSteps[step]) {
+                                            $("#" + step).slideUp("slow").next().next().slideDown();
+                                        }
+                                    }
+                                );
+                                break;
+                            case "shippingAddress":
+                                $scope.saveShippingAddress($scope.shippingAddress.$invalid).then(
+                                    function () {
+                                        if (isValidSteps[step]) {
+                                            $("#" + step).slideUp("slow").next().next().slideDown();
+                                        }
+                                    }
+                                );
+                                break;
+                            case "paymentMethod":
+
+                                if (isValidSteps[step]) {
+                                    $("#" + step).slideUp("slow").next().next().slideDown();
+                                }
+                                break;
+                            default:
+                                if (isValidSteps[step]) {
+                                    $("#" + step).slideUp("slow").next().next().slideDown();
+                                }
+                        }
+
                     };
 
                     $scope.validateCcNumber = function () {
@@ -626,6 +712,8 @@
                         }
 
                         payment.form.number.$invalidFormat = result;
+
+                        return result;
                     };
                 }
             ]

@@ -8,13 +8,14 @@
     define([
             "angular",
             "angular-route",
-            "angular-resource"
+            "angular-resource",
+            "angular-sanitize",
         ],
         function (angular) {
             /*
              *  Angular "cmsModule" declaration
              */
-            angular.module.cmsModule = angular.module("cmsModule", ["ngRoute", "ngResource"])
+            angular.module.cmsModule = angular.module("cmsModule", ["ngRoute", "ngResource", "ngSanitize"])
 
                 /*
                  *  Basic routing configuration

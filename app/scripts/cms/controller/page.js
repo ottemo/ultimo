@@ -11,10 +11,11 @@
                 "$scope",
                 "$routeParams",
                 "$location",
+                "$sce",
                 "$cmsApiService",
                 "$cmsPageService",
                 "$commonPageService",
-                function ($scope, $routeParams, $location, $cmsApiService, $cmsPageService, $commonPageService) {
+                function ($scope, $routeParams, $location, $sce, $cmsApiService, $cmsPageService, $commonPageService) {
                     var getDefaultPage;
 
                     getDefaultPage = function () {
@@ -42,6 +43,10 @@
                             }
                         }
                     );
+
+                    $scope.getContent = function() {
+                        return $sce.trustAsHtml($scope.page.content);
+                    };
 
                 }
             ]
