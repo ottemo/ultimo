@@ -155,7 +155,7 @@
                             $cartService.add($scope.productId, $scope.qty, $pdpProductService.getOptions()).then(
                                 function (response) {
                                     if (response.error !== "") {
-                                        $scope.message = {
+                                        $scope.messageOptions = {
                                             'type': 'danger',
                                             'message': response.error
                                         };
@@ -274,7 +274,7 @@
                      * Saves review and rating for product
                      */
                     $scope.saveReview = function () {
-                        $scope.submitted = true;
+                        $scope.submittedReview = true;
                         if (!$scope.reviewForm.$invalid) {
                             $pdpApiService.addReview(
                                 {
@@ -292,12 +292,12 @@
                                             $scope.ratingInfo[response.result.rating + "star"] += 1;
                                         }
                                         $scope.review = {};
-                                        $scope.submitted = false;
+                                        $scope.submittedReview = false;
                                         $scope.reviewForm.review.$pristine = true;
                                         $scope.review.stars = 0;
                                         reinitializeStars();
                                     } else {
-                                        $scope.message = {
+                                        $scope.messageReview = {
                                             'type': 'danger',
                                             'message': response.error
                                         };

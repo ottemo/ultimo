@@ -17,7 +17,7 @@
                     "getProducts": {
                         method: "GET",
                         params: { id: "@id" },
-                        url: categoryBaseURL + "/products/:id"
+                        url: categoryBaseURL + "/product/list/:id"
                     },
                     "load": {
                         method: "GET",

@@ -97,6 +97,7 @@
                 <!--<a href>View more<b class="caret"></b></a>-->
             </div>
         </div>
+        <div  ng-if="!items.length">&nbsp;</div>
     </aside>
         <div class="center-align">
             <div class="cat-prod" ng-repeat="_item in productsList | filter:searchText" ng-show="productsList.length">
@@ -159,9 +160,7 @@
                 <hr>
 
                 <!-- Custom options -->
-                <div class="form-group col-md-4">
-                    <gui-custom-options item="popupProduct" object="this"></gui-custom-options>
-                </div>
+                <gui-custom-options item="popupProduct" object="this"></gui-custom-options>
 
                 <div class="clear"></div>
                 <a href class="button" ng-click="addToCart(popupProduct._id)">
@@ -203,25 +202,7 @@
                 }
             });
 
-
-    /*    // dropping block hides when mouse goes out from it
-    $('.center-align').on('mousein','.tablet-shadow', function(){
-            console.log('yes');
-        });
-
-        $('.center-align').on('mouseout', '.cat-prod > a', function () {
-          if ($(window).width() > 1024)
-            if ($(this).parent().hasClass("active")) {
-              $(this).parent().removeClass('active');
-            }
-
-            $(document).on('mouseenter','.tablet-shadow', function(){
-
-            });
-
-        });*/
-
-            // rating
+//            // rating
             setTimeout(function () {
                 $("input.rating").each(function () {
 

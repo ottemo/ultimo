@@ -13,7 +13,6 @@
                 function ($scope, $location, $routeParams, $visitorLoginService, $visitorApiService) {
                     var activePath;
 
-                    $scope.addedOrderId = $routeParams.successId;
                     $scope.orderId = $routeParams.id;
 
                     $scope.visitor = $visitorLoginService.getVisitor();
@@ -24,14 +23,9 @@
 
                         // BREADCRUMBS
                         $scope.$emit('add-breadcrumbs', {'label': 'myAccount', 'url': '/account'});
-                        $scope.$emit('add-breadcrumbs', {'label': 'Order', 'url': '/account/order/list'});
+                        $scope.$emit('add-breadcrumbs', {'label': 'Order', 'url': '/account/orders'});
 
                         activePath = $location.path();
-
-                        if ($scope.orderId) {
-
-                            $scope.$emit('add-breadcrumbs', {'label': $scope.orderId, 'url': '/account/order/' + $scope.orderId});
-                        }
 
                         isLoggedIn = $scope.visitorService.isLoggedIn();
                         if (isLoggedIn === null) {
@@ -49,33 +43,30 @@
                         }
                     };
 
-                    $visitorApiService.getOrderList().$promise.then(
-                        // TODO: reduce cylomatic complexity in function call
-                        function (response) {                                   // jshint ignore:line
-                            var i, isAddedExist, isExist;
-                            isAddedExist = false;
-                            $scope.ordersList = response.result || [];
+                    if (!$scope.orderId) {
+                        $visitorApiService.getOrderList({"extra": "created_at,status,grand_total"}).$promise.then(
+                            function (response) {                                   // jshint ignore:line
+                                var i, isExist;
+                                $scope.ordersList = response.result || [];
 
-                            for (i = 0; i < $scope.ordersList.length; i += 1) {
-                                if ($scope.addedOrderId === $scope.ordersList[i].increment_id) {        // jshint ignore:line
-                                    isAddedExist = true;
-                                }
-                                if ($scope.orderId === $scope.ordersList[i].increment_id) {             // jshint ignore:line
-                                    isExist = true;
+                                for (i = 0; i < $scope.ordersList.length; i += 1) {
+                                    if ($scope.orderId === $scope.ordersList[i].increment_id) {             // jshint ignore:line
+                                        isExist = true;
+                                    }
                                 }
                             }
+                        );
+                    }
 
-                            if (typeof $scope.addedOrderId !== 'undefined' && !isAddedExist) {
-                                $scope.addedOrderId = null;
-                                $location.path('/account/order/list');
-                            }
+                    if ($scope.orderId) {
+                        $visitorApiService.getOrder({"id": $scope.orderId}).$promise.then(
+                            function (response) {                                   // jshint ignore:line
+                                $scope.order = response.result || [];
+                                $scope.$emit('add-breadcrumbs', {'label': $scope.order.increment_id, 'url': '/account/order/' + $scope.orderId});// jshint ignore:line
 
-                            if (typeof $scope.orderId !== 'undefined' && !isExist) {
-                                $scope.orderId = null;
-                                $location.path('/account/order/list');
                             }
-                        }
-                    );
+                        );
+                    }
 
                     $scope.getDateCreated = function (str) {
                         var date, month, day;

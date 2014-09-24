@@ -226,6 +226,7 @@ header nav {
     height: 43px;
     width: 300px;
     position: relative;
+    margin-right: 55px;
 }
 .top-right  > a {
     display: block;
@@ -237,7 +238,7 @@ header nav {
     background: url(../images/cart.png) no-repeat left top;
     height: 21px;
     width: 22px;
-    margin: 11px 55px 0 0;
+    margin: 11px 0 0;
 }
 .cart-num {
     background: url(../images/circle.png) no-repeat left top;
@@ -349,7 +350,7 @@ li.active .nav-active {
     width: 312px;
     z-index: 330;
     position: absolute;
-    right: 2px;
+    right: 0;
     top: 43px;
 }
 .mini-cart img {
@@ -1552,17 +1553,26 @@ li.active .nav-active {
     width: 52.3%;
     margin: 17px 0 0 55px;
 }
-.pdp-info h2, .tab-wrap > p {
+.pdp-info h2, .tab-wrap p {
     color: #242424;
     display: block;
     float: left;
     font: 40px 'overlockblack',sans-serif;
-    width: 57%;
 }
+.pdp-filters .spinner {
+    width: 77%;
+}
+.tab-wrap p {
+    width: 100%;
+    text-align: right;
+}
+.pdp-info h2 {
+        width: 60%;
+    }
 .tab-wrap > p {
     float: right;
     text-align: right;
-    width: 43%;
+    width: 40%;
 }
 .tab-wrap p.pdp-total {
     color: #242425;
@@ -1572,17 +1582,71 @@ li.active .nav-active {
     margin-top: 5px;
 }
 .tab-wrap p.pdp-total + p {
-    font-size: 55px;
+    float: right;
+    text-align: right;
 }
-.pdp-info .input-group input.form-control {
-    width: 144px;
+.pdp-info .col-md-9,
+.pdp-info .col-md-3,
+.pdp-info .col-md-6 {
+    padding-left: 0;
+    padding-right: 30px;
+    margin-bottom: 10px;
+}
+.pdp-info .col-md-9 + .col-md-3 {
+    padding-right: 0;
+}
+.pdp-filters .form-group {
+     float: left;
+     margin-bottom: 0;
+ }
+.multi_select .form-group {
+    width: 33.3333%;
+}
+.quickshop .multi_select .form-group {
+   width: 46%;
+   float: left;
+}
+.custom-option .col-md-6 {
+    margin-bottom: 10px;
+}
+.quickshop select {
+    width: 112%;
+}
+.quickshop .multi_select .form-group:nth-child(even) {
+   float: right;
+}
+.quickshop .multi_select  {
+   padding: 0 15px;
+}
+.pdp-info .col-md-12 {
+    margin-bottom: 10px;
+    padding: 0;`
+}
+.pdp-info .checkboxes {
+    float: left;
+    padding-left: 0;
+    width: 35px;
+}
+.pdp-info .checkboxes + label {
+    float: left;
+}
+.pdp-filters select {
+    width: 112%;
+}
+.pdp-info input.form-control {
+    width: 100%;
     height: 42px;
-    -webkit-border-top-left-radius: 5px;
-    -moz-border-top-left-radius: 5px;
-    border-top-left-radius: 5px;
-    -webkit-border-bottom-left-radius: 5px;
-    -moz-border-bottom-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.pdp-info .spinner-block input.form-control{
+    -webkit-border-top-right-radius: 0;
+    -moz-border-top-right-radius: 0;
+    border-top-right-radius: 0;
+    -webkit-border-bottom-right-radius: 0;
+    -moz-border-bottom-right-radius: 0;
+    border-bottom-right-radius: 0;
 }
 .pdp-info .input-group .form-control:not(:first-child):not(:last-child) {
     -webkit-border-top-left-radius: 5px;
@@ -1615,7 +1679,6 @@ li.active .nav-active {
     margin-bottom: 7px;
 }
 .pdp-filters {
-    width: 53%;
     float: left;
     margin-top: 9px;
 }
@@ -1700,7 +1763,6 @@ li.active .nav-active {
 .pdp-img img {
     border: 1px solid #DBDBDB;
 }
-
 .rating {
     border-top: 1px solid #E2E2E2;
     margin-top: 36px;
@@ -1763,7 +1825,9 @@ li.active .nav-active {
     margin: 8px 0 21px;
 }
 .form-control {
-    background-color: #efefef;
+   // background-color: #efefef;
+}
+.form-control {
     border-radius: 0;
     height: 58px;
 }
@@ -1916,7 +1980,6 @@ progress::-moz-progress-bar {
     float: right;
     margin: 28px 55px 0 0;
     width: 36.3%;
-   // height: 580px;
 }
 .pdp-slider .centered-btns_nav {
     background: url("../images/tablet/tab-arrowL.png") no-repeat scroll left top rgba(0, 0, 0, 0);
@@ -1926,7 +1989,6 @@ progress::-moz-progress-bar {
 }
 .big {
     width: 73%;
-  //  height: 580px;
     float: left;
 }
 .big img {
@@ -1948,40 +2010,29 @@ progress::-moz-progress-bar {
 .slider-bottom.img-thumbnail {
     box-shadow: none;
 }
-    * {
-    margin:0;
-    padding:0;
-    }
-    html, body {
-    width:100%;
-    }
-    #content
-    {
+#content {
     width:100%;
     height:150px;
     background-color: black;
     position:relative;
-    }
-    #elastic
-    {
+}
+#elastic {
     width:100%;
     height:100%;
     background-color: yellow;
     float:left;
-
-    }
-    #fixed
-    {
+}
+#fixed {
     position: absolute;
     left:0;
     width:150px;
     height:100%;
     background-color: green;
-
-    }
+}
 .pdp-slider .slider {
     display: none;
 }
+
 
 /* ////////////////////////////////////////////////////////////////////////////////////////////////////////  end pdp */
 
@@ -2584,6 +2635,7 @@ select {
 }
 .login-page .col-md-4 {
     height: 320px;
+    margin-bottom: 30px;
 }
 .login-page .col-md-10 {
     float: none;
@@ -2770,7 +2822,8 @@ select {
     padding-left: 15px;
     padding-right: 0px;;
 }
-.registration-page .col-md-10 .col-md-6:nth-child(5) {
+.registration-page .col-md-10 .col-md-6:nth-child(5),
+.registration-page .col-md-10 .col-md-6:nth-child(7) {
     padding-left: 0;
     padding-right: 15px;
 }
@@ -2788,6 +2841,9 @@ select {
 }
 .registration-page .col-md-10 .col-md-6:nth-child(6) {
     padding-right: 0;
+}
+.ui-datepicker-title select {
+    height: 29px;
 }
 
 /* ////////////////////////////////////////////////////////////////////////////////////////////////// end login-page */
@@ -3433,9 +3489,16 @@ footer nav li span {
         float: left;
         width: 100%;
     }
+    .login-page .col-md-4 {
+        margin-bottom: 0;
+    }
     .order-detail .btns {
         float: none;
         margin: 30px auto;
+    }
+    .login a {
+        margin-bottom: 0;
+        font-size: 20px;
     }
     .parent_popup .ch-form .checkboxes + label {
         margin-top: 0;
@@ -3826,6 +3889,9 @@ footer nav li span {
     .ch-form .form-group {
         margin-bottom: 11px;
     }
+    .ch-shipping .form-group {
+        margin-bottom: 20px;
+    }
     .h-block .cart-num {
         display: block;
     }
@@ -3887,8 +3953,40 @@ footer nav li span {
         font-size: 26px;
     }
     .tab-wrap .input-group input.form-control {
-        width: 100px;
+        width: 100%;
         height: 58px;
+    }
+    .pdp-info input.form-control {
+        height: 58px;
+    }
+    .multi_select .form-group {
+        margin-bottom: 15px;
+    }
+    .pdp-info select {
+        height: 58px;
+    }
+    .pdp-info .col-md-6 {
+        width: 50%;
+        float: left;
+    }
+    .pdp-info .col-md-3 {
+        width: 25%;
+        float: left;
+    }
+    .pdp-info .col-md-9 {
+        width: 75%;
+        float: left;
+    }
+    .pdp-info .select {
+        background: url("../images/tablet/select.png") no-repeat scroll 100% 0 #ffffff;
+    }
+    .pdp-info .myCheckbox span {
+        background: url("../images/ch-checkbox.jpg") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+        height: 31px;
+        width: 31px;
+    }
+    .pdp-info .myCheckbox input:checked + span {
+        background: url("../images/ch-checkbox-active.jpg") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
     }
     .tab-wrap .input-group-btn-vertical > .btn {
         padding: 15px 30px;
@@ -3983,9 +4081,6 @@ footer nav li span {
     }
     .pdp-btn + div + p {
         width: 100%;
-    }
-    .pdp-filters {
-        width: 50%;
     }
     .pdp-btn {
         width: 40%;
@@ -4378,6 +4473,16 @@ footer nav li span {
     .quickshop .right-block {
         width: 58%;
     }
+    .registration {
+        width: 80%;
+        margin: 30px auto;
+    }
+    .pdp-filters .spinner {
+        width: 80%;
+    }
+    .pdp-info h2, .tab-wrap p {
+        font-size: 30px;
+    }
 }
 
 /* //////////////////////////////////////////////////////////////////////////////////////  end responsive design 1024*/
@@ -4385,6 +4490,9 @@ footer nav li span {
 @media screen and (max-width: 768px){
     .center-block {
         margin-top: 0.4%;
+    }
+    .pdp-filters .spinner {
+        width: 71%;
     }
     .od-block {
         margin-right: 10px;
@@ -4480,6 +4588,9 @@ footer nav li span {
         height: 28px;
         width: 20px;
         top: 46%;
+    }
+    .pdp-filters .spinner {
+        width: 67%;
     }
     .parent_popup_address .popup {
         min-width: 270px;
@@ -4579,6 +4690,21 @@ footer nav li span {
     .slider-btn {
         left: 42.2%;
     }
+    .pdp-filters .spinner {
+        width: 70%;
+    }
+    .pdp-info .col-md-9 {
+        width: 100%;
+    }
+    .pdp-info .col-md-3 {
+        float: right;
+    }
+    .pdp-info .col-md-9 + .col-md-3 + div.clear {
+        display: none;
+    }
+    .pdp-info .col-md-3 {
+        width: 50%;
+    }
     .slider-btn {
         top: 85.532%;
     }
@@ -4645,12 +4771,39 @@ footer nav li span {
     .od-block {
         margin-right: 30px;
     }
+    .pdp-info .col-md-9 {
+        padding-right: 0;
+    }
 }
 
 /* ////////////////////////////////////////////////////////////////////////////////////  start responsive design 480 */
 
 @media screen and (max-width: 480px){
     .pdp-filters {
+        width: 100%;
+    }
+    .tab-wrap > p {
+        width: 100%;
+    }
+    .pdp-filters .spinner {
+        width: 84%;
+    }
+    .pdp-info .col-md-9 + .col-md-3 + div.clear {
+        display: block;
+    }
+    .pdp-info .col-md-3 {
+        width: 100%;
+    }
+    .tab-wrap p.pdp-total {
+        float: right;
+    }
+    .ch-payment .ch-form > div .col-md-4 select {
+        width: 115%;
+    }
+    .checkout .ch-form input, .checkout .ch-form select {
+        font-size: 21px;
+    }
+    .parent_popup_address .right .col-md-6 {
         width: 100%;
     }
     .parent_popup_address .address-form .col-md-3 {
@@ -4699,10 +4852,14 @@ footer nav li span {
         width: 50%;
         float: left;
     }
-    .login .modal-dialog {
+    .login .modal-dialog,
+    .registration {
         margin: 30px auto;
         min-width: 300px;
         width: 90%;
+    }
+    .registration .col-md-6 {
+        padding: 0;
     }
     .checkout-accordion .next, .checkout-accordion .back, .checkout-accordion .yellow {
         width: 262px;
@@ -4758,10 +4915,19 @@ footer nav li span {
         box-shadow: inset -1px 10px 6px -9px rgba(45, 45, 45, 0.31);
     }
     .tab-wrap p.pdp-total {
-        float: left;
         margin-top: 15px;
         text-align: right;
         width: 52%;
+    }
+    .pdp-info h2 {
+        width: 100%;
+    }
+    .pdp-info .col-md-6 {
+        width: 100%;
+        padding: 0;
+    }
+    .multi_select .form-group {
+        width: 50%;
     }
     .home .c-img-tablet {
         background-color: #CBCBCB;
@@ -4802,7 +4968,7 @@ footer nav li span {
         width: 100%;
     }
     .pdp-btn {
-        width: 70%;
+        width: 100%;
     }
     .cat-prod {
         width: 50%;
@@ -5072,11 +5238,35 @@ footer nav li span {
     .account-order table th {
         height: 48px;
     }
-
+    .registration-page .col-md-10 .col-md-6:nth-child(7) {
+        margin-bottom: 70px;
+    }
 
 }
 
 /* //////////////////////////////////////////////////////////////////////////////////////  end responsive design 480 */
+
+@media screen and (max-width: 440px){
+    .pdp-filters .spinner {
+        width: 82%;
+    }
+}
+@media screen and (max-width: 400px){
+    .pdp-filters .spinner {
+        width: 80%;
+    }
+}
+@media screen and (max-width: 360px){
+    .pdp-filters .spinner {
+        width: 78%;
+    }
+}
+@media screen and (max-width: 320px){
+    .pdp-filters .spinner {
+        width: 78%;
+    }
+}
+
 
 /* //////////////////////////////////////////////////////////////////////////////////////////  end responsive design */
 /*!

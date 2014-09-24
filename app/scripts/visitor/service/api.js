@@ -64,8 +64,13 @@
                             url: visitorBaseURL + "/address/delete/:id"
                         },
                         "getOrderList": {
-                            method: "GET",
+                            method: "POST",
                             url: visitorBaseURL + "/order/list"
+                        },
+                        "getOrder": {
+                            method: "GET",
+                            params: { id: "@id" },
+                            url: visitorBaseURL + "/order/details/:id"
                         }
                     });
             }]);

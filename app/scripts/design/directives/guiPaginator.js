@@ -25,7 +25,7 @@
                         return result;
                     };
 
-                    $scope.isShow = function() {
+                    $scope.isShow = function () {
                         return $scope.parent.pages;
                     };
 
@@ -35,24 +35,18 @@
                      * @param {string} page
                      * @returns {string}
                      */
-                    $scope.getClass = function (page) { // jshint ignore:line
+                    $scope.getClass = function (page) {
                         var _class;
-                        _class = '';
-                        switch (page){
-                            case 'prev':
-                                if($scope.parent.currentPage === 0){
-                                    _class = 'disabled';
-                                }
-                                break;
-                            case 'next':
-                                if($scope.parent.currentPage + 1 >= $scope.parent.pages){
-                                    _class = 'disabled';
-                                }
-                                break;
-                            default:
-                                if (page === parseInt(($scope.parent.currentPage+1), 10)) {
-                                    _class = 'active';
-                                }
+                        _class = "";
+
+                        if (page === parseInt(($scope.parent.currentPage + 1), 10)) {
+                            _class = 'active';
+                        } else {
+                            if ("prev" === page && $scope.parent.currentPage === 0) {
+                                _class = 'disabled';
+                            } else if ("next" === page && $scope.parent.currentPage + 1 >= $scope.parent.pages) {
+                                _class = 'disabled';
+                            }
                         }
 
                         return _class;
@@ -64,30 +58,27 @@
                      * @param {string} page
                      * @returns {string}
                      */
-                    // TODO: reduce cyclomatic complexity
-                    $scope.getURI = function(page){         // jshint ignore:line
+                    $scope.getURI = function (page) {
                         var _page;
                         _page = 1;
-                        switch (page){
+                        switch (page) {
                             case 'prev':
-                                if($scope.parent.currentPage !== 0){
+                                if ($scope.parent.currentPage !== 0) {
                                     _page = $scope.parent.currentPage;
                                 }
                                 break;
                             case 'next':
-                                if($scope.parent.currentPage < $scope.parent.pages - 1){
+                                if ($scope.parent.currentPage < $scope.parent.pages - 1) {
                                     _page = $scope.parent.currentPage + 2;
                                 } else {
                                     _page = $scope.parent.pages;
                                 }
                                 break;
-                            case 'all':
-                                    _page = page;
-                                break;
                             default:
                                 _page = page;
                         }
-                        return $scope.parent.uri.replace(':page',_page);
+
+                        return $scope.parent.uri.replace(':page', _page);
                     };
                 }
             };

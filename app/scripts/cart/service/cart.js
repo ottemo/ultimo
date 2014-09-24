@@ -185,7 +185,6 @@
                             }
                         );
 
-
                         return deferAddItem.promise;
                     };
 

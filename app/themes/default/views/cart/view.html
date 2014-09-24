@@ -52,16 +52,8 @@
         <h6>summary</h6>
         <div class="total-line">
             <p class="total-title">Cart items</p>
-            <div class="value">{{it.getCountItems() | currency}}</div>
+            <div class="value">{{it.getCountItems()}}</div>
         </div>
-        <!--<div class="total-line">-->
-            <!--<p class="total-title">Sales Tax</p>-->
-            <!--<div class="value">{{getSalesTax() | currency}}</div>-->
-        <!--</div>-->
-        <!--<div class="total-line">-->
-            <!--<p class="total-title">Shipping</p>-->
-            <!--<div class="value">{{getShipping() | currency}}</div>-->
-        <!--</div>-->
         <div class="total-line">
             <p class="total-title">Cart total</p>
             <div class="value">{{getSubtotal() | currency}}</div>

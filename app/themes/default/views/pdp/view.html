@@ -38,8 +38,8 @@
     <div class="tab-wrap">
         <h2>{{product.name}}</h2>
         <p>{{product.price | currency}}</p>
-        <div class="pdp-filters">
-            <div class="container">
+        <div class="pdp-filters col-md-9">
+            <div class="col-md-6">
                 <div class="input-group spinner pdp-spinner">
                     <label>Quantity</label>
 
@@ -54,20 +54,19 @@
                     </div>
                 </div>
             </div>
-            <div class="clear"></div>
-
             <!-- Custom options -->
-            <div class="container">
-                <gui-custom-options item="product" object="this"></gui-custom-options>
-            </div>
+            <gui-custom-options item="product" object="this"></gui-custom-options>
 
             <div class="clear"></div>
         </div>
-        <p class="pdp-total">Total:</p>
-        <p>{{product.price * qty | number:2}}</p>
+        <div class="col-md-3">
+            <p class="pdp-total">Total:</p>
+            <div class="clear"></div>
+            <p>{{product.price * qty | number:2 | currency}}</p>
+        </div>
         <div class="clear"></div>
         <div class="pdp-btn">
-            <gui-message-manager item="message"></gui-message-manager>
+            <gui-message-manager item="messageOptions"></gui-message-manager>
             <a href="" target="_self" ng-click="addToCart()">
                 <span class="remove glyphicon glyphicon-plus"></span>
                 cart
@@ -181,11 +180,11 @@
                    data-size="xxs">
 
             <div class="col-md-12">
-                <gui-message-manager item="message"></gui-message-manager>
-                <div ng-class="{ 'has-error' : (submitted && reviewForm.review.$error.required) || (reviewForm.review.$invalid && !reviewForm.review.$pristine) }">
+                <gui-message-manager item="messageReview"></gui-message-manager>
+                <div ng-class="{ 'has-error' : (submittedReview && reviewForm.review.$error.required) || (reviewForm.review.$invalid && !reviewForm.review.$pristine) }">
                     <input class="form-control" type="text" name="review" ng-model="review.comment" required>
 
-                    <p ng-show="(submitted && reviewForm.review.$error.required) || (reviewForm.review.$invalid && !reviewForm.review.$pristine)"
+                    <p ng-show="(submittedReview && reviewForm.review.$error.required) || (reviewForm.review.$invalid && !reviewForm.review.$pristine)"
                        class="help-block">This field is required.</p>
 
                 </div>

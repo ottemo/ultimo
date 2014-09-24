@@ -15,14 +15,14 @@
                 "$designStateService",
                 "$commonUtilService",
                 "$q",
-                "$http",
-                function ($scope, $location, $checkoutApiService, $designImageService, $visitorLoginService, $cartService, $designStateService, $commonUtilService, $q, $http) {    // jshint ignore:line
+                function ($scope, $location, $checkoutApiService, $designImageService, $visitorLoginService, $cartService,
+                          $designStateService, $commonUtilService, $q) {
 
                     var isLoggedIn, info, getDefaultAddress, getAddresses, getCurrentBillingID, getCurrentShippingID,
                         sendPostForm, retrieve, initAddressesData, initCurrentShippingMethod, initCurrentPaymentType,
-                        isValid, getPaymentInfo;
+                        isValid, getPaymentInfo, creditCartTypes;
 
-                    var creditCartTypes = {
+                    creditCartTypes = {
                         'VI': [new RegExp('^4[0-9]{12}([0-9]{3})?$'), new RegExp('^[0-9]{3}$'), true],
                         'MC': [new RegExp('^5[1-5][0-9]{14}$'), new RegExp('^[0-9]{3}$'), true]
                     };
@@ -301,16 +301,17 @@
                             $checkoutApiService.save().$promise.then(
                                 function (response) {
 
-                                    if (payment.method.Type === "remote" && response.result === "redirect") {
-                                        window.location.replace(response.redirect);
-                                    } else if (payment.method.Type === "post_cc") {
+                                    if (null !== payment.method && payment.method.Type === "remote" && response.result === "redirect") {
+                                        w.location.replace(response.redirect);
+                                    } else if (null !== payment.method && payment.method.Type === "post_cc") {
                                         // Handler for direct post form for Authorize.net
                                         sendPostForm(payment.method, response);
                                     } else if (response.error === "") {
                                         info();
                                         $cartService.reload().then(
                                             function () {
-                                                $location.path("/account/order/success/" + response.result.increment_id);       // jshint ignore:line
+                                                $scope.purchase = response.result || {};       // jshint ignore:line
+                                                $("#purchase-success").modal("show");
                                             }
                                         );
                                     } else {
@@ -526,7 +527,7 @@
                     $scope.$watch("useAsBilling", function () {
                         if ($scope.useAsBilling) {
 
-                            if ($scope.shipping_address._id !== 0 &&        // jshint ignore:line
+                            if ($scope.shipping_address._id !== 0 && // jshint ignore:line
                                 typeof $scope.shipping_address._id !== "undefined") {       // jshint ignore:line
                                 $scope.choiceBilling($scope.shipping_address._id);      // jshint ignore:line
                             }
@@ -578,36 +579,43 @@
 
                     }, true);
 
+                    $scope.closeSuccessPopup = function () {
+                        $(".modal").modal("hide");
+                        $(".modal-backdrop").remove();
+                        $location.path("/");
+                    };
+
                     $scope.validateCcNumber = function () {
                         var i, payment, result;
                         result = false;
 
                         payment = getPaymentInfo();
-                        // TODO: reduce cyclomatic complexity of function below and remove jshint comment
-                        function validateCreditCard(s) {        //jshint ignore:line
+
+                        var validateCreditCard = function (s) {
                             // remove non-numerics
-                            var v = "0123456789";
-                            var w = "";
+                            var a, c, m, k, j, x, w, v;
+                            v = "0123456789";
+                            w = "";
                             for (i = 0; i < s.length; i += 1) {
-                                var x = s.charAt(i);
+                                x = s.charAt(i);
                                 if (v.indexOf(x, 0) !== -1) {
                                     w += x;
                                 }
                             }
                             // validate number
-                            var j = w.length / 2;
-                            var k = Math.floor(j);
-                            var m = Math.ceil(j) - k;
-                            var c = 0;
+                            j = w.length / 2;
+                            k = Math.floor(j);
+                            m = Math.ceil(j) - k;
+                            c = 0;
                             for (i = 0; i < k; i += 1) {
-                                var a = w.charAt(i * 2 + m) * 2;
+                                a = w.charAt(i * 2 + m) * 2;
                                 c += a > 9 ? Math.floor(a / 10 + a % 10) : a;
                             }
                             for (i = 0; i < k + m; i += 1) {
                                 c += w.charAt(i * 2 + 1 - m) * 1;
                             }
                             return (c % 10 === 0);
-                        }
+                        };
 
                         if (payment.method === null && payment.form === null) {
                             return false;
@@ -620,8 +628,9 @@
                         payment.form.number.$invalidFormat = result;
                     };
                 }
-            ])
-        ;
+            ]
+        );
+
         return checkoutModule;
     });
 })(window, window.define, jQuery);

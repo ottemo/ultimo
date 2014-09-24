@@ -95,7 +95,7 @@
                 /*
                  *  $pageHeaderService implementation
                  */
-                .service('$commonHeaderService', [function () {
+                .service('$commonHeaderService', function () {
                     // Variables
                     var it;
                     // Functions
@@ -158,28 +158,21 @@
                         return transformMenu(it.menuLeft);
                     };
 
-                    // TODO: reduce cyclomatic complexity
-                    removeItem = function (menu, path) {        // jshint ignore:line
+                    removeItem = function (menu, path) {
                         var nameMenu, i, menuItem;
-                        nameMenu = null;
 
-                        switch (menu) {
-                            case 'left':
-                                nameMenu = 'menuLeft';
-                                break;
-                            case 'right':
-                                nameMenu = 'menuRight';
-                                break;
-                        }
-
-                        if (nameMenu === null) {
+                        if (menu === 'left') {
+                            nameMenu = 'menuLeft';
+                        } else if (menu === 'right') {
+                            nameMenu = 'menuRight';
+                        } else {
                             return false;
                         }
 
                         for (i = 0; i < it[nameMenu].length; i += 1) {
                             menuItem = it[nameMenu][i];
                             if (menuItem.path === path) {
-                                it[nameMenu].splice(i,1);
+                                it[nameMenu].splice(i, 1);
                                 return true;
                             }
 
@@ -195,7 +188,8 @@
                         'getMenuLeft': getMenuLeft,
                         'removeItem': removeItem
                     };
-                }]);
+                }
+            );
 
             return commonModule;
         });
