@@ -38,7 +38,7 @@
             <div class="clear"></div>
         </div>
         <div class="mini-cart-total" ng-hide="!it.getCountItems()">
-            <p>total: <span>{{it.getSubtotal() | number : 2 | currency}}</span></p>
+            <p>total: <span>{{it.getSubtotal() | currency}}</span></p>
         </div>
         <div class="item" ng-hide="it.getCountItems()">
             <p>Cart is empty</p>

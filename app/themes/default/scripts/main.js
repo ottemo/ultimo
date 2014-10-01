@@ -57,9 +57,9 @@
             $(".parent_popup").hide();
         });
 
-        setTimeout(function () {
-            $("#accordion").accordion();
-        }, 500);
+//        setTimeout(function () {
+//            $("#accordion").accordion();
+//        }, 500);
 
         // dropdown for checkout page
         $(".ch-form .dropdown-toggle").dropdown();

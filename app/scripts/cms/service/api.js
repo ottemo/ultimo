@@ -21,6 +21,11 @@
                             method: 'GET',
                             params: { id: '@id' },
                             url: cmsBaseURL + '/page/get/:id'
+                        },
+                        'getBlock': {
+                            method: 'GET',
+                            params: { id: '@id' },
+                            url: cmsBaseURL + '/block/get/:id'
                         }
                     });
                 }

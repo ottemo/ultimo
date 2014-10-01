@@ -1,0 +1,823 @@
+<html class="no-js lt-ie9 lt-ie8 ng-scope" id="ng-app" ng-app="commonModule"><head><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide{display:none !important;}ng\:form{display:block;}</style>
+
+    <base href="."><script src="https://apis.google.com/_/scs/apps-static/_/js/k=oz.gapi.uk.3FgARU5IDwM.O/m=client/rt=j/sv=1/d=1/ed=1/am=AQ/rs=AItRSTPs-3WkLIveuW-ABbw2KsND7bJwXQ/cb=gapi.loaded_0" async=""></script><script type="text/javascript" async="" src="https://apis.google.com/js/client.js?onload=onLoadCallback" gapi_processed="true"></script><script id="facebook-jssdk" src="//connect.facebook.net/ru_RU/sdk.js#xfbml=1&amp;appId=483159925160897&amp;version=v2.0"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="design/module" src="scripts/design/module.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="common/module" src="scripts/common/module.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="visitor/module" src="scripts/visitor/module.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="category/module" src="scripts/category/module.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="pdp/module" src="scripts/pdp/module.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="cart/module" src="scripts/cart/module.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="checkout/module" src="scripts/checkout/module.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="cms/module" src="scripts/cms/module.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="design/service/states" src="scripts/design/service/states.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="design/directives/guiListBar" src="scripts/design/directives/guiListBar.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="design/directives/guiPaginator" src="scripts/design/directives/guiPaginator.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="design/directives/guiMessageManager" src="scripts/design/directives/guiMessageManager.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="design/service/image" src="scripts/design/service/image.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="design/service/design" src="scripts/design/service/design.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="design/service/api" src="scripts/design/service/api.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="design/directives/design" src="scripts/design/directives/design.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="common/controllers" src="scripts/common/controllers.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="common/service/api" src="scripts/common/service/api.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="common/service/page" src="scripts/common/service/page.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="common/service/header" src="scripts/common/service/header.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="common/service/breadcrumbs" src="scripts/common/service/breadcrumbs.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="common/service/sidebar" src="scripts/common/service/sidebar.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="common/service/utils" src="scripts/common/service/utils.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="common/service/rewrite" src="scripts/common/service/rewrite.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="visitor/service/api" src="scripts/visitor/service/api.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="visitor/service/login" src="scripts/visitor/service/login.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="visitor/controller/login" src="scripts/visitor/controller/login.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="visitor/controller/logout" src="scripts/visitor/controller/logout.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="visitor/controller/address" src="scripts/visitor/controller/address.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="visitor/controller/account" src="scripts/visitor/controller/account.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="visitor/controller/order" src="scripts/visitor/controller/order.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="category/service/api" src="scripts/category/service/api.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="category/service/category" src="scripts/category/service/category.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="category/controller" src="scripts/category/controller.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="pdp/service/api" src="scripts/pdp/service/api.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="pdp/service/options" src="scripts/pdp/service/options.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="pdp/service/product" src="scripts/pdp/service/product.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="pdp/directive/guiCustomOptions" src="scripts/pdp/directive/guiCustomOptions.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="pdp/controller" src="scripts/pdp/controller.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="cart/service/api" src="scripts/cart/service/api.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="cart/service/cart" src="scripts/cart/service/cart.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="cart/controller" src="scripts/cart/controller.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="checkout/service/api" src="scripts/checkout/service/api.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="checkout/controller" src="scripts/checkout/controller.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="cms/service/api" src="scripts/cms/service/api.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="cms/service/page" src="scripts/cms/service/page.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="cms/controller/page" src="scripts/cms/controller/page.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="angular" src="scripts/../lib/angular/angular.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="design/init" src="scripts/design/init.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="common/init" src="scripts/common/init.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="visitor/init" src="scripts/visitor/init.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="visitor/service/facebook" src="scripts/visitor/service/facebook.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="visitor/service/google" src="scripts/visitor/service/google.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="category/init" src="scripts/category/init.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="pdp/init" src="scripts/pdp/init.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="cart/init" src="scripts/cart/init.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="checkout/init" src="scripts/checkout/init.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="cms/init" src="scripts/cms/init.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="themeFiles" src="scripts/design/themeFiles.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="angular-bootstrap" src="scripts/../lib/angular/ui-bootstrap-tpls.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="angular-route" src="scripts/../lib/angular/angular-route.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="angular-sanitize" src="scripts/../lib/angular/angular-sanitize.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="angular-resource" src="scripts/../lib/angular/angular-resource.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="angular-cookies" src="scripts/../lib/angular/angular-cookies.min.js"></script>
+    <!--<meta name="fragment" content="!"/>-->
+    <meta name="viewport" content="width=device-width, maximum-scale=1, minimum-scale=1, initial-scale=1, user-scalable=0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title ng-bind="page.getTitle()" class="ng-binding"></title>
+
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width initial-scale=1">
+
+    <!-- ngRepeat: stylesheet in getCss() --><link ng-repeat="stylesheet in getCss()" ng-href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" type="text/css" rel="stylesheet" class="ng-scope" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css"><!-- end ngRepeat: stylesheet in getCss() --><link ng-repeat="stylesheet in getCss()" ng-href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" type="text/css" rel="stylesheet" class="ng-scope" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"><!-- end ngRepeat: stylesheet in getCss() --><link ng-repeat="stylesheet in getCss()" ng-href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css" type="text/css" rel="stylesheet" class="ng-scope" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css"><!-- end ngRepeat: stylesheet in getCss() --><link ng-repeat="stylesheet in getCss()" ng-href="themes/default/styles/customStorefront.css" type="text/css" rel="stylesheet" class="ng-scope" href="themes/default/styles/customStorefront.css"><!-- end ngRepeat: stylesheet in getCss() --><link ng-repeat="stylesheet in getCss()" ng-href="themes/default/styles/style.css" type="text/css" rel="stylesheet" class="ng-scope" href="themes/default/styles/style.css"><!-- end ngRepeat: stylesheet in getCss() -->
+
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f2f2f2;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3b5998;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #29447e;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f2f2f2;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}
+.fbpluginrecommendationsbarleft,.fbpluginrecommendationsbarright{position:fixed !important;bottom:0;z-index:999}.fbpluginrecommendationsbarleft{left:10px}.fbpluginrecommendationsbarright{right:10px}</style></head>
+
+<body class="metro ng-scope" ng-controller="commonController" data-status="ready">
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+<!-- ngInclude: undefined --><ng-include src="getTopPage()" class="ng-scope"><add-css src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" class="ng-scope"></add-css>
+<add-css src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" class="ng-scope"></add-css>
+<add-css src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css" class="ng-scope"></add-css>
+
+<add-css src="customStorefront.css" class="ng-scope"></add-css>
+<add-css src="style.css" class="ng-scope"></add-css>
+
+<div id="pageTable" class="GlobalWrapper ng-scope" name="top">
+    <div id="cellPageHeader" class="GlobalHeader">
+        <!-- ngInclude: undefined --><ng-include src="getTemplate('common/header.html')" class="ng-scope"><div class="top ng-scope">
+    <div class="top-center">
+        <nav>
+            <ul ng-controller="commonSidebarController" class="ng-scope">
+                <!-- ngRepeat: item in sidebar.getItems() --><li ng-repeat="item in sidebar.getItems()" class="ng-scope">
+                    <a href="#/" title="Home" class="ng-binding">Home</a><!-- ngIf: !$last --><span ng-if="!$last" class="ng-scope"></span><!-- end ngIf: !$last -->
+                </li><!-- end ngRepeat: item in sidebar.getItems() --><li ng-repeat="item in sidebar.getItems()" class="ng-scope">
+                    <a href="#/blog.html" title="BLOG" class="ng-binding">BLOG</a><!-- ngIf: !$last --><span ng-if="!$last" class="ng-scope"></span><!-- end ngIf: !$last -->
+                </li><!-- end ngRepeat: item in sidebar.getItems() --><li ng-repeat="item in sidebar.getItems()" class="ng-scope">
+                    <a href="#/stocklist.html" title="STOCKISTS" class="ng-binding">STOCKISTS</a><!-- ngIf: !$last --><span ng-if="!$last" class="ng-scope"></span><!-- end ngIf: !$last -->
+                </li><!-- end ngRepeat: item in sidebar.getItems() --><li ng-repeat="item in sidebar.getItems()" class="ng-scope">
+                    <a href="#/about.html" title="ABOUT" class="ng-binding">ABOUT</a><!-- ngIf: !$last --><span ng-if="!$last" class="ng-scope"></span><!-- end ngIf: !$last -->
+                </li><!-- end ngRepeat: item in sidebar.getItems() --><li ng-repeat="item in sidebar.getItems()" class="ng-scope">
+                    <a href="#/press.html" title="PRESS" class="ng-binding">PRESS</a><!-- ngIf: !$last -->
+                </li><!-- end ngRepeat: item in sidebar.getItems() -->
+            </ul>
+
+            <div class="top-right ng-scope" ng-controller="commonHeaderController">
+                <a href="" target="_self" ng-click="clickToCartDesktop()" ng-controller="visitorLoginController" class="ng-scope"></a>
+
+                <div class="cart-num ng-scope" ng-controller="cartListController">
+                    <p class="ng-binding">0</p>
+                </div>
+
+                <!-- ngRepeat: item in rightMenu.getMenuRight() --><a href="#/login" class="mini-cart-icon ng-scope ng-binding" ng-repeat="item in rightMenu.getMenuRight()">Login</a><!-- end ngRepeat: item in rightMenu.getMenuRight() -->
+                <!-- ngInclude: undefined --><ng-include src="getTemplate('cart/minicart.html')" ng-controller="cartListController" class="ng-scope"><div class="mini-cart ng-scope">
+    <div class="head">
+    </div>
+    <div class="content">
+        <!-- ngRepeat: item in it.getItemsForMiniCart() -->
+        <div class="mini-cart-total ng-hide" ng-hide="!it.getCountItems()">
+            <p>total: <span class="ng-binding">$0.00</span></p>
+        </div>
+        <div class="item" ng-hide="it.getCountItems()">
+            <p>Cart is empty</p>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="mini-cart-footer ng-hide" ng-hide="!it.getCountItems()">
+        <a href="#/checkout" target="_self" class="right">checkout</a>
+        <a href="#/cart" target="_self" class="left">view cart</a>
+    </div>
+</div>
+
+<script class="ng-scope">
+    jQuery(".mini-cart").find(".footer > a").click(function () {
+        jQuery(".mini-cart").hide();
+    });
+</script>
+<style class="ng-scope">
+    .mini-cart-more a {
+        color: #3e4146;
+    }
+</style></ng-include>
+            </div>
+        </nav>
+
+    </div>
+</div>
+<!-- Mobile Menu -->
+<header class="ng-scope">
+    <div class="h-block">
+
+        <div class="left-header-menu un-visible ng-scope" ng-controller="commonSidebarController">
+            <a class="open" href="#nav"></a>
+
+            <div id="nav">
+                <div class="left-header-menu-inner">
+                    <ul class="left-header-menu-items">
+                        <!-- ngRepeat: item in sidebar.getItems() --><li ng-repeat="item in sidebar.getItems()" class="ng-scope">
+                            <a href="#/" title="Home" ng-class="sidebar.getType(item.icon) == 'image' ? 'nav-left-link' : ''" ng-switch="sidebar.getType(item.icon)">
+                                <!-- ngSwitchWhen: glyphicon --><span ng-switch-when="glyphicon" class="glyphicon glyphicon-home"></span>
+                                <!-- ngSwitchWhen: image -->
+                                <span class="nav-left-link-text ng-binding">Home</span>
+                            </a>
+                        </li><!-- end ngRepeat: item in sidebar.getItems() --><li ng-repeat="item in sidebar.getItems()" class="ng-scope">
+                            <a href="#/blog.html" title="BLOG" ng-class="sidebar.getType(item.icon) == 'image' ? 'nav-left-link' : ''" ng-switch="sidebar.getType(item.icon)">
+                                <!-- ngSwitchWhen: glyphicon --><span ng-switch-when="glyphicon" class="glyphicon glyphicon-edit"></span>
+                                <!-- ngSwitchWhen: image -->
+                                <span class="nav-left-link-text ng-binding">BLOG</span>
+                            </a>
+                        </li><!-- end ngRepeat: item in sidebar.getItems() --><li ng-repeat="item in sidebar.getItems()" class="ng-scope">
+                            <a href="#/stocklist.html" title="STOCKISTS" ng-class="sidebar.getType(item.icon) == 'image' ? 'nav-left-link' : ''" ng-switch="sidebar.getType(item.icon)">
+                                <!-- ngSwitchWhen: glyphicon --><span ng-switch-when="glyphicon" class="glyphicon glyphicon-screenshot"></span>
+                                <!-- ngSwitchWhen: image -->
+                                <span class="nav-left-link-text ng-binding">STOCKISTS</span>
+                            </a>
+                        </li><!-- end ngRepeat: item in sidebar.getItems() --><li ng-repeat="item in sidebar.getItems()" class="ng-scope">
+                            <a href="#/about.html" title="ABOUT" ng-class="sidebar.getType(item.icon) == 'image' ? 'nav-left-link' : ''" ng-switch="sidebar.getType(item.icon)">
+                                <!-- ngSwitchWhen: glyphicon --><span ng-switch-when="glyphicon" class="glyphicon glyphicon-info-sign"></span>
+                                <!-- ngSwitchWhen: image -->
+                                <span class="nav-left-link-text ng-binding">ABOUT</span>
+                            </a>
+                        </li><!-- end ngRepeat: item in sidebar.getItems() --><li ng-repeat="item in sidebar.getItems()" class="ng-scope">
+                            <a href="#/press.html" title="PRESS" ng-class="sidebar.getType(item.icon) == 'image' ? 'nav-left-link' : ''" ng-switch="sidebar.getType(item.icon)">
+                                <!-- ngSwitchWhen: glyphicon --><span ng-switch-when="glyphicon" class="glyphicon glyphicon-book"></span>
+                                <!-- ngSwitchWhen: image -->
+                                <span class="nav-left-link-text ng-binding">PRESS</span>
+                            </a>
+                        </li><!-- end ngRepeat: item in sidebar.getItems() -->
+                    </ul>
+                </div>
+            </div>
+            </div>
+            <a href="#" id="mobnav-btn">
+                <img alt="logo" ng-src="themes/default/images/logo-main.png" src="themes/default/images/logo-main.png">
+            </a>
+
+        <div class="cart-num ng-scope" ng-controller="cartListController">
+            <p class="ng-binding">0</p>
+        </div>
+
+        <div class="cart-mob un-visible ng-scope" ng-controller="commonHeaderController">
+            <a href="" target="_self" ng-click="clickToCartDesktop()" ng-controller="visitorLoginController" class="ng-scope">
+                <img alt="menu" ng-src="themes/default/images/cart-mob.png" src="themes/default/images/cart-mob.png">
+            </a>
+            <!-- ngInclude: undefined --><ng-include src="getTemplate('cart/minicart.html')" ng-controller="cartListController" class="ng-scope"><div class="mini-cart ng-scope">
+    <div class="head">
+    </div>
+    <div class="content">
+        <!-- ngRepeat: item in it.getItemsForMiniCart() -->
+        <div class="mini-cart-total ng-hide" ng-hide="!it.getCountItems()">
+            <p>total: <span class="ng-binding">$0.00</span></p>
+        </div>
+        <div class="item" ng-hide="it.getCountItems()">
+            <p>Cart is empty</p>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="mini-cart-footer ng-hide" ng-hide="!it.getCountItems()">
+        <a href="#/checkout" target="_self" class="right">checkout</a>
+        <a href="#/cart" target="_self" class="left">view cart</a>
+    </div>
+</div>
+
+<script class="ng-scope">
+    jQuery(".mini-cart").find(".footer > a").click(function () {
+        jQuery(".mini-cart").hide();
+    });
+</script>
+<style class="ng-scope">
+    .mini-cart-more a {
+        color: #3e4146;
+    }
+</style></ng-include>
+        </div>
+
+        <nav ng-controller="commonHeaderController" class="ng-scope">
+            <ul>
+                <!-- ngRepeat: item in categories; --><!-- ngInclude: getTemplate('common/header/menuItem.html') --><li ng-repeat="item in categories;" ng-include="getTemplate('common/header/menuItem.html')" class="ng-scope"><a href="#/mens.html" target="" class="menu-item ng-scope ng-binding" onclick="clickLink(this)">
+    Mens
+</a>
+<!-- ngIf: item.child.length > 0 -->
+<!-- ngIf: item.child.length > 0 -->
+<!-- ngIf: item.child.length > 0 -->
+<script type="text/javascript" class="ng-scope">
+
+    clickLink = function(el){
+        jQuery(el).parent().siblings().removeClass('active');
+    }
+    jQuery('.h-block nav > ul > li a').click(
+        function () {
+            jQuery(this).parent().siblings().removeClass('active');
+        }
+    );
+    jQuery('.h-block nav > ul > li ul li').click(
+        function () {
+            jQuery('.h-block nav > ul > li').removeClass('active');
+        }
+    );
+    jQuery(".menu-item").click(function () {
+        jQuery('ul').removeClass("xactive");
+        jQuery('.sf-menu-container').removeClass('xactive-open');
+        jQuery('html, body').removeClass('category-open');
+        jQuery('li').removeClass('xpopdrop');
+    });
+</script>
+
+</li><!-- end ngRepeat: item in categories; --><!-- ngInclude: getTemplate('common/header/menuItem.html') --><li ng-repeat="item in categories;" ng-include="getTemplate('common/header/menuItem.html')" class="ng-scope"><a href="#/womens.html" target="" class="menu-item ng-scope ng-binding" onclick="clickLink(this)">
+    Womens
+</a>
+<!-- ngIf: item.child.length > 0 -->
+<!-- ngIf: item.child.length > 0 -->
+<!-- ngIf: item.child.length > 0 -->
+<script type="text/javascript" class="ng-scope">
+
+    clickLink = function(el){
+        jQuery(el).parent().siblings().removeClass('active');
+    }
+    jQuery('.h-block nav > ul > li a').click(
+        function () {
+            jQuery(this).parent().siblings().removeClass('active');
+        }
+    );
+    jQuery('.h-block nav > ul > li ul li').click(
+        function () {
+            jQuery('.h-block nav > ul > li').removeClass('active');
+        }
+    );
+    jQuery(".menu-item").click(function () {
+        jQuery('ul').removeClass("xactive");
+        jQuery('.sf-menu-container').removeClass('xactive-open');
+        jQuery('html, body').removeClass('category-open');
+        jQuery('li').removeClass('xpopdrop');
+    });
+</script>
+
+</li><!-- end ngRepeat: item in categories; --><!-- ngInclude: getTemplate('common/header/menuItem.html') --><li ng-repeat="item in categories;" ng-include="getTemplate('common/header/menuItem.html')" class="ng-scope"><a href="#/summer" target="" class="menu-item ng-scope ng-binding" onclick="clickLink(this)">
+    Summer
+</a>
+<!-- ngIf: item.child.length > 0 -->
+<!-- ngIf: item.child.length > 0 -->
+<!-- ngIf: item.child.length > 0 -->
+<script type="text/javascript" class="ng-scope">
+
+    clickLink = function(el){
+        jQuery(el).parent().siblings().removeClass('active');
+    }
+    jQuery('.h-block nav > ul > li a').click(
+        function () {
+            jQuery(this).parent().siblings().removeClass('active');
+        }
+    );
+    jQuery('.h-block nav > ul > li ul li').click(
+        function () {
+            jQuery('.h-block nav > ul > li').removeClass('active');
+        }
+    );
+    jQuery(".menu-item").click(function () {
+        jQuery('ul').removeClass("xactive");
+        jQuery('.sf-menu-container').removeClass('xactive-open');
+        jQuery('html, body').removeClass('category-open');
+        jQuery('li').removeClass('xpopdrop');
+    });
+</script>
+
+</li><!-- end ngRepeat: item in categories; -->
+                <div class="nav-close"></div>
+            </ul>
+        </nav>
+        <div class="clear"></div>
+    </div>
+</header>
+
+<script type="text/javascript" class="ng-scope">
+    jQuery(".open").pageslide();
+    jQuery(".open").on('click',function(){
+        jQuery(".h-block nav").removeClass('active');
+        jQuery(".category-tools div").css('display','none');
+        $('.list-bar span').removeClass('active');
+        $('.shadow').css('display','none');
+    });
+
+    jQuery('#mobnav-btn').click(
+            function () {
+                jQuery('.h-block nav').toggleClass("active");
+            }
+    );
+    jQuery('.nav-close').click(
+            function () {
+                jQuery('.h-block nav').removeClass("active");
+            }
+    );
+    jQuery('.h-block nav ul li').click(
+            function () {
+                jQuery('.h-block nav').removeClass("active");
+            }
+    );
+    jQuery('.mobnav-subarrow').click(
+            function () {
+                jQuery(this).parent().toggleClass("xpopdrop");
+            }
+    );
+    jQuery('.superfish-close').click(
+            function () {
+                jQuery('ul').removeClass("xactive");
+                jQuery('.sf-menu-container').removeClass('xactive-open');
+                jQuery('html, body').removeClass('category-open');
+                jQuery('li').removeClass('xpopdrop');
+            }
+    );
+    jQuery('#cart-menu').click(
+            function () {
+                jQuery(this).parent().find("ul").toggleClass("hidden");
+            }
+    );
+</script>
+</ng-include>
+    </div>
+    <div id="cellPageContent" class="cellPageContent">
+        <div id="cellPageBreadcrumbs" class="GlobalBreadcrumbs">
+            <!-- ngInclude: undefined --><ng-include src="getTemplate('common/breadcrumbs.html')" class="ng-scope"><div ng-controller="commonBreadcrumbsController" class="ng-scope">
+    <!-- ngRepeat: item in it.getItems() --><!-- ngIf: it.getItems().length > 1 --><div ng-repeat="item in it.getItems()" ng-if="it.getItems().length &gt; 1" class="ng-scope">
+        <a href="##" class="ng-binding">Home</a><span ng-hide="$last" class="">&nbsp;/&nbsp;</span>
+    </div><!-- end ngIf: it.getItems().length > 1 --><!-- end ngRepeat: item in it.getItems() --><!-- ngIf: it.getItems().length > 1 --><div ng-repeat="item in it.getItems()" ng-if="it.getItems().length &gt; 1" class="ng-scope">
+        <a href="##/product/53cf8efc6bc4de480f000052" class="ng-binding">FLIGHT CLUB TEE</a><span ng-hide="$last" class="ng-hide">&nbsp;/&nbsp;</span>
+    </div><!-- end ngIf: it.getItems().length > 1 --><!-- end ngRepeat: item in it.getItems() -->
+</div></ng-include>
+        </div>
+        <!-- ngView: undefined --><ng-view class="ng-scope"><div class="page-title ng-scope"></div>
+
+
+
+<!--Slider Block-->
+<div class="pdp-slider ng-scope">
+    <div class="big">
+        <img ng-src="media/image/Product/53cf8efc6bc4de480f000052/FC-1.jpg" alt="" src="media/image/Product/53cf8efc6bc4de480f000052/FC-1.jpg">
+    </div>
+    <!-- ngRepeat: img in productImages --><div class="small ng-scope" ng-repeat="img in productImages">
+        <img ng-src="media/image/Product/53cf8efc6bc4de480f000052/FC-1.jpg" alt="" src="media/image/Product/53cf8efc6bc4de480f000052/FC-1.jpg">
+    </div><!-- end ngRepeat: img in productImages -->
+    <section class="slider">
+        <div class="rslides_container">
+            <ul class="rslides centered-btns centered-btns1" id="slider1" style="max-width: 1024px; ">
+                <!-- ngRepeat: img in productImages --><li ng-repeat="img in productImages" class="ng-scope centered-btns1_on" id="centered-btns1_s0" style="float: left; position: relative; opacity: 1; z-index: 2; display: block; -webkit-transition-property: opacity; -webkit-transition-duration: 500ms; -webkit-transition-timing-function: ease-in-out; -webkit-transition-delay: initial; ">
+                    <img ng-src="media/image/Product/53cf8efc6bc4de480f000052/FC-1.jpg" alt="" src="media/image/Product/53cf8efc6bc4de480f000052/FC-1.jpg">
+                </li><!-- end ngRepeat: img in productImages -->
+            </ul>
+        </div>
+        <div class="slider-show">
+            <div class="slider-soc">
+                <a href=""></a>
+                <a href=""></a>
+                <a href=""></a>
+            </div>
+            <a href="#">shop now</a>
+        </div>
+        <div class="clear"></div>
+    </section>
+    <div class="small ng-hide" ng-hide="productImages.length">
+        <img ng-src="themes/default/images/placeholder.png" alt="" class="img-thumbnail" width="250px" height="250px" src="themes/default/images/placeholder.png">
+    </div>
+
+</div>
+<!--Info block-->
+<section class="pdp-info ng-scope">
+    <div class="tab-wrap">
+        <h2 class="ng-binding">FLIGHT CLUB TEE</h2>
+        <p class="ng-binding">$32.00</p>
+        <div class="pdp-filters col-md-9">
+            <div class="col-md-6">
+                <div class="input-group spinner pdp-spinner">
+                    <label>Quantity</label>
+
+                    <div class="spinner-block">
+                        <input placeholder="Qtl" type="text" class="form-control ng-pristine ng-valid" value="1" ng-model="qty" ng-change="update(idx, qty)">
+
+                        <div class="input-group-btn-vertical">
+                            <button class="btn" ng-click="changeQty(qty,'up')"><i></i></button>
+                            <button class="btn" ng-click="changeQty(qty,'down')"><i></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Custom options -->
+            <gui-custom-options item="product" object="this" class="ng-isolate-scope"><div data-ng-app="">
+    <form name="customOptionsForm" class="ng-pristine ng-valid">
+        <!-- ngRepeat: (key, option) in product.options | getOrdered -->
+    </form>
+</div></gui-custom-options>
+
+            <div class="clear"></div>
+        </div>
+        <div class="col-md-3">
+            <p class="pdp-total">Total:</p>
+            <div class="clear"></div>
+            <p class="ng-binding">$32.00</p>
+        </div>
+        <div class="clear"></div>
+        <div class="pdp-btn">
+            <gui-message-manager item="messageOptions" class="ng-isolate-scope"><!-- ngIf: msg -->
+
+<style>
+    .msg{
+        margin-bottom: 20px;
+    }
+</style></gui-message-manager>
+            <a href="" target="_self" ng-click="addToCart()">
+                <span class="remove glyphicon glyphicon-plus"></span>
+                cart
+            </a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div id="accordion">
+        <div class="accordion active">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseDetails" target="_self">
+                Description
+                <div>
+                    <span></span>
+                </div>
+            </a>
+            <div id="collapseDetails" class="panel-collapse collapse in">
+                <div class="acc-text ng-binding">
+                    FLIGHT CLUB design on White Tee
+RK Quote on back in Black
+4.3 oz (7.15 oz Canada)
+100% Deluxe combed ringspun cotton
+Super-soft, lightweight, slim-fit tee
+Preshrunk to minimize shrinkage.
+                </div>
+            </div>
+        </div>
+        <div class="accordion">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseReviews" target="_self">
+                returns &amp; exchanges
+                <div>
+                    <span></span>
+                </div>
+            </a>
+        </div>
+        <div id="collapseReviews" class="panel-collapse collapse">
+            <div class="acc-text">
+                <p>If you bought something in a shop and then just change your mind about it, you do not have any legal
+                    right to return the goods. However, many shops have a returns policy which lets you to take your
+                    items back to the shop for any reason and get a refund.
+                </p>
+
+                <p> But you may have rights if you're not happy with the quality of the goods or the item is broken or
+                    faulty in some way.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="clear ng-scope"></div>
+<section class="c-img pdp-img ng-scope">
+    <!-- ngRepeat: _item in products --><div ng-repeat="_item in products" ng-show="products.length" class="ng-scope">
+        <a class="" href="#/loyal-chains">
+            <img ng-src="media/image/Product/53cf88d76bc4de480f00000b/LC-1.jpeg" alt="_item.Name" src="media/image/Product/53cf88d76bc4de480f00000b/LC-1.jpeg">
+        </a>
+    </div><!-- end ngRepeat: _item in products --><div ng-repeat="_item in products" ng-show="products.length" class="ng-scope">
+        <a class="" href="#/product/53cf89a16bc4de480f00000e">
+            <img ng-src="media/image/Product/53cf89a16bc4de480f00000e/LCREST-Z1F.jpeg" alt="_item.Name" src="media/image/Product/53cf89a16bc4de480f00000e/LCREST-Z1F.jpeg">
+        </a>
+    </div><!-- end ngRepeat: _item in products --><div ng-repeat="_item in products" ng-show="products.length" class="ng-scope">
+        <a class="" href="#/product/53cf8a1d6bc4de480f000011">
+            <img ng-src="media/image/Product/53cf8a1d6bc4de480f000011/LC-C1.jpeg" alt="_item.Name" src="media/image/Product/53cf8a1d6bc4de480f000011/LC-C1.jpeg">
+        </a>
+    </div><!-- end ngRepeat: _item in products --><div ng-repeat="_item in products" ng-show="products.length" class="ng-scope">
+        <a class="" href="#/product/53cf8a976bc4de480f000014">
+            <img ng-src="media/image/Product/53cf8a976bc4de480f000014/LH-1F.jpeg" alt="_item.Name" src="media/image/Product/53cf8a976bc4de480f000014/LH-1F.jpeg">
+        </a>
+    </div><!-- end ngRepeat: _item in products --><div ng-repeat="_item in products" ng-show="products.length" class="ng-scope">
+        <a class="" href="#/product/53cf8d266bc4de480f00002d">
+            <img ng-src="media/image/Product/53cf8d266bc4de480f00002d/WHS-1.jpg" alt="_item.Name" src="media/image/Product/53cf8d266bc4de480f00002d/WHS-1.jpg">
+        </a>
+    </div><!-- end ngRepeat: _item in products -->
+    <div class="clear"></div>
+</section>
+<section class="rating ng-scope">
+    <div class="left-block">
+        <h5>customers reviews</h5>
+
+        <form class="ng-pristine ng-valid">
+            <div class="star-rating rating-xxs rating-disabled"><div class="rating-container rating-gly-star" data-content=""><div class="rating-stars" data-content="" style="width: 0%; "></div><input id="input-21d" value="0.00" type="number" class="rating disabled form-control" min="0" max="5" step="0.1" data-size="xxs" style="display: none; "></div></div>
+        </form>
+        <p class="ng-binding">0 out of 5</p>
+
+        <div class="clear"></div>
+        <div class="progressbar">
+            <table>
+                <tbody><tr>
+                    <td>5 star</td>
+                    <td>
+                        <progress value="null" max="100" class="ng-binding">null</progress>
+                    </td>
+                    <td class="ng-binding">0</td>
+                </tr>
+                <tr>
+                    <td>4 star</td>
+                    <td>
+                        <progress value="null" max="100" class="ng-binding">null%</progress>
+                    </td>
+                    <td class="ng-binding">0</td>
+                </tr>
+                <tr>
+                    <td>3 star</td>
+                    <td>
+                        <progress value="null" max="100" class="ng-binding">null%</progress>
+                    </td>
+                    <td class="ng-binding">0</td>
+                </tr>
+                <tr>
+                    <td>2 star</td>
+                    <td>
+                        <progress value="null" max="100" class="ng-binding">null%</progress>
+                    </td>
+                    <td class="ng-binding">0</td>
+                </tr>
+                <tr>
+                    <td>1 star</td>
+                    <td>
+                        <progress value="null" max="100" class="ng-binding">null%</progress>
+                    </td>
+                    <td class="ng-binding">0</td>
+                </tr>
+            </tbody></table>
+        </div>
+    </div>
+    <div class="right-block">
+        <h5>your rating</h5>
+
+        <form name="reviewForm" class="ng-pristine ng-invalid ng-invalid-required">
+            <div class="star-rating rating-xxs rating-active"><div class="rating-container rating-gly-star" data-content=""><div class="rating-stars" data-content="" style="width: 0%; "></div><input id="input-21d" value="1" ng-model="review.stars" type="number" class="rating ng-pristine ng-valid ng-valid-number ng-valid-max ng-valid-min form-control" min="0" max="5" step="1" data-size="xxs" style="display: none; "></div></div>
+
+            <div class="col-md-12">
+                <gui-message-manager item="messageReview" class="ng-isolate-scope"><!-- ngIf: msg -->
+
+<style>
+    .msg{
+        margin-bottom: 20px;
+    }
+</style></gui-message-manager>
+                <div ng-class="{ 'has-error' : (submittedReview &amp;&amp; reviewForm.review.$error.required) || (reviewForm.review.$invalid &amp;&amp; !reviewForm.review.$pristine) }">
+                    <input class="form-control ng-pristine ng-invalid ng-invalid-required" type="text" name="review" ng-model="review.comment" required="">
+
+                    <p ng-show="(submittedReview &amp;&amp; reviewForm.review.$error.required) || (reviewForm.review.$invalid &amp;&amp; !reviewForm.review.$pristine)" class="help-block ng-hide">This field is required.</p>
+
+                </div>
+            </div>
+        </form>
+        <div>
+            <a href="" ng-click="saveReview()">submit</a>
+        </div>
+
+    </div>
+    <div class="clear"></div>
+    <div class="review-sort">
+        <ul class="navbar-nav navbar-right">
+            <li class="dropdown">
+                <a href="" role="button" data-toggle="dropdown">
+
+                    <p>Sort by: <span class="ng-binding"></span></p>
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li role="presentation">
+                        <a role="menuitem" href="" target="_self" ng-click="sortByRating('desc')">High to Low</a>
+                    </li>
+                    <li role="presentation">
+                        <a role="menuitem" href="" target="_self" ng-click="sortByRating('asc')">Low to High</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-review-sort">
+        <ul>
+            <li>
+                <a href="" target="_self" ng-click="sortByRating('desc')">High to Low</a>
+            </li>
+            <li>
+                <a class="active" href="" target="_self" ng-click="sortByRating('asc')">Low to High</a>
+            </li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+    <!-- ngRepeat: _item in reviewsList -->
+</section>
+
+<script class="ng-scope">
+    (function ($) {
+
+        // slider
+        $(document).ready(function () {
+            setTimeout(function () {
+                $("#slider1").responsiveSlides({
+                    auto: false,
+                    pager: true,
+                    nav: true,
+                    speed: 500,
+                    maxwidth: 1024,
+                    namespace: "centered-btns"
+                });
+            }, 500);
+        });
+
+        // rating
+        $(document).ready(function () {
+            setTimeout(function () {
+                $("input.rating").each(function () {
+
+                    if ($(this).hasClass("disabled")) {
+                        $(this).rating({
+                            readonly: true,
+                            disabled: true,
+                            showCaption: false,
+                            showClear: false
+                        });
+                    } else {
+                        $(this).rating({
+                            showCaption: false,
+                            showClear: false
+                        });
+                    }
+
+                })
+
+            }, 500)
+        })
+
+    })(jQuery)
+</script></ng-view>
+        <!-- ngInclude: undefined --><ng-include src="getTemplate('visitor/login.html')" class="ng-scope"><div ng-controller="visitorLoginController" class="ng-scope">
+    <div class="modal fade login" id="form-login" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="login-close"></div>
+            <div class="modal-content ch-form">
+                <h6>LOGIN</h6>
+                <form role="form" class="ng-pristine ng-valid">
+                    <div class="form-group col-md-12">
+                        <label for="email">Email</label>
+                        <input class="form-control ng-pristine ng-valid" type="text" id="email" placeholder="email" ng-model="loginCredentials.email">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="password">Password</label>
+                        <input class="form-control ng-pristine ng-valid" type="password" id="password" placeholder="password" ng-model="loginCredentials.password" autocomplete="off">
+                    </div>
+                </form>
+                <div class="clear"></div>
+                <div class="button btn-black" ng-click="signIn()">Login</div>
+                <a href="" target="_self" id="modal-registration">Register</a>
+                <div class="clear"></div>
+                <!-- ngInclude: undefined --><ng-include src="getTemplate('visitor/social/facebook.html')" class="ng-scope"><div class="button btn-blue ng-scope" ng-click="facebookLogin()">
+    <i class="fa fa-facebook"></i>
+    <span></span>
+    Login with Facebook
+</div></ng-include>
+                <!-- ngInclude: undefined --><ng-include src="getTemplate('visitor/social/google.html')" class="ng-scope"><div class="button btn-red ng-scope" ng-click="googleLogin()">
+    <i class="fa fa-google-plus"></i>
+    <span></span>
+    Login with Google+
+</div>
+</ng-include>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+
+<script class="ng-scope">
+    $("#modal-login").click(function () {
+        $("#form-login").modal("show");
+    });
+    $("#modal-registration").click(function () {
+        $(".modal").modal("hide");
+        $("#form-registration").modal("show");
+    });
+    $(".login-close").click(function () {
+        $(".modal").modal("hide");
+    });
+</script></ng-include>
+        <!-- ngInclude: undefined --><ng-include src="getTemplate('visitor/registration.html')" class="ng-scope"><div class="modal fade ng-scope" id="form-registration" tabindex="-1" role="dialog" ng-controller="visitorLoginController">
+    <div class="modal-dialog login registration">
+        <div class="login-close"></div>
+        <div class="modal-content ch-form">
+            <h6>REGISTRATION</h6>
+            <form role="form" class="ng-pristine ng-valid">
+
+                <div class="form-group col-md-6">
+                    <label for="email">Email</label>
+                    <input class="form-control ng-pristine ng-valid" type="text" id="email" placeholder="email" ng-model="login.email">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="fname">First Name</label>
+                    <input class="form-control ng-pristine ng-valid" type="text" id="fname" placeholder="fname" ng-model="login.fname">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="lname">Last Name</label>
+                    <input class="form-control ng-pristine ng-valid" type="text" id="lname" placeholder="lname" ng-model="login.lname" autocomplete="off">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="password">Password</label>
+                    <input class="form-control ng-pristine ng-valid" type="password" id="password" placeholder="password" ng-model="login.password" autocomplete="off">
+                </div>
+            </form>
+            <div class="clear"></div>
+            <div class="form-group col-md-6">
+                <div class="button btn-black" ng-click="save()">Register</div>
+                <a href="" target="_self" id="modal-login">Login</a>
+                <div class="clear"></div>
+            </div>
+            <div class="form-group col-md-6">
+                <!-- ngInclude: undefined --><ng-include src="getTemplate('visitor/social/facebook.html')" class="ng-scope"><div class="button btn-blue ng-scope" ng-click="facebookLogin()">
+    <i class="fa fa-facebook"></i>
+    <span></span>
+    Login with Facebook
+</div></ng-include>
+                <!-- ngInclude: undefined --><ng-include src="getTemplate('visitor/social/google.html')" class="ng-scope"><div class="button btn-red ng-scope" ng-click="googleLogin()">
+    <i class="fa fa-google-plus"></i>
+    <span></span>
+    Login with Google+
+</div>
+</ng-include>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+<script class="ng-scope">
+    $("#modal-registration").click(function () {
+        $("#form-registration").modal("show");
+    });
+    $("#form-registration").find("#modal-login").click(function () {
+        $(".modal").modal("hide");
+        $("#form-login").modal("show");
+    });
+    $(".login-close").click(function () {
+        $(".modal").modal("hide");
+    });
+</script></ng-include>
+    </div>
+    <div class="loader">
+        <img alt="menu" ng-src="themes/default/images/loader.gif" src="themes/default/images/loader.gif">
+    </div>
+</div>
+
+<div id="cellPageFooter" class="cellPageFooter ng-scope">
+    <!-- ngInclude: undefined --><ng-include src="getTemplate('common/footer.html')" class="ng-scope"><div class="clear ng-scope"></div>
+<footer class="ng-scope">
+    <div class="footer">
+        <div class="footer-soc">
+            <a href=""></a>
+            <a href=""></a>
+            <a href=""></a>
+        </div>
+        <nav>
+            <ul>
+                <li>
+                    <a href="#">home</a><span></span>
+                </li>
+                <li>
+                    <a href="#">about</a><span></span>
+                </li>
+                <li>
+                    <a href="#">faq</a><span></span>
+                </li>
+                <li>
+                    <a href="#">contacts</a>
+                </li>
+            </ul>
+        </nav>
+        <a href="#">Powered by Ottemo</a>
+    </div>
+    <div class="footer-response un-visible">
+        <div class="footer-soc">
+            <a href="#"></a>
+            <a href="#"></a>
+            <a href="#"></a>
+        </div>
+        <div class="footer-btns">
+            <div class="footer-btn"></div>
+            <div class="footer-btn"></div>
+            <div class="footer-btn"></div>
+        </div>
+    </div>
+</footer></ng-include>
+</div>
+
+
+<script src="themes/default/scripts/responsiveCarousel.js" class="ng-scope"></script>
+<script src="themes/default/scripts/jquery.pageslide.min.js" class="ng-scope"></script>
+<script src="themes/default/scripts/jquery.slides.min.js" class="ng-scope"></script>
+<script src="themes/default/scripts/responsiveslides.js" class="ng-scope"></script>
+
+<script src="themes/default/scripts/star-rating.min.js" class="ng-scope"></script>
+<script src="themes/default/scripts/main.js" class="ng-scope"></script>
+
+</ng-include>
+
+<!--[if lt IE 9]>
+<script src="lib/es5-shim/es5-shim.js"></script>
+<script src="lib/json3.min.js"></script>
+<![endif]-->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
+<script src="lib/jquery.layout.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+<script src="lib/require.js"></script>
+<script src="scripts/main.js"></script>
+
+
+
+<div id="pageslide" style="display: none; "></div><div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px; "><div></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px; "><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_http" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" style="border-top-style: none; border-right-style: none; border-bottom-style: none; border-left-style: none; border-width: initial; border-color: initial; " src="http://static.ak.facebook.com/connect/xd_arbiter/ZEbdHPQfV3x.js?version=41#channel=f1ee9976&amp;origin=http%3A%2F%2Fdev.ottemo.io%3A8080"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" style="border-top-style: none; border-right-style: none; border-bottom-style: none; border-left-style: none; border-width: initial; border-color: initial; " src="https://s-static.ak.facebook.com/connect/xd_arbiter/ZEbdHPQfV3x.js?version=41#channel=f1ee9976&amp;origin=http%3A%2F%2Fdev.ottemo.io%3A8080"></iframe></div></div></div><iframe name="oauth2relay458957106" id="oauth2relay458957106" src="https://accounts.google.com/o/oauth2/postmessageRelay?parent=http%3A%2F%2Fdev.ottemo.io%3A8080#rpctoken=443762928&amp;forcesecure=1" style="width: 1px; height: 1px; position: absolute; top: -100px; " tabindex="-1"></iframe></body></html>
