@@ -226,10 +226,13 @@
                     $scope.changeShippingAsDefault = function (id) {
                         delete $scope.visitor.billing_address; // jshint ignore:line
                         delete $scope.visitor.shipping_address; // jshint ignore:line
+
                         if (!$scope.shippingAddressId) { // jshint ignore:line
-                            delete $scope.visitor.shipping_address_id; // jshint ignore:line
+                            $scope.visitor.shipping_address_id = ""; // jshint ignore:line
+                        } else {
+                            $scope.visitor.shipping_address_id = id;        // jshint ignore:line
                         }
-                        $scope.visitor.shipping_address_id = id;        // jshint ignore:line
+
                         $visitorApiService.update($scope.visitor).$promise.then(
                             function (response) {
                                 $visitorLoginService.setLogin(response.result);
@@ -242,9 +245,10 @@
                         delete $scope.visitor.billing_address; // jshint ignore:line
                         delete $scope.visitor.shipping_address; // jshint ignore:line
                         if (!$scope.billingAddressId) { // jshint ignore:line
-                            delete $scope.visitor.billing_address_id; // jshint ignore:line
+                            $scope.visitor.billing_address_id = ""; // jshint ignore:line
+                        } else {
+                            $scope.visitor.billing_address_id = id;                     // jshint ignore:line
                         }
-                        $scope.visitor.billing_address_id = id;                     // jshint ignore:line
                         $visitorApiService.update($scope.visitor).$promise.then(
                             function (response) {
                                 $visitorLoginService.setLogin(response.result);
