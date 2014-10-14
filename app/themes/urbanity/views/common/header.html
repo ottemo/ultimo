@@ -42,7 +42,7 @@ Mobile Menu
 
         <div class="cart-mob un-visible" ng-controller="commonHeaderController">
             <a href="" target="_self" ng-click="clickToCartDesktop()"
-                   ng-controller="visitorLoginController">
+                   ng-controller="visitorLoginControllerUrb">
                 <img alt="menu" ng-src="{{getImg('cart-mob.png')}}">
             </a>
             <ng-include src="getTemplate('cart/minicart.html')" ng-controller="cartListController"></ng-include>
@@ -71,7 +71,7 @@ Mobile Menu
                     <div class="mini-cart-counter">
                         (<span ng-controller="cartListController">{{it.getCountItems()}}</span>)
                     </div>
-                    <a href="" target="_self" ng-click="clickToCartDesktop()" ng-controller="visitorLoginController" class="cart">
+                    <a href="" target="_self" ng-click="clickToCartDesktop()" ng-controller="visitorLoginControllerUrb" class="cart">
                         <ng-include src="getTemplate('cart/minicart.html')" ng-controller="cartListController"></ng-include>
                     </a> 
 
@@ -83,7 +83,7 @@ Mobile Menu
                     </div>
 
                     <!-- social section -->
-                    <div class="social ng-scope" ng-controller="visitorLoginController" ng-init="init()">
+                    <div class="social ng-scope" ng-controller="visitorLoginControllerUrb" ng-init="init()">
                         <a href="" ng-click="twitterLogin()" class="fa fa-twitter"></a>
                         <a href=""  ng-click="facebookLogin()"  class="fa fa-facebook"></a>
                         <a href="" ng-click="googleLogin()" class="fa fa-google-plus"></a>
