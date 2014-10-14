@@ -36,6 +36,7 @@ require.config({
 require([
         "angular",
         "angular-bootstrap",
+        "design/themeFiles",
         "design/module",
         "common/module",
 
@@ -46,15 +47,32 @@ require([
         "checkout/module",
         "cms/module"
     ],
-    function (angular) {
+    function (angular,ngBootstrap, files) {
         angular.element(document).ready(function () {
 
-            angular.element.get(angular.REST_SERVER_URI + "/config/get/themes.list.active", function( data ) {
+            angular.element.get(angular.REST_SERVER_URI + "/config/get/themes.list.active", function (data) {
 
                 angular.activeTheme = data.result;
 
-                var modules = Object.keys(angular.module);
-                angular.resumeBootstrap(modules);
+                angular.isExistFile = function (path) {
+
+                    if (files[angular.activeTheme].indexOf(path) !== -1) {
+                        return true;
+                    }
+
+                    return false;
+                };
+
+                if (angular.isExistFile("/scripts/init.js")) {
+                    require(["../themes/" + angular.activeTheme + "/scripts/init"], function () {
+                        var modules = Object.keys(angular.module);
+                        angular.resumeBootstrap(modules);
+                    });
+                } else {
+                    var modules = Object.keys(angular.module);
+                    angular.resumeBootstrap(modules);
+                }
+
             });
 
         });

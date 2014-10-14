@@ -10,19 +10,9 @@
      */
     define([
             "angular",
-            "themeFiles",
             "angular-sanitize",
         ],
-        function (angular, files) {
-
-            angular.isExistFile = function (path) {
-
-                if (files[angular.activeTheme].indexOf(path) !== -1) {
-                    return true;
-                }
-
-                return false;
-            };
+        function (angular) {
 
             angular.getTheme = function (path) {
 

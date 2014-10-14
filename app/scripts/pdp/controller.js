@@ -4,7 +4,7 @@
     define(["pdp/init"], function (pdpModule) {
 
         pdpModule
-            /*
+            /**
              *  HTML top page header manipulator (direct service mapping)
              */
             .controller("pdpController", [
