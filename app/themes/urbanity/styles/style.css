@@ -1,0 +1,824 @@
+@import url(http://fonts.googleapis.com/css?family=Inconsolata:400,700);
+
+/* ___________1. Reset CSS____________________*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    font-family: 'Inconsolata';
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+    width: 100%;
+    background: #fff;
+    height: 100%;
+}
+html {
+	height: 100%;
+}
+a {
+	text-decoration: none;
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+a:hover {
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+ol, ul {
+list-style: none;
+}
+blockquote, q {
+quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* ___________ 2. Elements ____________________*/
+.main-wrapper {
+	height: auto;
+	min-height: 100%;
+	padding-bottom: 275px;
+}
+.clear {
+	clear: both;
+}
+.button-group {
+	margin-top: 20px;
+	text-align: center;
+}
+.btn {
+	width: auto;
+	min-width: 120px;
+	height: 37px;
+	border: 1px #414042 solid;
+	text-align: center;
+	color: #414042;
+	text-transform: uppercase;
+	background: #fff;
+	font-size: 18px;
+	cursor: pointer;
+	display: inline-block;
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+a.btn {
+	line-height: 1.9;
+}
+.btn:hover {
+	background: #8e8b90;
+	color: #fff;
+	border-color: #8e8b90;
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+.btn.black {
+	background: #414042;
+	color: #fff;
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+.btn.black:hover {
+	border-color: #232224;
+	background: #232224;
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+.vertical-middle  {
+	display: table-cell;
+	vertical-align: middle;
+	height: inherit;
+}
+.text-left{
+	text-align: left;
+}
+.pull-right {
+	float: right;
+}
+.pull-left {
+	float: left;
+}
+/* ___________ 3. Header ____________________*/
+header {
+	color: #7c7c7c;
+	text-align: left;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 10;
+}
+.header-wrapper {
+	background: rgba(255,255,255,0.8);
+	padding: 20px 3%;
+	position: relative;
+	width: 100%;
+	height: 140px;
+}
+header .logo {
+	display: inline-block;
+	float: left;
+	margin-top: 0;
+	margin-left: -12px;
+}
+header .right-side {
+	float: right;
+}
+header .cart {
+	font-size: 14px;
+	float: right;
+	display: inline-block;
+	position: relative;
+	top: -4px;
+	cursor: pointer;
+}
+header .cart:before {
+	width: 14px;
+	height: 16px;
+	background: url(/themes/urbanity/images/bag.png) no-repeat;
+	display: inline-block;
+	content: "";
+	position: relative;
+	top: 3px;
+	margin-right: 25px;
+}
+header .mini-cart-counter {
+	float: right;
+}
+header .login-register {
+	float: right;
+	margin-right: 60px;
+	margin-top: -1px;
+}
+header .login-register a {
+	text-transform: uppercase;
+	font-size: 14px;
+	color: inherit;
+	text-decoration: none;
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+header .login-register a:hover {
+	color: black;
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+header .social{
+	float: right;
+	margin-right: 65px;
+}
+header .social a{
+	display: block;
+	text-align: center;
+	width: 15px;
+	height: 15px;
+	color: #fff;
+	font-size: 11px;
+	line-height: 1.4;
+	text-decoration: none;
+	background: #7b7b7b;
+	border-left: 1px #f7f7f7 solid;
+	margin-left: 20px;
+	float: left;
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+header .social a:hover {
+	background: #666;
+	transform:scale(1.3);
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+header .search {
+	float: right;
+	color: #828181;
+	margin-top: 30px;
+	margin-left: 40px;
+}
+header .search i:hover {
+	cursor: pointer;
+	color: black;
+	transform:scale(1.2);
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+header .search input {
+	display: none;
+	border: 1px #828181 solid;
+	outline: none;
+}
+header nav.menu {
+	float: right;
+	margin-top: 32px;
+	text-align: right;
+}
+header nav.menu li{
+	display: inline-block;
+	margin-left: 47px;
+}
+header nav.menu li:first-child {
+	margin-left: 0;
+}
+header nav.menu li a{
+	color: #000;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+header nav.menu li a:hover {
+	text-decoration: underline;
+}
+header nav.mens-women {
+	margin-top: 10px;
+}
+header nav.mens-women li {
+	display: inline;
+	margin-right: 52px;
+}
+header nav.mens-women li a {
+	font-size: 18px;
+	color: #000;
+	text-transform: uppercase;
+	text-decoration: none;
+}
+header nav.mens-women li a:hover {
+	text-decoration: underline;
+}
+header nav.mens-women li a.active {
+	font-weight: bold;
+	text-decoration: none !important;
+}
+
+/* ___________ 3. Content ____________________*/
+section {
+	width: 100%;
+	padding: 140px 3% 0;
+	position: relative;
+}
+
+/* ___________ 3.1 Left-side ____________________*/
+aside.left-side{
+	width: 280px;
+	background: #fff;
+	height: auto;
+	position: fixed;
+	left: 3%;
+	padding: 15px 0 15px 40px;
+	top: 140px;
+}
+aside.left-side .categories ul li a {
+	color: #282828;
+	font-size: 18px;
+	line-height: 1.2;
+	text-transform: uppercase;
+	text-decoration: none;
+}
+aside.left-side .categories ul li a:hover {
+	text-decoration: underline;
+}
+
+/* ___________ 3.2 Right-side ____________________*/
+aside.right-side {
+	width: 280px;
+	background: #fff;
+	height: auto;
+	position: fixed;
+	right: 3%;
+	top: 140px;
+	padding: 15px 0 15px 0;
+	text-align: left;
+}
+aside.right-side ul {
+	padding-left: 10px;
+	display: none;
+}
+aside.right-side > ul {
+	display: inline-block;
+	text-align: left;
+	width: 180px;
+	display: block;
+	padding-left: 0;
+	float: right;
+	margin-bottom: 10px;
+}
+aside.right-side ul li span {
+	cursor: pointer;
+}
+aside.right-side ul li span:after {
+	content: "+";
+}
+aside.right-side ul li span.active:after {
+	content: "-";
+}
+aside.right-side ul li{
+	font-size: 18px;
+	color: #282828;
+	font-weight: bold;
+	display: inline-block;
+	text-transform: uppercase;
+	margin-top: 10px;
+}
+aside.right-side > ul > li {
+	font-size: 20px;
+	margin-top: 0;
+}
+aside.right-side ul li.second-level {
+	display: block;
+}
+aside.right-side ul li a {
+	font-size: 18px;
+	line-height: 1.2;
+	font-weight: normal;
+	color: black;
+	text-decoration: none;
+	text-transform: capitalize;
+}
+aside.right-side ul li a:hover {
+	text-decoration: underline;
+}
+aside.right-side ul.sort li a{
+	display: block;
+}
+
+/* ___________ 3.3 Main-content ____________________*/
+.content {
+	width: 100%;
+	height: auto;
+	text-align: center;
+	position: relative;
+}
+.content.have-aside {
+	padding: 0 280px;
+}
+
+/* ___________ 3.3.1 Store ____________________*/
+.content .product {
+	width: 300px;
+	height: auto;
+	height: auto;
+	border:1px transparent solid;
+	border-bottom: none;
+	padding: 20px 20px 0;
+	margin-bottom: 10px;
+	text-align: center;
+	display: inline-block;
+	position: relative;
+	background: #fff;
+	z-index: 1;
+	cursor: default;
+}
+.content .product img {
+	width: 210px;
+	height: 410px;
+}
+.content .product .hidden-group {
+	position: absolute;
+	top: 100%;
+	left: -1px;
+	border:1px #7b7b7b solid;
+	border-top: none;
+	width: 300px;
+	height: auto;
+	padding: 15px 20px 20px;
+	opacity: 0;
+	z-index: 1;
+	background: #fff;
+}
+.content .product:hover {
+	border-color: #7b7b7b;
+	overflow: visible;
+	z-index: 5;
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+.content .product:hover .hidden-group {
+	opacity: 1;
+	z-index: 5;
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+.content .product .hidden-group .name {
+	font-size: 21px;
+	color: #282828;
+	text-transform: capitalize;
+	width: 100%;
+	margin-bottom: 5px;
+}
+.content .product .hidden-group .model {
+	font-size: 16px;
+	color: #282828;
+	text-transform: capitalize;
+	width: 100%;
+	margin-bottom: 5px;
+}
+.content .product .hidden-group .price {
+	font-size: 28px;
+	color: #515151;
+	font-weight: bold;
+}
+.content .product .hidden-group .price:before {
+	content: "$"
+}
+.content .product .hidden-group .button-group{
+	margin-top: 10px;
+}
+
+/* ___________ 3.3.2 Brands ____________________*/
+.content .brands {
+	position: relative;
+	float: left;
+	margin-left: -280px;
+	margin-bottom: 40px;
+	height: auto;
+	min-height: inherit;
+	text-align: left;
+}
+.content .brands h5 {
+	font-size: 20px;
+	color: #282828;
+	margin-bottom: 20px;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+.content .brands ul li a {
+	font-size: 16px;
+	color: #000;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-weight: 300;
+	margin-bottom: 7px;
+	display: inline-block;
+}
+.content .brands ul li a:hover {
+	text-decoration: underline;
+}
+
+/* ___________ 3.3.3 Product modal window ____________________*/
+#modal_window {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.7);
+	z-index: 10;
+	display: none;
+}
+#modal_window .window {
+	width: 750px;
+	height: 400px;
+	position: relative;
+	top: 100px;
+	left: 50%;
+	margin-left: -375px;
+	background: #fff;
+	padding: 30px;
+	text-align: center;
+	cursor: default;
+}
+#modal_window .window i {
+	font-size: 15px;
+	font-weight: 300;
+	display: inline-block;
+	position: absolute;
+	right: 25px;
+	top: 25px;
+	color: #474648;
+	cursor: pointer;
+	-moz-transform: rotate(0deg) scale(3, 3) skewX(0deg) skewY(0deg) translate(0px, 0px);/* FF3.5+ */
+	-webkit-transform: rotate(0deg) scale(3, 3) skew(0deg, 0deg) translate(0px, 0px);/*Saf3.1+, Chrome*/
+	-o-transform: rotate(0deg) scale(3, 3) skew(0deg, 0deg) translate(0px, 0px);/* Opera 10.5 */
+	-ms-transform: rotate(0deg) scale(3, 3) skew(0deg, 0deg) translate(0px, 0px);/* IE 9 */
+	transform: rotate(0deg) scale(3, 3) skew(0deg, 0deg) translate(0px, 0px);
+}
+#modal_window .window .left-side {
+	width: 240px;
+	text-align: left;
+	position: absolute;
+	left: 30px;
+	top: 30px;
+}
+#modal_window .window .left-side .name {
+	font-size: 50px;
+	color: #282828;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+#modal_window .window .left-side .model {
+	font-size: 18px;
+	color: #282828;
+	text-transform: capitalize;
+	font-weight: bold;
+	margin: 10px 0 15px;
+}
+#modal_window .window .left-side .price {
+	font-size: 28px;
+	color: #afafaf;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+#modal_window .window .left-side .price:before {
+	content: "$";
+}
+#modal_window .window .main-image {
+	width: auto;
+	height: auto;
+	max-height: 100%;
+	max-width: 200px;
+	float: none;
+}
+#modal_window .window .right-side {
+	width:220px;
+	text-align: left;
+	position: absolute;
+	right: 30px;
+	top: 80px;
+}
+#modal_window .window .right-side .preview {
+	width: 60px;
+	padding: 5px;
+	display: inline-block;
+	text-align: center;
+	margin: 0 2px;
+	cursor: pointer;
+	border: 1px transparent solid;
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+#modal_window .window .right-side .preview.active {
+	border-color: #000;
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+#modal_window .window .right-side .preview img {
+	width:100%;
+}
+#modal_window .window .right-side .sizes h5 {
+	font-size: 18px;
+	color: #afafaf;
+	font-weight: bold;
+	margin:  15px 0 15px;
+}
+#modal_window .window .right-side .sizes p {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	font-size: 18px;
+	color: #000;
+	font-weight: bold;
+	background: #fff;
+	border: 1px #000 solid;
+	line-height: 1.6;
+	cursor: default;
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+#modal_window .window .right-side .sizes p.active {
+	color: #fff;
+	background: #000;
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+#modal_window .window .right-side .btn {
+	width: 100%;
+}
+#modal_window .window .right-side .btn.detail-view {
+	margin-top: 10px;
+	height: 30px;
+	line-height: 1.5;
+}
+
+/* ___________ 3.3.4 Mini-cart ____________________*/
+header .mini-cart {
+	position: absolute;
+	right: 30px;
+	top: 50px;
+	width: 500px;
+	height: auto;
+	padding: 20px;
+	background: #fff;
+	border: 1px #7b7b7b solid;
+	display: none;
+}
+header .mini-cart:before {
+	content: "▴";
+	color: #fff;
+	font-size: 45px;
+	line-height: 0.25;
+	text-shadow: 1px -1px 0px #7b7b7b,-1px -1px 0px #7b7b7b,0 -2px 0px #7b7b7b;
+	display: inline-block;
+	position: absolute;
+	right: 10px;
+	bottom: 100%;
+}
+header .mini-cart table {
+	width: 100%;
+	border-spacing:15px 15px;
+	border-collapse: separate;
+}
+header .mini-cart table tr td {
+	vertical-align: middle;
+}
+header .mini-cart img {
+	width: 60px;
+}
+header .mini-cart .name {
+	font-size: 21px;
+	color: #282828;
+	font-weight: bold;
+	line-height: 0.8;
+}
+header .mini-cart .model,header .mini-cart .size {
+	font-size: 18px;
+	color: #282828;
+	margin: 5px 0;
+	line-height: 1;
+}
+header .mini-cart .price {
+	font-size: 21px;
+	color: #282828;
+}
+header .mini-cart .price:before{
+	content: "$";
+}
+header .mini-cart table tr td:last-child {
+	position: relative;
+}
+header .mini-cart table tr td:last-child i.remove {
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-size: 12px;
+	font-weight: 300;
+	display: inline-block;
+	color: #474648;
+	cursor: pointer;
+	-moz-transform: rotate(0deg) scale(3, 3) skewX(0deg) skewY(0deg) translate(0px, 0px);/* FF3.5+ */
+	-webkit-transform: rotate(0deg) scale(3, 3) skew(0deg, 0deg) translate(0px, 0px);/*Saf3.1+, Chrome*/
+	-o-transform: rotate(0deg) scale(3, 3) skew(0deg, 0deg) translate(0px, 0px);/* Opera 10.5 */
+	-ms-transform: rotate(0deg) scale(3, 3) skew(0deg, 0deg) translate(0px, 0px);/* IE 9 */
+	transform: rotate(0deg) scale(3, 3) skew(0deg, 0deg) translate(0px, 0px);
+}
+header .mini-cart .total {
+	font-size: 21px;
+	color: #282828;
+	font-weight: bold;
+	text-align: right;
+}
+header .mini-cart .total span {
+	font-weight: 300;
+	color: #000;
+}
+header .mini-cart .btn {
+	width: 48%;
+}
+
+/* ___________ 3.3.5 Pagination ____________________*/
+.pagination {
+	text-align: center;
+	position: relative;
+	z-index: 3;
+	height: auto;
+	display: block;
+	text-align: center;
+	background: #fff;
+	padding: 70px 0;
+}
+.pagination i, .pagination p {
+	display: inline-block;
+	cursor: pointer;
+}
+.pagination p {
+	font-size: 18px;
+	color: black;
+	font-weight: normal;
+}
+.pagination p.active {
+	font-size: 24px;
+	color: black;
+	font-weight: normal;
+}
+.pagination i {
+	font-size: 20px;
+}
+.pagination p:hover {
+	text-decoration: underline;
+}
+
+/* ___________ 4. Footer ____________________*/
+footer {
+	height: 275px;
+	width: 100%;
+	padding: 0 3%;
+	background: black;
+	position: relative;
+	margin-top: -275px;
+}
+footer nav {
+	display: inline-block;
+}
+footer nav li a{
+	font-size: 16px;
+	color: #fff;
+	text-transform: uppercase;
+	text-decoration: none;
+	line-height: 1.3;
+}
+footer nav li a:hover {
+	text-decoration: underline;
+}
+footer .social {
+	display: block;
+	position: absolute;
+	top: 145px;
+	right: 3%;
+}
+footer .social a {
+	font-size: 35px;
+	color: #fff;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	border:1px #fff solid;
+	text-decoration: none;
+	text-align: center;
+	line-height: 1.4;
+}
+footer .social a:hover {
+	background: #fff;
+	color: #000;
+}
+
+
+
+
+
+#form-login ,#form-registration {
+	display: none;
+}
