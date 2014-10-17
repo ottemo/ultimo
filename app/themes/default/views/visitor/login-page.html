@@ -1,32 +1,50 @@
 <div class="page-title"></div>
-<div  ng-init="init()" ng-controller="visitorLoginController">
+<div ng-init="init()" ng-controller="visitorLoginController">
     <div class="login-page">
         <h3>my account</h3>
+
         <div class="col-md-4">
             <div class="col-md-10">
                 <h5>Login With Social Media</h5>
                 <a href ng-click="googleLogin()"></a>
                 <a href ng-click="facebookLogin()"></a>
+
                 <div class="clear"></div>
             </div>
         </div>
         <div class="col-md-4">
             <div class="col-md-10 ch-form">
                 <h5>Already Registered?</h5>
-                <!--<div class="form-group col-md-12">-->
-                    <!--<gui-message-manager item="message"></gui-message-manager>-->
-                <!--</div>-->
+
                 <div class="form-group col-md-12">
-                    <label for="email">Email Address</label>
-                    <input id="email" type="text" class="form-control" name="email"  ng-model="loginCredentials.email">
+                    <gui-message-manager item="message"></gui-message-manager>
                 </div>
-                <div class="form-group col-md-12">
-                    <label for="password">Password</label>
-                    <input id="password" type="password" class="form-control" name="password" ng-model="loginCredentials.password">
-                </div>
+                <form name="loginForm">
+                    <div class="form-group col-md-12"
+                         ng-class="{ 'has-error' : (loginForm.submitted && loginForm.email.$error.required) || (loginForm.email.$invalid && !loginForm.email.$pristine) }">
+                        <label for="email">Email *</label>
+                        <input class="form-control" type="text" id="email" placeholder="email"
+                               ng-model="loginCredentials.email" name="email" required />
+
+                        <p ng-show="(loginForm.submitted && loginForm.email.$error.required) || (loginForm.email.$invalid && !loginForm.email.$pristine)"
+                           class="help-block">This field is required.</p>
+                    </div>
+                    <div class="form-group col-md-12"
+                         ng-class="{ 'has-error' : (loginForm.submitted && loginForm.password.$error.required) || (loginForm.password.$invalid && !loginForm.password.$pristine) }">
+                        <label for="password">Password *</label>
+                        <input class="form-control" type="password" id="password" placeholder="password"
+                               ng-model="loginCredentials.password"
+                               name="password" required autocomplete="off" />
+
+                        <p ng-show="(loginForm.submitted && loginForm.password.$error.required) || (loginForm.password.$invalid && !loginForm.password.$pristine)"
+                           class="help-block">This field is required.</p>
+                    </div>
+                </form>
                 <a href class="btns" ng-click="signIn()">Login</a>
+
                 <div class="clear"></div>
                 <a href>Forgot your password?</a>
+
                 <div class="clear"></div>
             </div>
         </div>
@@ -34,6 +52,7 @@
             <div class="col-md-10">
                 <h5>New to Rich Kids?</h5>
                 <a href="#/registration" class="btns">Create Account</a>
+
                 <div class="clear"></div>
             </div>
         </div>

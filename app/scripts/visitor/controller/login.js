@@ -36,43 +36,51 @@
                 };
 
                 $scope.save = function () {
-                    delete $scope.login["billing_address_id"];
-                    delete $scope.login["shipping_address_id"];
-                    $visitorApiService.register($scope.login);
-                    $('.modal').modal('hide');
+                    $scope.register.submitted = true;
+                    if($scope.register.$valid) {
+                        delete $scope.login["billing_address_id"];
+                        delete $scope.login["shipping_address_id"];
+                        $visitorApiService.register($scope.login);
+                        $('.modal').modal('hide');
 
-                    $scope.message = {
-                        "type": "success",
-                        "message": "Thanks for registration. Please check your email and confirm your account"
-                    };
+                        $scope.message = {
+                            "type": "success",
+                            "message": "Thanks for registration. Please check your email and confirm your account"
+                        };
+                        $scope.register.submitted = false;
+                    }
                 };
 
                 $scope.signIn = function () {
-                    $visitorApiService.login($scope.loginCredentials).$promise.then(function (response) {
-                        if (response.result === 'ok') {
-                            $visitorLoginService.init(true).then(
-                                function () {
-                                    $('.modal').modal('hide');
-                                    $cartService.reload();
+                    $scope.loginForm.submitted = true;
+                    if($scope.loginForm.$valid) {
+                        $visitorApiService.login($scope.loginCredentials).$promise.then(function (response) {
+                            if (response.result === 'ok') {
+                                $visitorLoginService.init(true).then(
+                                    function () {
+                                        $('.modal').modal('hide');
+                                        $cartService.reload();
 
-                                    // Update right menu
-                                    $commonHeaderService.removeItem('right', '/login');
-                                    $commonHeaderService.addMenuRightItem('/account', 'My Account', '/account');
-                                    $commonHeaderService.addMenuRightItem('/logout', 'Logout', '/logout');
+                                        // Update right menu
+                                        $commonHeaderService.removeItem('right', '/login');
+                                        $commonHeaderService.addMenuRightItem('/account', 'My Account', '/account');
+                                        $commonHeaderService.addMenuRightItem('/logout', 'Logout', '/logout');
 
-                                    // Update sidebar
-                                    $commonSidebarService.addItem('ACCOUNT', 'account', 'glyphicon glyphicon-user', 90);
+                                        // Update sidebar
+                                        $commonSidebarService.addItem('ACCOUNT', 'account', 'glyphicon glyphicon-user', 90);
 
-                                    $location.path('/account');
-                                }
-                            );
-                        } else {
-                            $scope.message = {
-                                "type": "warning",
-                                "message": response.error
-                            };
-                        }
-                    });
+                                        $location.path('/account');
+                                    }
+                                );
+                            } else {
+                                $scope.message = {
+                                    "type": "warning",
+                                    "message": response.error
+                                };
+                            }
+                        });
+                        $scope.loginForm.submitted = false;
+                    }
                 };
 
                 $scope.isLoggedIn = function () {
