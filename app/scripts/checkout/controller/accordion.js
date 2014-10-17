@@ -20,6 +20,23 @@
                     var init, isLoggedIn, info, getDefaultAddress, getAddresses, getCurrentBillingID, getCurrentShippingID,
                         getPaymentInfo, creditCartTypes, isValidSteps;
 
+                    getDefaultAddress = function () {
+                        return {
+                            "_id": 0,
+                            "street": "",
+                            "city": "",
+                            "state": "",
+                            "phone": "",
+                            "zip_code": "",
+                            "company": "",
+                            "first_name": "",
+                            "last_name": "",
+                            "address_line1": "",
+                            "address_line2": "",
+                            "country": ""
+                        };
+                    };
+
                     init = function () {
                         creditCartTypes = {
                             'VI': [new RegExp('^4[0-9]{12}([0-9]{3})?$'), new RegExp('^[0-9]{3}$'), true],
@@ -63,23 +80,6 @@
 
                     init();
 
-                    getDefaultAddress = function () {
-                        return {
-                            "_id": 0,
-                            "street": "",
-                            "city": "",
-                            "state": "",
-                            "phone": "",
-                            "zip_code": "",
-                            "company": "",
-                            "first_name": "",
-                            "last_name": "",
-                            "address_line1": "",
-                            "address_line2": "",
-                            "country": ""
-                        };
-                    };
-
                     /**
                      * Gets checkout information
                      * @return {promise}
@@ -93,11 +93,15 @@
                             if ($scope.checkout["shipping_address"] !== null) {
                                 $scope["shipping_address"] = $commonUtilService.clone($scope.checkout["shipping_address"]);
                                 isValidSteps.shippingAddress = true;
+                            } else {
+                                $scope["shipping_address"] = getDefaultAddress();
                             }
 
                             if ($scope.checkout["billing_address"] !== null) {
                                 $scope["billing_address"] = $commonUtilService.clone($scope.checkout["billing_address"]);
                                 isValidSteps.billingAddress = true;
+                            } else {
+                                $scope["billing_address"] = getDefaultAddress();
                             }
                         };
 

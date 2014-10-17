@@ -12,7 +12,7 @@
              */
             angular.module.checkoutModule = angular.module("checkoutModule", ["ngRoute", "ngResource", "designModule"])
 
-                .constant("CHECKOUT_TYPE", "general.app.checkout")
+                .constant("CHECKOUT_TYPE", "general.checkout.checkout_type")
                 .constant("ONEPAGE_URL", "/spcheckout")
                 .constant("ACCORDION_URL", "/checkout")
 
