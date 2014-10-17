@@ -101,7 +101,7 @@
                         });
 
                         for (var i = 0; i < data.length; i += 1) {
-                            if ("percent" === data[i].price_type) { // jshint ignore:line
+                            if ("percent" === data[i]["price_type"]) {
                                 product.price = parseFloat(product.price) + (parseFloat(product.price) * (parseFloat(data[i].price || 0) / 100));
                             } else {
                                 product.price = parseFloat(product.price) + parseFloat(data[i].price || 0);

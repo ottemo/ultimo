@@ -10,7 +10,7 @@
      */
     define([
             "angular",
-            "angular-sanitize",
+            "angular-sanitize"
         ],
         function (angular) {
 

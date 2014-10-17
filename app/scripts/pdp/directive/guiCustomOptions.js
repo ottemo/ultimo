@@ -12,6 +12,8 @@
                 },
                 templateUrl: $designService.getTemplate("pdp/gui/guiCustomOptions.html"),
                 controller: function ($scope) {
+                    var prepareOptions;
+
                     $scope.optionName = "";
                     $scope.options = {};
 
@@ -19,11 +21,16 @@
                         $scope.optionName = name;
                     };
 
-                    // TODO: reduce the below function's cyclomatic complexity and remove jshint comment
-                    $scope.$watch("options", function () {
-                        if (typeof $scope.parent.options[$scope.optionName] !== "undefined") {
-                            $scope.parent.options[$scope.optionName] = [];
-                        }
+                    prepareOptions = function () {
+                        var removeEmptyOptions;
+
+                        removeEmptyOptions = function () {
+                            if (typeof $scope.parent.options[$scope.optionName] !== "undefined" &&
+                                $scope.parent.options[$scope.optionName].length <= 0) {
+                                delete $scope.parent.options[$scope.optionName];
+                            }
+                        };
+
                         for (var field in $scope.options) {
                             if ($scope.options.hasOwnProperty(field) && $scope.options[field]) {
                                 if (typeof $scope.parent.options[$scope.optionName] === "undefined") {
@@ -32,10 +39,16 @@
                                 $scope.parent.options[$scope.optionName].push(field);
                             }
                         }
-                        if (typeof $scope.parent.options[$scope.optionName] !== "undefined" &&
-                            $scope.parent.options[$scope.optionName].length <= 0) {
-                            delete $scope.parent.options[$scope.optionName];
+
+                        removeEmptyOptions();
+                    };
+
+                    $scope.$watch("options", function () {
+                        if (typeof $scope.parent.options[$scope.optionName] !== "undefined") {
+                            $scope.parent.options[$scope.optionName] = [];
                         }
+
+                        prepareOptions();
                     }, true);
 
                     $scope.$watch("customOptionsForm", function () {

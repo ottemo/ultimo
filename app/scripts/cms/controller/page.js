@@ -15,7 +15,7 @@
                 "$cmsApiService",
                 "$cmsPageService",
                 "$commonPageService",
-                function ($scope, $routeParams, $location, $sce, $cmsApiService, $cmsPageService, $commonPageService) {
+                function ($scope, $routeParams, $location, $sce, $cmsApiService, $cmsPageService) {
                     var getDefaultPage;
 
                     getDefaultPage = function () {

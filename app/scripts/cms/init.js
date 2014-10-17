@@ -9,7 +9,7 @@
             "angular",
             "angular-route",
             "angular-resource",
-            "angular-sanitize",
+            "angular-sanitize"
         ],
         function (angular) {
             /*

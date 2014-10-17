@@ -36,8 +36,8 @@
                 };
 
                 $scope.save = function () {
-                    delete $scope.login.billing_address_id;         // jshint ignore:line
-                    delete $scope.login.shipping_address_id;        // jshint ignore:line
+                    delete $scope.login["billing_address_id"];
+                    delete $scope.login["shipping_address_id"];
                     $visitorApiService.register($scope.login);
                     $('.modal').modal('hide');
 
