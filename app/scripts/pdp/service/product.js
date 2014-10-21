@@ -63,11 +63,11 @@
 
                     getDefaultRatingInfo = function () {
                         return {
-                            "1star": 0,
-                            "2star": 0,
-                            "3star": 0,
-                            "4star": 0,
-                            "5star": 0,
+                            "stars_1": 0,
+                            "stars_2": 0,
+                            "stars_3": 0,
+                            "stars_4": 0,
+                            "stars_5": 0,
                             "averageValue": 0,
                             "fifeStarPersent": 0,
                             "fourStarPersent": 0,
@@ -91,13 +91,13 @@
                         $pdpApiService.ratingInfo({"pid": productId}).$promise.then(
                             function (response) {
                                 ratingInfo = response.result[0] || getDefaultRatingInfo();
-                                ratingInfo.count = ratingInfo['1star'] + ratingInfo['2star'] + ratingInfo['3star'] + ratingInfo['4star'] + ratingInfo['5star'];
+                                ratingInfo.count = ratingInfo['stars_1'] + ratingInfo['stars_2'] + ratingInfo['stars_3'] + ratingInfo['stars_4'] + ratingInfo['stars_5'];
                                 if (ratingInfo.count > 0) {
-                                    ratingInfo.averageValue = ((1 * ratingInfo['1star']) +
-                                        (2 * ratingInfo['2star']) +
-                                        (3 * ratingInfo['3star']) +
-                                        (4 * ratingInfo['4star']) +
-                                        (5 * ratingInfo['5star'])) / (ratingInfo.count);
+                                    ratingInfo.averageValue = ((1 * ratingInfo['stars_1']) +
+                                        (2 * ratingInfo['stars_2']) +
+                                        (3 * ratingInfo['stars_3']) +
+                                        (4 * ratingInfo['stars_4']) +
+                                        (5 * ratingInfo['stars_5'])) / (ratingInfo.count);
                                 }
                                 defer.resolve(ratingInfo);
                             }

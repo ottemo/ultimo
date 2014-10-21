@@ -33,7 +33,7 @@
                             }
                         }
                         if (!isPresent) {
-                            items.push({"label": label, "url": "#" + url});
+                            items.push({"label": label, "url": "#" + url.replace(new RegExp("^[#]+"), "")});
                         }
                     };
 

@@ -4,9 +4,9 @@
     define(["pdp/init"], function (pdpModule) {
 
         pdpModule
-            /*
-             *  HTML top page header manipulator (direct service mapping)
-             */
+        /**
+         *  HTML top page header manipulator (direct service mapping)
+         */
             .controller("pdpController", [
                 "$scope",
                 "$routeParams",
@@ -22,11 +22,11 @@
 
                     getDefaultRatingInfo = function () {
                         return {
-                            "1star": 0,
-                            "2star": 0,
-                            "3star": 0,
-                            "4star": 0,
-                            "5star": 0,
+                            "stars_1": 0,
+                            "stars_2": 0,
+                            "stars_3": 0,
+                            "stars_4": 0,
+                            "stars_5": 0,
                             "averageValue": 0,
                             "fifeStarPersent": 0,
                             "fourStarPersent": 0,
@@ -69,14 +69,15 @@
                             return false;
                         }
 
-                        $scope.count = $scope.ratingInfo['1star'] + $scope.ratingInfo['2star'] + $scope.ratingInfo['3star'] + $scope.ratingInfo['4star'] + $scope.ratingInfo['5star'];
+                        $scope.count = $scope.ratingInfo['stars_1'] + $scope.ratingInfo['stars_2'] + $scope.ratingInfo['stars_3'] + $scope.ratingInfo['stars_4'] + $scope.ratingInfo['stars_5'];
                         if ($scope.count > 0) {
-                            $scope.ratingInfo.averageValue = ((1 * $scope.ratingInfo['1star']) +
-                                (2 * $scope.ratingInfo['2star']) +
-                                (3 * $scope.ratingInfo['3star']) +
-                                (4 * $scope.ratingInfo['4star']) +
-                                (5 * $scope.ratingInfo['5star'])) / ($scope.count);
+                            $scope.ratingInfo.averageValue = ((1 * $scope.ratingInfo['stars_1']) +
+                                (2 * $scope.ratingInfo['stars_2']) +
+                                (3 * $scope.ratingInfo['stars_3']) +
+                                (4 * $scope.ratingInfo['stars_4']) +
+                                (5 * $scope.ratingInfo['stars_5'])) / ($scope.count);
                         }
+                        
                     };
 
                     getStarsPercents = function () {
@@ -84,11 +85,11 @@
                             return false;
                         }
 
-                        $scope.ratingInfo.oneStarPersent = ($scope.ratingInfo['1star'] / $scope.count) * 100;
-                        $scope.ratingInfo.twoStarPersent = ($scope.ratingInfo['2star'] / $scope.count) * 100;
-                        $scope.ratingInfo.threeStarPersent = ($scope.ratingInfo['3star'] / $scope.count) * 100;
-                        $scope.ratingInfo.fourStarPersent = ($scope.ratingInfo['4star'] / $scope.count) * 100;
-                        $scope.ratingInfo.fifeStarPersent = ($scope.ratingInfo['5star'] / $scope.count) * 100;
+                        $scope.ratingInfo.oneStarPersent = ($scope.ratingInfo['stars_1'] / $scope.count) * 100;
+                        $scope.ratingInfo.twoStarPersent = ($scope.ratingInfo['stars_2'] / $scope.count) * 100;
+                        $scope.ratingInfo.threeStarPersent = ($scope.ratingInfo['stars_3'] / $scope.count) * 100;
+                        $scope.ratingInfo.fourStarPersent = ($scope.ratingInfo['stars_4'] / $scope.count) * 100;
+                        $scope.ratingInfo.fifeStarPersent = ($scope.ratingInfo['stars_5'] / $scope.count) * 100;
                     };
 
                     $scope.productId = $routeParams.id;
@@ -253,7 +254,7 @@
 
                         date = new Date(str);
                         month = date.getMonth();
-                        day = date.getDay().toString().length < 2 ? "0" + date.getDay() : date.getDay();
+                        day = date.getDate().toString().length < 2 ? "0" + date.getDate() : date.getDate();
 
                         return months[month] + " " + day + ", " + date.getFullYear();
                     };

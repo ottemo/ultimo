@@ -6,6 +6,7 @@
      */
     define([
 			"design/service/states",
+			"design/directives/guiBlock",
 			"design/directives/guiListBar",
 			"design/directives/guiPaginator",
 			"design/directives/guiMessageManager",

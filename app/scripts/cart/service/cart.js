@@ -160,7 +160,7 @@
                                         items.push(response.result.items[i]);
                                     }
 
-                                    visitorId = response.result.visitor_id;     // jshint ignore:line
+                                    visitorId = response.result["visitor_id"];
                                     deferLoadCart.resolve(true);
                                 } else {
                                     items = undefined;

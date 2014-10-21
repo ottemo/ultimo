@@ -73,7 +73,7 @@
 
                     $scope.save = function () {
                         var updateSuccess, updateFail;
-                        if($scope.visitorForm.$invalid){
+                        if ($scope.visitorForm.$invalid) {
                             return false;
                         }
                         updateSuccess = function () {
@@ -90,9 +90,9 @@
                             };
                         };
 
-                        delete $scope.visitor.password;
-                        delete $scope.visitor.billing_address; // jshint ignore:line
-                        delete $scope.visitor.shipping_address; // jshint ignore:line
+                        delete $scope.visitor["password"];
+                        delete $scope.visitor["billing_address"];
+                        delete $scope.visitor["shipping_address"];
 
                         $visitorApiService.update($scope.visitor, updateSuccess, updateFail);
                         $("#parent_popup_profile").hide();
@@ -128,20 +128,20 @@
                     };
 
                     $scope.shippingUpdate = function () {
-                        $scope.visitor.shipping_address.id = $scope.visitor.shipping_address_id; // jshint ignore:line
-                        $visitorApiService.addressUpdate($scope.visitor.shipping_address); // jshint ignore:line
+                        $scope.visitor["shipping_address"].id = $scope.visitor["shipping_address_id"];
+                        $visitorApiService.addressUpdate($scope.visitor["shipping_address"]);
                     };
 
                     $scope.billingUpdate = function () {
-                        $scope.visitor.billing_address.id = $scope.visitor.billing_address_id; // jshint ignore:line
-                        $visitorApiService.addressUpdate($scope.visitor.billing_address); // jshint ignore:line
+                        $scope.visitor["billing_address"].id = $scope.visitor["billing_address_id"];
+                        $visitorApiService.addressUpdate($scope.visitor["billing_address"]);
                     };
 
                     $scope.$watch("visitor", getAddressList);
                     $scope.$watch("changePswCredentials", checkPassword);
 
-                    $scope.isActive = function(path){
-                        if(activePath === path){
+                    $scope.isActive = function (path) {
+                        if (activePath === path) {
                             return true;
                         }
                         return false;

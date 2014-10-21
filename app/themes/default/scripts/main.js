@@ -52,25 +52,14 @@
             $(".mini-cart").hide();
         });
 
-
-        // accordion for checkout page
-        $(document).on("click", '.checkout-accordion .next', function () {
-            $(this).parent().parent().parent().slideUp("slow").next().next().slideDown();
-        });
-
-        $(document).on("click", '.checkout-accordion .back', function () {
-            $(this).parent().parent().parent().slideUp("slow").prev().prev().slideDown();
-        });
-
-        $(document).on("click", '.accordion h3', function () {
-            $('.accordion > div').slideUp('slow');
-            $(this).next().slideDown('slow');
-        });
-
         // open popup on my account pages
         $(document).on("click", ".popup-close", function () {
             $(".parent_popup").hide();
         });
+
+//        setTimeout(function () {
+//            $("#accordion").accordion();
+//        }, 500);
 
         // dropdown for checkout page
         $(".ch-form .dropdown-toggle").dropdown();
@@ -88,18 +77,6 @@
 
         $("#pageslide").on("click", "ul > li", function () {
             $("#pageslide").css("display", "none");
-        });
-
-        // accordion for checkout page
-        $(document).on("click", '.checkout-accordion .next', function () {
-            $(this).parent().parent().parent().slideUp("slow").next().next().slideDown();
-        });
-        $(document).on("click", '.checkout-accordion .back', function () {
-            $(this).parent().parent().parent().slideUp("slow").prev().prev().slideDown();
-        });
-        $(document).on("click", '.accordion h3', function () {
-            $('.accordion > div').slideUp('slow');
-            $(this).next().slideDown('slow');
         });
 
         // Opens filter blocks on tablet and mobile pages

@@ -24,11 +24,11 @@
                     var activePath;
 
                     getFullName = function (obj) {
-                        return obj.zip_code +                                      // jshint ignore:line
-                            ' ' + obj.state +
-                            ', ' + obj.city +
-                            ', ' + obj.address_line1 +                             // jshint ignore:line
-                            (obj.address_line2 ? ', ' + obj.address_line2 : '');   // jshint ignore:line
+                        return obj["zip_code"] +
+                            ' ' + obj["state"] +
+                            ', ' + obj["city"] +
+                            ', ' + obj["address_line1"] +
+                            (obj["address_line2"] ? ', ' + obj["address_line2"] : '');
                     };
 
                     $scope.init = function () {
@@ -193,7 +193,7 @@
                         };
 
                         if (!id) {
-                            $scope.address.visitor_id = $visitorLoginService.getVisitorId(); // jshint ignore:line
+                            $scope.address["visitor_id"] = $visitorLoginService.getVisitorId();
                             $visitorApiService.saveAddress($scope.address, saveSuccess, saveError);
                         } else {
                             $scope.address.id = id;
@@ -210,10 +210,10 @@
                                 function (response) {
                                     $scope.address = response.result || [];
 
-                                    $scope.shippingAddressId = (typeof $scope.visitor.shipping_address !== 'undefined' && $scope.visitor.shipping_address !== null) ?    // jshint ignore:line
-                                        $scope.visitor.shipping_address._id : null;                                                                                      // jshint ignore:line
-                                    $scope.billingAddressId = (typeof $scope.visitor.billing_address !== 'undefined' && $scope.visitor.billing_address !== null) ?       // jshint ignore:line
-                                        $scope.visitor.billing_address._id : null;                                                                                       // jshint ignore:line
+                                    $scope.shippingAddressId = (typeof $scope.visitor["shipping_address"] !== 'undefined' && $scope.visitor["shipping_address"] !== null) ?
+                                        $scope.visitor["shipping_address"]._id : null;
+                                    $scope.billingAddressId = (typeof $scope.visitor["billing_address"] !== 'undefined' && $scope.visitor["billing_address"] !== null) ?
+                                        $scope.visitor["billing_address"]._id : null;
 
                                     $('#parent_popup_address').show();
 
@@ -224,12 +224,15 @@
 
 
                     $scope.changeShippingAsDefault = function (id) {
-                        delete $scope.visitor.billing_address; // jshint ignore:line
-                        delete $scope.visitor.shipping_address; // jshint ignore:line
-                        if (!$scope.shippingAddressId) { // jshint ignore:line
-                            delete $scope.visitor.shipping_address_id; // jshint ignore:line
+                        delete $scope.visitor["billing_address"];
+                        delete $scope.visitor["shipping_address"];
+
+                        if (!$scope.shippingAddressId) {
+                            $scope.visitor["shipping_address_id"] = "";
+                        } else {
+                            $scope.visitor["shipping_address_id"] = id;
                         }
-                        $scope.visitor.shipping_address_id = id;        // jshint ignore:line
+
                         $visitorApiService.update($scope.visitor).$promise.then(
                             function (response) {
                                 $visitorLoginService.setLogin(response.result);
@@ -239,12 +242,13 @@
                     };
 
                     $scope.changeBillingAsDefault = function (id) {
-                        delete $scope.visitor.billing_address; // jshint ignore:line
-                        delete $scope.visitor.shipping_address; // jshint ignore:line
-                        if (!$scope.billingAddressId) { // jshint ignore:line
-                            delete $scope.visitor.billing_address_id; // jshint ignore:line
+                        delete $scope.visitor["billing_address"];
+                        delete $scope.visitor["shipping_address"];
+                        if (!$scope.billingAddressId) {
+                            $scope.visitor["billing_address_id"] = "";
+                        } else {
+                            $scope.visitor["billing_address_id"] = id;
                         }
-                        $scope.visitor.billing_address_id = id;                     // jshint ignore:line
                         $visitorApiService.update($scope.visitor).$promise.then(
                             function (response) {
                                 $visitorLoginService.setLogin(response.result);
@@ -257,14 +261,14 @@
                         var _default, name;
                         name = addr.Name;
                         _default = [];
-                        if (typeof $scope.visitor.billing_address !== 'undefined' &&    // jshint ignore:line
-                            $scope.visitor.billing_address !== null &&                  // jshint ignore:line
-                            addr.Id === $scope.visitor.billing_address._id) {           // jshint ignore:line
+                        if (typeof $scope.visitor["billing_address"] !== 'undefined' &&
+                            $scope.visitor["billing_address"] !== null &&
+                            addr.Id === $scope.visitor["billing_address"]._id) {
                             _default.push('default billing');
                         }
-                        if (typeof $scope.visitor.shipping_address !== 'undefined' &&   // jshint ignore:line
-                            $scope.visitor.shipping_address !== null &&                 // jshint ignore:line
-                            addr.Id === $scope.visitor.shipping_address._id) {          // jshint ignore:line
+                        if (typeof $scope.visitor["shipping_address"] !== 'undefined' &&
+                            $scope.visitor["shipping_address"] !== null &&
+                            addr.Id === $scope.visitor["shipping_address"]._id) {
                             _default.push('default shipping');
                         }
 
@@ -275,10 +279,10 @@
                         return name;
                     };
 
-                    $scope.isActive = function(path){
-                        if(activePath === path){
-                        $('.account-menu ul li:first-child').find('span')
-                            .css('background','url("themes/default/images/tablet/tabL.jpg") no-repeat top left');
+                    $scope.isActive = function (path) {
+                        if (activePath === path) {
+                            $('.account-menu ul li:first-child').find('span')
+                                .css('background', 'url("themes/default/images/tablet/tabL.jpg") no-repeat top left');
                             return true;
                         }
                         return false;

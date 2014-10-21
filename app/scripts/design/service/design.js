@@ -76,11 +76,12 @@
 
                     getImage: function (img) {
                         var image;
+                        img = "/images/" + img;
 
                         if (angular.isExistFile(img)) {
-                            image = themesDir + data.theme + "/images/" + img;
+                            image = themesDir + data.theme + img;
                         } else {
-                            image = themesDir + "default/images/" + img;
+                            image = themesDir + "default" + img;
                         }
 
                         return image;

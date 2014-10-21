@@ -11,82 +11,54 @@
                 <div class="clear"></div>
             </div>
         </div>
+
         <div class="col-md-8">
             <div class="col-md-10 ch-form">
+                <gui-message-manager item="message"></gui-message-manager>
+            </div>
+            <div class="col-md-10 ch-form">
+                <form name="register">
                 <!--First name-->
-                <div class="form-group col-md-6">
-                    <label for="FirstName">First Name</label>
-                    <input type="text" class="form-control" id="FirstName" placeholder="First name">
-                </div>
-                <!--Email-->
-                <div class="form-group col-md-6">
-                    <label for="email">Email Address</label>
-                    <input id="email" type="text" class="form-control" name="email"  ng-model="loginCredentials.email">
-                </div>
-                <!--Last name-->
-                <div class="form-group col-md-6">
-                    <label for="LastName">Last Name</label>
-                    <input type="text" class="form-control" id="LastName" placeholder="Last name">
-                </div>
-                <!--Password-->
-                <div class="form-group col-md-6">
-                    <label for="password">Password</label>
-                    <input id="password" type="password" class="form-control" name="password" ng-model="loginCredentials.password">
-                </div>
-                <!--Birthday-->
-                <div class="form-group col-md-6">
-                    <label>Date of Birth (MM/DD/YYYY)</label>
-                    <input type="text" id="datepicker" class="form-control" >
-                    <!--<div class="select">-->
-                        <!--<select name="status form-control">-->
-                            <!--<option value="1" selected="selected">01</option>-->
-                            <!--<option value="2">02</option>-->
-                            <!--<option value="3">03</option>-->
-                            <!--<option value="4">04</option>-->
-                            <!--<option value="5">05</option>-->
-                            <!--<option value="6">06</option>-->
-                            <!--<option value="7">07</option>-->
-                            <!--<option value="8">08</option>-->
-                            <!--<option value="9">09</option>-->
-                            <!--<option value="10">10</option>-->
-                            <!--<option value="11">11</option>-->
-                            <!--<option value="12">12</option>-->
-                        <!--</select>-->
-                    <!--</div>-->
-                </div>
-                <!--<div class="form-group col-md-2">-->
-                    <!--<label>&nbsp;</label>-->
-                    <!--<div class="select">-->
-                        <!--<select name="status form-control">-->
-                            <!--<option value="1" selected="selected">01</option>-->
-                            <!--<option value="2">02</option>-->
-                            <!--<option value="3">03</option>-->
-                            <!--<option value="4">04</option>-->
-                            <!--<option value="5">05</option>-->
-                            <!--<option value="6">06</option>-->
-                            <!--<option value="7">07</option>-->
-                            <!--<option value="8">08</option>-->
-                            <!--<option value="9">09</option>-->
-                            <!--<option value="10">10</option>-->
-                            <!--<option value="11">11</option>-->
-                            <!--<option value="12">12</option>-->
-                        <!--</select>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="form-group col-md-2">-->
-                    <!--<label>&nbsp;</label>-->
-                    <!--<div class="select">-->
-                        <!--<select name="status form-control">-->
-                            <!--<option value="1" selected="selected">01</option>-->
-                            <!--<option value="2">1980</option>-->
-                            <!--<option value="3">1981</option>-->
-                            <!--<option value="4">1982</option>-->
-                        <!--</select>-->
-                    <!--</div>-->
-                <!--</div>-->
+                    <div class="form-group col-md-6"
+                         ng-class="{ 'has-error' : (register.submitted && register.fname.$error.required) || (register.fname.$invalid && !register.fname.$pristine) }">
+                        <label for="FirstName">First Name *</label>
+                        <input type="text" class="form-control" id="FirstName" placeholder="First name" ng-model="login.fname" name="fname" required  />
+
+                        <p ng-show="(register.submitted && register.fname.$error.required) || (register.fname.$invalid && !register.fname.$pristine)"
+                           class="help-block">This field is required.</p>
+                    </div>
+                    <!--Email-->
+                    <div class="form-group col-md-6"
+                         ng-class="{ 'has-error' : (register.submitted && register.email.$error.required) || (register.email.$invalid && !register.email.$pristine) }">
+                        <label for="email">Email Address *</label>
+                        <input id="email" type="text" class="form-control" name="email"  ng-model="login.email" required />
+
+                        <p ng-show="(register.submitted && register.email.$error.required) || (register.email.$invalid && !register.email.$pristine)"
+                           class="help-block">This field is required.</p>
+                    </div>
+                    <!--Last name-->
+                    <div class="form-group col-md-6">
+                        <label for="LastName">Last Name</label>
+                        <input type="text" class="form-control" id="LastName" placeholder="Last name" ng-model="login.lname" />
+                    </div>
+                    <!--Password-->
+                    <div class="form-group col-md-6"
+                         ng-class="{ 'has-error' : (register.submitted && register.password.$error.required) || (register.password.$invalid && !register.password.$pristine) }">
+                        <label for="password">Password *</label>
+                        <input id="password" type="password" class="form-control" name="password" ng-model="login.password" required autocomplete="off" />
+
+                        <p ng-show="(register.submitted && register.password.$error.required) || (register.password.$invalid && !register.password.$pristine)"
+                           class="help-block">This field is required.</p>
+                    </div>
+                    <!--Birthday-->
+                    <div class="form-group col-md-6">
+                        <label>Date of Birth (MM/DD/YYYY)</label>
+                        <input type="text" id="datepicker" class="form-control" >
+                    </div>
+                </form>
                 <div class="clear"></div>
                 <div class="form-group col-md-6">
-                    <a href class="btns" ng-click="signIn()">Submit</a>
+                    <a href class="btns" ng-click="save()">Register</a>
                 </div>
             </div>
         </div>

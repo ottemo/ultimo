@@ -8,61 +8,57 @@
      *  (check other modules dependency before exclude this module from include list)
      *
      */
-    define(["angular", "themeFiles"], function (angular, files) {
+    define([
+            "angular",
+            "angular-sanitize"
+        ],
+        function (angular) {
 
-        angular.isExistFile = function (path) {
+            angular.getTheme = function (path) {
 
-            if (files[angular.activeTheme].indexOf(path) !== -1) {
-                return true;
-            }
+                return function () {
+                    var template, tpl;
+                    tpl = "/views/" + path;
 
-            return false;
-        };
+                    if (angular.isExistFile(tpl)) {
+                        template = "themes/" + angular.activeTheme + tpl;
+                    } else {
+                        template = "themes/default" + tpl;
+                    }
 
-        angular.getTheme = function (path) {
-
-            return function () {
-                var template, tpl;
-                tpl = "/views/" + path;
-
-                if (angular.isExistFile(tpl)) {
-                    template = "themes/" + angular.activeTheme + tpl;
-                } else {
-                    template = "themes/default" + tpl;
-                }
-
-                return template;
+                    return template;
+                };
             };
-        };
 
-        /**
-         *  Angular "designModule" allows to use themes
-         *
-         *  default [themeName] is blank
-         *  Usage:
-         *      <ng-include src="getTemplate("common/footer.html")" />
-         *      i.e. - getTemplate("someTemplate.html") = views/[themeName]/someTemplate.html
-         *
-         */
-        angular.module.designModule = angular.module("designModule", [])
+            /**
+             *  Angular "designModule" allows to use themes
+             *
+             *  default [themeName] is blank
+             *  Usage:
+             *      <ng-include src="getTemplate("common/footer.html")" />
+             *      i.e. - getTemplate("someTemplate.html") = views/[themeName]/someTemplate.html
+             *
+             */
+            angular.module.designModule = angular.module("designModule", ["ngSanitize"])
 
-            .constant("MEDIA_BASE_PATH", "media/")
-            .constant("PRODUCT_DEFAULT_IMG", "placeholder.png")
+                .constant("MEDIA_BASE_PATH", "media/")
+                .constant("PRODUCT_DEFAULT_IMG", "placeholder.png")
 
             /**
              *  Startup for designModule - registration globally visible functions
              */
-            .run(["$designService", "$rootScope", function ($designService, $rootScope) {
+                .run(["$designService", "$rootScope", function ($designService, $rootScope) {
 
-                /**
-                 *  Global functions you can use in any angular template
-                 */
-                $rootScope.getTemplate = $designService.getTemplate;
-                $rootScope.getCss = $designService.getCss;
-                $rootScope.getTopPage = $designService.getTopPage;
+                    /**
+                     *  Global functions you can use in any angular template
+                     */
+                    $rootScope.getTemplate = $designService.getTemplate;
+                    $rootScope.getCss = $designService.getCss;
+                    $rootScope.getTopPage = $designService.getTopPage;
 
-            }]);
+                }]);
 
-        return angular.module.designModule;
-    });
+            return angular.module.designModule;
+        }
+    );
 })(window.define);

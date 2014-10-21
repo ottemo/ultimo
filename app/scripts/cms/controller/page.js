@@ -11,10 +11,11 @@
                 "$scope",
                 "$routeParams",
                 "$location",
+                "$sce",
                 "$cmsApiService",
                 "$cmsPageService",
                 "$commonPageService",
-                function ($scope, $routeParams, $location, $cmsApiService, $cmsPageService, $commonPageService) {
+                function ($scope, $routeParams, $location, $sce, $cmsApiService, $cmsPageService) {
                     var getDefaultPage;
 
                     getDefaultPage = function () {
@@ -31,10 +32,6 @@
                                 var result = response.result || getDefaultPage();
                                 $scope.page = result;
 
-                                $commonPageService.setTitle($scope.page.title);
-                                $commonPageService.setMetaDescription($scope.page.meta_description);    //jshint ignore:line    
-                                $commonPageService.setMetaKeywords($scope.page.meta_keywords);  //jshint ignore:line    
-
                                 // BREADCRUMBS
                                 $scope.$emit("add-breadcrumbs", {"label": $scope.page.identifier, "url": $cmsPageService.getUrl($scope.page._id)});
                             } else {
@@ -42,6 +39,10 @@
                             }
                         }
                     );
+
+                    $scope.getContent = function() {
+                        return $sce.trustAsHtml($scope.page.content);
+                    };
 
                 }
             ]

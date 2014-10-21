@@ -7,7 +7,9 @@
      */
     define([
             "checkout/service/api",
-            "checkout/controller"
+            "checkout/service/checkout",
+            "checkout/controller/onepage",
+            "checkout/controller/accordion"
         ],
         function (checkoutModule) {
 

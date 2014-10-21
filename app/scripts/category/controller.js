@@ -16,10 +16,8 @@
                 "$visitorLoginService",
                 "$cartService",
                 "$pdpProductService",
-                // TODO: reduce the number of statements in the line below
-                function ($scope, $location, $route, $routeParams, $categoryApiService, $designService, $designImageService,
-                          $categoryService, $visitorLoginService, $cartService, $pdpProductService) {  //jshint ignore:line
-                    var getPage, addCategoryCrumbs, getFilters, setFilters;
+                function ($scope, $location, $route, $routeParams, $categoryApiService, $designService, $designImageService, $categoryService, $visitorLoginService, $cartService, $pdpProductService) {
+                    var init, getPage, addCategoryCrumbs, getFilters, setFilters;
 
                     getPage = function () {
                         var param, page;
@@ -36,6 +34,30 @@
                         return page;
                     };
 
+                    init = function () {
+                        /**
+                         * Variables for paginator
+                         */
+                        $scope.currentPage = getPage();
+                        $scope.itemsPerPage = 15;
+                        $scope.productsList = [];
+                        $scope.paths = [];
+                        $scope.categoryId = $routeParams.id;
+                        $scope.uri = $categoryService.getUrl($routeParams.id) + "/p/:page";
+                        $scope.category = {};
+                        $scope.popupProduct = {};
+                        $scope.productService = $pdpProductService;
+                        $scope.options = {};
+                        $scope.filters = {};
+                        $scope.blocks = {
+                            "sort": false,
+                            "search": false,
+                            "filter": false
+                        };
+                    };
+
+                    init();
+
                     addCategoryCrumbs = function () {
                         var list, i, category;
 
@@ -45,29 +67,6 @@
                             category = list[i];
                             $scope.$emit("add-breadcrumbs", {"label": category.name, "url": $categoryService.getUrl(category.id)});
                         }
-                    };
-
-                    /**
-                     * Variables for paginator
-                     */
-                    $scope.currentPage = getPage();
-                    $scope.itemsPerPage = 15;
-                    $scope.productsList = [];
-                    $scope.paths = [];
-                    $scope.categoryId = $routeParams.id;
-                    $scope.uri = $categoryService.getUrl($routeParams.id) + "/p/:page";
-                    $scope.category = {};
-                    $scope.popupProduct = {};
-                    $scope.productService = $pdpProductService;
-
-                    $scope.options = {};
-
-                    $scope.filters = {};
-
-                    $scope.blocks = {
-                        "sort": false,
-                        "search": false,
-                        "filter": false
                     };
 
                     setFilters = function () {
@@ -96,7 +95,7 @@
                         filters = [];
                         hasFilter = false;
 
-                        getFilterValues = function(attr){
+                        getFilterValues = function (attr) {
                             var values, val;
                             values = [];
 
@@ -174,7 +173,7 @@
 
                         if ($visitorLoginService.isLoggedIn()) {
                             $cartService.add(productId, 1, $pdpProductService.getOptions()).then(
-                                function(response){
+                                function (response) {
                                     if (response.error !== "") {
                                         $location.path($pdpProductService.getUrl(productId).replace("#/", ""));
                                     } else {
@@ -195,70 +194,17 @@
                     };
 
                     /**
-                     * Gets number items into collection
-                     */
-                    $categoryApiService.getCountProducts({"id": $scope.categoryId}).$promise.then(
-                        function (response) {
-                            var result = response.result || [];
-                            $scope.totalItems = result;
-                            if ($scope.currentPage === "all") {
-                                $scope.pages = 0;
-                            } else {
-                                $scope.pages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
-                            }
-                        }
-                    );
-
-                    /**
-                     * Gets list of products
-                     */
-                    $categoryApiService.getProducts($location.search(), {"id": $scope.categoryId}).$promise.then(
-                        function (response) {
-                            var result = response.result || [];
-                            $scope.productsList = result;
-                        }
-                    );
-
-                    /**
-                     * Gets list of products
-                     */
-                    $categoryApiService.getLayered($location.search(), {
-                        "id": $scope.categoryId
-                    }).$promise.then(
-                        function (response) {
-                            var result = response.result || [];
-                            $scope.layered = result;
-                            for (var filter in $scope.layered) {
-                                if ($scope.layered.hasOwnProperty(filter)) {
-                                    $scope.filters[filter] = {};
-                                }
-                            }
-                            setFilters();
-                        }
-                    );
-
-                    /**
                      * Gets full path to image
                      *
                      * @param {object} product
                      * @returns {string}
                      */
                     $scope.getImage = function (product) {
-                        if(typeof product === "undefined"){
+                        if (typeof product === "undefined") {
                             return $designImageService.getFullImagePath("", null);
                         }
-                        return $designImageService.getFullImagePath("", product.default_image); // jshint ignore:line
+                        return $designImageService.getFullImagePath("", product["default_image"]);
                     };
-
-                    /**
-                     * Gets category
-                     */
-                    $categoryApiService.load({"id": $scope.categoryId}).$promise.then(
-                        function (response) {
-                            var result = response.result || [];
-                            $scope.category = result;
-                        }
-                    );
 
                     $scope.sortByPrice = function (order) {
                         var orderStr;
@@ -296,28 +242,74 @@
                         }, 300);
                     };
 
-                    $scope.$watch("categoryId", addCategoryCrumbs);
+                    /**
+                     * Gets number items into collection
+                     */
+                    $categoryApiService.getCountProducts({"id": $scope.categoryId}).$promise.then(function (response) {
+                        var result = response.result || [];
+                        $scope.totalItems = result;
+                        if ($scope.currentPage === "all") {
+                            $scope.pages = 0;
+                        } else {
+                            $scope.pages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
+                        }
+                    });
 
-                    $scope.$watch("filters",
-                        function () {
-                            var filterStr, url, path;
-                            filterStr = getFilters();
-                            if (typeof filterStr !== "undefined") {
-                                url = $categoryService.getUrl($scope.categoryId);
-
-                                // removes the  "#" in the begin string
-                                path = url.substr(1, url.length);
-
-                                $location.$$path = path;
-                                $location.$$url = path;
-
-                                $location.search(filterStr);
-                            }
-                        },
-                        true
+                    /**
+                     * Gets list of products
+                     */
+                    $categoryApiService.getProducts($location.search(), {"id": $scope.categoryId}).$promise.then(
+                        function (response) {
+                            var result = response.result || [];
+                            $scope.productsList = result;
+                        }
                     );
 
-                    $scope.$watch("options", function() {
+                    /**
+                     * Gets list of products
+                     */
+                    $categoryApiService.getLayered($location.search(), {
+                        "id": $scope.categoryId
+                    }).$promise.then(function (response) {
+                            var result = response.result || [];
+                            $scope.layered = result;
+                            for (var filter in $scope.layered) {
+                                if ($scope.layered.hasOwnProperty(filter)) {
+                                    $scope.filters[filter] = {};
+                                }
+                            }
+                            setFilters();
+                        }
+                    );
+
+                    /**
+                     * Gets category
+                     */
+                    $categoryApiService.load({"id": $scope.categoryId}).$promise.then(function (response) {
+                        var result = response.result || [];
+                        $scope.category = result;
+                    });
+
+                    // WATCHERS
+                    $scope.$watch("categoryId", addCategoryCrumbs);
+
+                    $scope.$watch("filters", function () {
+                        var filterStr, url, path;
+                        filterStr = getFilters();
+                        if (typeof filterStr !== "undefined") {
+                            url = $categoryService.getUrl($scope.categoryId);
+
+                            // removes the  "#" in the begin string
+                            path = url.substr(1, url.length);
+
+                            $location.$$path = path;
+                            $location.$$url = path;
+
+                            $location.search(filterStr);
+                        }
+                    }, true);
+
+                    $scope.$watch("options", function () {
                         $pdpProductService.setOptions($scope.options);
                         $scope.popupProduct = $pdpProductService.getProduct();
                     }, true);
