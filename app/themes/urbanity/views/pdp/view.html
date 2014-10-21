@@ -1,9 +1,75 @@
-<div class="page-title"></div>
+<div class="content have-aside pdp">
 
-</head>
-<body>
+    <!-- left side information -->
+    <aside class="left-side wow fadeInLeft">
+        <h2>{{product.name}}</h2>
+        <p>If you bought something in a shop and then just change your mind about it, you do not have any legal
+            right to return the goods. However, many shops have a returns policy which lets you to take your
+            items back to the shop for any reason and get a refund.
+        </p>
+
+        <p> But you may have rights if you're not happy with the quality of the goods or the item is broken or
+            faulty in some way.
+        </p>
+
+        <!-- Share product -->   
+        <h4>Share</h4>
+        <div class="social">
+            <a class="fa fa-facebook"></a>
+            <a class="fa fa-twitter"></a>
+            <a class="fa fa-google-plus"></a>
+        </div>
+    </aside>
+    
+    <!-- right side information -->
+    <aside class="right-side wow fadeInRight">
+        <h2>{{product.price | currency}}</h2>
+        <p>{{product.description}}</p>
+        
+        <div class="input-group spinner pdp-spinner">
+            <label>Quantity</label>
+
+            <div class="spinner-block">
+                <input placeholder="Qtl" type="text" class="form-control" value="{{qty}}"
+                       ng-model="qty" ng-change="update(idx, qty)">
+
+                <div class="input-group-btn-vertical">
+                    <button class="btn" ng-click="changeQty(qty,'up')"><i></i></button>
+                    <button class="btn" ng-click="changeQty(qty,'down')"><i></i></button>
+                </div>
+            </div>
+        </div>
+        <p class="pdp-total">Total:</p>
+        <div class="clear"></div>
+        <p>{{product.price * qty | number:2 | currency}}</p>
+        
+    </aside> 
+
+    <!-- product images -->
+    <div class="images wow fadeInUp">
+        <img ng-src="{{getImage(imagesPath, img)}}" alt="" ng-repeat="img in productImages">
+    </div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
 <!--Slider Block-->
-<div class="pdp-slider">
+<!-- <div class="pdp-slider">
     <div class="big">
         <img ng-src="{{getImage(imagesPath, productImages[0])}}" alt=""/>
     </div>
@@ -32,12 +98,11 @@
         <img ng-src="{{getImg('placeholder.png')}}" alt="" class="img-thumbnail" width="250px" height="250px"/>
     </div>
 
-</div>
+</div> -->
 <!--Info block-->
-<section class="pdp-info">
+<!-- <section class="pdp-info">
     <div class="tab-wrap">
-        <h2>{{product.name}}</h2>
-        <p>{{product.price | currency}}</p>
+                <p></p>
         <div class="pdp-filters col-md-9">
             <div class="col-md-6">
                 <div class="input-group spinner pdp-spinner">
@@ -53,9 +118,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!-- Custom options -->
-            <gui-custom-options item="product" object="this"></gui-custom-options>
+ <!--            <gui-custom-options item="product" object="this"></gui-custom-options>
 
             <div class="clear"></div>
         </div>
@@ -74,21 +139,7 @@
         </div>
         <div class="clear"></div>
     </div>
-    <div id="accordion">
-        <div class="accordion active">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseDetails"
-               target="_self">
-                Description
-                <div>
-                    <span></span>
-                </div>
-            </a>
-            <div id="collapseDetails" class="panel-collapse collapse in">
-                <div class="acc-text">
-                    {{product.description}}
-                </div>
-            </div>
-        </div>
+
         <div class="accordion">
             <a data-toggle="collapse" data-parent="#accordion" href="#collapseReviews"
                target="_self">
@@ -247,7 +298,7 @@
         <div class="clear"></div>
     </div>
 </section>
-
+ -->
 <script>
     (function ($) {
 

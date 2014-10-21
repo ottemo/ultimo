@@ -1,3 +1,35 @@
+<div class="mini-cart">
+    <table>
+        <tr ng-repeat="item in it.getItemsForMiniCart()">
+            <td>
+                <a href="{{productService.getUrl(item.pid)}}">
+                    <img ng-src="{{getImage(item.product)}}" alt="{{item.product.name}}">
+                </a>
+            </td>
+            <td>
+                <div class="name">{{item.product.name}}</div>
+                <div class="model">Navy Strikethrough Figure T-Shirt</div>
+            </td>
+            <td>
+                <i class="remove" ng-click="it.remove(item.idx)">×</i>
+                <div class="price">{{item.product.price | currency}}</div>
+            </td>
+        </tr>
+    </table>
+    <div class="total" ng-hide="!it.getCountItems()">
+        Subtotal:
+        <span>{{it.getSubtotal() | number : 2 | currency}}</span>
+    </div>
+    <div class="total" ng-hide="it.getCountItems()">
+        Cart is empty
+    </div>
+    <div class="button-group" ng-hide="!it.getCountItems()">
+        <a href="#/checkout" target="_self" class="btn">checkout</a>
+        <a href="#/cart" target="_self" class="btn black">view cart</a>
+    </div>
+</div>
+
+
 <!--<div class="mini-cart">
     <div class="head">
     </div>
@@ -50,40 +82,3 @@
         <a href="#/cart" target="_self" class="left">view cart</a>
     </div>
 </div>-->
-
-<div class="mini-cart">
-    <table>
-        <tr>
-            <td><img src="img/product1.jpg" alt=""></td>
-            <td>
-                <div class="name">Versace</div>
-                <div class="model">Navy Strikethrough Figure T-Shirt</div>
-                <div class="size">Size: US 7 | UK 6 | EU 40</div>
-            </td>
-            <td>
-                <i class="remove">×</i>
-                <div class="price">298</div>
-            </td>
-        </tr>
-        <tr>
-            <td><img src="img/product2.jpg" alt=""></td>
-            <td>
-                <div class="name">Versace</div>
-                <div class="model">Navy Strikethrough Figure T-Shirt</div>
-                <div class="size">Size: US 7 | UK 6 | EU 40</div>
-            </td>
-            <td>
-                <i class="remove">×</i>
-                <div class="price">298</div>
-            </td>
-        </tr>
-    </table>
-    <div class="total">
-        Subtotal:
-        <span>596$</span>
-    </div>
-    <div class="button-group">
-        <a href="" class="btn">view cart</a>
-        <a href="" class="btn black">checkout</a>
-    </div>
-</div>

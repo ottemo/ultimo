@@ -1,103 +1,38 @@
-<div class="page-title"></div>
-
-<div ng-controller="visitorLoginControllerUrb">
-    <div class="login-page registration-page">
-        <h3>my account</h3>
-        <div class="col-md-4">
-            <div class="col-md-10">
-                <h5>Create Account With</h5>
-                <a href ng-click="googleLogin()"></a>
-                <a href ng-click="facebookLogin()"></a>
-                <div class="clear"></div>
-            </div>
+<div ng-controller="visitorLoginControllerUrb" class="wow zoomIn">
+    <div class="login-page register-page">
+        <h2>Registration</h2>
+        <div class="input-group">
+            <label for="email">Email</label>
+            <input id="email" type="text" name="email"  ng-model="loginCredentials.email">
         </div>
-        <div class="col-md-8">
-            <div class="col-md-10 ch-form">
-                <!--First name-->
-                <div class="form-group col-md-6">
-                    <label for="FirstName">First Name</label>
-                    <input type="text" class="form-control" id="FirstName" placeholder="First name">
-                </div>
-                <!--Email-->
-                <div class="form-group col-md-6">
-                    <label for="email">Email Address</label>
-                    <input id="email" type="text" class="form-control" name="email"  ng-model="loginCredentials.email">
-                </div>
-                <!--Last name-->
-                <div class="form-group col-md-6">
-                    <label for="LastName">Last Name</label>
-                    <input type="text" class="form-control" id="LastName" placeholder="Last name">
-                </div>
-                <!--Password-->
-                <div class="form-group col-md-6">
-                    <label for="password">Password</label>
-                    <input id="password" type="password" class="form-control" name="password" ng-model="loginCredentials.password">
-                </div>
-                <!--Birthday-->
-                <div class="form-group col-md-6">
-                    <label>Date of Birth (MM/DD/YYYY)</label>
-                    <input type="text" id="datepicker" class="form-control" >
-                    <!--<div class="select">-->
-                        <!--<select name="status form-control">-->
-                            <!--<option value="1" selected="selected">01</option>-->
-                            <!--<option value="2">02</option>-->
-                            <!--<option value="3">03</option>-->
-                            <!--<option value="4">04</option>-->
-                            <!--<option value="5">05</option>-->
-                            <!--<option value="6">06</option>-->
-                            <!--<option value="7">07</option>-->
-                            <!--<option value="8">08</option>-->
-                            <!--<option value="9">09</option>-->
-                            <!--<option value="10">10</option>-->
-                            <!--<option value="11">11</option>-->
-                            <!--<option value="12">12</option>-->
-                        <!--</select>-->
-                    <!--</div>-->
-                </div>
-                <!--<div class="form-group col-md-2">-->
-                    <!--<label>&nbsp;</label>-->
-                    <!--<div class="select">-->
-                        <!--<select name="status form-control">-->
-                            <!--<option value="1" selected="selected">01</option>-->
-                            <!--<option value="2">02</option>-->
-                            <!--<option value="3">03</option>-->
-                            <!--<option value="4">04</option>-->
-                            <!--<option value="5">05</option>-->
-                            <!--<option value="6">06</option>-->
-                            <!--<option value="7">07</option>-->
-                            <!--<option value="8">08</option>-->
-                            <!--<option value="9">09</option>-->
-                            <!--<option value="10">10</option>-->
-                            <!--<option value="11">11</option>-->
-                            <!--<option value="12">12</option>-->
-                        <!--</select>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="form-group col-md-2">-->
-                    <!--<label>&nbsp;</label>-->
-                    <!--<div class="select">-->
-                        <!--<select name="status form-control">-->
-                            <!--<option value="1" selected="selected">01</option>-->
-                            <!--<option value="2">1980</option>-->
-                            <!--<option value="3">1981</option>-->
-                            <!--<option value="4">1982</option>-->
-                        <!--</select>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <div class="clear"></div>
-                <div class="form-group col-md-6">
-                    <a href class="btns" ng-click="signIn()">Submit</a>
-                </div>
-            </div>
+        <div class="input-group">
+            <label for="password">Password</label>
+            <input id="password" type="password" name="password" ng-model="loginCredentials.password">
+        </div>
+        <br>
+        <div class="input-group">
+            <label for="FirstName">First Name</label>
+            <input type="text" id="FirstName" placeholder="First name">
+        </div>
+        <div class="input-group">
+            <label for="confirm_password">Confirm password</label>
+            <input id="confirm_password" type="password" name="confirm_password" ng-model="loginCredentials.password">
+        </div>
+        <br>
+        <div class="input-group">
+            <label for="LastName">Last Name</label>
+            <input type="text" id="LastName" placeholder="Last name">
+        </div>
+        <div class="right-side">
+            <button type="submit" class="btn black" ng-click="signIn()">Register</button>
+        </div>
+        <br>
+        <div class="left-side last">
+            <a href="#/login" class="register">Login</a>
+        </div>
+        <div class="right-side last">
+            <a href ng-click="facebookLogin()">login with facebook</a>
+            <a href ng-click="googleLogin()">login with google</a>
         </div>
     </div>
 </div>
-<script>
- $(function() {
-$( "#datepicker" ).datepicker({
-yearRange: "-80:-10",
-changeMonth: true,
-changeYear: true
-});
-});
-</script>

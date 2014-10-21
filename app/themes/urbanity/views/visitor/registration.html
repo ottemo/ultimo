@@ -1,7 +1,7 @@
-<div class="modal fade" id="form-registration" tabindex="-1" role="dialog" ng-controller="visitorLoginControllerUrb">
-    <div class="modal-dialog login registration">
-        <div class="login-close"></div>
-        <div class="modal-content ch-form">
+<div ng-controller="visitorLoginControllerUrb">
+    <div class="modal fade" id="form-registration" tabindex="-1" role="dialog">
+        <div class="modal-dialog login registration">
+            <div class="login-close fa">X</div>
             <h6>REGISTRATION</h6>
             <form role="form">
 
@@ -25,15 +25,15 @@
                 </div>
             </form>
             <div class="clear"></div>
-            <div class="form-group col-md-6">
-                <div class="button btn-black" ng-click="save()">Register</div>
-                <a href="" target="_self" id="modal-login">Login</a>
-                <div class="clear"></div>
-            </div>
-            <div class="form-group col-md-6">
-                <ng-include src="getTemplate('visitor/social/facebook.html')"></ng-include>
-                <ng-include src="getTemplate('visitor/social/google.html')"></ng-include>
-            </div>
+
+            <button class="btn black" ng-click="save()">Register</button>
+            <br>
+            <span class="or">or</span>
+            <br>
+            <button class="btn" href="" target="_self" id="modal-login">Login</button>
+            <div class="clear"></div>
+            <ng-include src="getTemplate('visitor/social/facebook.html')"></ng-include>
+            <ng-include src="getTemplate('visitor/social/google.html')"></ng-include>
             <div class="clear"></div>
         </div>
     </div>

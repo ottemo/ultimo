@@ -1,230 +1,134 @@
-<div ng-init="init()">
-<div class="page-title">
-    <!--    <h3>{{category.name}}</h3>-->
-    <div class="list-bar">
-        <span class="glyphicon glyphicon-sort-by-attributes" ng-click="toggleBlock('sort')"></span>
-        <span class="glyphicon glyphicon-search" ng-click="toggleBlock('search')"></span>
-        <span class="glyphicon glyphicon-filter" ng-click="toggleBlock('filter')"></span>
-    </div>
-</div>
-<div class="category-tools">
-    <div ng-show="blocks.sort" class="filter-sort">
-        <a href="" target="_self" ng-click="sortByPrice('asc')">PRICE LOW TO HIGH</a>
-        <a href="" target="_self" ng-click="sortByPrice('desc')">PRICE HIGH TO LOW</a>
-        <a href="" target="_self" ng-click="sortByName('asc')">NAME ASC</a>
-        <a href="" target="_self" ng-click="sortByName('desc')">NAME DESC</a>
+<div class="content have-aside animated fadeInUp">
 
-        <div class="clear"></div>
-        <div class="nav-close" ng-click="closeBlock('sort')"></div>
-    </div>
-    <div ng-show="blocks.search">
-        <form>
-            <input type="text" class="form-control" placeholder="Search..." ng-model="searchText">
-            <span class="glyphicon glyphicon-search" ng-click=""></span>
-            <!--   <div>
-                   <a href>keyword</a>
-                   <a href>keyword</a>
-                   <a href>keyword</a>
-                   <a href>keyword</a>
-                   <a href>keyword</a>
-                   <a href>keyword</a>
-                   <a href>keyword</a>
-                   <a href>keyword</a>
-                   <a href>keyword</a>
-                   <a href>keyword</a>
-                   <a href>keyword</a>
-                   <a href>keyword</a>
-               </div>-->
-            <div class="clear"></div>
-        </form>
-        <div class="nav-close" ng-click="closeBlock('search')"></div>
-    </div>
-    <div ng-show="blocks.filter" class="filter">
-        <div class="filters" ng-repeat="(filter, items) in layered" ng-if="items.length>0">
-            <h6>{{filter}}</h6>
-            <span class="filter-btn"></span>
-
-            <div class="clear"></div>
-            <hr>
-            <div class="filter-block">
-                <div class="checkboxes" ng-repeat="item in items">
-                    <label class="myCheckbox">
-                        <input type="checkbox" ng-model="filters[filter][item]">
-                        <span></span>
-                    </label>
-
-                    <p>{{item}}</p>
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-
-</div>
-<!--    <div class="paginator-center">
-        <gui-paginator object="this"></gui-paginator>
-    </div>-->
-<div class="clear"></div>
-<section class="center-block cat">
-    <aside class="filter-left">
-        <div ng-repeat="(filter, items) in layered" ng-if="items.length>0">
-            <h6>{{filter}}</h6>
-
-            <div class="filter-left-block filter-color">
-                <div class="checkboxes" ng-repeat="item in items">
-                    <label class="myCheckbox">
-                        <input type="checkbox" ng-model="filters[filter][item]">
-                        <span>{{item}}</span>
-                    </label>
-                </div>
-
-                <!--<div class="filter-more">-->
-                    <!--<div class="checkboxes">-->
-                        <!--<label class="myCheckbox">-->
-                            <!--<input type="checkbox" name="test">-->
-                            <!--<span>purple</span>-->
-                        <!--</label>-->
-                    <!--</div>-->
-                    <!--<div class="checkboxes">-->
-                        <!--<label class="myCheckbox">-->
-                            <!--<input type="checkbox" name="test">-->
-                            <!--<span>pink</span>-->
-                        <!--</label>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <div class="clear"></div>
-                <!--<a href>View more<b class="caret"></b></a>-->
-            </div>
-        </div>
-        <div  ng-if="!items.length">&nbsp;</div>
-    </aside>
-        <div class="center-align">
-            <div class="cat-prod" ng-repeat="_item in productsList | filter:searchText" ng-show="productsList.length">
-                <a href="{{productService.getUrl(_item._id)}}">
-                    <img ng-src="{{getImage(_item)}}" alt="_item.Name" ng-show="productsList.length">
-                    <img ng-src="{{getImg('placeholder.png')}}" alt="placeholder" ng-hide="productsList.length">
-                </a>
-                <div class="tablet-shadow">
-                    <h6 class="ng-binding">{{_item.name}}</h6>
-                    <p class="ng-binding">{{_item.price | number : 2 | currency}}</p>
-                    <a href class="pdp-zoom-btn">
-                        <i class="fa fa-search-plus"
-                           ng-click="openPopUp(_item);"></i>
-                    </a>
-                    <a href class="pdp-cart-btn">
-                        <i class="fa fa-shopping-cart" ng-click="addToCart(_item._id)"></i>
-                    </a>
+    <!-- product brands -->
+    <!-- <nav class="brands">
+        <h5>brands</h5>
+        <ul>
+            <li><a href="#">adidas</a></li>
+            <li><a href="#">asics</a></li>
+            <li><a href="#">clarks</a></li>
+            <li><a href="#">concept</a></li>
+            <li><a href="#">gucci</a></li>
+            <li><a href="#">lanvin</a></li>
+            <li><a href="#">new balance</a></li>
+            <li><a href="#">nike</a></li>
+            <li><a href="#">puma</a></li>
+            <li><a href="#">reebok</a></li>
+            <li><a href="#">rizzoli</a></li>
+            <li><a href="#">saint laurent</a></li>
+        </ul>
+    </nav> -->
+    <!-- products -->
+    <div class="product" ng-repeat="_item in productsList | filter:searchText" ng-show="productsList.length">
+        <a href="{{productService.getUrl(_item._id)}}">
+            <img ng-src="{{getImage(_item)}}" alt="_item.Name" ng-show="productsList.length">
+            <img ng-src="{{getImg('placeholder.png')}}" alt="placeholder" ng-hide="productsList.length">
+        </a>
+        <div class="hidden-group">
+            <div class="wrapper">
+                <div class="name">{{_item.name}}</div>
+                <div class="price">{{_item.price | number : 2 | currency}}</div>
+                <div class="button-group">
+                    <button class="btn white quick-view" ng-click="openPopUp(_item);">quick view</button>
+                    <a href="{{productService.getUrl(_item._id)}}" class="btn black detail">details</a>
                 </div>
             </div>
-            <div class="cat-prod" ng-repeat="_item in productsList | filter:searchText" ng-hide="productsList.length" ng-hide="_item.length">
-                <a href="{{productService.getUrl(_item._id)}}">
-                    <img ng-src="{{getImg('placeholder.png')}}" alt="placeholder"/>
-                </a>
-            </div>
         </div>
+    </div>
+    <div class="product" ng-repeat="_item in productsList | filter:searchText" ng-hide="productsList.length" ng-hide="_item.length">
+        <a href="{{productService.getUrl(_item._id)}}">
+            <img ng-src="{{getImg('placeholder.png')}}" alt="placeholder"/>
+        </a>
+    </div>
     <div class="clear"></div>
-</section>
-<!-- popup for quickshop -->
-<section class="parent_popup" id="parent_popup_quickShop">
-    <div class="popup quickshop">
-        <div class="popup-close">
-            <span class="glyphicon glyphicon-remove"></span>
+
+    <!-- pagination -->
+    <!-- <gui-paginator object="this"></gui-paginator> -->
+</div>
+
+
+<!-- left side categories -->
+<aside class="left-side">
+
+    <!-- product categories -->
+    <nav class="categories">
+        <ul>
+            <li><a href="#">all categories</a></li>
+            <li><a href="#">accessories</a></li>
+            <li><a href="#">bags</a></li>
+            <li><a href="#">clothing</a></li>
+            <li><a href="#">shoes</a></li>
+        </ul>
+    </nav>
+</aside>
+
+<!-- right side filters -->
+<aside class="right-side">
+    <!-- First level -->
+    <ul>
+        <li>
+            Filter
+            <span></span>
+            <!-- Second level -->
+            <ul>
+                <li class="second-level" ng-repeat="(filter, items) in layered" ng-if="items.length>0">
+                    {{filter}}
+                    <span></span>
+                    <!-- Third level -->
+                    <ul>
+                        <li>
+                            <a ng-href="" ng-repeat="item in items">
+                                <div>{{item}}</div>
+                                <input type="checkbox" ng-model="filters[filter][item]">
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <ul class="sort">
+        <li>
+            Sort
+            <span ng-click="toggleBlock('sort')"></span>
+            <ul>
+                <li class="second-level" ng-show="blocks.sort">
+                    <a href="" target="_self" ng-click="sortByPrice('asc')" class="full-width">price low to high</a>
+                    <a href="" target="_self" ng-click="sortByPrice('desc')" class="full-width">price high to low</a>
+                    <a href="" target="_self" ng-click="sortByName('asc')" class="full-width">name asc</a>
+                    <a href="" target="_self" ng-click="sortByName('desc')" class="full-width">name desc</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</aside>
+<div class="clear"></div>
+
+<!-- product modal window -->
+<div id="modal_window">
+    <div class="window">
+        <i class="fa">×</i>
+        <div class="left-side">
+            <div class="name">{{popupProduct.name}}</div>
+            <div class="model">{{popupProduct.short_description}}</div>
+            <div class="price">{{popupProduct.price | currency}}</div>
         </div>
-        <div class="popup_form ch-form">
 
-            <div class="left-block">
-                <a href="{{productService.getUrl(popupProduct._id)}}">
-                    <img alt="{{popupProduct.name}}" ng-src="{{getImage(popupProduct)}}">
-                </a>
-            </div>
+        <a href="{{productService.getUrl(popupProduct._id)}}" class="main-image">
+            <span>
+                <img alt="{{popupProduct.name}}" ng-src="{{getImage(popupProduct)}}">
+            </span>
+        </a>
 
-            <form class="right-block" name="visitorForm" novalidate>
-                <h3>{{popupProduct.name}}</h3>
-                <div class="col-md-3">
-                    <input id="input-21d" value="{{productService.getAverageRating()}}" type="number" class="rating disabled" min=0 max=5
-                       step=0.1 data-size="xxs">
-                </div>
-                <div class="col-md-6">
-                    <a href="{{productService.getUrl(popupProduct._id)}}">Read all {{productService.getCountRating()}} reviews</a>
-                </div>
-                <div class="clear"></div>
-                <hr>
-                <p class="price">{{popupProduct.price | currency}}</p>
-
-                <!--<p class="status">product in stock</p>-->
-                <hr>
-                <p>
-                    {{popupProduct.short_description}}
-                </p>
-                <hr>
-
-                <!-- Custom options -->
+        <div class="right-side">        
+            <div class="sizes">
                 <gui-custom-options item="popupProduct" object="this"></gui-custom-options>
-
-                <div class="clear"></div>
-                <a href class="button" ng-click="addToCart(popupProduct._id)">
-                    <span class="remove glyphicon glyphicon-plus"></span>
-                    cart
-                </a>
-            </form>
-            <div class="clear"></div>
+            </div>
+            <div class="button-group">
+                <a href="" class="btn black add-to-cart" ng-click="addToCart(popupProduct._id)">add to cart</button>
+                <a href="{{productService.getUrl(popupProduct._id)}}" class="btn detail-view">detail view</a>
+            </div>
         </div>
+        <div class="clear"></div>
     </div>
-</section>
-<script>
-    (function ($) {
-        $(document).ready(function () {
-
-            $('.list-bar span').on('click', function () {
-                $(this).siblings().removeClass('active');
-                $(this).toggleClass('active');
-                if ($(this).hasClass('active')) {
-                    $('.shadow').css('display', 'block');
-                } else {
-                    $('.shadow').css('display', 'none');
-                }
-            });
-
-            $('.nav-close').click(
-                    function () {
-                        jQuery('.h-block nav').removeClass("active");
-                    }
-            );
-
-            $('.center-align').on('click', '.cat-prod > a', function (event) {
-                if ($(window).width() > 1024) {
-                    if (!$(this).parent().hasClass("active")) {
-                        event.preventDefault();
-                        $(this).parent().siblings().removeClass('active');
-                        $(this).parent().toggleClass('active');
-                    }
-                }
-            });
-
-//            // rating
-            setTimeout(function () {
-                $("input.rating").each(function () {
-
-                    if ($(this).hasClass("disabled")) {
-                        $(this).rating({
-                            readonly: true,
-                            disabled: true,
-                            showCaption: false,
-                            showClear: false
-                        });
-                    } else {
-                        $(this).rating({
-                            showCaption: false,
-                            showClear: false
-                        });
-                    }
-
-                })
-
-            }, 500)
-        
-
-        })
-    })(jQuery);
-</script>
+</div>

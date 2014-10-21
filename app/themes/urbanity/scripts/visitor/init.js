@@ -98,7 +98,7 @@
                                 if (response.result === 'ok') {
                                     $visitorLoginService.init(true).then(
                                         function () {
-                                            $('.modal').modal('hide');
+                                            $(".modal").trigger('click');
                                             $cartService.reload();
 
                                             // Update right menu

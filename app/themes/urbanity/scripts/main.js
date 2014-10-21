@@ -1,15 +1,27 @@
 $(document).ready(function() {
+    
 	$(document).on('click','header .search i' ,function(event) {
 		$(this).siblings('input').fadeIn(900)
 	});
-	$('section aside.right-side ul li span').click(function() {
+
+	//click on filter's "+"
+	$(document).on('click', 'section aside.right-side ul li span', function(event) {
 		$(this).next('ul').toggle(300);
 		$(this).toggleClass('active');
 	});
 
+	//click on filter
+	$(document).on('click','.right-side ul li a div', function(event) {
+		$(this).siblings('input').trigger('click');
+	});
+	$(document).on('click', '#modal_window .window .right-side .sizes p', function(event) {
+		$(this).siblings('input').trigger('click');
+		$(this).addClass('active').parent('span').siblings().children('p').removeClass('active');
+	});
+
 	// padding for brands section
-	var leftSideHeight = +($('aside.left-side').outerHeight(true)) + 10;
-	$('.content .brands').css('paddingTop', leftSideHeight);
+	// var leftSideHeight = +($('aside.left-side').outerHeight(true)) + 40;
+	// $('.content .brands').css('paddingTop', leftSideHeight);
 
 	/*_______ Product modal ________*/
 	//product quick view click
@@ -41,18 +53,13 @@ $(document).ready(function() {
 		$('header .right-side .cart span').text(cartCounter);
 	});
 
-/*
-	/*_______ Mini cart ________
-	$(document).on('click', 'header .cart', function(event) {
-		$(this).find('.mini-cart').toggle(500);
-	});*/
-
+	//main menu switch active
 	$(document).on('click', '.mens-women li a', function(event) {
 		$(this).parent('li').siblings('li').children('a').removeClass('active');
 		$(this).addClass('active');
 	});
 
-
+	
 
 
 

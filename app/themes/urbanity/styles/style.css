@@ -14,12 +14,13 @@ table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+time, mark, audio, video, input {
     margin: 0;
     padding: 0;
     border: 0;
     font-size: 100%;
     font: inherit;
+    outline: none !important;
     vertical-align: baseline;
     font-family: 'Inconsolata';
     box-sizing: border-box;
@@ -53,6 +54,9 @@ a:hover {
 	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
 	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
 	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+a:active {
+	outline: none !important;
 }
 ol, ul {
 list-style: none;
@@ -107,6 +111,7 @@ a.btn {
 	background: #8e8b90;
 	color: #fff;
 	border-color: #8e8b90;
+	text-decoration: none;
 	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
 	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
 	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
@@ -142,6 +147,30 @@ a.btn {
 .pull-left {
 	float: left;
 }
+input:not(.search) {
+	height: 40px;
+	outline: none;
+	border: 2px #918f90 solid;
+	border-top-color: #5b5758;
+	border-bottom-color: #5b5758;
+	padding: 0 15px;
+	color: #282828;
+	font-size: 18px;
+	font-weight: 300;
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+input:focus {
+	border-color: #000;
+	color: #000;
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+
 /* ___________ 3. Header ____________________*/
 header {
 	color: #7c7c7c;
@@ -204,6 +233,9 @@ header .login-register a {
 	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
 	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
 }
+header .login-register a:not(:last-child):after {
+	content: " / "
+}
 header .login-register a:hover {
 	color: black;
 	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
@@ -244,8 +276,17 @@ header .social a:hover {
 header .search {
 	float: right;
 	color: #828181;
-	margin-top: 30px;
+	margin-top: 27px;
 	margin-left: 40px;
+	vertical-align: middle;
+	height: 25px;
+}
+header .search i {
+	top: 2px;
+	height: 100%;
+	vertical-align: middle;
+	position: relative;
+	display: inline-block;
 }
 header .search i:hover {
 	cursor: pointer;
@@ -258,8 +299,10 @@ header .search i:hover {
 }
 header .search input {
 	display: none;
+	height: 25px;
 	border: 1px #828181 solid;
 	outline: none;
+	padding: 0 10px;
 }
 header nav.menu {
 	float: right;
@@ -307,6 +350,7 @@ section {
 	width: 100%;
 	padding: 140px 3% 0;
 	position: relative;
+	text-align: center;
 }
 
 /* ___________ 3.1 Left-side ____________________*/
@@ -318,6 +362,7 @@ aside.left-side{
 	left: 3%;
 	padding: 15px 0 15px 40px;
 	top: 140px;
+	text-align: left;
 }
 aside.left-side .categories ul li a {
 	color: #282828;
@@ -379,17 +424,33 @@ aside.right-side ul li.second-level {
 	display: block;
 }
 aside.right-side ul li a {
+	display: inline-block;
 	font-size: 18px;
 	line-height: 1.2;
 	font-weight: normal;
 	color: black;
-	text-decoration: none;
+	margin-right: 10px;
+	text-transform: capitalize;
+	cursor: pointer;
+}
+aside.right-side ul li a.full-width {
+	display: block;
+	margin-right: 0;
+}
+aside.right-side ul li a > div {
+	font-size: 18px;
+	line-height: 1.2;
+	font-weight: normal;
+	color: black;
 	text-transform: capitalize;
 }
-aside.right-side ul li a:hover {
+aside.right-side ul li a > input[type="checkbox"] {
+	display: none;
+}
+aside.right-side ul li a > div:hover, aside.right-side ul li a:hover{
 	text-decoration: underline;
 }
-aside.right-side ul.sort li a{
+aside.right-side ul.sort li a > div{
 	display: block;
 }
 
@@ -406,36 +467,57 @@ aside.right-side ul.sort li a{
 
 /* ___________ 3.3.1 Store ____________________*/
 .content .product {
-	width: 300px;
-	height: auto;
-	height: auto;
-	border:1px transparent solid;
-	border-bottom: none;
-	padding: 20px 20px 0;
-	margin-bottom: 10px;
+	width: 260px;
+	height: 380px;
 	text-align: center;
-	display: inline-block;
+	display: inline-table;
+	vertical-align: middle;
 	position: relative;
 	background: #fff;
 	z-index: 1;
 	cursor: default;
+	margin: 0 10px 10px;
+}
+.content .product > a {
+	height: inherit;
+	width: 100%;
+	display: table-cell;
+	vertical-align: middle;
 }
 .content .product img {
-	width: 210px;
-	height: 410px;
+	width: 100%;
+	height: auto;
+	max-width: 100%;
+	max-height: 100%;
 }
 .content .product .hidden-group {
 	position: absolute;
-	top: 100%;
-	left: -1px;
-	border:1px #7b7b7b solid;
+	top: 0;
+	left: 0;
+	display: inline-table;
+	vertical-align: bottom;
+	cursor: pointer;
+	width: 100%;
+	height: 382px;
+
 	border-top: none;
-	width: 300px;
-	height: auto;
 	padding: 15px 20px 20px;
 	opacity: 0;
 	z-index: 1;
-	background: #fff;
+	background: rgba(0,0,0,0.65);
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+.content .product .hidden-group > .wrapper {
+	display: inline-block;
+	display: table-cell;
+	width: 100%;
+	height: 100%;
+	position: relative;
+	top: 2px;
+	vertical-align: middle;
 }
 .content .product:hover {
 	border-color: #7b7b7b;
@@ -446,6 +528,34 @@ aside.right-side ul.sort li a{
 	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
 	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
 }
+.content .product .hidden-group .name {
+	font-size: 30px;
+	line-height: 1;
+	color: #fff;
+	text-transform: capitalize;
+	width: 100%;
+	margin-bottom: 5px;
+}
+.content .product .hidden-group .model {
+	font-size: 16px;
+	color: #fff;
+	text-transform: capitalize;
+	width: 100%;
+	margin-bottom: 5px;
+}
+.content .product .hidden-group .price {
+	font-size: 35px;
+	color: #fff;
+	font-weight: bold;
+}
+.content .product .hidden-group .button-group{
+	margin-top: 10px;
+}
+.content .product .hidden-group .button-group > * {
+	width: 100%;
+	margin: 5px 0;
+}
+
 .content .product:hover .hidden-group {
 	opacity: 1;
 	z-index: 5;
@@ -454,30 +564,78 @@ aside.right-side ul.sort li a{
 	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
 	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
 }
-.content .product .hidden-group .name {
-	font-size: 21px;
-	color: #282828;
-	text-transform: capitalize;
+.content .product:nth-child(3n+1) {
+	overflow: hidden;
+}
+.content .product:nth-child(3n+1) .hidden-group {
+	height: 0;
+}
+.content .product:nth-child(3n+1):hover .hidden-group {
+	height: 100%;
+}
+
+.content .product:nth-child(3n+2) .hidden-group {
+	overflow: hidden;
+}
+.content .product:nth-child(3n+2) .hidden-group .name, .content .product:nth-child(3n+2) .hidden-group .button-group button {
+	position: relative;
+	left: -500px;
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+.content .product:nth-child(3n+2):hover .hidden-group .name,.content .product:nth-child(3n+2):hover .hidden-group .button-group button {
+	left: 0;
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+.content .product:nth-child(3n+2) .hidden-group .price, .content .product:nth-child(3n+2) .hidden-group .button-group a {
+	position: relative;
+	right: -500px;
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+.content .product:nth-child(3n+2):hover .hidden-group .price,.content .product:nth-child(3n+2):hover .hidden-group .button-group a {
+	right: 0;
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+.content .product:nth-child(3n+3) .hidden-group {
+	width: 0;
+	height: 0;
+}
+.content .product:nth-child(3n+3):hover .hidden-group {
+	opacity: 1;
+	z-index: 5;
 	width: 100%;
-	margin-bottom: 5px;
+	height: 100%;
+	-moz-transform: rotate(360deg) scale(1, 1) skewX(0deg) skewY(0deg) translate(0px, 0px);/* FF3.5+ */
+	-webkit-transform: rotate(360deg) scale(1, 1) skew(0deg, 0deg) translate(0px, 0px);/*Saf3.1+, Chrome*/
+	-o-transform: rotate(360deg) scale(1, 1) skew(0deg, 0deg) translate(0px, 0px);/* Opera 10.5 */
+	-ms-transform: rotate(360deg) scale(1, 1) skew(0deg, 0deg) translate(0px, 0px);/* IE 9 */
+	transform: rotate(360deg) scale(1, 1) skew(0deg, 0deg) translate(0px, 0px);
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
 }
-.content .product .hidden-group .model {
-	font-size: 16px;
-	color: #282828;
-	text-transform: capitalize;
-	width: 100%;
-	margin-bottom: 5px;
+
+.content .product .hidden-group .button-group > .btn.black {
+	background: #000;
+	border-color: #aeaeae;
 }
-.content .product .hidden-group .price {
-	font-size: 28px;
-	color: #515151;
-	font-weight: bold;
+.content .product .hidden-group .button-group > .btn.black:hover {
+	background: #393939;
 }
-.content .product .hidden-group .price:before {
-	content: "$"
-}
-.content .product .hidden-group .button-group{
-	margin-top: 10px;
+.content .product .hidden-group .button-group > .btn {
+	border-color: #000;
 }
 
 /* ___________ 3.3.2 Brands ____________________*/
@@ -487,6 +645,7 @@ aside.right-side ul.sort li a{
 	margin-left: -280px;
 	margin-bottom: 40px;
 	height: auto;
+	margin-top: 150px;
 	min-height: inherit;
 	text-align: left;
 }
@@ -553,10 +712,11 @@ aside.right-side ul.sort li a{
 	text-align: left;
 	position: absolute;
 	left: 30px;
-	top: 30px;
+	top: 48px;
 }
 #modal_window .window .left-side .name {
-	font-size: 50px;
+	font-size: 40px;
+	padding-right: 10px;
 	color: #282828;
 	text-transform: uppercase;
 	font-weight: bold;
@@ -574,55 +734,47 @@ aside.right-side ul.sort li a{
 	text-transform: uppercase;
 	font-weight: bold;
 }
-#modal_window .window .left-side .price:before {
-	content: "$";
-}
 #modal_window .window .main-image {
+	width: 225px;
+	height: 100%;
+	display: inline-table;
+	vertical-align: middle;
+}
+#modal_window .window .main-image > span {
+	width: 100%;
+	height: 100%;
+	display: table-cell;
+	vertical-align: middle;
+}
+#modal_window .window .main-image img {
 	width: auto;
 	height: auto;
 	max-height: 100%;
 	max-width: 200px;
 	float: none;
+	display: inline-block;
 }
 #modal_window .window .right-side {
 	width:220px;
 	text-align: left;
 	position: absolute;
 	right: 30px;
-	top: 80px;
-}
-#modal_window .window .right-side .preview {
-	width: 60px;
-	padding: 5px;
-	display: inline-block;
-	text-align: center;
-	margin: 0 2px;
-	cursor: pointer;
-	border: 1px transparent solid;
-	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
-	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
-	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
-	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
-}
-#modal_window .window .right-side .preview.active {
-	border-color: #000;
-	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
-	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
-	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
-	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
-}
-#modal_window .window .right-side .preview img {
-	width:100%;
+	top: 33px;
 }
 #modal_window .window .right-side .sizes h5 {
 	font-size: 18px;
 	color: #afafaf;
 	font-weight: bold;
-	margin:  15px 0 15px;
+	margin:  15px 0 10px;
+}
+#modal_window .window .right-side .sizes input[type="radio"] {
+	display: none;
 }
 #modal_window .window .right-side .sizes p {
 	display: inline-block;
-	width: 30px;
+	width: auto;
+	min-width: 30px;
+	padding: 0 5px;
 	height: 30px;
 	text-align: center;
 	font-size: 18px;
@@ -631,7 +783,8 @@ aside.right-side ul.sort li a{
 	background: #fff;
 	border: 1px #000 solid;
 	line-height: 1.6;
-	cursor: default;
+	cursor: pointer;
+	margin: 0px 1px 5px;
 	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
 	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
 	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
@@ -657,7 +810,7 @@ aside.right-side ul.sort li a{
 /* ___________ 3.3.4 Mini-cart ____________________*/
 header .mini-cart {
 	position: absolute;
-	right: 30px;
+	right: 3%;
 	top: 50px;
 	width: 500px;
 	height: auto;
@@ -670,7 +823,7 @@ header .mini-cart:before {
 	content: "▴";
 	color: #fff;
 	font-size: 45px;
-	line-height: 0.25;
+	line-height: 0.22;
 	text-shadow: 1px -1px 0px #7b7b7b,-1px -1px 0px #7b7b7b,0 -2px 0px #7b7b7b;
 	display: inline-block;
 	position: absolute;
@@ -703,9 +856,6 @@ header .mini-cart .model,header .mini-cart .size {
 header .mini-cart .price {
 	font-size: 21px;
 	color: #282828;
-}
-header .mini-cart .price:before{
-	content: "$";
 }
 header .mini-cart table tr td:last-child {
 	position: relative;
@@ -750,26 +900,343 @@ header .mini-cart .btn {
 	background: #fff;
 	padding: 70px 0;
 }
-.pagination i, .pagination p {
-	display: inline-block;
-	cursor: pointer;
-}
-.pagination p {
+.pagination a {
 	font-size: 18px;
 	color: black;
 	font-weight: normal;
+	text-decoration: none;
+	display: inline-block;
+	cursor: pointer;
 }
-.pagination p.active {
+.pagination a.active {
 	font-size: 24px;
 	color: black;
 	font-weight: normal;
 }
-.pagination i {
-	font-size: 20px;
-}
-.pagination p:hover {
+.pagination a:hover {
 	text-decoration: underline;
 }
+.pagination .next, .pagination .prev{
+	font-size: 20px;
+}
+.pagination .disabled {
+	display: none;
+}
+
+/* ___________ 3.3.5 fast login/register window ____________________*/
+.modal {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	text-align: center;
+	background: rgba(0,0,0,0.5);
+	left: 0;
+	top: 0;
+	z-index: 1000;
+}
+.modal .modal-dialog {
+	width: 600px;
+	height: auto;
+	min-height: 200px;
+	padding: 30px;
+	background: #fff;
+	position: relative;
+	margin-left: -300px;
+	margin-top: 50px;
+	left: 50%;
+	text-align: center;
+}
+.modal .modal-dialog .fa {
+	color: #474648;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 300;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-family: 'Inconsolata';
+    transform: rotate(0deg) scale(1.8, 1.2) skew(0deg, 0deg) translate(0px, 0px);
+}
+.modal .modal-dialog h6 {
+	font-size: 30px;
+	margin-top: 0;
+	margin-bottom: 40px;
+}
+.modal .modal-dialog .form-group {
+	position: relative;
+	display: inline-block;
+	width: 450px;
+	margin: 15px 25px 25px;
+}
+.modal .modal-dialog .form-group label {
+	position: absolute;
+	bottom: 43px;
+	left: 0;
+	font-size: 20px;
+	font-weight: 300;
+	color: #000;
+}
+.modal .modal-dialog .form-group input {
+	width: 100%;
+}
+.modal .modal-dialog button {
+	width: 250px;
+	height: 40px;
+}
+
+.googlelogin , .facebooklogin {
+	width: 49%;
+	display: inline-block;
+	margin-top: 30px;
+	font-size: 17px;
+	cursor: pointer;
+}
+.googlelogin:before , .facebooklogin:before{
+	content: "\f0d5";
+	font-size: 18px;
+	font-family: FontAwesome;
+	position: relative;
+	top: 2px;
+	display: inline-block;
+	border-right: 1px #000 solid;
+	width: 50px;
+	margin-right: 20px;
+	line-height: 1.7;
+	text-align: center;
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+.facebooklogin:before {
+	content: "\f09a";
+	font-weight: 300;
+}
+.googlelogin:hover:before , .facebooklogin:hover:before {
+	background: #414042;
+	color: #fff;
+	border-color: #414042;
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+#modal-registration {
+	display: inline-block;
+	float: right;
+	margin-top: 30px;
+	color: #222;
+	font-size: 18px;
+}
+.modal .or {
+	font-size: 18px;
+}
+
+/* ___________ 3.4 Login page ____________________*/
+.login-page {
+	text-align: center;
+}
+.login-page h2 {
+	font-size: 35px;
+	display: block;
+	margin:40px 0 60px;
+}
+.login-page .input-group {
+	position: relative;
+	display: inline-block;
+	width: 450px;
+	margin: 0 25px 25px;
+}
+.login-page .input-group label {
+	position: absolute;
+	bottom: 43px;
+	left: 0;
+	font-size: 20px;
+	font-weight: 300;
+	color: #000;
+}
+.login-page input {
+	width: 100%;
+}
+.login-page .left-side , .login-page .right-side{
+	position: relative;
+	display: inline-block;
+	width: 450px;
+	margin: 0 25px 25px;
+	vertical-align: top;
+}
+.login-page .left-side .register {
+	float: right;
+	color: #000;
+	font-size: 18px;
+	margin-top: 20px;
+}
+.login-page .left-side .register:hover {
+	text-decoration: underline;
+}
+.login-page .left-side .btn, .login-page .right-side .btn {
+	width: 100%;
+	height: 50px;
+	font-size: 15px;
+}
+.login-page .right-side a:not(.btn) {
+	width: 100%;
+	height: 40px;
+	display: block;
+	color: #000;
+	font-weight: 300;
+	font-size: 18px;
+	text-transform: uppercase;
+	text-align: left;
+	margin-bottom: 20px;
+	padding-top:3px;
+}
+.login-page .right-side a:not(.btn):before {
+	content: "\f0d5";
+	font-size: 18px;
+	font-family: FontAwesome;
+	position: relative;
+	top: 2px;
+	display: inline-block;
+	border-right: 1px #000 solid;
+	width: 50px;
+	margin-right: 20px;
+	line-height: 1.7;
+	text-align: center;
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+.login-page .right-side a:not(.btn):first-child:before {
+	content: "\f09a";
+	font-weight: 300;
+}
+.login-page .right-side a:hover:before {
+	background: #414042;
+	color: #fff;
+	border-color: #414042;
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+.login-page.register-page .right-side .btn {
+	width: 100%;
+	height: 50px;
+	font-size: 15px;
+	position: relative;
+	top: -5px;
+	background: #000000;
+}
+.login-page.register-page .right-side .btn:hover {
+	background: #414042;
+}
+.login-page.register-page .input-group ,.login-page.register-page .right-side {
+	margin-top: 15px;
+}
+.login-page.register-page .last {
+	margin-top: -10px;
+}
+.login-page.register-page .last .register {
+	margin-top: 9px;
+}
+
+/* ___________ 3.4 Product details ____________________*/
+.pdp .left-side{
+	top: 200px;
+	left: 3%;
+	top: 0;
+	position: absolute;
+	text-align: center;
+}
+.pdp .left-side h2 {
+	font-size: 25px;
+	line-height: 1;
+	margin-bottom: 20px;
+}
+.pdp .left-side p {
+	font-size: 16px;
+	line-height: 1;
+	margin-bottom: 20px;
+}
+.pdp .left-side h4 {
+	font-size: 18px;
+}
+.pdp .left-side a {
+	font-size: 15px;
+	vertical-align: top;
+	margin-top: 5px;
+	cursor: pointer;
+	color: #555;
+	text-decoration: none;
+	-webkit-transition: all 0.3s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.3s ease;/* Firefox 4-15 */
+	-o-transition: all 0.3s ease;/* Opera 10.5-12.00 */
+	transition: all 0.3s ease;/* Firefox 16+, Opera 12.50+ */
+}
+.pdp .left-side a:hover {
+	font-size: 20px;
+	color: #000;
+	-webkit-transition: all 0.3s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.3s ease;/* Firefox 4-15 */
+	-o-transition: all 0.3s ease;/* Opera 10.5-12.00 */
+	transition: all 0.3s ease;/* Firefox 16+, Opera 12.50+ */
+}
+.pdp .right-side{
+	top: 200px;
+	right: 3%;
+	top: 0;
+	position: absolute;
+	text-align: center;
+}
+.pdp .right-side h2 {
+	font-size: 25px;
+	line-height: 1;
+	margin-bottom: 20px;
+}
+.pdp .right-side h2:after {
+	content: " USD";
+}
+.pdp .right-side p {
+	font-size: 16px;
+	line-height: 1;
+	margin-bottom: 20px;
+}
+.pdp .right-side h4 {
+	font-size: 18px;
+}
+.pdp .right-side a {
+	font-size: 15px;
+	vertical-align: top;
+	margin-top: 5px;
+	cursor: pointer;
+	color: #555;
+	text-decoration: none;
+	-webkit-transition: all 0.3s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.3s ease;/* Firefox 4-15 */
+	-o-transition: all 0.3s ease;/* Opera 10.5-12.00 */
+	transition: all 0.3s ease;/* Firefox 16+, Opera 12.50+ */
+}
+.pdp .right-side a:hover {
+	font-size: 20px;
+	color: #000;
+	-webkit-transition: all 0.3s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.3s ease;/* Firefox 4-15 */
+	-o-transition: all 0.3s ease;/* Opera 10.5-12.00 */
+	transition: all 0.3s ease;/* Firefox 16+, Opera 12.50+ */
+}
+.pdp .images img {
+	display: block;
+	width: auto;
+	max-width: 40%;
+	margin: 0 auto 70px;
+}
+
+
+
+
 
 /* ___________ 4. Footer ____________________*/
 footer {

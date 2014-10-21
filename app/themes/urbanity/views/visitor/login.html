@@ -1,8 +1,7 @@
 <div ng-controller="visitorLoginControllerUrb">
     <div class="modal fade login" id="form-login" tabindex="-1" role="dialog">
-        <div class="modal-dialog">
-            <div class="login-close"></div>
-            <div class="modal-content ch-form">
+        <div class="modal-dialog ch-form">
+            <div class="login-close fa">X</div>
                 <h6>LOGIN</h6>
                 <form role="form">
                     <div class="form-group col-md-12">
@@ -18,12 +17,12 @@
                     </div>
                 </form>
                 <div class="clear"></div>
-                <div class="button btn-black" ng-click="signIn()">Login</div>
-                <a href="" target="_self" id="modal-registration">Register</a>
-                <div class="clear"></div>
+                <button class="btn black" ng-click="signIn()">Login</button>
+                <br>
                 <ng-include src="getTemplate('visitor/social/facebook.html')"></ng-include>
                 <ng-include src="getTemplate('visitor/social/google.html')"></ng-include>
-            </div>
+                <br>
+                <a href="" target="_self" id="modal-registration">Register</a>
             <div class="clear"></div>
         </div>
     </div>
@@ -34,10 +33,10 @@
         $("#form-login").modal("show");
     });
     $("#modal-registration").click(function () {
-        $(".modal").modal("hide");
+        $(".modal").trigger('click');
         $("#form-registration").modal("show");
     });
     $(".login-close").click(function () {
-        $(".modal").modal("hide");
+        $(".modal").trigger('click');
     });
 </script>
