@@ -97,7 +97,7 @@
                     $scope.qty = 1;
                     $scope.ratingInfo = getDefaultRatingInfo();
                     $scope.options = {};
-                    $scope.products = [];
+                    $scope.related = [];
 
                     $pdpApiService.getProduct({"id": $scope.productId}).$promise.then(
                         function (response) {
@@ -186,17 +186,14 @@
                     /**
                      * "Related" products
                      */
-                    $pdpApiService.getProducts({
-                        "limit": "0,5",
-                        "extra": "price"
-                    }).$promise.then(
+                    $pdpApiService.getRelated({"pid":$scope.productId},{"extra": 'price'}).$promise.then(
                         function (response) {
                             var result, i, parts;
                             result = response.result || [];
 
                             for (i = 0; i < result.length; i += 1) {
                                 parts = splitName(result[i].Name);
-                                $scope.products.push({
+                                $scope.related.push({
                                     "Id": result[i].Id,
                                     "Image": result[i].Image,
                                     "Name": parts[2],

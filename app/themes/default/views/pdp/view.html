@@ -114,7 +114,7 @@
 </section>
 <div class="clear"></div>
 <section class="c-img pdp-img">
-    <div ng-repeat="_item in products" ng-show="products.length">
+    <div ng-repeat="_item in related" ng-show="related.length">
         <a class="" href="{{productService.getUrl(_item.Id)}}">
             <img ng-src="{{getImage('',_item.Image)}}" alt="_item.Name"/>
         </a>
