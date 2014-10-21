@@ -19,12 +19,13 @@
 
                         <!-- Select -->
                         <div ng-switch-when="select">
-                            <h5>{{option.label}}</h5>
+                            <h5>{{option.label}}<span class="asterisk" ng-if="option.required">*</span></h5>
                             <form action="" class=>
                                 <span ng-repeat="(key, opt) in option.options">
-                                    <input type="radio" id="{{ option.label }}" name="{{option.label}}[]"
-                                               data-ng-model="options[opt.label]"
-                                               ng-required="option.required"/>
+                                    <input type="radio" name="{{option.label}}"
+                                            data-ng-model="parent.options[option.label]"
+                                            data-ng-options="opt.label as opt.label for (key, opt) in option.options | getOrdered"
+                                            ng-required="option.required">
                                     <p>{{key}}</p>
                                 </span>
                             </form>

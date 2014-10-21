@@ -117,6 +117,9 @@ a.btn {
 	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
 	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
 }
+a.btn:active {
+	text-decoration: none !important;
+}
 .btn.black {
 	background: #414042;
 	color: #fff;
@@ -170,6 +173,33 @@ input:focus {
 	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
 	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
 }
+.spinner-block {
+	width: 50%;
+	height: auto;
+	position: relative;
+	display: inline-block;
+}
+.spinner-block input {
+	width: 100%;
+	padding-left: 20px;
+	padding-right: 40px;
+	text-align: center;
+}
+.spinner-block i {
+	position: absolute;
+	right: 8px;
+	height: 50%;
+	font-size: 30px;
+	cursor: pointer;
+	line-height: 1;
+	text-align: center;
+}
+.spinner-block .fa-angle-down{
+	bottom: 7px;
+}
+.spinner-block .fa-angle-up{
+	top: -5px;
+}
 
 /* ___________ 3. Header ____________________*/
 header {
@@ -212,11 +242,12 @@ header .cart:before {
 	display: inline-block;
 	content: "";
 	position: relative;
-	top: 3px;
-	margin-right: 25px;
+	top: 4px;
+	margin-right: 10px;
 }
 header .mini-cart-counter {
 	float: right;
+	margin-top: -2px;
 }
 header .login-register {
 	float: right;
@@ -717,6 +748,7 @@ aside.right-side ul.sort li a > div{
 #modal_window .window .left-side .name {
 	font-size: 40px;
 	padding-right: 10px;
+	line-height: 1;
 	color: #282828;
 	text-transform: uppercase;
 	font-weight: bold;
@@ -811,13 +843,15 @@ aside.right-side ul.sort li a > div{
 header .mini-cart {
 	position: absolute;
 	right: 3%;
-	top: 50px;
+	top: 70px;
 	width: 500px;
 	height: auto;
 	padding: 20px;
 	background: #fff;
 	border: 1px #7b7b7b solid;
 	display: none;
+	z-index: 5;
+	cursor: default;
 }
 header .mini-cart:before {
 	content: "▴";
@@ -887,6 +921,10 @@ header .mini-cart .total span {
 }
 header .mini-cart .btn {
 	width: 48%;
+}
+header .spinner-block {
+	width: 120px;
+	text-align: center;
 }
 
 /* ___________ 3.3.5 Pagination ____________________*/
@@ -1146,7 +1184,7 @@ header .mini-cart .btn {
 /* ___________ 3.4 Product details ____________________*/
 .pdp .left-side{
 	top: 200px;
-	left: 3%;
+	left: 0;
 	top: 0;
 	position: absolute;
 	text-align: center;
@@ -1186,7 +1224,7 @@ header .mini-cart .btn {
 }
 .pdp .right-side{
 	top: 200px;
-	right: 3%;
+	right: 0;
 	top: 0;
 	position: absolute;
 	text-align: center;
@@ -1207,37 +1245,88 @@ header .mini-cart .btn {
 .pdp .right-side h4 {
 	font-size: 18px;
 }
-.pdp .right-side a {
-	font-size: 15px;
-	vertical-align: top;
-	margin-top: 5px;
-	cursor: pointer;
-	color: #555;
-	text-decoration: none;
-	-webkit-transition: all 0.3s ease;/* Safari 3.2+, Chrome */
-	-moz-transition: all 0.3s ease;/* Firefox 4-15 */
-	-o-transition: all 0.3s ease;/* Opera 10.5-12.00 */
-	transition: all 0.3s ease;/* Firefox 16+, Opera 12.50+ */
-}
-.pdp .right-side a:hover {
-	font-size: 20px;
-	color: #000;
-	-webkit-transition: all 0.3s ease;/* Safari 3.2+, Chrome */
-	-moz-transition: all 0.3s ease;/* Firefox 4-15 */
-	-o-transition: all 0.3s ease;/* Opera 10.5-12.00 */
-	transition: all 0.3s ease;/* Firefox 16+, Opera 12.50+ */
-}
 .pdp .images img {
 	display: block;
 	width: auto;
 	max-width: 40%;
 	margin: 0 auto 70px;
 }
-
-
-
-
-
+.pdp .right-side h3 {
+	font-size: 25px;
+	margin-bottom: 5px;
+}
+.pdp .right-side h4 {
+	font-size: 25px;
+	margin: 20px 0 0;
+	line-height: 1;
+	display: block;
+	text-align: center;
+}
+.pdp .spinner-block {
+	width: 50%;
+	height: auto;
+	position: relative;
+	display: inline-block;
+}
+.pdp .spinner-block input {
+	width: 100%;
+	padding-left: 20px;
+}
+.pdp .spinner-block i {
+	position: absolute;
+	right: 8px;
+	height: 50%;
+	font-size: 30px;
+	cursor: pointer;
+	line-height: 1;
+	text-align: center;
+}
+.pdp .spinner-block .fa-angle-down{
+	bottom: 7px;
+}
+.pdp .spinner-block .fa-angle-up{
+	top: -5px;
+}
+.pdp .right-side .custom-options h5 {
+	font-size: 18px;
+	color: #afafaf;
+	font-weight: bold;
+	margin:  15px 0 10px;
+}
+.pdp .right-side .custom-options input[type="radio"] {
+	display: none;
+}
+.pdp .right-side .custom-options p {
+	display: inline-block;
+	width: auto;
+	min-width: 30px;
+	padding: 0 5px;
+	height: 30px;
+	text-align: center;
+	font-size: 18px;
+	color: #000;
+	font-weight: bold;
+	background: #fff;
+	border: 1px #000 solid;
+	line-height: 1.6;
+	cursor: pointer;
+	margin: 0px 1px 5px;
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+.pdp .right-side .custom-options p.active {
+	color: #fff;
+	background: #000;
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+.pdp .right-side .to-cart {
+	margin-top: 20px;
+}
 /* ___________ 4. Footer ____________________*/
 footer {
 	height: 275px;

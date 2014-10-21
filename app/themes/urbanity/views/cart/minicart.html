@@ -13,6 +13,15 @@
             <td>
                 <i class="remove" ng-click="it.remove(item.idx)">×</i>
                 <div class="price">{{item.product.price | currency}}</div>
+                <div class="spinner-block">
+                    <input placeholder="Qtl" type="text" class="form-control" value="{{item.qty}}"
+                           ng-model="item.qty">
+
+                    <div class="input-group-btn-vertical">
+                        <i class="fa fa-angle-up" ng-click="changeQty(item,'up')"  ng-blur="update(item.idx, item.qty)"></i>
+                        <i class="fa fa-angle-down" ng-click="changeQty(item,'down')"  ng-blur="update(item.idx, item.qty)"></i>
+                    </div>
+                </div>
             </td>
         </tr>
     </table>

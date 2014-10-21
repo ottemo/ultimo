@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    
+    	
 	$(document).on('click','header .search i' ,function(event) {
 		$(this).siblings('input').fadeIn(900)
 	});
@@ -18,24 +18,18 @@ $(document).ready(function() {
 		$(this).siblings('input').trigger('click');
 		$(this).addClass('active').parent('span').siblings().children('p').removeClass('active');
 	});
-
-	// padding for brands section
-	// var leftSideHeight = +($('aside.left-side').outerHeight(true)) + 40;
-	// $('.content .brands').css('paddingTop', leftSideHeight);
+	$(document).on('click', '.pdp .right-side .custom-options p', function(event) {
+		$(this).siblings('input').trigger('click');
+		$(this).addClass('active').parent('span').siblings().children('p').removeClass('active');
+	});
 
 	/*_______ Product modal ________*/
 	//product quick view click
 	$(document).on('click', '.product .hidden-group .quick-view', function(event) {
-		var thisProductName = $(this).parent().siblings('.name').text();
-		var thisProductModel = $(this).parent().siblings('.model').text();
-		var thisProductPrice = $(this).parent().siblings('.price').text();
-		var thisMainImageSrc = $(this).parents('.product').children('img').attr('src');
-
 		$('#modal_window').fadeIn(700);
-		$('#modal_window .name').text(thisProductName);
-		$('#modal_window .model').text(thisProductModel);
-		$('#modal_window .price').text(thisProductPrice);
-		$('#modal_window .main-image , #modal_window .preview.active img').attr('src', thisMainImageSrc );
+	});
+	$(document).on('click', '#modal_window .add-to-cart', function(event) {
+		$(this).parents('#modal_window').fadeOut(700)
 	});
 
 	//product modal select preview
@@ -47,11 +41,6 @@ $(document).ready(function() {
 	$(document).on('click', '#modal_window .window i', function(event) {
 		$(this).parents('#modal_window').fadeOut(700);
 	});
-	//add to cart click
-	$(document).on('click', '#modal_window a.add-to-cart', function(event) {
-		var cartCounter = +($('header .right-side .cart > span').text()) +1;
-		$('header .right-side .cart span').text(cartCounter);
-	});
 
 	//main menu switch active
 	$(document).on('click', '.mens-women li a', function(event) {
@@ -60,7 +49,7 @@ $(document).ready(function() {
 	});
 
 	
-
+	
 
 
 

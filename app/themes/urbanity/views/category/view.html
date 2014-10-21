@@ -48,7 +48,7 @@
 
 
 <!-- left side categories -->
-<aside class="left-side">
+<aside class="left-side animated fadeInLeft">
 
     <!-- product categories -->
     <nav class="categories">
@@ -63,7 +63,7 @@
 </aside>
 
 <!-- right side filters -->
-<aside class="right-side">
+<aside class="right-side animated fadeInRight">
     <!-- First level -->
     <ul>
         <li>
@@ -125,7 +125,7 @@
                 <gui-custom-options item="popupProduct" object="this"></gui-custom-options>
             </div>
             <div class="button-group">
-                <a href="" class="btn black add-to-cart" ng-click="addToCart(popupProduct._id)">add to cart</button>
+                <button href="" class="btn black add-to-cart" ng-click="addToCart(popupProduct._id)">add to cart</button>
                 <a href="{{productService.getUrl(popupProduct._id)}}" class="btn detail-view">detail view</a>
             </div>
         </div>
