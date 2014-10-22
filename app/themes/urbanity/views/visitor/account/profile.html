@@ -1,149 +1,90 @@
-<h3>account settings</h3>
-
-<div class="account-profile" ng-controller="visitorAccountController">
+<div class="profile content have-aside animated fadeInUp" ng-controller="visitorAccountController">
+    <h3>account settings</h3>
     <gui-message-manager item="message"></gui-message-manager>
-    <table>
-        <tr>
-            <td>First name</td>
-            <td>
-                <label ng-bind="visitor.fname"></label>
-            </td>
-        </tr>
-        <tr>
-            <td>Last name</td>
-            <td>
-                <label ng-bind="visitor.lname"></label>
-            </td>
-        </tr>
-        <td>Email</td>
-        <td>
-            <label ng-bind="visitor.email"></label>
-        </td>
-        </tr>
-    </table>
-    <a href ng-click="popUpOpen('parent_popup_password')">Change Password</a>
-    <a href class="popup-open" ng-click="popUpOpen('parent_popup_profile')">edit</a>
+    
 
-    <section class="parent_popup" id="parent_popup_profile">
-        <div class="popup">
-            <div class="popup-close">
-                <span class="glyphicon glyphicon-remove"></span>
-            </div>
-            <div class="popup_form">
-                <div class="ch-content">
-                    <!-- Form to add billing addresses -->
-                    <div class="address-form ch-form">
-                        <form name="visitorForm" novalidate>
+    <form name="visitorForm" novalidate>
 
-                            <!--First Name-->
-                            <div class="form-group col-md-12"
-                                 ng-class="{ 'has-error' : visitorForm.first_name.$invalid && !visitorForm.first_name.$pristine }">
-                                <label for="visitorFormZip">First Name *</label>
-                                <input type="text" class="form-control" id="visitorFormZip" placeholder="First Name"
-                                       name="first_name"
-                                       ng-model="visitor.fname" required>
-
-                                <p ng-show="visitorForm.first_name.$invalid && !visitorForm.first_name.$pristine"
-                                   class="help-block">This field is required.</p>
-                            </div>
-                            
-                            <!--Last Name-->
-                            <div class="form-group col-md-12">
-                                <label for="billingInputCompany">Last Name</label>
-                                <input type="text" class="form-control" id="billingInputCompany" placeholder="Last Name"
-                                       name="company"
-                                       ng-model="visitor.lname">
-                            </div>
-
-                            <!--Email-->
-                            <div class="form-group col-md-12"
-                                 ng-class="{ 'has-error' : visitorForm.email.$invalid && !visitorForm.email.$pristine }">
-                                <label for="visitorFormCity">Email*</label>
-                                <input type="text" class="form-control" id="visitorFormCity" placeholder="Email" name="email"
-                                       ng-model="visitor.email" required>
-
-                                <p ng-show="visitorForm.email.$invalid && !visitorForm.email.$pristine"
-                                   class="help-block">This field is required.</p>
-                            </div>
-                            <div class="right">
-                                <div class="form-group col-md-6">
-                                    <a href class="button btn-yellow" ng-click="save()">save</a>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <a href  class="button btn-black" onclick="document.getElementById('parent_popup_profile').style.display='none';">close</a>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+        <!--First Name-->
+        <div class="input-group" ng-class="{ 'has-error' : visitorForm.first_name.$invalid && !visitorForm.first_name.$pristine }">
+            <label for="visitorFormZip">First Name *</label>
+            <input type="text" class="form-control" id="visitorFormZip" placeholder="First Name"
+                   name="first_name"
+                   ng-model="visitor.fname" required>
+            <p ng-show="visitorForm.first_name.$invalid && !visitorForm.first_name.$pristine"
+               class="help-block">This field is required.</p>
         </div>
-    </section>
 
-    <section class="parent_popup" id="parent_popup_password">
-        <div class="popup">
-            <div class="popup-close">
-                <span class="glyphicon glyphicon-remove"></span>
-            </div>
-            <div class="popup_form">
-                <div class="ch-content">
-                    <!-- Form to add billing addresses -->
-                    <div class="address-form ch-form">
-                        <form name="passwordForm" novalidate>
+        <br>
 
-                            <!-- New password -->
-                            <div class="form-group col-md-12"
-                                 ng-class="{ 'has-error' : passwordForm.password.$invalid && !passwordForm.password.$pristine }">
-                                <label for="passwordFormPassword">Password</label>
-                                <input type="password" class="form-control" id="passwordFormPassword" placeholder="Password"
-                                       name="password"
-                                       ng-model="changePswCredentials.password" required>
-
-                                <p ng-show="passwordForm.password.$invalid && !passwordForm.password.$pristine"
-                                   class="help-block">This field is required.</p>
-                            </div>
-
-                            <!-- Confirm password -->
-                            <div class="form-group col-md-12"
-                                 ng-class="{ 'has-error' : passwordForm.confirm.$invalid && !passwordForm.confirm.$pristine }">
-                                <label for="passwordFormConfirm">Confirm password *</label>
-                                <input type="password" class="form-control" id="passwordFormConfirm" placeholder="Confirm password"
-                                       name="confirm"
-                                       ng-model="changePswCredentials.confirm">
-
-                                <p ng-show="passwordForm.confirm.$invalid && !passwordForm.confirm.$pristine"
-                                   class="help-block">This field is required.</p>
-                            </div>
-
-                            <div class="right">
-                                <div class="form-group col-md-6">
-                                    <a href class="button btn-yellow" ng-click="changePassword()">save</a>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <a href  class="button btn-black" onclick="document.getElementById('parent_popup_password').style.display='none';">close</a>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+        <!--Last Name-->
+        <div class="input-group">
+            <label for="billingInputCompany">Last Name</label>
+            <input type="text" class="form-control" id="billingInputCompany" placeholder="Last Name"
+                   name="company"
+                   ng-model="visitor.lname">
         </div>
-    </section>
+        
+        <br>
+
+        <!--Email-->
+        <div class="input-group"
+             ng-class="{ 'has-error' : visitorForm.email.$invalid && !visitorForm.email.$pristine }">
+            <label for="visitorFormCity">Email*</label>
+            <input type="text" class="form-control" id="visitorFormCity" placeholder="Email" name="email"
+                   ng-model="visitor.email" required>
+
+            <p ng-show="visitorForm.email.$invalid && !visitorForm.email.$pristine"
+               class="help-block">This field is required.</p>
+        </div>
+
+        <br>
+
+        <div class="button-group">
+            <a href class="btn black" ng-click="save()">save</a>
+        </div>
+    </form>
+        
+        <!--Password-->
+        <h4>Account password</h4>
+        
+        <br>
+        
+    <form name="passwordForm" novalidate>
+
+        <!-- New password -->
+        <div class="input-group"
+             ng-class="{ 'has-error' : passwordForm.password.$invalid && !passwordForm.password.$pristine }">
+            <label for="passwordFormPassword">Password</label>
+            <input type="password" class="form-control" id="passwordFormPassword" placeholder="Password"
+                   name="password"
+                   ng-model="changePswCredentials.password" required>
+
+            <p ng-show="passwordForm.password.$invalid && !passwordForm.password.$pristine"
+               class="help-block">This field is required.</p>
+        </div>
+
+        <br>
+
+        <!-- Confirm password -->
+        <div class="input-group"
+             ng-class="{ 'has-error' : passwordForm.confirm.$invalid && !passwordForm.confirm.$pristine }">
+            <label for="passwordFormConfirm">Confirm password *</label>
+            <input type="password" class="form-control" id="passwordFormConfirm" placeholder="Confirm password"
+                   name="confirm"
+                   ng-model="changePswCredentials.confirm">
+
+            <p ng-show="passwordForm.confirm.$invalid && !passwordForm.confirm.$pristine"
+               class="help-block">This field is required.</p>
+        </div>
+
+        <br>
+
+        <div class="button-group">
+            <a href class="btn black" ng-click="changePassword()">save</a>
+        </div>
+    </form>
 </div>
 <script>
-    $("#account-edit").click(function () {
-        $(".profile").find("label").hide();
-        $(".profile").find(".editable").removeClass("hidden");
-        $("#account-save").removeClass("hidden");
-        $("#account-edit").addClass("hidden");
-    });
-    $("#account-save").click(function () {
-        $(".profile").find("label").show();
-        $(".profile").find(".editable").addClass("hidden");
-        $("#account-save").addClass("hidden");
-        $("#account-edit").removeClass("hidden");
-    });
-
+    
 </script>

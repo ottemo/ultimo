@@ -38,9 +38,11 @@ body {
     width: 100%;
     background: #fff;
     height: 100%;
+    overflow-x: hidden;
 }
 html {
 	height: 100%;
+
 }
 a {
 	text-decoration: none;
@@ -78,7 +80,7 @@ table {
 .main-wrapper {
 	height: auto;
 	min-height: 100%;
-	padding-bottom: 275px;
+	padding-bottom: 150px;
 }
 .clear {
 	clear: both;
@@ -150,7 +152,7 @@ a.btn:active {
 .pull-left {
 	float: left;
 }
-input:not(.search) {
+input[type="text"]:not(.search),input[type="email"],input[type="password"] ,select{
 	height: 40px;
 	outline: none;
 	border: 2px #918f90 solid;
@@ -200,7 +202,53 @@ input:focus {
 .spinner-block .fa-angle-up{
 	top: -5px;
 }
-
+.input-group {
+	position: relative;
+	display: inline-block;
+	width: 450px;
+	margin: 0 25px 25px;
+}
+.input-group label {
+	position: absolute;
+	bottom: 43px;
+	left: 0;
+	font-size: 20px;
+	font-weight: 300;
+	color: #000;
+}
+.input-group input , .input-group select {
+	width: 100%;
+}
+.check-group .check-wrap {
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	position: relative;
+}
+.check-group .check-wrap > span {
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+	background: #fff;
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	border: 1px #232425 solid;
+}
+.check-group .check-wrap > span.active:after {
+	position: absolute;
+	content: "\f00c";
+	font-family: FontAwesome;
+	font-size: 25px;
+	top: -5px;
+	left: 0;
+	line-height: 1;
+}
+.check-group .check-wrap input[type="checkbox"] {
+	position: relative;
+	left: -50px;
+}
 /* ___________ 3. Header ____________________*/
 header {
 	color: #7c7c7c;
@@ -394,6 +442,7 @@ aside.left-side{
 	padding: 15px 0 15px 40px;
 	top: 140px;
 	text-align: left;
+	z-index: 2;
 }
 aside.left-side .categories ul li a {
 	color: #282828;
@@ -405,7 +454,9 @@ aside.left-side .categories ul li a {
 aside.left-side .categories ul li a:hover {
 	text-decoration: underline;
 }
-
+aside.left-side .categories ul li.active a {
+	font-weight: bold;
+}
 /* ___________ 3.2 Right-side ____________________*/
 aside.right-side {
 	width: 280px;
@@ -416,6 +467,7 @@ aside.right-side {
 	top: 140px;
 	padding: 15px 0 15px 0;
 	text-align: left;
+	z-index: 2;
 }
 aside.right-side ul {
 	padding-left: 10px;
@@ -1262,6 +1314,10 @@ header .spinner-block {
 	display: block;
 	text-align: center;
 }
+.pdp-spinner {
+	width: 100%;
+	margin: 0;
+}
 .pdp .spinner-block {
 	width: 50%;
 	height: auto;
@@ -1270,7 +1326,8 @@ header .spinner-block {
 }
 .pdp .spinner-block input {
 	width: 100%;
-	padding-left: 20px;
+	padding-left: 0px;
+	text-align: center;
 }
 .pdp .spinner-block i {
 	position: absolute;
@@ -1327,14 +1384,80 @@ header .spinner-block {
 .pdp .right-side .to-cart {
 	margin-top: 20px;
 }
+
+/* ___________ 3.5 Account ____________________*/
+.account h3 {
+	font-size: 40px;
+	text-transform: uppercase;
+	font-weight: 300;
+	margin-bottom: 50px;
+	line-height: 1;
+}
+
+/* ___________ 3.5.1 Account settings ____________________*/
+.account .profile .input-group {
+	margin: 25px 0;
+	width: 650px;
+}
+.account .profile h4 {
+	width: 650px;
+	display: inline-block;
+	text-align: left;
+	font-size: 30px;
+	margin: 0 0 25px;
+	text-transform: uppercase;
+}
+.account .button-group {
+	margin-bottom: 40px;
+}
+
+/* ___________ 3.5.2 Addresses ____________________*/
+.account.addresses .address {
+	padding: 5px 10px;
+	margin-bottom: 25px;
+	width: 100%;
+	text-align: center;
+	border: 1px #252322 solid;
+}
+.account.addresses .address p {
+	text-align: center;
+	margin-top: 5px;
+	display: block;
+	font-size: 24px;
+}
+.account.addresses .address a {
+	margin: 15px 5px;
+}
+.account.addresses .create {
+	width: 200px;
+	height: 50px;
+}
+.account.addresses .new-address {
+	margin-top: 50px;
+}
+.account.addresses .new-address .input-group {
+	margin-top: 10px;
+}
+.account.addresses .new-address .checkboxes {
+	display: inline-block;
+	text-align: left;
+	line-height: 1;
+	margin: 10px 0;
+}
+.account.addresses .new-address .checkboxes input {
+
+}
+
+
+
 /* ___________ 4. Footer ____________________*/
 footer {
-	height: 275px;
+	height: 150px;
 	width: 100%;
 	padding: 0 3%;
 	background: black;
 	position: relative;
-	margin-top: -275px;
+	margin-top: -150px;
 }
 footer nav {
 	display: inline-block;
@@ -1352,7 +1475,7 @@ footer nav li a:hover {
 footer .social {
 	display: block;
 	position: absolute;
-	top: 145px;
+	top: 55px;
 	right: 3%;
 }
 footer .social a {

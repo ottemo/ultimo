@@ -28,6 +28,10 @@ $(document).ready(function() {
 	$(document).on('click', '.product .hidden-group .quick-view', function(event) {
 		$('#modal_window').fadeIn(700);
 	});
+	$(document).on('click', '.account.addresses .create', function(event) {
+		$('#modal_window').fadeIn(700);
+	});
+
 	$(document).on('click', '#modal_window .add-to-cart', function(event) {
 		$(this).parents('#modal_window').fadeOut(700)
 	});
@@ -49,7 +53,10 @@ $(document).ready(function() {
 	});
 
 	
-	
+	//checkboxes
+	$(document).on('click', '.check-group .check-wrap > span', function(event) {
+		$(this).siblings('input').trigger('click');
+	});
 
 
 
