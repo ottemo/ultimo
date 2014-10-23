@@ -1,6 +1,6 @@
 {
   "name": "Storefront",
-  "version": "0.0.04",
+  "version": "0.9.018",
   "description": "Ottemo Storefront",
   "main": "gulpfile.js",
   "scripts": {
@@ -35,12 +35,12 @@
     "gulp-sourcemaps": "^1.1.1",
     "gulp-strip-debug": "^1.0.0",
     "gulp-stylus": "^1.3.0",
-    "gulp-uglify": "^0.3.1",
+    "gulp-uglify": "^0.3.2",
     "image-type": "^1.0.0",
     "imagemin-gifsicle": "*",
     "imagemin-jpegtran": "^1.0.0",
     "imagemin-optipng": "*",
-    "imagemin-pngquant": "^1.0.1",
+    "imagemin-pngquant": "^1.0.2",
     "jshint-stylish": "^0.4.0",
     "recursive-readdir": "^1.2.0"
   }
