@@ -7,3 +7,4 @@ app/media
 .idea
 /nbproject/private
 nbproject
+*.iml
