@@ -4,15 +4,20 @@ build:
   # The steps that will be executed on build
   steps:
     # A step that executes `npm install` command
-    - npm-install
     - script:
-        name: install bower and gulp
-        code: sudo npm install -g bower gulp
+        name: NPM Clear
+        code: sudo npm config set cache $WERCKER_CACHE_DIR/wercker/npm && sudo npm cache clear
     - script:
-        name: run bower install
+        name: Install bower/gulp
+        code: sudo npm install -g bower gulp && sudo npm install
+    - script:
+        name: Run bower install
         code: bower install
     - script:
-        name: gulp build 
+        name: Run jshint
+        code: gulp jshint
+    - script:
+        name: Run gulp build
         code: gulp build
 
     # A custom script step, name value is used in the UI
