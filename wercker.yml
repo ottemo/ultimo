@@ -6,7 +6,7 @@ build:
     # A step that executes `npm install` command
     - script:
         name: NPM Clear
-        code: sudo npm config set cache $WERCKER_CACHE_DIR/wercker/npm && sudo npm cache clear
+        code: sudo rm -rf $WERCKER_CACHE_DIR/wercker/npm/*
     - script:
         name: Install bower/gulp
         code: sudo npm install -g bower gulp && sudo npm install
