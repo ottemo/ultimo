@@ -1376,6 +1376,9 @@ li.active .nav-active {
     border: 1px solid #DBDBDB;
     vertical-align: middle;
 }
+.cat-prod > a {
+    display: block;
+}
 .tablet-shadow {
     background-color: #ffffff;
     display: none;
@@ -1384,6 +1387,9 @@ li.active .nav-active {
     top: 99%;
     width: 92%;
     z-index: 1;
+}
+.tablet-shadow:hover {
+    display: block;
 }
 .tablet-shadow h6,
 .tablet-shadow p {
@@ -2629,12 +2635,12 @@ select {
 .login-page .col-md-4 {
     height: 310px;
 }
-.login-page > div:nth-child(2),
 .login-page > div:nth-child(3) {
     border-right: 1px solid #DADADA;
+    border-left: 1px solid #DADADA;
 }
 .login-page .col-md-4 {
-    height: 320px;
+    height: auto;
     margin-bottom: 30px;
 }
 .login-page .col-md-10 {

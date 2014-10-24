@@ -201,8 +201,12 @@
                     }
                 }
             });
+            $(document).on('mouseleave', '.cat-prod', function () {
+                $(this).siblings().removeClass('active');
+                $(this).removeClass('active');
+            });
 
-//            // rating
+            // rating
             setTimeout(function () {
                 $("input.rating").each(function () {
 
