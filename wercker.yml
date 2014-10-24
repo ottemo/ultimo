@@ -1,12 +1,12 @@
-box: tagpandaweb/ubuntu12.04-nodejs0.11@0.0.1
+box: wercker/nodejs
 # Build definition
 build:
   # The steps that will be executed on build
   steps:
     # A step that executes `npm install` command
-#    - script:
-#        name: NPM cache clean
-#        code: sudo rm -rf $WERCKER_CACHE_DIR/wercker/npm/* && sudo rm -rf /home/ubuntu/.npm/*
+    - script:
+        name: Upgrade NPM
+        code: sudo npm update -g npm
     - script:
         name: Install bower/gulp
         code: sudo npm install -g bower gulp && sudo npm install
@@ -23,8 +23,8 @@ build:
     # A custom script step, name value is used in the UI
     # and the code value contains the command that get executed
     - script:
-        name: echo nodejs information
-        code: |
+        name: Echo NPM information
+        code: npm version
   after-steps:
     - wercker/hipchat-notify@1.0.3:
         token: $HIPCHAT_TOKEN
