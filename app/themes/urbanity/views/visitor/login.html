@@ -1,0 +1,42 @@
+<div ng-controller="visitorLoginControllerUrb">
+    <div class="modal fade login" id="form-login" tabindex="-1" role="dialog">
+        <div class="modal-dialog ch-form">
+            <div class="login-close fa">X</div>
+                <h6>LOGIN</h6>
+                <form role="form">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input class="form-control" type="text" id="email" placeholder="email"
+                               ng-model="loginCredentials.email"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input class="form-control" type="password" id="password" placeholder="password"
+                               ng-model="loginCredentials.password"
+                               autocomplete="off"/>
+                    </div>
+                </form>
+                <div class="clear"></div>
+                <button class="btn black" ng-click="signIn()">Login</button>
+                <br>
+                <ng-include src="getTemplate('visitor/social/facebook.html')"></ng-include>
+                <ng-include src="getTemplate('visitor/social/google.html')"></ng-include>
+                <br>
+                <a href="" target="_self" id="modal-registration">Register</a>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#modal-login").click(function () {
+        $("#form-login").modal("show");
+    });
+    $("#modal-registration").click(function () {
+        $(".modal").trigger('click');
+        $("#form-registration").modal("show");
+    });
+    $(".login-close").click(function () {
+        $(".modal").trigger('click');
+    });
+</script>

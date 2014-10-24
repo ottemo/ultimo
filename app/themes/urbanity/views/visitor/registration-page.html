@@ -1,0 +1,38 @@
+<div ng-controller="visitorLoginControllerUrb" class="wow zoomIn">
+    <div class="login-page register-page">
+        <h2>Registration</h2>
+        <div class="input-group">
+            <label for="email">Email</label>
+            <input id="email" type="text" name="email"  ng-model="loginCredentials.email">
+        </div>
+        <div class="input-group">
+            <label for="password">Password</label>
+            <input id="password" type="password" name="password" ng-model="loginCredentials.password">
+        </div>
+        <br>
+        <div class="input-group">
+            <label for="FirstName">First Name</label>
+            <input type="text" id="FirstName" placeholder="First name">
+        </div>
+        <div class="input-group">
+            <label for="confirm_password">Confirm password</label>
+            <input id="confirm_password" type="password" name="confirm_password" ng-model="loginCredentials.password">
+        </div>
+        <br>
+        <div class="input-group">
+            <label for="LastName">Last Name</label>
+            <input type="text" id="LastName" placeholder="Last name">
+        </div>
+        <div class="right-side">
+            <button type="submit" class="btn black" ng-click="signIn()">Register</button>
+        </div>
+        <br>
+        <div class="left-side last">
+            <a href="#/login" class="register">Login</a>
+        </div>
+        <div class="right-side last">
+            <a href ng-click="facebookLogin()">login with facebook</a>
+            <a href ng-click="googleLogin()">login with google</a>
+        </div>
+    </div>
+</div>

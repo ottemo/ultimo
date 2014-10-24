@@ -1,0 +1,60 @@
+<header>
+    <div class="header-wrapper">
+        <!-- logo -->
+        <div class="logo">
+            <img alt="logo" ng-src="{{getImg('logo.png')}}">
+        </div>
+
+        <div class="right-side" ng-controller="commonHeaderController">
+            <!-- cart section -->
+            <div class="mini-cart-counter">
+                (<span ng-controller="cartListController">{{it.getCountItems()}}</span>)
+            </div>
+            <a href="" target="_self" ng-click="clickToCartDesktop()" ng-controller="visitorLoginControllerUrb" class="cart">
+                
+            </a> 
+            <ng-include src="getTemplate('cart/minicart.html')" ng-controller="cartListController"></ng-include>
+            <a href="" class="mini-cart-icon"></a>
+            <!-- login section -->
+            <div class="login-register">
+                <a href="{{item.link}}" ng-repeat="item in rightMenu.getMenuRight()">{{item.label}}</a>
+            </div>
+
+            <!-- social section -->
+            <div class="social ng-scope" ng-controller="visitorLoginControllerUrb" ng-init="init()">
+                <a href="" ng-click="twitterLogin()" class="fa fa-twitter"></a>
+                <a href="" ng-click="facebookLogin()"  class="fa fa-facebook"></a>
+                <a href="" ng-click="googleLogin()" class="fa fa-google-plus"></a>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+
+            <!-- search -->
+            <div class="search">
+                <input type="search">
+                <i class="fa fa-search"></i>
+            </div>
+
+            <!-- navigation main-menu -->
+            <nav class="menu">
+                <ul ng-controller="commonSidebarController">
+                    <li ng-repeat="item in sidebar.getItems()">
+                        <a href="#/{{item.link}}" title="{{item.title}}">{{item.title}}</a><span ng-if="!$last"></span>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        
+        <div class="clear"></div>
+
+        <!-- navigation mens/woman -->
+        <nav ng-controller="commonHeaderController" class="mens-women">
+            <ul>
+                <li ng-repeat="item in categories;" ng-include="getTemplate('common/header/menuItem.html')"></li>
+                <div class="nav-close"></div>
+            </ul>
+        </nav>
+    </div>
+
+    
+</header><!-- Header end -->

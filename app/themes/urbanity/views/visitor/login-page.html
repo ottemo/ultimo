@@ -1,0 +1,22 @@
+<div ng-init="init()" ng-controller="visitorLoginControllerUrb" class="wow zoomIn">
+    <div class="login-page">
+        <h2>Login</h2>
+        <div class="input-group">
+            <label for="email">Email</label>
+            <input id="email" type="email" class="form-control" name="email"  ng-model="loginCredentials.email">
+        </div>
+        <div class="input-group">
+            <label for="password">Password</label>
+            <input id="password" type="password" class="form-control" name="password" ng-model="loginCredentials.password">
+        </div>
+        <br>
+        <div class="left-side">
+            <button class="btn black" type="submit" ng-click="signIn()">Login</button>
+            <a href="#/registration" class="register">Register</a>
+        </div>
+        <div class="right-side">
+            <a href ng-click="facebookLogin()">login with facebook</a>
+            <a href ng-click="googleLogin()">login with google</a>
+        </div>
+    </div>
+</div>
