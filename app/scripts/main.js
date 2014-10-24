@@ -52,7 +52,7 @@ require([
 
             angular.element.get(angular.REST_SERVER_URI + "/config/get/themes.list.active", function (data) {
 
-                angular.activeTheme = data.result;
+                angular.activeTheme = data.result === null ? "default" : data.result;
 
                 angular.isExistFile = function (path) {
 

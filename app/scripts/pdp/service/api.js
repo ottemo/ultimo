@@ -33,6 +33,11 @@
                         method: "POST",
                         url: pdpBaseURL + "/list"
                     },
+                    "getRelated": {
+                        method: "POST",
+                        params: {pid: "@pid"},
+                        url: pdpBaseURL + "/related/:pid"
+                    },
                     "ratingInfo": {
                         method: "GET",
                         params: { pid: "@pid" },
