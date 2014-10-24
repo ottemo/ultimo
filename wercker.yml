@@ -1,5 +1,4 @@
 box: wercker/nodejs
-#box: tagpandaweb/ubuntu12.04-nodejs0.11@0.0.1
 # Build definition
 build:
   # The steps that will be executed on build
