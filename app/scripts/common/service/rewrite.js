@@ -42,6 +42,10 @@
                         };
 
                         getRewrite = function (type, id) {
+                            if(typeof  rules === "undefined"){
+                                return false;
+                            }
+
                             var i;
                             for (i = 0; i < rules.length; i += 1){
                                 if(rules[i].type === type && rules[i].rewrite === id){

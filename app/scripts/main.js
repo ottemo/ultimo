@@ -47,12 +47,12 @@ require([
         "checkout/module",
         "cms/module"
     ],
-    function (angular,ngBootstrap, files) {
+    function (angular, ngBootstrap, files) {
         angular.element(document).ready(function () {
+            var errorResponse, successResponse, runApp;
 
-            angular.element.get(angular.REST_SERVER_URI + "/config/get/themes.list.active", function (data) {
-
-                angular.activeTheme = data.result === null ? "default" : data.result;
+            runApp = function(){
+                angular.referrer = document.referrer;
 
                 angular.isExistFile = function (path) {
 
@@ -72,9 +72,32 @@ require([
                     var modules = Object.keys(angular.module);
                     angular.resumeBootstrap(modules);
                 }
+            };
 
+            errorResponse = function () {
+                angular.activeTheme = "default";
+                runApp();
+            };
+
+            successResponse = function (data) {
+                angular.activeTheme = data.result === null ? "default" : data.result;
+                runApp();
+            };
+
+            /**
+             * Use jQuery ajax for sending existing cookie value
+             * angular.element.get can not send cookie
+             */
+            jQuery.ajax({
+                url: angular.REST_SERVER_URI + "/config/get/themes.list.active",
+                type: "GET",
+                timeout: 10000,
+                xhrFields: {
+                    withCredentials: true
+                },
+                error: errorResponse,
+                success: successResponse
             });
-
         });
     }
 );
