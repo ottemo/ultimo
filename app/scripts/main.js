@@ -98,6 +98,17 @@ require([
                 error: errorResponse,
                 success: successResponse
             });
+
+            /**
+             * increase count of visits
+             */
+            jQuery.ajax({
+                url: angular.REST_SERVER_URI + "/rts/visit",
+                type: "GET",
+                xhrFields: {
+                    withCredentials: true
+                }
+            });
         });
     }
 );
