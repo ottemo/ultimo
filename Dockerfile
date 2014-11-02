@@ -11,9 +11,9 @@ RUN apt-get install -y nginx git curl python-software-properties python software
 RUN add-apt-repository ppa:chris-lea/node.js
 RUN apt-get update
 RUN apt-get install -y nodejs
+RUN npm update -g npm
 WORKDIR /opt/storefront
 RUN git clone https://ottemo-dev:freshbox111222333@github.com/ottemo/storefront.git -b develop /opt/storefront
-RUN npm update -g npm
 RUN npm install
 RUN npm install -g bower
 RUN bower install --allow-root
@@ -22,4 +22,3 @@ RUN gulp build
 RUN rm -f /etc/nginx/sites-enabled/default
 ADD ./config/storefront.conf /etc/nginx/conf.d/
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
-CMD service nginx start
