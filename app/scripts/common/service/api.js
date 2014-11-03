@@ -5,9 +5,8 @@
      *  HTML top page header manipulation stuff
      */
     define([
-        "common/init",
-        "angular"
-    ], function (commonModule, angular) {
+        "common/init"
+    ], function (commonModule) {
 
         commonModule
             /*
@@ -30,13 +29,6 @@
                         url: REST_SERVER_URI + "/url_rewrite/list"
                     }
                 };
-
-                if (typeof angular.referrer !== "undefined") {
-                    methods.getRewriteUrls.headers = {
-                        "X-Referer": angular.referrer
-                    };
-                    delete angular.referrer;
-                }
 
                 return $resource(categoryBaseURL, {}, methods);
             }]

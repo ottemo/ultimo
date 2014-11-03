@@ -50,9 +50,9 @@ require([
     function (angular, ngBootstrap, files) {
         angular.element(document).ready(function () {
             var errorResponse, successResponse, runApp;
+            angular.referrer = document.referrer;
 
             runApp = function(){
-                angular.referrer = document.referrer;
 
                 angular.isExistFile = function (path) {
 
@@ -107,6 +107,9 @@ require([
                 type: "GET",
                 xhrFields: {
                     withCredentials: true
+                },
+                headers: {
+                    "X-Referer": angular.referrer
                 }
             });
         });
