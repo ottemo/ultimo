@@ -4,7 +4,7 @@
     define([
             "angular",
             "visitor/service/facebook",
-            "visitor/service/google",
+            "visitor/service/google"
         ],
         function (angular, fb, gl) {
 
