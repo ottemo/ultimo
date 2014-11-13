@@ -1,0 +1,25 @@
+<div class="modal fade" id="purchase-success" ng-controller="visitorLoginController" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- close button -->
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+                <!-- modal title -->
+                <h4 class="modal-title">Thank you for your purchase</h4>
+            </div>
+            <div class="modal-body">
+
+                <!-- modal text -->
+                <h4 class="text-center">Your order # is:<strong>{{purchase.increment_id}}</strong></h4>
+
+                <p class="text-center">You will recieve an order confirmation email with details of your order
+                    and a link to track its progress.</p>
+            </div>
+            <div class="modal-footer">
+                <!-- Continue shopping button -->
+                <div class="btn btn-primary" ng-click="closeSuccessPopup()">Continue shopping</div>
+            </div>
+        </div>
+    </div>
+</div>

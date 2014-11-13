@@ -1,65 +1,55 @@
-<div class="page-title"></div>
+<br> <br>
 
-</head>
-<body>
-<!--Slider Block-->
-<div class="pdp-slider">
-    <div class="big">
-        <img ng-src="{{getImage(imagesPath, productImages[0])}}" alt=""/>
+<!-- images -->
+<div class="text-center col-xs-12 col-sm-6">  
+    <span class="col-sm-5 product" ng-repeat="img in productImages">
+        <span class="thumbnail" >
+            <img ng-src="{{getImage(imagesPath, img)}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';"/>
+        </span>
+    </span>
+</div>
+
+
+<!--info -->      
+<div class="col-xs-12 col-sm-6">
+    <div class="row">
+        <!-- product name -->
+        <h2>&nbsp;<strong>{{product.name}}</strong></h2>
+
+        <!-- product price -->
+        <h2>&nbsp;<strong>{{product.price | currency}}</strong></h2>
     </div>
-    <div class="small" ng-repeat="img in productImages">
-        <img ng-src="{{getImage(imagesPath, img)}}" alt=""/>
-    </div>
-    <section class="slider">
-        <div class="rslides_container">
-            <ul class="rslides" id="slider1">
-                <li ng-repeat="img in productImages">
-                    <img ng-src="{{getImage(imagesPath, img)}}" alt=""/>
-                </li>
-            </ul>
-        </div>
-        <div class="slider-show">
-            <div class="slider-soc">
-                <a href=""></a>
-                <a href=""></a>
-                <a href=""></a>
+    <br>
+
+
+    
+
+
+
+    <!-- Custom options -->
+    <div class="row">
+        <div class="col-lg-3 form-group">
+            <label for="">lol</label>
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="button" ng-click="changeQty(qty,'up')">
+                        +
+                    </button>
+                </span>
+                <input type="text" class="form-control text-center" placeholder="Qtl" type="text" class="form-control" value="{{qty}}"
+                   ng-model="qty" ng-change="update(idx, qty)">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="button" ng-click="changeQty(qty,'down')"  ng-blur="update(item.idx, item.qty)">
+                        -
+                    </button>
+                </span>
             </div>
-            <a href="#">shop now</a>
         </div>
-        <div class="clear"></div>
-    </section>
-    <div class="small" ng-hide="productImages.length">
-        <img ng-src="{{getImg('placeholder.png')}}" alt="" class="img-thumbnail" width="250px" height="250px"/>
+        <gui-custom-options item="product" object="this"></gui-custom-options>
     </div>
 
 </div>
-<!--Info block-->
-<section class="pdp-info">
-    <div class="tab-wrap">
-        <h2>{{product.name}}</h2>
-        <p>{{product.price | currency}}</p>
-        <div class="pdp-filters col-md-9">
-            <div class="col-md-6">
-                <div class="input-group spinner pdp-spinner">
-                    <label>Quantity</label>
-
-                    <div class="spinner-block">
-                        <input placeholder="Qtl" type="text" class="form-control" value="{{qty}}"
-                               ng-model="qty" ng-change="update(idx, qty)">
-
-                        <div class="input-group-btn-vertical">
-                            <button class="btn" ng-click="changeQty(qty,'up')"><i></i></button>
-                            <button class="btn" ng-click="changeQty(qty,'down')"><i></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Custom options -->
-            <gui-custom-options item="product" object="this"></gui-custom-options>
-
-            <div class="clear"></div>
-        </div>
-        <div class="col-md-3">
+        <!-- <div class="col-md-12">
             <p class="pdp-total">Total:</p>
             <div class="clear"></div>
             <p>{{product.price * qty | number:2 | currency}}</p>
@@ -110,8 +100,7 @@
                 </p>
             </div>
         </div>
-    </div>
-</section>
+
 <div class="clear"></div>
 <section class="c-img pdp-img">
     <div ng-repeat="_item in related" ng-show="related.length">
@@ -246,48 +235,21 @@
         </div>
         <div class="clear"></div>
     </div>
-</section>
+</section> -->
+
+
+
 
 <script>
-    (function ($) {
-
-        // slider
-        $(document).ready(function () {
-            setTimeout(function () {
-                $("#slider1").responsiveSlides({
-                    auto: false,
-                    pager: true,
-                    nav: true,
-                    speed: 500,
-                    maxwidth: 1024,
-                    namespace: "centered-btns"
-                });
-            }, 500);
-        });
-
-        // rating
-        $(document).ready(function () {
-            setTimeout(function () {
-                $("input.rating").each(function () {
-
-                    if ($(this).hasClass("disabled")) {
-                        $(this).rating({
-                            readonly: true,
-                            disabled: true,
-                            showCaption: false,
-                            showClear: false
-                        });
-                    } else {
-                        $(this).rating({
-                            showCaption: false,
-                            showClear: false
-                        });
-                    }
-
-                })
-
-            }, 500)
-        })
-
-    })(jQuery)
+    $('body').removeClass('modal-open');
 </script>
+<style>
+    .product {
+        float: none;
+        display: inline-block;
+    }
+    .product img {
+        width: 100%;
+        height: auto;
+    }
+</style>

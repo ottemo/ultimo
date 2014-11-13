@@ -34,14 +34,20 @@
                         var status;
                         if (typeof $scope.changePswCredentials.password === "undefined" ||
                             $scope.changePswCredentials.password.trim() === "") {
-                            $scope.changeMsg = "Password can not be blank";
+                            $scope.message = {
+                                "type": "warning",
+                                "message": "Password can not be blank"
+                            };
                             $scope.isCoincide = false;
                             status = false;
                         } else if ($scope.changePswCredentials.password === $scope.changePswCredentials.confirm) {
                             $scope.isCoincide = true;
                             status = true;
                         } else {
-                            $scope.changeMsg = "Passwords don't match";
+                            $scope.message = {
+                                "type": "warning",
+                                "message": "Passwords don't match"
+                            };
                             $scope.isCoincide = false;
                             status = false;
                         }
@@ -52,7 +58,7 @@
                         var isLoggedIn;
 
                         // BREADCRUMBS
-                        $scope.$emit("add-breadcrumbs", {"label": "myAccount", "url": "/account"});
+                        $scope.$emit("add-breadcrumbs", {"label": "MyAccount", "url": "/account"});
                         activePath = $location.path();
 
                         isLoggedIn = $scope.visitorService.isLoggedIn();
@@ -85,7 +91,7 @@
 
                         updateFail = function () {
                             $scope.message = {
-                                "type": "alert-warning",
+                                "type": "warning",
                                 "message": "Something went wrong"
                             };
                         };
@@ -95,14 +101,15 @@
                         delete $scope.visitor["shipping_address"];
 
                         $visitorApiService.update($scope.visitor, updateSuccess, updateFail);
-                        $("#parent_popup_profile").hide();
+                        $("#parent_popup_profile").modal("hide");
                     };
 
                     $scope.changePassword = function () {
                         if (checkPassword()) {
+                            delete $scope.changePswCredentials.confirm;
                             $visitorApiService.update($scope.changePswCredentials).$promise.then(
                                 function (response) {
-                                    $("#parent_popup_password").hide();
+                                    $("#form-change-password").modal("hide");
                                     if (response.error === "") {
                                         $scope.message = {
                                             "type": "success",
@@ -124,7 +131,7 @@
                     };
 
                     $scope.popUpOpen = function (id) {
-                        $("#" + id).show();
+                        $("#" + id).modal("show");
                     };
 
                     $scope.shippingUpdate = function () {
@@ -138,7 +145,6 @@
                     };
 
                     $scope.$watch("visitor", getAddressList);
-                    $scope.$watch("changePswCredentials", checkPassword);
 
                     $scope.isActive = function (path) {
                         if (activePath === path) {

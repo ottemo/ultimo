@@ -1,116 +1,45 @@
-<div class="top">
-    <div class="top-center">
-        <nav>
-            <ul ng-controller="commonSidebarController">
-                <li ng-repeat="item in sidebar.getItems()">
-                    <a href="#/{{item.link}}" title="{{item.title}}">{{item.title}}</a><span ng-if="!$last"></span>
-                </li>
-            </ul>
+<!-- Navigation bar -->
+<nav role="navigation" class="navbar-default navbar navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header"> 
+            <!-- Logo -->
+            <a href="#/">
+                <img alt="logo" class="" ng-src="{{getImg('logo.png')}}" style="margin-top:5px;margin-right:15px">
+            </a>  
 
-            <div class="top-right" ng-controller="commonHeaderController">
-                <a href="" target="_self" ng-click="clickToCartDesktop()"
-                   ng-controller="visitorLoginController"></a>
-
-                <div class="cart-num" ng-controller="cartListController">
-                    <p>{{it.getCountItems()}}</p>
-                </div>
-
-                <a href="{{item.link}}" class="mini-cart-icon" ng-repeat="item in rightMenu.getMenuRight()">{{item.label}}</a>
-                <ng-include src="getTemplate('cart/minicart.html')" ng-controller="cartListController"></ng-include>
-            </div>
-        </nav>
-
-    </div>
-</div>
-<!-- Mobile Menu -->
-<header>
-    <div class="h-block">
-
-        <div class="left-header-menu un-visible" ng-controller="commonSidebarController">
-            <a class="open" href="#nav"></a>
-
-            <div id="nav">
-                <div class="left-header-menu-inner">
-                    <ul class="left-header-menu-items">
-                        <li ng-repeat="item in sidebar.getItems()">
-                            <a href="#/{{item.link}}" title="{{item.title}}"
-                               ng-class="sidebar.getType(item.icon) == 'image' ? 'nav-left-link' : ''"
-                               ng-switch="sidebar.getType(item.icon)">
-                                <span ng-switch-when="glyphicon" class="{{item.icon}}"/>
-                                <img ng-switch-when="image" class="button-image" ng-src="{{item.icon}}"/>
-                                <span class="nav-left-link-text">{{item.title}}</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            </div>
-            <a href="#" id="mobnav-btn">
-                <img alt="logo" ng-src="{{getImg('logo-main.png')}}">
-            </a>
-
-        <div class="cart-num" ng-controller="cartListController">
-            <p>{{it.getCountItems()}}</p>
+            <!-- toggle button -->
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed col-xs-offset-1" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
         </div>
 
-        <div class="cart-mob un-visible" ng-controller="commonHeaderController">
-            <a href="" target="_self" ng-click="clickToCartDesktop()"
-                   ng-controller="visitorLoginController">
-                <img alt="menu" ng-src="{{getImg('cart-mob.png')}}">
+        <!-- Cart icon -->
+        <div class="navbar-form navbar-right">
+
+            <!-- cart controller wrapper -->
+            <a class="" href="" target="_self" ng-click="clickToCartDesktop()" ng-controller="visitorLoginController" >
+                <!-- cart button -->
+                <button type="button" class="btn btn-default" ng-controller="commonHeaderController" >
+                    <!-- icon cart -->
+                    <span class="glyphicon glyphicon-shopping-cart"></span> 
+                    <!-- items counter -->
+                    <span ng-controller="cartListController">{{it.getCountItems()}}</span>
+                </button>
             </a>
-            <ng-include src="getTemplate('cart/minicart.html')" ng-controller="cartListController"></ng-include>
+
+            <!-- login controller wrapper -->
+            <span class="btn-group" ng-controller="commonHeaderController">
+
+                <!-- login/account/logout buttons -->
+                <a href="{{item.link}}"  ng-repeat="item in rightMenu.getMenuRight()" class="btn" ng-class="{'btn-primary': $first, 'btn-default': $last}" >{{item.label}}</a>
+            </span>
         </div>
-
-        <nav ng-controller="commonHeaderController">
-            <ul>
-                <li ng-repeat="item in categories;" ng-include="getTemplate('common/header/menuItem.html')"></li>
-                <div class="nav-close"></div>
-            </ul>
-        </nav>
-        <div class="clear"></div>
+        
+        <!-- main menu -->
+        <ng-include src="getTemplate('navigation/main.html')"></ng-include>
+        
     </div>
-</header>
-
-<script type="text/javascript">
-    jQuery(".open").pageslide();
-    jQuery(".open").on('click',function(){
-        jQuery(".h-block nav").removeClass('active');
-        jQuery(".category-tools div").css('display','none');
-        $('.list-bar span').removeClass('active');
-        $('.shadow').css('display','none');
-    });
-
-    jQuery('#mobnav-btn').click(
-            function () {
-                jQuery('.h-block nav').toggleClass("active");
-            }
-    );
-    jQuery('.nav-close').click(
-            function () {
-                jQuery('.h-block nav').removeClass("active");
-            }
-    );
-    jQuery('.h-block nav ul li').click(
-            function () {
-                jQuery('.h-block nav').removeClass("active");
-            }
-    );
-    jQuery('.mobnav-subarrow').click(
-            function () {
-                jQuery(this).parent().toggleClass("xpopdrop");
-            }
-    );
-    jQuery('.superfish-close').click(
-            function () {
-                jQuery('ul').removeClass("xactive");
-                jQuery('.sf-menu-container').removeClass('xactive-open');
-                jQuery('html, body').removeClass('category-open');
-                jQuery('li').removeClass('xpopdrop');
-            }
-    );
-    jQuery('#cart-menu').click(
-            function () {
-                jQuery(this).parent().find("ul").toggleClass("hidden");
-            }
-    );
-</script>
+</nav>

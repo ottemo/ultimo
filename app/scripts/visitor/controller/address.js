@@ -127,7 +127,7 @@
                         var id, saveSuccess, saveError, updateSuccess, updateError;
                         $scope.submitted = true;
 
-                        if ($scope.addressForm.$invalid) {
+                        if (this.addressForm.$invalid) {
                             return false;
                         }
 
@@ -147,7 +147,7 @@
                                     }
                                 );
                             }
-                            $('#parent_popup_address').hide();
+                            $('#parent_popup_address').modal("hide");
                             $scope.submitted = false;
                             $scope.message = {
                                 'type': 'success',
@@ -177,7 +177,7 @@
                                     }
                                 }
                             }
-                            $('#parent_popup_address').hide();
+                            $('#parent_popup_address').modal('hide');
                             $scope.submitted = false;
                             $scope.message = {
                                 'type': 'success',
@@ -204,7 +204,7 @@
                     $scope.popUpOpen = function (addressId) {
                         if (typeof addressId === 'undefined') {
                             $scope.address = {};
-                            $('#parent_popup_address').show();
+                            $('#parent_popup_address').modal('show');
                         } else {
                             $visitorApiService.loadAddress({'id': addressId}).$promise.then(
                                 function (response) {
@@ -215,7 +215,7 @@
                                     $scope.billingAddressId = (typeof $scope.visitor["billing_address"] !== 'undefined' && $scope.visitor["billing_address"] !== null) ?
                                         $scope.visitor["billing_address"]._id : null;
 
-                                    $('#parent_popup_address').show();
+                                    $('#parent_popup_address').modal('show');
 
                                 }
                             );

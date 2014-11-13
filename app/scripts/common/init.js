@@ -37,7 +37,7 @@
                             templateUrl: angular.getTheme("common/home.html"),
                             controller: "commonController"
                         })
-                        .when("/help", { templateUrl: "views/help.html"})
+                        .when("/help", { templateUrl: "views/help.html",controller: "commonController"})
                         .otherwise({
                             template: function () {
                                 otherwiseResolveFunc();
@@ -71,7 +71,7 @@
                         $rootScope.page = $commonPageService;
 
                         // Left navigation menu
-                        $commonSidebarService.addItem("Home", "", "glyphicon glyphicon-home", 100);
+                        $commonSidebarService.addItem("HOME", "", "glyphicon glyphicon-home", 100);
                         $commonSidebarService.addItem("BLOG", "blog.html", "glyphicon glyphicon-edit");
                         $commonSidebarService.addItem("STOCKISTS", "stocklist.html", "glyphicon glyphicon-screenshot");
                         $commonSidebarService.addItem("ABOUT", "about.html", "glyphicon glyphicon-info-sign");

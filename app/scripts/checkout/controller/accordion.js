@@ -552,12 +552,12 @@
 
                     $scope.closeSuccessPopup = function () {
                         $(".modal").modal("hide");
-                        $(".modal-backdrop").remove();
+                        $(".modal-open").removeClass('modal-open');
                         $location.path("/");
                     };
 
                     $scope.back = function (step) {
-                        $("#" + step).slideUp("slow").prev().prev().slideDown();
+                        $("#" + step).slideUp("slow").parents('.panel').prev('.panel').find('.accordion').slideDown(500);
                     };
 
                     $scope.next = function (step) {
@@ -567,7 +567,7 @@
                                 $scope.saveBillingAddress($scope.billingAddress.$invalid).then(
                                     function () {
                                         if (isValidSteps[step]) {
-                                            $("#" + step).slideUp("slow").next().next().slideDown();
+                                            $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500)
                                         }
                                     }
                                 );
@@ -576,19 +576,19 @@
                                 $scope.saveShippingAddress($scope.shippingAddress.$invalid).then(
                                     function () {
                                         if (isValidSteps[step]) {
-                                            $("#" + step).slideUp("slow").next().next().slideDown();
+                                            $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500)
                                         }
                                     }
                                 );
                                 break;
                             case "paymentMethod":
                                 if (isValidSteps[step]) {
-                                    $("#" + step).slideUp("slow").next().next().slideDown();
+                                    $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500)
                                 }
                                 break;
                             default:
                                 if (isValidSteps[step]) {
-                                    $("#" + step).slideUp("slow").next().next().slideDown();
+                                    $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500)
                                 }
                         }
 

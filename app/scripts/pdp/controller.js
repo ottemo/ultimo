@@ -163,10 +163,10 @@
                                     } else {
                                         var miniCart;
                                         miniCart = $(".mini-cart");
-                                        miniCart.css("display", "table");
+                                        miniCart.modal('show');
                                         setTimeout(function () {
-                                            miniCart.hide();
-                                        }, 1500);
+                                            miniCart.modal('hide');
+                                        }, 2000);
                                     }
                                 }
                             );

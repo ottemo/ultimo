@@ -92,7 +92,7 @@
                      * Hides mini-cart after change url
                      */
                     $scope.$on("$locationChangeSuccess", function () {
-                        $(".mini-cart").hide();
+                        $(".mini-cart").modal('hide');
                     });
 
                 }
