@@ -8,3 +8,4 @@ app/media
 /nbproject/private
 nbproject
 *.iml
+.vagrant

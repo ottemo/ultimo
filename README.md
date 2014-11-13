@@ -33,5 +33,23 @@ Not configured yet. Will be realized in the near future
 ### Also useful are the following commands
     gulp jshint // check js on errors
     gulp sass   // Makes compilation sass to css
-    gulp clean  // Removes the _dist_ folder
+    gulp clean  // Removes the _dist_ folder 
+
+### How start with Vagrantfile
+Clone ottemo/storefront github repo. The vagrant instance will start with nginx available at http://localhost:8888 - You can use gulp serve as well and will be available at http://localhost:8080
+
+    vagrant up
+    vagrant ssh
+    sudo su -
+    cd /vagrant
+    gulp serve (this will take a few minutes to start)
     
+### How to run ottemo/foundation docker container
+Pull latest image from docker hub
+
+    docker pull ottemo/storefront
+
+Start the container and access locally
+
+    docker run -d -p 80:80 -t ottemo/storefront
+
