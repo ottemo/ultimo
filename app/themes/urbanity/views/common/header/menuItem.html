@@ -1,8 +1,0 @@
-<a href="{{categoryService.getUrl(item.id)}}" target="{{item.id != null ? '' : '_self'}}" class="menu-item">
-    {{item.name}}
-</a>
-<b class="fa fa-caret-down" ng-if="item.child.length &gt; 0"></b>
-
-<ul class="submenu" ng-if="item.child.length &gt 0">
-    <li ng-repeat="item in item.child;" ng-include="getTemplate('common/header/menuItem.html')"></li>
-</ul>

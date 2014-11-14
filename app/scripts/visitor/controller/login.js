@@ -24,11 +24,7 @@
                     miniCart = $('.mini-cart');
                     $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
                         if (isLoggedIn) {
-                            if (miniCart.css('display') === 'none') {
-                                miniCart.show();
-                            } else {
-                                miniCart.hide();
-                            }
+                            miniCart.modal('toggle');
                         } else {
                             $('#form-login').modal('show');
                         }
