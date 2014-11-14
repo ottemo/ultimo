@@ -40,7 +40,7 @@
         lrPort: '35729'
     };
     themes = [];
-    FOUNDATION_URI = 'http://ottemo.local:3000';
+    FOUNDATION_URI = 'http://dev.ottemo.io:3000';
 
     // Empties folders to start fresh
     gulp.task('clean', function (cb) {
