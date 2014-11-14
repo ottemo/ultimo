@@ -1,0 +1,98 @@
+<div ng-init="init()">
+    
+    <div class="acontent orders order-detail have-aside animated fadeInUp">
+        <ng-include src="getTemplate('visitor/account/menu.html')"></ng-include>
+        
+        <h3>Order № <strong>{{order.increment_id}}</strong></h3>
+
+        <h4>Date: <strong>{{getDateCreated(order.created_at)}}</strong></h4>
+
+        <br><br>
+
+        <h3>Billing & Shipping</h3>
+
+        <table class="od-total no-margin">
+            <tr>
+                <th colspan="2">
+                    <h6>Bill to:</h6>
+                </th>
+            </tr>
+            <tr>
+                <td>Company:</td>
+                <td>{{order.billing_address.company}}</td>
+            </tr>
+            <tr>
+                <td>Name:</td>
+                <td>{{order.billing_address.last_name}} {{order.billing_address.first_name}}</td>
+            </tr>
+            <tr>
+                <td>Address:</td>
+                <td>{{order.billing_address.address_line1}} {{order.billing_address.address_line2}}, {{order.billing_address.city}}</td>
+            </tr>
+            <tr>
+                <td>Zip,state,country:</td>
+                <td>{{order.billing_address.zip_code}}, {{order.billing_address.state}}, {{order.billing_address.country}}</td>
+            </tr>
+            <tr>
+                <td>Phone:</td>
+                <td>{{order.billing_address.phone}}</td>
+            </tr>
+        </table>
+
+        <table class="od-total">
+            <tr>
+                <th colspan="2">
+                    <h6>Ship to:</h6>
+                </th>
+            </tr>
+            <tr>
+                <td>Company:</td>
+                <td>{{order.shipping_address.company}}</td>
+            </tr>
+            <tr>
+                <td>Name:</td>
+                <td>{{order.shipping_address.last_name}} {{order.shipping_address.first_name}}</td>
+            </tr>
+            <tr>
+                <td>Address:</td>
+                <td>{{order.shipping_address.address_line1}} {{order.shipping_address.address_line2}}, {{order.shipping_address.city}}</td>
+            </tr>
+            <tr>
+                <td>Zip,state,country:</td>
+                <td>{{order.shipping_address.zip_code}}, {{order.shipping_address.state}}, {{order.shipping_address.country}}</td>
+            </tr>
+            <tr>
+                <td>Phone:</td>
+                <td>{{order.shipping_address.phone}}</td>
+            </tr>
+        </table>
+        <div class="clear"></div>
+
+        <table  class="od-product">
+            <tr ng-repeat="product in order.items">
+                <td>{{product.Name}}</td>
+                <td>{{product.Qty}}</td>
+                <td>{{product.Price | currency}}</td>
+            </tr>
+        </table>
+        <table class="od-total">
+            <tr>
+                <td>Subtotal:</td>
+                <td>{{order.subtotal | currency}}</td>
+            </tr>
+            <tr>
+                <td>Tax:</td>
+                <td>{{order.tax_amount | currency}}</td>
+            </tr>
+            <tr>
+                <td>Order Total:</td>
+                <td>{{order.grand_total | currency}}</td>
+            </tr>
+        </table>
+        <div class="clear"></div>
+
+        <div class="button-group">
+            <a class="btn back black" href="#/account/orders">Back to Orders</a>
+        </div>
+    </div>
+</div>

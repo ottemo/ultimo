@@ -10,10 +10,9 @@
         'visitor/service/google'
     ], function (visitorModule, fb, gl) {
         visitorModule
-            /*
-             *  $visitorApiService interaction service
-             */
-
+        /**
+         *  $visitorApiService interaction service
+         */
             .service('$visitorLoginService', [
                 '$resource',
                 '$visitorApiService',
@@ -25,13 +24,13 @@
                 function ($resource, $visitorApiService, $cookieStore, $q, $designService, VISITOR_DEFAULT_AVATAR, LOGIN_COOKIE) {
 
                     /** Variables */
-                    var login, loginId, isLoggedIn, deferIsLoggedIn , mapFields, deferLogOut;
+                    var login, loginId, isLoggedIn, mapFields, sendingRequest;
                     /** Functions */
-                    var init, getLogin, getLoginId, setLogin, cleanLogin, getVisitorProperty,
+                    var getLogin, getLoginId, setLogin, cleanLogin, getVisitorProperty,
                         getAvatar, getFullName, fIsLoggedIn, getDefaultLogin, logout, fillFields;
 
                     isLoggedIn = null;
-
+                    sendingRequest = [];
                     getDefaultLogin = function () {
                         return {
                             'facebook_id': '',
@@ -77,46 +76,15 @@
 
                     login = getDefaultLogin();
 
-                    init = function (force) {
-                        deferIsLoggedIn = $q.defer();
-
-                        if (null !== isLoggedIn && !force) {
-                            deferIsLoggedIn.resolve(isLoggedIn);
-                            return deferIsLoggedIn.promise;
-                        }
-
-                        $visitorApiService.info().$promise.then(
-                            function (response) {
-                                if (response.error === '') {
-                                    loginId = response.result._id || '';
-                                    if (loginId !== '') {
-                                        isLoggedIn = true;
-                                        deferIsLoggedIn.resolve(isLoggedIn);
-                                        setLogin(response.result);
-                                    } else {
-                                        isLoggedIn = false;
-                                        deferIsLoggedIn.resolve(isLoggedIn);
-                                    }
-                                } else {
-
-                                    isLoggedIn = false;
-                                    cleanLogin();
-                                    deferIsLoggedIn.resolve(isLoggedIn);
-                                }
-                            }
-                        );
-
-                        return deferIsLoggedIn.promise;
-                    };
-
                     logout = function () {
-                        deferLogOut = $q.defer();
+                        var deferLogOut = $q.defer();
 
                         $cookieStore.remove(LOGIN_COOKIE);
 
                         isLoggedIn = false;
+
                         login = getDefaultLogin();
-                        deferLogOut.resolve(true);
+                        deferLogOut.resolve(false);
 
                         return deferLogOut.promise;
                     };
@@ -169,12 +137,46 @@
                         return loginId;
                     };
 
-                    fIsLoggedIn = function () {
-                        return isLoggedIn;
+                    fIsLoggedIn = function (force) {
+
+                        var sendRequestFlag = false;
+                        if (sendingRequest.length === 0) {
+                            sendRequestFlag = true;
+                        }
+
+                        var deferIsLoggedIn = $q.defer();
+                        sendingRequest.push(deferIsLoggedIn);
+
+                        if (null !== isLoggedIn && !force) {
+                            for (var i = 0; i < sendingRequest.length; i += 1) {
+                                sendingRequest[i].resolve(isLoggedIn);
+                            }
+                            sendingRequest = [];
+                        } else if (sendRequestFlag) {
+                            $visitorApiService.info().$promise.then(function (response) {
+                                if (response.error === '') {
+                                    loginId = response.result._id || '';
+                                    if (loginId !== '') {
+                                        isLoggedIn = true;
+                                        setLogin(response.result);
+                                    } else {
+                                        isLoggedIn = false;
+                                    }
+                                } else {
+                                    isLoggedIn = false;
+                                    cleanLogin();
+                                }
+                                for (var i = 0; i < sendingRequest.length; i += 1) {
+                                    sendingRequest[i].resolve(isLoggedIn);
+                                }
+                                sendingRequest = [];
+                            });
+                        }
+
+                        return deferIsLoggedIn.promise;
                     };
 
                     return {
-                        init: init,
                         cleanLogin: cleanLogin,
                         setLogin: setLogin,
                         getVisitor: getLogin,

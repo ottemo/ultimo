@@ -14,28 +14,17 @@
                 "$checkoutService",
                 "$location",
                 function ($scope, $cartApiService, $cartService, $designImageService, $visitorLoginService, $pdpProductService, $checkoutService, $location) {
-
-                    var isLoggedIn;
-
                     $scope.it = $cartService;
                     $scope.checkout = $checkoutService;
                     $scope.productService = $pdpProductService;
-
+                    $scope.visitorService = $visitorLoginService;
                     $scope.init = function () {
-                        isLoggedIn = $visitorLoginService.isLoggedIn();
-                        if (isLoggedIn === null) {
-                            $visitorLoginService.init().then(
-                                function () {
-                                    if (!$visitorLoginService.isLoggedIn()) {
-                                        $location.path("/");
-                                    }
-                                }
-                            );
-                        } else {
-                            if (!$visitorLoginService.isLoggedIn()) {
+
+                        $scope.visitorService.isLoggedIn().then(function(isLoggedIn){
+                            if (!isLoggedIn) {
                                 $location.path("/");
                             }
-                        }
+                        });
                         $cartService.reload();
 
                         $scope.$emit("add-breadcrumbs", {"label": "My Account", "url": "/account"});

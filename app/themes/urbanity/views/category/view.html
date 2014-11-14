@@ -1,0 +1,118 @@
+<div class="content have-aside animated fadeInUp">
+
+    <!-- left side categories -->
+    <aside class="left-side animated fadeInLeft">
+
+        <!-- product categories -->
+        <nav class="categories" ng-controller="commonHeaderController" >
+            <ul>
+                <li ng-repeat="item in categories;">
+                    <ul ng-if="item.child.length &gt 0">
+                        <li ng-repeat="item in item.child;" ng-include="getTemplate('common/header/menuItem.html')"></li>
+                    </ul> 
+                </li>
+            </ul>
+        </nav>     
+    </aside>
+
+    <!-- right side filters -->
+    <aside class="right-side animated fadeInRight">
+        <!-- First level -->
+        <ul>
+            <li>
+                Filter
+                <span></span>
+                <!-- Second level -->
+                <ul>
+                    <li class="second-level" ng-repeat="(filter, items) in layered" ng-if="items.length>0">
+                        {{filter}}
+                        <span></span>
+                        <!-- Third level -->
+                        <ul>
+                            <li>
+                                <a ng-href="" ng-repeat="item in items">
+                                    <div>{{item}}</div>
+                                    <input type="checkbox" ng-model="filters[filter][item]">
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <ul class="sort">
+            <li>
+                Sort
+                <span ng-click="toggleBlock('sort')"></span>
+                <ul>
+                    <li class="second-level" ng-show="blocks.sort">
+                        <a href="" target="_self" ng-click="sortByPrice('asc')" class="full-width">price low to high</a>
+                        <a href="" target="_self" ng-click="sortByPrice('desc')" class="full-width">price high to low</a>
+                        <a href="" target="_self" ng-click="sortByName('asc')" class="full-width">name asc</a>
+                        <a href="" target="_self" ng-click="sortByName('desc')" class="full-width">name desc</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- products -->
+    <div class="product" ng-repeat="_item in productsList | filter:searchText" ng-show="productsList.length">
+        <a href="">
+            <img ng-src="{{getImage(_item)}}" alt="" onError="this.onerror=null;this.src='themes/urbanity/images/placeholder.png';">
+        </a>
+        <div class="hidden-group">
+            <div class="wrapper">
+                <div class="name">{{_item.name}}</div>
+                <div class="price">{{_item.price | number : 2 | currency}}</div>
+                <div class="button-group">
+                    <button class="btn white quick-view" ng-click="openPopUp(_item);">quick view</button>
+                    <a href="{{productService.getUrl(_item._id)}}" class="btn black detail">details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="product mobile" ng-repeat="_item in productsList | filter:searchText" ng-show="productsList.length">
+        <a href="{{productService.getUrl(_item._id)}}">
+            <img ng-src="{{getImage(_item)}}" alt="" onError="this.onerror=null;this.src='themes/urbanity/images/placeholder.png';">
+        </a>
+    </div>
+
+    <div class="product" ng-repeat="_item in productsList | filter:searchText" ng-hide="productsList.length" ng-hide="_item.length">
+        <a href="{{productService.getUrl(_item._id)}}">
+            <img ng-src="{{getImg('placeholder.png')}}" alt=""/>
+        </a>
+    </div>
+    <div class="clear"></div>
+
+    <!-- pagination -->
+    <!-- <gui-paginator object="this"></gui-paginator> -->
+</div>
+<div class="clear"></div>
+
+<!-- product modal window -->
+<div id="modal_window">
+    <div class="window">
+        <i class="fa">×</i>
+        <div class="left-side">
+            <div class="name">{{popupProduct.name}}</div>
+            <div class="model">{{popupProduct.short_description}}</div>
+            <div class="price">{{popupProduct.price | currency}}</div>
+        </div>
+
+        <a href="{{productService.getUrl(popupProduct._id)}}" class="main-image">
+            <span>
+                <img alt="" ng-src="{{getImage(popupProduct)}}" onError="this.src='themes/urbanity/images/placeholder.png';">
+            </span>
+        </a>
+
+        <div class="right-side">        
+            <gui-custom-options item="popupProduct" object="this"></gui-custom-options>
+            <div class="button-group">
+                <button href="" class="btn black add-to-cart" ng-click="addToCart(popupProduct._id)">add to cart</button>
+                <a href="{{productService.getUrl(popupProduct._id)}}" class="btn detail-view">detail view</a>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>

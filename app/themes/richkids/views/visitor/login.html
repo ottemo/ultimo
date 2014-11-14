@@ -1,0 +1,52 @@
+<div ng-controller="visitorLoginController">
+    <div class="modal fade login" id="form-login" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="login-close"></div>
+            <div class="modal-content ch-form">
+                <h6>LOGIN</h6>
+                <gui-message-manager item="message"></gui-message-manager>
+                <form name="loginForm">
+                    <div class="form-group col-md-12"
+                         ng-class="{ 'has-error' : (loginForm.submitted && loginForm.email.$error.required) || (loginForm.email.$invalid && !loginForm.email.$pristine) }">
+                        <label for="email">Email *</label>
+                        <input class="form-control" type="text" id="email" placeholder="email"
+                               ng-model="loginCredentials.email" name="email" required />
+
+                        <p ng-show="(loginForm.submitted && loginForm.email.$error.required) || (loginForm.email.$invalid && !loginForm.email.$pristine)"
+                           class="help-block">This field is required.</p>
+                    </div>
+                    <div class="form-group col-md-12"
+                         ng-class="{ 'has-error' : (loginForm.submitted && loginForm.password.$error.required) || (loginForm.password.$invalid && !loginForm.password.$pristine) }">
+                        <label for="password">Password *</label>
+                        <input class="form-control" type="password" id="password" placeholder="password"
+                               ng-model="loginCredentials.password"
+                               name="password" required autocomplete="off" />
+
+                        <p ng-show="(loginForm.submitted && loginForm.password.$error.required) || (loginForm.password.$invalid && !loginForm.password.$pristine)"
+                           class="help-block">This field is required.</p>
+                    </div>
+                </form>
+                <div class="clear"></div>
+                <div class="button btn-black" ng-click="signIn()">Login</div>
+                <a href="" target="_self" id="modal-registration">Register</a>
+                <div class="clear"></div>
+                <ng-include src="getTemplate('visitor/social/facebook.html')"></ng-include>
+                <ng-include src="getTemplate('visitor/social/google.html')"></ng-include>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#modal-login").click(function () {
+        $("#form-login").modal("show");
+    });
+    $("#modal-registration").click(function () {
+        $(".modal").modal("hide");
+        $("#form-registration").modal("show");
+    });
+    $(".login-close").click(function () {
+        $(".modal").modal("hide");
+    });
+</script>

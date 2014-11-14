@@ -63,24 +63,8 @@
                     "$visitorLoginService",
                     "$commonSidebarService",
                     function ($commonHeaderService, $visitorLoginService, $commonSidebarService) {
-                        var isLoggedIn;
-
-                        isLoggedIn = $visitorLoginService.isLoggedIn();
-                        if (isLoggedIn === null) {
-                            $visitorLoginService.init().then(
-                                function () {
-                                    if ($visitorLoginService.isLoggedIn()) {
-                                        $commonHeaderService.addMenuRightItem("/account", "My Account", "/account");
-                                        $commonHeaderService.addMenuRightItem("/logout", "Logout", "/logout");
-                                        $commonSidebarService.addItem("ACCOUNT", "account", "glyphicon glyphicon-user", 90);
-                                    } else {
-                                        $commonHeaderService.addMenuRightItem("/login", "Login", "/login");
-                                        $commonSidebarService.removeItem("account");
-                                    }
-                                }
-                            );
-                        } else {
-                            if ($visitorLoginService.isLoggedIn()) {
+                        $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
+                            if (isLoggedIn) {
                                 $commonHeaderService.addMenuRightItem("/account", "My Account", "/account");
                                 $commonHeaderService.addMenuRightItem("/logout", "Logout", "/logout");
                                 $commonSidebarService.addItem("ACCOUNT", "account", "glyphicon glyphicon-user", 90);
@@ -88,7 +72,8 @@
                                 $commonHeaderService.addMenuRightItem("/login", "Login", "/login");
                                 $commonSidebarService.removeItem("logout");
                             }
-                        }
+                        });
+
                     }
                 ]
             );

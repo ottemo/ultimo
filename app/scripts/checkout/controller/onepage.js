@@ -18,7 +18,7 @@
                 "$q",
                 function ($scope, $location, $checkoutApiService, $designImageService, $visitorLoginService, $cartService, $designStateService, $commonUtilService, $checkoutService, $q) {
 
-                    var isLoggedIn, info, getDefaultAddress, getAddresses, getCurrentBillingID, getCurrentShippingID,
+                    var info, getDefaultAddress, getAddresses, getCurrentBillingID, getCurrentShippingID,
                         sendPostForm, retrieve, initAddressesData, initCurrentShippingMethod, initCurrentPaymentType,
                         isValid, getPaymentInfo, creditCartTypes;
 
@@ -131,7 +131,7 @@
 
                                 $scope.shippingMethods.push(
                                     {
-                                        "Name": method.Name + " - " + rate.Name + " ($" + rate.Price + ")",
+                                        "Name": method.Name + ": " + rate.Name + " ($" + rate.Price + ")",
                                         "Method": method.Code,
                                         "Rate": rate.Code
                                     }
@@ -167,20 +167,11 @@
                      * Gets checkout information
                      */
                     $scope.init = function () {
-                        isLoggedIn = $visitorLoginService.isLoggedIn();
-                        if (isLoggedIn === null) {
-                            $visitorLoginService.init().then(
-                                function () {
-                                    if (!$visitorLoginService.isLoggedIn()) {
-                                        $location.path("/");
-                                    }
-                                }
-                            );
-                        } else {
-                            if (!$visitorLoginService.isLoggedIn()) {
+                        $visitorLoginService.isLoggedIn().then(function(isLoggedIn){
+                            if (!isLoggedIn) {
                                 $location.path("/");
                             }
-                        }
+                        });
                         if ($cartService.getCountItems() === 0) {
                             $location.path("/");
                         }

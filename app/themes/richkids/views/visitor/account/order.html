@@ -1,0 +1,48 @@
+<div class="page-title"></div>
+
+<div ng-init="init()">
+    <div class="account-left">
+        <ng-include src="getTemplate('visitor/account/menu.html')"></ng-include>
+    </div>
+
+    <div class="account-right account-order">
+        <h3>order history</h3>
+
+        <gui-message-manager item="message"></gui-message-manager>
+
+        <p>These are your orders.</p>
+
+        <p>To view details on a particular order click on this order number.</p>
+
+        <div>
+            <table>
+                <tr>
+                    <th>
+                        <span>order number</span>
+                    </th>
+                    <th>
+                        <span>date</span>
+                    </th>
+                    <th>
+                        <span>order information</span>
+                    </th>
+                    <th>
+                        <span>total price</span>
+                    </th>
+                    <th>
+                        <span>status</span>
+                    </th>
+                </tr>
+
+                <tr ng-repeat="order in ordersList">
+                    <td><a href="#/account/order/{{order.Id}}">{{order.Name}}</a></td>
+                    <td>{{getDateCreated(order.Extra.created_at)}}</td>
+                    <td>{{order.Desc}}</td>
+                    <td>{{order.Extra.grand_total | currency}}</td>
+                    <td>{{order.Extra.status}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+

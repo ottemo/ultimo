@@ -1,0 +1,36 @@
+<div ng-init="init()" ng-controller="visitorLoginControllerUrb" class="wow zoomIn">
+    <div class="login-page">
+        <h2>Login</h2>
+        <gui-message-manager item="message"></gui-message-manager>
+        <form name="loginForm" novalidate>
+            <div class="input-group"
+                 ng-class="{ 'has-error' : (loginForm.submitted && loginForm.email.$error.required) || (loginForm.email.$invalid && !loginForm.email.$pristine) }">
+                <label for="email">Email *</label>
+                <input class="form-control" type="text" id="email" placeholder="email"
+                       ng-model="loginCredentials.email" name="email" required />
+
+                <p ng-show="(loginForm.submitted && loginForm.email.$error.required) || (loginForm.email.$invalid && !loginForm.email.$pristine)"
+                   class="help-block">This field is required.</p>
+            </div>
+            <div class="input-group"
+                 ng-class="{ 'has-error' : (loginForm.submitted && loginForm.password.$error.required) || (loginForm.password.$invalid && !loginForm.password.$pristine) }">
+                <label for="password">Password *</label>
+                <input class="form-control" type="password" id="password" placeholder="password"
+                       ng-model="loginCredentials.password"
+                       name="password" required autocomplete="off" />
+
+                <p ng-show="(loginForm.submitted && loginForm.password.$error.required) || (loginForm.password.$invalid && !loginForm.password.$pristine)"
+                   class="help-block">This field is required.</p>
+            </div>
+        </form>
+        <br>
+        <div class="left-side">
+            <button class="btn black" type="submit" ng-click="signIn()">Login</button>
+            <a href="#/registration" class="register">Register</a>
+        </div>
+        <div class="right-side">
+            <a href ng-click="facebookLogin()">login with facebook</a>
+            <a href ng-click="googleLogin()">login with google</a>
+        </div>
+    </div>
+</div>

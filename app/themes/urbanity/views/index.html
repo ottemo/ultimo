@@ -1,0 +1,43 @@
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<add-css src="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"></add-css>
+<add-css src="animations.css"></add-css>
+<add-css src="style.css"></add-css>
+<add-css src="bootstrap.css"></add-css>
+<add-css src="bootstrap-theme.css"></add-css>
+
+<div class="main-wrapper">
+
+    <!-- Header -->
+    <ng-include src="getTemplate('common/header.html')"></ng-include>
+    
+    <!-- Content -->
+    <section ng-init="init()" class="">
+
+        <!--<div id="cellPageBreadcrumbs" class="GlobalBreadcrumbs">
+            <ng-include src="getTemplate('common/breadcrumbs.html')"></ng-include>
+        </div>-->
+        
+        <!-- Main content -->
+        <ng-view></ng-view>
+
+        <ng-include src="getTemplate('visitor/login.html')"></ng-include>
+        <ng-include src="getTemplate('visitor/registration.html')"></ng-include>
+    </section>
+    <!--<div class="loader">
+        <img alt="menu" ng-src="{{getImg('loader.gif')}}">
+    </div>-->
+</div>
+
+<!-- footer -->
+<ng-include src="getTemplate('common/footer.html')"></ng-include>
+
+<!-- Scripts -->
+<script src="themes/urbanity/lib/jquery.js"></script>
+<script src="themes/urbanity/lib/bootstrap.min.js"></script>
+<script src="themes/urbanity/lib/modernizr-2.6.2.min.js"></script>
+<script src="themes/urbanity/scripts/main.js"></script>
+</body>

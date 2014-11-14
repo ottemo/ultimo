@@ -1,0 +1,75 @@
+<div class="page-title"></div>
+
+<div ng-controller="visitorLoginController">
+    <div class="login-page registration-page">
+        <h3>my account</h3>
+        <div class="col-md-4">
+            <div class="col-md-10">
+                <h5>Create Account With</h5>
+                <a href ng-click="googleLogin()"></a>
+                <a href ng-click="facebookLogin()"></a>
+                <div class="clear"></div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="col-md-10 ch-form">
+                <gui-message-manager item="message"></gui-message-manager>
+            </div>
+            <div class="col-md-10 ch-form">
+                <form name="register">
+                <!--First name-->
+                    <div class="form-group col-md-6"
+                         ng-class="{ 'has-error' : (register.submitted && register.fname.$error.required) || (register.fname.$invalid && !register.fname.$pristine) }">
+                        <label for="FirstName">First Name *</label>
+                        <input type="text" class="form-control" id="FirstName" placeholder="First name" ng-model="login.fname" name="fname" required  />
+
+                        <p ng-show="(register.submitted && register.fname.$error.required) || (register.fname.$invalid && !register.fname.$pristine)"
+                           class="help-block">This field is required.</p>
+                    </div>
+                    <!--Email-->
+                    <div class="form-group col-md-6"
+                         ng-class="{ 'has-error' : (register.submitted && register.email.$error.required) || (register.email.$invalid && !register.email.$pristine) }">
+                        <label for="email">Email Address *</label>
+                        <input id="email" type="text" class="form-control" name="email"  ng-model="login.email" required />
+
+                        <p ng-show="(register.submitted && register.email.$error.required) || (register.email.$invalid && !register.email.$pristine)"
+                           class="help-block">This field is required.</p>
+                    </div>
+                    <!--Last name-->
+                    <div class="form-group col-md-6">
+                        <label for="LastName">Last Name</label>
+                        <input type="text" class="form-control" id="LastName" placeholder="Last name" ng-model="login.lname" />
+                    </div>
+                    <!--Password-->
+                    <div class="form-group col-md-6"
+                         ng-class="{ 'has-error' : (register.submitted && register.password.$error.required) || (register.password.$invalid && !register.password.$pristine) }">
+                        <label for="password">Password *</label>
+                        <input id="password" type="password" class="form-control" name="password" ng-model="login.password" required autocomplete="off" />
+
+                        <p ng-show="(register.submitted && register.password.$error.required) || (register.password.$invalid && !register.password.$pristine)"
+                           class="help-block">This field is required.</p>
+                    </div>
+                    <!--Birthday-->
+                    <div class="form-group col-md-6">
+                        <label>Date of Birth (MM/DD/YYYY)</label>
+                        <input type="text" id="datepicker" class="form-control" >
+                    </div>
+                </form>
+                <div class="clear"></div>
+                <div class="form-group col-md-6">
+                    <a href class="btns" ng-click="save()">Register</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+ $(function() {
+$( "#datepicker" ).datepicker({
+yearRange: "-80:-10",
+changeMonth: true,
+changeYear: true
+});
+});
+</script>

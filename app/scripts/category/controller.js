@@ -171,27 +171,28 @@
                         var miniCart;
                         miniCart = $(".mini-cart");
 
-                        if ($visitorLoginService.isLoggedIn()) {
-                            $cartService.add(productId, 1, $pdpProductService.getOptions()).then(
-                                function (response) {
-                                    if (response.error !== "") {
-                                        $('.modal').modal('hide');
-                                        $location.path($pdpProductService.getUrl(productId).replace("#/", ""));
-                                    } else {
-                                        $pdpProductService.setOptions({});
-                                        $("#quick-view").modal('hide');
+                        $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
+                            if (isLoggedIn) {
+                                $cartService.add(productId, 1, $pdpProductService.getOptions()).then(
+                                    function (response) {
+                                        if (response.error !== "") {
+                                            $('.modal').modal('hide');
+                                            $location.path($pdpProductService.getUrl(productId).replace("#/", ""));
+                                        } else {
+                                            $pdpProductService.setOptions({});
+                                            $("#quick-view").modal('hide');
 
-                                        miniCart.modal('show');
-                                        setTimeout(function () {
-                                            miniCart.modal('hide');
-                                        }, 2000);
+                                            miniCart.modal('show');
+                                            setTimeout(function () {
+                                                miniCart.modal('hide');
+                                            }, 2000);
+                                        }
                                     }
-                                }
-                            );
-
-                        } else {
-                            $("#form-login").modal("show");
-                        }
+                                );
+                            } else {
+                                $("#form-login").modal("show");
+                            }
+                        });
                     };
 
                     /**

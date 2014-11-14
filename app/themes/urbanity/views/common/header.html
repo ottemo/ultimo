@@ -1,0 +1,67 @@
+<header>
+    <div class="header-wrapper">
+        <!-- logo -->
+        <a href="#/" class="logo">
+            <img alt="logo" ng-src="{{getImg('logo.png')}}">
+        </a>
+
+        <div class="right-side" ng-controller="commonHeaderController">
+            <!-- cart section -->
+            <div class="mini-cart-counter">
+                (<span ng-controller="cartListController" ng-bind="it.getCountItems()"></span>)
+            </div>
+            <a href="" target="_self" ng-click="clickToCartDesktop()" ng-controller="visitorLoginControllerUrb" class="cart"></a> 
+            <a href="#/cart" target="_self" ng-controller="visitorLoginControllerUrb" class="cart mobile">
+                <span ng-controller="cartListController">{{it.getCountItems()}}</span>
+            </a> 
+
+            <ng-include src="getTemplate('cart/minicart.html')" ng-controller="cartListController"></ng-include>
+            <a href="" class="mini-cart-icon"></a>
+            
+            <!-- login section -->
+            <div class="login-register">
+                <a href="{{item.link}}" ng-repeat="item in rightMenu.getMenuRight()"><span>{{item.label}}</span></a>
+            </div>
+
+            <!-- social section -->
+            <div class="social ng-scope" ng-controller="visitorLoginControllerUrb" ng-init="init()">
+                <a href="" ng-click="facebookLogin()"  class="fa fa-facebook"></a>
+                <a href="" ng-click="googleLogin()" class="fa fa-google-plus"></a>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+
+            <!-- search -->
+            <!-- <div class="search">
+                <input type="search">
+                <i class="fa fa-search"></i>
+            </div> -->
+
+            <!-- navigation main-menu -->
+            <nav class="menu">
+                <i class="mobile-menu fa fa-bars"></i>
+                <ul ng-controller="commonSidebarController">
+                    <li ng-repeat="item in sidebar.getItems()">
+                        <a href="{{sidebar.getUrl(item.link)}}" title="{{item.title}}">{{item.title}}</a><span ng-if="!$last"></span>
+                    </li>
+                </ul>
+                <ul class="mobile-men-women" ng-controller="commonHeaderController" >
+                    <li ng-repeat="item in categories;" ng-include="getTemplate('common/header/menuItem.html')"></li>
+                    <div class="nav-close"></div>
+                </ul>
+
+            </nav>
+        </div>
+        
+        <div class="clear"></div>
+
+        <!-- navigation mens/woman -->
+        <nav ng-controller="commonHeaderController" class="mens-women">
+            <ul class="main">
+                <li ng-repeat="item in categories;" ng-class="{'active': isActive('/mens.html')}" ng-include="getTemplate('common/header/menuItem.html')"></li>
+            </ul>
+        </nav>
+
+        <i class="mobile-menu fa fa-bars"></i>
+    </div>
+</header><!-- Header end -->

@@ -1,0 +1,66 @@
+<div class="cart-page animated zoomInDown" ng-init="init()">
+    <h3 ng-hide="it.getCountItems()">Cart is empty</h3>
+    <h3 ng-show="it.getCountItems()">Shoping cart</h3>
+    <table>
+        <tr>
+            <th></th>
+            <th>Item</th>
+            <th>QTY</th>
+            <th>Total price</th>
+            <th></th>
+        </tr>
+        <tr ng-repeat="item in it.getItems()" ng-show="it.getCountItems()">
+            <td>
+                <a href="{{productService.getUrl(item.pid)}}"><img ng-src="{{getImage(item.product)}}" alt="{{item.product.name}}" onError="this.onerror=null;this.src='themes/urbanity/images/placeholder.png';"/></a>
+            </td>
+            <td>
+                <div class="name">
+                    {{item.product.name}}
+                </div>
+                <div ng-if="item.hasOptions">
+                    <div class="options" ng-repeat="(key, value) in item.options">
+                        {{key}}: {{productService.getOptStr(value)}}
+                    </div>
+
+                </div>
+            </td>
+            <td>
+                <div class="spinner-block">
+                    <input placeholder="Qtl" type="text" class="form-control" value="{{item.qty}}"
+                                   ng-model="item.qty" ng-blur="update(item.idx, item.qty)">
+                    <div class="input-group-btn-vertical">
+                        <button ng-click="changeQty(item,'up')" ng-blur="update(item.idx, item.qty)" class="fa fa-angle-up"></button>
+                        <button ng-click="changeQty(item,'down')" ng-blur="update(item.idx, item.qty)" class="fa fa-angle-down"></button>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="price">{{item.product.price * item.qty | currency}}</div>
+            </td>
+            <td>
+                <i class="remove" ng-click="remove(item.idx)">×</i>
+            </td>
+        </tr>
+        <tr class="total" ng-hide="!it.getCountItems()">
+            <td colspan="3">
+                Cart Items:
+            </td>
+            <td colspan="2">
+                {{it.getCountItems()}}
+            </td>    
+        </tr>
+        <tr class="total" ng-hide="!it.getCountItems()">
+            <td colspan="3">
+                Total:
+            </td>
+            <td colspan="2">
+                {{getSubtotal() | currency}}
+            </td>    
+        </tr>
+    </table>
+    <div class="total-mobile">
+        Total:
+        <span>{{getSubtotal() | currency}}</span>
+    </div>
+     <a href="#/checkout" class="btn black checkout">Checkout</a>
+</div>
