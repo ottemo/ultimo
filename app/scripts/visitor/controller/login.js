@@ -12,7 +12,6 @@
             '$commonHeaderService',
             '$commonSidebarService',
             function ($scope, $routeParams, $visitorApiService, $visitorLoginService, $location, $cartService, $commonHeaderService, $commonSidebarService) {
-                $visitorLoginService.init();
                 $scope.login = $visitorLoginService.getVisitor();
                 $scope.loginCredentials = {};
 
@@ -23,12 +22,14 @@
                 $scope.clickToCartDesktop = function () {
                     var miniCart;
                     miniCart = $('.mini-cart');
+                    $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
+                        if (isLoggedIn) {
+                            miniCart.modal('toggle');
+                        } else {
+                            $('#form-login').modal('show');
+                        }
+                    });
 
-                    if ($visitorLoginService.isLoggedIn()) {
-                        miniCart.modal('toggle');
-                    } else {
-                        $('#form-login').modal('show');
-                    }
                 };
 
                 $scope.save = function () {
@@ -52,7 +53,7 @@
                     if($scope.loginForm.$valid) {
                         $visitorApiService.login($scope.loginCredentials).$promise.then(function (response) {
                             if (response.result === 'ok') {
-                                $visitorLoginService.init(true).then(
+                                $visitorLoginService.isLoggedIn(true).then(
                                     function () {
                                         $('.modal').modal('hide');
                                         $cartService.reload();
@@ -79,36 +80,34 @@
                     }
                 };
 
-                $scope.isLoggedIn = function () {
-                    return $visitorLoginService.isLoggedIn();
-                };
-
                 $scope.facebookLogin = function () {
                     FB.login(                                               // jshint ignore:line
                         function (response) {
-                            $visitorApiService.loginFacebook({
-                                'user_id': response.authResponse.userID,
-                                'access_token': response.authResponse.accessToken
-                            }).$promise.then(
-                                function () {
-                                    $visitorLoginService.init(true).then(
-                                        function () {
-                                            $('.modal').modal('hide');
-                                            $cartService.reload();
+                            if (typeof response.authResponse !== "undefined") {
+                                $visitorApiService.loginFacebook({
+                                    'user_id': response.authResponse.userID,
+                                    'access_token': response.authResponse.accessToken
+                                }).$promise.then(
+                                    function () {
+                                        $visitorLoginService.isLoggedIn(true).then(
+                                            function () {
+                                                $('.modal').modal('hide');
+                                                $cartService.reload();
 
-                                            // Update right menu
-                                            $commonHeaderService.removeItem('right', '/login');
-                                            $commonHeaderService.addMenuRightItem('/account', 'My Account', '/account');
-                                            $commonHeaderService.addMenuRightItem('/logout', 'Logout', '/logout');
+                                                // Update right menu
+                                                $commonHeaderService.removeItem('right', '/login');
+                                                $commonHeaderService.addMenuRightItem('/account', 'My Account', '/account');
+                                                $commonHeaderService.addMenuRightItem('/logout', 'Logout', '/logout');
 
-                                            // Update sidebar
-                                            $commonSidebarService.addItem('ACCOUNT', 'account', 'glyphicon glyphicon-user', 90);
+                                                // Update sidebar
+                                                $commonSidebarService.addItem('ACCOUNT', 'account', 'glyphicon glyphicon-user', 90);
 
-                                            $location.path('/account');
-                                        }
-                                    );
-                                }
-                            );
+                                                $location.path('/account');
+                                            }
+                                        );
+                                    }
+                                );
+                            }
                         },
                         {scope: 'email'}
                     );
@@ -122,7 +121,7 @@
                     var data = gl.loginCallback(response);
                     $visitorApiService.loginGoolge(data).$promise.then(
                         function () {
-                            $visitorLoginService.init(true).then(
+                            $visitorLoginService.isLoggedIn(true).then(
                                 function () {
                                     $('.modal').modal('hide');
                                     $cartService.reload();

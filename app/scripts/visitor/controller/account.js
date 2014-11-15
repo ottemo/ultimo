@@ -34,17 +34,17 @@
                         var status;
                         if (typeof $scope.changePswCredentials.password === "undefined" ||
                             $scope.changePswCredentials.password.trim() === "") {
-                            $scope.message = {
+                            $scope.messagePassword = {
                                 "type": "warning",
                                 "message": "Password can not be blank"
                             };
                             $scope.isCoincide = false;
                             status = false;
-                        } else if ($scope.changePswCredentials.password === $scope.changePswCredentials.confirm) {
+                        } else if ($scope.changePswCredentials.password === $scope.changePswCredentials["confirm"]) {
                             $scope.isCoincide = true;
                             status = true;
                         } else {
-                            $scope.message = {
+                            $scope.messagePassword = {
                                 "type": "warning",
                                 "message": "Passwords don't match"
                             };
@@ -55,26 +55,15 @@
                     };
 
                     $scope.init = function () {
-                        var isLoggedIn;
-
                         // BREADCRUMBS
                         $scope.$emit("add-breadcrumbs", {"label": "MyAccount", "url": "/account"});
                         activePath = $location.path();
 
-                        isLoggedIn = $scope.visitorService.isLoggedIn();
-                        if (isLoggedIn === null) {
-                            $scope.visitorService.init().then(
-                                function () {
-                                    if (!$scope.visitorService.isLoggedIn()) {
-                                        $location.path("/");
-                                    }
-                                }
-                            );
-                        } else {
-                            if (!$scope.visitorService.isLoggedIn()) {
+                        $scope.visitorService.isLoggedIn().then(function(isLoggedIn){
+                            if (!isLoggedIn) {
                                 $location.path("/");
                             }
-                        }
+                        });
                     };
 
                     $scope.save = function () {
@@ -116,7 +105,7 @@
                                             "message": "Password change was successfully"
                                         };
                                     } else {
-                                        $scope.message = {
+                                        $scope.messagePassword = {
                                             "type": "danger",
                                             "message": "Someting went wrong"
                                         };

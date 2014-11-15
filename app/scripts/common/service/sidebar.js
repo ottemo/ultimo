@@ -14,7 +14,7 @@
                  *  $pageSidebarService implementation
                  */
                 .service("$commonSidebarService", [function () {
-                    var addItem, getItems, getType, items, isImagePathRegex, removeItem;
+                    var addItem, getItems, getType, items, isImagePathRegex, removeItem, getUrl;
                     items = [];
                     isImagePathRegex = new RegExp(".gif|png|jpg|ico$", "i");
 
@@ -78,10 +78,23 @@
                         return false;
                     };
 
+                    getUrl = function (path) {
+                        var result, httpRegex;
+                        httpRegex = new RegExp("^(http|https)://.+$", "i");
+                        if (httpRegex.test(path) === true) {
+                            result = path;
+                        } else {
+                            result = "#/" + path;
+                        }
+
+                        return result;
+                    };
+
                     return {
                         "addItem": addItem,
                         "getItems": getItems,
                         "getType": getType,
+                        "getUrl": getUrl,
                         "removeItem": removeItem
                     };
                 }]);

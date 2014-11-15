@@ -17,7 +17,7 @@
                 "$q",
                 function ($scope, $location, $checkoutApiService, $designImageService, $visitorLoginService, $cartService, $designStateService, $commonUtilService, $checkoutService, $q) {
 
-                    var init, isLoggedIn, info, getDefaultAddress, getAddresses, getCurrentBillingID, getCurrentShippingID,
+                    var init, info, getDefaultAddress, getAddresses, getCurrentBillingID, getCurrentShippingID,
                         getPaymentInfo, creditCartTypes, isValidSteps;
 
                     getDefaultAddress = function () {
@@ -201,20 +201,11 @@
                      * Gets checkout information
                      */
                     $scope.init = function () {
-                        isLoggedIn = $visitorLoginService.isLoggedIn();
-                        if (isLoggedIn === null) {
-                            $visitorLoginService.init().then(
-                                function () {
-                                    if (!$visitorLoginService.isLoggedIn()) {
-                                        $location.path("/");
-                                    }
-                                }
-                            );
-                        } else {
-                            if (!$visitorLoginService.isLoggedIn()) {
+                        $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
+                            if (!isLoggedIn) {
                                 $location.path("/");
                             }
-                        }
+                        });
                         if ($cartService.getCountItems() === 0) {
                             $location.path("/");
                         }
@@ -246,12 +237,10 @@
                     /**
                      * Gets payment methods
                      */
-                    $checkoutApiService.paymentMethod().$promise.then(
-                        function (response) {
+                    $checkoutApiService.paymentMethod().$promise.then(function (response) {
                             var result = response.result || [];
                             $scope.paymentMethods = result;
-                        }
-                    );
+                    });
 
                     getPaymentInfo = function () {
                         var i, info;
@@ -408,6 +397,9 @@
                                         if (response.error === "") {
                                             $scope.getShippingMethods();
 
+                                            if ($scope.useAsBilling) {
+                                                $scope.choiceBilling($scope["shipping_address"]._id);
+                                            }
                                         }
                                     }
                                 );
@@ -512,13 +504,26 @@
                     };
 
                     $scope.discountApply = function () {
-                        $checkoutApiService.discountApply({"code": $scope.discount}).$promise.then(
-                            function (response) {
-                                if (response.error === "") {
-                                    info();
+                        if ("" === $scope.discount || typeof $scope.discount === "undefined") {
+                            $scope.messageDiscounts = {
+                                "type": "warning",
+                                "message": "Discount code can't be empty"
+                            };
+                        } else {
+                            $checkoutApiService.discountApply({"code": $scope.discount}).$promise.then(
+                                function (response) {
+                                    if (response.error === "") {
+                                        info();
+                                    } else {
+                                        $scope.messageDiscounts = {
+                                            "type": "warning",
+                                            "message": response.error
+                                        };
+                                        $scope.discount = "";
+                                    }
                                 }
-                            }
-                        );
+                            );
+                        }
                     };
 
                     $scope.discountNeglect = function (code) {
@@ -532,7 +537,13 @@
                     };
 
                     $scope.setPaymentType = function (type) {
-                        isValidSteps.paymentMethod = true;
+                        var isCreditCard;
+                        isCreditCard = type.split("_").indexOf("cc") > 0;
+                        if (!isCreditCard) {
+                            isValidSteps.paymentMethod = true;
+                        } else {
+                            isValidSteps.paymentMethod = false;
+                        }
                         $scope.paymentType = type;
                     };
 
@@ -567,7 +578,7 @@
                                 $scope.saveBillingAddress($scope.billingAddress.$invalid).then(
                                     function () {
                                         if (isValidSteps[step]) {
-                                            $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500)
+                                            $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
                                         }
                                     }
                                 );
@@ -576,19 +587,33 @@
                                 $scope.saveShippingAddress($scope.shippingAddress.$invalid).then(
                                     function () {
                                         if (isValidSteps[step]) {
-                                            $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500)
+                                            if ($scope.useAsBilling) {
+                                                $("#" + step).slideUp("slow").parents('.panel').next('.panel').next('.panel').find('.accordion').slideDown(500);
+                                            } else {
+                                                $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
+                                            }
                                         }
                                     }
                                 );
                                 break;
                             case "paymentMethod":
-                                if (isValidSteps[step]) {
-                                    $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500)
+                                $scope.subPaymentForm = true;
+								
+								if (isValidSteps[step]) {
+                                    $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
+                                } else {
+                                    var isCreditCard;
+                                    isCreditCard = $scope.paymentType.split("_").indexOf("cc") > 0;
+                                    if (isCreditCard) {
+                                        if ($scope.validateCcNumber()) {
+                                            $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
+                                        }
+                                    }
                                 }
                                 break;
                             default:
                                 if (isValidSteps[step]) {
-                                    $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500)
+                                    $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
                                 }
                         }
 
@@ -675,7 +700,16 @@
                             }).$promise.then(
                                 function (response) {
                                     if (response.result === "ok") {
-                                        isValidSteps.paymentMethod = true;
+                                        var isCreditCard;
+                                        isCreditCard = $scope.paymentType.split("_").indexOf("cc") > 0;
+                                        if (isCreditCard) {
+                                            isValidSteps.paymentMethod = false;
+                                            if ($scope.validateCcNumber()) {
+                                                isValidSteps.paymentMethod = true;
+                                            }
+                                        } else {
+                                            isValidSteps.paymentMethod = true;
+                                        }
                                         info();
                                     }
                                 }

@@ -13,64 +13,81 @@
                 /*
                  *  $pageSidebarService implementation
                  */
-                .service("$commonPageService", [function () {
-                    // Variables
-                    var page;
+                .service("$commonPageService", [
+                    "DEFAULT_TITLE",
+                    "DEFAULT_DESCRIPTION",
+                    "DEFAULT_KEYWORDS",
+                    function (DEFAULT_TITLE, DEFAULT_DESCRIPTION, DEFAULT_KEYWORDS) {
+                        // Variables
+                        var page;
 
-                    // Functions
-                    var getPage, getTitle, getMetaDescription, getMetaKeywords, setTitle, setMetaDescription, setMetaKeywords;
+                        // Functions
+                        var getPage, getTitle, getMetaDescription, getMetaKeywords, setTitle, setMetaDescription, setMetaKeywords;
 
-                    page = {
-                        "title": "",
-                        "metaKeywords": "",
-                        "metaDescriptions": ""
-                    };
+                        page = {
+                            "title": "",
+                            "metaKeywords": "",
+                            "metaDescriptions": ""
+                        };
 
-                    setTitle = function (title) {
-                        page.title = title;
+                        setTitle = function (title) {
+                            if ("" !== title && typeof title !== "undefined") {
+                                page.title = title;
+                            } else {
+                                page.title = DEFAULT_TITLE || "";
+                            }
 
-                        return page.title;
-                    };
+                            return page.title;
+                        };
 
-                    setMetaDescription = function (description) {
-                        page.metaDescriptions = description;
+                        setMetaDescription = function (description) {
+                            if ("" !== description && typeof description !== "undefined") {
+                                page.metaDescriptions = description;
+                            } else {
+                                page.metaDescriptions = DEFAULT_DESCRIPTION || "";
+                            }
 
-                        return page.metaDescriptions;
-                    };
+                            return page.metaDescriptions;
+                        };
 
-                    setMetaKeywords = function (keywords) {
-                        page.metaKeywords = keywords;
+                        setMetaKeywords = function (keywords) {
+                            if ("" !== keywords && typeof keywords !== "undefined") {
+                                page.metaKeywords = keywords;
+                            } else {
+                                page.metaKeywords = DEFAULT_KEYWORDS || "";
+                            }
 
-                        return page.metaKeywords;
-                    };
+                            return page.metaKeywords;
+                        };
 
 
-                    getTitle = function () {
-                        return page.title;
-                    };
+                        getTitle = function () {
+                            return page.title;
+                        };
 
-                    getMetaDescription = function () {
-                        return page.metaDescriptions;
-                    };
+                        getMetaDescription = function () {
+                            return page.metaDescriptions;
+                        };
 
-                    getMetaKeywords = function () {
-                        return page.metaKeywords;
-                    };
+                        getMetaKeywords = function () {
+                            return page.metaKeywords;
+                        };
 
-                    getPage = function () {
-                        return page;
-                    };
+                        getPage = function () {
+                            return page;
+                        };
 
-                    return {
-                        "getPage": getPage,
-                        "setTitle": setTitle,
-                        "setMetaDescription": setMetaDescription,
-                        "setMetaKeywords": setMetaKeywords,
-                        "getTitle": getTitle,
-                        "getMetaDescription": getMetaDescription,
-                        "getMetaKeywords": getMetaKeywords
-                    };
-                }]);
+                        return {
+                            "getPage": getPage,
+                            "setTitle": setTitle,
+                            "setMetaDescription": setMetaDescription,
+                            "setMetaKeywords": setMetaKeywords,
+                            "getTitle": getTitle,
+                            "getMetaDescription": getMetaDescription,
+                            "getMetaKeywords": getMetaKeywords
+                        };
+                    }
+                ]);
 
             return commonModule;
         });

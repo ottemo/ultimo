@@ -44,9 +44,9 @@
                 .constant("MEDIA_BASE_PATH", "media/")
                 .constant("PRODUCT_DEFAULT_IMG", "placeholder.png")
 
-            /**
-             *  Startup for designModule - registration globally visible functions
-             */
+                /**
+                 *  Startup for designModule - registration globally visible functions
+                 */
                 .run(["$designService", "$rootScope", function ($designService, $rootScope) {
 
                     /**

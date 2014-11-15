@@ -22,10 +22,13 @@
             var deferTemplateValue = "";
             var deferControllerValue = "";
 
-            angular.REST_SERVER_URI = "http://dev.ottemo.io:3000";
+            angular.REST_SERVER_URI = "http://ottemo.local:3000";
 
             angular.module.commonModule = angular.module("commonModule", ["ngRoute", "ngSanitize", "designModule"])
 
+                .constant("DEFAULT_TITLE", "Ottemo store")
+                .constant("DEFAULT_KEYWORDS", "Ottemo store")
+                .constant("DEFAULT_DESCRIPTION", "Ottemo store")
                 .constant("REST_SERVER_URI", angular.REST_SERVER_URI)
 
             /**
@@ -37,7 +40,11 @@
                             templateUrl: angular.getTheme("common/home.html"),
                             controller: "commonController"
                         })
-                        .when("/help", { templateUrl: "views/help.html",controller: "commonController"})
+                        .when("/not-found", {
+                            templateUrl: angular.getTheme("common/not-found.html"),
+                            controller: "commonController"
+                        })
+                        .when("/help", { templateUrl: "views/help.html"})
                         .otherwise({
                             template: function () {
                                 otherwiseResolveFunc();
@@ -79,6 +86,10 @@
 
                         $commonRewriteService.init();
 
+                        $commonPageService.setTitle();
+                        $commonPageService.setMetaDescription();
+                        $commonPageService.setMetaKeywords();
+
                         otherwiseResolveFunc = function () {
                             if (otherwiseResolveFunc.inProgress === undefined) {
 
@@ -88,10 +99,14 @@
                                 deferTemplateValue = $q.defer();
 
                                 var errorFunction = function () {
-                                    $location.$$path = "/";
-                                    $location.$$url = "/";
+                                    $commonPageService.setTitle();
+                                    $commonPageService.setMetaDescription();
+                                    $commonPageService.setMetaKeywords();
 
-                                    var route = $route.routes["/"];
+                                    $location.$$path = "/not-found";
+                                    $location.$$url = "/not-found";
+
+                                    var route = $route.routes["/not-found"];
 
                                     deferTemplateValue.resolve(route.templateUrl);
                                     deferControllerValue.resolve(route.controller);
@@ -101,6 +116,9 @@
                                 };
 
                                 var successFunction = function (data, status, headers, config) {
+                                    $commonPageService.setTitle();
+                                    $commonPageService.setMetaDescription();
+                                    $commonPageService.setMetaKeywords();
                                     if (data.error === "" && data.result.length > 0) {
                                         var rewrite = data.result[0];
                                         if (rewrite.type !== "") {
@@ -108,8 +126,8 @@
                                             $location.$$url = $location.$$path;
 
                                             $commonPageService.setTitle(rewrite.title);
-                                            $commonPageService.setMetaDescription(rewrite.meta_description);        //jshint ignore:line
-                                            $commonPageService.setMetaKeywords(rewrite.meta_keywords);      //jshint ignore:line
+                                            $commonPageService.setMetaDescription(rewrite["meta_description"]);
+                                            $commonPageService.setMetaKeywords(rewrite["meta_keywords"]);
 
                                             var route = $route.routes["/" + rewrite.type + "/:id"];
 

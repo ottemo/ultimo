@@ -77,7 +77,7 @@
                                 (4 * $scope.ratingInfo['stars_4']) +
                                 (5 * $scope.ratingInfo['stars_5'])) / ($scope.count);
                         }
-                        
+
                     };
 
                     getStarsPercents = function () {
@@ -151,28 +151,30 @@
                     };
 
                     $scope.addToCart = function () {
-                        if ($visitorLoginService.isLoggedIn()) {
-                            $scope.submitted = true;
-                            $cartService.add($scope.productId, $scope.qty, $pdpProductService.getOptions()).then(
-                                function (response) {
-                                    if (response.error !== "") {
-                                        $scope.messageOptions = {
-                                            'type': 'danger',
-                                            'message': response.error
-                                        };
-                                    } else {
-                                        var miniCart;
-                                        miniCart = $(".mini-cart");
-                                        miniCart.modal('show');
-                                        setTimeout(function () {
-                                            miniCart.modal('hide');
-                                        }, 2000);
+                        $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
+                            if (isLoggedIn) {
+                                $scope.submitted = true;
+                                $cartService.add($scope.productId, $scope.qty, $pdpProductService.getOptions()).then(
+                                    function (response) {
+                                        if (response.error !== "") {
+                                            $scope.messageOptions = {
+                                                'type': 'danger',
+                                                'message': response.error
+                                            };
+                                        } else {
+                                            var miniCart;
+                                            miniCart = $(".mini-cart");
+                                            miniCart.modal('show');
+                                            setTimeout(function () {
+                                                miniCart.modal('hide');
+                                            }, 2000);
+                                        }
                                     }
-                                }
-                            );
-                        } else {
-                            $("#form-login").modal("show");
-                        }
+                                );
+                            } else {
+                                $("#form-login").modal("show");
+                            }
+                        });
                     };
 
                     splitName = function (string) {
@@ -186,7 +188,7 @@
                     /**
                      * "Related" products
                      */
-                    $pdpApiService.getRelated({"pid":$scope.productId},{"extra": 'price'}).$promise.then(
+                    $pdpApiService.getRelated({"pid": $scope.productId}, {"extra": 'price'}).$promise.then(
                         function (response) {
                             var result, i, parts;
                             result = response.result || [];

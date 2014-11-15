@@ -19,28 +19,17 @@
                     $scope.visitorService = $visitorLoginService;
 
                     $scope.init = function () {
-                        var isLoggedIn;
-
                         // BREADCRUMBS
                         $scope.$emit('add-breadcrumbs', {'label': 'myAccount', 'url': '/account'});
                         $scope.$emit('add-breadcrumbs', {'label': 'Order', 'url': '/account/orders'});
 
                         activePath = $location.path();
 
-                        isLoggedIn = $scope.visitorService.isLoggedIn();
-                        if (isLoggedIn === null) {
-                            $scope.visitorService.init().then(
-                                function () {
-                                    if (!$scope.visitorService.isLoggedIn()) {
-                                        $location.path('/');
-                                    }
-                                }
-                            );
-                        } else {
-                            if (!$scope.visitorService.isLoggedIn()) {
-                                $location.path('/');
+                        $scope.visitorService.isLoggedIn().then(function(isLoggedIn){
+                            if (!isLoggedIn) {
+                                $location.path("/");
                             }
-                        }
+                        });
                     };
 
                     if (!$scope.orderId) {
