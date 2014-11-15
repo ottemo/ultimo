@@ -9,9 +9,25 @@ html {
   font-family: sans-serif;
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
+      height: 100%;
 }
 body {
   margin: 0;
+  height: auto;
+  min-height: 100%;
+}
+#wrapper {
+  height: 100%;
+
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#wrapper-inner {
+  min-height: 100%;
+  height: auto;
+  width: 100%;
 }
 article,
 aside,
@@ -45,7 +61,7 @@ template {
 }
 a {
   background-color: transparent;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 a:active,
 a:hover {

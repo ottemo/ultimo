@@ -6,9 +6,12 @@
     	setTimeout(function() { 
 			var navCheckForFix = $('nav.navbar').hasClass('navbar-fixed-top');
 	    	if (navCheckForFix = true) {
-	    		navHeight = parseInt($('nav.navbar').outerHeight(true));
-	    		$('body').css('paddingTop', navHeight - 10);
+	    		navHeight = parseInt($('nav.navbar').outerHeight(false));
+	    		$('#wrapper-inner').css('paddingTop', navHeight );
 	    	};
+	    	footerHeight = parseInt($('#footer').outerHeight(true));
+	    	$('#wrapper-inner').css('paddingBottom', footerHeight + 40 );
+	    	$('#footer').css('marginTop', - footerHeight );
     	 }, 500)
         
     	//button click and hide popup

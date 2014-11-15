@@ -6,21 +6,26 @@
 <add-css src="style.css"></add-css>
 <add-css src="jquery-ui-1.10.3.custom.css"></add-css>
 
-<!-- header layout -->
-<ng-include src="getTemplate('common/header.html')"></ng-include>
+<div id="wrapper">
+	<div id="wrapper-inner">
+		<!-- header layout -->
+		<ng-include src="getTemplate('common/header.html')"></ng-include>
 
-<!-- breadcrumbs -->
-<ng-include src="getTemplate('navigation/breadcrumbs.html')"></ng-include>
+		<!-- breadcrumbs -->
+		<ng-include src="getTemplate('navigation/breadcrumbs.html')"></ng-include>
 
-<ng-include src="getTemplate('navigation/categories.html')"></ng-include>
+		<ng-include src="getTemplate('navigation/categories.html')"></ng-include>
 
-<!-- main content layout -->
-<ng-view></ng-view>
+		<!-- main content layout -->
+		<ng-view></ng-view>
 
-<div class="clearfix"></div>
+		<div class="clearfix"></div>
+	</div>
+	<div class="clearfix"></div>
+	<!-- footer layout -->
+	<ng-include src="getTemplate('common/footer.html')"></ng-include>
+</div>
 
-<!-- footer layout -->
-<!-- <ng-include src="getTemplate('common/footer.html')"></ng-include> -->
 
 <!-- 
 	//modals 

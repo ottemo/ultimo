@@ -1,5 +1,5 @@
 <!-- Modal mini cart-->
-<div class="modal fade bs-example-modal-lg mini-cart" id="" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal hidden-xs fade bs-example-modal-lg mini-cart" id="" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
 
         <div class="modal-content">
@@ -21,70 +21,80 @@
                 <h3 ng-hide="it.getCountItems()"  class="text-center">
                     <p>Cart is empty</p>
                 </h3>
+                <div ng-repeat="item in it.getItemsForMiniCart()" >
 
-                <!-- product table -->
-                <table class="table-hover table table-condensed align-left">
+                    <!-- product table -->
+                    <table class="table-hover table align-left">
 
-                    <!-- product row -->
-                    <tr ng-repeat="item in it.getItemsForMiniCart()" class="text-left vcenter">
+                        <!-- product row -->
+                        <tr class="text-left vcenter">
 
-                        <!-- image -->
-                        <td class="hidden-xs text-center">
-                            <a href="{{productService.getUrl(item.pid)}}">
-                                <img ng-src="{{getImage(item.product)}}" alt="{{item.product.name}}" style="max-width:100px" class="img-responsive">
-                            </a>
-                        </td>
+                            <!-- image -->
+                            <td class="hidden-xs text-center">
+                                <a href="{{productService.getUrl(item.pid)}}">
+                                    <img ng-src="{{getImage(item.product)}}" alt="{{item.product.name}}" style="max-width:100px" class="img-responsive">
+                                </a>
+                            </td>
 
-                        <!-- product info -->
-                        <td>
-                            <!-- product name -->
-                            <h4 class="">
-                                {{item.product.name}}
-                                
-                            </h4>
-                            <!-- product price -->
-                            <h4>
-                                {{item.product.price | currency}}
-                            </h4>
-                            <!-- product options -->
-                            <p ng-repeat="(key, value) in item.options">
-                                {{key}}: {{productService.getOptStr(value)}}<span ng-if="!$last">,</span>
-                            </p>
-                        </td>
+                            <!-- product info -->
+                            <td width="450px">
+                                <!-- product name -->
+                                <h4 class="">
+                                    {{item.product.name}}
+                                    
+                                </h4>
+                                <!-- product price -->
+                                <h4>
+                                    {{item.product.price | currency}}
+                                </h4>
+                                <!-- product options -->
+                                <p ng-repeat="(key, value) in item.options">
+                                    {{key}}: {{productService.getOptStr(value)}}<span ng-if="!$last">,</span>
+                                </p>
+                            </td>
 
-                        <!-- product quantity -->
-                        <td>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="input-group">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-primary" type="button" ng-click="changeQty(item,'up')"  ng-blur="update(item.idx, item.qty)">
-                                                +
-                                            </button>
-                                        </span>
-                                        <input type="text" class="form-control text-center" value="{{item.qty}}" ng-model="item.qty">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-primary" type="button" ng-click="changeQty(item,'down')"  ng-blur="update(item.idx, item.qty)">
-                                                -
-                                            </button>
-                                        </span>
+                            <!-- product quantity -->
+                            <td>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="input-group" style="width:150px;">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary" type="button" ng-click="changeQty(item,'up')"  ng-blur="update(item.idx, item.qty)">
+                                                    +
+                                                </button>
+                                            </span>
+                                            <input type="text" class="form-control text-center" value="{{item.qty}}" ng-model="item.qty">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary" type="button" ng-click="changeQty(item,'down')"  ng-blur="update(item.idx, item.qty)">
+                                                    -
+                                                </button>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </td>
+                            </td>
 
-                        <!-- remove product -->
-                        <td>
-                            <button class="close glyphicon glyphicon-remove" ng-click="it.remove(item.idx)"></button>
-                        </td>
+                            <!-- remove product -->
+                            <td>
+                                <button class="close glyphicon glyphicon-remove" ng-click="it.remove(item.idx)"></button>
+                            </td>
 
-                    </tr>  
-                </table>
+                        </tr> 
+                    </table>
+                    <div class="text-center" ng-if="$last && (it.getCountItems() > it.getItemsForMiniCart().length)">
+                        <a href="#/cart" class="total">
+                            <strong>{{it.getCountItems() - 3}} items more...</strong>
+                        </a>
+                    </div>
+                </div>
+                
                 <hr>
+
                 <!-- total counter -->
                 <h3 ng-hide="!it.getCountItems()" class="text-center">
                     <p>Total: <span>{{it.getSubtotal() | currency}}</span></p>
                 </h3>
+
             </div>
             <!-- modal footer buttons -->
             <div class="modal-footer" ng-hide="!it.getCountItems()">
