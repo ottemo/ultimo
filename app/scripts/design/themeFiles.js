@@ -12,7 +12,7 @@ return {
 '/images/placeholder.png',
 '/images/logo.png',
 '/scripts/main.js',
-'/libraries/bootstrap.js',
+'/lib/bootstrap.js',
 '/styles/bootstrap-theme.css',
 '/styles/bootstrap.css',
 '/styles/jquery-ui-1.10.3.custom.css',
