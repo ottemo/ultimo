@@ -28,8 +28,8 @@
         "vendorTheme": 'app/themes/**/lib/*',
         "sass": 'app/styles/sass/**/*.scss',
         "css": 'app/themes/**/styles/**/*.css',
-        "images": 'app/themes/**/images/**/*',
-        "fonts": 'app/themes/**/styles/fonts/**/*',
+        "images": ['app/themes/**/images/**/*', 'app/themes/**/styles/**/*.{png,jpg,jpec,ico}'],
+        "fonts": ['app/themes/**/styles/fonts/**/*', 'app/themes/**/fonts/**/*'],
         "html": 'app/**/*.html',
         "misc": 'app/*.{txt,htaccess,ico}',
         "themeDest": "dist/themes"
@@ -184,7 +184,7 @@
 
     gulp.task('serve', ['dev', 'retrieve-files']);
 
-    gulp.task('build', function(){
+    gulp.task('build', function () {
         var themesDir, jsCode, fs, recursive, themesData, request;
 
         themesData = '';
