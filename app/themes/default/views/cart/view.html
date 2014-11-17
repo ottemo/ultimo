@@ -4,7 +4,7 @@
 <br>
 
 <!-- product row -->
-<div ng-init="init()">
+<div ng-init="init()" class="product">
     <div class="col-xs-12 vcenter" ng-repeat="item in it.getItems()" ng-show="it.getCountItems()">
 
         <!-- image -->
@@ -51,7 +51,7 @@
         </div>
             
         <!-- qty -->
-        <div class="col-xs-12 col-sm-3 vcenter  text-center">
+        <div class="col-xs-8 col-xs-offset-2 col-sm-3 col-sm-offset-0 vcenter  text-center">
             <div class="col-xs-12 col-sm-7">
                 <div class="input-group">
                     <span class="input-group-btn">
@@ -82,8 +82,8 @@
         
         <!-- desktop delete -->
         <div class="col-xs-1 hidden-xs vcenter text-right">
-            <a href="" ng-click="remove(item.idx)">
-                <h2 class="glyphicon glyphicon-remove"></h2>
+            <a href="btn btn-lg btn-danger text-danger" ng-click="remove(item.idx)">
+                <h2 class="glyphicon text-danger glyphicon-remove"></h2>
             </a>
         </div>
 
@@ -99,7 +99,9 @@
         <br>
         
     </div>
+
     <div class="clearfix"></div>
+
     <div ng-hide="!it.getCountItems()">
         <h4 class="col-sm-10 col-xs-12 text-right">
             Cart items:&nbsp;&nbsp;&nbsp;<strong>{{getSubtotal() | currency}}</strong>
@@ -110,6 +112,8 @@
         </h4>
         
         <div class="clearfix"></div>
+        <br>
+        <br>
         <div class="text-center">
             <a class="btn btn-lg btn-primary" href="{{checkout.getUrl()}}">&nbsp;&nbsp;Checkout&nbsp;&nbsp;</a>
         </div>
@@ -120,7 +124,7 @@
 
 
 <style>
-    .vcenter {
+    .product .vcenter {
     display: inline-block;
     vertical-align: middle;
     float: none;

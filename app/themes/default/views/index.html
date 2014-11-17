@@ -12,9 +12,9 @@
 		<ng-include src="getTemplate('common/header.html')"></ng-include>
 
 		<!-- breadcrumbs -->
-		<ng-include src="getTemplate('navigation/breadcrumbs.html')"></ng-include>
+		<ng-include src="getTemplate('common/navigation/breadcrumbs.html')"></ng-include>
 
-		<ng-include src="getTemplate('navigation/categories.html')"></ng-include>
+		<ng-include src="getTemplate('common/navigation/categories.html')"></ng-include>
 
 		<!-- main content layout -->
 		<ng-view></ng-view>
@@ -26,17 +26,12 @@
 	<ng-include src="getTemplate('common/footer.html')"></ng-include>
 </div>
 
-
-<!-- 
-	//modals 
--->
 <!-- login and registration modals -->
-<ng-include src="getTemplate('modals/login.html')"></ng-include>
-<ng-include src="getTemplate('modals/registration.html')"></ng-include>
+<ng-include src="getTemplate('visitor/modal/login.html')"></ng-include>
+<ng-include src="getTemplate('visitor/modalregistration.html')"></ng-include>
 
 <!-- minicart modal -->
-<ng-include src="getTemplate('modals/minicart.html')" ng-controller="cartListController"></ng-include>
+<ng-include src="getTemplate('cart/quick-cart.html')" ng-controller="cartListController"></ng-include>
 
 <!-- add your srcipts here -->
 <script src="themes/default/scripts/main.js"></script>
-<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">

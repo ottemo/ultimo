@@ -5,7 +5,7 @@
 	        {{item.name}} <b class="fa fa-caret-down" ng-if="item.child.length &gt; 0"></b>
 	    </a>
 	    <ul class="dropdown-menu" role="menu" ng-if="item.child.length &gt 0">
-	      	<li ng-repeat="item in item.child;" ng-include="getTemplate('navigation/categories_items.html')"></li>
+	      	<li ng-repeat="item in item.child;" ng-include="getTemplate('common/navigation/categories-items.html')"></li>
 	    </ul>
     </li>       
 </ul>
