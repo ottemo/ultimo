@@ -1,11 +1,17 @@
-node_modules
-dist
+# Folders
+.idea
 .tmp
 .sass-cache
+.vagrant
+
 app/bower_components
 app/media
-.idea
-/nbproject/private
-nbproject
+dist
+nbproject/*
+node_modules
+tags
+
+# Files
 *.iml
-.vagrant
+app/scripts/design/themeFiles.js
+
