@@ -31,6 +31,21 @@
                             method: "POST",
                             url: visitorBaseURL + "/login"
                         },
+                        "validate": {
+                            method: "GET",
+                            params: {key: "@key"},
+                            url: visitorBaseURL + "/validate/:key"
+                        },
+                        "forgotPassword": {
+                            method: "GET",
+                            params: {email: "@email"},
+                            url: visitorBaseURL + "/forgot-password/:email"
+                        },
+                        "invalidate": {
+                            method: "GET",
+                            params: {email: "@email"},
+                            url: visitorBaseURL + "/invalidate/:email"
+                        },
                         "info": {
                             method: "GET",
                             url: visitorBaseURL + "/info"

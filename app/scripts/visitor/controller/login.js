@@ -14,6 +14,72 @@
             function ($scope, $routeParams, $visitorApiService, $visitorLoginService, $location, $cartService, $commonHeaderService, $commonSidebarService) {
                 $scope.login = $visitorLoginService.getVisitor();
                 $scope.loginCredentials = {};
+                var verifyCode = $routeParams["validate"];
+
+                var VALIDATION_SUCCESS = "<b>Congratulate!</b><br /> You finished registration. Now you can enter on site with your login and password.";
+                var INVALIDATE_SUCCESS = "We sent you new activation code. Please check your email and follow to the link from this email";
+                var FORGOT_SUCCESS = " We sent you new password on the email which you set. Please check your email.";
+
+                $scope.init = function () {
+                    if (typeof verifyCode !== "undefined") {
+                        $visitorApiService.validate({"key": verifyCode}).$promise.then(function (response) {
+                            if (response.error === "") {
+                                $scope.messageValidaion = {
+                                    "type": "success",
+                                    "message": VALIDATION_SUCCESS
+                                };
+                            } else {
+                                $scope.messageValidaion = {
+                                    "type": "danger",
+                                    "message": response.error
+                                };
+                            }
+                        });
+
+                    }
+                };
+
+                $scope.sendForgotEmail = function () {
+                    $scope.forgotForm.submitted = true;
+                    if ($scope.forgotForm.$valid) {
+                        $visitorApiService.forgotPassword({"email": $scope.forgotCredentials.email}).$promise.then(function (response) {
+                            if (response.result === 'ok') {
+                                $scope.messageValidaion = {
+                                    "type": "success",
+                                    "message": FORGOT_SUCCESS
+                                };
+                            } else {
+                                $scope.messageValidaion = {
+                                    "type": "warning",
+                                    "message": response.error
+                                };
+                            }
+                            $('.modal').modal('hide');
+                        });
+                        $scope.forgotForm.submitted = false;
+                    }
+                };
+
+                $scope.sendInvalidateEmail = function () {
+                    $scope.invalidateForm.submitted = true;
+                    if ($scope.invalidateForm.$valid) {
+                        $visitorApiService.invalidate({"email": $scope.invalidateCredentials.email}).$promise.then(function (response) {
+                            if (response.result === 'ok') {
+                                $scope.messageValidaion = {
+                                    "type": "success",
+                                    "message": INVALIDATE_SUCCESS
+                                };
+                            } else {
+                                $scope.messageValidaion = {
+                                    "type": "warning",
+                                    "message": response.error
+                                };
+                            }
+                            $('.modal').modal('hide');
+                        });
+                        $scope.invalidateForm.submitted = false;
+                    }
+                };
 
                 $scope.getItemsInCart = function () {
                     return $cartService.getCountItems();
@@ -34,7 +100,7 @@
 
                 $scope.save = function () {
                     $scope.register.submitted = true;
-                    if($scope.register.$valid) {
+                    if ($scope.register.$valid) {
                         delete $scope.login["billing_address_id"];
                         delete $scope.login["shipping_address_id"];
                         $visitorApiService.register($scope.login);
@@ -50,7 +116,7 @@
 
                 $scope.signIn = function () {
                     $scope.loginForm.submitted = true;
-                    if($scope.loginForm.$valid) {
+                    if ($scope.loginForm.$valid) {
                         $visitorApiService.login($scope.loginCredentials).$promise.then(function (response) {
                             if (response.result === 'ok') {
                                 $visitorLoginService.isLoggedIn(true).then(
