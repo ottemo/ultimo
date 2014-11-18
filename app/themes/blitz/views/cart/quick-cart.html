@@ -1,0 +1,116 @@
+<!-- Modal mini cart-->
+<div class="modal hidden-xs fade bs-example-modal-lg mini-cart" id="" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+
+        <div class="modal-content">
+
+            <!-- modal header -->  
+            <div class="modal-header">
+
+                <!-- modal close button -->
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+                <!-- modal title -->
+                <h4 class="modal-title" id="myModalLabel">Quick Cart</h4>
+            </div>
+
+            <!-- modal content -->
+            <div class="modal-body">
+                
+                <!-- if cart empty -->
+                <h3 ng-hide="it.getCountItems()"  class="text-center">
+                    <p>Cart is empty</p>
+                </h3>
+                <div ng-repeat="item in it.getItemsForMiniCart()" >
+
+                    <!-- product table -->
+                    <table class="table-hover table align-left">
+
+                        <!-- product row -->
+                        <tr class="text-left vcenter">
+
+                            <!-- image -->
+                            <td class="hidden-xs text-center">
+                                <a href="{{productService.getUrl(item.pid)}}">
+                                    <img ng-src="{{getImage(item.product)}}" alt="{{item.product.name}}" style="max-width:100px" class="img-responsive">
+                                </a>
+                            </td>
+
+                            <!-- product info -->
+                            <td width="450px">
+                                <!-- product name -->
+                                <h4 class="">
+                                    {{item.product.name}}
+                                    
+                                </h4>
+                                <!-- product price -->
+                                <h4>
+                                    {{item.product.price | currency}}
+                                </h4>
+                                <!-- product options -->
+                                <p ng-repeat="(key, value) in item.options">
+                                    {{key}}: {{productService.getOptStr(value)}}<span ng-if="!$last">,</span>
+                                </p>
+                            </td>
+
+                            <!-- product quantity -->
+                            <td>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="input-group" style="width:150px;">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary" type="button" ng-click="changeQty(item,'up')"  ng-blur="update(item.idx, item.qty)">
+                                                    +
+                                                </button>
+                                            </span>
+                                            <input type="text" class="form-control text-center" value="{{item.qty}}" ng-model="item.qty">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary" type="button" ng-click="changeQty(item,'down')"  ng-blur="update(item.idx, item.qty)">
+                                                    -
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <!-- remove product -->
+                            <td>
+                                <a href="" class="glyphicon glyphicon-remove btn btn-danger" ng-click="it.remove(item.idx)"></a>
+                            </td>
+
+                        </tr> 
+                    </table>
+                    <div class="text-center" ng-if="$last && (it.getCountItems() > it.getItemsForMiniCart().length)">
+                        <a href="#/cart" class="total">
+                            <strong>{{it.getCountItems() - 3}} items more...</strong>
+                        </a>
+                    </div>
+                </div>
+                
+                <hr>
+
+                <!-- total counter -->
+                <h3 ng-hide="!it.getCountItems()" class="text-center">
+                    <p>Total: <span>{{it.getSubtotal() | currency}}</span></p>
+                </h3>
+
+            </div>
+            <!-- modal footer buttons -->
+            <div class="modal-footer" ng-hide="!it.getCountItems()">
+                <a href="{{checkout.getUrl()}}" target="_self" class="right">
+                    <button type="button" class="btn btn-default">Checkout</button>
+                </a>
+                <a href="#/cart" target="_self" class="btn btn-primary">
+                   View cart
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+        vertical-align: middle;
+        display: table-cell !important;
+    }
+</style>

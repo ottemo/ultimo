@@ -1,0 +1,75 @@
+<div class="modal fade" id="form-registration" tabindex="-1" role="dialog" ng-controller="visitorLoginController">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- close button -->
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+                <!-- modal title -->
+                <h4 class="modal-title">Registration</h4>
+            </div>
+            <div class="modal-body">
+
+                <!-- error message -->
+                <gui-message-manager item="message"></gui-message-manager>
+                
+                <form name="register">
+                    <div class="row">
+
+                        <!-- email field + label -->
+                        <div class="form-group col-md-6"
+                             ng-class="{ 'has-error' : (register.submitted && register.email.$error.required) || (register.email.$invalid && !register.email.$pristine) }">
+                            <label for="email">Email Address *</label>
+                            <input id="email" type="text" class="form-control" name="email" placeholder="Email"  ng-model="login.email" required />
+                            
+                            <!-- error message -->
+                            <p ng-show="(register.submitted && register.email.$error.required) || (register.email.$invalid && !register.email.$pristine)"
+                               class="help-block">This field is required.</p>
+                        </div>
+                        
+                        <!-- first name field + label -->
+                        <div class="form-group col-md-6"
+                             ng-class="{ 'has-error' : (register.submitted && register.fname.$error.required) || (register.fname.$invalid && !register.fname.$pristine) }">
+                            <label for="FirstName">First Name *</label>
+                            <input type="text" class="form-control" id="FirstName" placeholder="First name" ng-model="login.fname" name="fname" required  />
+                            
+                            <!-- error message -->
+                            <p ng-show="(register.submitted && register.fname.$error.required) || (register.fname.$invalid && !register.fname.$pristine)"
+                               class="help-block">This field is required.</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- last name field + label -->
+                        <div class="form-group col-md-6">
+                            <label for="lname">Last Name</label>
+                            <input class="form-control" type="text" id="lname" placeholder="Last name" ng-model="login.lname"
+                                   autocomplete="off"/>
+                        </div>
+
+                        <!-- password field + label -->
+                        <div class="form-group col-md-6"
+                             ng-class="{ 'has-error' : (register.submitted && register.password.$error.required) || (register.password.$invalid && !register.password.$pristine) }">
+                            <label for="password">Password *</label>
+                            <input id="password" type="password" class="form-control" name="password" ng-model="login.password" placeholder="Password" required autocomplete="off" />
+                            
+                            <!-- error message -->
+                            <p ng-show="(register.submitted && register.password.$error.required) || (register.password.$invalid && !register.password.$pristine)"
+                               class="help-block">This field is required.</p>
+                        </div>
+                    </div>
+                    <!-- submit button -->
+                    <div class="row">
+                        <div class="btn btn-primary col-xs-6 col-xs-offset-3" ng-click="save()">Register</div>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+                <hr>
+
+                <!-- Register modal link -->
+                <a href="" class="btn btn-default pull-right" target="_self" id="modal-login">Login</a>
+                <div class="clearfix"></div>
+            </div>   
+        </div>
+    </div>
+</div>

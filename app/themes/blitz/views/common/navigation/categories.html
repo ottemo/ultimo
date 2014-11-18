@@ -1,0 +1,18 @@
+<!-- categories -->
+<ul class="nav nav-tabs" role="tablist" ng-controller="commonHeaderController">
+    <li role="presentation" ng-repeat="item in categories;">
+    	<a href="{{categoryService.getUrl(item.id)}}" target="{{item.id != null ? '' : '_self'}}" class="dropdown-toggle" data-toggle="dropdown">
+	        {{item.name}} <b class="fa fa-caret-down" ng-if="item.child.length &gt; 0"></b>
+	    </a>
+	    <ul class="dropdown-menu" role="menu" ng-if="item.child.length &gt 0">
+	      	<li ng-repeat="item in item.child;" ng-include="getTemplate('common/navigation/categories-items.html')"></li>
+	    </ul>
+    </li>       
+</ul>
+
+<script>
+	$(document).on('click', '.nav.nav-tabs li a', function(event) {
+		$('.nav.nav-tabs li').removeClass('active');
+		$(this).parents('li').addClass('active');
+	});
+</script>

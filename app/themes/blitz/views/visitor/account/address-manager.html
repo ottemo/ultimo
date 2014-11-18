@@ -1,0 +1,51 @@
+<!-- Account main page -->
+<div ng-init="init()" >
+    <h2 class="text-center">Adresses</h2>
+    <br>
+
+    <!-- left-side menu -->
+    <ng-include src="getTemplate('visitor/account/menu.html')"></ng-include>
+    
+    <!-- adresses info -->
+    <div class="col-xs-12 col-sm-10">
+        
+        <!-- error message -->
+        <gui-message-manager item="message"></gui-message-manager>
+
+        <!-- adresses info table -->
+        <div class="col-sm-8 col-sm-offset-1 row">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Adresses info
+                    </h3>
+                </div>
+                <table class="table text-center table-striped">
+                    
+                    <!-- adresses from base -->
+                    <tr ng-repeat="address in addresses">
+                        <td class="text-left">
+                            {{getAddressName(address)}}
+                        </td>
+                        <td>
+                            <a href class="glyphicon glyphicon-pencil btn btn-xs btn-info" ng-click="popUpOpen(address.Id)"></a>
+                            <a href="" class="glyphicon glyphicon-remove btn btn-xs btn-danger" ng-click="remove(address.Id)"></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <!-- change password modal button -->
+                            <button class="btn btn-primary" ng-click="popUpOpen(address.Id)">
+                                <i class="glyphicon glyphicon-plus"></i>&nbsp;
+                                Create
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>           
+    </div>
+
+    <!-- change info modal -->
+    <ng-include src="getTemplate('modals/account-add-address.html')"></ng-include>
+</div>
