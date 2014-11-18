@@ -16,9 +16,9 @@
                 $scope.loginCredentials = {};
                 var verifyCode = $routeParams["validate"];
 
-                var VALIDATION_SUCCESS = "<b>Congratulate!</b><br /> You finished registration. Now you can enter on site with your login and password.";
-                var INVALIDATE_SUCCESS = "We sent you new activation code. Please check your email and follow to the link from this email";
-                var FORGOT_SUCCESS = " We sent you new password on the email which you set. Please check your email.";
+                var VALIDATION_SUCCESS = "<b>Congratulations!</b><br /> You have finished registration and can now enter the site.";
+                var INVALIDATE_SUCCESS = "We sent you new activation code. Please check your email and click on the verification link.";
+                var FORGOT_SUCCESS = "A new password has been created and forwarded to you. Please check your email.";
 
                 $scope.init = function () {
                     if (typeof verifyCode !== "undefined") {
