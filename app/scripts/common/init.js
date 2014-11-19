@@ -79,10 +79,7 @@
 
                         // Left navigation menu
                         $commonSidebarService.addItem("HOME", "", "glyphicon glyphicon-home", 100);
-                        $commonSidebarService.addItem("BLOG", "blog.html", "glyphicon glyphicon-edit");
-                        $commonSidebarService.addItem("STOCKISTS", "stocklist.html", "glyphicon glyphicon-screenshot");
                         $commonSidebarService.addItem("ABOUT", "about.html", "glyphicon glyphicon-info-sign");
-                        $commonSidebarService.addItem("PRESS", "press.html", "glyphicon glyphicon-book");
 
                         $commonRewriteService.init();
 
