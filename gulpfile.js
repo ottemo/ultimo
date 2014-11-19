@@ -45,8 +45,25 @@
     };
 
     themes = [];
-    FOUNDATION_URI = 'http://ottemo.local:3000';
+    FOUNDATION_URI = 'http://localhost:3000';
     THEME_AS_DEFAULT = 'default';
+
+    var setFoundationUri = function (request) {
+        request({
+            uri: FOUNDATION_URI + '/config/unregister/general.app.foundation_url',
+            method: 'DELETE'
+        }, function () {
+            var r = request.post(FOUNDATION_URI + '/config/register');
+            var form = r.form();
+            form.append('path', 'general.app.foundation_url');
+            form.append('value', FOUNDATION_URI);
+            form.append('type', 'varchar(255)');
+            form.append('editor', 'text');
+            form.append('options', '');
+            form.append('label', 'Foundation host URL');
+            form.append('description', 'URL application will use to generate foundation resources links');
+        });
+    };
 
     var initThemeConfig = function (request) {
         request({
@@ -147,7 +164,14 @@
             preserveLicenseComments: false, // remove all comments
             removeCombined: true,
             baseUrl: paths.app + '/scripts',
-            mainConfigFile: 'app/scripts/main.js'
+            mainConfigFile: 'app/scripts/main.js',
+            "paths": {
+                // Don't attempt to include dependencies whose path begins with webapp/
+                "config": "config"
+            },
+            "shim": {
+                "config": {exports: "config"}
+            }
         })
             .pipe(stripDebug())
             .pipe(uglify({mangle: false}))
@@ -293,6 +317,7 @@
             }
             themesData += '}';
 
+            setFoundationUri(request);
             initThemeConfig(request);
             initThemeGroup(request);
             setThemeData(request, themesData);
@@ -359,6 +384,7 @@
             }
             themesData += '}';
 
+            setFoundationUri(request);
             initThemeConfig(request);
             initThemeGroup(request);
             setThemeData(request, themesData);

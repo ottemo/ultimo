@@ -22,7 +22,7 @@
             var deferTemplateValue = "";
             var deferControllerValue = "";
 
-            angular.REST_SERVER_URI = "http://ottemo.local:3000";
+            angular.REST_SERVER_URI = angular.appConfigValue("general.app.foundation_url");
 
             angular.module.commonModule = angular.module("commonModule", ["ngRoute", "ngSanitize", "designModule"])
 

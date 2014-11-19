@@ -8,7 +8,7 @@
          */
             .service("$designService", [function () {
 
-                var data = { theme: angular.activeTheme, topPage: "index.html", cssList: []};
+                var data = { theme: angular.appConfigValue("themes.list.active"), topPage: "index.html", cssList: []};
                 var isFullPathRegex = new RegExp("^http[s]?://", "i");
                 var isCssRegex = new RegExp(".css$", "i");
                 var themesDir = "themes/";
@@ -22,6 +22,7 @@
                         data.theme = newTheme;
 
                         angular.activeTheme = newTheme;
+                        angular.appConfig["themes.list.active"] = newTheme;
                         data.cssList = [];
 
                         return data.theme;

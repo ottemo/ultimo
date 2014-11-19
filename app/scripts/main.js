@@ -5,6 +5,7 @@ window.name = "NG_DEFER_BOOTSTRAP!"; // http://code.angularjs.org/1.2.1/docs/gui
 require.config({
     "baseUrl": "scripts",
     "paths": {
+        "config": "config",
         "themeFiles": "design/themeFiles",
         "angular": "../lib/angular/angular.min",
 
@@ -19,7 +20,8 @@ require.config({
         "angular-bootstrap": "../lib/angular/ui-bootstrap-tpls.min"
     },
     "shim": {
-        "angular": {exports: "angular"},
+        "config": {exports: "config"},
+        "angular": {deps: ["config"], exports: "angular"},
 
         "angular-route": ["angular"],
         "angular-cookies": ["angular"],
@@ -30,7 +32,25 @@ require.config({
         "angular-mocks": { deps: ["angular"], exports: "angular.mock"},
         "angular-bootstrap": { deps: ["angular"], exports: "uiBootstrap"}
     },
-    "priority": ["angular"]
+    "priority": ["config", "angular"]
+});
+
+require(['angular'],function(angular){
+    if (typeof require.iniConfig === "undefined") {
+        require.iniConfig = {};
+    }
+
+    angular.appConfig = {};
+    angular.appConfigValue = function (valueName) {
+        if (typeof angular.appConfig[valueName] !== "undefined") {
+            return angular.appConfig[valueName];
+        } else {
+            if (typeof require.iniConfig[valueName] !== "undefined") {
+                return require.iniConfig[valueName];
+            }
+        }
+        return "";
+    };
 });
 
 require([
@@ -48,56 +68,53 @@ require([
         "cms/module"
     ],
     function (angular, ngBootstrap, files) {
+
+        var errorResponse = function () {
+            angular.activeTheme = "default";
+            angular.appConfig["themes.list.active"] = "default";
+        };
+
+        var successResponse = function (data) {
+            angular.activeTheme = data.result === null ? "default" : data.result;
+            angular.appConfig["themes.list.active"] = angular.activeTheme;
+        };
+
+        /**
+         * Use jQuery ajax for sending existing cookie value
+         * angular.element.get can not send cookie
+         */
+        jQuery.ajax({
+            url: angular.appConfigValue("general.app.foundation_url") + "/config/get/themes.list.active",
+            type: "GET",
+            timeout: 10000,
+            xhrFields: {
+                withCredentials: true
+            },
+            error: errorResponse,
+            success: successResponse
+        });
+
         angular.element(document).ready(function () {
-            var errorResponse, successResponse, runApp;
             angular.referrer = document.referrer;
 
-            runApp = function(){
+            angular.isExistFile = function (path) {
 
-                angular.isExistFile = function (path) {
+                if (files[angular.appConfigValue("themes.list.active")].indexOf(path) !== -1) {
+                    return true;
+                }
 
-                    if (files[angular.activeTheme].indexOf(path) !== -1) {
-                        return true;
-                    }
+                return false;
+            };
 
-                    return false;
-                };
-
-                if (angular.isExistFile("/scripts/init.js")) {
-                    require(["../themes/" + angular.activeTheme + "/scripts/init"], function () {
-                        var modules = Object.keys(angular.module);
-                        angular.resumeBootstrap(modules);
-                    });
-                } else {
+            if (angular.isExistFile("/scripts/init.js")) {
+                require(["../themes/" + angular.appConfigValue("themes.list.active") + "/scripts/init"], function () {
                     var modules = Object.keys(angular.module);
                     angular.resumeBootstrap(modules);
-                }
-            };
-
-            errorResponse = function () {
-                angular.activeTheme = "default";
-                runApp();
-            };
-
-            successResponse = function (data) {
-                angular.activeTheme = data.result === null ? "default" : data.result;
-                runApp();
-            };
-
-            /**
-             * Use jQuery ajax for sending existing cookie value
-             * angular.element.get can not send cookie
-             */
-            jQuery.ajax({
-                url: angular.REST_SERVER_URI + "/config/get/themes.list.active",
-                type: "GET",
-                timeout: 10000,
-                xhrFields: {
-                    withCredentials: true
-                },
-                error: errorResponse,
-                success: successResponse
-            });
+                });
+            } else {
+                var modules = Object.keys(angular.module);
+                angular.resumeBootstrap(modules);
+            }
 
             /**
              * increase count of visits
@@ -115,3 +132,4 @@ require([
         });
     }
 );
+

@@ -21,7 +21,7 @@
                     tpl = "/views/" + path;
 
                     if (angular.isExistFile(tpl)) {
-                        template = "themes/" + angular.activeTheme + tpl;
+                        template = "themes/" + angular.appConfigValue("themes.list.active") + tpl;
                     } else {
                         template = "themes/default" + tpl;
                     }
@@ -41,7 +41,7 @@
              */
             angular.module.designModule = angular.module("designModule", ["ngSanitize"])
 
-                .constant("MEDIA_BASE_PATH", "media/")
+                .constant("MEDIA_BASE_PATH", angular.appConfigValue("general.app.media_path"))
                 .constant("PRODUCT_DEFAULT_IMG", "placeholder.png")
 
                 /**
