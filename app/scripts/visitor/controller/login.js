@@ -20,6 +20,31 @@
                 var INVALIDATE_SUCCESS = "We sent you new activation code. Please check your email and click on the verification link.";
                 var FORGOT_SUCCESS = "A new password has been created and forwarded to you. Please check your email.";
 
+
+                var checkPassword = function () {
+                    var status;
+                    if (typeof $scope.login.password === "undefined" ||
+                        $scope.login.password.trim() === "") {
+                        $scope.message = {
+                            "type": "warning",
+                            "message": "Password can not be blank"
+                        };
+                        $scope.isCoincide = false;
+                        status = false;
+                    } else if ($scope.login.password === $scope.login["confirm_password"]) {
+                        $scope.isCoincide = true;
+                        status = true;
+                    } else {
+                        $scope.message = {
+                            "type": "warning",
+                            "message": "Passwords don't match"
+                        };
+                        $scope.isCoincide = false;
+                        status = false;
+                    }
+                    return status;
+                };
+
                 $scope.init = function () {
                     if (typeof verifyCode !== "undefined") {
                         $visitorApiService.validate({"key": verifyCode}).$promise.then(function (response) {
@@ -100,17 +125,35 @@
 
                 $scope.save = function () {
                     $scope.register.submitted = true;
-                    if ($scope.register.$valid) {
+                    if ($scope.register.$valid && checkPassword()) {
                         delete $scope.login["billing_address_id"];
                         delete $scope.login["shipping_address_id"];
-                        $visitorApiService.register($scope.login);
-                        $('.modal').modal('hide');
+                        delete $scope.login["confirm_password"];
+                        $scope.register["confirm_password"].$pristine = true;
+                        $visitorApiService.register($scope.login).$promise.then(function (response) {
+                            if (response.error === "") {
+                                $('.modal').modal('hide');
 
-                        $scope.message = {
-                            "type": "success",
-                            "message": "Thanks for registration. Please check your email and confirm your account"
-                        };
-                        $scope.register.submitted = false;
+                                $scope.message = {
+                                    "type": "success",
+                                    "message": "Thanks for registration. Please check your email and confirm your account"
+                                };
+                                for (var field in $scope.register) {
+                                    if ($scope.register.hasOwnProperty(field)) {
+                                        $scope.register[field].$pristine = true;
+                                    }
+                                }
+                                $scope.login = {};
+                                $scope.register.submitted = false;
+                            } else {
+                                $scope.message = {
+                                    "type": "warning",
+                                    "message": response.error
+                                };
+                                $scope.register.submitted = false;
+                            }
+                        });
+
                     }
                 };
 

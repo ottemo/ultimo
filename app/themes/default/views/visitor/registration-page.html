@@ -43,7 +43,7 @@
         <!-- birthday field + label-->
         <div class="form-group col-md-6">
             <label>Date of Birth (MM/DD/YYYY)</label>
-            <input type="text" class="form-control datepicker" >
+            <input type="text" class="form-control datepicker" ng-model="login.birthday">
         </div>
         
         <!-- password field + label-->
@@ -58,12 +58,12 @@
         </div>
         <!-- password confirm field + label-->
         <div class="form-group col-md-6"
-             ng-class="{ 'has-error' : (register.submitted && register.password.$error.required) || (register.password.$invalid && !register.password.$pristine) }">
-            <label for="password">Password confirm *</label>
-            <input id="password" type="password" class="form-control" name="password" placeholder="Password" ng-model="login.password" required autocomplete="off" />
+             ng-class="{ 'has-error' : (register.submitted && register.confirm_password.$error.required) || (register.confirm_password.$invalid && !register.confirm_password.$pristine) }">
+            <label for="confirm_password">Password confirm *</label>
+            <input id="confirm_password" type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" ng-model="login.confirm_password" required autocomplete="off" />
             
             <!-- error message -->
-            <p ng-show="(register.submitted && register.password.$error.required) || (register.password.$invalid && !register.password.$pristine)"
+            <p ng-show="(register.submitted && register.confirm_password.$error.required) || (register.confirm_password.$invalid && !register.confirm_password.$pristine)"
                class="help-block">This field is required.</p>
         </div>
         <div class="clearfix"></div>
