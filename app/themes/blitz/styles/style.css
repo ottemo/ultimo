@@ -43,6 +43,9 @@ body {
 a {
 	text-decoration: none !important;
 }
+a:hover {
+    cursor: pointer;
+}
 .row-no-padding {
     padding-left: 0 !important;
     padding-right: 0 !important;
@@ -51,9 +54,16 @@ a {
     margin-left: 0 !important;
     margin-right: 0 !important;
 }
+.h-container {
+    padding: 0 75px;
+}
 
 /*//////////////////////////////////////////////////////////   start Home Page  */
 
+.logo {
+    margin-top: 8px;
+}
+/*
 .navbar-fixed-top {
     padding: 30px 0 27px;
     background-color: #ffffff;
@@ -81,16 +91,17 @@ a {
 .cart {
     display: block;
     margin-top: 14px;
-}
+}*/
+
 .shop {
+    display: block;
     border: 2px solid #5ea8da;
-    //border-radius: 35px;
-    bottom: 40px;
+    bottom: 4%;
     color: #1f4258;
-    font-size: 48px;
+    font-size: 42px;
     left: 50%;
     list-style: outside none none;
-    margin-left: -8%;
+    margin-left: -152px;
     padding-left: 0;
     position: absolute;
     text-align: center;
@@ -184,5 +195,96 @@ footer {
     background-color: #1F4258;
     height: 170px;
 }
+footer .nav-pills li {
+    height: 70px;
+}
+.h-bottom h4, .h-bottom a {
+    color: #ffffff;
+    font: 48px/56px "roboto_ltregular",sans-serif;
+    margin: 57px 0 29px;
+    text-transform: uppercase;
+}
+.h-bottom a {
+    border: 1px solid #ffffff;
+    display: block;
+    margin: 34px auto;
+    padding: 13px 40px;
+    text-transform: capitalize;
+    width: 390px;
+    border-radius: 50px;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+}
+.h-bottom p {
+    font: 28px/35px "roboto_ltregular",sans-serif;
+    color: #ffffff;
+}
+footer li a {
+    font: 18px "roboto_ltregular",sans-serif;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+footer .fa {
+    color: #ffffff;
+    font-size: 35px;
+}
+footer .col-md-5 {
+    margin-top: 64px;
+}
+footer .col-md-2 {
+    margin-top: 133px;
+}
+footer .col-md-3 {
+    margin-top: 72px;
+}
+footer p {
+    text-transform: capitalize;
+    font: 12px "roboto_ltregular",sans-serif;
+    color: #ffffff;
+}
 
 /*//////////////////////////////////////////////////////////   end Home Page  */
+
+/*////////////////////////////////////////////////// start responsive design  */
+
+@media (max-width: 767px) {
+    .carousel-indicators {
+        bottom: 2px;
+        left: 50%;
+    }
+}
+@media (min-width: 768px ) and (max-width: 991px) {
+    .carousel-indicators {
+        bottom: 2px;
+        left: 50%;
+    }
+}
+@media (max-width: 991px) {
+    .navbar-toggle {
+        border-radius: 4px;
+        float: left;
+        margin-bottom: 8px;
+        margin-left: 15px;
+        margin-top: 8px;
+        padding: 9px 10px;
+        position: relative;
+    }
+    .h-container {
+        padding: 0 25px;
+    }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+    .shop {
+        font-size: 34px;
+        bottom: 3%;
+        width: 250px;
+        margin-left: -125px;
+    }
+}
+@media (min-width: 1200px) {
+
+}
+
+
+
+/*//////////////////////////////////////////////////// end responsive design  */

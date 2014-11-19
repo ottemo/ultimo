@@ -7,7 +7,7 @@
     }
 </style>
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-    <div class="shop">Shop Now</div>
+    <a class="shop">Shop Now</a>
     <ol class="carousel-indicators">
         <li class="" data-slide-to="0" data-target="#carousel-example-generic"></li>
         <li class="" data-slide-to="1" data-target="#carousel-example-generic"></li>
@@ -35,22 +35,22 @@
     </a>
 </div>
 <div class="row h-carousel row-no-margin">
-    <div class="col-md-2 row-no-padding">
+    <div class="col-md-2 col-sm-2 col-xs-2 row-no-padding">
         <img class="slide-image" alt="" ng-src="{{getImg('carousel1.jpg')}}">
     </div>
-    <div class="col-md-2 row-no-padding">
+    <div class="col-md-2 col-sm-2 col-xs-2  row-no-padding">
         <img class="slide-image" alt="" ng-src="{{getImg('carousel2.jpg')}}">
     </div>
-    <div class="col-md-2 row-no-padding">
+    <div class="col-md-2 col-sm-2 col-xs-2  row-no-padding">
         <img class="slide-image" alt="" ng-src="{{getImg('carousel3.jpg')}}">
     </div>
-    <div class="col-md-2 row-no-padding">
+    <div class="col-md-2 col-sm-2 col-xs-2  row-no-padding">
         <img class="slide-image" alt="" ng-src="{{getImg('carousel1.jpg')}}">
     </div>
-    <div class="col-md-2 row-no-padding">
+    <div class="col-md-2 col-sm-2 col-xs-2  row-no-padding">
         <img class="slide-image" alt="" ng-src="{{getImg('carousel2.jpg')}}">
     </div>
-    <div class="col-md-2 row-no-padding">
+    <div class="col-md-2 col-sm-2 col-xs-2  row-no-padding">
         <img class="slide-image" alt="" ng-src="{{getImg('carousel3.jpg')}}">
     </div>
 </div>
@@ -60,76 +60,87 @@
     <button type="button" class="btn btn-custom">latest</button>
 </div>
 
-<div class="container-fluid">
-    <div class="row h-item">
-        <div class="col-md-2 col-md-offset-1">
+<div class="h-container">
+    <div class="row h-item ">
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-2">
             <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
                 <img ng-src="{{getImg('item1.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
             </a>
         </div>
-        <div class="col-md-2">
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-2">
             <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
                 <img ng-src="{{getImg('item2.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
             </a>
         </div>
-        <div class="col-md-2">
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-2">
             <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
-                <img ng-src="{{getImg('item2.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
+                <img ng-src="{{getImg('item3.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
             </a>
         </div>
-        <div class="col-md-2">
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-2">
             <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
-                <img ng-src="{{getImg('item2.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
+                <img ng-src="{{getImg('item4.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
             </a>
         </div>
-        <div class="col-md-2">
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-2">
             <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
-                <img ng-src="{{getImg('item2.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
+                <img ng-src="{{getImg('item5.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
+            </a>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-2">
+            <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
+                <img ng-src="{{getImg('item1.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
             </a>
         </div>
     </div>
-    <div class="col-md-10 col-md-offset-1 text-center h-shipping">
+    <div class="col-md-12 text-center h-shipping">
         <h4>FREE SHIPPING! <span>ALL ORDERS OVER $199</span></h4>
         <h5>FREE 2 DAY SHIPPING: SPEND OVER $140 AND USE PROMOTION AT CHECKOUT</h5>
     </div>
     <div class="row h-item">
-        <div class="col-md-2 col-md-offset-1">
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-2">
             <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
                 <img ng-src="{{getImg('item6.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
             </a>
         </div>
-        <div class="col-md-2">
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-2">
             <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
                 <img ng-src="{{getImg('item7.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
             </a>
         </div>
-        <div class="col-md-2">
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-2">
             <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
                 <img ng-src="{{getImg('item8.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
             </a>
         </div>
-        <div class="col-md-2">
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-2">
             <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
                 <img ng-src="{{getImg('item9.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
             </a>
         </div>
-        <div class="col-md-2">
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-2">
             <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
                 <img ng-src="{{getImg('item10.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
             </a>
         </div>
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-2">
+            <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
+                <img ng-src="{{getImg('item6.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
+            </a>
+        </div>
     </div>
-
-    <div class="row h-bottom">
-        <h4>Ut enim ad minim veniam
-            quis nostrud exercitation ullamco laboris</h4>
-        <span>Duis aute irure dolor in reprehenderit in voluptate
-velit esse cillum dolore eu fugiat nulla pariatur Excepteur
-sint occaecat cupidatat non proident, sunt</span>
-
-    </div>
-    <div>Learn More</div>
 </div>
+<div class="clearfix"></div>
+<div class="row h-bottom text-center">
+    <h4>Ut enim ad minim veniam<br>
+        quis nostrud exercitation ullamco laboris</h4>
+    <p>Duis aute irure dolor in reprehenderit in voluptate<br>
+        velit esse cillum dolore eu fugiat nulla pariatur Excepteur<br>
+        sint occaecat cupidatat non proident, sunt</p>
+    <a href="">Learn More</a>
+</div>
+
+
 
 
 
