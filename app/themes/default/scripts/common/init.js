@@ -18,7 +18,7 @@
 
                         // Left navigation menu
 
-                        $commonSidebarService.addItem("CSS", "css-test.html", "glyphicon glyphicon-book");
+                        $commonSidebarService.addItem("STYLE CHECK", "css-test.html", "glyphicon glyphicon-book");
 
                         return angular.module.commonModule;
                     }
