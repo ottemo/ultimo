@@ -2,7 +2,7 @@
     'use strict';
 
     var gulp, minifyHTML, concat, stripDebug, uglify, jshint, changed, imagemin, autoprefix, sass, rjs, minifyCSS,
-        browserSync, pngquant, del, paths, host, themes, FOUNDATION_URI;
+        browserSync, pngquant, del, paths, host, themes, fs, request, recursive, FOUNDATION_URI, THEME_AS_DEFAULT;
 
     gulp = require('gulp');
     minifyHTML = require('gulp-minify-html');
@@ -19,6 +19,9 @@
     browserSync = require('browser-sync');
     pngquant = require('imagemin-pngquant');
     del = require('del');
+    fs = require('fs');
+    request = require('request');
+    recursive = require('recursive-readdir');
     paths = {
         "app": require('./bower.json').appPath || 'app',
         "dist": 'dist',
@@ -32,15 +35,69 @@
         "fonts": ['app/themes/**/styles/fonts/**/*', 'app/themes/**/fonts/**/*'],
         "html": 'app/**/*.html',
         "misc": 'app/*.{txt,htaccess,ico}',
-        "themeDest": "dist/themes"
+        "themeDest": "dist/themes",
+        "themesDir": "./app/themes"
 
     };
     host = {
         port: '8080',
         lrPort: '35729'
     };
+
     themes = [];
-    FOUNDATION_URI = 'http://dev.ottemo.io:3000';
+    FOUNDATION_URI = 'http://ottemo.local:3000';
+    THEME_AS_DEFAULT = 'default';
+
+    var initThemeConfig = function (request) {
+        request({
+            uri: FOUNDATION_URI + '/config/unregister/themes',
+            method: 'DELETE'
+        }, function () {
+            var r = request.post(FOUNDATION_URI + '/config/register');
+            var form = r.form();
+            form.append('path', 'themes');
+            form.append('value', '');
+            form.append('type', 'group');
+            form.append('editor', '');
+            form.append('options', '');
+            form.append('label', 'Themes');
+            form.append('description', '');
+        });
+    };
+
+    var initThemeGroup = function (request) {
+        request({
+            uri: FOUNDATION_URI + '/config/unregister/themes.list',
+            method: 'DELETE'
+        }, function () {
+            var r = request.post(FOUNDATION_URI + '/config/register');
+            var form = r.form();
+            form.append('path', 'themes.list');
+            form.append('value', '');
+            form.append('type', 'group');
+            form.append('editor', 'themes_manager');
+            form.append('options', '');
+            form.append('label', 'Themes');
+            form.append('description', '');
+        });
+    };
+
+    var setThemeData = function (request, themesData) {
+        request({
+            uri: FOUNDATION_URI + '/config/unregister/themes.list.active',
+            method: 'DELETE'
+        }, function () {
+            var r = request.post(FOUNDATION_URI + '/config/register');
+            var form = r.form();
+            form.append('path', 'themes.list.active');
+            form.append('value', THEME_AS_DEFAULT);
+            form.append('type', '');
+            form.append('editor', 'themes_manager');
+            form.append('options', themesData);
+            form.append('label', 'Active theme');
+            form.append('description', 'Active theme on storefront');
+        });
+    };
 
     // Empties folders to start fresh
     gulp.task('clean', function (cb) {
@@ -185,16 +242,10 @@
     gulp.task('serve', ['dev', 'retrieve-files']);
 
     gulp.task('build', function () {
-        var themesDir, jsCode, fs, recursive, themesData, request;
-
+        var jsCode, themesData;
         themesData = '';
-        fs = require('fs');
-        request = require('request');
-        recursive = require('recursive-readdir');
 
-        themesDir = './app/themes';
-
-        recursive(themesDir, function (err, files) {
+        recursive(paths.themesDir, function (err, files) {
             var i, theme, filePath, parts, regExp;
             theme = null;
             regExp = new RegExp('app[/\\\\]themes[/\\\\](\\w+)[/\\\\](.+)', 'i');
@@ -242,49 +293,9 @@
             }
             themesData += '}';
 
-            request({
-                uri: FOUNDATION_URI + '/config/unregister/themes',
-                method: 'DELETE'
-            }, function () {
-                var r = request.post(FOUNDATION_URI + '/config/register');
-                var form = r.form();
-                form.append('path', 'themes');
-                form.append('value', '');
-                form.append('type', 'group');
-                form.append('editor', '');
-                form.append('options', '');
-                form.append('label', 'Themes');
-                form.append('description', '');
-            });
-            // Create group
-            request({
-                uri: FOUNDATION_URI + '/config/unregister/themes.list',
-                method: 'DELETE'
-            }, function () {
-                var r = request.post(FOUNDATION_URI + '/config/register');
-                var form = r.form();
-                form.append('path', 'themes.list');
-                form.append('value', '');
-                form.append('type', 'group');
-                form.append('editor', 'themes_manager');
-                form.append('options', '');
-                form.append('label', 'Themes');
-                form.append('description', '');
-            });
-            request({
-                uri: FOUNDATION_URI + '/config/unregister/themes.list.active',
-                method: 'DELETE'
-            }, function () {
-                var r = request.post(FOUNDATION_URI + '/config/register');
-                var form = r.form();
-                form.append('path', 'themes.list.active');
-                form.append('value', 'default');
-                form.append('type', '');
-                form.append('editor', 'themes_manager');
-                form.append('options', themesData);
-                form.append('label', 'Active theme');
-                form.append('description', 'Active theme on storefront');
-            });
+            initThemeConfig(request);
+            initThemeGroup(request);
+            setThemeData(request, themesData);
 
             gulp.start('requirejs');
             gulp.start('vendor');
@@ -298,16 +309,10 @@
     gulp.task('default', ['build']);
 
     gulp.task('retrieve-files', function () {
-        var themesDir, jsCode, fs, request, themesData, recursive;
-
+        var jsCode, themesData;
         themesData = '';
-        fs = require('fs');
-        request = require('request');
-        recursive = require('recursive-readdir');
 
-        themesDir = './app/themes';
-
-        recursive(themesDir, function (err, files) {
+        recursive(paths.themesDir, function (err, files) {
             var i, theme, filePath, parts, regExp;
             theme = null;
             regExp = new RegExp('app[/\\\\]themes[/\\\\](\\w+)[/\\\\](.+)', 'i');
@@ -354,51 +359,9 @@
             }
             themesData += '}';
 
-            request({
-                uri: FOUNDATION_URI + '/config/unregister/themes',
-                method: 'DELETE'
-            }, function () {
-                var r = request.post(FOUNDATION_URI + '/config/register');
-                var form = r.form();
-                form.append('path', 'themes');
-                form.append('value', '');
-                form.append('type', 'group');
-                form.append('editor', '');
-                form.append('options', '');
-                form.append('label', 'Themes');
-                form.append('description', '');
-            });
-            // Create group
-            request({
-                uri: FOUNDATION_URI + '/config/unregister/themes.list',
-                method: 'DELETE'
-            }, function () {
-                var r = request.post(FOUNDATION_URI + '/config/register');
-                var form = r.form();
-                form.append('path', 'themes.list');
-                form.append('value', '');
-                form.append('type', 'group');
-                form.append('editor', 'themes_manager');
-                form.append('options', '');
-                form.append('label', 'Themes');
-                form.append('description', '');
-            });
-            request({
-                uri: FOUNDATION_URI + '/config/unregister/themes.list.active',
-                method: 'DELETE'
-            }, function () {
-                var r = request.post(FOUNDATION_URI + '/config/register');
-                var form = r.form();
-                form.append('path', 'themes.list.active');
-                form.append('value', 'default');
-                form.append('type', '');
-                form.append('editor', 'themes_manager');
-                form.append('options', themesData);
-                form.append('label', 'Active theme');
-                form.append('description', 'Active theme on storefront');
-            });
-
-
+            initThemeConfig(request);
+            initThemeGroup(request);
+            setThemeData(request, themesData);
         });
 
     });
