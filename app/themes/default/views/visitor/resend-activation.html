@@ -11,20 +11,20 @@
         <div class="col-md-6">
             
             <!-- form -->
-            <form name="loginForm">
+            <form name="invalidateForm">
 
                 <!-- error message -->
                 <gui-message-manager item="message"></gui-message-manager>
 
                 <!-- login field + label -->
                 <div class="form-group"
-                     ng-class="{ 'has-error' : (loginForm.submitted && loginForm.email.$error.required) || (loginForm.email.$invalid && !loginForm.email.$pristine) }">
+                     ng-class="{ 'has-error' : (invalidateForm.submitted && invalidateForm.email.$error.required) || (invalidateForm.email.$invalid && !invalidateForm.email.$pristine) }">
                     <label for="email">Email *</label>
                     <input class="form-control" type="text" id="email" placeholder="email"
                            ng-model="invalidateCredentials.email" name="email" required />
                     
                     <!-- error message -->
-                    <p ng-show="(loginForm.submitted && loginForm.email.$error.required) || (loginForm.email.$invalid && !loginForm.email.$pristine)"
+                    <p ng-show="(invalidateForm.submitted && invalidateForm.email.$error.required) || (invalidateForm.email.$invalid && !invalidateForm.email.$pristine)"
                        class="help-block">This field is required.</p>
                 </div>
 

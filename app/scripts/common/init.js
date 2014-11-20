@@ -71,6 +71,13 @@
                     function ($rootScope, $designService, $route, $http, $commonSidebarService, $location, $q,
                               $commonPageService, $commonRewriteService, REST_SERVER_URI) {
 
+                        /**
+                         * Hides mini-cart after change url
+                         */
+                        $rootScope.$on("$locationChangeSuccess", function () {
+                            $(".modal").modal('hide');
+                        });
+
                         // ajax cookies support fix
                         $http.defaults.withCredentials = true;
                         delete $http.defaults.headers.common["X-Requested-With"];

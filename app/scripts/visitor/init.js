@@ -53,6 +53,14 @@
                             templateUrl: angular.getTheme("visitor/login-page.html"),
                             controller: "visitorLoginController"
                         })
+                        .when("/forgot-password", {
+                            templateUrl: angular.getTheme("visitor/forgot-password.html"),
+                            controller: "visitorLoginController"
+                        })
+                        .when("/resend-activation", {
+                            templateUrl: angular.getTheme("visitor/resend-activation.html"),
+                            controller: "visitorLoginController"
+                        })
                         .when("/registration", {
                             templateUrl: angular.getTheme("visitor/registration-page.html"),
                             controller: "visitorLoginController"
