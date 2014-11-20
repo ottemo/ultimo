@@ -1,5 +1,6 @@
 <ol class="breadcrumb" ng-controller="commonBreadcrumbsController">
+	<i class="glyphicon glyphicon-home text-muted"></i>&nbsp;&nbsp;
   	<li ng-repeat="item in it.getItems()">
-  		<a href="{{item.url}}">{{item.label}}</a>
+  		<a class="text-muted" href="{{item.url}}">{{item.label}}</a>
   	</li>
 </ol>

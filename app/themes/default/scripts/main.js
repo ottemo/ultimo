@@ -31,6 +31,10 @@
 		    $("#form-login").modal("show");
 		});
 
+		$('.nav-tabs').mouseover(function(event) {
+			alert('lol')
+		});
+
     });
 })(jQuery);
 
