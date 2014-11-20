@@ -1,11 +1,10 @@
 (function (define, d) {
     "use strict";
 
-    define(function () {
+    define(['angular'], function (angular) {
 
-        var init, secretKey, appId, avatarLarge, avatarMedium , avatarSmall, avatarSquare, getAvatar;
-        appId = "483159925160897";
-        secretKey = "9a362f8b5cd91dbdd908bff472468c7e";
+        var init, avatarLarge, avatarMedium , avatarSmall, avatarSquare, getAvatar;
+
         avatarLarge = "graph.facebook.com/##facebookId##/picture?type=large";
         avatarMedium = "graph.facebook.com/##facebookId##/picture?type=normal";
         avatarSmall = "graph.facebook.com/##facebookId##/picture?type=small";
@@ -21,7 +20,7 @@
             }
             js = d.createElement("script");
             js.id = "facebook-jssdk";
-            js.src = "http://connect.facebook.net/ru_RU/sdk.js#xfbml=1&appId=483159925160897&version=v2.0";
+            js.src = "http://connect.facebook.net/ru_RU/sdk.js#xfbml=1&appId=" + angular.appConfigValue("app.login.facebook.appId") + "&version=v2.0";
             fjs.parentNode.insertBefore(js, fjs);
         };
 
@@ -48,8 +47,8 @@
         };
 
         return{
-            appId: appId,
-            secretKey: secretKey,
+            appId: angular.appConfigValue("app.login.facebook.appId"),
+            secretKey: angular.appConfigValue("app.login.facebook.secretKey"),
             init: init,
             getAvatar: getAvatar
         };

@@ -1,17 +1,15 @@
 (function (define) {
     'use strict';
 
-    define(['angular'], function () {
+    define(['angular'], function (angular) {
 
-            var init, clientId, requestData, login, loginCallback, userData, avatar, getAvatar;
+            var init, requestData, login, loginCallback, userData, avatar, getAvatar;
             userData = {'access_token': ''};
-
-            clientId = '1074763412644-qq25glj3tb87bq7bk5m8793da11ddheh.apps.googleusercontent.com';
 
             avatar = 'https://plus.google.com/s2/photos/profile/##googleId##?sz=150';
 
             requestData = {
-                'clientid': clientId,
+                'clientid': angular.appConfigValue("app.login.facebook.appId"),
                 'cookiepolicy': 'single_host_origin',
                 'callback': 'loginCallback',
                 'approvalprompt': 'force',
@@ -54,7 +52,7 @@
             };
 
             return{
-                clientId: clientId,
+                clientId: angular.appConfigValue("app.login.google.clientId"),
                 requestData: requestData,
                 userData: userData,
                 login: login,
