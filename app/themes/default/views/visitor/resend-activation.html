@@ -2,13 +2,13 @@
     
     <!-- page title -->
     <h2 class="text-center row">Resend the activation email</h2>
-    <hr>
+    <br>
     <gui-message-manager item="messageValidaion"></gui-message-manager>
     <div class="row">
 
 
         <!-- login form -->
-        <div class="col-md-6">
+        <div class="col-md-6 col-md-offset-3">
             
             <!-- form -->
             <form name="invalidateForm">
@@ -29,7 +29,7 @@
                 </div>
 
                 <!-- submit button -->
-                <a href class="btn btn-primary col-xs-6 col-xs-offset-3" ng-click="sendInvalidateEmail()">Send</a>
+                <button type="submit" class="btn btn-primary col-xs-4 col-xs-offset-4" ng-click="sendInvalidateEmail()">Send</button>
                 <div class="clearfix"></div>  
             </form>
         </div>

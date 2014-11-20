@@ -27,7 +27,14 @@
                                class="help-block">This field is required.</p>
                         </div>
                         
-                        <!-- first name field + label -->
+                        <!-- birthday field + label-->
+                        <div class="form-group col-md-6">
+                            <label>Date of Birth (MM/DD/YYYY)</label>
+                            <input type="text" class="form-control datepicker" ng-model="login.birthday">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- first name field + label-->
                         <div class="form-group col-md-6"
                              ng-class="{ 'has-error' : (register.submitted && register.fname.$error.required) || (register.fname.$invalid && !register.fname.$pristine) }">
                             <label for="FirstName">First Name *</label>
@@ -37,32 +44,76 @@
                             <p ng-show="(register.submitted && register.fname.$error.required) || (register.fname.$invalid && !register.fname.$pristine)"
                                class="help-block">This field is required.</p>
                         </div>
+
+                        <!-- last name field + label-->
+                        <div class="form-group col-md-6">
+                            <label for="LastName">Last Name</label>
+                            <input type="text" class="form-control" id="LastName" placeholder="Last name" ng-model="login.lname" />
+                        </div>
                     </div>
 
                     <div class="row">
-                        <!-- last name field + label -->
-                        <div class="form-group col-md-6">
-                            <label for="lname">Last Name</label>
-                            <input class="form-control" type="text" id="lname" placeholder="Last name" ng-model="login.lname"
-                                   autocomplete="off"/>
-                        </div>
-
-                        <!-- password field + label -->
+                        <!-- password field + label-->
                         <div class="form-group col-md-6"
                              ng-class="{ 'has-error' : (register.submitted && register.password.$error.required) || (register.password.$invalid && !register.password.$pristine) }">
                             <label for="password">Password *</label>
-                            <input id="password" type="password" class="form-control" name="password" ng-model="login.password" placeholder="Password" required autocomplete="off" />
+                            <input id="password" type="password" class="form-control" name="password" placeholder="Password" ng-model="login.password" required autocomplete="off" />
                             
                             <!-- error message -->
                             <p ng-show="(register.submitted && register.password.$error.required) || (register.password.$invalid && !register.password.$pristine)"
                                class="help-block">This field is required.</p>
                         </div>
+                        <!-- password confirm field + label-->
+                        <div class="form-group col-md-6"
+                             ng-class="{ 'has-error' : (register.submitted && register.confirm_password.$error.required) || (register.confirm_password.$invalid && !register.confirm_password.$pristine) }">
+                            <label for="confirm_password">Password confirm *</label>
+                            <input id="confirm_password" type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" ng-model="login.confirm_password" required autocomplete="off" />
+                            
+                            <!-- error message -->
+                            <p ng-show="(register.submitted && register.confirm_password.$error.required) || (register.confirm_password.$invalid && !register.confirm_password.$pristine)"
+                               class="help-block">This field is required.</p>
+                        </div>
                     </div>
+
+                    <hr>
+
                     <!-- submit button -->
                     <div class="row">
-                        <div class="btn btn-primary col-xs-6 col-xs-offset-3" ng-click="save()">Register</div>
+                        <button type="submit" class="btn btn-primary col-xs-6 col-xs-offset-3" ng-click="save()">Register</button>
                     </div>
-                    <div class="clearfix"></div>
+
+                    <hr>
+                    <div class="row">
+                        <!-- create account with social -->
+                        <div class="text-center visible-md visible-lg">
+                            <h4>Create Account With</h4>
+                            <div class="btn-group">
+                                <a href="" class="btn btn-danger" ng-click="googleLogin()">
+                                    <i class="fa fa-google-plus"></i>
+                                    Create with Google+
+                                </a>
+                                <a href="" class="btn btn-info" ng-click="facebookLogin()">
+                                    <i class="fa fa-facebook"></i>
+                                    Create with Facebook
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- create account with social -->
+                        <div class="text-center visible-sm visible-xs">
+                            <h4>Create Account With</h4>
+                            <div class="btn-group-vertical col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
+                                <a href="" class="btn btn-danger" ng-click="googleLogin()">
+                                    <i class="fa fa-google-plus"></i>
+                                    Create with Google+
+                                </a>
+                                <a href="" class="btn btn-info" ng-click="facebookLogin()">
+                                    <i class="fa fa-facebook"></i>
+                                    Create with Facebook
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </form>
                 <hr>
 
@@ -73,3 +124,6 @@
         </div>
     </div>
 </div>
+<script>
+    $('.datepicker').datepicker()
+</script>
