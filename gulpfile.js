@@ -45,7 +45,7 @@
     };
 
     themes = [];
-    FOUNDATION_URI = 'http://localhost:3000';
+    FOUNDATION_URI = 'http://dev.ottemo.io:3000';
     THEME_AS_DEFAULT = 'default';
 
     var setFoundationUri = function (request) {
