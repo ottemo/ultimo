@@ -9,7 +9,7 @@
             avatar = 'https://plus.google.com/s2/photos/profile/##googleId##?sz=150';
 
             requestData = {
-                'clientid': angular.appConfigValue("app.login.facebook.appId"),
+                'clientid': angular.appConfigValue("app.login.google.clientId"),
                 'cookiepolicy': 'single_host_origin',
                 'callback': 'loginCallback',
                 'approvalprompt': 'force',
