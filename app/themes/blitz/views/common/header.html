@@ -1,37 +1,36 @@
 <header id="top" class="navbar navbar-static-top bs-docs-nav" role="banner">
-    <a class="text-center" href="#/">
+    <div class="navbar-header col-lg-4 col-md-4 col-sm-2 col-xs-2">
+        <button class="navbar-toggle" data-target=".bs-navbar-collapse" data-toggle="collapse" type="button">
+            <i class="fa fa-navicon"></i>
+            <span class="sr-only">Toggle navigation</span>
+        </button>
+    </div>
+    <a class="text-center col-lg-4 col-md-4 col-sm-8 col-xs-6 col-md-offset-0 col-sm-offset-0 col-xs-offset-1" href="#/">
         <img alt="logo" class="" ng-src="{{getImg('h-logo.png')}}">
     </a>
-    <div class="container">
-        <div class="navbar-header">
-            <button class="navbar-toggle collapsed" data-target=".bs-navbar-collapse" data-toggle="collapse" type="button">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
+    <div class="col-lg-4 col-md-4 col-sm-2 col-xs-3 pull-right">
+        <div class="pull-right">
+            <a class="cart" href="" target="_self" ng-click="clickToCartDesktop()" ng-controller="visitorLoginController" >
+                <!-- cart button -->
+                <div ng-controller="commonHeaderController" >
+                    <!-- icon cart -->
+                    <span class="glyphicon glyphicon-shopping-cart"></span>
+                    <!-- items counter -->
+                    <!--<span ng-controller="cartListController">{{it.getCountItems()}}</span>-->
+                </div>
+            </a>
         </div>
-        <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+        <div class="pull-right" ng-controller="commonHeaderController">
+            <!-- login/account/logout buttons -->
+            <a href="{{item.link}}"  ng-repeat="item in rightMenu.getMenuRight()" class="btn-login" >
+                <span><i class="fa fa-user"></i></span>
+                <span>{{item.label}}</span>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <nav class="h-nav collapse navbar-collapse bs-navbar-collapse" role="navigation">
             <ng-include src="getTemplate('common/navigation/main.html')"></ng-include>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <span ng-controller="commonHeaderController">
-                        <!-- login/account/logout buttons -->
-                        <a href="{{item.link}}"  ng-repeat="item in rightMenu.getMenuRight()" class="btn-login" >{{item.label}}</a>
-                    </span>
-                </li>
-                <li>
-                    <a class="cart" href="" target="_self" ng-click="clickToCartDesktop()" ng-controller="visitorLoginController" >
-                        <!-- cart button -->
-                        <button type="button" class="btn btn-default" ng-controller="commonHeaderController" >
-                            <!-- icon cart -->
-                            <span class="glyphicon glyphicon-shopping-cart"></span>
-                            <!-- items counter -->
-                            <span ng-controller="cartListController">{{it.getCountItems()}}</span>
-                        </button>
-                    </a>
-                </li>
-            </ul>
         </nav>
     </div>
 </header>

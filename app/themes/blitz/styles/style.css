@@ -46,6 +46,9 @@ a {
 a:hover {
     cursor: pointer;
 }
+a:focus, a:active {
+    outline: none ;
+}
 .row-no-padding {
     padding-left: 0 !important;
     padding-right: 0 !important;
@@ -60,10 +63,13 @@ a:hover {
 
 /*//////////////////////////////////////////////////////////   start Home Page  */
 
+#wrapper {
+    width-min: 290px;
+}
 .logo {
     margin-top: 8px;
 }
-/*
+
 .navbar-fixed-top {
     padding: 30px 0 27px;
     background-color: #ffffff;
@@ -74,24 +80,30 @@ a:hover {
 }
 .navbar-collapse .navbar-nav a,.btn-login {
     font-size: 21px;
-}
-.navbar-collapse .navbar-nav {
-    padding-top: 7px;
+    color: #777;
 }
 .btn-login {
-    color: #777;
     display: block;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    padding: 17px 0 0;
+    padding: 12px 0 0;
     text-transform: uppercase;
 }
 .btn-login:hover {
-    color: #333;
+    color: #1F4258;
+}
+.btn-login span:first-child{
+    display: none;
+    font-size: 28px;
+}
+.btn-login span:last-child {
+    font-size: 14px;
 }
 .cart {
+    color: #777;
     display: block;
-    margin-top: 14px;
-}*/
+    font-size: 28px;
+    margin: 10px 0 0 20px;
+}
 
 .shop {
     display: block;
@@ -146,7 +158,16 @@ a:hover {
     margin: 65px auto;
     width: 666px;
 }
-.h-slider-switch .btn-custom:first-child {
+.h-slider-switch li .btn-custom{
+	border-radius: 0;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+}
+.btn-custom:active,.btn-custom:visited,
+.btn-custom:hover,.btn-custom:focus {
+    outline: none !important;
+}
+.h-slider-switch li:first-child .btn-custom{
 	border-top-left-radius: 35px;
     -moz-border-top-left-radius: 35px;
     -webkit-border-top-left-radius: 35px;
@@ -155,7 +176,7 @@ a:hover {
     -webkit-border-bottom-left-radius: 35px;
 
 }
-.h-slider-switch .btn-custom:last-child {
+.h-slider-switch li:last-child .btn-custom{
 	border-top-right-radius: 35px;
     -moz-border-top-right-radius: 35px;
     -webkit-border-top-right-radius: 35px;
@@ -163,7 +184,7 @@ a:hover {
     -moz-border-bottom-right-radius: 35px;
     -webkit-border-bottom-right-radius: 35px;
 }
-.h-slider-switch .btn-custom.active {
+.h-slider-switch .active .btn-custom{
 	color: #ffffff;
 	background-color: #1F4258;
 
@@ -190,18 +211,16 @@ a:hover {
 .h-bottom {
     background: url(../images/h-bottom.jpg) center top no-repeat;
     height: 480px;
+    padding-top: 57px;
 }
 footer {
     background-color: #1F4258;
     height: 170px;
 }
-footer .nav-pills li {
-    height: 70px;
-}
 .h-bottom h4, .h-bottom a {
     color: #ffffff;
     font: 48px/56px "roboto_ltregular",sans-serif;
-    margin: 57px 0 29px;
+    margin: 0 0 29px;
     text-transform: uppercase;
 }
 .h-bottom a {
@@ -228,19 +247,61 @@ footer .fa {
     color: #ffffff;
     font-size: 35px;
 }
-footer .col-md-5 {
-    margin-top: 64px;
+footer {
+    padding-top: 65px;
+    position: relative;
 }
-footer .col-md-2 {
-    margin-top: 133px;
+footer div:last-child {
+    position: absolute;
+    bottom: 5px;
 }
-footer .col-md-3 {
-    margin-top: 72px;
+footer .fa-hover {
+    float: right;
+    margin-right: 10px;
+}
+footer .fa-hover a{
+    display: block;
+    padding:10px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+footer .fa-hover a:hover {
+    background-color:#eee;
+}
+footer .fa-hover a:hover i {
+    color: #1F4258;
 }
 footer p {
     text-transform: capitalize;
     font: 12px "roboto_ltregular",sans-serif;
     color: #ffffff;
+}
+.center-nav {
+    font-size: 11px;
+    height: 30px;
+    margin: 10px 0 0;
+    text-align: center;
+}
+header.navbar {
+    margin-bottom: 0;
+}
+header .navbar-toggle {
+    margin-left: 0;
+}
+header > a {
+     padding-top: 15px;
+ }
+.navbar-toggle {
+    color: #808080;
+    font-size: 28px;
+}
+.fa:hover,.navbar-toggle:hover,
+.glyphicon-shopping-cart:hover {
+    color: #1F4258;
+}
+header .navbar-toggle {
+    margin-top: 0;
 }
 
 /*//////////////////////////////////////////////////////////   end Home Page  */
@@ -252,25 +313,162 @@ footer p {
         bottom: 2px;
         left: 50%;
     }
+    .h-nav {
+        left: 0;
+        margin-left: 0;
+        position: relative;
+    }
+    .btn-login span:first-child{
+        display: block;
+    }
+    .btn-login span:last-child{
+        display: none;
+    }
+    .btn-login {
+        padding: 8px 0 0;
+    }
+    .h-slider-switch {
+        height: 56px;
+        margin: 5% auto;
+        width: 378px;
+    }
+    .h-slider-switch .btn-custom {
+        font-size: 15px;
+        padding: 10px 0;
+        width: 126px;
+    }
+     footer {
+        padding-top: 15px;
+    }
+    footer .nav > li > a {
+        padding: 3px 15px;
+        font-size: 14px;
+    }
+    footer > div:nth-child(2) {
+        padding-top: 81px;
+    }
+    footer .fa {
+        font-size: 22px;
+    }
+    header .cart {
+        margin: 10px 0 0 10px;
+    }
+    header .navbar-toggle {
+        margin-bottom: 0;
+    }
+    header > a {
+        padding-top: 8px;
+    }
+    .h-carousel > div:last-child,
+    .h-carousel > div:nth-child(5),
+    .h-carousel > div:nth-child(4),
+    .h-carousel > div:nth-child(3) {
+        display: none;
+    }
+    .carousel-indicators {
+        bottom: 0;
+        margin-bottom: 0;
+    }
+    .carousel-indicators li,
+    .carousel-indicators .active{
+        height: 15px;
+        width: 15px;
+    }
+}
+@media (max-width: 410px) {
+    header .col-xs-2, header .col-xs-3,
+    header .col-xs-6, header .col-xs-offset-1 {
+        width: auto;
+        margin:0;
+        padding:0;
+    }
+    header .col-xs-6 {
+        left: 50%;
+        margin-left: -85px;
+        margin-top: 10px;
+        position: absolute;
+    }
+    header .col-xs-6 img {
+        width: 148px;
+    }
+    .h-slider-switch .btn-custom {
+        border-radius: 0 !important;
+        -moz-border-radius: 0 !important;
+        -webkit-border-radius: 0 !important;
+        width: 100%;
+    }
+    .h-slider-switch {
+        height: 132px;
+        margin: 5% auto;
+        padding: 0 26px;
+        width: 100%;
+    }
+    .h-container .col-xs-6 {
+        width:100%;
+    }
+
 }
 @media (min-width: 768px ) and (max-width: 991px) {
     .carousel-indicators {
         bottom: 2px;
         left: 50%;
     }
+    .h-carousel > div:last-child,
+    .h-carousel > div:nth-child(5),
+    .h-carousel > div:nth-child(4){
+        display: none;
+    }
 }
 @media (max-width: 991px) {
     .navbar-toggle {
         border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
         float: left;
-        margin-bottom: 8px;
-        margin-left: 15px;
-        margin-top: 8px;
-        padding: 9px 10px;
+        margin-top: 0 0 8px 15px;
+        padding: 7px 10px;
         position: relative;
     }
     .h-container {
         padding: 0 25px;
+    }
+    .shop {
+        display: none;
+    }
+    .h-bottom h4, .h-bottom a {
+        font-size: 24px;
+        line-height: 32px;
+    }
+    .h-bottom p {
+        font-size: 16px;
+        line-height: 20px;
+    }
+    .h-bottom a {
+        padding: 6px 15px;
+        width: 200px;
+    }
+    .h-bottom {
+        height: 360px;
+        padding: 30px 5px 0;
+    }
+}
+@media (min-width: 768px) {
+    .h-nav {
+        position: relative;
+        overflow:hidden;
+    }
+    .h-nav ul {
+        position: relative;
+        left:50%;
+        float:left;
+    }
+    .h-nav ul li {
+        position:relative;
+        left:-50%;
+        float:left;
+    }
+    .navbar-collapse.collapse {
+        overflow: hidden !important;
     }
 }
 @media (min-width: 992px) and (max-width: 1199px) {
@@ -279,6 +477,20 @@ footer p {
         bottom: 3%;
         width: 250px;
         margin-left: -125px;
+    }
+    .h-bottom h4, .h-bottom a {
+        font-size: 30px;
+    }
+    .h-bottom p {
+        font-size: 20px;
+    }
+    .h-bottom a {
+        padding: 6px 15px;
+        width: 280px;
+    }
+    .h-carousel > div:last-child,
+    .h-carousel > div:nth-child(5) {
+        display: none;
     }
 }
 @media (min-width: 1200px) {
