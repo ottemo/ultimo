@@ -70,13 +70,10 @@ a:focus, a:active {
     margin-top: 8px;
 }
 
-.navbar-fixed-top {
-    padding: 30px 0 27px;
-    background-color: #ffffff;
-    -webkit-box-shadow: 0px 7px 8px -5px rgba(117,117,117,1);
-    -moz-box-shadow: 0px 7px 8px -5px rgba(117,117,117,1);
-    box-shadow: 0px 7px 8px -5px rgba(117,117,117,1);
-    margin-bottom: 0;
+header.navbar {
+    -webkit-box-shadow: 0 7px 6px -5px rgba(180, 180, 180, 1);
+    -moz-box-shadow: 0 7px 6px -5px rgba(180, 180, 180, 1);
+    box-shadow: 0 7px 6px -5px rgba(180, 180, 180, 1);
 }
 .navbar-collapse .navbar-nav a,.btn-login {
     font-size: 21px;
@@ -305,6 +302,148 @@ header .navbar-toggle {
 }
 
 /*//////////////////////////////////////////////////////////   end Home Page  */
+
+/*/////////////////////////////////////////////////////  start Category page  */
+
+.cat-top {
+    height: 105px;
+    border-bottom: 1px solid #DBDBDB;
+    margin: 0 40px 55px;
+}
+.cat-top > button, .cat-top ol {
+    float: left;
+}
+.cat-top .fa-navicon:before {
+    font-size: 40px;
+}
+.cat-top .btn {
+    padding: 11px 15px;
+    margin-top: 21px;
+}
+.cat-top button.fa:hover {
+    color: #ffffff;
+}
+.breadcrumb {
+    margin: 31px 0 0 14px;
+    text-transform: uppercase;
+    background-color: inherit;
+}
+.breadcrumb a {
+    font: 21px "roboto_ltregular",sans-serif;
+    color: #1f4258;
+}
+.breadcrumb > li:after {
+    font-size: 21px;
+}
+.cat-top .filters {
+    float: right;
+    margin: 43px 10px 0 0;
+}
+.cat-top .filters span {
+    float: right;
+    color: #b6b6b6;
+    font: 21px "roboto_ltregular",sans-serif;
+    text-transform: uppercase;
+    margin-left: 62px;
+}
+.cat-top .filters span i {
+    display: block;
+    float: left;
+    font-size: 32px;
+    margin-right: 18px;
+}
+.cat-top .filters span:hover {
+    color: #1F4258;
+    cursor: pointer;
+}
+.sidebar-offcanvas {
+    background-color: #1f4258;
+    padding: 43px 50px 50px;
+    width: 340px;
+}
+.row-offcanvas-left.active {
+    left: 340px;
+}
+.row-offcanvas-left .sidebar-offcanvas {
+    left: -340px;
+}
+.sidebar-offcanvas h6 {
+    color: #ffffff;
+    font: 18px 'robotobold',sans-serif;
+    text-transform: uppercase;
+    float: left;
+    margin: 0;
+}
+.sidebar-offcanvas > span {
+    color: #ffffff;
+    font: 16px "roboto_ltregular",sans-serif;
+    float: right;
+    margin-top: 3px;
+}
+.sidebar-offcanvas hr {
+    background-color: #ffffff;
+    border: 0 none;
+    color: #ffffff;
+    height: 2px;
+    margin: 0 0 12px;
+}
+.sidebar-offcanvas ul {
+    padding-left: 22px;
+    list-style-type: none;
+    margin-bottom: 20px;
+}
+.sidebar-offcanvas li a {
+    color: #ffffff;
+    font: 16px/16px "roboto_ltregular",sans-serif;
+}
+.sidebar-offcanvas li a span {
+    font-size: 12px;
+}
+.sidebar-offcanvas li a:hover {
+    text-decoration: underline !important;
+}
+.cat .thumbnail {
+    position: relative;
+}
+.cat .thumbnail:hover span {
+    opacity:1;
+    -webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+    -moz-transition: all 0.5s ease;/* Firefox 4-15 */
+    -o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+    transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+.cat .thumbnail > span {
+    position: absolute;
+    z-index: 10;
+    bottom: 1px;
+    margin: 0 -4px 0px;
+    width: 100%;
+    opacity: 0;
+    background: rgba(255,255,255,0.9);
+    -webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+    -moz-transition: all 0.5s ease;/* Firefox 4-15 */
+    -o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+    transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+.cat .thumbnail h4,
+.cat .thumbnail h5 {
+    color: #1f4258;
+    margin: 0 0 2px 0;
+}
+.cat .thumbnail h4 {
+    font: 18px 'robotobold',sans-serif;
+}
+.cat .thumbnail h5 {
+    font: 17px "roboto_ltregular",sans-serif;
+}
+.cat .thumbnail > span .glyphicon {
+    color: #808080;
+    font-size: 30px;
+}
+
+
+
+/*//////////////////////////////////////////////////////// end Category page  */
 
 /*////////////////////////////////////////////////// start responsive design  */
 

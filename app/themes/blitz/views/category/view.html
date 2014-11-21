@@ -1,55 +1,65 @@
-<div ng-init="init()">
+<div ng-init="init()" class="cat">
+    <div class="row-offcanvas row-offcanvas-left">
+        <div class="sidebar-nav" role="navigation" id="sidebar" ng-controller="commonHeaderController" >
+            <ng-include src="getTemplate('common/navigation/categories.html')"></ng-include>
+            <div class="clearfix"></div>
+        </div>
+        <div class="cat-top">
+            <button data-toggle="offcanvas" class="fa fa-navicon btn btn-primary btn-cat" type="button"></button>
+            <!-- breadcrumbs -->
+            <ng-include src="getTemplate('common/navigation/breadcrumbs.html')"></ng-include>
+            <div class="filters">
+                <span>
+                    <i class="fa fa-search"></i>
+                    search
+                </span>
+                <span>
+                    <i class="fa fa-sort-amount-asc"></i>
+                    sort
+                </span>
+            </div>
+        </div>
+        <!-- products -->
+        <div class="col-xs-12">
+            <div class="col-sm-4 col-lg-3 col-xs-12 product" ng-repeat="_item in productsList | filter:searchText" ng-show="productsList.length">
 
-    <h3 class="text-center">&nbsp;{{category.name}}</h3>
-    <br>
+                <!-- product desktop version with info -->
+                <a href="" class="thumbnail hidden-xs">
+                    <!-- image -->
+                    <img ng-src="{{getImage(_item)}}" ng-click="openPopUp(_item);" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
+                    <span class="caption text-center">
 
-    <!-- left-side menu -->
-    <div class="col-lg-3 col-xs-12">
-        <!-- filters -->
-        <ng-include src="getTemplate('common/navigation/filters.html')"></ng-include>
-    </div>
-    
-    <!-- products -->
-    <div class="col-sm-12 col-lg-9 col-xs-12">
-        <div class="col-sm-4 col-lg-3 col-xs-12 product" ng-repeat="_item in productsList | filter:searchText" ng-show="productsList.length">
+                        <!-- product price -->
+                        <h4 class="ng-binding">{{_item.price | number : 2 | currency}}</h4>
+                        <!-- product name -->
+                        <h5 class="ng-binding">{{_item.name}}</h5>
+                        <!-- buttons -->
+                        <span class="col-md-12 center-block">
+                            <span class="btn-group col-sm-12">
 
-            <!-- product desktop version with info -->
-            <a href="" class="thumbnail hidden-xs" ng-click="openPopUp(_item);">
-                <!-- image -->
-                <img ng-src="{{getImage(_item)}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
-                <span class="caption text-center">
-                    <!-- product name -->
-                    <h5 class="ng-binding">{{_item.name}}</h5>
-                    <!-- product price -->
-                    <h4 class="ng-binding">{{_item.price | number : 2 | currency}}</h4>
-                    
-                    <!-- buttons -->
-                    <span class="col-md-12  center-block">
-                        <span class="btn-group col-sm-12">
+                                <!-- quick view -->
+                                <span class="col-sm-6" ng-click="openPopUp(_item);">
+                                    <i class="glyphicon glyphicon-eye-open"></i>
+                                </span>
 
-                            <!-- quick view -->
-                            <span class="btn col-sm-6 btn-primary" ng-click="openPopUp(_item);">
-                                <i class="glyphicon glyphicon-search"></i>
+                                <!-- fast shoping -->
+                                <span class="col-sm-6" ng-click="addToCart(_item._id)">
+                                    <i class="glyphicon glyphicon-shopping-cart"></i>
+                                </span>
                             </span>
-
-                            <!-- fast shoping -->
-                            <span class="btn col-sm-6 btn-default" ng-click="addToCart(_item._id)">
-                                <i class="glyphicon glyphicon-shopping-cart"></i>
-                            </span>
+                            <span class="clearfix"></span>
                         </span>
                         <span class="clearfix"></span>
                     </span>
-                    <span class="clearfix"></span>
-                </span>
-            </a>
-            <a href="{{productService.getUrl(_item._id)}}" class="thumbnail visible-xs">
-                <img ng-src="{{getImage(_item)}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
-            </a>
+                </a>
+                <a href="{{productService.getUrl(_item._id)}}" class="thumbnail visible-xs">
+                    <img ng-src="{{getImage(_item)}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
+                </a>
+            </div>
+            <div class="clearfix"></div>
         </div>
         <div class="clearfix"></div>
     </div>
-    <div class="clearfix"></div>
-    
 </div>
 
 <!-- quick view modal -->

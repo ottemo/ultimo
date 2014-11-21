@@ -1,18 +1,188 @@
 <!-- categories -->
-<ul class="nav nav-tabs" role="tablist" ng-controller="commonHeaderController">
-    <li role="presentation" ng-repeat="item in categories;">
-    	<a href="{{categoryService.getUrl(item.id)}}" target="{{item.id != null ? '' : '_self'}}" class="dropdown-toggle" data-toggle="dropdown">
-	        {{item.name}} <b class="fa fa-caret-down" ng-if="item.child.length &gt; 0"></b>
-	    </a>
-	    <ul class="dropdown-menu" role="menu" ng-if="item.child.length &gt 0">
-	      	<li ng-repeat="item in item.child;" ng-include="getTemplate('common/navigation/categories-items.html')"></li>
-	    </ul>
-    </li>       
-</ul>
+<div role="navigation" id="sidebar" class="sidebar-offcanvas" ng-controller="commonHeaderController">
+    <h6>categories</h6><span>see all</span>
+    <div class="clearfix"></div>
+    <hr>
+    <ul>
+        <li ng-repeat="item in categories;" class="list-unstyled">
+            <a href="{{categoryService.getUrl(item.id)}}" target="{{item.id != null ? '' : '_self'}}" class="text-muted display">
+                {{item.name}}
+                <span class="fa fa-angle-down pull-right" ng-if="item.child.length &gt; 0">&nbsp;&nbsp;&nbsp;</span>
+            </a>
 
-<script>
-	$(document).on('click', '.nav.nav-tabs li a', function(event) {
-		$('.nav.nav-tabs li').removeClass('active');
-		$(this).parents('li').addClass('active');
-	});
-</script>
+            <ul class="second-level" ng-if="item.child.length &gt 0">
+                <li class="list-unstyled" ng-repeat="item in item.child;" ng-include="getTemplate('common/navigation/categories-items.html')"></li>
+            </ul>
+        </li>
+    </ul>
+    <h6>brand</h6><span>see all</span>
+    <div class="clearfix"></div>
+    <hr>
+    <ul>
+        <li>
+            <a href="">
+                Apple
+                <span>(46,423)</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                BalckBerry
+                <span>(46,423)</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                HTC
+                <span>(46,423)</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                LG
+                <span>(46,423)</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                Motorola
+                <span>(46,423)</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                Nokia
+                <span>(46,423)</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                Sumsung
+                <span>(46,423)</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                Sony Ericsson
+                <span>(46,423)</span>
+            </a>
+        </li>
+    </ul>
+    <h6>color</h6><span>see all</span>
+    <div class="clearfix"></div>
+    <hr>
+    <ul>
+        <li>
+            <a href="">
+                Black
+                <span>(46,423)</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                BalckBerry
+                <span>(46,423)</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                BLue
+                <span>(46,423)</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                Gold
+                <span>(46,423)</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                Gray
+                <span>(46,423)</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                Green
+                <span>(46,423)</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                Pink
+                <span>(46,423)</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                Silver
+                <span>(46,423)</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                White
+                <span>(46,423)</span>
+            </a>
+        </li>
+    </ul>
+    <h6>features</h6><span>see all</span>
+    <div class="clearfix"></div>
+    <hr>
+    <ul>
+        <li>
+            <a href="">
+                3G Data Capable
+                <span>(46,423)</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                4G Data Capable
+                <span>(46,423)</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                Bluetooth Enabled
+                <span>(46,423)</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                GPS
+                <span>(46,423)</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                Internet Browser
+                <span>(46,423)</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                Music Player
+                <span>(46,423)</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                Touchscreen
+                <span>(46,423)</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                Wi-Fi Capable
+                <span>(46,423)</span>
+            </a>
+        </li>
+    </ul>
+    <!-- left-side menu -->
+    <ul>
+        <!-- filters
+        <ng-include src="getTemplate('common/navigation/filters.html')"></ng-include>-->
+    </ul>
+</div>

@@ -31,6 +31,11 @@
 		    $("#form-login").modal("show");
 		});
 
+
+	     $(document).on('click','.btn-cat',function () {
+	       	$('.row-offcanvas').toggleClass('active');
+	     });
+
     });
 })(jQuery);
 
