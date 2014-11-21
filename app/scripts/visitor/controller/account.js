@@ -90,7 +90,10 @@
                         delete $scope.visitor["shipping_address"];
 
                         $visitorApiService.update($scope.visitor, updateSuccess, updateFail);
-                        $("#parent_popup_profile").modal("hide");
+                        
+                        setTimeout(function(){
+                            $("#parent_popup_profile").modal("hide");
+                        }, 2000);
                     };
 
                     $scope.changePassword = function () {
@@ -98,7 +101,9 @@
                             delete $scope.changePswCredentials.confirm;
                             $visitorApiService.update($scope.changePswCredentials).$promise.then(
                                 function (response) {
-                                    $("#form-change-password").modal("hide");
+                                    setTimeout(function(){
+                                        $("#form-change-password").modal("hide");
+                                    }, 2000);
                                     if (response.error === "") {
                                         $scope.message = {
                                             "type": "success",

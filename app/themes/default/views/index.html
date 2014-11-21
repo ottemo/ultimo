@@ -5,23 +5,36 @@
 <!-- your custom.css -->
 <add-css src="style.css"></add-css>
 <add-css src="lib/jquery-ui/jquery-ui-1.10.3.custom.css"></add-css>
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
 <div id="wrapper">
 	<div id="wrapper-inner">
-		<!-- header layout -->
-		<ng-include src="getTemplate('common/header.html')"></ng-include>
+		<div class="row-offcanvas row-offcanvas-left">
+			<div class="sidebar-nav" role="navigation" id="sidebar" ng-controller="commonHeaderController" >
+				<ng-include src="getTemplate('common/navigation/categories.html')"></ng-include>
+				<div class="clearfix"></div>
+			</div>
+			<div class="clearfix"></div>
+			<!-- header layout -->
+			<ng-include src="getTemplate('common/header.html')"></ng-include>
+		
+			<!-- breadcrumbs -->
+			<ng-include src="getTemplate('common/navigation/breadcrumbs.html')"></ng-include>
 
-		<!-- breadcrumbs -->
-		<ng-include src="getTemplate('common/navigation/breadcrumbs.html')"></ng-include>
+			<div class="col-xs-12">
+				<button data-toggle="offcanvas" class="glyphicon  glyphicon-align-justify btn btn-primary" type="button"></button>
+			</div>
 
-		<ng-include src="getTemplate('common/navigation/categories.html')"></ng-include>
+			<div class="clearfix"></div>
+			
+			<!-- main content layout -->
+			<ng-view></ng-view>
 
-		<!-- main content layout -->
-		<ng-view></ng-view>
-
-		<div class="clearfix"></div>
+			<div class="clearfix"></div>
+			
+		</div>
 	</div>
-	<div class="clearfix"></div>
+
 	<!-- footer layout -->
 	<ng-include src="getTemplate('common/footer.html')"></ng-include>
 </div>

@@ -41,10 +41,10 @@
                     
                     <div class="row text-center">
                         <!-- add to cart button -->
-                        <a href class="btn btn-success btn-lg" ng-click="addToCart(popupProduct._id)">
+                        <button class="btn btn-success btn-lg" ng-click="addToCart(popupProduct._id)">
                             <span class="glyphicon glyphicon-shopping-cart"></span>
                             Add to cart
-                        </a>
+                        </button>
 
                         <!-- view details -->
                         <a href="{{productService.getUrl(popupProduct._id)}}" id="details_pdp" class="btn btn-primary btn-lg">

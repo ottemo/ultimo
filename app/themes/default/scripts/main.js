@@ -31,9 +31,10 @@
 		    $("#form-login").modal("show");
 		});
 
-		$('.nav-tabs').mouseover(function(event) {
-			alert('lol')
-		});
+
+	     $('[data-toggle="offcanvas"]').click(function () {
+	       	$('.row-offcanvas').toggleClass('active')
+	     });
 
     });
 })(jQuery);
