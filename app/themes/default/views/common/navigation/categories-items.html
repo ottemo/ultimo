@@ -1,6 +1,10 @@
-<a href="{{categoryService.getUrl(item.id)}}" target="{{item.id != null ? '' : '_self'}}" class="dropdown-toggle" data-toggle="dropdown">
-    {{item.name}}&nbsp;&nbsp;<span class="caret" ng-if="item.child.length &gt; 0"></span>
+<a href="{{categoryService.getUrl(item.id)}}" target="{{item.id != null ? '' : '_self'}}"  class="text-muted">
+    <h5>
+    	- 
+    	{{item.name}}
+		 <span class="caret" ng-if="item.child.length &gt; 0"></span>
+    </h5>
 </a>
-<ul class="dropdown-menu" role="menu" ng-if="item.child.length &gt 0">
+<ul ng-if="item.child.length &gt 0">
   	<li ng-repeat="item in item.child;" ng-include="getTemplate('navigation/categories_items.html')"></li>
 </ul>
