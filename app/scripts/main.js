@@ -35,7 +35,7 @@ require.config({
     "priority": ["config", "angular"]
 });
 
-require(['angular'],function(angular){
+require(['angular'], function (angular) {
     if (typeof require.iniConfig === "undefined") {
         require.iniConfig = {};
     }
@@ -69,31 +69,6 @@ require([
     ],
     function (angular, ngBootstrap, files) {
 
-        var errorResponse = function () {
-            angular.activeTheme = "default";
-            angular.appConfig["themes.list.active"] = "default";
-        };
-
-        var successResponse = function (data) {
-            angular.activeTheme = data.result === null ? "default" : data.result;
-            angular.appConfig["themes.list.active"] = angular.activeTheme;
-        };
-
-        /**
-         * Use jQuery ajax for sending existing cookie value
-         * angular.element.get can not send cookie
-         */
-        jQuery.ajax({
-            url: angular.appConfigValue("general.app.foundation_url") + "/config/get/themes.list.active",
-            type: "GET",
-            timeout: 10000,
-            xhrFields: {
-                withCredentials: true
-            },
-            error: errorResponse,
-            success: successResponse
-        });
-
         angular.element(document).ready(function () {
             angular.referrer = document.referrer;
 
@@ -106,16 +81,44 @@ require([
                 return false;
             };
 
-            if (angular.isExistFile("/scripts/init.js")) {
-                require(["../themes/" + angular.appConfigValue("themes.list.active") + "/scripts/init"], function () {
+            var runApp = function () {
+                if (angular.isExistFile("/scripts/init.js")) {
+                    require(["../themes/" + angular.appConfigValue("themes.list.active") + "/scripts/init"], function () {
+                        var modules = Object.keys(angular.module);
+                        angular.resumeBootstrap(modules);
+                    });
+                } else {
                     var modules = Object.keys(angular.module);
                     angular.resumeBootstrap(modules);
-                });
-            } else {
-                var modules = Object.keys(angular.module);
-                angular.resumeBootstrap(modules);
-            }
+                }
+            };
 
+            var errorResponse = function () {
+                angular.activeTheme = "default";
+                angular.appConfig["themes.list.active"] = "default";
+                runApp();
+            };
+
+            var successResponse = function (data) {
+                angular.activeTheme = data.result === null ? "default" : data.result;
+                angular.appConfig["themes.list.active"] = angular.activeTheme;
+                runApp();
+            };
+
+            /**
+             * Use jQuery ajax for sending existing cookie value
+             * angular.element.get can not send cookie
+             */
+            jQuery.ajax({
+                url: angular.appConfigValue("general.app.foundation_url") + "/config/get/themes.list.active",
+                type: "GET",
+                timeout: 10000,
+                xhrFields: {
+                    withCredentials: true
+                },
+                error: errorResponse,
+                success: successResponse
+            });
             /**
              * increase count of visits
              */
