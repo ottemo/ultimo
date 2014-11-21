@@ -9,22 +9,15 @@
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
     <a class="shop">Shop Now</a>
     <ol class="carousel-indicators">
-        <li class="" data-slide-to="0" data-target="#carousel-example-generic"></li>
+        <li class="active" data-slide-to="0" data-target="#carousel-example-generic"></li>
         <li class="" data-slide-to="1" data-target="#carousel-example-generic"></li>
-        <li class="active" data-slide-to="2" data-target="#carousel-example-generic"></li>
     </ol>
     <div class="carousel-inner">
-        <div class="item">
-            <img class="slide-image" alt="" ng-src="{{getImg('slide1.jpg')}}">
-        </div>
-        <div class="item">
-            <img class="slide-image" alt="" ng-src="{{getImg('slide2.jpg')}}">
-        </div>
         <div class="item active">
-            <img class="slide-image" alt="" ng-src="{{getImg('slide1.jpg')}}">
+            <img class="slide-image" alt="" ng-src="{{getImg('slides1.jpg')}}">
         </div>
         <div class="item">
-            <img class="slide-image" alt="" ng-src="{{getImg('slide2.jpg')}}">
+            <img class="slide-image" alt="" ng-src="{{getImg('slides2.jpg')}}">
         </div>
     </div>
     <a class="left carousel-control" data-slide="prev"  onclick="return false;" href="#carousel-example-generic">
@@ -289,7 +282,7 @@
      }, 1000);
      setTimeout(function() {
         $('#carousel-example-generic2').carousel({
-          interval: 4500
+          interval: 10000
         })
      }, 1000);
 </script>
