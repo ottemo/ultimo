@@ -6,7 +6,7 @@
             <select class="form-control" id="shipping_id" ng-change="updateDefaultAddress()"
                     ng-init="visitor.shipping_address_id = visitor.shipping_address_id   || addresses[0]"
                     data-ng-model="visitor.shipping_address_id"
-                    data-ng-options="choice.Id as choice.Name for choice in addresses">
+                    data-ng-options="choice.ID as choice.Name for choice in addresses">
             </select>
         </div>
 

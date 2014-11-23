@@ -123,7 +123,9 @@
                                     $commonPageService.setTitle();
                                     $commonPageService.setMetaDescription();
                                     $commonPageService.setMetaKeywords();
-                                    if (data.error === "" && data.result.length > 0) {
+                                    if (data.error === "" &&
+                                        data.result instanceof Array &&
+                                        data.result.length > 0) {
                                         var rewrite = data.result[0];
                                         if (rewrite.type !== "") {
                                             $location.$$path = "/" + rewrite.type + "/" + rewrite.rewrite;

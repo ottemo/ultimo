@@ -90,7 +90,11 @@
 
                         $pdpApiService.ratingInfo({"pid": productId}).$promise.then(
                             function (response) {
-                                ratingInfo = response.result[0] || getDefaultRatingInfo();
+                                if(response.result instanceof Array) {
+                                    ratingInfo = response.result[0];
+                                } else {
+                                    ratingInfo = getDefaultRatingInfo();
+                                }
                                 ratingInfo.count = ratingInfo['stars_1'] + ratingInfo['stars_2'] + ratingInfo['stars_3'] + ratingInfo['stars_4'] + ratingInfo['stars_5'];
                                 if (ratingInfo.count > 0) {
                                     ratingInfo.averageValue = ((1 * ratingInfo['stars_1']) +

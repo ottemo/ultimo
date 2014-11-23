@@ -232,7 +232,11 @@
                      */
                     $pdpApiService.ratingInfo({"pid": $scope.productId}).$promise.then(
                         function (response) {
-                            $scope.ratingInfo = response.result[0] || getDefaultRatingInfo();
+                            if (response.result instanceof Array) {
+                                $scope.ratingInfo = response.result[0];
+                            } else {
+                                $scope.ratingInfo = getDefaultRatingInfo();
+                            }
                             getAverageValue();
                             getStarsPercents();
                         }
