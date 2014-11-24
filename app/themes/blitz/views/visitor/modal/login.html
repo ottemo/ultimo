@@ -19,7 +19,7 @@
                     <div class="form-group col-md-12"
                          ng-class="{ 'has-error' : (loginForm.submitted && loginForm.email.$error.required) || (loginForm.email.$invalid && !loginForm.email.$pristine) }">
                         <label for="email">Email *</label>
-                        <input class="form-control" type="text" id="email" placeholder="Email"
+                        <input class="form-control input-lg" type="text" id="email" placeholder="Email"
                                ng-model="loginCredentials.email" name="email" required />
 
                         <p ng-show="(loginForm.submitted && loginForm.email.$error.required) || (loginForm.email.$invalid && !loginForm.email.$pristine)"
@@ -30,7 +30,7 @@
                     <div class="form-group col-md-12"
                          ng-class="{ 'has-error' : (loginForm.submitted && loginForm.password.$error.required) || (loginForm.password.$invalid && !loginForm.password.$pristine) }">
                         <label for="password">Password *</label>
-                        <input class="form-control" type="password" id="password" placeholder="Password"
+                        <input class="form-control input-lg" type="password" id="password" placeholder="Password"
                                ng-model="loginCredentials.password"
                                name="password" required autocomplete="off" />
 
@@ -40,22 +40,30 @@
 
                     <!-- submit button -->
                     <div class="row">
-                        <div class="btn btn-primary col-xs-6 col-xs-offset-3" ng-click="signIn()">Login</div>
+                        <button type="submit" class="btn btn-lg btn-primary col-xs-6 col-xs-offset-3" ng-click="signIn()">Login</button>
                     </div>
                     <div class="clearfix"></div>
                 </form>
                 <hr>
 
                 <!-- social buttons -->
-                <div class="button-group col-xs-12 text-center">
-                    <ng-include src="getTemplate('visitor/social/facebook.html')" class=""></ng-include>
+                <div class="col-xs-12 text-center">
+                    <ng-include src="getTemplate('visitor/social/facebook.html')"></ng-include>
                     <ng-include src="getTemplate('visitor/social/google.html')"></ng-include>
+                </div>
+                <div class="clearfix"></div>
+                <hr>
+                <div class="col-xs-12 text-center">
+                    <a href="#/forgot-password" class="col-xs-12 col-sm-6">Forgot your password?</a>
+                    <a href="#/resend-activation" class="text-primary col-xs-12 col-sm-6">Lost activation email?</a> 
+                    <div class="clearfix"></div>
+
                 </div>
                 <div class="clearfix"></div>
                 <hr>
 
                 <!-- Register modal link -->
-                <a href="" class="btn btn-default pull-right" target="_self" id="modal-registration">Register</a>
+                <a href="" class="btn btn-lg btn-default pull-right" target="_self" id="modal-registration">Register</a>
                 <div class="clearfix"></div>
             </div>
         </div>

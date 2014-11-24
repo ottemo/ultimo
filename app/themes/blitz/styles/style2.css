@@ -1,0 +1,20 @@
+#quick-view h3 {
+	font-weight: 300;
+	font-family: 'roboto_ltregular';
+	font-size: 35px;
+	line-height: 1;
+	color: #484848;
+	margin-top: 0;
+}
+#quick-view h4 {
+	font-weight: 300;
+	font-family: 'roboto_ltregular';
+	font-size: 25px;
+	line-height: 1;
+	color: #1f415a;
+	margin-top: 0;
+}
+#quick-view p {
+	font-size: 18px;
+	font-family: 'roboto_ltregular';
+}
