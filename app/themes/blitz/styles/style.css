@@ -49,6 +49,9 @@ a:hover {
 a:focus, a:active {
     outline: none ;
 }
+ul {
+    list-style-type: none;
+}
 .row-no-padding {
     padding-left: 0 !important;
     padding-right: 0 !important;
@@ -352,9 +355,51 @@ header .navbar-toggle {
     font-size: 32px;
     margin-right: 18px;
 }
-.cat-top .filters span:hover {
+.cat-top .filters span:hover,
+.cat-top .filters span.active {
     color: #1F4258;
     cursor: pointer;
+}
+.filter a {
+    color: #1f4258;
+    font: 18px "roboto_ltregular",sans-serif;
+    margin-right: 30px;
+}
+.filter a:hover {
+    text-decoration: underline !important;
+}
+.filter > div {
+    border-bottom: 1px solid #dbdbdb;
+    display: none;
+    height: 70px;
+    margin: -40px 40px 55px;
+}
+.filter-search form span {
+    background-color: #242424;
+    color: #fff;
+    float: left;
+    font-size: 1.9em;
+    height: 52px;
+    margin-left: -60px;
+    margin-top: -1px;
+    padding: 12px 0 0 16px;
+    width: 60px;
+}
+
+.filter-sort {
+    padding-top: 15px;
+}
+.filter-search .form-control {
+    border-radius: 0;
+    font-size: 1.1em;
+    height: 52px;
+    width: 100%;
+    float: left;
+    font: 16px "roboto_ltregular",sans-serif;
+    padding-left: 20px;
+}
+.filter > div.active {
+    display: block;
 }
 .sidebar-offcanvas {
     background-color: #1f4258;
@@ -374,7 +419,17 @@ header .navbar-toggle {
     float: left;
     margin: 0;
 }
-.sidebar-offcanvas > span {
+.sidebar-offcanvas ul.active {
+    display:block;
+}
+.sidebar-offcanvas h6 + span {
+    cursor: pointer;
+}
+.sidebar-offcanvas ul.active {
+    display:none;
+}
+.sidebar-offcanvas > span,
+ .sidebar-offcanvas h6 + span{
     color: #ffffff;
     font: 16px "roboto_ltregular",sans-serif;
     float: right;
@@ -387,19 +442,25 @@ header .navbar-toggle {
     height: 2px;
     margin: 0 0 12px;
 }
-.sidebar-offcanvas ul {
+div > .sidebar-offcanvas ul {
     padding-left: 22px;
     list-style-type: none;
     margin-bottom: 20px;
 }
-.sidebar-offcanvas li a {
+.sidebar-offcanvas li a,
+.sidebar-offcanvas li label {
     color: #ffffff;
     font: 16px/16px "roboto_ltregular",sans-serif;
+    padding: 0;
+}
+.sidebar-offcanvas li label input {
+    display: none;
 }
 .sidebar-offcanvas li a span {
     font-size: 12px;
 }
-.sidebar-offcanvas li a:hover {
+.sidebar-offcanvas li a:hover,
+.sidebar-offcanvas li label:hover {
     text-decoration: underline !important;
 }
 .cat .thumbnail {
@@ -447,6 +508,39 @@ header .navbar-toggle {
 
 /*////////////////////////////////////////////////// start responsive design  */
 
+@media (max-width: 410px) {
+    header .col-xs-2, header .col-xs-3,
+    header .col-xs-6, header .col-xs-offset-1 {
+        width: auto;
+        margin:0;
+        padding:0;
+    }
+    header .col-xs-6{
+        left: 50%;
+        margin-left: -85px;
+        margin-top: 10px;
+        position: absolute;
+    }
+    header .col-xs-6 img {
+        width: 148px;
+    }
+    .h-slider-switch .btn-custom {
+        border-radius: 0 !important;
+        -moz-border-radius: 0 !important;
+        -webkit-border-radius: 0 !important;
+        width: 100%;
+    }
+    .h-slider-switch {
+        height: 132px;
+        margin: 5% auto;
+        padding: 0 26px;
+        width: 100%;
+    }
+    .h-container .col-xs-6,
+    .cat .col-xs-6 {
+        width:100%;
+    }
+}
 @media (max-width: 767px) {
     .carousel-indicators {
         bottom: 2px;
@@ -513,39 +607,6 @@ header .navbar-toggle {
         height: 15px;
         width: 15px;
     }
-}
-@media (max-width: 410px) {
-    header .col-xs-2, header .col-xs-3,
-    header .col-xs-6, header .col-xs-offset-1 {
-        width: auto;
-        margin:0;
-        padding:0;
-    }
-    header .col-xs-6 {
-        left: 50%;
-        margin-left: -85px;
-        margin-top: 10px;
-        position: absolute;
-    }
-    header .col-xs-6 img {
-        width: 148px;
-    }
-    .h-slider-switch .btn-custom {
-        border-radius: 0 !important;
-        -moz-border-radius: 0 !important;
-        -webkit-border-radius: 0 !important;
-        width: 100%;
-    }
-    .h-slider-switch {
-        height: 132px;
-        margin: 5% auto;
-        padding: 0 26px;
-        width: 100%;
-    }
-    .h-container .col-xs-6 {
-        width:100%;
-    }
-
 }
 @media (min-width: 768px ) and (max-width: 991px) {
     .carousel-indicators {

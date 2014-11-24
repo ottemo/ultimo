@@ -9,26 +9,47 @@
             <!-- breadcrumbs -->
             <ng-include src="getTemplate('common/navigation/breadcrumbs.html')"></ng-include>
             <div class="filters">
-                <span>
-                    <i class="fa fa-search"></i>
+                <span id="search">
+                    <i class="fa fa-search" ></i>
                     search
                 </span>
-                <span>
+                <span id="sort">
                     <i class="fa fa-sort-amount-asc"></i>
                     sort
                 </span>
             </div>
         </div>
+        <!-- filters -->
+        <div class="filter">
+             <div class="search">
+                 <div class="filter-search">
+                     <form class="ng-pristine ng-valid">
+                         <input class="form-control ng-pristine ng-valid" type="text" ng-model="searchText" placeholder="Search...">
+                         <span class="glyphicon glyphicon-search" ng-click=""></span>
+                         <div class="clear"></div>
+                     </form>
+                     <div class="nav-close" ng-click="closeBlock('search')"></div>
+                 </div>
+             </div>
+            <div class="sort">
+                <div class="filter-sort">
+                    <a ng-click="sortByPrice('asc')" target="_self" href="">PRICE LOW TO HIGH</a>
+                    <a ng-click="sortByPrice('desc')" target="_self" href="">PRICE HIGH TO LOW</a>
+                    <a ng-click="sortByName('asc')" target="_self" href="">NAME ASC</a>
+                    <a ng-click="sortByName('desc')" target="_self" href="">NAME DESC</a>
+                    <div class="clear"></div>
+                    <div class="nav-close" ng-click="closeBlock('sort')"></div>
+                </div>
+            </div>
+        </div>
         <!-- products -->
         <div class="col-xs-12">
-            <div class="col-sm-4 col-lg-3 col-xs-12 product" ng-repeat="_item in productsList | filter:searchText" ng-show="productsList.length">
-
+            <div class="col-sm-4 col-lg-3 col-xs-6 product" ng-repeat="_item in productsList | filter:searchText" ng-show="productsList.length">
                 <!-- product desktop version with info -->
                 <a href="" class="thumbnail hidden-xs">
                     <!-- image -->
                     <img ng-src="{{getImage(_item)}}" ng-click="openPopUp(_item);" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
                     <span class="caption text-center">
-
                         <!-- product price -->
                         <h4 class="ng-binding">{{_item.price | number : 2 | currency}}</h4>
                         <!-- product name -->
@@ -36,12 +57,10 @@
                         <!-- buttons -->
                         <span class="col-md-12 center-block">
                             <span class="btn-group col-sm-12">
-
                                 <!-- quick view -->
                                 <span class="col-sm-6" ng-click="openPopUp(_item);">
                                     <i class="glyphicon glyphicon-eye-open"></i>
                                 </span>
-
                                 <!-- fast shoping -->
                                 <span class="col-sm-6" ng-click="addToCart(_item._id)">
                                     <i class="glyphicon glyphicon-shopping-cart"></i>
@@ -61,21 +80,19 @@
         <div class="clearfix"></div>
     </div>
 </div>
-
 <!-- quick view modal -->
 <ng-include src="getTemplate('category/modal/quick-view.html')"></ng-include>
 
-<style>
-    .product {
-        float: none;
-        display: inline-block;
-    }
-    .product img {
-        width: 100%;
-        height: auto;
-    }
-    .product h5 {
-        height: 30px;
-        margin-top: 0;
-    }
-</style>
+<script>
+    // toggle for filters
+    $('.filters > span').on('click',function() {
+        var className = $(this).attr('id');
+        $('.'+className).siblings().removeClass('active');
+        $('.'+className).toggleClass('active');
+
+   });
+   // toggle for left sidebar to see all items
+   $(document).on('click','#sidebar h6 + span',function(){
+      $(this).siblings('ul').toggleClass('active');
+   });
+</script>
