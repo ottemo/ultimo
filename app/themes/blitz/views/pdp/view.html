@@ -112,7 +112,7 @@
                    data-size="xxs">
         </form>
         <p>{{ratingInfo.averageValue | number}} out of 5</p>
-        <div class="clear"></div>
+        <div class="clearfix"></div>
         <div class="progressbar">
             <table>
                 <tr>
@@ -170,26 +170,28 @@
         <div>
             <a href ng-click="saveReview()">submit</a>
         </div>
+        <div class="clearfix"></div>
+        <div class="review-sort">
+            <ul class="navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href role="button" data-toggle="dropdown">
+                        <p>Sort by: <span>{{sorting}}</span></p>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li role="presentation">
+                            <a role="menuitem" href="" target="_self" ng-click="sortByRating('desc')">High to Low</a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" href="" target="_self" ng-click="sortByRating('asc')">Low to High</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
-    <div class="clear"></div>
-    <div class="review-sort">
-        <ul class="navbar-nav navbar-right">
-            <li class="dropdown">
-                <a href role="button" data-toggle="dropdown">
-                    <p>Sort by: <span>{{sorting}}</span></p>
-                    <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu" role="menu">
-                    <li role="presentation">
-                        <a role="menuitem" href="" target="_self" ng-click="sortByRating('desc')">High to Low</a>
-                    </li>
-                    <li role="presentation">
-                        <a role="menuitem" href="" target="_self" ng-click="sortByRating('asc')">Low to High</a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </div>
+    <div class="clearfix"></div>
+
     <div class="tab-review-sort">
         <ul>
             <li>
@@ -200,7 +202,7 @@
             </li>
         </ul>
     </div>
-    <div class="clear"></div>
+    <div class="clearfix"></div>
     <div class="reviews" ng-repeat="_item in reviewsList">
         <div class="left-block">
             <form>
@@ -218,7 +220,7 @@
                 {{_item.review}}
             </p>
         </div>
-        <div class="clear"></div>
+        <div class="clearfix"></div>
     </div>
 </section>
 
