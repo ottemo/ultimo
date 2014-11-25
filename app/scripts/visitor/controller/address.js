@@ -89,7 +89,7 @@
                             $visitorApiService.deleteAddress({'id': id}, function (response) {
                                 if (response.result === 'ok') {
                                     for (i = 0; i < $scope.addresses.length; i += 1) {
-                                        if ($scope.addresses[i].Id === id) {
+                                        if ($scope.addresses[i].ID === id) {
                                             $scope.addresses.splice(i, 1);
                                             $scope.clearForm();
                                         }
@@ -131,7 +131,7 @@
                         saveSuccess = function (response) {
                             if (response.error === '') {
                                 $scope.addresses.push({
-                                        'Id': response.result._id,
+                                        'ID': response.result._id,
                                         'Name': getFullName(response.result)
                                     }
                                 );
@@ -160,8 +160,8 @@
                             if (response.error === '') {
                                 addr = response.result;
                                 for (i = 0; i < $scope.addresses.length; i += 1) {
-                                    if ($scope.addresses[i].Id === addr._id) {
-                                        $scope.addresses[i].Id = addr._id;
+                                    if ($scope.addresses[i].ID === addr._id) {
+                                        $scope.addresses[i].ID = addr._id;
                                         $scope.addresses[i].Name = getFullName(addr);
                                     }
                                 }

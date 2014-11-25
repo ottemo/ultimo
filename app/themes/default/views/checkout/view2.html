@@ -15,7 +15,7 @@
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
                         <li role="presentation" ng-repeat="addr in addresses">
-                            <a role="menuitem" tabindex="-1" href ng-click="choiceShipping(addr.Id)">{{addr.Name}}</a>
+                            <a role="menuitem" tabindex="-1" href ng-click="choiceShipping(addr.ID)">{{addr.Name}}</a>
                         </li>
                         <li role="presentation" class="divider"></li>
                         <li role="presentation">
@@ -165,7 +165,7 @@
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
                         <li role="presentation" ng-repeat="addr in addresses">
-                            <a role="menuitem" tabindex="-1" ng-click="choiceBilling(addr.Id)">{{addr.Name}}</a>
+                            <a role="menuitem" tabindex="-1" ng-click="choiceBilling(addr.ID)">{{addr.Name}}</a>
                         </li>
                         <li role="presentation" class="divider"></li>
                         <li role="presentation">
@@ -573,4 +573,4 @@
         </div>
     </div> 
 </div>
-<ng-include src="getTemplate('modals/checkout-purchase-success.html')"></ng-include>
+<ng-include src="getTemplate('checkout/modal/checkout-purchase-success.html')"></ng-include>
