@@ -1,3 +1,8 @@
+/*header .btn-login.visible-xs[href="#/account"]:before, header .btn-login.visible-lg[href="#/account"]:before {
+	content: "\e008";
+	font-size: 25px;
+	font-family: "Glyphicons Halflings";
+}*/
 #quick-view h3 {
 	font-weight: 300;
 	font-family: 'roboto_ltregular';
@@ -20,8 +25,6 @@
 }
 #mini-cart {
 	height: 100%;
-	overflow-y:scroll;
-	overflow-x:hidden;
 	min-height: 100%;
 	width: 450px;
 	position: fixed;
@@ -37,6 +40,17 @@
 	display: block;
 	padding-top: 20px;
 	padding: 20px;
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+#mini-cart.active {
+	right: 0;
+	-webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+	-moz-transition: all 0.5s ease;/* Firefox 4-15 */
+	-o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+	transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
 }
 #mini-cart h3 {
 	color: #484848;
@@ -53,7 +67,7 @@
 	font-weight: bold;
 }
 #mini-cart .qty {
-	width: 130px;
+	width: 150px;
 	margin: 0 auto;
 	float: left;
 }
@@ -71,4 +85,32 @@
 #mini-cart .product {
 	position: relative;
 }
-
+#mini-cart h2 {
+	margin-top: 0;
+	font-size: 30px;
+}
+#mini-cart .hide-cart {
+	cursor: pointer;
+	font-size: 25px;
+	position: absolute;
+	left: 10px;
+	top: 25px;
+	color: #555;
+}
+hr {
+	background: #484848;
+	border-color: #ccc;
+}
+.checkout .panel-title {
+	font-size: 25px;
+}
+.checkout .panel-title i {
+	font-size: 20px;
+}
+#purchase-success i {
+	font-size: 55px;
+	display: inline-block;
+}
+header {
+	background: #fff;
+}

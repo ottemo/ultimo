@@ -1,6 +1,14 @@
 <div id="mini-cart">
     <!-- product row -->
     <div ng-init="init()">
+        <i class="glyphicon hide-cart glyphicon-arrow-right"></i>
+        <h2 class="text-center">Shoping cart</h2>
+        <hr>
+
+        <!-- if cart is empty -->
+        <h3 ng-hide="it.getCountItems()" class="text-center">Cart is empty</h3>
+        
+
         <div class="product" ng-repeat="item in it.getItems()" ng-show="it.getCountItems()">
 
             <!-- image -->
@@ -12,9 +20,9 @@
             
             <!-- delete -->
             <div class="delete">
-                <a href="" class="btn btn-xs btn-info" ng-click="remove(item.idx)">
+                <button class="btn btn-xs btn-danger" ng-click="remove(item.idx)">
                     <i class="glyphicon glyphicon-remove"></i>
-                </a>
+                </button>
             </div>
 
 
@@ -22,10 +30,7 @@
             <h3>{{item.product.name}}</h3>
 
             <!-- or message -->
-            <h3 ng-hide="it.getCountItems()">Cart is empty</h3>
-
-            <!-- price -->
-           <!--  <h4>{{item.product.price | number: 2 | currency}}</h4> -->
+            
 
             <!-- description -->
             <p ng-repeat="(key, value) in item.options" ng-if="item.hasOptions">
@@ -80,15 +85,7 @@
             </div>
             <br>
             <br>
+            
         </div>
     </div>
-
-
-    <style>
-        .product .vcenter {
-        display: inline-block;
-        vertical-align: middle;
-        float: none;
-    }
-    </style>
 </div>
