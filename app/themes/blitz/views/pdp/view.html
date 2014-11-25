@@ -1,13 +1,15 @@
 <div class="pdp">
 <!-- images -->
     <div class="text-center col-xs-12 col-md-4">
-        <span class="col-sm-5 product" ng-repeat="img in productImages">
-            <span class="thumbnail" >
-                <img ng-src="{{getImage(imagesPath, img)}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';"/>
-            </span>
-        </span>
+        <div class="pdp-slider">
+            <div class="big">
+                <img ng-src="{{getImage(imagesPath, productImages[0])}}" alt=""/>
+            </div>
+            <div class="small" ng-repeat="img in productImages">
+                <img ng-src="{{getImage(imagesPath, img)}}" alt=""/>
+            </div>
+        </div>
     </div>
-
     <!--info desktop -->
     <div class="col-xs-12 col-md-6">
         <div class="row">
@@ -60,10 +62,8 @@
         </div>
 
         <!-- options -->
-        <div class="row">
-            <div class="col-xs-12 col-md-8 row">
-                <gui-custom-options item="product" object="this"></gui-custom-options>
-            </div>
+        <div class="row pdp-option">
+            <gui-custom-options item="product" object="this"></gui-custom-options>
         </div>
         <div class="clearfix"></div>
 
@@ -75,63 +75,196 @@
         </div>
 
         <!-- add to cart button -->
-        <div class="row">
+        <div class="row pdp-btn-cart">
             <a href="" target="_self" class="btn btn-lg btn btn-danger" ng-click="addToCart()">
                 <span class="glyphicon glyphicon-shopping-cart"></span>
                 &nbsp;Add to cart
             </a>
         </div>
+        <div class="row pdp-desc">
+            <div class="col-sx-12 description active">
+                <h6>Description<span class="fa fa-chevron-down"></span></h6>
+                <div class="description-block">
+                    <p>Here is a descrioption block for blitz-store</p>
+                    <p>
+                        I love this product on the sole reason that it saves me quite a bit of money. If I can get my friends abroad and even my friends here in the UK to become FishText users then it's free to text! I find using the app. near the same as sending a normal message from the phone and the message sends instantly. Downloading the app. wasn't too hard, you just type your number into the website and they send u a link to the download, obviously your phone needs internet.
+                    </p>
+                </div>
+            </div>
+            <div class="col-sx-12 exchange active">
+                <h6>RETURNS AND EXCHANGES<span class="fa fa-chevron-down"></span></h6>
+                <div class="exchange-block">
+                    <p>Here is a descrioption block for blitz-store</p>
+                    <p>
+                        I love this product on the sole reason that it saves me quite a bit of money. If I can get my friends abroad and even my friends here in the UK to become FishText users then it's free to text! I find using the app. near the same as sending a normal message from the phone and the message sends instantly. Downloading the app. wasn't too hard, you just type your number into the website and they send u a link to the download, obviously your phone needs internet.
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="clearfix"></div>
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingOne">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Collapsible Group Item #1
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                <div class="panel-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                </div>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingTwo">
-                <h4 class="panel-title">
-                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Collapsible Group Item #2
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                <div class="panel-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                </div>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingThree">
-                <h4 class="panel-title">
-                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        Collapsible Group Item #3
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                <div class="panel-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                </div>
-            </div>
+</div>
+<section class="rating xs-12">
+    <div class="left-block">
+        <h5>customers reviews</h5>
+        <form>
+            <input id="input-21d" value="{{ratingInfo.averageValue | number:2}}" type="number" class="rating disabled" min=0 max=5 step=0.1
+                   data-size="xxs">
+        </form>
+        <p>{{ratingInfo.averageValue | number}} out of 5</p>
+        <div class="clear"></div>
+        <div class="progressbar">
+            <table>
+                <tr>
+                    <td>5 star</td>
+                    <td>
+                        <progress value="{{ratingInfo.fifeStarPersent}}" max="100">{{ratingInfo.fifeStarPersent}}</progress>
+                    </td>
+                    <td>{{ratingInfo.stars_5 | number}}</td>
+                </tr>
+                <tr>
+                    <td>4 star</td>
+                    <td>
+                        <progress value="{{ratingInfo.fourStarPersent}}" max="100">{{ratingInfo.fourStarPersent}}%</progress>
+                    </td>
+                    <td>{{ratingInfo.stars_4 | number}}</td>
+                </tr>
+                <tr>
+                    <td>3 star</td>
+                    <td>
+                        <progress value="{{ratingInfo.threeStarPersent}}" max="100">{{ratingInfo.threeStarPersent}}%</progress>
+                    </td>
+                    <td>{{ratingInfo.stars_3 | number}}</td>
+                </tr>
+                <tr>
+                    <td>2 star</td>
+                    <td>
+                        <progress value="{{ratingInfo.twoStarPersent}}" max="100">{{ratingInfo.twoStarPersent}}%</progress>
+                    </td>
+                    <td>{{ratingInfo.stars_2 | number}}</td>
+                </tr>
+                <tr>
+                    <td>1 star</td>
+                    <td>
+                        <progress value="{{ratingInfo.oneStarPersent}}" max="100">{{ratingInfo.oneStarPersent}}%</progress>
+                    </td>
+                    <td>{{ratingInfo.stars_1 | number}}</td>
+                </tr>
+            </table>
         </div>
     </div>
-</div>
-
+    <div class="right-block">
+        <h5>your rating</h5>
+        <form name="reviewForm">
+            <input id="input-21d" value="1" ng-model="review.stars" type="number" class="rating" min=0 max=5 step=1
+                   data-size="xxs">
+            <div class="col-md-12">
+                <gui-message-manager item="messageReview"></gui-message-manager>
+                <div ng-class="{ 'has-error' : (submittedReview && reviewForm.review.$error.required) || (reviewForm.review.$invalid && !reviewForm.review.$pristine) }">
+                    <input class="form-control" type="text" name="review" ng-model="review.comment" required>
+                    <p ng-show="(submittedReview && reviewForm.review.$error.required) || (reviewForm.review.$invalid && !reviewForm.review.$pristine)"
+                       class="help-block">This field is required.</p>
+                </div>
+            </div>
+        </form>
+        <div>
+            <a href ng-click="saveReview()">submit</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="review-sort">
+        <ul class="navbar-nav navbar-right">
+            <li class="dropdown">
+                <a href role="button" data-toggle="dropdown">
+                    <p>Sort by: <span>{{sorting}}</span></p>
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li role="presentation">
+                        <a role="menuitem" href="" target="_self" ng-click="sortByRating('desc')">High to Low</a>
+                    </li>
+                    <li role="presentation">
+                        <a role="menuitem" href="" target="_self" ng-click="sortByRating('asc')">Low to High</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-review-sort">
+        <ul>
+            <li>
+                <a href="" target="_self" ng-click="sortByRating('desc')">High to Low</a>
+            </li>
+            <li>
+                <a class="active" href="" target="_self" ng-click="sortByRating('asc')">Low to High</a>
+            </li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+    <div class="reviews" ng-repeat="_item in reviewsList">
+        <div class="left-block">
+            <form>
+                <input id="input-21d" value="{{_item.rating}}" type="number" class="rating disabled" min=0 max=5
+                       step=0.1 data-size="xxs">
+            </form>
+            <h6>{{_item.username}}</h6>
+        </div>
+        <div class="right-block">
+            <h5>
+                {{getReviewTitle(_item)}}
+            </h5>
+            <span>{{getDate(_item.created_at)}}</span>
+            <p>
+                {{_item.review}}
+            </p>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
 
 <script>
+    $(document).ready(function () {
+        setTimeout(function () {
+            //slider
+            $(document).on('click','.pdp-slider .small img',function(){
+                var curImg = $(this).attr('src');
+                $('.pdp-slider .big img').attr('src',curImg);
+                $(this).parent().siblings().removeClass('active');
+                $(this).parent().addClass('active');
+            })
+            // rating
+            $("input.rating").each(function () {
+                if ($(this).hasClass("disabled")) {
+                    $(this).rating({
+                        readonly: true,
+                        disabled: true,
+                        showCaption: false,
+                        showClear: false
+                    });
+                } else {
+                    $(this).rating({
+                        showCaption: false,
+                        showClear: false
+                    });
+                }
+            })
+        }, 500)
+    })
+
     $('body').removeClass('modal-open');
+
+    $('.pdp-desc h6').on('click',function(){
+        $(this).next().slideToggle();
+            $(this).toggleClass('active');
+        if($(this).hasClass('active')){
+            $(this).find('span').removeClass('fa-chevron-down');
+            $(this).find('span').addClass('fa-chevron-up');
+        }
+        else{
+            $(this).find('span').removeClass('fa-chevron-up');
+            $(this).find('span').addClass('fa-chevron-down');
+        }
+    });
 </script>
 <style>
     .product {
@@ -142,6 +275,4 @@
         width: 100%;
         height: auto;
     }
-    setTimeout(function() {
-    $('.carousel').carousel()
 </style>
