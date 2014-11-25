@@ -1,140 +1,134 @@
-<br> <br>
-
+<div class="pdp">
 <!-- images -->
-<div class="text-center col-xs-12 col-lg-6">  
-    <span class="col-sm-5 product" ng-repeat="img in productImages">
-        <span class="thumbnail" >
-            <img ng-src="{{getImage(imagesPath, img)}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';"/>
+    <div class="text-center col-xs-12 col-md-4">
+        <span class="col-sm-5 product" ng-repeat="img in productImages">
+            <span class="thumbnail" >
+                <img ng-src="{{getImage(imagesPath, img)}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';"/>
+            </span>
         </span>
-    </span>
-</div>
-
-
-<!--info desktop -->      
-<div class="col-xs-12 col-sm-5 visible-lg">
-    <div class="row">
-        <!-- product name -->
-        <h2 class="col-sm-9">&nbsp;<strong>{{product.name}}</strong></h2>
-
-        <!-- product price -->
-        <h2 class="col-sm-3 text-right">&nbsp;<strong>{{product.price | currency}}</strong></h2>
     </div>
-    
-    <hr>
 
+    <!--info desktop -->
+    <div class="col-xs-12 col-md-6">
+        <div class="row">
+            <!-- product name -->
+            <h2 class="col-sm-9">
+                {{product.name}}
+            </h2>
 
-    <h5 ng-bind-html="product.description"></h5>
+            <!-- product price -->
+            <span class="col-sm-3 price text-right">
+                {{product.price | currency}}
+            </span>
+        </div>
 
-    <br>
-
-    <!-- Quantity -->
-    <div class="row">
-        <div class="col-lg-3 col-md-4 form-group">
-            <label for="">Quantity</label>
-            <div class="input-group" style="width:150px;">
-                <span class="input-group-btn">
-                    <button class="btn btn-primary" type="button" ng-click="changeQty(qty,'up')">
-                        +
-                    </button>
-                </span>
-                <input type="text" class="form-control text-center" placeholder="Qtl" type="text" class="form-control" value="{{qty}}"
-                   ng-model="qty" ng-change="update(idx, qty)">
-                <span class="input-group-btn">
-                    <button class="btn btn-primary" type="button" ng-click="changeQty(qty,'down')"  ng-blur="update(item.idx, item.qty)">
-                        -
-                    </button>
-                </span>
+        <!-- Quantity -->
+        <div class="row">
+            <div class="col-sx-12 form-group">
+                <div class="col-sx-12 btn-soc">
+                    <a class="btn btn-social-icon btn-facebook" onclick="_gaq.push(['_trackEvent', 'btn-social-icon', 'click', 'btn-facebook']);">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+                    <a class="btn btn-social-icon btn-google-plus" onclick="_gaq.push(['_trackEvent', 'btn-social-icon', 'click', 'btn-google-plus']);">
+                        <i class="fa fa-google-plus"></i>
+                    </a>
+                    <a class="btn btn-social-icon btn-pinterest" onclick="_gaq.push(['_trackEvent', 'btn-social-icon', 'click', 'btn-linkedin']);">
+                        <i class="fa fa-pinterest"></i>
+                    </a>
+                    <a class="btn btn-social-icon btn-microsoft" onclick="_gaq.push(['_trackEvent', 'btn-social-icon', 'click', 'btn-microsoft']);">
+                        <i class="fa fa-windows"></i>
+                    </a>
+                    <a class="btn btn-social-icon btn-twitter" onclick="_gaq.push(['_trackEvent', 'btn-social-icon', 'click', 'btn-twitter']);">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+                </div>
+                <div class="input-group pdp-qty">
+                    <span class="input-group-btn">
+                        <button class="btn btn-lg btn-default" type="button" ng-click="changeQty(qty,'up')">
+                            +
+                        </button>
+                    </span>
+                    <input type="text" class="form-control text-center input-lg" placeholder="Qtl" type="text" class="form-control" value="{{qty}}"
+                       ng-model="qty" ng-change="update(idx, qty)">
+                    <span class="input-group-btn">
+                        <button class="btn btn-lg btn-default" type="button" ng-click="changeQty(qty,'down')"  ng-blur="update(item.idx, item.qty)">
+                            -
+                        </button>
+                    </span>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- options -->
-    <div class="row">
-        <div class="col-xs-12 col-md-8 row">
-            <gui-custom-options item="product" object="this"></gui-custom-options>
+        <!-- options -->
+        <div class="row">
+            <div class="col-xs-12 col-md-8 row">
+                <gui-custom-options item="product" object="this"></gui-custom-options>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+
+        <!-- error message -->
+        <div class="row">
+            <div class="col-xs-12 col-md-8">
+                <gui-message-manager item="messageOptions"></gui-message-manager>
+            </div>
+        </div>
+
+        <!-- add to cart button -->
+        <div class="row">
+            <a href="" target="_self" class="btn btn-lg btn btn-danger" ng-click="addToCart()">
+                <span class="glyphicon glyphicon-shopping-cart"></span>
+                &nbsp;Add to cart
+            </a>
         </div>
     </div>
     <div class="clearfix"></div>
-    <hr>
-
-    <!-- error message -->
-    <div class="row">
-        <div class="col-xs-12 col-md-8">
-            <gui-message-manager item="messageOptions"></gui-message-manager>
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Collapsible Group Item #1
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                </div>
+            </div>
         </div>
-    </div>
-    
-    <!-- add to cart button -->
-    <a href="" target="_self" class="btn btn-lg btn-success" ng-click="addToCart()">
-        <span class="glyphicon glyphicon-plus"></span>
-        &nbsp;Add to cart
-    </a>
-</div>
-
-<!-- info mobile -->
-<div class="col-xs-10 col-xs-offset-1 text-center hidden-lg">
-    <div class="row">
-        <!-- product name -->
-        <h2>&nbsp;<strong>{{product.name}}</strong></h2>
-
-        <!-- product price -->
-        <h2>&nbsp;<strong>{{product.price | currency}}</strong></h2>
-    </div>
-
-    <hr>
-
-    <h4>
-        {{product.description}}
-    </h4>
-
-    <hr>
-
-
-    <!-- Quantity -->
-    <div class="row text-center">
-        <div class="form-group">
-            <label for="">Quantity</label>
-            <div class="input-group" style="width:200px; margin:0 auto;">
-                <span class="input-group-btn">
-                    <button class="btn btn-primary btn-lg" type="button" ng-click="changeQty(qty,'up')">
-                        +
-                    </button>
-                </span>
-                <input type="text" class="form-control text-center input-lg" placeholder="Qtl" type="text" class="form-control" value="{{qty}}"
-                   ng-model="qty" ng-change="update(idx, qty)">
-                <span class="input-group-btn">
-                    <button class="btn btn-primary btn-lg" type="button" ng-click="changeQty(qty,'down')"  ng-blur="update(item.idx, item.qty)">
-                        -
-                    </button>
-                </span>
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingTwo">
+                <h4 class="panel-title">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Collapsible Group Item #2
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingThree">
+                <h4 class="panel-title">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Collapsible Group Item #3
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                <div class="panel-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                </div>
             </div>
         </div>
     </div>
-
-    <!-- options -->
-    <div class="row text-center">
-        <div class="input-lg">
-            <gui-custom-options item="product" object="this"></gui-custom-options>
-        </div>
-    </div>
-
-    <hr>
-
-    <!-- error message -->
-    <div class="row">
-        <div class="col-xs-12 col-md-8">
-            <gui-message-manager item="messageOptions"></gui-message-manager>
-        </div>
-    </div>
-    
-    <!-- add to cart button -->
-    <a href="" target="_self" class="btn btn-lg btn-success" ng-click="addToCart()">
-        <span class="glyphicon glyphicon-plus"></span>
-        &nbsp;Add to cart
-    </a>
 </div>
 
-<div class="clearfix"></div>
 
 <script>
     $('body').removeClass('modal-open');
@@ -148,4 +142,6 @@
         width: 100%;
         height: auto;
     }
+    setTimeout(function() {
+    $('.carousel').carousel()
 </style>
