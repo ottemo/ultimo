@@ -20,11 +20,11 @@
                 </div>
             </a>
         </div>
-        <div class="pull-right" ng-controller="commonHeaderController">
+        <div class="" ng-controller="commonHeaderController">
             <!-- login/account/logout buttons -->
-            <a href="{{item.link}}"  ng-repeat="item in rightMenu.getMenuRight()" class="btn-login" >
-                <span><i class="fa fa-user"></i></span>
-                <span>{{item.label}}</span>
+            <a href="{{item.link}}"  ng-repeat="item in rightMenu.getMenuRight()" class="btn-login pull-right">
+                <span class="visible-xs visible-sm"></span>
+                <span class="visible-md visible-lg">{{item.label}}</span>
             </a>
         </div>
     </div>

@@ -549,3 +549,36 @@ a.list-group-item:last-child {
   border: none;
   box-shadow: none;
 }
+.carousel-control {
+  -webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+  -moz-transition: all 0.5s ease;/* Firefox 4-15 */
+  -o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+  transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+.carousel-control:hover {
+  -webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+  -moz-transition: all 0.5s ease;/* Firefox 4-15 */
+  -o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+  transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+.tab-content {
+  position: relative;
+  height: 450px;
+  display: block;
+}
+.tab-content > .tab-pane {
+  opacity: 0;
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+}
+.tab-content > .active {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+  -moz-transition: all 0.5s ease;/* Firefox 4-15 */
+  -o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+  transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}

@@ -85,14 +85,31 @@ header.navbar {
 .btn-login {
     display: block;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    padding: 12px 0 0;
+    padding: 0;
+    margin-top: 0;
+    margin-right: 9px;
     text-transform: uppercase;
+}
+header .btn-login[href="#/account"] span:first-child:before {
+    content: "\e008";
+    font-size: 25px;
+    font-family: "Glyphicons Halflings";
+}
+header .btn-login[href="#/logout"] span:first-child:before {
+    content: "\e163";
+    font-size: 25px;
+    font-family: "Glyphicons Halflings";
+}
+.btn-login span:nth-child(2) {
+    margin-top: 18px;
+}
+.btn-login span:nth-child(1) {
+    margin-top: 11px;
 }
 .btn-login:hover {
     color: #1F4258;
 }
 .btn-login span:first-child{
-    display: none;
     font-size: 28px;
 }
 .btn-login span:last-child {
@@ -119,9 +136,24 @@ header.navbar {
     text-align: center;
     width: 304px;
     z-index: 15;
+    line-height: 1.4;
+    height: 65px;
     border-radius: 35px;
     -moz-border-radius: 35px;
     -webkit-border-radius: 35px;
+    -webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+    -moz-transition: all 0.5s ease;/* Firefox 4-15 */
+    -o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+    transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+.shop:hover {
+    background: #1f4258;
+    border-color: #fff;
+    color: #fff;
+    -webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+    -moz-transition: all 0.5s ease;/* Firefox 4-15 */
+    -o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+    transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
 }
 .carousel-indicators li {
     height: 20px;
@@ -162,6 +194,10 @@ header.navbar {
 	border-radius: 0;
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
+    -webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+  -moz-transition: all 0.5s ease;/* Firefox 4-15 */
+  -o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+  transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
 }
 .btn-custom:active,.btn-custom:visited,
 .btn-custom:hover,.btn-custom:focus {
@@ -175,6 +211,17 @@ header.navbar {
     -moz-border-bottom-left-radius: 35px;
     -webkit-border-bottom-left-radius: 35px;
 
+}
+.h-slider-switch li:last-child a {
+    border-left: none;
+}
+.h-slider-switch li:first-child a {
+    border-right: none;
+}
+.h-slider-switch .btn-custom:hover {
+    background: #1F4258;
+    color: #fff;
+    border-color: #1F4258;
 }
 .h-slider-switch li:last-child .btn-custom{
 	border-top-right-radius: 35px;
@@ -233,6 +280,19 @@ footer {
     border-radius: 50px;
     -moz-border-radius: 50px;
     -webkit-border-radius: 50px;
+    height: 80px;
+    line-height: 1;
+    -webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+  -moz-transition: all 0.5s ease;/* Firefox 4-15 */
+  -o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+  transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+.h-bottom a:hover {
+    background: #1f4258;
+    -webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+  -moz-transition: all 0.5s ease;/* Firefox 4-15 */
+  -o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+  transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
 }
 .h-bottom p {
     font: 28px/35px "roboto_ltregular",sans-serif;
@@ -242,6 +302,16 @@ footer li a {
     font: 18px "roboto_ltregular",sans-serif;
     color: #ffffff;
     text-transform: uppercase;
+    -webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+  -moz-transition: all 0.5s ease;/* Firefox 4-15 */
+  -o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+  transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+footer li a:hover {
+    -webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+  -moz-transition: all 0.5s ease;/* Firefox 4-15 */
+  -o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+  transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
 }
 footer .fa {
     color: #ffffff;
@@ -265,9 +335,17 @@ footer .fa-hover a{
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    -webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+  -moz-transition: all 0.5s ease;/* Firefox 4-15 */
+  -o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+  transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
 }
 footer .fa-hover a:hover {
     background-color:#eee;
+    -webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+  -moz-transition: all 0.5s ease;/* Firefox 4-15 */
+  -o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+  transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
 }
 footer .fa-hover a:hover i {
     color: #1F4258;
@@ -656,10 +734,6 @@ div > .sidebar-offcanvas ul {
 .rating > .right-block form {
     margin: 8px 0 21px;
 }
-.form-control {
-    border-radius: 0;
-    height: 58px;
-}
 .progressbar table tr td:first-child {
     color: #0066c0;
     font: 14px 'MavenProRegular', sans-serif;
@@ -974,15 +1048,7 @@ progress::-moz-progress-bar {
         margin-left: 0;
         position: relative;
     }
-    .btn-login span:first-child{
-        display: block;
-    }
-    .btn-login span:last-child{
-        display: none;
-    }
-    .btn-login {
-        padding: 8px 0 0;
-    }
+    
     .h-slider-switch {
         height: 56px;
         margin: 5% auto;
@@ -1007,7 +1073,7 @@ progress::-moz-progress-bar {
         font-size: 22px;
     }
     header .cart {
-        margin: 10px 0 0 10px;
+        margin: 10px 0 0 0;
     }
     header .navbar-toggle {
         margin-bottom: 0;
