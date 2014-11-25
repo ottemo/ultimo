@@ -4,15 +4,21 @@
 
     	//padding for fixed navigation
     	setTimeout(function() { 
-			var navCheckForFix = $('nav.navbar').hasClass('navbar-fixed-top');
+			var navCheckForFix = $('header').hasClass('navbar-fixed-top');
 	    	if (navCheckForFix = true) {
-	    		navHeight = parseInt($('nav.navbar').outerHeight(false));
+	    		navHeight = parseInt($('header').outerHeight(false));
 	    		$('#wrapper-inner').css('paddingTop', navHeight );
 	    	};
 	    	footerHeight = parseInt($('#footer').outerHeight(true));
 	    	$('#wrapper-inner').css('paddingBottom', footerHeight + 40 );
 	    	$('#footer').css('marginTop', - footerHeight );
-    	 }, 500)
+	    	$("#mini-cart").niceScroll({
+	    		cursorcolor:"#484848",
+	    		cursoropacitymin: "0.4"
+	    	});
+	    	$("html").niceScroll();
+	    	
+    	 }, 700)
         
     	//button click and hide popup
 		$(document).on('click', '.modal-footer a', function(event) {
@@ -35,6 +41,11 @@
 	     $(document).on('click','.btn-cat',function () {
 	       	$('.row-offcanvas').toggleClass('active');
 	     });
+
+	     $(document).on('click', '#mini-cart .hide-cart', function(event) {
+	     	$('#mini-cart').removeClass('active')
+	     });
+
 
     });
 })(jQuery);
