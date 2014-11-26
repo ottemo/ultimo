@@ -142,3 +142,50 @@ header {
 .mini-cart.checkout .total {
 	color: #696969;
 }
+footer .nav-pills > li {
+	float: none;
+	display: inline-block;
+	margin: 3px 5px;
+}
+footer div:last-child {
+	position: static;
+}
+footer > div:last-child {
+  	margin-top: 10px;
+  	
+}
+footer > div:last-child p {
+	margin-bottom: 0;
+}
+@media (max-width: 768px) {
+  #mini-cart {
+    width: 300px;
+  }
+ .table > tbody > tr > td {
+ 	height: 50px !important;
+ 	font-size: 15px;
+ }
+}
+@media (max-width: 992px) {
+  header .btn-login[href="#/account"] {
+  	display: none;
+  	visibility: hidden;
+  	margin: 0;
+  }
+  footer .menu {
+  	text-align: center;
+  }
+  footer .social {
+  	text-align: center;
+  	margin-top: 10px;
+  }
+  footer .social .fa-hover {
+  	float: none;
+  	display: inline-block;
+  	margin: 0 5px;
+  }
+
+  footer > div:nth-child(2) {
+  	padding: 0;
+  }
+}

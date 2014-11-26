@@ -257,7 +257,8 @@ header .btn-login[href="#/logout"] span:first-child:before {
 }
 .h-bottom {
     background: url(../images/h-bottom.jpg) center top no-repeat;
-    height: 480px;
+    background-size: 100% 100%;
+    height: auto;
     padding-top: 57px;
 }
 footer {
@@ -1051,13 +1052,14 @@ progress::-moz-progress-bar {
     
     .h-slider-switch {
         height: 56px;
-        margin: 5% auto;
-        width: 378px;
+        margin: 20px 0 10px;
+        padding: 0;
+        width: 300px;
     }
     .h-slider-switch .btn-custom {
         font-size: 15px;
         padding: 10px 0;
-        width: 126px;
+        width: 100px;
     }
      footer {
         padding-top: 15px;
@@ -1121,9 +1123,7 @@ progress::-moz-progress-bar {
     .h-container {
         padding: 0 25px;
     }
-    .shop {
-        display: none;
-    }
+    
     .h-bottom h4, .h-bottom a {
         font-size: 24px;
         line-height: 32px;
@@ -1133,11 +1133,13 @@ progress::-moz-progress-bar {
         line-height: 20px;
     }
     .h-bottom a {
-        padding: 6px 15px;
-        width: 200px;
+        height: 57px;
+        width: 220px;
+        display: inline-block;
+        line-height: 1;
     }
     .h-bottom {
-        height: 360px;
+        height: auto;
         padding: 30px 5px 0;
     }
 }

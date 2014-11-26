@@ -10,7 +10,7 @@
 	    		$('#wrapper-inner').css('paddingTop', navHeight );
 	    	};
 	    	footerHeight = parseInt($('footer').outerHeight(true));
-	    	$('#wrapper-inner').css('paddingBottom', footerHeight + 40 );
+	    	$('#wrapper-inner').css('paddingBottom', footerHeight + 0 );
 	    	$('footer').css('marginTop', - footerHeight );
 	    	$("#mini-cart").niceScroll({
 	    		cursorcolor:"#484848",
