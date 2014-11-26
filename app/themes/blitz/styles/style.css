@@ -432,6 +432,9 @@ header .navbar-toggle {
     text-transform: uppercase;
     margin-left: 62px;
 }
+.cat-top .filters span span{
+    margin-left: 0;
+}
 .cat-top .filters span i {
     display: block;
     float: left;
@@ -1142,6 +1145,29 @@ progress::-moz-progress-bar {
     .pdp h2,.pdp .price {
         font: 21px 'robotobold',sans-serif;
     }
+    .cat-top .filters span span {
+        display: none;
+    }
+    .cat-top .filters span {
+        margin-left: 0;
+    }
+    .breadcrumb a {
+        font-size: 16px;
+    }
+    .cat-top .filters span i {
+        font-size: 24px;
+        margin: 0 0 0 18px;
+    }
+    .cat-top .filters {
+        margin: 30px 0 0;
+    }
+    .breadcrumb {
+        margin: 18px 0 0;
+        padding: 8px 0;
+    }
+    .cat-top {
+        height: 78px;
+    }
 }
 @media (min-width: 768px ) and (max-width: 991px) {
     .carousel-indicators {
@@ -1158,6 +1184,9 @@ progress::-moz-progress-bar {
     }
     .pdp .price {
         font: 24px 'robotobold',sans-serif;
+    }
+    .cat-top .filters span {
+        margin-left: 20px;
     }
 }
 @media (max-width: 991px) {
