@@ -1,6 +1,3 @@
-
-
-
 #quick-view h3 {
 	font-weight: 300;
 	font-family: 'roboto_ltregular';
@@ -111,4 +108,84 @@ hr {
 }
 header {
 	background: #fff;
+}
+.mini-cart.checkout .product {
+	margin-bottom: 20px;
+}
+.mini-cart.checkout .product h4 {
+	margin-top: 5px;
+	color: #484848;
+	margin-bottom: 20px;
+}
+.mini-cart.checkout .product p {
+	color: #8c8c8c;
+	margin-top: 0;
+	margin-bottom: 2px;
+	font-size: 16px;
+	text-transform: capitalize;
+}
+.mini-cart.checkout .product .price {
+	font-size: 20px;
+	color: #1e4356;
+	font-weight: bold;
+}
+.mini-cart.checkout .product .thumbnail {
+	margin-bottom: 0;
+}
+.mini-cart.checkout hr {
+	border-color: #484848;
+}
+.mini-cart.checkout h4 strong {
+	color: #1e4356;
+	font-size: 20px;
+}
+.mini-cart.checkout .total {
+	color: #696969;
+}
+footer .nav-pills > li {
+	float: none;
+	display: inline-block;
+	margin: 3px 5px;
+}
+footer div:last-child {
+	position: static;
+}
+footer > div:last-child {
+  	margin-top: 10px;
+  	
+}
+footer > div:last-child p {
+	margin-bottom: 0;
+}
+@media (max-width: 768px) {
+  #mini-cart {
+    width: 300px;
+  }
+ .table > tbody > tr > td {
+ 	height: 50px !important;
+ 	font-size: 15px;
+ }
+}
+@media (max-width: 992px) {
+  header .btn-login[href="#/account"] {
+  	display: none;
+  	visibility: hidden;
+  	margin: 0;
+  }
+  footer .menu {
+  	text-align: center;
+  }
+  footer .social {
+  	text-align: center;
+  	margin-top: 10px;
+  }
+  footer .social .fa-hover {
+  	float: none;
+  	display: inline-block;
+  	margin: 0 5px;
+  }
+
+  footer > div:nth-child(2) {
+  	padding: 0;
+  }
 }

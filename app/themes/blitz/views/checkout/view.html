@@ -1,8 +1,7 @@
 <!-- checkout page -->
-<div ng-init="init()" class="container checkout">
-
-    <h2 class="text-center">Checkout</h2>
-    <br>
+<h2 class="text-center">Checkout</h2>
+<br>
+<div ng-init="init()" class="col-md-8 col-md-offset-1 checkout">
     
     <!-- Billing Block -->
     <div class="panel panel-default">
@@ -441,15 +440,15 @@
 
     <!-- preview -->
     <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">
+        <div class="panel-heading hidden-md hidden-lg">
+            <h3 class="panel-title ">
                 Order preview
             </h3>
         </div>
         <div class="panel-body">
             <div id="review" class="accordion" >
 
-                <div class="col-sm-6">
+                <div class="row hidden-md hidden-lg">
                     <table class="table table-bordered" ng-show="cart.getCountItems()" ng-class="{'last':$last}">
                         <tr>
                             <th>Product Name</th>
@@ -462,8 +461,6 @@
                             <td>{{item.product.price | number: 2 | currency}}</td>
                         </tr>
                     </table>
-                </div>
-                <div class="col-sm-6">
                     <table class="table table-bordered" ng-show="cart.getCountItems()" ng-class="{'last':$last}">
                         <tr>
                             <td>SUBTOTAL</td>
@@ -492,7 +489,7 @@
                 <div class="text-center">
 
                     <!-- next step -->
-                    <button class="next btn-lg btn btn-success" ng-click="save()">
+                    <button class="next btn-lg btn btn-danger" ng-click="save()">
                         <span class="glyphicon glyphicon-ok"></span>
                         Confirm purchase
                     </button>
@@ -500,5 +497,82 @@
             </div>
         </div>
     </div> 
+</div>
+
+<div class="col-xs-3 hidden-xs hidden-sm">
+    <div class="mini-cart checkout">
+        <!-- product row -->
+        <div ng-init="init()">
+            <div ng-controller="cartListController">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Order summary</h3>
+                    </div>
+                </div>
+                
+
+                <!-- if cart is empty -->
+                <h3 ng-hide="it.getCountItems()" class="text-center">Cart is empty</h3>
+                
+
+                <div class="product " ng-repeat="item in it.getItems()" ng-show="it.getCountItems()">
+
+                    <!-- image -->
+                    <div class="thumbnail col-md-4">
+                        <a href="{{productService.getUrl(item.pid)}}"><img onError="this.src='themes/default/images/placeholder.png';" ng-src="{{getImage(item.product)}}" alt="{{item.product.name}}"/></a>
+                    </div>
+
+                    <div class="col-md-8">
+                        <!-- name -->
+                        <h4>{{item.product.name}}</h4>
+                        
+
+                        <!-- description -->
+                        <p class="options" ng-repeat="(key, value) in item.options" ng-if="item.hasOptions">
+                            {{key}}: {{productService.getOptStr(value)}}
+                        </p>
+                  
+                        <div class="row">
+                            <!-- qty -->
+                            <p class="col-xs-6">QTY:{{item.qty}}</p>
+                            
+                            <!-- price -->
+                            <p class="price col-xs-6">{{item.product.price * item.qty | currency}}</p>
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                </div>
+
+                <div class="clearfix"></div>
+                <hr>
+            </div>
+
+            <div class="total" ng-show="cart.getCountItems()" ng-class="{'last':$last}">
+                <h4>
+                    <div class="text-left col-xs-6">Subtotal:</div>
+                    <strong class="text-right col-xs-6">{{checkout.subtotal | currency}}</strong>
+                </h4>
+                <h4>
+                    <div class="text-left col-xs-6">Tax:</div>
+                    <strong class="text-right col-xs-6">{{checkout.tax_amount | currency}}</strong>
+                </h4>
+                <h4>
+                    <div class="text-left col-xs-6">Shipping:</div>
+                    <strong class="text-right col-xs-6">{{checkout.shipping_amount | currency}}</strong>
+                </h4>
+
+                <h4 class="text-right">
+                    <div class="col-xs-6 text-left">Total:</div>
+                    <strong class="text-right col-xs-6">{{checkout.grandtotal | currency}}</strong>
+                </h4>
+                
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
 </div>
 <ng-include src="getTemplate('checkout/modal/checkout-purchase-success.html')"></ng-include>

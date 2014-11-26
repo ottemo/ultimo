@@ -1,21 +1,21 @@
 <!-- Orders details page -->
 <div ng-init="init()" class="text-center">
-    <br>
+    <br class="hidden-sm hidden-xs">
     <h2>Order <strong>№{{order.increment_id}}</h2></strong>
-    <br>
+    <br class="hidden-sm hidden-xs">
     <h3>
         Date: <strong>{{getDateCreated(order.created_at)}}</strong>
     </h3>
-    <br>
+    <br class="hidden-sm hidden-xs">
     
     <!-- bill to table -->
-    <div class="col-sm-5 col-sm-offset-1">
+    <div class="col-sm-5 col-sm-offset-1 col-xs-12 col-xs-offset-0">
         <h3>
             Bill to:
         </h3>
 
         <!-- bill to info -->
-        <table class="table table-bordered">
+        <table class="table table-bordered ">
             <tr>
                 <td>Company:</td>
                 <td>{{order.billing_address.company}}</td>
@@ -46,7 +46,7 @@
         </h3>
 
         <!-- ship to info -->
-        <table class="table  table-bordered">
+        <table class="table table-bordered">
             <tr>
                 <td>Company:</td>
                 <td>{{order.shipping_address.company}}</td>
