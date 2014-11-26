@@ -257,7 +257,8 @@ header .btn-login[href="#/logout"] span:first-child:before {
 }
 .h-bottom {
     background: url(../images/h-bottom.jpg) center top no-repeat;
-    height: 480px;
+    background-size: 100% 100%;
+    height: auto;
     padding-top: 57px;
 }
 footer {
@@ -591,10 +592,13 @@ div > .sidebar-offcanvas ul {
     color: #484848;
     padding: 0;
 }
+.pdp-title {
+    margin-top: 23px;
+}
 .pdp .price {
     color: #1f4258;
     font: 36px 'robotoregular',sans-serif;
-    margin-top: 19px
+    margin-top: 29px
 }
 .pdp .btn-soc {
     margin-top: 7px;
@@ -614,6 +618,7 @@ div > .sidebar-offcanvas ul {
     font: 24px 'robotoregular',sans-serif;
 	border-bottom: 1px solid #484848;
 	padding: 10px 0;
+	text-transform: uppercase;
 }
 .pdp-desc h6:hover {
 	cursor:pointer;
@@ -647,7 +652,7 @@ div > .sidebar-offcanvas ul {
     margin-top: 10px;
 }
 .pdp-slider {
-    margin: 30px 0 0;
+    margin: 35px 0 0;
     padding: 20px;
 }
 .pdp-slider .big {
@@ -671,6 +676,9 @@ div > .sidebar-offcanvas ul {
 }
 .pdp-slider .small img:hover {
     cursor: pointer;
+}
+.pdp .carousel-inner img {
+    margin: 0 auto;
 }
 .rating {
     border-top: 1px solid #E2E2E2;
@@ -697,25 +705,35 @@ div > .sidebar-offcanvas ul {
     float: left;
     margin: 12px 0 0
 }
-.rating > .left-block {
-    left: 55px;
+.rating div > .left-block {
+    left: 50px;
     position: absolute;
     width: 210px;
 }
-.rating > .right-block {
-    float: left;
-    margin-right: 55px;
-    padding: 0 55px 0 300px;
+.rating > div > .left-block {
+    left: 35px;
+}
+.rating div > .right-block {
+    left: 117px;
+    padding: 0 55px 0 170px;
+    position: relative;
     width: 100%;
 }
-.rating .review-sort {
+.rating > div > .right-block {
+    left: 102px;
+}
+.rating > div > .left-block h5 + form {
+    float: left;
+    margin-right: 10px;
+}
+/*.rating .review-sort {
     background-color: #1f4258;
     float: right;
     height: 50px;
     margin: 6px 0 20px;
     width: 300px;
-}
-.rating > .right-block > div > a {
+}*/
+.rating div > .right-block > div > a {
     background-color: #FAAF40;
     color: #ffffff;
     display: block;
@@ -728,11 +746,17 @@ div > .sidebar-offcanvas ul {
     width: 107px;
     float: right;
 }
-.rating > .right-block .col-md-12 {
+.rating div > .right-block .col-md-12 {
     padding: 0;
 }
-.rating > .right-block form {
+.rating div > .right-block form {
     margin: 8px 0 21px;
+}
+.rating form[name="reviewForm"] + div {
+    margin: 10px 0 15px;
+}
+.rating form[name="reviewForm"] + div + div+ div{
+    margin-bottom: 20px;
 }
 .progressbar table tr td:first-child {
     color: #0066c0;
@@ -814,7 +838,7 @@ progress::-moz-progress-bar {
     -moz-box-shadow: 0 37px 27px -35px #e4e4e4 inset;
     box-shadow: 0 37px 27px -35px #e4e4e4 inset;
     border-top: 1px solid #E2E2E2;
-    padding: 26px 55px;
+    padding: 26px 0;
     margin-bottom: 1px;
     width: 100%;
     position: relative;
@@ -875,9 +899,15 @@ progress::-moz-progress-bar {
 .rating .right-block form .col-md-12 .form-control {
     background-color: #efefef;
     background-image: none;
-    border: 1px solid #9c9c9d;
+    border: 1px solid #ccc;
+    height: 64px;
+    border-radius: 0;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
 }
-
 .rating-loading {
     background: url("../img/loading.gif") no-repeat scroll left top rgba(0, 0, 0, 0);
     border: medium none;
@@ -1001,6 +1031,7 @@ progress::-moz-progress-bar {
     padding-right: 5px;
 }
 
+
 /*///////////////////////////////////////////////////////////// end PDP page  */
 
 /*////////////////////////////////////////////////// start responsive design  */
@@ -1051,13 +1082,14 @@ progress::-moz-progress-bar {
     
     .h-slider-switch {
         height: 56px;
-        margin: 5% auto;
-        width: 378px;
+        margin: 20px 0 10px;
+        padding: 0;
+        width: 300px;
     }
     .h-slider-switch .btn-custom {
         font-size: 15px;
         padding: 10px 0;
-        width: 126px;
+        width: 100px;
     }
      footer {
         padding-top: 15px;
@@ -1096,6 +1128,9 @@ progress::-moz-progress-bar {
         height: 15px;
         width: 15px;
     }
+    .pdp h2,.pdp .price {
+        font: 21px 'robotobold',sans-serif;
+    }
 }
 @media (min-width: 768px ) and (max-width: 991px) {
     .carousel-indicators {
@@ -1106,6 +1141,12 @@ progress::-moz-progress-bar {
     .h-carousel > div:nth-child(5),
     .h-carousel > div:nth-child(4){
         display: none;
+    }
+    .pdp h2 {
+        font: 24px 'robotobold',sans-serif;
+    }
+    .pdp .price {
+        font: 24px 'robotobold',sans-serif;
     }
 }
 @media (max-width: 991px) {
@@ -1121,9 +1162,7 @@ progress::-moz-progress-bar {
     .h-container {
         padding: 0 25px;
     }
-    .shop {
-        display: none;
-    }
+    
     .h-bottom h4, .h-bottom a {
         font-size: 24px;
         line-height: 32px;
@@ -1133,12 +1172,61 @@ progress::-moz-progress-bar {
         line-height: 20px;
     }
     .h-bottom a {
-        padding: 6px 15px;
-        width: 200px;
+        height: 57px;
+        width: 220px;
+        display: inline-block;
+        line-height: 1;
     }
     .h-bottom {
-        height: 360px;
+        height: auto;
         padding: 30px 5px 0;
+    }
+    .pdp {
+        padding-top: 35px;
+    }
+    .pdp > div:nth-child(2) {
+        margin: 0 30px;
+    }
+    .pdp > div {
+        padding: 0 45px;
+    }
+    .pdp-option .col-xs-12 {
+        width: 50%;
+    }
+    .pdp .price {
+        margin-top: 19px;
+    }
+    .pdp-title {
+        margin-top: 3px;
+    }
+    .rating div > .right-block {
+        left: 0;
+        padding: 0 15px 0 253px;
+    }
+    .rating > div > .right-block {
+        left: 0;
+        padding: 0 15px 0 238px;
+    }
+    .review-sort .navbar-nav > li > .dropdown-menu {
+        margin-right: 0;
+    }
+    .review-sort .dropdown-menu > li > a {
+        color: #fff;
+    }
+    .rating div > .left-block {
+        width: 204px;
+    }
+    .review-sort .dropdown-menu > li:hover > a {
+        color: #29292c;
+    }
+    .rating form[name="reviewForm"] + div {
+        margin: 0 0 20px;
+    }
+    .rating .right-block form .col-md-12 {
+        margin-top: 9px;
+    }
+    .rating .right-block form .col-md-12 .form-control {
+        height: 110px;
     }
 }
 @media (min-width: 768px) {
@@ -1244,6 +1332,40 @@ progress::-moz-progress-bar {
 .btn-yahoo {
     background-color: #720e9e;
     color: #fff;
+}
+@media (max-width: 480px) {
+    .rating > div > .left-block {
+        left: 0;
+        position: inherit;
+        width: 100%;
+        padding: 0 15px;
+    }
+    .rating > div > .right-block {
+        padding: 0 15px;
+    }
+    .progressbar table tr td:first-child {
+        width: 40px;
+    }
+    .progressbar table tr td:last-child {
+        width: 10px;
+    }
+    .progressbar table tr td:nth-child(2) progress[value] {
+        width: 100%;
+    }
+    .rating table {
+        width: 100%;
+    }
+    .reviews {
+        margin:0;
+    }
+    .rating div > .left-block {
+        border: medium none;
+        position: inherit;
+        width: 100%;
+    }
+    .rating div > .right-block {
+        padding: 0;
+    }
 }
 
 
