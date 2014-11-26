@@ -579,8 +579,9 @@ a.list-group-item:last-child {
   height: 450px;
   display: block;
 }
-
-
+.qty input {
+  box-shadow: none;
+}
 .btn-group-vertical > .btn:first-child:not(:last-child) {
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;

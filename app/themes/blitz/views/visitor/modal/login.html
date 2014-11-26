@@ -47,9 +47,19 @@
                 <br>
 
                 <!-- social buttons -->
-                <div class="col-xs-12 text-center">
+                <div class="col-xs-12 hidden-xs text-center">
                     <ng-include src="getTemplate('visitor/social/facebook.html')"></ng-include>
                     <ng-include src="getTemplate('visitor/social/google.html')"></ng-include>
+                </div>
+                <div class="visible-xs btn-group-vertical">
+                    <div class="btn btn-lg btn-danger" ng-click="googleLogin()">
+                        <i class="fa fa-google-plus"></i>
+                        Login with Google+
+                    </div>
+                    <div class="btn btn-lg btn-info" ng-click="facebookLogin()">
+                        <i class="fa fa-facebook"></i>
+                        Login with Facebook
+                    </div>
                 </div>
                 <div class="clearfix"></div>
                 <hr>

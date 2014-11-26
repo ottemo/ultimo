@@ -1,27 +1,17 @@
 <div class="pdp">
 <!-- images -->
-    <div class="text-center col-xs-12 col-md-4 col-md-offset-1 hidden-sm hidden-xs">
+    <div class="text-center col-xs-12 col-md-3 col-md-offset-1 hidden-sm hidden-xs">
         <div class="pdp-slider">
-            <div class="big">
-                <img ng-src="{{getImage(imagesPath, productImages[0])}}" alt=""/>
-            </div>
-            <div class="small" ng-repeat="img in productImages">
-                <img ng-src="{{getImage(imagesPath, img)}}" alt=""/>
+            <div ng-repeat="img in productImages" ng-class='{big:$first}'>
+                <img ng-src="{{getImage(imagesPath, img)}}"  onError="this.src='themes/default/images/placeholder.png';" alt=""/>
             </div>
         </div>
     </div>
-    <div id="carousel-example-generic" class="carousel slide visible-sm visible-xs" data-ride="carousel">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-        </ol>
-
+    <div id="carousel-example-generic" class="carousel pdp-mobile-slider slide visible-sm visible-xs" data-ride="carousel">
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox" >
             <div class="item" ng-class="{active : $first}" ng-repeat="img in productImages">
-                <img class="text-center" ng-src="{{getImage(imagesPath, img)}}" alt=""/>
+                <img class="text-center"  onError="this.src='themes/default/images/placeholder.png';" ng-src="{{getImage(imagesPath, img)}}" alt=""/>
             </div>
         </div>
 
@@ -35,8 +25,9 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
+
     <!--info desktop -->
-    <div class="col-xs-12 col-md-6 pdp-title">
+    <div class="col-xs-12 col-md-7 pdp-title">
         <div class="row">
             <!-- product name -->
             <h2 class="col-xs-9">
@@ -196,7 +187,7 @@
                     <ul class="navbar-nav navbar-right">
                         <li class="dropdown">
                             <a href role="button" data-toggle="dropdown">
-                                <p>Sort by: <span>{{sorting}}</span></p>
+                                <p>Sort by : <span>{{sorting}}</span></p>&nbsp;&nbsp;&nbsp;
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
@@ -234,10 +225,7 @@
                         </form>
                         <h6>{{_item.username}}</h6>
                     </div>
-                    <div class="right-block">
-                        <h5>
-                            {{getReviewTitle(_item)}}
-                        </h5>
+                    <div class="right-block">s
                         <span>{{getDate(_item.created_at)}}</span>
                         <p>
                             {{_item.review}}
@@ -253,12 +241,17 @@
     $(document).ready(function () {
         setTimeout(function () {
             //slider
-            $(document).on('click','.pdp-slider .small img',function(){
-                var curImg = $(this).attr('src');
-                $('.pdp-slider .big img').attr('src',curImg);
-                $(this).parent().siblings().removeClass('active');
-                $(this).parent().addClass('active');
-            })
+            $('.pdp-slider > div').click(function() {
+                $('.pdp-slider > .big').fadeOut('fast', function() {
+                    $(this).removeClass('big');
+                    $(this).fadeIn('fast')
+                });
+                $(this).fadeOut('fast', function() {
+                    $(this).addClass('big');
+                    $('.pdp-slider').prepend($(this));
+                    $(this).fadeIn('fast')
+                });
+            });
             // rating
             $("input.rating").each(function () {
                 if ($(this).hasClass("disabled")) {

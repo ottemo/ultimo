@@ -67,7 +67,11 @@ ul {
 /*//////////////////////////////////////////////////////////   start Home Page  */
 
 #wrapper {
-    width-min: 290px;
+    padding-bottom: 170px;
+}
+#wrapper-inner {
+    padding-top: 106px;
+
 }
 .logo {
     margin-top: 8px;
@@ -655,27 +659,31 @@ div > .sidebar-offcanvas ul {
     margin: 35px 0 0;
     padding: 20px;
 }
-.pdp-slider .big {
-    border: 1px solid #ccc;
-}
-.pdp-slider .big img {
-    width: 100%;
-}
-.pdp-slider .small {
+
+.pdp-slider > div {
     width: 70px;
 	height: 70px;
 	border: 1px solid #ccc;
 	margin: 20px 20px 0 0;
 	float: left;
 }
-.pdp-slider .small img {
+.pdp-slider >div img {
     height: 100%;
 }
-.pdp-slider .small.active {
+.pdp-slider >div.active {
     border: 1px solid #828282;
 }
-.pdp-slider .small img:hover {
+.pdp-slider >div img:hover {
     cursor: pointer;
+}
+.pdp-slider .big {
+    border: 1px solid #ccc;
+    height: auto;
+    width: 100%;
+    margin: 0;
+}
+.pdp-slider .big img {
+    width: 100% !important;
 }
 .pdp .carousel-inner img {
     margin: 0 auto;
@@ -805,8 +813,11 @@ progress::-moz-progress-bar {
     vertical-align: middle;
     width: 0;
 }
+.review-sort .navbar-nav {
+    padding-left: 20px;
+}
 .review-sort .navbar-nav > li > .dropdown-menu {
-    margin-right: 55px;
+    margin-right: -7px;
 }
 .review-sort .navbar-nav.navbar-right:last-child {
     margin-right: 0;
@@ -817,7 +828,7 @@ progress::-moz-progress-bar {
 .review-sort > ul > li > a {
     display: block;
     margin: 6px 20px 0 0;
-    padding: 0 0 15px;
+    padding: 0 0 11px;
 }
 .review-sort ul > li > a p {
     display: inline-block;
@@ -1371,3 +1382,209 @@ progress::-moz-progress-bar {
 
 /*////////////////////////////////////////////////////// end social buttons  */
 
+/*Andrew*/
+#quick-view h3 {
+    font-weight: 300;
+    font-family: 'roboto_ltregular';
+    font-size: 35px;
+    line-height: 1;
+    color: #484848;
+    margin-top: 0;
+}
+#quick-view h4 {
+    font-weight: 300;
+    font-family: 'roboto_ltregular';
+    font-size: 25px;
+    line-height: 1;
+    color: #1f415a;
+    margin-top: 0;
+}
+#quick-view p {
+    font-size: 18px;
+    font-family: 'roboto_ltregular';
+}
+#mini-cart {
+    height: 100%;
+    min-height: 100%;
+    width: 450px;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    background: #fff;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=7, Direction=90, Color=rgba(0,0,0,0.2))";/*IE 8*/
+    -moz-box-shadow: 0px 0px 7px rgba(0,0,0,0.2);/*FF 3.5+*/
+    -webkit-box-shadow: 0px 0px 7px rgba(0,0,0,0.2);/*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+    box-shadow: 0px 0px 7px rgba(0,0,0,0.2);/* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=7, Direction=90, Color=rgba(0,0,0,0.2)); /*IE 5.5-7*/
+    z-index: 3050;
+    display: block;
+    padding-top: 20px;
+    padding: 20px;
+    -webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+    -moz-transition: all 0.5s ease;/* Firefox 4-15 */
+    -o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+    transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+#mini-cart.active {
+    right: 0;
+    -webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+    -moz-transition: all 0.5s ease;/* Firefox 4-15 */
+    -o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+    transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+#mini-cart h3 {
+    color: #484848;
+    font-size: 22px;
+    margin-top: 0;
+}
+#mini-cart p {
+    color: #9e9e9e;
+    line-height: 1;
+}
+#mini-cart h4 {
+    color: #214156;
+    font-size: 20px;
+    font-weight: bold;
+}
+#mini-cart .qty {
+    width: 150px;
+    margin: 0 auto;
+    float: left;
+}
+#mini-cart  .price {
+    float: right;
+    margin-top: 4px;
+    font-size: 22px;
+}
+#mini-cart .delete {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    line-height: 1;
+}
+#mini-cart .product {
+    position: relative;
+}
+#mini-cart h2 {
+    margin-top: 0;
+    font-size: 30px;
+}
+#mini-cart .hide-cart {
+    cursor: pointer;
+    font-size: 25px;
+    position: absolute;
+    left: 10px;
+    top: 25px;
+    color: #555;
+}
+hr {
+    background: #484848;
+    border-color: #ccc;
+}
+.checkout .panel-title {
+    font-size: 25px;
+}
+.checkout .panel-title i {
+    font-size: 20px;
+}
+#purchase-success i {
+    font-size: 55px;
+    display: inline-block;
+}
+header {
+    background: #fff;
+}
+.mini-cart.checkout .product {
+    margin-bottom: 20px;
+}
+.mini-cart.checkout .product h4 {
+    margin-top: 5px;
+    color: #484848;
+    margin-bottom: 20px;
+}
+.mini-cart.checkout .product p {
+    color: #8c8c8c;
+    margin-top: 0;
+    margin-bottom: 2px;
+    font-size: 16px;
+    text-transform: capitalize;
+}
+.mini-cart.checkout .product .price {
+    font-size: 20px;
+    color: #1e4356;
+    font-weight: bold;
+}
+.mini-cart.checkout .product .thumbnail {
+    margin-bottom: 0;
+}
+.mini-cart.checkout hr {
+    border-color: #484848;
+}
+.mini-cart.checkout h4 strong {
+    color: #1e4356;
+    font-size: 20px;
+}
+.mini-cart.checkout .total {
+    color: #696969;
+}
+.pdp-mobile-slider .carousel-control {
+    background: none !important;
+    color: #484848;
+}
+footer .nav-pills > li {
+    float: none;
+    display: inline-block;
+    margin: 3px 5px;
+}
+footer div:last-child {
+    position: static;
+}
+footer > div:last-child {
+    margin-top: 10px;
+    
+}
+footer > div:last-child p {
+    margin-bottom: 0;
+}
+@media (max-width: 768px) {
+  #mini-cart {
+    width: 300px;
+  }
+ .table > tbody > tr > td {
+    height: 50px !important;
+    font-size: 15px;
+ }
+ .modal-content {
+    border:none;
+ }
+ .carousel-indicators {
+    display: none;
+ }
+#wrapper-inner {
+    padding-top: 57px;
+}  
+}
+@media (max-width: 992px) {
+  header .btn-login[href="#/account"] {
+    display: none;
+    visibility: hidden;
+    margin: 0;
+  }
+  footer .menu {
+    text-align: center;
+  }
+  footer .social {
+    text-align: center;
+    margin-top: 10px;
+  }
+  footer .social .fa-hover {
+    float: none;
+    display: inline-block;
+    margin: 0 5px;
+  }
+
+  footer > div:nth-child(2) {
+    padding: 0;
+  }
+
+}
