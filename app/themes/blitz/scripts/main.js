@@ -9,9 +9,9 @@
 	    		navHeight = parseInt($('header').outerHeight(false));
 	    		$('#wrapper-inner').css('paddingTop', navHeight );
 	    	};
-	    	footerHeight = parseInt($('#footer').outerHeight(true));
+	    	footerHeight = parseInt($('footer').outerHeight(true));
 	    	$('#wrapper-inner').css('paddingBottom', footerHeight + 40 );
-	    	$('#footer').css('marginTop', - footerHeight );
+	    	$('footer').css('marginTop', - footerHeight );
 	    	$("#mini-cart").niceScroll({
 	    		cursorcolor:"#484848",
 	    		cursoropacitymin: "0.4"
