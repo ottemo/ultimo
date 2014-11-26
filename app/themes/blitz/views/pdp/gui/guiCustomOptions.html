@@ -19,7 +19,7 @@
                         <!-- Select -->
                         <div ng-switch-when="select" class="form-group col-md-6 col-xs-12">
                             <label>{{option.label}}<span class="asterisk" ng-if="option.required">*</span></label>
-                                <select class="form-control" id="{{ option.label }}" name="{{option.label}}"
+                                <select class="form-control input-lg" id="{{ option.label }}" name="{{option.label}}"
                                         data-ng-model="parent.options[option.label]"
                                         data-ng-options="opt.label as opt.label for (key, opt) in option.options | getOrdered"
                                         ng-required="option.required">

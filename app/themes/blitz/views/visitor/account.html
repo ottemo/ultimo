@@ -1,93 +1,105 @@
 <!-- Account main page -->
 <div ng-init="init()" >
-	<h2 class="text-center">My Account</h2>
 	<br>
+	<h2 class="text-center text-uppercase">My Account</h2>
+	<br>
+
 
     <!-- left-side menu -->
     <ng-include src="getTemplate('visitor/account/menu.html')"></ng-include>
 
-    <!-- profile layout -->
+    <!-- change information  -->
     <div class="col-xs-12 col-sm-10" ng-controller="visitorAccountController">
-	    
+	    <div class="col-sm-8 col-sm-offset-1 row">
+			<gui-message-manager item="message"></gui-message-manager>
+	    </div>
 	    <!-- account info -->
 	    <div class="col-sm-8 col-sm-offset-1 row">
-	        <div class="panel panel-primary">
-	            <div class="panel-heading">
-	                <h3 class="panel-title">
-	                    Account info
-	                </h3>
-	            </div>
-	            <table class="table text-center table-striped">
-	                <!-- first name -->
-	                <tr>
-	                    <td>
-	                        First name
-	                    </td>
-	                    <td>
-	                        <!-- account first name from base -->
-	                        <strong ng-bind="visitor.fname"></strong>
-	                    </td>
-	                </tr>
-	                <!-- last name -->
-	                <tr>
-	                    <td>
-	                        Last name
-	                    </td>
-	                    <td>
-	                        <!-- account last name from base -->
-	                        <strong ng-bind="visitor.lname"></strong>
-	                    </td>
-	                </tr>
-	                <!-- email -->
-	                <tr>
-	                    <td>
-	                        Email
-	                    </td>
-	                    <td>
-	                        <!-- account email from base -->
-	                        <strong ng-bind="visitor.email"></strong>
-	                    </td>
-	                </tr>
-	                <tr>
-	                    <td colspan="2">
-	                        <span class="hidden-xs">
-	                        	<!-- change password modal button -->
-		                        <button data-toggle="modal" data-target="#form-change-password" class="btn btn-primary" >
-		                            <i class="glyphicon glyphicon-lock"></i>&nbsp;
-		                            Change Password 
-		                        </button>
+	    	<h3 class="col-xs-12">Account information</h3>
+	    	<div class="clearfix"></div>
+	    	<hr>
+	        <!-- error message -->
+            
 
-		                        <!-- change info modal button -->
-		                        <a href class="btn btn-success" data-toggle="modal" data-target="#parent_popup_profile" >
-		                            <i class="glyphicon glyphicon-user"></i>&nbsp;
-		                            Edit info
-		                        </a>
-	                        </span>
-	                        <span class="visible-xs btn-group-vertical">
-	                        	<!-- change password modal button -->
-		                        <button data-toggle="modal" data-target="#form-change-password" class="btn btn-primary" >
-		                            <i class="glyphicon glyphicon-lock"></i>&nbsp;
-		                            Change Password 
-		                        </button>
+            <!-- change information form -->
+            <form role="form" name="visitorForm">
 
-		                        <!-- change info modal button -->
-		                        <a href class="btn btn-success" data-toggle="modal" data-target="#parent_popup_profile" >
-		                            <i class="glyphicon glyphicon-user"></i>&nbsp;
-		                            Edit info
-		                        </a>
-	                        </span>
-	                    </td>
-	                </tr>
-	            </table>
-	        </div>
+                <!--First Name-->
+                <div class="form-group col-xs-12"
+                     ng-class="{ 'has-error' : visitorForm.first_name.$invalid && !visitorForm.first_name.$pristine }">
+                    <label for="visitorFormZip">First Name *</label>
+                    <input type="text" class="form-control input-lg" id="visitorFormZip" placeholder="First Name"
+                           name="first_name"
+                           ng-model="visitor.fname" required>
+
+                    <p ng-show="visitorForm.first_name.$invalid && !visitorForm.first_name.$pristine"
+                       class="help-block">This field is required.</p>
+                </div>
+                
+                <!--Last Name-->
+                <div class="form-group col-xs-12">
+                    <label for="billingInputCompany">Last Name</label>
+                    <input type="text" class="form-control input-lg" id="billingInputCompany" placeholder="Last Name"
+                           name="company"
+                           ng-model="visitor.lname">
+                </div>
+
+                <!--Email-->
+                <div class="form-group col-xs-12"
+                     ng-class="{ 'has-error' : visitorForm.email.$invalid && !visitorForm.email.$pristine }">
+                    <label for="visitorFormCity">Email*</label>
+                    <input type="text" class="form-control input-lg" id="visitorFormCity" placeholder="Email" name="email"
+                           ng-model="visitor.email" required>
+
+                    <p ng-show="visitorForm.email.$invalid && !visitorForm.email.$pristine"
+                       class="help-block">This field is required.</p>
+                </div>
+            </form>
+            <div class="clearfix"></div>
+            <div class="text-center">
+            	<button type="submit" class="btn btn-lg btn-primary" ng-click="save()">Save changes</button>
+            </div>
 	    </div>
+
+	    <!-- change password -->
+	    <div class="col-sm-8 col-sm-offset-1 row" ng-controller="visitorAccountController">
+	    	<h3 class="col-xs-12">Account password</h3>
+	    	<div class="clearfix"></div>
+	    	<hr>
+
+            <!-- change password form -->
+            <form role="form">
+                <!-- new password -->
+                <div class="form-group col-xs-12"
+                     ng-class="{ 'has-error' : passwordForm.password.$invalid && !passwordForm.password.$pristine }">
+                    <label for="passwordFormPassword">Password</label>
+                    <input type="password" class="form-control input-lg" id="passwordFormPassword" placeholder="Password"
+                           name="password"
+                           ng-model="changePswCredentials.password" required>
+
+                    <p ng-show="passwordForm.password.$invalid && !passwordForm.password.$pristine"
+                       class="help-block">This field is required.</p>
+                </div>
+
+                <!-- confirm password -->
+                <div class="form-group col-xs-12"
+                     ng-class="{ 'has-error' : passwordForm.confirm.$invalid && !passwordForm.confirm.$pristine }">
+                    <label for="passwordFormConfirm">Confirm password *</label>
+                    <input type="password" class="form-control input-lg" id="passwordFormConfirm" placeholder="Confirm password"
+                           name="confirm"
+                           ng-model="changePswCredentials.confirm">
+
+                    <p ng-show="passwordForm.confirm.$invalid && !passwordForm.confirm.$pristine"
+                       class="help-block">This field is required.</p>
+                </div>
+            </form>
+            <div class="text-center">
+            	<button type="submit" class="btn btn-primary btn-lg" ng-click="changePassword()">Save changes</button>
+            </div>
+	    </div>
+	    <div class="clearfix"></div>
+      <br>
 	</div>
-
-    <!-- change password modal -->
-	<ng-include src="getTemplate('visitor/account/modal/change-password.html')"></ng-include>
-
-	<!-- change info modal -->
-	<ng-include src="getTemplate('visitor/account/modal/change-info.html')"></ng-include>
 </div>
 
 

@@ -1,8 +1,7 @@
 <!-- checkout page -->
-<div ng-init="init()" class="container">
-
-    <h2 class="text-center">Checkout</h2>
-    <br>
+<h2 class="text-center">Checkout</h2>
+<br>
+<div ng-init="init()" class="col-md-8 col-md-offset-1 checkout">
 
     <!-- Shipping Block -->
     <div class="panel panel-default">
@@ -10,9 +9,7 @@
             <h3 class="panel-title">
                 Ship to
                 <div class="dropdown pull-right">
-                    <button class="btn btn-xs btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                        <span class="caret"></span>
-                    </button>
+                    <i class="glyphicon glyphicon-chevron-down dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown"></i>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
                         <li role="presentation" ng-repeat="addr in addresses">
                             <a role="menuitem" tabindex="-1" href ng-click="choiceShipping(addr.Id)">{{addr.Name}}</a>
@@ -45,7 +42,7 @@
                     <!--Company-->
                     <div class="form-group col-md-6">
                         <label for="shippingInputCompany">Company Name</label>
-                        <input type="text" class="form-control" id="shippingInputCompany" placeholder="Company name"
+                        <input type="text" class="form-control input-lg" id="shippingInputCompany" placeholder="Company name"
                                name="company"
                                ng-model="shipping_address.company" ng-disabled="shipping_address._id">
                     </div>
@@ -53,14 +50,14 @@
                     <!--First name-->
                     <div class="form-group col-md-6">
                         <label for="shippingInputFirstName">First Name</label>
-                        <input type="text" class="form-control" id="shippingInputFirstName" placeholder="First name"
+                        <input type="text" class="form-control input-lg" id="shippingInputFirstName" placeholder="First name"
                                ng-model="shipping_address.first_name" ng-disabled="shipping_address._id">
                     </div>
 
                     <!--Last name-->
                     <div class="form-group col-md-6">
                         <label for="shippingInputLastName">Last Name</label>
-                        <input type="text" class="form-control" id="shippingInputLastName" placeholder="Last name"
+                        <input type="text" class="form-control input-lg" id="shippingInputLastName" placeholder="Last name"
                                ng-model="shipping_address.last_name" ng-disabled="shipping_address._id">
                     </div>
 
@@ -68,7 +65,7 @@
                     <div class="form-group col-md-6"
                          ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.address1.$error.required) || (shippingAddress.address1.$invalid && !shippingAddress.address1.$pristine) }">
                         <label for="shippingInputAddress">Address 1*</label>
-                        <input type="text" class="form-control" id="shippingInputAddress" placeholder="Address 1"
+                        <input type="text" class="form-control input-lg" id="shippingInputAddress" placeholder="Address 1"
                                name="address1"
                                ng-model="shipping_address.address_line1" ng-disabled="shipping_address._id" required>
 
@@ -77,8 +74,8 @@
                     </div>
                     <!--Address 2-->
                     <div class="form-group col-md-6">
-                        <label for="shippingInputAddress2">Address 2</label>
-                        <input type="text" class="form-control" id="shippingInputAddress2" placeholder="Address 2"
+                        <label for="shippingInputAddress2 input-lg">Address 2</label>
+                        <input type="text" class="form-control input-lg" id="shippingInputAddress2" placeholder="Address 2"
                                ng-model="shipping_address.address_line2" ng-disabled="shipping_address._id">
                     </div>
 
@@ -86,7 +83,7 @@
                     <div class="form-group col-md-6"
                          ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.zip_code.$error.required) || (shippingAddress.zip_code.$invalid && !shippingAddress.zip_code.$pristine) }">
                         <label for="shippingAddressZip">Zip / Postal Code*</label>
-                        <input type="text" class="form-control" id="shippingAddressZip" placeholder="Zip / Postal Code"
+                        <input type="text" class="form-control input-lg" id="shippingAddressZip" placeholder="Zip / Postal Code"
                                name="zip_code"
                                ng-model="shipping_address.zip_code" ng-disabled="shipping_address._id" required>
 
@@ -98,7 +95,7 @@
                     <div class="form-group col-md-6"
                          ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.city.$error.required) || (shippingAddress.city.$invalid && !shippingAddress.city.$pristine) }">
                         <label for="shippingAddressCity">City*</label>
-                        <input type="text" class="form-control" id="shippingAddressCity" placeholder="City" name="city"
+                        <input type="text" class="form-control input-lg" id="shippingAddressCity" placeholder="City" name="city"
                                ng-model="shipping_address.city" ng-disabled="shipping_address._id" required>
 
                         <p ng-show="(subShippingAddress && shippingAddress.city.$error.required) || (shippingAddress.city.$invalid && !shippingAddress.city.$pristine)"
@@ -110,7 +107,7 @@
                          ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.country.$error.required) || (shippingAddress.country.$invalid && !shippingAddress.country.$pristine) }">
                         <label for="shippingAddressCity">Country*</label>
 
-                        <select name="country" class="form-control" ng-model="shipping_address.country" required
+                        <select name="country" class="form-control input-lg" ng-model="shipping_address.country" required
                                 ng-options="c.Code as c.Name for c in countries" ng-disabled="shipping_address._id">
                         </select>
 
@@ -124,7 +121,7 @@
                         <label for="shippingAddressCity">State / Province / Region*</label>
 
                         <div class="select">
-                            <select name="state" class="form-control" ng-model="shipping_address.state" required
+                            <select name="state" class="form-control input-lg" ng-model="shipping_address.state" required
                                     ng-options="c.Code as c.Name for c in states" ng-disabled="shipping_address._id">
                             </select>
                         </div>
@@ -136,7 +133,7 @@
                     <!--Phone-->
                     <div class="form-group col-md-6">
                         <label for="shippingAddressPhone">Phone</label>
-                        <input type="text" class="form-control" id="shippingAddressPhone" placeholder="Phone"
+                        <input type="text" class="form-control input-lg" id="shippingAddressPhone" placeholder="Phone"
                                ng-model="shipping_address.phone" ng-disabled="shipping_address._id">
                     </div>
 
@@ -144,7 +141,7 @@
 
                     <div class="text-center">
                         <!-- next step -->
-                        <button class="next btn btn-success" ng-click="next('shippingAddress')">
+                        <button class="next btn btn-lg btn-success" ng-click="next('shippingAddress')">
                             <span class="glyphicon glyphicon-arrow-down"></span>
                             Next step
                         </button>
@@ -160,9 +157,8 @@
             <h3 class="panel-title">
                 Bill to
                 <div class="dropdown pull-right">
-                    <button class="btn btn-xs btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                        <span class="caret"></span>
-                    </button>
+                    <i class="glyphicon glyphicon-chevron-down dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown"></i>
+
                     <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
                         <li role="presentation" ng-repeat="addr in addresses">
                             <a role="menuitem" tabindex="-1" ng-click="choiceBilling(addr.Id)">{{addr.Name}}</a>
@@ -184,7 +180,7 @@
                     <!--Company-->
                     <div class="form-group col-md-6">
                         <label for="billingInputCompany">Company Name</label>
-                        <input type="text" class="form-control" id="billingInputCompany" placeholder="Company name"
+                        <input type="text" class="form-control input-lg" id="billingInputCompany" placeholder="Company name"
                                name="company"
                                ng-model="billing_address.company" ng-disabled="billing_address._id || useAsBilling">
                     </div>
@@ -192,14 +188,14 @@
                     <!--First name-->
                     <div class="form-group col-md-6">
                         <label for="billingInputFirstName">First Name</label>
-                        <input type="text" class="form-control" id="billingInputFirstName" placeholder="First name"
+                        <input type="text" class="form-control input-lg" id="billingInputFirstName" placeholder="First name"
                                ng-model="billing_address.first_name" ng-disabled="billing_address._id || useAsBilling">
                     </div>
 
                     <!--Last name-->
                     <div class="form-group col-md-6">
                         <label for="billingInputLastName">Last Name</label>
-                        <input type="text" class="form-control" id="billingInputLastName" placeholder="Last name"
+                        <input type="text" class="form-control input-lg" id="billingInputLastName" placeholder="Last name"
                                ng-model="billing_address.last_name" ng-disabled="billing_address._id || useAsBilling">
                     </div>
 
@@ -207,7 +203,7 @@
                     <div class="form-group col-md-6"
                          ng-class="{ 'has-error' : (subBillingAddress && billingAddress.address1.$error.required) || (billingAddress.address1.$invalid && !billingAddress.address1.$pristine) }">
                         <label for="billingInputAddress">Address 1*</label>
-                        <input type="text" class="form-control" id="billingInputAddress" placeholder="Address 1"
+                        <input type="text" class="form-control input-lg" id="billingInputAddress" placeholder="Address 1"
                                name="address1"
                                ng-model="billing_address.address_line1" ng-disabled="billing_address._id || useAsBilling"
                                required>
@@ -219,7 +215,7 @@
                     <!--Address 2-->
                     <div class="form-group col-md-6">
                         <label for="billingInputAddress2">Address 2</label>
-                        <input type="text" class="form-control" id="billingInputAddress2" placeholder="Address 2"
+                        <input type="text" class="form-control input-lg" id="billingInputAddress2" placeholder="Address 2"
                                ng-model="billing_address.address_line2" ng-disabled="billing_address._id || useAsBilling">
                     </div>
 
@@ -227,7 +223,7 @@
                     <div class="form-group col-md-6"
                          ng-class="{ 'has-error' : (subBillingAddress && billingAddress.zip_code.$error.required) || (billingAddress.zip_code.$invalid && !billingAddress.zip_code.$pristine) }">
                         <label for="billingAddressZip">Zip / Postal Code*</label>
-                        <input type="text" class="form-control" id="billingAddressZip" placeholder="Zip / Postal Code"
+                        <input type="text" class="form-control input-lg" id="billingAddressZip" placeholder="Zip / Postal Code"
                                name="zip_code"
                                ng-model="billing_address.zip_code" ng-disabled="billing_address._id || useAsBilling"
                                required>
@@ -240,7 +236,7 @@
                     <div class="form-group col-md-6"
                          ng-class="{ 'has-error' : (subBillingAddress && billingAddress.city.$error.required) || (billingAddress.city.$invalid && !billingAddress.city.$pristine) }">
                         <label for="billingAddressCity">City*</label>
-                        <input type="text" class="form-control" id="billingAddressCity" placeholder="City" name="city"
+                        <input type="text" class="form-control input-lg" id="billingAddressCity" placeholder="City" name="city"
                                ng-model="billing_address.city" ng-disabled="billing_address._id || useAsBilling" required>
 
                         <p ng-show="(subBillingAddress && billingAddress.city.$error.required) || (billingAddress.city.$invalid && !billingAddress.city.$pristine)"
@@ -252,7 +248,7 @@
                          ng-class="{ 'has-error' : (subBillingAddress && billingAddress.country.$error.required) || (billingAddress.country.$invalid && !billingAddress.country.$pristine) }">
                         <label for="billingAddressCity">Country*</label>
 
-                        <select name="country" class="form-control" ng-model="billing_address.country" required
+                        <select name="country" class="form-control input-lg" ng-model="billing_address.country" required
                                 ng-options="c.Code as c.Name for c in countries"
                                 ng-disabled="billing_address._id || useAsBilling">
                         </select>
@@ -267,7 +263,7 @@
                         <label for="billingAddressCity">State / Province / Region*</label>
 
 
-                        <select name="state" class="form-control" ng-model="billing_address.state" required
+                        <select name="state" class="form-control input-lg" ng-model="billing_address.state" required
                                 ng-options="c.Code as c.Name for c in states"
                                 ng-disabled="billing_address._id || useAsBilling">
                         </select>
@@ -278,23 +274,38 @@
                     <!--Phone-->
                     <div class="form-group col-md-6">
                         <label for="billingAddressPhone">Phone</label>
-                        <input type="text" class="form-control" id="billingAddressPhone" placeholder="Phone"
+                        <input type="text" class="form-control input-lg" id="billingAddressPhone" placeholder="Phone"
                                ng-model="billing_address.phone" ng-disabled="billing_address._id || useAsBilling">
                     </div>
                     <div class="clearfix"></div>
 
                     <div class="text-center">
                         <!-- prev step -->
-                        <button class="back btn btn-primary" ng-click="back('billingAddress')">
+                        <button class="back hidden-xs btn btn-primary btn-lg" ng-click="back('billingAddress')">
                             <span class="glyphicon glyphicon-arrow-up"></span>
                             Prev step
                         </button>
 
                         <!-- next step -->
-                        <button class="next btn btn-success" ng-click="next('billingAddress')">
+                        <button class="next hidden-xs btn btn-success btn-lg" ng-click="next('billingAddress')">
                             <span class="glyphicon glyphicon-arrow-down"></span>
                             Next step
                         </button>
+
+
+                        <div class="btn-group-vertical visible-xs">
+                            <!-- prev step -->
+                            <button class="back btn btn-primary btn-lg" ng-click="back('billingAddress')">
+                                <span class="glyphicon glyphicon-arrow-up"></span>
+                                Prev step
+                            </button>
+
+                            <!-- next step -->
+                            <button class="next btn btn-success btn-lg" ng-click="next('billingAddress')">
+                                <span class="glyphicon glyphicon-arrow-down"></span>
+                                Next step
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -325,16 +336,30 @@
 
                     <div class="text-center">
                         <!-- prev step -->
-                        <button class="back btn btn-primary" ng-click="back('shippingMethod')">
+                        <button class="back hidden-xs btn btn-lg btn-primary" ng-click="back('shippingMethod')">
                             <span class="glyphicon glyphicon-arrow-up"></span>
                             Prev step
                         </button>
 
                         <!-- next step -->
-                        <button class="next btn btn-success" ng-click="next('shippingMethod')">
+                        <button class="next hidden-xs btn btn-lg btn-success" ng-click="next('shippingMethod')">
                             <span class="glyphicon glyphicon-arrow-down"></span>
                             Next step
                         </button>
+
+                        <div class="btn-group-vertical visible-xs">
+                            <!-- prev step -->
+                            <button class="back btn btn-lg btn-primary" ng-click="back('shippingMethod')">
+                                <span class="glyphicon glyphicon-arrow-up"></span>
+                                Prev step
+                            </button>
+
+                            <!-- next step -->
+                            <button class="next btn btn-lg btn-success" ng-click="next('shippingMethod')">
+                                <span class="glyphicon glyphicon-arrow-down"></span>
+                                Next step
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -351,7 +376,7 @@
         <div class="panel-body">
             <div id="paymentMethod" class="accordion" style="display:none">
 
-                <div class="form-group col-md-6" ng-repeat="method in paymentMethods">
+                <div class="form-group col-xs-12" ng-repeat="method in paymentMethods">
                     <div class="checkbox">
                         <label class="myCheckbox">
                             <input type="radio" name="test" value="{{method.Code}}" ng-model="checkout.payment_method_code"
@@ -359,49 +384,48 @@
                             {{method.Name}}
                         </label>
                     </div>
-                </div>
                 
-                <div class="clearfix"></div>
-                
-                <div ng-show="isCreditCard()" ng-if="showFormCc(method)">
-                    <form name="method.form" novalidate>
+                    <div class="clearfix"></div>
+                    
+                    <div class="paypal" ng-show="isCreditCard()" ng-if="showFormCc(method)">
+                        <form name="method.form" novalidate>
 
-                        <div class="form-group col-md-12"
-                             ng-class="{ 'has-error' : method.form.type.$invalid && !method.form.type.$pristine }">
-                            <label>Credit Card Type</label>
+                            <div class="form-group col-md-6 col-xs-12"
+                                 ng-class="{ 'has-error' : method.form.type.$invalid && !method.form.type.$pristine }">
+                                <label>Credit Card Type</label>
 
-                            <select name="type" class="form-control" ng-model="method.cc.type" required
-                                    ng-options="c.Code as c.Name for c in creditTypes">
-                            </select>
+                                <select name="type" class="form-control input-lg" ng-model="method.cc.type" required
+                                        ng-options="c.Code as c.Name for c in creditTypes">
+                                </select>
 
-                            <p ng-show="method.form.type.$invalid && !method.form.type.$pristine"
-                               class="help-block">This field is required.</p>
-                        </div>
+                                <p ng-show="method.form.type.$invalid && !method.form.type.$pristine"
+                                   class="help-block">This field is required.</p>
+                            </div>
 
-                        <div class="form-group col-md-12"
-                             ng-class="{ 'has-error' : (!method.form.number.$invalidFormat || method.form.number.$invalid) && !method.form.number.$pristine }">
-                            <label for="paymentCardNumber">Number</label>
-                            <input type="text" class="form-control" id="paymentCardNumber" ng-model="method.cc.number"
-                                   placeholder="Credit Card Number" name="number" ng-change="validateCcNumber()" required>
+                            <div class="form-group col-md-6 col-xs-12"
+                                 ng-class="{ 'has-error' : (!method.form.number.$invalidFormat || method.form.number.$invalid) && !method.form.number.$pristine }">
+                                <label for="paymentCardNumber">Number</label>
+                                <input type="text" class="form-control input-lg" id="paymentCardNumber" ng-model="method.cc.number"
+                                       placeholder="Credit Card Number" name="number" ng-change="validateCcNumber()" required>
 
-                            <p ng-show="method.form.number.$invalid && !method.form.number.$pristine"
-                               class="help-block">This field is required.</p>
-                            <p ng-show="!method.form.number.$invalidFormat && !method.form.number.$pristine"
-                               class="help-block">Invalid number format.</p>
-                        </div>
+                                <p ng-show="method.form.number.$invalid && !method.form.number.$pristine"
+                                   class="help-block">This field is required.</p>
+                                <p ng-show="!method.form.number.$invalidFormat && !method.form.number.$pristine"
+                                   class="help-block">Invalid number format.</p>
+                            </div>
 
-                        <div class="card-data">
-                            <div class="form-group col-md-4">
+            
+                            <div class="form-group col-md-4 col-xs-12">
                                 <label for="paymentCvv">CVV</label>
-                                <input type="text" class="form-control" id="paymentCvv" name="cvv" ng-model="method.cc.cvv"
+                                <input type="text" class="form-control input-lg" id="paymentCvv" name="cvv" ng-model="method.cc.cvv"
                                        placeholder="CVV">
                             </div>
 
-                            <div class="form-group col-md-4"
+                            <div class="form-group col-md-4 col-xs-12"
                                  ng-class="{ 'has-error' : (method.form.expire_month.$invalid) && !method.form.expire_month.$pristine }">
                                 <label>Expiration Date</label>
 
-                                <select name="status form-control" class="form-control" ng-model="method.cc.expire_month" name="expire_month" required>
+                                <select name="status form-control" class="form-control input-lg" ng-model="method.cc.expire_month" name="expire_month" required>
                                     <option value="1" selected="selected">01</option>
                                     <option value="2">02</option>
                                     <option value="3">03</option>
@@ -420,10 +444,10 @@
                                    class="help-block">This field is required.</p>
                             </div>
 
-                            <div class="form-group col-md-4"
+                            <div class="form-group col-md-4 col-xs-12"
                                  ng-class="{ 'has-error' : (method.form.expire_year.$invalid) && !method.form.expire_year.$pristine }">
-
-                                    <select class="form-control" name="status form-control" ng-model="method.cc.expire_year" name="expire_year" required>
+                                    <label>Expiration Year</label>
+                                    <select class="form-control input-lg" name="status form-control" ng-model="method.cc.expire_year" name="expire_year" required>
                                         <option value="2014" selected="selected">2014</option>
                                         <option value="2015">2015</option>
                                         <option value="2016">2016</option>
@@ -435,24 +459,37 @@
                                 <p ng-show="method.form.expire_year.$invalid && !method.form.expire_year.$pristine"
                                    class="help-block">This field is required.</p>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
+
                 </div>
 
                 <div class="clearfix"></div>
 
                 <div class="text-center">
                     <!-- prev step -->
-                    <button class="back btn btn-primary" ng-click="back('paymentMethod')">
+                    <button class="back hidden-xs btn btn-primary btn-lg" ng-click="back('paymentMethod')">
                         <span class="glyphicon glyphicon-arrow-up"></span>
                         Prev step
                     </button>
 
                     <!-- next step -->
-                    <button class="next btn btn-success" ng-click="next('paymentMethod')">
+                    <button class="next hidden-xs btn btn-success btn-lg" ng-click="next('paymentMethod')">
                         <span class="glyphicon glyphicon-arrow-down"></span>
                         Next step
                     </button>
+                    <div class="btn-group-vertical visible-xs">
+                        <!-- prev step -->
+                        <button class="back btn btn-primary btn-lg" ng-click="back('paymentMethod')">
+                            <span class="glyphicon glyphicon-arrow-up"></span>
+                            Prev step
+                        </button>
+
+                        <!-- next step -->
+                        <button class="next btn btn-success btn-lg" ng-click="next('paymentMethod')">
+                            <span class="glyphicon glyphicon-arrow-down"></span>
+                            Next ste
+                    </div>
                 </div>
             </div>
         </div>
@@ -467,15 +504,15 @@
         </div>
         <div class="panel-body">
             <div id="discounts" class="accordion" style="display:none">
-
+                <gui-message-manager item="messageDiscounts"></gui-message-manager>
                 <div class="form-group col-md-8 col-md-offset-1">
-                    <input type="text" class="form-control" id="discount" placeholder="Discount code"
+                    <input type="text" class="form-control input-lg" id="discount" placeholder="Discount code"
                            name="discount"
                            ng-model="discount">
                 </div>
 
                 <div class="form-group col-md-2 text-center">
-                    <a href ng-click="discountApply()" class="btn btn-default">Apply code</a>
+                    <a href ng-click="discountApply()" class="btn btn-lg btn-default">Apply code</a>
                 </div>
 
                 <div class="form-group col-md-6" ng-show="checkout.discounts.length">
@@ -491,16 +528,29 @@
 
                 <div class="text-center">
                     <!-- prev step -->
-                    <button class="back btn btn-primary" ng-click="back('discounts')">
+                    <button class="back hidden-xs btn btn-lg btn-primary" ng-click="back('discounts')">
                         <span class="glyphicon glyphicon-arrow-up"></span>
                         Prev step
                     </button>
 
                     <!-- next step -->
-                    <button class="next btn btn-success" ng-click="next('discounts')">
+                    <button class="next hidden-xs btn btn-lg btn-success" ng-click="next('discounts')">
                         <span class="glyphicon glyphicon-arrow-down"></span>
                         Next step
                     </button>
+                    <div class="btn-group-vertical visible-xs">
+                        <!-- prev step -->
+                        <button class="back btn btn-lg btn-primary" ng-click="back('discounts')">
+                            <span class="glyphicon glyphicon-arrow-up"></span>
+                            Prev step
+                        </button>
+
+                        <!-- next step -->
+                        <button class="next btn btn-lg btn-success" ng-click="next('discounts')">
+                            <span class="glyphicon glyphicon-arrow-down"></span>
+                            Next step
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -508,7 +558,7 @@
 
     <!-- preview -->
     <div class="panel panel-default">
-        <div class="panel-heading">
+        <div class="panel-heading hidden-md hidden-lg">
             <h3 class="panel-title">
                 Order preview
             </h3>
@@ -516,7 +566,7 @@
         <div class="panel-body">
             <div id="review" class="accordion" style="display:none">
 
-                <div class="col-sm-6">
+                <div class="row hidden-md hidden-lg">
                     <table class="table table-bordered" ng-show="cart.getCountItems()" ng-class="{'last':$last}">
                         <tr>
                             <th>Product Name</th>
@@ -529,27 +579,27 @@
                             <td>{{item.product.price | number: 2 | currency}}</td>
                         </tr>
                     </table>
-                </div>
-                <div class="col-sm-6">
+
                     <table class="table table-bordered" ng-show="cart.getCountItems()" ng-class="{'last':$last}">
                         <tr>
-                            <td>SUBTOTAL</td>
+                            <td><strong>Subtotal</strong></td>
                             <td>{{checkout.subtotal | currency}}</td>
                         </tr>
                         <tr>
-                            <td>Tax</td>
+                            <td><strong>Tax</strong></td>
                             <td>{{checkout.tax_amount | currency}}</td>
                         </tr>
                         <tr>
-                            <td>Shipping</td>
+                            <td><strong>Shipping</strong></td>
                             <td>{{checkout.shipping_amount | currency}}</td>
                         </tr>
 
                         <tr>
-                            <td>Total</td>
+                            <td><strong>Total</strong></td>
                             <td>{{checkout.grandtotal | currency}}</td>
                         </tr>
                     </table>
+
                 </div>
 
                 <div class="clearfix"></div>
@@ -558,19 +608,108 @@
 
                 <div class="text-center">
                     <!-- prev step -->
-                    <button class="back btn btn-primary" ng-click="back('review')">
+                    <button class="back hidden-xs btn btn-lg btn-primary" ng-click="back('review')">
                         <span class="glyphicon glyphicon-arrow-up"></span>
                         Prev step
                     </button>
 
                     <!-- next step -->
-                    <button class="next btn btn-success" ng-click="save()">
+                    <button class="next hidden-xs btn btn-lg btn-danger" ng-click="save()">
                         <span class="glyphicon glyphicon-ok"></span>
                         Confirm purchase
                     </button>
+                    <div class="btn-group-vertical visible-xs">
+                        <!-- prev step -->
+                        <button class="back btn btn-lg btn-primary" ng-click="back('review')">
+                            <span class="glyphicon glyphicon-arrow-up"></span>
+                            Prev step
+                        </button>
+
+                        <!-- next step -->
+                        <button class="next btn btn-lg btn-danger" ng-click="save()">
+                            <span class="glyphicon glyphicon-ok"></span>
+                            Confirm purchase
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </div> 
 </div>
-<ng-include src="getTemplate('modals/checkout-purchase-success.html')"></ng-include>
+<div class="col-xs-3 hidden-xs hidden-sm">
+    <div class="mini-cart checkout">
+        <!-- product row -->
+        <div ng-init="init()">
+            <div ng-controller="cartListController">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Order summary</h3>
+                    </div>
+                </div>
+                
+
+                <!-- if cart is empty -->
+                <h3 ng-hide="it.getCountItems()" class="text-center">Cart is empty</h3>
+                
+
+                <div class="product " ng-repeat="item in it.getItems()" ng-show="it.getCountItems()">
+
+                    <!-- image -->
+                    <div class="thumbnail col-md-4">
+                        <a href="{{productService.getUrl(item.pid)}}"><img onError="this.src='themes/default/images/placeholder.png';" ng-src="{{getImage(item.product)}}" alt="{{item.product.name}}"/></a>
+                    </div>
+
+                    <div class="col-md-8">
+                        <!-- name -->
+                        <h4>{{item.product.name}}</h4>
+                        
+
+                        <!-- description -->
+                        <p class="options" ng-repeat="(key, value) in item.options" ng-if="item.hasOptions">
+                            {{key}}: {{productService.getOptStr(value)}}
+                        </p>
+                  
+                        <div class="row">
+                            <!-- qty -->
+                            <p class="col-xs-6">QTY:{{item.qty}}</p>
+                            
+                            <!-- price -->
+                            <p class="price col-xs-6">{{item.product.price * item.qty | currency}}</p>
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                </div>
+
+                <div class="clearfix"></div>
+                <hr>
+            </div>
+
+            <div class="total" ng-show="cart.getCountItems()" ng-class="{'last':$last}">
+                <h4>
+                    <div class="text-left col-xs-6">Subtotal:</div>
+                    <strong class="text-right col-xs-6">{{checkout.subtotal | currency}}</strong>
+                </h4>
+                <h4>
+                    <div class="text-left col-xs-6">Tax:</div>
+                    <strong class="text-right col-xs-6">{{checkout.tax_amount | currency}}</strong>
+                </h4>
+                <h4>
+                    <div class="text-left col-xs-6">Shipping:</div>
+                    <strong class="text-right col-xs-6">{{checkout.shipping_amount | currency}}</strong>
+                </h4>
+
+                <h4 class="text-right">
+                    <div class="col-xs-6 text-left">Total:</div>
+                    <strong class="text-right col-xs-6">{{checkout.grandtotal | currency}}</strong>
+                </h4>
+                
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-include src="getTemplate('checkout/modal/checkout-purchase-success.html')"></ng-include>

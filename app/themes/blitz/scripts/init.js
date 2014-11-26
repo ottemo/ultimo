@@ -2,6 +2,10 @@
     "use strict";
 
     define([
-        "./common/init"
+        "./common/init",
+        "./visitor/module",
+        "./category/module",
+        "./cart/init",
+        "./pdp/module"
     ]);
 })(window.define);

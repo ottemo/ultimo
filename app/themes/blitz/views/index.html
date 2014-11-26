@@ -5,7 +5,7 @@
 <!-- your custom.css -->
 <add-css src="style.css"></add-css>
 <add-css src="lib/jquery-ui/jquery-ui-1.10.3.custom.css"></add-css>
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
 <div id="wrapper">
 	<div id="wrapper-inner">
@@ -30,7 +30,9 @@
 <ng-include src="getTemplate('visitor/modal/registration.html')"></ng-include>
 
 <!-- minicart modal -->
-<ng-include src="getTemplate('cart/quick-cart.html')" ng-controller="cartListController"></ng-include>
+<ng-include src="getTemplate('cart/view.html')" ng-controller="cartListController"></ng-include>
 
 <!-- add your srcipts here -->
 <script src="themes/blitz/scripts/main.js"></script>
+<script src="themes/blitz/lib/jquery.nicescroll.js"></script>
+<script src="themes/blitz/lib/star-rating.min.js"></script>

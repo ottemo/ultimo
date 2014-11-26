@@ -1,4 +1,4 @@
-<header id="top" class="navbar navbar-static-top bs-docs-nav" role="banner">
+<header id="top" class="navbar nav navbar-fixed-top bs-docs-nav" role="banner">
     <div class="navbar-header col-lg-4 col-md-4 col-sm-2 col-xs-2">
         <button class="navbar-toggle" data-target=".bs-navbar-collapse" data-toggle="collapse" type="button">
             <i class="fa fa-navicon"></i>
@@ -10,21 +10,19 @@
     </a>
     <div class="col-lg-4 col-md-4 col-sm-2 col-xs-3 pull-right">
         <div class="pull-right">
-            <a class="cart" href="" target="_self" ng-click="clickToCartDesktop()" ng-controller="visitorLoginController" >
+            <a class="cart" href="" target="_self" ng-click="clickToCartDesktop()" ng-controller="visitorLoginControllerBlitz" >
                 <!-- cart button -->
                 <div ng-controller="commonHeaderController" >
                     <!-- icon cart -->
                     <span class="glyphicon glyphicon-shopping-cart"></span>
-                    <!-- items counter -->
-                    <!--<span ng-controller="cartListController">{{it.getCountItems()}}</span>-->
                 </div>
             </a>
         </div>
         <div class="pull-right" ng-controller="commonHeaderController">
             <!-- login/account/logout buttons -->
-            <a href="{{item.link}}"  ng-repeat="item in rightMenu.getMenuRight()" class="btn-login" >
-                <span><i class="fa fa-user"></i></span>
-                <span>{{item.label}}</span>
+            <a href="{{item.link}}"  ng-repeat="item in rightMenu.getMenuRight()" class="btn-login pull-right">
+                <span class="visible-xs visible-sm"></span>
+                <span class="visible-md visible-lg">{{item.label}}</span>
             </a>
         </div>
     </div>
