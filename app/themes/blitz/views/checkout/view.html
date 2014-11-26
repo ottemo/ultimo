@@ -448,7 +448,7 @@
         <div class="panel-body">
             <div id="review" class="accordion" >
 
-                <div class="col-sm-6 hidden-md hidden-lg">
+                <div class="row hidden-md hidden-lg">
                     <table class="table table-bordered" ng-show="cart.getCountItems()" ng-class="{'last':$last}">
                         <tr>
                             <th>Product Name</th>
@@ -461,8 +461,6 @@
                             <td>{{item.product.price | number: 2 | currency}}</td>
                         </tr>
                     </table>
-                </div>
-                <div class="col-sm-6 hidden-md hidden-lg">
                     <table class="table table-bordered" ng-show="cart.getCountItems()" ng-class="{'last':$last}">
                         <tr>
                             <td>SUBTOTAL</td>

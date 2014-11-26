@@ -281,16 +281,31 @@
 
                     <div class="text-center">
                         <!-- prev step -->
-                        <button class="back btn btn-primary btn-lg" ng-click="back('billingAddress')">
+                        <button class="back hidden-xs btn btn-primary btn-lg" ng-click="back('billingAddress')">
                             <span class="glyphicon glyphicon-arrow-up"></span>
                             Prev step
                         </button>
 
                         <!-- next step -->
-                        <button class="next btn btn-success btn-lg" ng-click="next('billingAddress')">
+                        <button class="next hidden-xs btn btn-success btn-lg" ng-click="next('billingAddress')">
                             <span class="glyphicon glyphicon-arrow-down"></span>
                             Next step
                         </button>
+
+
+                        <div class="btn-group-vertical visible-xs">
+                            <!-- prev step -->
+                            <button class="back btn btn-primary btn-lg" ng-click="back('billingAddress')">
+                                <span class="glyphicon glyphicon-arrow-up"></span>
+                                Prev step
+                            </button>
+
+                            <!-- next step -->
+                            <button class="next btn btn-success btn-lg" ng-click="next('billingAddress')">
+                                <span class="glyphicon glyphicon-arrow-down"></span>
+                                Next step
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -321,16 +336,30 @@
 
                     <div class="text-center">
                         <!-- prev step -->
-                        <button class="back btn btn-lg btn-primary" ng-click="back('shippingMethod')">
+                        <button class="back hidden-xs btn btn-lg btn-primary" ng-click="back('shippingMethod')">
                             <span class="glyphicon glyphicon-arrow-up"></span>
                             Prev step
                         </button>
 
                         <!-- next step -->
-                        <button class="next btn btn-lg btn-success" ng-click="next('shippingMethod')">
+                        <button class="next hidden-xs btn btn-lg btn-success" ng-click="next('shippingMethod')">
                             <span class="glyphicon glyphicon-arrow-down"></span>
                             Next step
                         </button>
+
+                        <div class="btn-group-vertical visible-xs">
+                            <!-- prev step -->
+                            <button class="back btn btn-lg btn-primary" ng-click="back('shippingMethod')">
+                                <span class="glyphicon glyphicon-arrow-up"></span>
+                                Prev step
+                            </button>
+
+                            <!-- next step -->
+                            <button class="next btn btn-lg btn-success" ng-click="next('shippingMethod')">
+                                <span class="glyphicon glyphicon-arrow-down"></span>
+                                Next step
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -439,16 +468,28 @@
 
                 <div class="text-center">
                     <!-- prev step -->
-                    <button class="back btn btn-primary btn-lg" ng-click="back('paymentMethod')">
+                    <button class="back hidden-xs btn btn-primary btn-lg" ng-click="back('paymentMethod')">
                         <span class="glyphicon glyphicon-arrow-up"></span>
                         Prev step
                     </button>
 
                     <!-- next step -->
-                    <button class="next btn btn-success btn-lg" ng-click="next('paymentMethod')">
+                    <button class="next hidden-xs btn btn-success btn-lg" ng-click="next('paymentMethod')">
                         <span class="glyphicon glyphicon-arrow-down"></span>
                         Next step
                     </button>
+                    <div class="btn-group-vertical visible-xs">
+                        <!-- prev step -->
+                        <button class="back btn btn-primary btn-lg" ng-click="back('paymentMethod')">
+                            <span class="glyphicon glyphicon-arrow-up"></span>
+                            Prev step
+                        </button>
+
+                        <!-- next step -->
+                        <button class="next btn btn-success btn-lg" ng-click="next('paymentMethod')">
+                            <span class="glyphicon glyphicon-arrow-down"></span>
+                            Next ste
+                    </div>
                 </div>
             </div>
         </div>
@@ -487,16 +528,29 @@
 
                 <div class="text-center">
                     <!-- prev step -->
-                    <button class="back btn btn-lg btn-primary" ng-click="back('discounts')">
+                    <button class="back hidden-xs btn btn-lg btn-primary" ng-click="back('discounts')">
                         <span class="glyphicon glyphicon-arrow-up"></span>
                         Prev step
                     </button>
 
                     <!-- next step -->
-                    <button class="next btn btn-lg btn-success" ng-click="next('discounts')">
+                    <button class="next hidden-xs btn btn-lg btn-success" ng-click="next('discounts')">
                         <span class="glyphicon glyphicon-arrow-down"></span>
                         Next step
                     </button>
+                    <div class="btn-group-vertical visible-xs">
+                        <!-- prev step -->
+                        <button class="back btn btn-lg btn-primary" ng-click="back('discounts')">
+                            <span class="glyphicon glyphicon-arrow-up"></span>
+                            Prev step
+                        </button>
+
+                        <!-- next step -->
+                        <button class="next btn btn-lg btn-success" ng-click="next('discounts')">
+                            <span class="glyphicon glyphicon-arrow-down"></span>
+                            Next step
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -512,7 +566,7 @@
         <div class="panel-body">
             <div id="review" class="accordion" style="display:none">
 
-                <div class="col-sm-6 hidden-md hidden-lg">
+                <div class="row hidden-md hidden-lg">
                     <table class="table table-bordered" ng-show="cart.getCountItems()" ng-class="{'last':$last}">
                         <tr>
                             <th>Product Name</th>
@@ -525,8 +579,7 @@
                             <td>{{item.product.price | number: 2 | currency}}</td>
                         </tr>
                     </table>
-                </div>
-                <div class="col-sm-6 hidden-md hidden-lg">
+
                     <table class="table table-bordered" ng-show="cart.getCountItems()" ng-class="{'last':$last}">
                         <tr>
                             <td><strong>Subtotal</strong></td>
@@ -546,6 +599,7 @@
                             <td>{{checkout.grandtotal | currency}}</td>
                         </tr>
                     </table>
+
                 </div>
 
                 <div class="clearfix"></div>
@@ -554,16 +608,29 @@
 
                 <div class="text-center">
                     <!-- prev step -->
-                    <button class="back btn btn-lg btn-primary" ng-click="back('review')">
+                    <button class="back hidden-xs btn btn-lg btn-primary" ng-click="back('review')">
                         <span class="glyphicon glyphicon-arrow-up"></span>
                         Prev step
                     </button>
 
                     <!-- next step -->
-                    <button class="next btn btn-lg btn-danger" ng-click="save()">
+                    <button class="next hidden-xs btn btn-lg btn-danger" ng-click="save()">
                         <span class="glyphicon glyphicon-ok"></span>
                         Confirm purchase
                     </button>
+                    <div class="btn-group-vertical visible-xs">
+                        <!-- prev step -->
+                        <button class="back btn btn-lg btn-primary" ng-click="back('review')">
+                            <span class="glyphicon glyphicon-arrow-up"></span>
+                            Prev step
+                        </button>
+
+                        <!-- next step -->
+                        <button class="next btn btn-lg btn-danger" ng-click="save()">
+                            <span class="glyphicon glyphicon-ok"></span>
+                            Confirm purchase
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
