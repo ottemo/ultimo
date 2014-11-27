@@ -36,9 +36,14 @@
 }
 
 
-
+.cat {
+    width: 100%;
+    overflow-x:hidden;
+}
 body {
     padding-top: 126px !important;
+    overflow-x:hidden !important;
+    width: 100% !important;
 }
 a {
 	text-decoration: none !important;
@@ -71,8 +76,9 @@ ul {
 }
 #wrapper-inner {
     padding-top: 106px;
-
+    min-height: 100%;
 }
+
 .logo {
     margin-top: 8px;
 }
@@ -94,7 +100,7 @@ header.navbar {
     margin-right: 9px;
     text-transform: uppercase;
 }
-header .btn-login[href="#/account"] span:first-child:before {
+header .btn-login[href="#/account"] span:first-child:before,header .btn-login[href="#/login"] span:first-child:before {
     content: "\e008";
     font-size: 25px;
     font-family: "Glyphicons Halflings";
@@ -360,6 +366,13 @@ footer p {
     font: 12px "roboto_ltregular",sans-serif;
     color: #ffffff;
 }
+footer p a {
+    color: #fff;
+}
+footer p a:hover {
+    text-decoration: underline !important;
+    color: #fff;
+}
 .center-nav {
     font-size: 11px;
     height: 30px;
@@ -498,7 +511,7 @@ header .navbar-toggle {
 .row-offcanvas-left .sidebar-offcanvas {
     left: -340px;
 }
-.sidebar-offcanvas h6 {
+.sidebar-offcanvas h6:not(.toggler) {
     color: #ffffff;
     font: 18px 'robotobold',sans-serif;
     text-transform: uppercase;
@@ -506,13 +519,28 @@ header .navbar-toggle {
     margin: 0;
 }
 .sidebar-offcanvas ul.active {
-    display:block;
-}
-.sidebar-offcanvas h6 + span {
-    cursor: pointer;
-}
-.sidebar-offcanvas ul.active {
     display:none;
+}
+.sidebar-offcanvas .toggler {
+    cursor: pointer;
+    font-family: "Glyphicons Halflings";
+    -webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+    -moz-transition: all 0.5s ease;/* Firefox 4-15 */
+    -o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+    transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+.sidebar-offcanvas .toggler.active {
+    -moz-transform: rotate(180deg); /*FF3.5+*/
+    -o-transform: rotate(180deg); /*Opera 10.5*/
+    -webkit-transform: rotate(180deg); /*Saf3.1+, Chrome*/
+    -ms-transform: rotate(180deg); /*IE9*/
+    transform: rotate(180deg);
+    filter: progid:DXImageTransform.Microsoft.Matrix(M11=-1.000000, M12=0,M21=0.000000, M22=-1.000000, sizingMethod='auto expand');/*IE6-IE9*/
+    zoom: 1;
+    -webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
+    -moz-transition: all 0.5s ease;/* Firefox 4-15 */
+    -o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
+    transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
 }
 .sidebar-offcanvas > span,
  .sidebar-offcanvas h6 + span{
@@ -539,6 +567,13 @@ div > .sidebar-offcanvas ul {
     font: 16px/16px "roboto_ltregular",sans-serif;
     padding: 0;
 }
+.sidebar-offcanvas li label input:checked + span:after {
+    content: " \e013";
+    font-family: "Glyphicons Halflings";
+    font-size: 12px;
+}
+
+
 .sidebar-offcanvas li label input {
     display: none;
 }
@@ -1067,9 +1102,6 @@ progress::-moz-progress-bar {
         width: 148px;
     }
     .h-slider-switch .btn-custom {
-        border-radius: 0 !important;
-        -moz-border-radius: 0 !important;
-        -webkit-border-radius: 0 !important;
         width: 100%;
     }
     .h-slider-switch {
@@ -1096,14 +1128,14 @@ progress::-moz-progress-bar {
     
     .h-slider-switch {
         height: 56px;
-        margin: 20px 0 10px;
+        margin: 20px auto 10px;
         padding: 0;
-        width: 300px;
+        width: 294px;
     }
     .h-slider-switch .btn-custom {
         font-size: 15px;
         padding: 10px 0;
-        width: 100px;
+        width: 98px;
     }
      footer {
         padding-top: 15px;
@@ -1295,24 +1327,18 @@ progress::-moz-progress-bar {
         width: 250px;
         margin-left: -125px;
     }
-    .h-bottom h4, .h-bottom a {
+    .h-bottom h4 {
         font-size: 30px;
     }
     .h-bottom p {
         font-size: 20px;
-    }
-    .h-bottom a {
-        padding: 6px 15px;
-        width: 280px;
     }
     .h-carousel > div:last-child,
     .h-carousel > div:nth-child(5) {
         display: none;
     }
 }
-@media (min-width: 1200px) {
 
-}
 
 
 

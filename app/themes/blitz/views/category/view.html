@@ -1,9 +1,6 @@
 <div ng-init="init()" class="cat">
     <div class="row-offcanvas row-offcanvas-left">
-        <div class="sidebar-nav" role="navigation" id="sidebar" ng-controller="commonHeaderController" >
-            <ng-include src="getTemplate('common/navigation/categories.html')"></ng-include>
-            <div class="clearfix"></div>
-        </div>
+        <ng-include src="getTemplate('common/navigation/categories.html')"></ng-include>
         <div class="cat-top">
             <button data-toggle="offcanvas" class="fa fa-navicon btn btn-primary btn-cat hidden-xs" type="button"></button>
             <!-- breadcrumbs -->
@@ -84,15 +81,5 @@
 <ng-include src="getTemplate('category/modal/quick-view.html')"></ng-include>
 
 <script>
-    // toggle for filters
-    $('.filters > span').on('click',function() {
-        var className = $(this).attr('id');
-        $('.'+className).siblings().removeClass('active');
-        $('.'+className).toggleClass('active');
-
-   });
-   // toggle for left sidebar to see all items
-   $(document).on('click','#sidebar h6 + span',function(){
-      $(this).siblings('ul').toggleClass('active');
-   });
+   
 </script>

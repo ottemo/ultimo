@@ -9,7 +9,11 @@
 	    		cursoropacitymin: "0.4"
 	    	});
 	    	$("html").niceScroll();
-	    	
+	    	// toggle for left sidebar to see all items
+			   $(document).on('click','#sidebar .toggler',function(){
+			      $(this).siblings('ul').slideToggle(400);
+			      $(this).toggleClass('active');
+			   });
     	 }, 700)
         
     	//button click and hide popup
