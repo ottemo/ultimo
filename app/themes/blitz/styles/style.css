@@ -407,7 +407,7 @@ header .navbar-toggle {
 .cat-top {
     height: 105px;
     border-bottom: 1px solid #DBDBDB;
-    margin: 0 40px 55px;
+    margin: 0 30px 55px;
 }
 .cat-top > button, .cat-top ol {
     float: left;
@@ -459,6 +459,15 @@ header .navbar-toggle {
     color: #1F4258;
     cursor: pointer;
 }
+.cat {
+    position: relative;
+}
+.filter {
+    position: absolute;
+    top: 105px;
+    width: 100%;
+    z-index: 100;
+}
 .filter a {
     color: #1f4258;
     font: 18px "roboto_ltregular",sans-serif;
@@ -468,25 +477,28 @@ header .navbar-toggle {
     text-decoration: underline !important;
 }
 .filter > div {
-    border-bottom: 1px solid #dbdbdb;
+    background-color: #efefef;
+    border-top: 1px solid #bfbfbf;
+    border-bottom: 1px solid #bfbfbf;
     display: none;
     height: 70px;
-    margin: -40px 40px 55px;
+    margin-top: -1px;
+    padding: 0 30px;
 }
 .filter-search form span {
-    background-color: #242424;
+    background-color: #777777;
     color: #fff;
     float: left;
     font-size: 1.9em;
     height: 52px;
     margin-left: -60px;
-    margin-top: -1px;
+    margin-top: 7px;
     padding: 12px 0 0 16px;
     width: 60px;
 }
 
 .filter-sort {
-    padding-top: 15px;
+    padding-top: 23px;
 }
 .filter-search .form-control {
     border-radius: 0;
@@ -496,6 +508,10 @@ header .navbar-toggle {
     float: left;
     font: 16px "roboto_ltregular",sans-serif;
     padding-left: 20px;
+    margin-top: 8px;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
 }
 .filter > div.active {
     display: block;
@@ -1114,6 +1130,9 @@ progress::-moz-progress-bar {
     .cat .col-xs-6 {
         width:100%;
     }
+    .breadcrumb {
+        display: none;
+    }
 }
 @media (max-width: 767px) {
     .carousel-indicators {
@@ -1194,11 +1213,60 @@ progress::-moz-progress-bar {
         margin: 30px 0 0;
     }
     .breadcrumb {
-        margin: 18px 0 0;
+        margin: 9px 0 0;
         padding: 8px 0;
     }
     .cat-top {
         height: 78px;
+    }
+    .cat-top {
+        height: 65px;
+    }
+    .cat-top .filters {
+        margin: 22px 0 0;
+    }
+    .filter {
+        padding: 0;
+        top: 65px;
+    }
+    .filter {
+        padding: 0;
+        top: 65px;
+    }
+    .row-offcanvas-left .sidebar-offcanvas {
+        left: 0;
+    }
+    .sidebar-offcanvas {
+        background-color: #efefef;
+        padding: 43px 25px 50px;
+        top: 65px;
+        width: 100%;
+        z-index: 100;
+        display: none;
+    }
+    .sidebar-offcanvas.active {
+        display: block;
+    }
+    .sidebar-offcanvas h6 {
+        color: #808080;
+        float: left;
+        font: 18px "roboto_ltregular",sans-serif;
+        margin: 0;
+        text-transform: uppercase;
+    }
+    .sidebar-offcanvas hr {
+        background-color: #808080;
+        height: 1px;
+    }
+    .sidebar-offcanvas > span, .sidebar-offcanvas h6 + span {
+        color: #808080;
+    }
+    .sidebar-offcanvas li a, .sidebar-offcanvas li label {
+        color: #808080;
+    }
+    .sidebar-offcanvas {
+        border-bottom: 1px solid #bfbfbf;
+        min-height: inherit;
     }
 }
 @media (min-width: 768px ) and (max-width: 991px) {
@@ -1299,6 +1367,34 @@ progress::-moz-progress-bar {
     }
     .rating .right-block form .col-md-12 .form-control {
         height: 110px;
+    }
+    .cat-top {
+        margin: 0 0 55px;
+        padding: 0 30px;
+        border-bottom: 1px solid #BFBFBF;
+    }
+    .filter a {
+        background-color: #efefef;
+        border-bottom: 1px solid #BFBFBF;
+        color: #808080;
+        display: block;
+        margin: 0;
+        padding: 23px 30px 21px;
+    }
+    .filter a:last-child {
+        border:none;
+    }
+    .filter-sort {
+        padding-top: 0;
+    }
+    .filter .sort {
+        height: auto;
+    }
+    .filter > div {
+        padding: 0;
+    }
+    .filter-search {
+        padding: 0 30px;
     }
 }
 @media (min-width: 768px) {
@@ -1637,9 +1733,7 @@ footer > div:last-child p {
     display: inline-block;
     margin: 0 5px;
   }
-
   footer > div:nth-child(2) {
     padding: 0;
   }
-
 }
