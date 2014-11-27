@@ -1,9 +1,6 @@
 <div ng-init="init()" class="cat">
     <div class="row-offcanvas row-offcanvas-left">
-        <div class="sidebar-nav" role="navigation" id="sidebar" ng-controller="commonHeaderController" >
-            <ng-include src="getTemplate('common/navigation/categories.html')"></ng-include>
-            <div class="clearfix"></div>
-        </div>
+        <ng-include src="getTemplate('common/navigation/categories.html')"></ng-include>
         <div class="cat-top">
             <button data-toggle="offcanvas" class="fa fa-navicon btn btn-primary btn-cat hidden-xs" type="button"></button>
             <!-- breadcrumbs -->
@@ -17,28 +14,29 @@
                     <i class="fa fa-sort-amount-asc"></i>
                     <span>sort</span>
                 </span>
+                <span id="sidebar-offcanvas" class="hidden-sm hidden-md hidden-lg">
+                    <i data-toggle="offcanvas" class="glyphicon glyphicon-filter" type="button"></i>
+                </span>
             </div>
         </div>
         <!-- filters -->
         <div class="filter">
-             <div class="search">
-                 <div class="filter-search">
-                     <form class="ng-pristine ng-valid">
-                         <input class="form-control ng-pristine ng-valid" type="text" ng-model="searchText" placeholder="Search...">
-                         <span class="glyphicon glyphicon-search" ng-click=""></span>
-                         <div class="clear"></div>
-                     </form>
-                     <div class="nav-close" ng-click="closeBlock('search')"></div>
-                 </div>
-             </div>
+            <div class="search">
+                <div class="filter-search">
+                    <form class="ng-pristine ng-valid">
+                        <input class="form-control ng-pristine ng-valid" type="text" ng-model="searchText" placeholder="Search...">
+                        <span class="glyphicon glyphicon-search" ng-click=""></span>
+                        <div class="clear"></div>
+                    </form>
+                    <div class="nav-close" ng-click="closeBlock('search')"></div>
+                </div>
+            </div>
             <div class="sort">
                 <div class="filter-sort">
                     <a ng-click="sortByPrice('asc')" target="_self" href="">PRICE LOW TO HIGH</a>
                     <a ng-click="sortByPrice('desc')" target="_self" href="">PRICE HIGH TO LOW</a>
                     <a ng-click="sortByName('asc')" target="_self" href="">NAME ASC</a>
                     <a ng-click="sortByName('desc')" target="_self" href="">NAME DESC</a>
-                    <div class="clear"></div>
-                    <div class="nav-close" ng-click="closeBlock('sort')"></div>
                 </div>
             </div>
         </div>
@@ -84,15 +82,5 @@
 <ng-include src="getTemplate('category/modal/quick-view.html')"></ng-include>
 
 <script>
-    // toggle for filters
-    $('.filters > span').on('click',function() {
-        var className = $(this).attr('id');
-        $('.'+className).siblings().removeClass('active');
-        $('.'+className).toggleClass('active');
 
-   });
-   // toggle for left sidebar to see all items
-   $(document).on('click','#sidebar h6 + span',function(){
-      $(this).siblings('ul').toggleClass('active');
-   });
 </script>
