@@ -1,24 +1,33 @@
 (function (define) {
     "use strict";
 
+    /*
+     *  Angular "pdpModule" declaration
+     *  (module internal files refers to this instance)
+     */
     define([
-            "angular"
+            "angular",
+            "angular-route",
+            "angular-resource"
         ],
         function (angular) {
-
+            /*
+             *  Angular "pdpModule" declaration
+             */
             angular.module.commonModule
 
-                .run([
-                    "$rootScope",
-                    "$commonSidebarService",
-                    function ($rootScope, $commonSidebarService) {
+                /*
+                 *  Basic routing configuration
+                 */
+                .config(["$routeProvider", function ($routeProvider) {
+                                    $routeProvider
+                                        .when("/", {
+                                            templateUrl: angular.getTheme("common/home.html"),
+                                            controller: "commonControllerBlitz"
+                                        })
+                                }])
 
-                        // Left navigation menu
-
-                        $commonSidebarService.addItem("SHOP", "shop.html", "glyphicon glyphicon-book");
-
-                        return angular.module.commonModule;
-                    }
-                ]);
+            return angular.module.commonModule;
         });
+
 })(window.define);

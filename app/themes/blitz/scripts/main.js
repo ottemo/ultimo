@@ -44,6 +44,10 @@
 	     $(document).on('click', '#mini-cart .hide-cart', function(event) {
 	     	$('#mini-cart').removeClass('active')
 	     });
+	     // hide left drop-down menu for mobile
+	     $(document).on('click','#left-drop-nav li a',function(){
+           $('#btn-left-drop-nav').trigger('click');
+         })
 
 
     });
