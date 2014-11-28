@@ -9,7 +9,14 @@
 	    		cursoropacitymin: "0.4"
 	    	});
 	    	$("html").niceScroll();
-	    	
+	    	// toggle for left sidebar to see all items
+			   $(document).on('click','#sidebar .toggler',function(){
+			      $(this).siblings('ul').slideToggle(400);
+			      $(this).toggleClass('active');
+			   });
+			var wrapHeight = (parseInt($('#wrapper-inner').css('height'))) - (parseInt($('#wrapper-inner').css('paddingTop')));
+			$('#sidebar').css('minHeight', wrapHeight);
+			$('.cat').css('minHeight', wrapHeight);
     	 }, 700)
         
     	//button click and hide popup
@@ -37,6 +44,9 @@
 	     $(document).on('click', '#mini-cart .hide-cart', function(event) {
 	     	$('#mini-cart').removeClass('active')
 	     });
+	     $(document).on('click','#left-drop-nav li a',function(){
+           	$('#btn-left-drop-nav').trigger('click');
+         })
 
 
     });

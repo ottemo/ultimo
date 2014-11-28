@@ -1,9 +1,6 @@
 <div ng-init="init()" class="cat">
     <div class="row-offcanvas row-offcanvas-left">
-        <div class="sidebar-nav" role="navigation" id="sidebar" ng-controller="commonHeaderController" >
-            <ng-include src="getTemplate('common/navigation/categories.html')"></ng-include>
-            <div class="clearfix"></div>
-        </div>
+        <ng-include src="getTemplate('common/navigation/categories.html')"></ng-include>
         <div class="cat-top">
             <button data-toggle="offcanvas" class="fa fa-navicon btn btn-primary btn-cat hidden-xs" type="button"></button>
             <!-- breadcrumbs -->
@@ -16,6 +13,9 @@
                 <span id="sort">
                     <i class="fa fa-sort-amount-asc"></i>
                     <span>sort</span>
+                </span>
+                <span id="sidebar-offcanvas" class="hidden-sm hidden-md hidden-lg">
+                    <i data-toggle="offcanvas" class="glyphicon glyphicon-filter" type="button"></i>
                 </span>
             </div>
         </div>
@@ -84,15 +84,28 @@
 <ng-include src="getTemplate('category/modal/quick-view.html')"></ng-include>
 
 <script>
-    // toggle for filters
+// toggle for filters
     $('.filters > span').on('click',function() {
+        $(this).toggleClass('active').siblings().removeClass('active');
         var className = $(this).attr('id');
-        $('.'+className).siblings().removeClass('active');
-        $('.'+className).toggleClass('active');
+        if(className == "sidebar-offcanvas"){
+            $(".filter > div").css('display','none');
+        }else{
+            $('.'+className).siblings().css('display','none');
+            $(".sidebar-offcanvas").css('display','none');
+        }
 
+
+        $('.'+className).slideToggle();
    });
    // toggle for left sidebar to see all items
    $(document).on('click','#sidebar h6 + span',function(){
       $(this).siblings('ul').toggleClass('active');
    });
+   //padding for fixed navigation
+    setTimeout(function() { 
+        var wrapHeight = (parseInt($('#wrapper-inner').css('height'))) - (parseInt($('#wrapper-inner').css('paddingTop')));
+        $('#sidebar').css('minHeight', wrapHeight);
+        $('.cat').css('minHeight', wrapHeight);
+     }, 500)
 </script>

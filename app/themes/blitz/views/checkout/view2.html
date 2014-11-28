@@ -12,7 +12,7 @@
                     <i class="glyphicon glyphicon-chevron-down dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown"></i>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
                         <li role="presentation" ng-repeat="addr in addresses">
-                            <a role="menuitem" tabindex="-1" href ng-click="choiceShipping(addr.Id)">{{addr.Name}}</a>
+                            <a role="menuitem" tabindex="-1" href ng-click="choiceShipping(addr.ID)">{{addr.Name}}</a>
                         </li>
                         <li role="presentation" class="divider"></li>
                         <li role="presentation">
@@ -161,7 +161,7 @@
 
                     <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
                         <li role="presentation" ng-repeat="addr in addresses">
-                            <a role="menuitem" tabindex="-1" ng-click="choiceBilling(addr.Id)">{{addr.Name}}</a>
+                            <a role="menuitem" tabindex="-1" ng-click="choiceBilling(addr.ID)">{{addr.Name}}</a>
                         </li>
                         <li role="presentation" class="divider"></li>
                         <li role="presentation">
@@ -388,7 +388,7 @@
                     <div class="clearfix"></div>
                     
                     <div class="paypal" ng-show="isCreditCard()" ng-if="showFormCc(method)">
-                        <form name="method.form" novalidate>
+                        <form name="method.form">
 
                             <div class="form-group col-md-6 col-xs-12"
                                  ng-class="{ 'has-error' : method.form.type.$invalid && !method.form.type.$pristine }">
@@ -606,7 +606,7 @@
 
                 <gui-message-manager item="message"></gui-message-manager>
 
-                <div class="text-center">
+                <div class="text-center confirm">
                     <!-- prev step -->
                     <button class="back hidden-xs btn btn-lg btn-primary" ng-click="back('review')">
                         <span class="glyphicon glyphicon-arrow-up"></span>
@@ -713,3 +713,4 @@
     </div>
 </div>
 <ng-include src="getTemplate('checkout/modal/checkout-purchase-success.html')"></ng-include>
+<ng-include src="getTemplate('checkout/modal/redirect.html')"></ng-include>

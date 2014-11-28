@@ -2,7 +2,7 @@
     "use strict";
 
     define([
-        "./common/init",
+        "./common/module",
         "./visitor/module",
         "./category/module",
         "./cart/init",

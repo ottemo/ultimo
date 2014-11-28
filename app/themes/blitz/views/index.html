@@ -9,18 +9,13 @@
 
 <div id="wrapper">
 	<div id="wrapper-inner">
-        <div class="clearfix"></div>
-        <!-- header layout -->
-        <ng-include src="getTemplate('common/header.html')"></ng-include>
+                <!-- header layout -->
+                <ng-include src="getTemplate('common/header.html')"></ng-include>
 
-        <div class="clearfix"></div>
-        <!-- main content layout -->
-        <ng-view></ng-view>
-
-        <div class="clearfix"></div>
-
+                <!-- main content layout -->
+                <ng-view></ng-view>
 	</div>
-
+        <div class="clearfix"></div>
 	<!-- footer layout -->
 	<ng-include src="getTemplate('common/footer.html')"></ng-include>
 </div>
@@ -30,7 +25,7 @@
 <ng-include src="getTemplate('visitor/modal/registration.html')"></ng-include>
 
 <!-- minicart modal -->
-<ng-include src="getTemplate('cart/view.html')" ng-controller="cartListController"></ng-include>
+<ng-include src="getTemplate('cart/quick-cart.html')" ng-controller="cartListController"></ng-include>
 
 <!-- add your srcipts here -->
 <script src="themes/blitz/scripts/main.js"></script>

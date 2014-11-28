@@ -294,6 +294,8 @@
                         payment = getPaymentInfo();
 
                         if (isValidForm.status) {
+                            $(this).parents('.confirm').css('display', 'none');
+                            $('#processing').modal('show');
                             $checkoutApiService.save().$promise.then(
                                 function (response) {
 
@@ -307,10 +309,13 @@
                                         $cartService.reload().then(
                                             function () {
                                                 $scope.purchase = response.result || {};
+                                                $('#processing').modal('hide');
                                                 $("#purchase-success").modal("show");
                                             }
                                         );
                                     } else {
+                                        $(this).parents('.confirm').css('display', 'block');
+                                        $('#processing').modal('hide');
                                         // Errors from server
                                         $scope.message = {
                                             "type": "danger",
@@ -321,6 +326,8 @@
                                 }
                             );
                         } else {
+                            $(this).parents('.confirm').css('display', 'block');
+                            $('#processing').modal('hide');
                             $scope.message = {
                                 "type": "danger",
                                 "message": isValidForm.messages.join("<br />")

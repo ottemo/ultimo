@@ -104,7 +104,7 @@
                             for (i = 0; i < result.length; i += 1) {
                                 parts = splitName(result[i].Name);
                                 $scope.products.push({
-                                    "Id": result[i].Id,
+                                    "Id": result[i].ID,
                                     "Image": result[i].Image,
                                     "Name": parts[2],
                                     "Sku": parts[1],

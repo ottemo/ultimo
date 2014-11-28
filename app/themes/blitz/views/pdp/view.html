@@ -89,6 +89,11 @@
                 <gui-message-manager item="messageOptions"></gui-message-manager>
             </div>
         </div>
+        
+        <!-- total -->
+        <div class="row">
+             <p class="price">Total: {{product.price * qty | currency}}</p>
+        </div>
 
         <!-- add to cart button -->
         <div class="row pdp-btn-cart">
@@ -97,6 +102,7 @@
                 &nbsp;Add to cart
             </a>
         </div>
+        
         <div class="row pdp-desc">
             <div class="col-sx-12 description active">
                 <h6>Description<span class="fa fa-chevron-down"></span></h6>
