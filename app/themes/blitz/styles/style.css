@@ -522,6 +522,9 @@ header .navbar-toggle {
     width: 340px;
     min-height: 100%;
 }
+.sidebar-offcanvas > ul {
+    display: block !important;
+}
 .row-offcanvas-left.active {
     left: 340px;
 }
@@ -535,23 +538,28 @@ header .navbar-toggle {
     float: left;
     margin: 0;
 }
-.sidebar-offcanvas ul.active {
-    display:none;
-}
+
 .sidebar-offcanvas .toggler {
     cursor: pointer;
     font-family: "Glyphicons Halflings";
+    -moz-transform: rotate(180deg); /*FF3.5+*/
+    -o-transform: rotate(180deg); /*Opera 10.5*/
+    -webkit-transform: rotate(180deg); /*Saf3.1+, Chrome*/
+    -ms-transform: rotate(180deg); /*IE9*/
+    transform: rotate(180deg);
+    filter: progid:DXImageTransform.Microsoft.Matrix(M11=-1.000000, M12=0,M21=0.000000, M22=-1.000000, sizingMethod='auto expand');/*IE6-IE9*/
+    zoom: 1;
     -webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
     -moz-transition: all 0.5s ease;/* Firefox 4-15 */
     -o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
     transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
 }
 .sidebar-offcanvas .toggler.active {
-    -moz-transform: rotate(180deg); /*FF3.5+*/
-    -o-transform: rotate(180deg); /*Opera 10.5*/
-    -webkit-transform: rotate(180deg); /*Saf3.1+, Chrome*/
-    -ms-transform: rotate(180deg); /*IE9*/
-    transform: rotate(180deg);
+    -moz-transform: rotate(0deg); /*FF3.5+*/
+    -o-transform: rotate(0deg); /*Opera 10.5*/
+    -webkit-transform: rotate(0deg); /*Saf3.1+, Chrome*/
+    -ms-transform: rotate(0deg); /*IE9*/
+    transform: rotate(0deg);
     filter: progid:DXImageTransform.Microsoft.Matrix(M11=-1.000000, M12=0,M21=0.000000, M22=-1.000000, sizingMethod='auto expand');/*IE6-IE9*/
     zoom: 1;
     -webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
@@ -590,7 +598,7 @@ div > .sidebar-offcanvas ul {
     font-size: 12px;
 }
 .sidebar-offcanvas ul {
-    display: none;
+    display: block;
 }
 
 .sidebar-offcanvas li label input {
