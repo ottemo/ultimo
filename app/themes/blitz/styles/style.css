@@ -760,8 +760,9 @@ div > .sidebar-offcanvas ul {
     -webkit-border-radius: 0;
 }
 .pdp-qty.input-group .form-control {
-    height: 52px;
+    height: 55px;
     width: 100px;
+    box-sizing:border-box;
 }
 .rating {
     border-top: 1px solid #E2E2E2;

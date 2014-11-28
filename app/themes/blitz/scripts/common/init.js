@@ -26,6 +26,18 @@
                                             controller: "commonControllerBlitz"
                                         })
                                 }])
+                .run([
+                    "$rootScope",
+                    "$commonSidebarService",
+                    function ($rootScope, $commonSidebarService) {
+
+                        // Left navigation menu
+
+                        $commonSidebarService.addItem("SHOP", "shop.html", "glyphicon glyphicon-book");
+
+                        return angular.module.commonModule;
+                    }
+                ]);
 
             return angular.module.commonModule;
         });
