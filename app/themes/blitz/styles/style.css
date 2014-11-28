@@ -589,7 +589,9 @@ div > .sidebar-offcanvas ul {
     font-family: "Glyphicons Halflings";
     font-size: 12px;
 }
-
+.sidebar-offcanvas ul {
+    display: none;
+}
 
 .sidebar-offcanvas li label input {
     display: none;
