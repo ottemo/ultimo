@@ -6,6 +6,7 @@
         display: none;
     }
 </style>
+<div ng-init="init()">
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
     <a href="#/shop.html" class="shop visible-lg">Shop Now</a>
     <ol class="carousel-indicators">
@@ -124,98 +125,23 @@
 <div class="h-container">
     <div class="row h-item tab-content">
         <div role="tabpanel" class="tab-pane active" id="feature">
-            <div class="col-xs-6 col-sm-4 col-lg-2">
-                <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
-                    <img ng-src="{{getImg('item5.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
-                </a>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-lg-2">
-                <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
-                    <img ng-src="{{getImg('item4.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
-                </a>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-lg-2">
-                <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
-                    <img ng-src="{{getImg('item3.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
-                </a>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-lg-2">
-                <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
-                    <img ng-src="{{getImg('item2.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
-                </a>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-lg-2">
-                <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
-                    <img ng-src="{{getImg('item1.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
-                </a>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-lg-2">
-                <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
-                    <img ng-src="{{getImg('item5.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
+            <div class="col-xs-6 col-sm-4 col-lg-2" ng-repeat="_item in products" ng-show="products.length">
+                <a href="{{productService.getUrl(_item.Id)}}" class="thumbnail">
+                    <img ng-src="{{getImage(_item.Image)}}" alt="_item.Name" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';"/>
                 </a>
             </div>
         </div>
         <div role="tabpanel" class="tab-pane" id="bestseller">
-            <div class="col-xs-6 col-sm-4 col-lg-2">
-                <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
-                    <img ng-src="{{getImg('item3.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
-                </a>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-lg-2">
-                <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
-                    <img ng-src="{{getImg('item4.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
-                </a>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-lg-2">
-                <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
-                    <img ng-src="{{getImg('item5.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
-                </a>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-lg-2">
-                <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
-                    <img ng-src="{{getImg('item2.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
-                </a>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-lg-2">
-                <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
-                    <img ng-src="{{getImg('item1.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
-                </a>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-lg-2">
-                <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
-                    <img ng-src="{{getImg('item5.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
+            <div class="col-xs-6 col-sm-4 col-lg-2" ng-repeat="_item in products | orderBy:'Price':true" ng-show="products.length">
+                <a href="{{productService.getUrl(_item.Id)}}" class="thumbnail">
+                    <img ng-src="{{getImage(_item.Image)}}" alt="_item.Name" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';"/>
                 </a>
             </div>
         </div>
         <div role="tabpanel" class="tab-pane" id="latest">
-            <div class="col-xs-6 col-sm-4 col-lg-2">
-                <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
-                    <img ng-src="{{getImg('item1.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
-                </a>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-lg-2">
-                <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
-                    <img ng-src="{{getImg('item2.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
-                </a>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-lg-2">
-                <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
-                    <img ng-src="{{getImg('item3.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
-                </a>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-lg-2">
-                <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
-                    <img ng-src="{{getImg('item4.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
-                </a>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-lg-2">
-                <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
-                    <img ng-src="{{getImg('item5.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
-                </a>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-lg-2">
-                <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
-                    <img ng-src="{{getImg('item1.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
+            <div class="col-xs-6 col-sm-4 col-lg-2" ng-repeat="_item in products | orderBy:'Id':true" ng-show="products.length">
+                <a href="{{productService.getUrl(_item.Id)}}" class="thumbnail">
+                    <img ng-src="{{getImage(_item.Image)}}" alt="_item.Name" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';"/>
                 </a>
             </div>
         </div>
@@ -227,34 +153,9 @@
         <h5>FREE 2 DAY SHIPPING: SPEND OVER $140 AND USE PROMOTION AT CHECKOUT</h5>
     </div>
     <div class="row h-item">
-        <div class="col-xs-6 col-sm-4 col-lg-2">
-            <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
-                <img ng-src="{{getImg('item6.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
-            </a>
-        </div>
-        <div class="col-xs-6 col-sm-4 col-lg-2">
-            <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
-                <img ng-src="{{getImg('item7.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
-            </a>
-        </div>
-        <div class="col-xs-6 col-sm-4 col-lg-2">
-            <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
-                <img ng-src="{{getImg('item8.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
-            </a>
-        </div>
-        <div class="col-xs-6 col-sm-4 col-lg-2">
-            <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
-                <img ng-src="{{getImg('item9.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
-            </a>
-        </div>
-        <div class="col-xs-6 col-sm-4 col-lg-2">
-            <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
-                <img ng-src="{{getImg('item10.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
-            </a>
-        </div>
-        <div class="col-xs-6 col-sm-4 col-lg-2">
-            <a href="{{productService.getUrl(_item._id)}}" class="thumbnail">
-                <img ng-src="{{getImg('item6.jpg')}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
+        <div class="col-xs-6 col-sm-4 col-lg-2" ng-repeat="_item in products | orderBy:'Id':true" ng-show="products.length">
+            <a href="{{productService.getUrl(_item.Id)}}" class="thumbnail">
+                <img ng-src="{{getImage(_item.Image)}}" alt="_item.Name" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';"/>
             </a>
         </div>
     </div>
@@ -270,7 +171,7 @@
     <div class="clearfix"></div>
 </div>
 <div class="clearfix"></div>
-
+</div>
 
 <script>
     $('#myTab a').click(function (e) {
