@@ -520,6 +520,7 @@ header .navbar-toggle {
     background-color: #1f4258;
     padding: 43px 50px 50px;
     width: 340px;
+    min-height: 100%;
 }
 .row-offcanvas-left.active {
     left: 340px;
@@ -1597,7 +1598,7 @@ progress::-moz-progress-bar {
     font-size: 20px;
     font-weight: bold;
 }
-#mini-cart .qty {
+.qty {
     width: 150px;
     margin: 0 auto;
     float: left;

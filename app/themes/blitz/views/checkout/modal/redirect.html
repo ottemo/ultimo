@@ -1,15 +1,16 @@
-<div class="modal fade" id="purchase-success" ng-controller="visitorLoginController" tabindex="-1" role="dialog">
+<div class="modal fade" id="processing" ng-controller="visitorLoginController" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
                 <h2 class="text-center text-uppercase">Thank you for your purchase</h2>
                 <!-- modal text -->
-                <h3 class="text-center">Your order is:<strong>№{{purchase.increment_id}}</strong></h3>
+                <h3 class="text-center"><strong>Please wait</strong></h3>
                 <br>
-                <h4 class="text-center">You will recieve an order confirmation email with details of your order
-                    and a link to track its progress.
+                <h4 class="text-center">
+                    Your request is being processed...
                 </h4>
                 <br>
+                <i class="fa fa-spin fa-spinner"></i>
             </div>
             <div class="modal-footer">
                 <!-- Continue shopping button -->

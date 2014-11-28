@@ -4753,10 +4753,11 @@ a.thumbnail.active {
 }
 .alert-dismissable .close,
 .alert-dismissible .close {
-  position: relative;
-  top: -2px;
-  right: -21px;
-  color: inherit;
+  position: relative !important;
+  top: -2px !important;
+  right: -21px !important;
+  color: inherit !important;
+  font-size: 21px  !important;
 }
 .alert-success {
   color: #3c763d;
