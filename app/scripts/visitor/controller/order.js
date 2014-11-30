@@ -62,7 +62,7 @@
 
                         date = new Date(str);
                         month = date.getMonth().toString().length < 2 ? '0' + date.getMonth() : date.getMonth();
-                        day = date.getDay().toString().length < 2 ? '0' + date.getDay() : date.getDay();
+                        day = date.getDate().toString().length < 2 ? '0' + date.getDate() : date.getDate();
 
                         return date.getFullYear() + '/' + month + '/' + day;
                     };

@@ -98,17 +98,17 @@
 
                     $scope.changePassword = function () {
                         if (checkPassword()) {
-                            delete $scope.changePswCredentials.confirm;
-                            $visitorApiService.update($scope.changePswCredentials).$promise.then(
+                            $visitorApiService.update({"password":$scope.changePswCredentials.password}).$promise.then(
                                 function (response) {
                                     setTimeout(function(){
                                         $("#form-change-password").modal("hide");
                                     }, 2000);
                                     if (response.error === "") {
-                                        $scope.message = {
+                                        $scope.messagePassword = {
                                             "type": "success",
                                             "message": "Password change was successfully"
                                         };
+                                        $scope.changePswCredentials = {};
                                     } else {
                                         $scope.messagePassword = {
                                             "type": "danger",

@@ -4,6 +4,7 @@
     define(['visitor/init', 'visitor/service/google'], function (loginModule, gl) {
         loginModule.controller('visitorLoginController', [
             '$scope',
+            '$route',
             '$routeParams',
             '$visitorApiService',
             '$visitorLoginService',
@@ -11,7 +12,7 @@
             '$cartService',
             '$commonHeaderService',
             '$commonSidebarService',
-            function ($scope, $routeParams, $visitorApiService, $visitorLoginService, $location, $cartService, $commonHeaderService, $commonSidebarService) {
+            function ($scope, $route, $routeParams, $visitorApiService, $visitorLoginService, $location, $cartService, $commonHeaderService, $commonSidebarService) {
                 $scope.login = $visitorLoginService.getVisitor();
                 $scope.loginCredentials = {};
                 var verifyCode = $routeParams["validate"];
@@ -128,9 +129,15 @@
                     if ($scope.register.$valid && checkPassword()) {
                         delete $scope.login["billing_address_id"];
                         delete $scope.login["shipping_address_id"];
-                        delete $scope.login["confirm_password"];
-                        $scope.register["confirm_password"].$pristine = true;
-                        $visitorApiService.register($scope.login).$promise.then(function (response) {
+
+                        var data = {};
+                        for (var field in $scope.login) {
+                            if ($scope.login.hasOwnProperty(field) && field !== "confirm_password") {
+                                data[field] = $scope.login[field];
+                            }
+                        }
+
+                        $visitorApiService.register(data).$promise.then(function (response) {
                             if (response.error === "") {
                                 $('.modal').modal('hide');
 
@@ -157,7 +164,15 @@
                     }
                 };
 
-                $scope.signIn = function () {
+                var singInSuccess = function (isPopUp) {
+                    if (isPopUp) {
+                        $route.reload();
+                    } else {
+                        $location.path('/account');
+                    }
+                };
+
+                $scope.signIn = function (isPopUp) {
                     $scope.loginForm.submitted = true;
                     if ($scope.loginForm.$valid) {
                         $visitorApiService.login($scope.loginCredentials).$promise.then(function (response) {
@@ -175,7 +190,7 @@
                                         // Update sidebar
                                         $commonSidebarService.addItem('ACCOUNT', 'account', 'glyphicon glyphicon-user', 90);
 
-                                        $location.path('/account');
+                                        singInSuccess(isPopUp);
                                     }
                                 );
                             } else {
@@ -189,7 +204,7 @@
                     }
                 };
 
-                $scope.facebookLogin = function () {
+                $scope.facebookLogin = function (isPopUp) {
                     FB.login(                                               // jshint ignore:line
                         function (response) {
                             if (typeof response.authResponse !== "undefined") {
@@ -211,7 +226,7 @@
                                                 // Update sidebar
                                                 $commonSidebarService.addItem('ACCOUNT', 'account', 'glyphicon glyphicon-user', 90);
 
-                                                $location.path('/account');
+                                                singInSuccess(isPopUp);
                                             }
                                         );
                                     }
@@ -243,7 +258,7 @@
                                     // Update sidebar
                                     $commonSidebarService.addItem('ACCOUNT', 'account', 'glyphicon glyphicon-user', 90);
 
-                                    $location.path('/account', false);
+                                    singInSuccess();
                                 }
                             );
                         }
