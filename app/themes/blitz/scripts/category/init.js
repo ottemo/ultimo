@@ -26,7 +26,7 @@
                             templateUrl: angular.getTheme("category/view.html"),
                             controller: "categoryListControllerBlitz"
                         });
-                }]);
+                }])
 
 
             return angular.module.categoryModule;

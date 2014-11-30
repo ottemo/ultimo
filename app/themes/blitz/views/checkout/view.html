@@ -519,7 +519,7 @@
 
                     <!-- image -->
                     <div class="thumbnail col-md-4">
-                        <a href="{{productService.getUrl(item.pid)}}"><img err-src="placeholder.png" ng-src="{{getImage(item.product)}}" alt="{{item.product.name}}"/></a>
+                        <a href="{{productService.getUrl(item.pid)}}"><img onError="this.src='themes/default/images/placeholder.png';" ng-src="{{getImage(item.product)}}" alt="{{item.product.name}}"/></a>
                     </div>
 
                     <div class="col-md-8">

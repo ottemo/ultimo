@@ -1,6 +1,6 @@
 <div id="mini-cart">
     <!-- product row -->
-    <div>
+    <div ng-init="init()">
         <i class="glyphicon hide-cart glyphicon-arrow-right"></i>
         <h2 class="text-center">Shopping cart</h2>
         <hr>
@@ -13,7 +13,7 @@
 
             <!-- image -->
             <div class="thumbnail col-xs-12 col-md-4 col-md-offset-4 col-xs-6 col-xs-offset-3">
-                <a href="{{productService.getUrl(item.pid)}}"><img err-src="placeholder.png" ng-src="{{getImage(item.product)}}" alt="{{item.product.name}}"/></a>
+                <a href="{{productService.getUrl(item.pid)}}"><img onError="this.src='themes/default/images/placeholder.png';" ng-src="{{getImage(item.product)}}" alt="{{item.product.name}}"/></a>
             </div>
 
             <div class="clearfix"></div>

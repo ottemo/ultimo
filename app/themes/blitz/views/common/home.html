@@ -127,21 +127,21 @@
         <div role="tabpanel" class="tab-pane active" id="feature">
             <div class="col-xs-6 col-sm-4 col-lg-2" ng-repeat="_item in products" ng-show="products.length">
                 <a href="{{productService.getUrl(_item.Id)}}" class="thumbnail">
-                    <img ng-src="{{getImage(_item.Image)}}" alt="_item.Name" err-src="placeholder.png" />
+                    <img ng-src="{{getImage(_item.Image)}}" alt="_item.Name" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';"/>
                 </a>
             </div>
         </div>
         <div role="tabpanel" class="tab-pane" id="bestseller">
             <div class="col-xs-6 col-sm-4 col-lg-2" ng-repeat="_item in products | orderBy:'Price':true" ng-show="products.length">
                 <a href="{{productService.getUrl(_item.Id)}}" class="thumbnail">
-                    <img ng-src="{{getImage(_item.Image)}}" alt="_item.Name" err-src="placeholder.png" />
+                    <img ng-src="{{getImage(_item.Image)}}" alt="_item.Name" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';"/>
                 </a>
             </div>
         </div>
         <div role="tabpanel" class="tab-pane" id="latest">
             <div class="col-xs-6 col-sm-4 col-lg-2" ng-repeat="_item in products | orderBy:'Id':true" ng-show="products.length">
                 <a href="{{productService.getUrl(_item.Id)}}" class="thumbnail">
-                    <img ng-src="{{getImage(_item.Image)}}" alt="_item.Name" err-src="placeholder.png" />
+                    <img ng-src="{{getImage(_item.Image)}}" alt="_item.Name" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';"/>
                 </a>
             </div>
         </div>
@@ -155,7 +155,7 @@
     <div class="row h-item">
         <div class="col-xs-6 col-sm-4 col-lg-2" ng-repeat="_item in products | orderBy:'Id':true" ng-show="products.length">
             <a href="{{productService.getUrl(_item.Id)}}" class="thumbnail">
-                <img ng-src="{{getImage(_item.Image)}}" alt="_item.Name" err-src="placeholder.png" />
+                <img ng-src="{{getImage(_item.Image)}}" alt="_item.Name" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';"/>
             </a>
         </div>
     </div>

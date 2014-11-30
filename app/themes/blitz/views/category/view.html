@@ -48,7 +48,7 @@
                 <!-- product desktop version with info -->
                 <a href="" class="thumbnail hidden-xs">
                     <!-- image -->
-                    <img ng-src="{{getImage(_item)}}" ng-click="openPopUp(_item);" alt="" err-src="placeholder.png">
+                    <img ng-src="{{getImage(_item)}}" ng-click="openPopUp(_item);" alt="" onError="this.src='themes/default/images/placeholder.png';">
                     <span class="caption text-center">
                         <!-- product price -->
                         <h4 class="ng-binding">{{_item.price | number : 2 | currency}}</h4>
@@ -72,7 +72,7 @@
                     </span>
                 </a>
                 <a href="{{productService.getUrl(_item._id)}}" class="thumbnail visible-xs">
-                    <img ng-src="{{getImage(_item)}}" alt="" err-src="placeholder.png">
+                    <img ng-src="{{getImage(_item)}}" alt="" onError="this.onerror=null;this.src='themes/default/images/placeholder.png';">
                 </a>
             </div>
             <div class="clearfix"></div>

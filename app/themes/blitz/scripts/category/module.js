@@ -5,9 +5,9 @@
             "./init",
             "./controller",
         ],
-        function (categoryModule) {
+        function (visitorModule) {
 
-            return categoryModule;
+            return visitorModule;
         });
 
 })(window.define);
