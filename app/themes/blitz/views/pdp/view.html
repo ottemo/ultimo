@@ -3,7 +3,7 @@
     <div class="text-center col-xs-12 col-md-3 col-md-offset-1 hidden-sm hidden-xs">
         <div class="pdp-slider">
             <div ng-repeat="img in productImages" ng-class='{big:$first}'>
-                <img ng-src="{{getImage(imagesPath, img)}}"  onError="this.src='themes/default/images/placeholder.png';" alt=""/>
+                <img ng-src="{{getImage(imagesPath, img)}}" err-src="placeholder.png" alt=""/>
             </div>
         </div>
     </div>
@@ -11,7 +11,7 @@
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox" >
             <div class="item" ng-class="{active : $first}" ng-repeat="img in productImages">
-                <img class="text-center"  onError="this.src='themes/default/images/placeholder.png';" ng-src="{{getImage(imagesPath, img)}}" alt=""/>
+                <img class="text-center"  err-src="placeholder.png" ng-src="{{getImage(imagesPath, img)}}" alt=""/>
             </div>
         </div>
 

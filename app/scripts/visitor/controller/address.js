@@ -252,12 +252,12 @@
                         _default = [];
                         if (typeof $scope.visitor["billing_address"] !== 'undefined' &&
                             $scope.visitor["billing_address"] !== null &&
-                            addr.Id === $scope.visitor["billing_address"]._id) {
+                            addr.ID === $scope.visitor["billing_address"]._id) {
                             _default.push('default billing');
                         }
                         if (typeof $scope.visitor["shipping_address"] !== 'undefined' &&
                             $scope.visitor["shipping_address"] !== null &&
-                            addr.Id === $scope.visitor["shipping_address"]._id) {
+                            addr.ID === $scope.visitor["shipping_address"]._id) {
                             _default.push('default shipping');
                         }
 
