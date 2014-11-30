@@ -3,9 +3,9 @@
 
     define(["design/init"], function (designModule) {
         designModule
-            /**
-             *  Directive that allows to declare CSS inside module templates
-             */
+        /**
+         *  Directive that allows to declare CSS inside module templates
+         */
             .directive("addCss", ["$designService", function ($designService) {
                 return {
                     restrict: "E",
@@ -46,7 +46,19 @@
                         jQuery(elem).layout({ applyDefaultStyles: true });
                     }
                 };
-            });
+            })
+
+            .directive('errSrc', ["$rootScope", function ($rootScope) {
+                return {
+                    link: function (scope, element, attrs) {
+                        element.bind('error', function () {
+                            if (attrs.src !== attrs.errSrc) {
+                                attrs.$set('src', $rootScope.getImg(attrs.errSrc));
+                            }
+                        });
+                    }
+                };
+            }]);
 
         return designModule;
     });

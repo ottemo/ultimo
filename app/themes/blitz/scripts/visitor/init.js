@@ -2,11 +2,9 @@
     "use strict";
 
     define([
-            "angular",
-            "visitor/service/facebook",
-            "visitor/service/google"
+            "angular"
         ],
-        function (angular, fb, gl) {
+        function (angular) {
             
 			return angular.module.visitorModule;
         }

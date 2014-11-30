@@ -40,7 +40,7 @@
 
                     <!-- submit button -->
                     <div class="row">
-                        <button type="submit" class="btn btn-lg btn-primary col-xs-6 col-xs-offset-3" ng-click="signIn()">Login</button>
+                        <button type="submit" class="btn btn-lg btn-primary col-xs-6 col-xs-offset-3" ng-click="signIn(true)">Login</button>
                     </div>
                     <div class="clearfix"></div>
                 </form>
@@ -52,11 +52,11 @@
                     <ng-include src="getTemplate('visitor/social/google.html')"></ng-include>
                 </div>
                 <div class="visible-xs btn-group-vertical">
-                    <div class="btn btn-lg btn-danger" ng-click="googleLogin()">
+                    <div class="btn btn-lg btn-danger" ng-click="googleLogin(true)">
                         <i class="fa fa-google-plus"></i>
                         Login with Google+
                     </div>
-                    <div class="btn btn-lg btn-info" ng-click="facebookLogin()">
+                    <div class="btn btn-lg btn-info" ng-click="facebookLogin(true)">
                         <i class="fa fa-facebook"></i>
                         Login with Facebook
                     </div>
