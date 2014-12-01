@@ -120,8 +120,8 @@
                      * @param {object} product
                      * @returns {string}
                      */
-                    $scope.getImage = function (img) {
-                        return $designImageService.getFullImagePath("", img);
+                    $scope.getImage = function (img, size) {
+                        return $designImageService.getFullImagePath("", img, size);
                     };
 
                     // HANDLERS FOR BREADCRUMBS (START)

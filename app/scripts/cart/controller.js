@@ -45,8 +45,8 @@
                      * @param {object} product
                      * @returns {string}
                      */
-                    $scope.getImage = function (product) {
-                        return $designImageService.getFullImagePath("", product.image);
+                    $scope.getImage = function (product, size) {
+                        return $designImageService.getFullImagePath("", product.image, size);
                     };
 
                     $scope.getSubtotal = function () {

@@ -146,8 +146,8 @@
                      * @param {string} image    - image name
                      * @returns {string}        - full path to image
                      */
-                    $scope.getImage = function (path, image) {
-                        return $designImageService.getFullImagePath(path, image);
+                    $scope.getImage = function (path, image, size) {
+                        return $designImageService.getFullImagePath(path, image, size);
                     };
 
                     $scope.addToCart = function () {
