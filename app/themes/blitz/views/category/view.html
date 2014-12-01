@@ -77,9 +77,15 @@
             </div>
             <div class="clearfix"></div>
         </div>
+
+
         <div class="clearfix"></div>
     </div>
+    <div class="text-center">
+        <gui-paginator object="this" ng-if="pages > 1"></gui-paginator>
+    </div>
 </div>
+
 <!-- quick view modal -->
 <ng-include src="getTemplate('category/modal/quick-view.html')"></ng-include>
 
@@ -92,7 +98,7 @@
             $(".filter > div").css('display','none');
         }else{
             $('.'+className).siblings().css('display','none');
-            $(".sidebar-offcanvas").css('display','none');
+            $(".sidebar-offcanvas.mobile").css('display','none');
         }
 
 

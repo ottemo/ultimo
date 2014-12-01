@@ -9,7 +9,7 @@
             avatar = 'https://plus.google.com/s2/photos/profile/##googleId##?sz=150';
 
             requestData = {
-                'clientid': angular.appConfigValue("app.login.google.clientId"),
+                'clientid': angular.appConfigValue("general.app.login.google.clientId"),
                 'cookiepolicy': 'single_host_origin',
                 'callback': 'loginCallback',
                 'approvalprompt': 'force',
@@ -52,7 +52,7 @@
             };
 
             return{
-                clientId: angular.appConfigValue("app.login.google.clientId"),
+                clientId: angular.appConfigValue("general.app.login.google.clientId"),
                 requestData: requestData,
                 userData: userData,
                 login: login,

@@ -20,7 +20,7 @@
             }
             js = d.createElement("script");
             js.id = "facebook-jssdk";
-            js.src = "http://connect.facebook.net/ru_RU/sdk.js#xfbml=1&appId=" + angular.appConfigValue("app.login.facebook.appId") + "&version=v2.0";
+            js.src = "http://connect.facebook.net/ru_RU/sdk.js#xfbml=1&appId=" + angular.appConfigValue("general.app.login.facebook.appId") + "&version=v2.0";
             fjs.parentNode.insertBefore(js, fjs);
         };
 
@@ -47,8 +47,8 @@
         };
 
         return{
-            appId: angular.appConfigValue("app.login.facebook.appId"),
-            secretKey: angular.appConfigValue("app.login.facebook.secretKey"),
+            appId: angular.appConfigValue("general.app.login.facebook.appId"),
+            secretKey: angular.appConfigValue("general.app.login.facebook.secretKey"),
             init: init,
             getAvatar: getAvatar
         };
