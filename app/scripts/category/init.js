@@ -20,11 +20,6 @@
                         .when("/category/:id", {
                             "templateUrl": angular.getTheme("category/view.html"),
                             "controller": "categoryListController"
-                        })
-
-                        .when("/category/:id/p/:currentPage", {
-                            templateUrl: angular.getTheme("category/view.html"),
-                            controller: "categoryListController"
                         });
                 }])
 

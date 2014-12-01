@@ -2,7 +2,7 @@
     'use strict';
 
     var gulp, minifyHTML, concat, stripDebug, uglify, jshint, changed, imagemin, autoprefix, sass, rjs, minifyCSS,
-        browserSync, pngquant, del, paths, host, themes, fs, request, recursive, FOUNDATION_URI, THEME_AS_DEFAULT;
+        browserSync, pngquant, del, paths, host, themes, fs, request, recursive, configs, FOUNDATION_URI, THEME_AS_DEFAULT;
 
     gulp = require('gulp');
     minifyHTML = require('gulp-minify-html');
@@ -45,75 +45,115 @@
     };
 
     themes = [];
-    FOUNDATION_URI = 'http://dev.ottemo.io:3000';
-    THEME_AS_DEFAULT = 'default';
+    FOUNDATION_URI = 'http://localhost:3000';
+    THEME_AS_DEFAULT = 'blitz';
 
-    var setFoundationUri = function (request) {
+    configs = [
+        {
+            "path": "general.app.foundation_url",
+            "value": FOUNDATION_URI,
+            "type": "varchar(255)",
+            "editor": "text",
+            "options": "",
+            "label": "Foundation host URL",
+            "description": "URL application will use to generate foundation resources links"
+        },
+        {
+            "path": "themes",
+            "value": "",
+            "type": "group",
+            "editor": "",
+            "options": "",
+            "label": "Themes",
+            "description": ""
+        },
+        {
+            "path": "themes.list",
+            "value": "",
+            "type": "group",
+            "editor": "themes_manager",
+            "options": "",
+            "label": "Themes",
+            "description": ""
+        },
+        {
+            "path": "themes.list.active",
+            "value": THEME_AS_DEFAULT,
+            "type": "",
+            "editor": "themes_manager",
+            "options": "",
+            "label": "Active theme",
+            "description": "Active theme on storefront"
+        },
+        {
+            "path": "general.app.login.facebook.appId",
+            "value": "483159925160897",
+            "type": "varchar(255)",
+            "editor": "text",
+            "options": "",
+            "label": "Facebook: App ID",
+            "description": "Facebook: Application ID"
+        },
+        {
+            "path": "general.app.login.facebook.secretKey",
+            "value": "9a362f8b5cd91dbdd908bff472468c7e",
+            "type": "varchar(255)",
+            "editor": "text",
+            "options": "",
+            "label": "Facebook: App Secret",
+            "description": "Facebook: Application secret key"
+        },
+        {
+            "path": "general.app.login.google.clientId",
+            "value": "1074763412644-qq25glj3tb87bq7bk5m8793da11ddheh.apps.googleusercontent.com",
+            "type": "varchar(255)",
+            "editor": "text",
+            "options": "",
+            "label": "Google: Client ID",
+            "description": ""
+        },
+        {
+            "path": "general.app.category.itemsPerPage",
+            "value": 10,
+            "type": "int",
+            "editor": "text",
+            "options": "",
+            "label": "Items on page",
+            "description": ""
+        }
+    ];
+
+    var setConfigOption = function (path, option) {
+        for (var i = 0; i < configs.length; i += 1) {
+            if (configs[i].path === path) {
+                configs[i].options = option;
+                break;
+            }
+        }
+    };
+
+    var setConfig = function (config) {
         request({
-            uri: FOUNDATION_URI + '/config/unregister/general.app.foundation_url',
+            uri: FOUNDATION_URI + '/config/unregister/' + config.path,
             method: 'DELETE'
         }, function () {
             var r = request.post(FOUNDATION_URI + '/config/register');
             var form = r.form();
-            form.append('path', 'general.app.foundation_url');
-            form.append('value', FOUNDATION_URI);
-            form.append('type', 'varchar(255)');
-            form.append('editor', 'text');
-            form.append('options', '');
-            form.append('label', 'Foundation host URL');
-            form.append('description', 'URL application will use to generate foundation resources links');
+
+            form.append('path', config.path);
+            form.append('value', config.value);
+            form.append('type', config.type);
+            form.append('editor', config.editor);
+            form.append('options', config.options);
+            form.append('label', config.label);
+            form.append('description', config.description);
         });
     };
 
-    var initThemeConfig = function (request) {
-        request({
-            uri: FOUNDATION_URI + '/config/unregister/themes',
-            method: 'DELETE'
-        }, function () {
-            var r = request.post(FOUNDATION_URI + '/config/register');
-            var form = r.form();
-            form.append('path', 'themes');
-            form.append('value', '');
-            form.append('type', 'group');
-            form.append('editor', '');
-            form.append('options', '');
-            form.append('label', 'Themes');
-            form.append('description', '');
-        });
-    };
-
-    var initThemeGroup = function (request) {
-        request({
-            uri: FOUNDATION_URI + '/config/unregister/themes.list',
-            method: 'DELETE'
-        }, function () {
-            var r = request.post(FOUNDATION_URI + '/config/register');
-            var form = r.form();
-            form.append('path', 'themes.list');
-            form.append('value', '');
-            form.append('type', 'group');
-            form.append('editor', 'themes_manager');
-            form.append('options', '');
-            form.append('label', 'Themes');
-            form.append('description', '');
-        });
-    };
-
-    var setThemeData = function (request, themesData) {
-        request({
-            uri: FOUNDATION_URI + '/config/unregister/themes.list.active',
-            method: 'DELETE'
-        }, function () {
-            var r = request.post(FOUNDATION_URI + '/config/register');
-            var form = r.form();
-            form.append('path', 'themes.list.active');
-            form.append('value', THEME_AS_DEFAULT);
-            form.append('type', '');
-            form.append('editor', 'themes_manager');
-            form.append('options', themesData);
-            form.append('label', 'Active theme');
-            form.append('description', 'Active theme on storefront');
-        });
+    var initConfigs = function () {
+        for (var i = 0; i < configs.length; i += 1) {
+            setConfig(configs[i]);
+        }
     };
 
     // Empties folders to start fresh
@@ -317,10 +357,8 @@
             }
             themesData += '}';
 
-            setFoundationUri(request);
-            initThemeConfig(request);
-            initThemeGroup(request);
-            setThemeData(request, themesData);
+            setConfigOption("themes.list.active", themesData);
+            initConfigs();
 
             gulp.start('requirejs');
             gulp.start('vendor');
@@ -384,10 +422,8 @@
             }
             themesData += '}';
 
-            setFoundationUri(request);
-            initThemeConfig(request);
-            initThemeGroup(request);
-            setThemeData(request, themesData);
+            setConfigOption("themes.list.active", themesData);
+            initConfigs();
         });
 
     });
