@@ -1608,6 +1608,16 @@ progress::-moz-progress-bar {
     font-size: 18px;
     font-family: 'roboto_ltregular';
 }
+.pagination > li > a, .pagination > li > span {
+    font-family: Arial;
+    color:#484848;
+}
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+    background:#1F4258;
+    border-color:#1F4258;
+}
+
+
 #mini-cart {
     height: 100%;
     min-height: 100%;
