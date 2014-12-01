@@ -1,12 +1,19 @@
 <div class="pdp">
 <!-- images -->
-    <div class="text-center col-xs-12 col-md-3 col-md-offset-1 hidden-sm hidden-xs">
-        <div class="pdp-slider">
-            <div ng-repeat="img in productImages" ng-class='{big:$first}'>
-                <img ng-src="{{getImage(imagesPath, img)}}" err-src="placeholder.png" alt=""/>
-            </div>
-        </div>
-    </div>
+<!--  <div class="text-center col-xs-12 col-md-3 col-md-offset-1 hidden-sm hidden-xs">
+       <div class="pdp-slider">
+           <img class="zoom-image slide-image" alt="" src="../themes/blitz/images/small/item1.jpg"
+                data-zoom-image="../themes/blitz/images/large/item1.jpg">
+       </div>
+   </div>-->
+ <div class="text-center col-xs-12 col-md-3 col-md-offset-1 hidden-sm hidden-xs">
+      <div class="pdp-slider">
+          <div ng-repeat="img in productImages" ng-class='{big:$first}'>
+              <img class="slide-image" data-ng-src="{{getImage(imagesPath, img)}}" err-src="placeholder.png" alt=""
+                   data-zoom-image="../themes/blitz/images/big_item1.jpg"/>
+          </div>
+      </div>
+  </div>
     <div id="carousel-example-generic" class="carousel pdp-mobile-slider slide visible-sm visible-xs" data-ride="carousel">
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox" >
@@ -274,7 +281,13 @@
                     });
                 }
             })
-        }, 500)
+            // image zoom
+            $('.big > img').elevateZoom({
+                cursor: "crosshair",
+                zoomWindowFadeIn: 500,
+                zoomWindowFadeOut: 750
+           });
+        }, 2000)
     })
 
     $('body').removeClass('modal-open');
@@ -291,6 +304,7 @@
             $(this).find('span').addClass('fa-chevron-down');
         }
     });
+
 </script>
 <style>
     .product {
