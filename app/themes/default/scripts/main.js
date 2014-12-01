@@ -12,7 +12,7 @@
 	    	footerHeight = parseInt($('#footer').outerHeight(true));
 	    	$('#wrapper-inner').css('paddingBottom', footerHeight + 40 );
 	    	$('#footer').css('marginTop', - footerHeight );
-    	 }, 500)
+    	 }, 700)
         
     	//button click and hide popup
 		$(document).on('click', '.modal-footer a', function(event) {
