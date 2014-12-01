@@ -1,7 +1,7 @@
-(function (define) {
+(function (define, $) {
     "use strict";
 
-    define(["category/init"], function (categoryModule) {
+    define(["angular", "category/init"], function (angular, categoryModule) {
         categoryModule
 
             .controller("categoryListController", [
@@ -23,12 +23,10 @@
                         var param, page;
 
                         page = 0;
-                        param = $routeParams.currentPage;
+                        param = $location.search();
 
-                        if (param === "all") {
-                            page = param;
-                        } else {
-                            page = (param - 1) || 0;
+                        if (typeof param.p !== "undefined") {
+                            page = (param.p - 1);
                         }
 
                         return page;
@@ -39,11 +37,10 @@
                          * Variables for paginator
                          */
                         $scope.currentPage = getPage();
-                        $scope.itemsPerPage = 15;
+                        $scope.itemsPerPage = angular.appConfigValue("general.app.category.itemsPerPage");
                         $scope.productsList = [];
                         $scope.paths = [];
                         $scope.categoryId = $routeParams.id;
-                        $scope.uri = $categoryService.getUrl($routeParams.id) + "/p/:page";
                         $scope.category = {};
                         $scope.popupProduct = {};
                         $scope.productService = $pdpProductService;
@@ -73,18 +70,22 @@
                         var params, values, i;
                         params = $location.search();
                         for (var attr in params) {
-                            if (params.hasOwnProperty(attr)
-                                ) {
+                            if (params.hasOwnProperty(attr)) {
+
                                 if (typeof $scope.filters[attr] === "undefined") {
                                     $scope.filters[attr] = {};
                                 }
-                                values = params[attr].split(",");
-                                for (i = 0; i < values.length; i += 1) {
-                                    $scope.filters[attr.replace("?", "")][values[i]] = true;
+                                if(typeof params[attr] === "string"){
+                                    values = params[attr].split(",");
+                                    for (i = 0; i < values.length; i += 1) {
+                                        $scope.filters[attr.replace("?", "")][values[i]] = true;
+                                    }
+                                } else {
+                                    $scope.filters[attr.replace("?", "")][params[attr]] = true;
                                 }
+
                             }
                         }
-
 
                     };
 
@@ -239,9 +240,13 @@
                         $scope.popupProduct = $pdpProductService.getProduct();
                         $scope.productService.getRatingInfo(product._id);
                         $("#quick-view").modal('show');
-                        // setTimeout(function () {
-                        //     $('.rating').rating('update', $scope.productService.getAverageRating());
-                        // }, 300);
+                        setTimeout(function () {
+                            try {
+                                $('.rating').rating('update', $scope.productService.getAverageRating());
+                            } catch (e) {
+
+                            }
+                        }, 300);
                     };
 
                     /**
@@ -250,22 +255,59 @@
                     $categoryApiService.getCountProducts({"id": $scope.categoryId}).$promise.then(function (response) {
                         var result = response.result || [];
                         $scope.totalItems = result;
-                        if ($scope.currentPage === "all") {
-                            $scope.pages = 0;
-                        } else {
-                            $scope.pages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
-                        }
+                        $scope.pages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
                     });
+
+                    var getParams = function () {
+                        var search, result, key;
+
+                        result = {};
+                        search = $location.search();
+
+                        for (key in search) {
+                            if (search.hasOwnProperty(key)) {
+                                result[key] = search[key];
+                            }
+                        }
+
+                        if ($scope.currentPage === 0) {
+                            result.limit = "0," + $scope.itemsPerPage;
+                        } else {
+                            result.limit = ($scope.currentPage * $scope.itemsPerPage) + "," + $scope.itemsPerPage;
+                        }
+                        return result;
+                    };
+
+                    $scope.showMoreBtn = function () {
+                        var countLoadedGoods;
+                        countLoadedGoods = ($scope.currentPage + 1) * $scope.itemsPerPage;
+
+                        if (countLoadedGoods >= $scope.totalItems) {
+                            return false;
+                        }
+
+                        return true;
+                    };
 
                     /**
                      * Gets list of products
                      */
-                    $categoryApiService.getProducts($location.search(), {"id": $scope.categoryId}).$promise.then(
+                    $categoryApiService.getProducts(getParams(), {"id": $scope.categoryId}).$promise.then(
                         function (response) {
                             var result = response.result || [];
                             $scope.productsList = result;
                         }
                     );
+
+                    $scope.loadMore = function () {
+                        $scope.currentPage += 1;
+                        $categoryApiService.getProducts(getParams(), {"id": $scope.categoryId}).$promise.then(
+                            function (response) {
+                                var result = response.result || [];
+                                $scope.productsList = $scope.productsList.concat(result);
+                            }
+                        );
+                    };
 
                     /**
                      * Gets list of products
@@ -319,4 +361,4 @@
             ]);
         return categoryModule;
     });
-})(window.define);
+})(window.define, jQuery);
