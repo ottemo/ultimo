@@ -516,22 +516,41 @@ header .navbar-toggle {
 .filter > div.active {
     display: block;
 }
-.sidebar-offcanvas {
+.categories {
+    min-height:inherit;
     background-color: #1f4258;
-    padding: 43px 50px 50px;
-    width: 340px;
+    position:relative;
     min-height: 100%;
+    position:absolute;
+    left:0;
+    top:0;
 }
-.sidebar-offcanvas > ul {
+#sidebar {
+    padding:20px;
+}
+#sidebar > ul {
     display: block !important;
 }
-.row-offcanvas-left.active {
-    left: 340px;
+#sidebar > span,
+#sidebar + span{
+    color: #ffffff;
+    font: 16px "roboto_ltregular",sans-serif;
+    float: right;
+    margin-top: 3px;
 }
-.row-offcanvas-left .sidebar-offcanvas {
-    left: -340px;
+#sidebar hr {
+    background-color: #ffffff;
+    border: 0 none;
+    color: #ffffff;
+    height: 2px;
+    margin: 0 0 12px;
 }
-.sidebar-offcanvas h6:not(.toggler) {
+#sidebar ul {
+    padding-left: 22px;
+    list-style-type: none;
+    margin-bottom: 20px;
+}
+#sidebar h6:not(.toggler) {
     color: #ffffff;
     font: 18px 'robotobold',sans-serif;
     text-transform: uppercase;
@@ -539,7 +558,7 @@ header .navbar-toggle {
     margin: 0;
 }
 
-.sidebar-offcanvas .toggler {
+#sidebar .toggler {
     cursor: pointer;
     font-family: "Glyphicons Halflings";
     -moz-transform: rotate(180deg); /*FF3.5+*/
@@ -554,7 +573,7 @@ header .navbar-toggle {
     -o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
     transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
 }
-.sidebar-offcanvas .toggler.active {
+#sidebar .toggler.active {
     -moz-transform: rotate(0deg); /*FF3.5+*/
     -o-transform: rotate(0deg); /*Opera 10.5*/
     -webkit-transform: rotate(0deg); /*Saf3.1+, Chrome*/
@@ -567,49 +586,80 @@ header .navbar-toggle {
     -o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
     transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
 }
-.sidebar-offcanvas > span,
- .sidebar-offcanvas h6 + span{
+#sidebar > span,
+ #sidebar h6 + span{
     color: #ffffff;
     font: 16px "roboto_ltregular",sans-serif;
     float: right;
     margin-top: 3px;
 }
-.sidebar-offcanvas hr {
-    background-color: #ffffff;
-    border: 0 none;
-    color: #ffffff;
-    height: 2px;
-    margin: 0 0 12px;
-}
-div > .sidebar-offcanvas ul {
-    padding-left: 22px;
-    list-style-type: none;
-    margin-bottom: 20px;
-}
-.sidebar-offcanvas li a,
-.sidebar-offcanvas li label {
+#sidebar li a,
+#sidebar li label {
     color: #ffffff;
     font: 16px/16px "roboto_ltregular",sans-serif;
     padding: 0;
 }
-.sidebar-offcanvas li label input:checked + span:after {
+#sidebar li label input:checked + span:after {
     content: " \e013";
     font-family: "Glyphicons Halflings";
     font-size: 12px;
 }
-.sidebar-offcanvas ul {
+#sidebar ul {
     display: block;
 }
 
-.sidebar-offcanvas li label input {
+#sidebar li label input {
     display: none;
 }
-.sidebar-offcanvas li a span {
+#sidebar li a span {
     font-size: 12px;
 }
-.sidebar-offcanvas li a:hover,
-.sidebar-offcanvas li label:hover {
+#sidebar li a:hover,
+#sidebar li label:hover {
     text-decoration: underline !important;
+}
+.filter .category {
+    height:auto;
+}
+.category {
+    background-color: #efefef;
+    padding: 43px 25px 50px;
+    top: 65px;
+    color:#808080;
+    width: 100%;
+    z-index: 100;
+    display: none;
+}
+.category.active {
+    display: block;
+}
+.category h6 {
+    color: #808080 !important;
+    float: left;
+    font: 18px "roboto_ltregular",sans-serif;
+    margin: 0;
+    text-transform: uppercase;
+}
+.category hr {
+    background-color: #BFBFBF !important;
+    height: 1px;
+}
+.category > span, .category h6 + span {
+    color: #808080 !important;
+}
+.category li a, .category li label {
+    color: #808080;
+}
+.category li a, .category li label {
+    color:#808080 !important;
+}
+.category {
+    border-bottom: 1px solid #bfbfbf !important;
+    min-height: inherit;
+}
+.category h6:not(.toggler) {
+    color: #808080 !important;
+    font: 18px "roboto_ltregular",sans-serif;
 }
 .cat .thumbnail {
     position: relative;
@@ -1254,45 +1304,6 @@ progress::-moz-progress-bar {
     .filter {
         padding: 0;
         top: 65px;
-    }
-    .row-offcanvas-left .sidebar-offcanvas {
-        left: 0;
-    }
-    .sidebar-offcanvas {
-        background-color: #efefef;
-        padding: 43px 25px 50px;
-        top: 65px;
-        width: 100%;
-        z-index: 100;
-        display: none;
-    }
-    .sidebar-offcanvas.active {
-        display: block;
-    }
-    .sidebar-offcanvas h6 {
-        color: #808080;
-        float: left;
-        font: 18px "roboto_ltregular",sans-serif;
-        margin: 0;
-        text-transform: uppercase;
-    }
-    .sidebar-offcanvas hr {
-        background-color: #808080;
-        height: 1px;
-    }
-    .sidebar-offcanvas > span, .sidebar-offcanvas h6 + span {
-        color: #808080;
-    }
-    .sidebar-offcanvas li a, .sidebar-offcanvas li label {
-        color: #808080;
-    }
-    .sidebar-offcanvas {
-        border-bottom: 1px solid #bfbfbf;
-        min-height: inherit;
-    }
-    .sidebar-offcanvas h6:not(.toggler) {
-        color: #808080;
-        font: 18px "roboto_ltregular",sans-serif;
     }
 }
 @media (min-width: 768px ) and (max-width: 991px) {
