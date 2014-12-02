@@ -8,19 +8,12 @@
    </div>-->
  <div class="text-center col-xs-12 col-md-3 col-md-offset-1 hidden-sm hidden-xs">
       <div class="pdp-slider">
-          <div ng-repeat="img in productImages" ng-class='{big:$first}'>
-              <img class="slide-image" data-ng-src="{{getImage(imagesPath, img)}}" err-src="placeholder.png" alt=""
-                   data-zoom-image="../themes/blitz/images/big_item1.jpg"/>
+          <div ng-repeat="img in productImages" ng-class='{big:img==product.default_image}'>
+              <img class="slide-image" data-ng-src="{{getImage(imagesPath, img, 'thumb')}}" err-src="placeholder.png" alt=""
+                   data-zoom-image="{{getImage(imagesPath, img, 'big')}}"/>
           </div>
       </div>
   </div>
-    <div class="text-center col-xs-12 col-md-3 col-md-offset-1 hidden-sm hidden-xs">
-        <div class="pdp-slider">
-            <div ng-repeat="img in productImages" ng-class='{big:$first}'>
-                <img ng-src="{{getImage(imagesPath, img, 'big')}}" err-src="placeholder.png" alt=""/>
-            </div>
-        </div>
-    </div>
     <div id="carousel-example-generic" class="carousel pdp-mobile-slider slide visible-sm visible-xs" data-ride="carousel">
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox" >
@@ -262,14 +255,21 @@
         setTimeout(function () {
             //slider
             $('.pdp-slider > div').click(function() {
+                $('.zoomContainer').remove();
+
                 $('.pdp-slider > .big').fadeOut('fast', function() {
                     $(this).removeClass('big');
-                    $(this).fadeIn('fast')
+                    $(this).fadeIn('fast');
                 });
                 $(this).fadeOut('fast', function() {
                     $(this).addClass('big');
                     $('.pdp-slider').prepend($(this));
-                    $(this).fadeIn('fast')
+                    $(this).fadeIn('fast');
+                    $(this).children('img').elevateZoom({
+                        cursor: "crosshair",
+                        zoomWindowFadeIn: 500,
+                        zoomWindowFadeOut: 750
+                   });
                 });
             });
             // rating
@@ -288,14 +288,26 @@
                     });
                 }
             })
+
+           function moveImg(){
+                $('.pdp-slider').prepend($('.big'));
+            }
+
+            moveImg();
+
+        }, 500)
+        setTimeout(function () {
             // image zoom
             $('.big > img').elevateZoom({
                 cursor: "crosshair",
                 zoomWindowFadeIn: 500,
                 zoomWindowFadeOut: 750
            });
-        }, 2000)
+        }, 1000)
     })
+
+
+
 
     $('body').removeClass('modal-open');
 
