@@ -1172,6 +1172,13 @@ progress::-moz-progress-bar {
 .star-rating-rtl .caption {
     padding-right: 5px;
 }
+.zoomContainer {
+    display: none;
+    z-index:100;
+}
+.zoomWindowContainer > div {
+    outline: 1px solid #888;
+}
 
 /*///////////////////////////////////////////////////////////// end PDP page  */
 
