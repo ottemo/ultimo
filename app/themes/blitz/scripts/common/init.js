@@ -32,7 +32,7 @@
                     function ($rootScope, $commonSidebarService) {
 
                         // Left navigation menu
-                        $commonSidebarService.addItem("SHOP", "shop", "glyphicon glyphicon-book");
+                        $commonSidebarService.addItem("SHOP", "shop.html", "glyphicon glyphicon-book");
                     }
                 ]);
 

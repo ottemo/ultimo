@@ -804,13 +804,18 @@ header .navbar-toggle {
     margin: 0 auto;
 }
 .pdp-qty .input-group-btn > .btn {
-    padding: 15px 20px;
+    padding: 0 23px;
     border-radius: 0;
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
+    height: 56px;
+}
+.pdp .input-group-btn:first-child > .btn,
+.pdp .input-group-btn:first-child > .btn-group {
+    margin-right: -2px;
 }
 .pdp-qty.input-group .form-control {
-    height: 55px;
+    height: 56px;
     width: 100px;
     box-sizing:border-box;
 }
@@ -1168,8 +1173,15 @@ progress::-moz-progress-bar {
     padding-right: 5px;
 }
 
-
 /*///////////////////////////////////////////////////////////// end PDP page  */
+
+/*///////////////////////////////////////////////////////  start static page  */
+
+.static-page {
+    padding: 55px 30px;
+}
+
+/*////////////////////////////////////////////////////////// end static page  */
 
 /*////////////////////////////////////////////////// start responsive design  */
 
