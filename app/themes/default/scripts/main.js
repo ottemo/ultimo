@@ -36,6 +36,18 @@
 	       	$('.row-offcanvas').toggleClass('active')
 	     });
 
+	     $(document).on('click', '#trigger_btn', function(event) {
+	     	$('#offcanvas').trigger('click');
+	     });
+
+	     // $(window).resize(function() {
+	     // 	navHeight = parseInt($('nav.navbar').outerHeight(false));
+    		// $('#wrapper-inner').css('paddingTop', navHeight );
+	    	// footerHeight = parseInt($('#footer').outerHeight(true));
+	    	// $('#wrapper-inner').css('paddingBottom', footerHeight + 40 );
+	    	// $('#footer').css('marginTop', - footerHeight );
+	     // });
+
     });
 })(jQuery);
 

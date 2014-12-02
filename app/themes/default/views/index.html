@@ -10,7 +10,7 @@
 <div id="wrapper">
 	<div id="wrapper-inner">
 		<div class="row-offcanvas row-offcanvas-left">
-			<div class="sidebar-nav" role="navigation" id="sidebar" ng-controller="commonHeaderController" >
+			<div class="sidebar-nav hidden-xs" role="navigation" id="sidebar" ng-controller="commonHeaderController" >
 				<ng-include src="getTemplate('common/navigation/categories.html')"></ng-include>
 				<div class="clearfix"></div>
 			</div>
@@ -21,9 +21,7 @@
 			<!-- breadcrumbs -->
 			<ng-include src="getTemplate('common/navigation/breadcrumbs.html')"></ng-include>
 
-			<div class="col-xs-12">
-				<button data-toggle="offcanvas" class="glyphicon  glyphicon-align-justify btn btn-primary" type="button"></button>
-			</div>
+			<button data-toggle="offcanvas" class="hidden" id="offcanvas" type="button"></button>
 
 			<div class="clearfix"></div>
 			
