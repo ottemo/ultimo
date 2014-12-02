@@ -52,6 +52,9 @@
                         return _class;
                     };
 
+                    $scope.showMoreBtn = $scope.parent.showMoreBtn;
+                    $scope.loadMore = $scope.parent.loadMore;
+
                     /**
                      * Gets URI for item of paginator
                      *
@@ -77,8 +80,8 @@
                             default:
                                 _page = page;
                         }
-
-                        return $scope.parent.uri.replace(':page', _page);
+                        $location.search("p", _page);
+//                        return $scope.parent.uri.replace(':page', _page);
                     };
                 }
             };

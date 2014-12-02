@@ -1,5 +1,23 @@
 <!-- categories -->
-<div role="navigation" id="sidebar" class="sidebar-offcanvas" ng-controller="commonHeaderController">
+<div id="sidebar" class="sidebar-offcanvas hidden-xs" ng-controller="commonHeaderController">
+    <h6>categories</h6>
+    <div class="clearfix"></div>
+    <hr>
+    <ul>
+        <li ng-repeat="item in categories;" class="list-unstyled">
+            <a href="{{categoryService.getUrl(item.id)}}" target="{{item.id != null ? '' : '_self'}}" class="text-muted display">
+                {{item.name}}
+                <span class="fa fa-angle-down pull-right" ng-if="item.child.length &gt; 0">&nbsp;&nbsp;&nbsp;</span>
+            </a>
+
+            <ul class="second-level" ng-if="item.child.length &gt 0">
+                <li class="list-unstyled" ng-repeat="item in item.child;" ng-include="getTemplate('common/navigation/categories-items.html')"></li>
+            </ul>
+        </li>
+    </ul>
+    <ng-include src="getTemplate('common/navigation/filters.html')"></ng-include>
+</div>
+<div role="navigation" id="sidebar-mobile" class="sidebar-offcanvas mobile hidden-sm hidden-md hidden-lg" ng-controller="commonHeaderController">
     <h6>categories</h6>
     <div class="clearfix"></div>
     <hr>

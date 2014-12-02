@@ -14,9 +14,6 @@
 			      $(this).siblings('ul').slideToggle(400);
 			      $(this).toggleClass('active');
 			   });
-			var wrapHeight = (parseInt($('#wrapper-inner').css('height'))) - (parseInt($('#wrapper-inner').css('paddingTop')));
-			$('#sidebar').css('minHeight', wrapHeight);
-			$('.cat').css('minHeight', wrapHeight);
     	 }, 700)
         
     	//button click and hide popup

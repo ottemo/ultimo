@@ -1,17 +1,24 @@
 <div class="pdp">
 <!-- images -->
-    <div class="text-center col-xs-12 col-md-3 col-md-offset-1 hidden-sm hidden-xs">
-        <div class="pdp-slider">
-            <div ng-repeat="img in productImages" ng-class='{big:$first}'>
-                <img ng-src="{{getImage(imagesPath, img)}}" err-src="placeholder.png" alt=""/>
-            </div>
-        </div>
-    </div>
+<!--  <div class="text-center col-xs-12 col-md-3 col-md-offset-1 hidden-sm hidden-xs">
+       <div class="pdp-slider">
+           <img class="zoom-image slide-image" alt="" src="../themes/blitz/images/small/item1.jpg"
+                data-zoom-image="../themes/blitz/images/large/item1.jpg">
+       </div>
+   </div>-->
+ <div class="text-center col-xs-12 col-md-3 col-md-offset-1 hidden-sm hidden-xs">
+      <div class="pdp-slider">
+          <div ng-repeat="img in productImages" ng-class='{big:img==product.default_image}'>
+              <img class="slide-image" data-ng-src="{{getImage(imagesPath, img, 'thumb')}}" err-src="placeholder.png" alt=""
+                   data-zoom-image="{{getImage(imagesPath, img, 'big')}}"/>
+          </div>
+      </div>
+  </div>
     <div id="carousel-example-generic" class="carousel pdp-mobile-slider slide visible-sm visible-xs" data-ride="carousel">
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox" >
             <div class="item" ng-class="{active : $first}" ng-repeat="img in productImages">
-                <img class="text-center"  err-src="placeholder.png" ng-src="{{getImage(imagesPath, img)}}" alt=""/>
+                <img class="text-center"  err-src="placeholder.png" ng-src="{{getImage(imagesPath, img, 'small')}}" alt=""/>
             </div>
         </div>
 
@@ -44,19 +51,19 @@
         <div class="row">
             <div class="col-sx-12 form-group">
                 <div class="col-sx-12 btn-soc">
-                    <a class="btn btn-social-icon btn-facebook" onclick="_gaq.push(['_trackEvent', 'btn-social-icon', 'click', 'btn-facebook']);">
+                    <a class="btn btn-social-icon btn-facebook" href="http://facebook.com" target="_blank">
                         <i class="fa fa-facebook"></i>
                     </a>
-                    <a class="btn btn-social-icon btn-google-plus" onclick="_gaq.push(['_trackEvent', 'btn-social-icon', 'click', 'btn-google-plus']);">
+                    <a class="btn btn-social-icon btn-google-plus" href="https://plus.google.com/" target="_blank">
                         <i class="fa fa-google-plus"></i>
                     </a>
-                    <a class="btn btn-social-icon btn-pinterest" onclick="_gaq.push(['_trackEvent', 'btn-social-icon', 'click', 'btn-linkedin']);">
+                    <a class="btn btn-social-icon btn-pinterest" href="https://www.pinterest.com/" target="_blank">
                         <i class="fa fa-pinterest"></i>
                     </a>
-                    <a class="btn btn-social-icon btn-microsoft" onclick="_gaq.push(['_trackEvent', 'btn-social-icon', 'click', 'btn-microsoft']);">
+                    <a class="btn btn-social-icon btn-microsoft" href="http://live.com" target="_blank">
                         <i class="fa fa-windows"></i>
                     </a>
-                    <a class="btn btn-social-icon btn-twitter" onclick="_gaq.push(['_trackEvent', 'btn-social-icon', 'click', 'btn-twitter']);">
+                    <a class="btn btn-social-icon btn-twitter" href="https://twitter.com" target="_blank">
                         <i class="fa fa-twitter"></i>
                     </a>
                 </div>
@@ -248,14 +255,21 @@
         setTimeout(function () {
             //slider
             $('.pdp-slider > div').click(function() {
+                $('.zoomContainer').remove();
+
                 $('.pdp-slider > .big').fadeOut('fast', function() {
                     $(this).removeClass('big');
-                    $(this).fadeIn('fast')
+                    $(this).fadeIn('fast');
                 });
                 $(this).fadeOut('fast', function() {
                     $(this).addClass('big');
                     $('.pdp-slider').prepend($(this));
-                    $(this).fadeIn('fast')
+                    $(this).fadeIn('fast');
+                    $(this).children('img').elevateZoom({
+                        cursor: "crosshair",
+                        zoomWindowFadeIn: 500,
+                        zoomWindowFadeOut: 750
+                   });
                 });
             });
             // rating
@@ -274,8 +288,26 @@
                     });
                 }
             })
+
+           function moveImg(){
+                $('.pdp-slider').prepend($('.big'));
+            }
+
+            moveImg();
+
         }, 500)
+        setTimeout(function () {
+            // image zoom
+            $('.big > img').elevateZoom({
+                cursor: "crosshair",
+                zoomWindowFadeIn: 500,
+                zoomWindowFadeOut: 750
+           });
+        }, 1000)
     })
+
+
+
 
     $('body').removeClass('modal-open');
 
@@ -291,6 +323,7 @@
             $(this).find('span').addClass('fa-chevron-down');
         }
     });
+
 </script>
 <style>
     .product {
@@ -300,5 +333,8 @@
     .product img {
         width: 100%;
         height: auto;
+    }
+    .zoomContainer {
+        display: block ;
     }
 </style>
