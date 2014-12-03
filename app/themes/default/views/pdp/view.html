@@ -4,7 +4,9 @@
 <div class="text-center col-xs-12 col-lg-6">  
     <span class="col-sm-5 product" ng-repeat="img in productImages">
         <span class="thumbnail" >
-            <img ng-src="{{getImage(imagesPath, img)}}" alt="" err-src="placeholder.png">
+            <a id="example1" href="{{getImage(imagesPath, img)}}">
+                <img ng-src="{{getImage(imagesPath, img)}}" alt="" err-src="placeholder.png">
+            </a>
         </span>
     </span>
 </div>
@@ -138,6 +140,16 @@
 
 <script>
     $('body').removeClass('modal-open');
+    $("a#example1").fancybox({
+        helpers: {
+            title : {
+                type : 'outside'
+            },
+            overlay : {
+                speedOut : 0
+            }
+        }
+    });
 </script>
 <style>
     .product {

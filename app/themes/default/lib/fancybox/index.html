@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>fancyBox - Fancy jQuery Lightbox Alternative | Demonstration</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- Add jQuery library -->
+	<script type="text/javascript" src="jquery-1.10.1.min.js"></script>
+	<!-- Add fancyBox main JS and CSS files -->
+	<script type="text/javascript" src="jquery.fancybox.js"></script>
+	<link rel="stylesheet" type="text/css" href="jquery.fancybox.css" media="screen" />
+
+
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+
+			// Change title type, overlay closing speed
+			$(".fancybox-effects-a").fancybox({
+				helpers: {
+					title : {
+						type : 'outside'
+					},
+					overlay : {
+						speedOut : 0
+					}
+				}
+			});
+
+
+
+		});
+	</script>
+</head>
+<body>
+
+	<p>
+		<a class="fancybox-effects-a" href="5_b.jpg" title="Lorem ipsum dolor sit amet, consectetur adipiscing elit"><img src="5_s.jpg" alt="" /></a>
+
+
+	</p>
+
+	
+</body>
+</html>
