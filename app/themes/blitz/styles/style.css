@@ -1471,6 +1471,9 @@ progress::-moz-progress-bar {
     .filter-search {
         padding: 0 30px;
     }
+    .zoomContainer {
+        display: none !important;
+    }
 }
 @media (min-width: 768px) {
     .h-nav {
