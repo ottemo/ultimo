@@ -1,18 +1,6 @@
 (function ($) {
 
     $(document).ready(function () {
-
-    	//padding for fixed navigation
-    	setTimeout(function() { 
-			var navCheckForFix = $('nav.navbar').hasClass('navbar-fixed-top');
-	    	if (navCheckForFix = true) {
-	    		navHeight = parseInt($('nav.navbar').outerHeight(false));
-	    		$('#wrapper-inner').css('paddingTop', navHeight );
-	    	};
-	    	footerHeight = parseInt($('#footer').outerHeight(true));
-	    	$('#wrapper-inner').css('paddingBottom', footerHeight + 40 );
-	    	$('#footer').css('marginTop', - footerHeight );
-    	 }, 700)
         
     	//button click and hide popup
 		$(document).on('click', '.modal-footer a', function(event) {
@@ -39,14 +27,6 @@
 	     $(document).on('click', '#trigger_btn', function(event) {
 	     	$('#offcanvas').trigger('click');
 	     });
-
-	     // $(window).resize(function() {
-	     // 	navHeight = parseInt($('nav.navbar').outerHeight(false));
-    		// $('#wrapper-inner').css('paddingTop', navHeight );
-	    	// footerHeight = parseInt($('#footer').outerHeight(true));
-	    	// $('#wrapper-inner').css('paddingBottom', footerHeight + 40 );
-	    	// $('#footer').css('marginTop', - footerHeight );
-	     // });
 
     });
 })(jQuery);
