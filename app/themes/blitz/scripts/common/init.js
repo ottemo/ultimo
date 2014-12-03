@@ -25,6 +25,10 @@
                             templateUrl: angular.getTheme("common/home.html"),
                             controller: "commonControllerBlitz"
                         })
+                        .when("/about.html", {
+                            templateUrl: angular.getTheme("common/about.html"),
+                            controller: ""
+                        })
                 }])
                 .run([
                     "$rootScope",

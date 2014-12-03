@@ -1,11 +1,5 @@
 <div class="pdp">
 <!-- images -->
-<!--  <div class="text-center col-xs-12 col-md-3 col-md-offset-1 hidden-sm hidden-xs">
-       <div class="pdp-slider">
-           <img class="zoom-image slide-image" alt="" src="../themes/blitz/images/small/item1.jpg"
-                data-zoom-image="../themes/blitz/images/large/item1.jpg">
-       </div>
-   </div>-->
  <div class="text-center col-xs-12 col-md-3 col-md-offset-1 hidden-sm hidden-xs">
       <div class="pdp-slider">
           <div ng-repeat="img in productImages" ng-class='{big:img==product.default_image}'>
@@ -18,7 +12,7 @@
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox" >
             <div class="item" ng-class="{active : $first}" ng-repeat="img in productImages">
-                <img class="text-center"  err-src="placeholder.png" ng-src="{{getImage(imagesPath, img, 'small')}}" alt=""/>
+                <img class="text-center"  err-src="placeholder.png" ng-src="{{getImage(imagesPath, img, 'thumb')}}" alt=""/>
             </div>
         </div>
 

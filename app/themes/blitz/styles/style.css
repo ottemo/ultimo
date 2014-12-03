@@ -699,7 +699,14 @@ header .navbar-toggle {
     color: #808080;
     font-size: 30px;
 }
-
+.cat .product {
+    display: inline-block;
+    float: none;
+    vertical-align: middle;
+}
+.cat .product img {
+    max-height: 300px;
+}
 
 
 /*//////////////////////////////////////////////////////// end Category page  */
@@ -1187,6 +1194,15 @@ progress::-moz-progress-bar {
 .static-page {
     padding: 55px 30px;
 }
+.about h1 {
+    font: 28px 'robotoregular', sans-serif;
+    color: #5a5a5a;
+    text-transform: uppercase;
+}
+.about p {
+    font: 18px "roboto_ltregular",sans-serif;
+    color: #5a5a5a;
+}
 
 /*////////////////////////////////////////////////////////// end static page  */
 
@@ -1324,6 +1340,9 @@ progress::-moz-progress-bar {
         padding: 0;
         top: 65px;
     }
+    .static-page {
+        padding: 30px 10px;
+    }
 }
 @media (min-width: 768px ) and (max-width: 991px) {
     .carousel-indicators {
@@ -1451,6 +1470,9 @@ progress::-moz-progress-bar {
     }
     .filter-search {
         padding: 0 30px;
+    }
+    .zoomContainer {
+        display: none !important;
     }
 }
 @media (min-width: 768px) {
