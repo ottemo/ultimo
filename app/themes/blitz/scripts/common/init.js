@@ -1,4 +1,4 @@
-(function (define) {
+(function (define, $) {
     "use strict";
 
     /*
@@ -37,10 +37,14 @@
 
                         // Left navigation menu
                         $commonSidebarService.addItem("SHOP", "shop.html", "glyphicon glyphicon-book");
+
+                        $rootScope.$on("$locationChangeSuccess", function () {
+                            $(".zoomContainer").remove();
+                        });
                     }
                 ]);
 
             return angular.module.commonModule;
         });
 
-})(window.define);
+})(window.define, jQuery);
