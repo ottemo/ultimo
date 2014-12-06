@@ -2,191 +2,201 @@
     .breadcrumb {
         display: none;
     }
+
     .nav-tabs {
         display: none;
     }
 </style>
 <div ng-init="init()">
-<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-    <a href="#/shop.html" class="shop visible-lg">Shop Now</a>
-    <ol class="carousel-indicators">
-        <li class="active" data-slide-to="0" data-target="#carousel-example-generic"></li>
-        <li class="" data-slide-to="1" data-target="#carousel-example-generic"></li>
-    </ol>
-    <div class="carousel-inner">
-        <div class="item active">
-            <img class="slide-image" alt="" ng-src="{{getImg('slides1.jpg')}}" err-src="placeholder.png">
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <a href="#/shop.html" class="shop visible-lg">Shop Now</a>
+        <ol class="carousel-indicators">
+            <li class="active" data-slide-to="0" data-target="#carousel-example-generic"></li>
+            <li class="" data-slide-to="1" data-target="#carousel-example-generic"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="item active">
+                <img class="slide-image" alt="" ng-src="{{getImg('slides1.jpg')}}" err-src="placeholder.png">
+            </div>
+            <div class="item">
+                <img class="slide-image" alt="" ng-src="{{getImg('slides2.jpg')}}" err-src="placeholder.png">
+            </div>
         </div>
-        <div class="item">
-            <img class="slide-image" alt="" ng-src="{{getImg('slides2.jpg')}}" err-src="placeholder.png">
+        <a class="left carousel-control" data-slide="prev" onclick="return false;" href="#carousel-example-generic">
+            <!--<span class="glyphicon glyphicon-chevron-left"></span>-->
+        </a>
+        <a class="right carousel-control" data-slide="next" onclick="return false;" href="#carousel-example-generic">
+            <!--<span class="glyphicon glyphicon-chevron-right"></span>-->
+        </a>
+    </div>
+    <div id="carousel-example-generic2" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="item">
+                <div class="row h-carousel row-no-margin">
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
+                        <a href="">
+                            <img class="slide-image" alt="" ng-src="{{getImg('carousel1.jpg')}}">
+                        </a>
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
+                        <a href="">
+                            <img class="slide-image" alt="" ng-src="{{getImg('carousel2.jpg')}}">
+                        </a>
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
+                        <a href="">
+                            <img class="slide-image" alt="" ng-src="{{getImg('carousel3.jpg')}}">
+                        </a>
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
+                        <a href="">
+                            <img class="slide-image" alt="" ng-src="{{getImg('carousel1.jpg')}}">
+                        </a>
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
+                        <a href="">
+                            <img class="slide-image" alt="" ng-src="{{getImg('carousel2.jpg')}}">
+                        </a>
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
+                        <a href="">
+                            <img class="slide-image" alt="" ng-src="{{getImg('carousel3.jpg')}}">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="row h-carousel row-no-margin">
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
+                        <img class="slide-image" alt="" ng-src="{{getImg('carousel3.jpg')}}">
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
+                        <img class="slide-image" alt="" ng-src="{{getImg('carousel2.jpg')}}">
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
+                        <img class="slide-image" alt="" ng-src="{{getImg('carousel1.jpg')}}">
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
+                        <img class="slide-image" alt="" ng-src="{{getImg('carousel3.jpg')}}">
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
+                        <img class="slide-image" alt="" ng-src="{{getImg('carousel2.jpg')}}">
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
+                        <img class="slide-image" alt="" ng-src="{{getImg('carousel1.jpg')}}">
+                    </div>
+                </div>
+            </div>
+            <div class="item active">
+                <div class="row h-carousel row-no-margin">
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
+                        <img class="slide-image" alt="" ng-src="{{getImg('carousel1.jpg')}}">
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
+                        <img class="slide-image" alt="" ng-src="{{getImg('carousel2.jpg')}}">
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
+                        <img class="slide-image" alt="" ng-src="{{getImg('carousel3.jpg')}}">
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
+                        <img class="slide-image" alt="" ng-src="{{getImg('carousel1.jpg')}}">
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
+                        <img class="slide-image" alt="" ng-src="{{getImg('carousel2.jpg')}}">
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
+                        <img class="slide-image" alt="" ng-src="{{getImg('carousel3.jpg')}}">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="left carousel-control" data-slide="prev" onclick="return false;" href="#carousel-example-generic2">
+        </a>
+        <a class="right carousel-control" data-slide="next" onclick="return false;" href="#carousel-example-generic2">
+        </a>
+    </div>
+    <div id="myTab" role="tabpanel">
+        <!-- Nav tabs -->
+        <ul class="nav h-slider-switch" role="tablist">
+            <li role="presentation" class="active"><a class="btn-custom" href="#feature" aria-controls="feature"
+                                                      role="tab" data-toggle="tab">Featured</a></li>
+            <li role="presentation"><a class="btn-custom" href="#bestseller" aria-controls="bestseller" role="tab"
+                                       data-toggle="tab">Bestseller</a></li>
+            <li role="presentation"><a class="btn-custom" href="#latest" aria-controls="latest" role="tab"
+                                       data-toggle="tab">Latest</a></li>
+        </ul>
+    </div>
+    <div class="h-container">
+        <div class="row h-item tab-content">
+            <div role="tabpanel" class="tab-pane active" id="feature">
+                <div class="col-xs-6 col-sm-4 col-lg-2" ng-repeat="_item in products" ng-show="products.length">
+                    <a href="{{productService.getUrl(_item.Id)}}" class="thumbnail">
+                        <img ng-src="{{getImage(_item.Image)}}" alt="_item.Name" err-src="placeholder.png"/>
+                    </a>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="bestseller">
+                <div class="col-xs-6 col-sm-4 col-lg-2" ng-repeat="_item in products | orderBy:'Price':true"
+                     ng-show="products.length">
+                    <a href="{{productService.getUrl(_item.Id)}}" class="thumbnail">
+                        <img ng-src="{{getImage(_item.Image)}}" alt="_item.Name" err-src="placeholder.png"/>
+                    </a>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="latest">
+                <div class="col-xs-6 col-sm-4 col-lg-2" ng-repeat="_item in products | orderBy:'Id':true"
+                     ng-show="products.length">
+                    <a href="{{productService.getUrl(_item.Id)}}" class="thumbnail">
+                        <img ng-src="{{getImage(_item.Image)}}" alt="_item.Name" err-src="placeholder.png"/>
+                    </a>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="text-center h-shipping">
+            <h4>FREE SHIPPING! <span>ALL ORDERS OVER $199</span></h4>
+            <h5>FREE 2 DAY SHIPPING: SPEND OVER $140 AND USE PROMOTION AT CHECKOUT</h5>
+        </div>
+        <div class="row h-item">
+            <div class="col-xs-6 col-sm-4 col-lg-2" ng-repeat="_item in products | orderBy:'Id':true"
+                 ng-show="products.length">
+                <a href="{{productService.getUrl(_item.Id)}}" class="thumbnail">
+                    <img ng-src="{{getImage(_item.Image)}}" alt="_item.Name" err-src="placeholder.png"/>
+                </a>
+            </div>
         </div>
     </div>
-    <a class="left carousel-control" data-slide="prev"  onclick="return false;" href="#carousel-example-generic">
-        <!--<span class="glyphicon glyphicon-chevron-left"></span>-->
-    </a>
-    <a class="right carousel-control" data-slide="next" onclick="return false;" href="#carousel-example-generic">
-        <!--<span class="glyphicon glyphicon-chevron-right"></span>-->
-    </a>
-</div>
-<div id="carousel-example-generic2" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner">
-        <div class="item">
-            <div class="row h-carousel row-no-margin">
-                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                    <a href="">
-                        <img class="slide-image" alt="" ng-src="{{getImg('carousel1.jpg')}}">
-                    </a>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                    <a href="">
-                        <img class="slide-image" alt="" ng-src="{{getImg('carousel2.jpg')}}">
-                    </a>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                    <a href="">
-                        <img class="slide-image" alt="" ng-src="{{getImg('carousel3.jpg')}}">
-                    </a>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                    <a href="">
-                        <img class="slide-image" alt="" ng-src="{{getImg('carousel1.jpg')}}">
-                    </a>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                    <a href="">
-                        <img class="slide-image" alt="" ng-src="{{getImg('carousel2.jpg')}}">
-                    </a>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                    <a href="">
-                        <img class="slide-image" alt="" ng-src="{{getImg('carousel3.jpg')}}">
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="row h-carousel row-no-margin">
-                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                    <img class="slide-image" alt="" ng-src="{{getImg('carousel3.jpg')}}">
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                    <img class="slide-image" alt="" ng-src="{{getImg('carousel2.jpg')}}">
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                    <img class="slide-image" alt="" ng-src="{{getImg('carousel1.jpg')}}">
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                    <img class="slide-image" alt="" ng-src="{{getImg('carousel3.jpg')}}">
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                    <img class="slide-image" alt="" ng-src="{{getImg('carousel2.jpg')}}">
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                    <img class="slide-image" alt="" ng-src="{{getImg('carousel1.jpg')}}">
-                </div>
-            </div>
-        </div>
-        <div class="item active">
-            <div class="row h-carousel row-no-margin">
-                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                    <img class="slide-image" alt="" ng-src="{{getImg('carousel1.jpg')}}">
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                    <img class="slide-image" alt="" ng-src="{{getImg('carousel2.jpg')}}">
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                    <img class="slide-image" alt="" ng-src="{{getImg('carousel3.jpg')}}">
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                    <img class="slide-image" alt="" ng-src="{{getImg('carousel1.jpg')}}">
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                    <img class="slide-image" alt="" ng-src="{{getImg('carousel2.jpg')}}">
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                    <img class="slide-image" alt="" ng-src="{{getImg('carousel3.jpg')}}">
-                </div>
-            </div>
-        </div>
-    </div>
-    <a class="left carousel-control" data-slide="prev" onclick="return false;" href="#carousel-example-generic2">
-    </a>
-    <a class="right carousel-control" data-slide="next" onclick="return false;" href="#carousel-example-generic2">
-    </a>
-</div>
-<div id="myTab" role="tabpanel">
-    <!-- Nav tabs -->
-    <ul class="nav h-slider-switch" role="tablist">
-        <li role="presentation" class="active"><a class="btn-custom" href="#feature" aria-controls="feature" role="tab" data-toggle="tab">Featured</a></li>
-        <li role="presentation"><a class="btn-custom" href="#bestseller" aria-controls="bestseller" role="tab" data-toggle="tab">Bestseller</a></li>
-        <li role="presentation"><a class="btn-custom" href="#latest" aria-controls="latest" role="tab" data-toggle="tab">Latest</a></li>
-    </ul>
-</div>
-<div class="h-container">
-    <div class="row h-item tab-content">
-        <div role="tabpanel" class="tab-pane active" id="feature">
-            <div class="col-xs-6 col-sm-4 col-lg-2" ng-repeat="_item in products" ng-show="products.length">
-                <a href="{{productService.getUrl(_item.Id)}}" class="thumbnail">
-                    <img ng-src="{{getImage(_item.Image)}}" alt="_item.Name" err-src="placeholder.png" />
-                </a>
-            </div>
-        </div>
-        <div role="tabpanel" class="tab-pane" id="bestseller">
-            <div class="col-xs-6 col-sm-4 col-lg-2" ng-repeat="_item in products | orderBy:'Price':true" ng-show="products.length">
-                <a href="{{productService.getUrl(_item.Id)}}" class="thumbnail">
-                    <img ng-src="{{getImage(_item.Image)}}" alt="_item.Name" err-src="placeholder.png" />
-                </a>
-            </div>
-        </div>
-        <div role="tabpanel" class="tab-pane" id="latest">
-            <div class="col-xs-6 col-sm-4 col-lg-2" ng-repeat="_item in products | orderBy:'Id':true" ng-show="products.length">
-                <a href="{{productService.getUrl(_item.Id)}}" class="thumbnail">
-                    <img ng-src="{{getImage(_item.Image)}}" alt="_item.Name" err-src="placeholder.png" />
-                </a>
-            </div>
-        </div>
+    <div class="clearfix"></div>
+    <div class="h-bottom text-center">
+        <h4>Ut enim ad minim veniam<br>
+            quis nostrud exercitation ullamco laboris</h4>
+
+        <p>Duis aute irure dolor in reprehenderit in voluptate<br>
+            velit esse cillum dolore eu fugiat nulla pariatur Excepteur<br>
+            sint occaecat cupidatat non proident, sunt</p>
+        <a href="">Learn More</a>
+
         <div class="clearfix"></div>
     </div>
     <div class="clearfix"></div>
-    <div class="text-center h-shipping">
-        <h4>FREE SHIPPING! <span>ALL ORDERS OVER $199</span></h4>
-        <h5>FREE 2 DAY SHIPPING: SPEND OVER $140 AND USE PROMOTION AT CHECKOUT</h5>
-    </div>
-    <div class="row h-item">
-        <div class="col-xs-6 col-sm-4 col-lg-2" ng-repeat="_item in products | orderBy:'Id':true" ng-show="products.length">
-            <a href="{{productService.getUrl(_item.Id)}}" class="thumbnail">
-                <img ng-src="{{getImage(_item.Image)}}" alt="_item.Name" err-src="placeholder.png" />
-            </a>
-        </div>
-    </div>
-</div>
-<div class="clearfix"></div>
-<div class="h-bottom text-center">
-    <h4>Ut enim ad minim veniam<br>
-        quis nostrud exercitation ullamco laboris</h4>
-    <p>Duis aute irure dolor in reprehenderit in voluptate<br>
-        velit esse cillum dolore eu fugiat nulla pariatur Excepteur<br>
-        sint occaecat cupidatat non proident, sunt</p>
-    <a href="">Learn More</a>
-    <div class="clearfix"></div>
-</div>
-<div class="clearfix"></div>
 </div>
 
 <script>
-    $('#myTab a').click(function (e) {
-        e.preventDefault()
-        $(this).tab('show')
-    })
+    (function ($) {
+        $(document).ready(function () {
+            $('#myTab a').click(function (e) {
+                e.preventDefault();
+                $(this).tab('show')
+            });
 
-    setTimeout(function() {
-        $('.carousel').carousel({
-          interval: 3000
-        })
-     }, 1000);
-     setTimeout(function() {
-        $('#carousel-example-generic2').carousel({
-          interval: 10000
-        })
-     }, 1000);
+            $('.carousel').carousel({
+                interval: 3000
+            });
+
+            $('#carousel-example-generic2').carousel({
+                interval: 10000
+            });
+        });
+    })(jQuery)
 </script>

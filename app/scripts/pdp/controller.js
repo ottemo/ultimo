@@ -11,13 +11,14 @@
                 "$scope",
                 "$routeParams",
                 "$location",
+                "$timeout",
                 "$pdpApiService",
                 "$pdpProductService",
                 "$designImageService",
                 "$cartService",
                 "$visitorLoginService",
                 // TODO: reduce the number of statements in the function below and remove jshint comment
-                function ($scope, $routeParams, $location, $pdpApiService, $pdpProductService, $designImageService, $cartService, $visitorLoginService) {   //jshint ignore:line
+                function ($scope, $routeParams, $location, $timeout, $pdpApiService, $pdpProductService, $designImageService, $cartService, $visitorLoginService) {   //jshint ignore:line
                     var defaultProduct, reinitializeStars, getAverageValue, getStarsPercents, getDefaultRatingInfo, splitName;
 
                     getDefaultRatingInfo = function () {
@@ -134,6 +135,18 @@
                             $pdpApiService.listImages({"productId": $scope.product._id}).$promise.then(
                                 function (response) {
                                     $scope.productImages = response.result || [];
+
+                                    // Makes default_image first in array
+                                    $scope.productImages.sort(function (a, b) {
+                                        if (a.toString() < b.toString() && a === $scope.product["default_image"]) {
+                                            return -1;
+                                        }
+                                        if (a.toString() > b.toString() && a !== $scope.product["default_image"]) {
+                                            return 1;
+                                        }
+
+                                        return 0;
+                                    });
                                 });
                         }
                     };
@@ -165,7 +178,7 @@
                                             var miniCart;
                                             miniCart = $(".mini-cart");
                                             miniCart.modal('show');
-                                            setTimeout(function () {
+                                            $timeout(function () {
                                                 miniCart.modal('hide');
                                             }, 2000);
                                         }
