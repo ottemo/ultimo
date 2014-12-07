@@ -45,6 +45,10 @@
                             controller: "commonController"
                         })
                         .when("/help", { templateUrl: "views/help.html"})
+                        .when("/about.html", {
+                            templateUrl: angular.getTheme("common/about.html"),
+                            controller: ""
+                        })
                         .otherwise({
                             template: function () {
                                 otherwiseResolveFunc();
@@ -55,6 +59,7 @@
                                 return deferControllerValue;
                             }
                         });
+
                 }])
 
                 .run([
