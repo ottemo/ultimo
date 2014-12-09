@@ -53,15 +53,15 @@ Start the container and access locally
 
     docker run -d -p 80:80 -t ottemo/storefront
 
-## Contribute to Ottemo development
-We use git-flow internally, but if you do not like git-flow you may use [this document](CONTRIBUTE.md) as an alternative.
+## Contribute to Ottemo Storefront development
+We use git-flow internally, but if you do not like git-flow you may use [this document](CONTRIBUTOR.md) as an alternative.
 
 Below is a mini quickstart if you are new to git-flow and can't wait to jump into the code.
 
 ### Initialize git-flow
 
-    # fork or clone ottemo like below
-    $ git clone https://github.com/ottemo/ottemo-go.git
+    # fork or clone Ottemo Storefont like below
+    $ git clone https://github.com/ottemo/storefront.git
 
     # init git-flow, (git-flow must be installed for your OS locally)
     $ git checkout master

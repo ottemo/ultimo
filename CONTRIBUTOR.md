@@ -6,7 +6,7 @@ For example, to fork the Ottemo Storefront repository, and set up a new local br
 tracks against develop in our github repository, from your shell you would run:
 
     > git clone https://github.com/ottemo/storefront.git
-    > cd core
+    > cd storefront
     > git checkout -t origin/develop
 
 ## Introducing the git workflow
