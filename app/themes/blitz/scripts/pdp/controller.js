@@ -23,8 +23,8 @@
                         $controller('pdpController', {$scope: $scope});
 
                         $scope.addToCart = function () {
-                            $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
-                                if (isLoggedIn) {
+//                            $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
+//                                if (isLoggedIn) {
                                     $scope.submitted = true;
                                     $cartService.add($scope.productId, $scope.qty, $pdpProductService.getOptions()).then(
                                         function (response) {
@@ -43,10 +43,10 @@
                                             }
                                         }
                                     );
-                                } else {
-                                    $("#form-login").modal("show");
-                                }
-                            });
+//                                } else {
+//                                    $("#form-login").modal("show");
+//                                }
+//                            });
                         };
                     }
                 ]);

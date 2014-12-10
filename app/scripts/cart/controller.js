@@ -18,6 +18,7 @@
                     $scope.checkout = $checkoutService;
                     $scope.productService = $pdpProductService;
                     $scope.visitorService = $visitorLoginService;
+
                     $scope.init = function () {
 
                         $scope.visitorService.isLoggedIn().then(function(isLoggedIn){

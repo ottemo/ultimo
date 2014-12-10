@@ -1,6 +1,9 @@
 (function (w, define, $) {
     "use strict";
 
+    /**
+     *
+     */
     define(["checkout/init"], function (checkoutModule) {
 
         checkoutModule
@@ -201,11 +204,11 @@
                      * Gets checkout information
                      */
                     $scope.init = function () {
-                        $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
-                            if (!isLoggedIn) {
-                                $location.path("/");
-                            }
-                        });
+//                        $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
+//                            if (!isLoggedIn) {
+//                                $location.path("/");
+//                            }
+//                        });
                         if ($cartService.getCountItems() === 0) {
                             $location.path("/");
                         }
@@ -369,9 +372,11 @@
                     };
 
                     $scope.choiceBilling = function (billingId) {
-                        if (typeof $scope["billing_address"] === "undefined") {
+
+                        if (typeof $scope["billing_address"] === "undefined" || $scope["billing_address"] === null) {
                             $scope["billing_address"] = {};
                         }
+
                         $scope["billing_address"]._id = billingId;
                         var currentBillingID = getCurrentBillingID();
 

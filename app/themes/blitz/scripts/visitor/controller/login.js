@@ -25,13 +25,13 @@
 
                         var miniCart;
                         miniCart = $('#mini-cart');
-                        $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
-                            if (isLoggedIn) {
-                                miniCart.toggleClass('active');
-                            } else {
-                                $('#form-login').modal('show');
-                            }
-                        });
+//                        $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
+//                            if (isLoggedIn) {
+                        miniCart.toggleClass('active');
+//                            } else {
+//                                $('#form-login').modal('show');
+//                            }
+//                        });
 
                     };
  }
