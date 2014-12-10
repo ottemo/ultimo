@@ -179,8 +179,9 @@
     $(document).ready(function () {
         //slider
         $(document).on('click','.slide-small',function() {
-            $('.slide-image').hide()
+            $('.slide-image')
                              .attr('src',$(this).attr('src'))
+                             .hide()
                              .fadeIn(500)
                              .parent().attr('href',$(this).attr('data-src-big'))
         });
