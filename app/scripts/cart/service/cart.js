@@ -36,14 +36,20 @@
                     total = 0;
 
                     init = function () {
+                        var defer = $q.defer();
+
                         if (typeof isInit === 'undefined') {
                             loadCartInfo().then(
                                 function () {
                                     isInit = true;
+                                    defer.resolve(isInit);
                                 }
                             );
-
+                        } else {
+                            defer.resolve(isInit);
                         }
+
+                        return defer.promise;
                     };
 
                     getItems = function () {
