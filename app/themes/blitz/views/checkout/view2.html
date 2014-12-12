@@ -8,7 +8,7 @@
         <div class="panel-heading">
             <h3 class="panel-title">
                 Ship to
-                <div class="dropdown pull-right" ng-if="isGuestCheckout">
+                <div class="dropdown pull-right" ng-if="!isGuestCheckout">
                     <i class="glyphicon glyphicon-chevron-down dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown"></i>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
                         <li role="presentation" ng-repeat="addr in addresses">
@@ -156,7 +156,7 @@
         <div class="panel-heading">
             <h3 class="panel-title">
                 Bill to
-                <div class="dropdown pull-right" ng-if="isGuestCheckout">
+                <div class="dropdown pull-right" ng-if="!isGuestCheckout">
                     <i class="glyphicon glyphicon-chevron-down dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown"></i>
 
                     <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
@@ -364,7 +364,7 @@
                 </form>
             </div>
         </div>
-    </div>  
+    </div>
 
     <!-- Payment Method -->
     <div class="panel panel-default">
@@ -384,9 +384,9 @@
                             {{method.Name}}
                         </label>
                     </div>
-                
+
                     <div class="clearfix"></div>
-                    
+
                     <div class="paypal" ng-show="isCreditCard()" ng-if="showFormCc(method)">
                         <form name="method.form">
 
@@ -395,6 +395,7 @@
                                 <label>Credit Card Type</label>
 
                                 <select name="type" class="form-control input-lg" ng-model="method.cc.type" required ng-selected="c.Code == 'Visa' "
+                                        ng-init="method.cc.type = creditTypes[0].Code"
                                         ng-options="c.Code as c.Name for c in creditTypes">
                                 </select>
 
@@ -414,7 +415,7 @@
                                    class="help-block">Invalid number format.</p>
                             </div>
 
-            
+
                             <div class="form-group col-md-4 col-xs-12">
                                 <label for="paymentCvv">CVV</label>
                                 <input type="text" class="form-control input-lg" id="paymentCvv" name="cvv" ng-model="method.cc.cvv"
@@ -493,7 +494,7 @@
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
 
     <!-- Discounts -->
     <div class="panel panel-default">
@@ -554,7 +555,71 @@
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
+
+    <!-- Guest checkout user credential form -->
+    <div class="panel panel-default" ng-show="isGuestCheckout">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                Additional info
+            </h3>
+        </div>
+        <div class="panel-body">
+            <div id="customerInfo" class="accordion" style="display: none;">
+
+                <!-- Form to add shipping addresses -->
+                <form name="customerInfo">
+
+                    <!-- Name -->
+                    <div class="form-group col-md-6">
+                        <label for="customeInputName">Name</label>
+                        <input type="text" class="form-control input-lg" id="customeInputName" placeholder="Name"
+                               name="name" ng-model="checkout.info.customer_name" />
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group col-md-6"
+                         ng-class="{ 'has-error' : (subAdditionalInfo && customerInfo.email.$error.required) || (customerInfo.email.$invalid && !customerInfo.email.$pristine) }">
+                        <label for="customeInputEmail">Email*</label>
+                        <input type="text" class="form-control input-lg" id="customeInputEmail" placeholder="Email"
+                               name="email" ng-model="checkout.info.customer_email" required />
+
+
+                        <p ng-show="(subAdditionalInfo && customerInfo.email.$error.required) || (customerInfo.email.$invalid && !customerInfo.email.$pristine)"
+                           class="help-block">This field is required.</p>
+                    </div>
+
+                <div class="clearfix"></div>
+
+                <div class="text-center">
+                    <!-- prev step -->
+                    <button class="back hidden-xs btn btn-lg btn-primary" ng-click="back('customerInfo')">
+                        <span class="glyphicon glyphicon-arrow-up"></span>
+                        Prev step
+                    </button>
+
+                    <!-- next step -->
+                    <button class="next hidden-xs btn btn-lg btn-success" ng-click="next('customerInfo')">
+                        <span class="glyphicon glyphicon-arrow-down"></span>
+                        Next step
+                    </button>
+                    <div class="btn-group-vertical visible-xs">
+                        <!-- prev step -->
+                        <button class="back btn btn-lg btn-primary" ng-click="back('customerInfo')">
+                            <span class="glyphicon glyphicon-arrow-up"></span>
+                            Prev step
+                        </button>
+
+                        <!-- next step -->
+                        <button class="next btn btn-lg btn-success" ng-click="next('customerInfo')">
+                            <span class="glyphicon glyphicon-arrow-down"></span>
+                            Next step
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- preview -->
     <div class="panel panel-default">
@@ -634,7 +699,7 @@
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
 </div>
 <div class="col-xs-3 hidden-xs hidden-sm">
     <div class="mini-cart checkout">
@@ -646,11 +711,11 @@
                         <h3 class="panel-title">Order summary</h3>
                     </div>
                 </div>
-                
+
 
                 <!-- if cart is empty -->
                 <h3 ng-hide="it.getCountItems()" class="text-center">Cart is empty</h3>
-                
+
 
                 <div class="product " ng-repeat="item in it.getItems()" ng-show="it.getCountItems()">
 
@@ -662,17 +727,17 @@
                     <div class="col-md-8">
                         <!-- name -->
                         <h4>{{item.product.name}}</h4>
-                        
+
 
                         <!-- description -->
                         <p class="options" ng-repeat="(key, value) in item.options" ng-if="item.hasOptions">
                             {{key}}: {{productService.getOptStr(value)}}
                         </p>
-                  
+
                         <div class="row">
                             <!-- qty -->
                             <p class="col-xs-6">QTY:{{item.qty}}</p>
-                            
+
                             <!-- price -->
                             <p class="price col-xs-6">{{item.product.price * item.qty | currency}}</p>
                         </div>
@@ -706,7 +771,7 @@
                     <div class="col-xs-6 text-left">Total:</div>
                     <strong class="text-right col-xs-6">{{checkout.grandtotal | currency}}</strong>
                 </h4>
-                
+
                 <div class="clearfix"></div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 (function (define, $) {
     "use strict";
 
-    define(["cart/init"], function (cartModule) {
+    define(["angular", "cart/init"], function (angular, cartModule) {
         cartModule
 
             .controller("cartListController", [
@@ -20,12 +20,14 @@
                     $scope.visitorService = $visitorLoginService;
 
                     $scope.init = function () {
+                        if (!angular.appConfigValue("general.checkout.guest_checkout")) {
+                            $scope.visitorService.isLoggedIn().then(function (isLoggedIn) {
+                                if (!isLoggedIn) {
+                                    $location.path("/");
+                                }
+                            });
+                        }
 
-                        $scope.visitorService.isLoggedIn().then(function(isLoggedIn){
-                            if (!isLoggedIn) {
-                                $location.path("/");
-                            }
-                        });
                         $cartService.reload();
 
                         $scope.$emit("add-breadcrumbs", {"label": "My Account", "url": "/account"});
@@ -66,13 +68,13 @@
                         return $cartService.getTotal();
                     };
 
-                    $scope.changeQty = function(item, action){
+                    $scope.changeQty = function (item, action) {
 
-                        if(action === "up"){
+                        if (action === "up") {
                             item.qty = item.qty + 1;
                         }
-                        else if(action === "down"){
-                            if(item.qty > 1){
+                        else if (action === "down") {
+                            if (item.qty > 1) {
                                 item.qty = item.qty - 1;
                             }
                         }

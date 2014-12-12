@@ -1,7 +1,7 @@
 (function (define, $) {
     "use strict";
 
-    define(["pdp/init"], function (pdpModule) {
+    define(["angular", "pdp/init"], function (angular, pdpModule) {
 
         pdpModule
         /**
@@ -164,30 +164,38 @@
                     };
 
                     $scope.addToCart = function () {
-                        $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
-                            if (isLoggedIn) {
-                                $scope.submitted = true;
-                                $cartService.add($scope.productId, $scope.qty, $pdpProductService.getOptions()).then(
-                                    function (response) {
-                                        if (response.error !== "") {
-                                            $scope.messageOptions = {
-                                                'type': 'danger',
-                                                'message': response.error
-                                            };
-                                        } else {
-                                            var miniCart;
-                                            miniCart = $(".mini-cart");
-                                            miniCart.modal('show');
-                                            $timeout(function () {
-                                                miniCart.modal('hide');
-                                            }, 2000);
-                                        }
+                        var addItem = function () {
+                            $scope.submitted = true;
+                            $cartService.add($scope.productId, $scope.qty, $pdpProductService.getOptions()).then(
+                                function (response) {
+                                    if (response.error !== "") {
+                                        $scope.messageOptions = {
+                                            'type': 'danger',
+                                            'message': response.error
+                                        };
+                                    } else {
+                                        var miniCart;
+                                        miniCart = $(".mini-cart");
+                                        miniCart.modal('show');
+                                        $timeout(function () {
+                                            miniCart.modal('hide');
+                                        }, 2000);
                                     }
-                                );
-                            } else {
-                                $("#form-login").modal("show");
-                            }
-                        });
+                                }
+                            );
+                        };
+
+                        if (angular.appConfigValue("general.checkout.guest_checkout")) {
+                            addItem();
+                        } else {
+                            $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
+                                if (isLoggedIn) {
+                                    addItem();
+                                } else {
+                                    $("#form-login").modal("show");
+                                }
+                            });
+                        }
                     };
 
                     splitName = function (string) {
@@ -363,7 +371,8 @@
 
                 }
             ]
-        );
+        )
+        ;
 
         return pdpModule;
     });

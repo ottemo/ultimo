@@ -17,7 +17,7 @@
                 "$cartService",
                 "$pdpProductService",
                 function ($scope, $location, $route, $routeParams, $categoryApiService, $designService, $designImageService, $categoryService, $visitorLoginService, $cartService, $pdpProductService) {
-                    var init, getPage, addCategoryCrumbs, getFilters, setFilters;
+                    var init, getPage, addCategoryCrumbs, getFilters, setFilters, getParams;
 
                     getPage = function () {
                         var param, page;
@@ -51,54 +51,59 @@
                             "search": false,
                             "filter": false
                         };
+
+                        addCategoryCrumbs = function () {
+                            var list, i, category;
+
+                            list = $categoryService.getChainCategories($scope.categoryId);
+
+                            for (i = 0; i < list.length; i += 1) {
+                                category = list[i];
+                                $scope.$emit("add-breadcrumbs", {"label": category.name, "url": $categoryService.getUrl(category.id)});
+                            }
+                        };
+
+                        getParams = function (withoutLimit) {
+                            var search, result, key;
+
+                            result = {};
+                            search = $location.search();
+
+                            for (key in search) {
+                                if (search.hasOwnProperty(key)) {
+                                    result[key] = search[key];
+                                }
+                            }
+
+                            if (!withoutLimit) {
+
+                                if ($scope.currentPage === 0) {
+                                    result.limit = "0," + $scope.itemsPerPage;
+                                } else {
+                                    result.limit = ($scope.currentPage * $scope.itemsPerPage) + "," + $scope.itemsPerPage;
+                                }
+                            }
+
+                            return result;
+                        };
                     };
 
                     init();
 
-                    addCategoryCrumbs = function () {
-                        var list, i, category;
-
-                        list = $categoryService.getChainCategories($scope.categoryId);
-
-                        for (i = 0; i < list.length; i += 1) {
-                            category = list[i];
-                            $scope.$emit("add-breadcrumbs", {"label": category.name, "url": $categoryService.getUrl(category.id)});
-                        }
-                    };
-
-                    var getParams = function (withoutLimit) {
-                        var search, result, key;
-
-                        result = {};
-                        search = $location.search();
-
-                        for (key in search) {
-                            if (search.hasOwnProperty(key)) {
-                                result[key] = search[key];
-                            }
-                        }
-
-                        if (!withoutLimit) {
-
-                            if ($scope.currentPage === 0) {
-                                result.limit = "0," + $scope.itemsPerPage;
-                            } else {
-                                result.limit = ($scope.currentPage * $scope.itemsPerPage) + "," + $scope.itemsPerPage;
-                            }
-                        }
-
-                        return result;
-                    };
-
                     setFilters = function () {
-                        var params, values, i;
+                        var params, values, i, initFilter;
                         params = $location.search();
-                        for (var attr in params) {
-                            if (params.hasOwnProperty(attr)) {
+                        initFilter = function (attr) {
+                            if (typeof $scope.filters[attr] === "undefined") {
+                                $scope.filters[attr] = {};
+                            }
+                        };
 
-                                if (typeof $scope.filters[attr] === "undefined") {
-                                    $scope.filters[attr] = {};
-                                }
+                        for (var attr in params) {
+
+                            if (params.hasOwnProperty(attr)) {
+                                initFilter(attr);
+
                                 if (typeof params[attr] === "string") {
                                     values = params[attr].split(",");
                                     for (i = 0; i < values.length; i += 1) {
@@ -109,6 +114,7 @@
                                 }
 
                             }
+
                         }
 
                     };
@@ -193,31 +199,39 @@
                     };
 
                     $scope.addToCart = function (productId) {
-                        var miniCart;
+                        var miniCart, addItem;
                         miniCart = $(".mini-cart");
+                        addItem = function () {
+                            $cartService.add(productId, 1, $pdpProductService.getOptions()).then(
+                                function (response) {
+                                    if (response.error !== "") {
+                                        $('.modal').modal('hide');
+                                        $location.path($pdpProductService.getUrl(productId).replace("#/", ""));
+                                    } else {
+                                        $pdpProductService.setOptions({});
+                                        $("#quick-view").modal('hide');
 
-                        $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
-                            if (isLoggedIn) {
-                                $cartService.add(productId, 1, $pdpProductService.getOptions()).then(
-                                    function (response) {
-                                        if (response.error !== "") {
-                                            $('.modal').modal('hide');
-                                            $location.path($pdpProductService.getUrl(productId).replace("#/", ""));
-                                        } else {
-                                            $pdpProductService.setOptions({});
-                                            $("#quick-view").modal('hide');
-
-                                            miniCart.modal('show');
-                                            setTimeout(function () {
-                                                miniCart.modal('hide');
-                                            }, 2000);
-                                        }
+                                        miniCart.modal('show');
+                                        setTimeout(function () {
+                                            miniCart.modal('hide');
+                                        }, 2000);
                                     }
-                                );
-                            } else {
-                                $("#form-login").modal("show");
-                            }
-                        });
+                                }
+                            );
+                        };
+
+                        if (angular.appConfigValue("general.checkout.guest_checkout")) {
+                            addItem();
+                        } else {
+                            $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
+                                if (isLoggedIn) {
+                                    addItem();
+                                } else {
+                                    $("#form-login").modal("show");
+                                }
+                            });
+                        }
+
                     };
 
                     /**
@@ -296,12 +310,10 @@
                     /**
                      * Gets list of products
                      */
-                    $categoryApiService.getProducts(getParams(), {"id": $scope.categoryId}).$promise.then(
-                        function (response) {
-                            var result = response.result || [];
-                            $scope.productsList = result;
-                        }
-                    );
+                    $categoryApiService.getProducts(getParams(), {"id": $scope.categoryId}).$promise.then(function (response) {
+                        var result = response.result || [];
+                        $scope.productsList = result;
+                    });
 
                     $scope.loadMore = function () {
                         $scope.currentPage += 1;

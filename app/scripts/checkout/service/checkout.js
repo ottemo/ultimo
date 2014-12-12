@@ -5,9 +5,10 @@
      *
      */
     define([
+            "angular",
             "common/init"
         ],
-        function (checkoutModule) {
+        function (angular, checkoutModule) {
 
             checkoutModule
             /**
@@ -22,20 +23,15 @@
                     "ACCORDION_URL",
                     function ($q, $timeout, $interval, $checkoutApiService, ONEPAGE_URL, ACCORDION_URL) {
                         // Variables
-                        var checkout, allowedShippingMethods, allowedPaymentMethods, types, defaultType, activeType;
+                        var checkout, allowedShippingMethods, allowedPaymentMethods, defaultType, activeType;
 
                         // Functions
-                        var init, getUrl, getType, setType, update, loadShippingMethods, loadPaymentMethods, saveBillingAddress,
-                            saveShippingAddress, saveShippingMethod, savePaymentMethod, discountApply, discountNeglect, getCheckout,
-                            getAllowedPaymentMethods, getAllowedShippingMethods;
+                        var init, getUrl, getType, setType, update, loadShippingMethods, loadPaymentMethods,
+                            saveBillingAddress, saveShippingAddress, saveShippingMethod, savePaymentMethod, discountApply, discountNeglect,
+                            getCheckout, getAllowedPaymentMethods, getAllowedShippingMethods, saveAdditionalInfo, getAllowedGuestCheckout;
 
                         checkout = {};
-
-                        allowedShippingMethods = [];
-                        allowedPaymentMethods = [];
-
                         defaultType = "accordion";
-                        types = ["onepage", "accordion"];
 
                         loadShippingMethods = function () {
                             var defer = $q.defer();
@@ -57,16 +53,14 @@
                             };
 
                             $checkoutApiService.shippingMethod().$promise.then(function (response) {
-                                var i, result, method;
-                                result = response.result || [];
+                                var i, method;
 
-                                if (response.error === "" && result.length > 0) {
-                                    for (i = 0; i < result.length; i += 1) {
-                                        method = result[i] || [];
+                                if (response.error === "") {
+                                    for (i = 0; i < response.result.length; i += 1) {
+                                        method = response.result[i] || [];
                                         if (method.Rates instanceof Array && method.Rates.length > 0) {
                                             splitMethodToRates(method);
                                         }
-
                                     }
                                 }
 
@@ -187,12 +181,42 @@
                             return defer.promise;
                         };
 
-                        discountApply = function () {
+                        saveAdditionalInfo = function (data) {
+                            var defer = $q.defer();
 
+                            $checkoutApiService.setInfo(data).$promise.then(
+                                function (response) {
+                                    defer.resolve(response);
+                                }
+                            );
+
+                            return defer.promise;
                         };
 
-                        discountNeglect = function () {
+                        discountApply = function (data) {
+                            var defer = $q.defer();
 
+                            $checkoutApiService.discountApply(data).$promise.then(
+                                function (response) {
+                                    defer.resolve(response);
+                                }
+                            );
+
+                            return defer.promise;
+                        };
+
+                        discountNeglect = function (data) {
+                            var defer = $q.defer();
+
+                            $checkoutApiService.discountNeglect(data).$promise.then(
+                                function (response) {
+                                    if (response.error === "") {
+                                        defer.resolve(response);
+                                    }
+                                }
+                            );
+
+                            return defer.promise;
                         };
 
                         getUrl = function () {
@@ -209,6 +233,8 @@
                         };
 
                         setType = function (type) {
+                            var types = ["onepage", "accordion"];
+
                             if (-1 !== types.indexOf(type)) {
                                 activeType = type;
                             } else {
@@ -227,11 +253,15 @@
                         };
 
                         getAllowedPaymentMethods = function () {
-                            return allowedPaymentMethods;
+                            return allowedPaymentMethods || [];
                         };
 
                         getAllowedShippingMethods = function () {
-                            return allowedShippingMethods;
+                            return allowedShippingMethods || [];
+                        };
+
+                        getAllowedGuestCheckout = function () {
+                            return angular.appConfigValue("general.checkout.guest_checkout");
                         };
 
                         return {
@@ -248,8 +278,10 @@
                             "saveBillingAddress": saveBillingAddress,
                             "saveShippingMethod": saveShippingMethod,
                             "savePaymentMethod": savePaymentMethod,
+                            "saveAdditionalInfo": saveAdditionalInfo,
                             "discountNeglect": discountNeglect,
-                            "discountApply": discountApply
+                            "discountApply": discountApply,
+                            "getAllowedGuestCheckout": getAllowedGuestCheckout
                         };
                     }
                 ]

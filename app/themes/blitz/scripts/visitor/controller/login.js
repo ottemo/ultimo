@@ -18,23 +18,27 @@
                 '$cartService',
                 '$commonHeaderService',
                 '$commonSidebarService',
-                function ($scope, $controller, $routeParams, $visitorApiService, $visitorLoginService, $location, $cartService, $commonHeaderService, $commonSidebarService) {
+                function ($scope, $controller, $routeParams, $visitorApiService, $visitorLoginService) {
                     $controller('visitorLoginController', {$scope: $scope});
 
                     $scope.clickToCartDesktop = function () {
 
-                        var miniCart;
-                        miniCart = $('#mini-cart');
-//                        $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
-//                            if (isLoggedIn) {
-                        miniCart.toggleClass('active');
-//                            } else {
-//                                $('#form-login').modal('show');
-//                            }
-//                        });
+                        var miniCart = $('#mini-cart');
+                        if (angular.appConfigValue("general.checkout.guest_checkout")) {
+                            miniCart.toggleClass('active');
+                        } else {
+                            $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
+                                if (isLoggedIn) {
+                                    miniCart.toggleClass('active');
+                                } else {
+                                    $('#form-login').modal('show');
+                                }
+                            });
+                        }
+
 
                     };
- }
+                }
             ]);
 
             return angular.module.visitorModule;

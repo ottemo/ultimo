@@ -1,7 +1,7 @@
 (function (define, $) {
     'use strict';
 
-    define(['visitor/init', 'visitor/service/google'], function (loginModule, gl) {
+    define(['angular', 'visitor/init', 'visitor/service/google'], function (angular, loginModule, gl) {
         loginModule.controller('visitorLoginController', [
             '$scope',
             '$route',
@@ -112,15 +112,19 @@
                 };
 
                 $scope.clickToCartDesktop = function () {
-                    var miniCart;
-                    miniCart = $('.mini-cart');
-                    $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
-                        if (isLoggedIn) {
-                            miniCart.modal('toggle');
-                        } else {
-                            $('#form-login').modal('show');
-                        }
-                    });
+                    var miniCart = $('.mini-cart');
+
+                    if (angular.appConfigValue("general.checkout.guest_checkout")) {
+                        miniCart.modal('toggle');
+                    } else {
+                        $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
+                            if (isLoggedIn) {
+                                miniCart.modal('toggle');
+                            } else {
+                                $('#form-login').modal('show');
+                            }
+                        });
+                    }
 
                 };
 
