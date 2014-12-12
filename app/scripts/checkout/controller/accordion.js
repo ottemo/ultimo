@@ -262,7 +262,7 @@
                     };
 
                     $scope.choiceBilling = function (billingId) {
-                        if ($scope.checkout["billing_address"]._id !== billingId && Boolean(billingId)) {
+                        if ($scope.checkout["billing_address"]._id !== billingId && typeof billingId === "string" && billingId !== "") {
                             // Sets existing address as billing
                             $checkoutService.saveBillingAddress({"id": billingId}).then(
                                 function () {

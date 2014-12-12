@@ -35,7 +35,7 @@
 
                         loadShippingMethods = function () {
                             var defer = $q.defer();
-                            allowedShippingMethods = [];
+
 
                             var splitMethodToRates = function (method) {
                                 var i, rate;
@@ -54,7 +54,7 @@
 
                             $checkoutApiService.shippingMethod().$promise.then(function (response) {
                                 var i, method;
-
+                                allowedShippingMethods = [];
                                 if (response.error === "") {
                                     for (i = 0; i < response.result.length; i += 1) {
                                         method = response.result[i] || [];
