@@ -1,9 +1,8 @@
-<!-- checkout page -->
-<div ng-init="init()" class="container">
+<h2 class="text-center">Checkout</h2>
+<br>
 
-    <h2 class="text-center">Checkout</h2>
-    <br>
-    
+<!-- checkout page -->
+<div ng-init="init()" class="col-xs-12 col-md-9 col-md-offset-0 col-sm-8 col-sm-offset-2">
     <!-- Billing Block -->
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -15,7 +14,7 @@
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
                         <li role="presentation" ng-repeat="addr in addresses">
-                            <a role="menuitem" tabindex="-1" ng-click="choiceBilling(addr.Id)">{{addr.Name}}</a>
+                            <a role="menuitem" tabindex="-1" ng-click="choiceBilling(addr.ID)">{{addr.Name}}</a>
                         </li>
                         <li role="presentation" class="divider"></li>
                         <li role="presentation">
@@ -23,6 +22,7 @@
                         </li>
                     </ul>
                 </div>
+                <div class="clearfix"></div>
             </h3>
         </div>
 
@@ -136,7 +136,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Shipping Block -->
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -148,7 +148,7 @@
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
                         <li role="presentation" ng-repeat="addr in addresses">
-                            <a role="menuitem" tabindex="-1" href ng-click="choiceShipping(addr.Id)">{{addr.Name}}</a>
+                            <a role="menuitem" tabindex="-1" href ng-click="choiceShipping(addr.ID)">{{addr.Name}}</a>
                         </li>
                         <li role="presentation" class="divider"></li>
                         <li role="presentation">
@@ -156,6 +156,7 @@
                         </li>
                     </ul>
                 </div>
+                <div class="clearfix"></div>
             </h3>
         </div>
 
@@ -304,7 +305,7 @@
                 </form>
             </div>
         </div>
-    </div>  
+    </div>
 
     <!-- Payment Method -->
     <div class="panel panel-default">
@@ -315,58 +316,56 @@
         </div>
         <div class="panel-body">
             <div id="paymentMethod" class="accordion" >
-
-                <div class="form-group col-md-6" ng-repeat="method in paymentMethods">
+                <div class="form-group col-xs-12" ng-repeat="method in paymentMethods">
                     <div class="checkbox">
                         <label class="myCheckbox">
                             <input type="radio" name="test" value="{{method.Code}}" ng-model="checkout.payment_method_code"
-                                 ng-change=setPaymentType(method.Type)>
+                                   ng-change=setPaymentType(method.Type)>
                             {{method.Name}}
                         </label>
                     </div>
-                </div>
-                
-                <div class="clearfix"></div>
-                
-                <div ng-show="isCreditCard()" ng-if="showFormCc(method)">
-                    <form name="method.form" novalidate>
 
-                        <div class="form-group col-md-12"
-                             ng-class="{ 'has-error' : method.form.type.$invalid && !method.form.type.$pristine }">
-                            <label>Credit Card Type</label>
+                    <div class="clearfix"></div>
 
-                            <select name="type" class="form-control" ng-model="method.cc.type" required
-                                    ng-options="c.Code as c.Name for c in creditTypes">
-                            </select>
+                    <div class="paypal" ng-show="isCreditCard()" ng-if="showFormCc(method)">
+                        <form name="method.form">
 
-                            <p ng-show="method.form.type.$invalid && !method.form.type.$pristine"
-                               class="help-block">This field is required.</p>
-                        </div>
+                            <div class="form-group col-md-6 col-xs-12"
+                                 ng-class="{ 'has-error' : method.form.type.$invalid && !method.form.type.$pristine }">
+                                <label>Credit Card Type</label>
 
-                        <div class="form-group col-md-12"
-                             ng-class="{ 'has-error' : (!method.form.number.$invalidFormat || method.form.number.$invalid) && !method.form.number.$pristine }">
-                            <label for="paymentCardNumber">Number</label>
-                            <input type="text" class="form-control" id="paymentCardNumber" ng-model="method.cc.number"
-                                   placeholder="Credit Card Number" name="number" ng-change="validateCcNumber()" required>
+                                <select name="type" class="form-control input-lg" ng-model="method.cc.type" required
+                                        ng-options="c.Code as c.Name for c in creditTypes">
+                                </select>
 
-                            <p ng-show="method.form.number.$invalid && !method.form.number.$pristine"
-                               class="help-block">This field is required.</p>
-                            <p ng-show="!method.form.number.$invalidFormat && !method.form.number.$pristine"
-                               class="help-block">Invalid number format.</p>
-                        </div>
+                                <p ng-show="method.form.type.$invalid && !method.form.type.$pristine"
+                                   class="help-block">This field is required.</p>
+                            </div>
 
-                        <div class="card-data">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6 col-xs-12"
+                                 ng-class="{ 'has-error' : (!method.form.number.$invalidFormat || method.form.number.$invalid) && !method.form.number.$pristine }">
+                                <label for="paymentCardNumber">Number</label>
+                                <input type="text" class="form-control input-lg" id="paymentCardNumber" ng-model="method.cc.number"
+                                       placeholder="Credit Card Number" name="number" ng-change="validateCcNumber()" required>
+
+                                <p ng-show="method.form.number.$invalid && !method.form.number.$pristine"
+                                   class="help-block">This field is required.</p>
+                                <p ng-show="!method.form.number.$invalidFormat && !method.form.number.$pristine"
+                                   class="help-block">Invalid number format.</p>
+                            </div>
+
+
+                            <div class="form-group col-md-4 col-xs-12">
                                 <label for="paymentCvv">CVV</label>
-                                <input type="text" class="form-control" id="paymentCvv" name="cvv" ng-model="method.cc.cvv"
+                                <input type="text" class="form-control input-lg" id="paymentCvv" name="cvv" ng-model="method.cc.cvv"
                                        placeholder="CVV">
                             </div>
 
-                            <div class="form-group col-md-4"
+                            <div class="form-group col-md-4 col-xs-12"
                                  ng-class="{ 'has-error' : (method.form.expire_month.$invalid) && !method.form.expire_month.$pristine }">
                                 <label>Expiration Date</label>
 
-                                <select name="status form-control" class="form-control" ng-model="method.cc.expire_month" name="expire_month" required>
+                                <select name="status form-control" class="form-control input-lg" ng-model="method.cc.expire_month" name="expire_month" required>
                                     <option value="1" selected="selected">01</option>
                                     <option value="2">02</option>
                                     <option value="3">03</option>
@@ -385,29 +384,30 @@
                                    class="help-block">This field is required.</p>
                             </div>
 
-                            <div class="form-group col-md-4"
+                            <div class="form-group col-md-4 col-xs-12"
                                  ng-class="{ 'has-error' : (method.form.expire_year.$invalid) && !method.form.expire_year.$pristine }">
-
-                                    <select class="form-control" name="status form-control" ng-model="method.cc.expire_year" name="expire_year" required>
-                                        <option value="2014" selected="selected">2014</option>
-                                        <option value="2015">2015</option>
-                                        <option value="2016">2016</option>
-                                        <option value="2017">2017</option>
-                                        <option value="2018">2018</option>
-                                        <option value="2019">2019</option>
-                                    </select>
+                                <label>Expiration Year</label>
+                                <select class="form-control input-lg" name="status form-control" ng-model="method.cc.expire_year" name="expire_year" required>
+                                    <option value="2014" selected="selected">2014</option>
+                                    <option value="2015">2015</option>
+                                    <option value="2016">2016</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2019">2019</option>
+                                </select>
 
                                 <p ng-show="method.form.expire_year.$invalid && !method.form.expire_year.$pristine"
                                    class="help-block">This field is required.</p>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
+
                 </div>
 
                 <div class="clearfix"></div>
             </div>
         </div>
-    </div> 
+    </div>
 
     <!-- Discounts -->
     <div class="panel panel-default">
@@ -441,7 +441,7 @@
                 <div class="clearfix"></div>
             </div>
         </div>
-    </div> 
+    </div>
 
     <!-- preview -->
     <div class="panel panel-default">
@@ -453,7 +453,7 @@
         <div class="panel-body">
             <div id="review" class="accordion" >
 
-                <div class="col-sm-6">
+                <div class="col-sm-6 visible-xs visible-sm">
                     <table class="table table-bordered" ng-show="cart.getCountItems()" ng-class="{'last':$last}">
                         <tr>
                             <th>Product Name</th>
@@ -467,7 +467,7 @@
                         </tr>
                     </table>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 visible-xs visible-sm">
                     <table class="table table-bordered" ng-show="cart.getCountItems()" ng-class="{'last':$last}">
                         <tr>
                             <td>SUBTOTAL</td>
@@ -503,7 +503,76 @@
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
 </div>
-<ng-include src="getTemplate('modals/checkout-purchase-success.html')"></ng-include>
+<div class="col-md-3 hidden-xs hidden-sm">
+    <div class="mini-cart checkout" ng-init="init()">
+        <!-- product row -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Order summary</h3>
+            </div>
+            <div class="panel-body">
+                <div ng-controller="cartListController">
+                    <!-- if cart is empty -->
+                    <h3 ng-hide="it.getCountItems()" class="text-center">Cart is empty</h3>
+
+
+                    <div class="product " ng-repeat="item in it.getItems()" ng-show="it.getCountItems()">
+
+                        <!-- image -->
+                        <div class="thumbnail col-md-4">
+                            <a href="{{productService.getUrl(item.pid)}}"><img err-src="placeholder.png" ng-src="{{getImage(item.product)}}" alt="{{item.product.name}}"/></a>
+                        </div>
+
+                        <div class="col-md-8">
+                            <!-- name -->
+                            <h4>{{item.product.name}}</h4>
+
+
+                            <!-- description -->
+                            <p class="options" ng-repeat="(key, value) in item.options" ng-if="item.hasOptions">
+                                {{key}}: {{productService.getOptStr(value)}}
+                            </p>
+
+                            <div class="row">
+                                <!-- qty -->
+                                <p class="col-xs-6">QTY:{{item.qty}}</p>
+
+                                <!-- price -->
+                                <h4>
+                                    <strong class="price col-xs-6">{{item.product.price * item.qty | currency}}</strong>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <hr>
+                </div>
+                <div class="total" ng-show="cart.getCountItems()" ng-class="{'last':$last}">
+                    <h4>
+                        <div class="text-left col-xs-6">Subtotal:</div>
+                        <strong class="text-right col-xs-6">{{checkout.subtotal | currency}}</strong>
+                    </h4>
+                    <h4>
+                        <div class="text-left col-xs-6">Tax:</div>
+                        <strong class="text-right col-xs-6">{{checkout.tax_amount | currency}}</strong>
+                    </h4>
+                    <h4>
+                        <div class="text-left col-xs-6">Shipping:</div>
+                        <strong class="text-right col-xs-6">{{checkout.shipping_amount | currency}}</strong>
+                    </h4>
+
+                    <h4 class="text-right">
+                        <div class="col-xs-6 text-left">Total:</div>
+                        <strong class="text-right col-xs-6">{{checkout.grandtotal | currency}}</strong>
+                    </h4>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-include src="getTemplate('checkout/modal/checkout-purchase-success.html')"></ng-include>
 <ng-include src="getTemplate('checkout/modal/redirect.html')"></ng-include>

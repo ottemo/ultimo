@@ -4,12 +4,14 @@
     $(document).ready(function () {
 
         //padding for fixed navigation
-        $("#mini-cart").niceScroll({
-            cursorcolor: "#484848",
-            cursoropacitymin: "0.4"
-        });
+        setTimeout(function(){
+            $("#mini-cart").niceScroll({
+                    cursorcolor: "#484848",
+                    cursoropacitymin: "0.4"
+                });
 
-        $("html").niceScroll();
+                $("html").niceScroll();
+        },1000)
 
         // toggle for left sidebar to see all items
         $(document).on('click', '#sidebar .toggler', function () {
