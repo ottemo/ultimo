@@ -102,7 +102,7 @@
                                 statuses.isLoadedPM = true;
                             });
 
-                            var stop = $interval(function() {
+                            var stop = $interval(function () {
                                 var initAll = true;
                                 for (var key in statuses) {
                                     if (statuses.hasOwnProperty(key) && !statuses[key]) {
@@ -155,10 +155,7 @@
                             $checkoutApiService.setShippingAddress(address).$promise.then(
                                 function (response) {
                                     if (response.error === "") {
-                                        var result = response.result || {};
-                                        defer.resolve(result);
-                                    } else {
-                                        defer.resolve(response.error);
+                                        defer.resolve(response);
                                     }
                                 }
                             );
@@ -166,24 +163,28 @@
                             return defer.promise;
                         };
 
-                        saveShippingMethod = function () {
+                        saveShippingMethod = function (method) {
                             var defer = $q.defer();
 
                             $checkoutApiService.setShippingMethod(method).$promise.then(
                                 function (response) {
-                                    if (response.result === "ok") {
-                                        defer.resolve(true);
-                                    } else {
-                                        defer.resolve(response.error);
-                                    }
+                                    defer.resolve(response);
                                 }
                             );
 
                             return defer.promise;
                         };
 
-                        savePaymentMethod = function () {
+                        savePaymentMethod = function (method) {
+                            var defer = $q.defer();
 
+                            $checkoutApiService.setPaymentMethod(method).$promise.then(
+                                function (response) {
+                                    defer.resolve(response);
+                                }
+                            );
+
+                            return defer.promise;
                         };
 
                         discountApply = function () {

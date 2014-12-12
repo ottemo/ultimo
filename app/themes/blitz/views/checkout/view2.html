@@ -8,7 +8,7 @@
         <div class="panel-heading">
             <h3 class="panel-title">
                 Ship to
-                <div class="dropdown pull-right" ng-hide="isGuestCheckout">
+                <div class="dropdown pull-right" ng-if="isGuestCheckout">
                     <i class="glyphicon glyphicon-chevron-down dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown"></i>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
                         <li role="presentation" ng-repeat="addr in addresses">
@@ -156,7 +156,7 @@
         <div class="panel-heading">
             <h3 class="panel-title">
                 Bill to
-                <div class="dropdown pull-right">
+                <div class="dropdown pull-right" ng-if="isGuestCheckout">
                     <i class="glyphicon glyphicon-chevron-down dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown"></i>
 
                     <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
@@ -639,7 +639,7 @@
 <div class="col-xs-3 hidden-xs hidden-sm">
     <div class="mini-cart checkout">
         <!-- product row -->
-        <div ng-init="init()">
+        <div>
             <div ng-controller="cartListController">
                 <div class="panel panel-default">
                     <div class="panel-heading">
