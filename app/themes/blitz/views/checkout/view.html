@@ -12,7 +12,7 @@
                     <i class="glyphicon glyphicon-chevron-down dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown"></i>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
                         <li role="presentation" ng-repeat="addr in addresses">
-                            <a role="menuitem" tabindex="-1" ng-click="choiceBilling(addr.Id)">{{addr.Name}}</a>
+                            <a role="menuitem" tabindex="-1" ng-click="choiceBilling(addr.ID)">{{addr.Name}}</a>
                         </li>
                         <li role="presentation" class="divider"></li>
                         <li role="presentation">
@@ -143,7 +143,7 @@
                     <i class="glyphicon glyphicon-chevron-down dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown"></i>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
                         <li role="presentation" ng-repeat="addr in addresses">
-                            <a role="menuitem" tabindex="-1" href ng-click="choiceShipping(addr.Id)">{{addr.Name}}</a>
+                            <a role="menuitem" tabindex="-1" href ng-click="choiceShipping(addr.ID)">{{addr.Name}}</a>
                         </li>
                         <li role="presentation" class="divider"></li>
                         <li role="presentation">
@@ -310,54 +310,52 @@
         </div>
         <div class="panel-body">
             <div id="paymentMethod" class="accordion" >
-
-                <div class="form-group col-md-6" ng-repeat="method in paymentMethods">
+                <div class="form-group col-xs-12" ng-repeat="method in paymentMethods">
                     <div class="checkbox">
                         <label class="myCheckbox">
                             <input type="radio" name="test" value="{{method.Code}}" ng-model="checkout.payment_method_code"
-                                 ng-change=setPaymentType(method.Type)>
+                                   ng-change=setPaymentType(method.Type)>
                             {{method.Name}}
                         </label>
                     </div>
-                </div>
-                
-                <div class="clearfix"></div>
-                
-                <div ng-show="isCreditCard()" ng-if="showFormCc(method)">
-                    <form name="method.form" novalidate>
 
-                        <div class="form-group col-md-12"
-                             ng-class="{ 'has-error' : method.form.type.$invalid && !method.form.type.$pristine }">
-                            <label>Credit Card Type</label>
+                    <div class="clearfix"></div>
 
-                            <select name="type" class="form-control input-lg" ng-model="method.cc.type" required
-                                    ng-options="c.Code as c.Name for c in creditTypes">
-                            </select>
+                    <div class="paypal" ng-show="isCreditCard()" ng-if="showFormCc(method)">
+                        <form name="method.form">
 
-                            <p ng-show="method.form.type.$invalid && !method.form.type.$pristine"
-                               class="help-block">This field is required.</p>
-                        </div>
+                            <div class="form-group col-md-6 col-xs-12"
+                                 ng-class="{ 'has-error' : method.form.type.$invalid && !method.form.type.$pristine }">
+                                <label>Credit Card Type</label>
 
-                        <div class="form-group col-md-12"
-                             ng-class="{ 'has-error' : (!method.form.number.$invalidFormat || method.form.number.$invalid) && !method.form.number.$pristine }">
-                            <label for="paymentCardNumber">Number</label>
-                            <input type="text" class="form-control input-lg" id="paymentCardNumber" ng-model="method.cc.number"
-                                   placeholder="Credit Card Number" name="number" ng-change="validateCcNumber()" required>
+                                <select name="type" class="form-control input-lg" ng-model="method.cc.type" required ng-selected="c.Code == 'Visa' "
+                                        ng-options="c.Code as c.Name for c in creditTypes">
+                                </select>
 
-                            <p ng-show="method.form.number.$invalid && !method.form.number.$pristine"
-                               class="help-block">This field is required.</p>
-                            <p ng-show="!method.form.number.$invalidFormat && !method.form.number.$pristine"
-                               class="help-block">Invalid number format.</p>
-                        </div>
+                                <p ng-show="method.form.type.$invalid && !method.form.type.$pristine"
+                                   class="help-block">This field is required.</p>
+                            </div>
 
-                        <div class="card-data">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6 col-xs-12"
+                                 ng-class="{ 'has-error' : (!method.form.number.$invalidFormat || method.form.number.$invalid) && !method.form.number.$pristine }">
+                                <label for="paymentCardNumber">Number</label>
+                                <input type="text" class="form-control input-lg" id="paymentCardNumber" ng-model="method.cc.number"
+                                       placeholder="Credit Card Number" name="number" ng-change="validateCcNumber()" required>
+
+                                <p ng-show="method.form.number.$invalid && !method.form.number.$pristine"
+                                   class="help-block">This field is required.</p>
+                                <p ng-show="!method.form.number.$invalidFormat && !method.form.number.$pristine"
+                                   class="help-block">Invalid number format.</p>
+                            </div>
+
+
+                            <div class="form-group col-md-4 col-xs-12">
                                 <label for="paymentCvv">CVV</label>
                                 <input type="text" class="form-control input-lg" id="paymentCvv" name="cvv" ng-model="method.cc.cvv"
                                        placeholder="CVV">
                             </div>
 
-                            <div class="form-group col-md-4"
+                            <div class="form-group col-md-4 col-xs-12"
                                  ng-class="{ 'has-error' : (method.form.expire_month.$invalid) && !method.form.expire_month.$pristine }">
                                 <label>Expiration Date</label>
 
@@ -380,23 +378,24 @@
                                    class="help-block">This field is required.</p>
                             </div>
 
-                            <div class="form-group col-md-4"
+                            <div class="form-group col-md-4 col-xs-12"
                                  ng-class="{ 'has-error' : (method.form.expire_year.$invalid) && !method.form.expire_year.$pristine }">
-
-                                    <select class="form-control input-lg" name="status form-control" ng-model="method.cc.expire_year" name="expire_year" required>
-                                        <option value="2014" selected="selected">2014</option>
-                                        <option value="2015">2015</option>
-                                        <option value="2016">2016</option>
-                                        <option value="2017">2017</option>
-                                        <option value="2018">2018</option>
-                                        <option value="2019">2019</option>
-                                    </select>
+                                <label>Expiration Year</label>
+                                <select class="form-control input-lg" name="status form-control" ng-model="method.cc.expire_year" name="expire_year" required>
+                                    <option value="2014" selected="selected">2014</option>
+                                    <option value="2015">2015</option>
+                                    <option value="2016">2016</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2019">2019</option>
+                                </select>
 
                                 <p ng-show="method.form.expire_year.$invalid && !method.form.expire_year.$pristine"
                                    class="help-block">This field is required.</p>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
+
                 </div>
 
                 <div class="clearfix"></div>
