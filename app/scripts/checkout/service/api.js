@@ -48,6 +48,10 @@
                             method: "POST",
                             url: checkoutBaseURL + "/set/billing/address"
                         },
+                        "setInfo": {
+                            method: "POST",
+                            url: checkoutBaseURL + "/set/info"
+                        },
                         "totals": {
                             method: "GET",
                             url: checkoutBaseURL + "/totals"

@@ -1,7 +1,7 @@
 (function (define) {
     "use strict";
 
-    define(["category/init"], function (categoryModule) {
+    define(["angular", "category/init"], function (angular, categoryModule) {
             categoryModule
 
                 .controller("categoryListControllerBlitz", [
@@ -21,32 +21,40 @@
                         $controller('categoryListController', {$scope: $scope});
 
                         $scope.addToCart = function (productId) {
-
-                            var miniCart;
+                            var miniCart, addItem;
                             miniCart = $("#mini-cart");
 
-                            $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
-                                if (isLoggedIn) {
-                                    $cartService.add(productId, 1, $pdpProductService.getOptions()).then(
-                                        function (response) {
-                                            if (response.error !== "") {
-                                                miniCart.toggleClass('active');
-                                                $location.path($pdpProductService.getUrl(productId).replace("#/", ""));
-                                            } else {
-                                                $pdpProductService.setOptions({});
-                                                $("#quick-view").modal('hide');
 
-                                                miniCart.addClass('active');
-                                                setTimeout(function () {
-                                                    miniCart.removeClass('active');
-                                                }, 2000);
-                                            }
+                            addItem = function () {
+                                $cartService.add(productId, 1, $pdpProductService.getOptions()).then(
+                                    function (response) {
+                                        if (response.error !== "") {
+                                            miniCart.toggleClass('active');
+                                            $location.path($pdpProductService.getUrl(productId).replace("#/", ""));
+                                        } else {
+                                            $pdpProductService.setOptions({});
+                                            $("#quick-view").modal('hide');
+
+                                            miniCart.addClass('active');
+                                            setTimeout(function () {
+                                                miniCart.removeClass('active');
+                                            }, 2000);
                                         }
-                                    );
-                                } else {
-                                    $("#form-login").modal("show");
-                                }
-                            });
+                                    }
+                                );
+                            };
+
+                            if (angular.appConfigValue("general.checkout.guest_checkout")) {
+                                addItem();
+                            } else {
+                                $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
+                                    if (isLoggedIn) {
+                                        addItem();
+                                    } else {
+                                        $("#form-login").modal("show");
+                                    }
+                                });
+                            }
                         };
                     }
                 ]);

@@ -1,14 +1,14 @@
 (function (define) {
     "use strict";
 
-    /*
-     *  HTML top page header manipulation stuff
+    /**
+     *
      */
     define(["design/init"], function (designModule) {
 
         designModule
-            /*
-             *  $designImageService implementation
+            /**
+             *
              */
             .service("$designStateService", [ function () {
                 return [

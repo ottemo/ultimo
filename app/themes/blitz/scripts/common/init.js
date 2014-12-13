@@ -24,7 +24,7 @@
                         .when("/", {
                             templateUrl: angular.getTheme("common/home.html"),
                             controller: "commonControllerBlitz"
-                        })
+                        });
                 }])
                 .run([
                     "$rootScope",
