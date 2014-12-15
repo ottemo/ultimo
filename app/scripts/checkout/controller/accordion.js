@@ -269,7 +269,7 @@
                                     info();
                                 }
                             );
-                        } else if ($scope.checkout["billing_address"]._id !== billingId && typeof billingId === "string" && billingId !== "") {
+                        } else if ($scope.checkout["billing_address"] !== null && $scope.checkout["billing_address"]._id !== billingId && typeof billingId === "string" && billingId !== "") {
                             // Sets existing address as billing
                             $checkoutService.saveBillingAddress({"id": billingId}).then(
                                 function () {
@@ -309,7 +309,7 @@
                                     info();
                                 }
                             );
-                        } else if ($scope.checkout["shipping_address"]._id !== shippingId && Boolean(shippingId)) {
+                        } else if ($scope.checkout["shipping_address"] !== null && $scope.checkout["shipping_address"]._id !== shippingId && Boolean(shippingId)) {
 
                             // Sets existing address as shipping
                             $checkoutService.saveShippingAddress({"id": shippingId}).then(
