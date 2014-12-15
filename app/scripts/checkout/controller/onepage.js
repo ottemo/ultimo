@@ -31,12 +31,12 @@
                         defer = $q.defer();
 
                         initAddressesData = function () {
-                            if ($scope.checkout["shipping_address"] === null) {
-                                $scope.checkout["shipping_address"] = getDefaultAddress();
+                            if (typeof $scope.shippingAddress !== "undefined" && $scope.shippingAddress.$valid) {
+                                isValidSteps.shippingAddress = true;
                             }
 
-                            if ($scope.checkout["billing_address"] === null) {
-                                $scope.checkout["billing_address"] = getDefaultAddress();
+                            if (typeof $scope.billingAddress !== "undefined" && $scope.billingAddress.$valid) {
+                                isValidSteps.billingAddress = true;
                             }
                         };
 
@@ -113,6 +113,11 @@
                             "paymentMethod": false,
                             "discounts": true
                         };
+
+                        if (enabledGuestCheckout()) {
+                            isValidSteps.additionalInfo = true;
+                        }
+
                         $scope["checkoutService"] = $checkoutService;
 
                         $scope["countries"] = [
@@ -247,6 +252,9 @@
                         };
 
                         payment = getPaymentInfo();
+                        if (payment.form !== null) {
+                            payment.form.submited = true;
+                        }
 
                         sendPostForm = function (method, response) {
                             var form;
@@ -260,7 +268,6 @@
                             $("#auth_net_form").find("form").submit();
                             $("#auth_net_form").remove();
                         };
-
                         if (isValid()) {
                             $(this).parents('.confirm').css('display', 'none');
                             $('#processing').modal('show');
@@ -348,7 +355,14 @@
                     };
 
                     $scope.choiceBilling = function (billingId) {
-                        if ($scope.checkout["billing_address"]._id !== billingId && typeof billingId === "string" && billingId !== "") {
+                        if ($scope.isGuestCheckout && $scope.shippingAddress.$valid) {
+                            $checkoutService.saveBillingAddress($scope.checkout["shipping_address"]).then(
+                                function () {
+                                    // update checkout
+                                    info();
+                                }
+                            );
+                        } else if ($scope.checkout["billing_address"]._id !== billingId && typeof billingId === "string" && billingId !== "") {
                             // Sets existing address as billing
                             $checkoutService.saveBillingAddress({"id": billingId}).then(
                                 function () {
@@ -356,20 +370,39 @@
                                     info();
                                 }
                             );
-                        }
-
-                        if ($scope.isGuestCheckout) {
-                            $checkoutService.saveBillingAddress($scope.checkout["shipping_address"]).then(
-                                function () {
-                                    // update checkout
-                                    info();
-                                }
-                            );
+                        } else {
+                            if ($scope.shippingAddress.$valid) {
+                                $checkoutService.saveBillingAddress($scope.checkout["shipping_address"]).then(
+                                    function () {
+                                        // update checkout
+                                        info();
+                                    }
+                                );
+                            }
                         }
                     };
 
                     $scope.choiceShipping = function (shippingId) {
-                        if ($scope.checkout["shipping_address"]._id !== shippingId && Boolean(shippingId)) {
+                        if ($scope.isGuestCheckout) {
+                            $checkoutService.saveShippingAddress($scope.checkout["shipping_address"]).then(
+                                function (response) {
+                                    // if all ok, must update allowed shipping methods list
+                                    // and must set billing address if set appropriate checkbox
+                                    if (response.error === "") {
+                                        $checkoutService.loadShippingMethods().then(function (methods) {
+                                            $scope.shippingMethods = methods;
+                                        });
+                                        // sets billing address
+                                        if ($scope.useAsBilling) {
+                                            $scope.choiceBilling(response.result);
+                                        }
+                                    }
+
+                                    // update checkout
+                                    info();
+                                }
+                            );
+                        } else if ($scope.checkout["shipping_address"]._id !== shippingId && Boolean(shippingId)) {
 
                             // Sets existing address as shipping
                             $checkoutService.saveShippingAddress({"id": shippingId}).then(
@@ -383,27 +416,6 @@
                                         // sets billing address
                                         if ($scope.useAsBilling) {
                                             $scope.choiceBilling(response.result._id);
-                                        }
-                                    }
-
-                                    // update checkout
-                                    info();
-                                }
-                            );
-                        }
-
-                        if ($scope.isGuestCheckout) {
-                            $checkoutService.saveShippingAddress($scope.checkout["shipping_address"]).then(
-                                function (response) {
-                                    // if all ok, must update allowed shipping methods list
-                                    // and must set billing address if set appropriate checkbox
-                                    if (response.error === "") {
-                                        $checkoutService.loadShippingMethods().then(function (methods) {
-                                            $scope.shippingMethods = methods;
-                                        });
-                                        // sets billing address
-                                        if ($scope.useAsBilling) {
-                                            $scope.choiceBilling(response.result);
                                         }
                                     }
 
@@ -522,6 +534,87 @@
                         }
 
                         return result;
+                    };
+
+                    $scope.saveByBlur = function (step) {
+                        /*jshint maxcomplexity:6 */
+                        var actionBillingAddress, actionShippingAddress,
+                            actionCustomerAdditionalInfo;
+
+                        actionBillingAddress = function () {
+                            if ($scope.billingAddress.$valid) {
+                                $scope.subBillingAddress = true;
+                                $checkoutService.saveBillingAddress($scope.checkout["billing_address"]).then(
+                                    function () {
+                                        getAddresses();
+                                        isValidSteps.billingAddress = true;
+                                        // update checkout
+                                        info();
+                                    }
+                                );
+                            } else {
+                                isValidSteps.billingAddress = false;
+                            }
+                        };
+
+                        actionShippingAddress = function () {
+                            if ($scope.shippingAddress.$valid) {
+                                $scope.subShippingAddress = true;
+                                if ((!Boolean($scope.checkout["shipping_address"]._id) && !$scope["isGuestCheckout"]) || $scope["isGuestCheckout"]) {
+                                    $checkoutService.saveShippingAddress($scope.checkout["shipping_address"]).then(
+                                        function () {
+                                            getAddresses();
+                                            isValidSteps.shippingAddress = true;
+                                            $checkoutService.loadShippingMethods().then(function (methods) {
+                                                $scope.shippingMethods = methods;
+                                            });
+                                            if ($scope.useAsBilling) {
+                                                $checkoutService.saveBillingAddress($scope.checkout["shipping_address"]).then(function () {
+                                                    isValidSteps.billingAddress = true;
+                                                    // update checkout
+                                                    info();
+                                                });
+                                            } else {
+                                                // update checkout
+                                                info();
+                                            }
+                                        }
+                                    );
+                                } else {
+                                    isValidSteps.shippingAddress = false;
+                                }
+                            }
+                        };
+
+                        actionCustomerAdditionalInfo = function () {
+                            if ($scope.customerInfo.$valid) {
+                                $scope.subAdditionalInfo = true;
+                                if ((!Boolean($scope.checkout["shipping_address"]._id) && !$scope["isGuestCheckout"]) || $scope["isGuestCheckout"]) {
+                                    $checkoutService.saveAdditionalInfo({
+                                        "customer_email": $scope.checkout.info["customer_email"],
+                                        "customer_name": $scope.checkout.info["customer_name"]
+                                    }).then(function () {
+                                        // do something after save additional info
+                                        isValidSteps.additionalInfo = true;
+                                    });
+                                } else {
+                                    // do something if not valid additional info
+                                    isValidSteps.additionalInfo = false;
+                                }
+                            }
+                        };
+
+                        switch (step) {
+                            case "billingAddress":
+                                actionBillingAddress();
+                                break;
+                            case "shippingAddress":
+                                actionShippingAddress();
+                                break;
+                            case "customerInfo":
+                                actionCustomerAdditionalInfo();
+                                break;
+                        }
                     };
 
                     /**
