@@ -13,12 +13,13 @@
                     "$controller",
                     "$designService",
                     "$commonApiService",
+                    "$categoryApiService",
                     "$designImageService",
                     "$commonBreadcrumbsService",
                     "$cartService",
                     "$pdpProductService",
                     "$route",
-                    function ($scope, $controller, $designService, $commonApiService, $designImageService, $commonBreadcrumbsService, $cartService, $pdpProductService, $route) {
+                    function ($scope, $controller, $designService, $commonApiService, $categoryApiService, $designImageService, $commonBreadcrumbsService, $cartService, $pdpProductService, $route) {
 
                         $controller('commonController', {$scope: $scope});
 
@@ -56,7 +57,36 @@
                             }
                         );
 
+                        $scope.productFeatured = [];
 
+                        $commonApiService.getCategories().$promise.then(
+                            function (response) {
+                                var result, i, categoryFeaturedId;
+                                result = response.result || [];
+                                for (i = 0; i < result.length; i += 1) {
+                                    if(result[i].name == "featured"){
+                                       categoryFeaturedId = result[i].id;
+                                       console.log(categoryFeaturedId);
+
+                                       $categoryApiService.getProducts({'limit':'0,6'}, {"id": categoryFeaturedId}).$promise.then(
+                                           function (response) {
+                                               var result, i;
+                                               result = response.result || [];
+                                               for (i = 0; i < result.length; i += 1) {
+                                                   $scope.productFeatured.push({
+                                                       "Id": result[i]._id,
+                                                       "Image": result[i].default_image,
+                                                       "Name": result[i].name,
+                                                       "Price": result[i].price
+                                                   });
+                                               }
+                                           }
+                                       );
+                                    }
+
+                                }
+                            }
+                        );
                     }
                 ]
             );

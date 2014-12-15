@@ -128,7 +128,14 @@
     </div>
     <div class="h-container">
         <div class="row h-item tab-content">
-            <div role="tabpanel" class="tab-pane active" id="feature">
+            <div role="tabpanel" class="tab-pane active" id="feature" ng-if="(productFeatured.length > 5)">
+                <div class="col-xs-6 col-sm-4 col-lg-2" ng-repeat="_item in productFeatured" >
+                    <a href="{{productService.getUrl(_item.Id)}}" class="thumbnail">
+                        <img ng-src="{{getImage(_item.Image)}}" alt="_item.Name" err-src="placeholder.png"/>
+                    </a>
+                </div>
+            </div>
+           <div role="tabpanel" class="tab-pane active" id="feature" ng-if="(productFeatured.length < 6)">
                 <div class="col-xs-6 col-sm-4 col-lg-2" ng-repeat="_item in products" ng-show="products.length">
                     <a href="{{productService.getUrl(_item.Id)}}" class="thumbnail">
                         <img ng-src="{{getImage(_item.Image)}}" alt="_item.Name" err-src="placeholder.png"/>
