@@ -78,11 +78,12 @@ ul {
     padding-top: 106px;
     min-height: 100%;
 }
-
+.h-item {
+    height: auto;
+}
 .logo {
     margin-top: 8px;
 }
-
 header.navbar {
     -webkit-box-shadow: 0 7px 6px -5px rgba(180, 180, 180, 1);
     -moz-box-shadow: 0 7px 6px -5px rgba(180, 180, 180, 1);

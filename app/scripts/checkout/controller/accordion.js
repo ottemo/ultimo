@@ -593,7 +593,30 @@
                     };
 
                     $scope.discountApply = function () {
-                        $checkoutService.discountApply({"code": $scope.discount}).$promise.then(
+                        if ("" === $scope.discount || typeof $scope.discount === "undefined") {
+                            $scope.messageDiscounts = {
+                                "type": "warning",
+                                "message": "Discount code can't be empty"
+                            };
+                        } else {
+                            $checkoutService.discountApply({"code": $scope.discount}).then(
+                                function (response) {
+                                    if (response.error === "") {
+                                        info();
+                                    } else {
+                                        $scope.messageDiscounts = {
+                                            "type": "warning",
+                                            "message": response.error
+                                        };
+                                        $scope.discount = "";
+                                    }
+                                }
+                            );
+                        }
+                    };
+
+                    $scope.discountNeglect = function (code) {
+                        $checkoutService.discountNeglect({"code": code}).then(
                             function (response) {
                                 if (response.error === "") {
                                     info();
@@ -602,15 +625,7 @@
                         );
                     };
 
-                    $scope.discountNeglect = function (code) {
-                        $checkoutService.discountNeglect({"code": code}).$promise.then(
-                            function (response) {
-                                if (response.error === "") {
-                                    info();
-                                }
-                            }
-                        );
-                    };
+
 
                     $scope.validateCcNumber = function () {
                         var i, payment, result;
