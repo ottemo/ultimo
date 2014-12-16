@@ -61,6 +61,10 @@
                         method: "DELETE",
                         params: { reviewId: "@reviewId" },
                         url: pdpBaseURL + "/review/remove/:reviewId"
+                    },
+                    "getAttributes": {
+                        method: "GET",
+                        url: pdpBaseURL + "/attribute/list"
                     }
                 });
             }]);

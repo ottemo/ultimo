@@ -102,11 +102,34 @@
 
                     $pdpApiService.getProduct({"id": $scope.productId}).$promise.then(
                         function (response) {
+
+                            var getPublicAttributes = function () {
+                                if (typeof $scope.publicAttributes === "undefined") {
+                                    $scope.publicAttributes = {};
+                                    $pdpApiService.getAttributes().$promise.then(
+                                        function (response) {
+                                            var result = response.result;
+                                            if (response.error === "") {
+                                                for (var i = 0; i < result.length; i += 1) {
+                                                    if (result[i].Public && typeof $scope.product[result[i].Attribute] === "string") {
+                                                        $scope.publicAttributes[result[i].Attribute] = $scope.product[result[i].Attribute];
+                                                    }
+                                                    if (result[i].Public && $scope.product[result[i].Attribute] instanceof Array) {
+                                                        $scope.publicAttributes[result[i].Attribute] = $scope.product[result[i].Attribute].join(", ");
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    );
+                                }
+                            };
+
                             if (response.error === "") {
                                 var result = response.result || defaultProduct();
 
                                 $pdpProductService.setProduct(result);
                                 $scope.product = $pdpProductService.getProduct();
+                                getPublicAttributes();
 
                                 // BREADCRUMBS
                                 $scope.$emit("add-breadcrumbs", {"label": $scope.product.name, "url": $pdpProductService.getUrl($scope.product._id)});
@@ -150,7 +173,6 @@
                                 });
                         }
                     };
-
 
                     /**
                      * Returns full path to image
