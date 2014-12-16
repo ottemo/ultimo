@@ -112,10 +112,10 @@
                                             if (response.error === "") {
                                                 for (var i = 0; i < result.length; i += 1) {
                                                     if (result[i].Public && typeof $scope.product[result[i].Attribute] === "string") {
-                                                        $scope.publicAttributes[result[i].Attribute] = $scope.product[result[i].Attribute];
+                                                        $scope.publicAttributes[result[i].Label] = $scope.product[result[i].Attribute];
                                                     }
                                                     if (result[i].Public && $scope.product[result[i].Attribute] instanceof Array) {
-                                                        $scope.publicAttributes[result[i].Attribute] = $scope.product[result[i].Attribute].join(", ");
+                                                        $scope.publicAttributes[result[i].Label] = $scope.product[result[i].Attribute].join(", ");
                                                     }
                                                 }
                                             }
