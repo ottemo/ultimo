@@ -10,8 +10,9 @@
         <h3 class="panel-title">
             Ship to
             <div class="dropdown pull-right" ng-if="!isGuestCheckout">
-                <i class="glyphicon glyphicon-chevron-down dropdown-toggle" id="dropdownMenu1"
-                   data-toggle="dropdown"></i>
+                <button class="btn btn-xs btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                    <span class="caret"></span>
+                </button>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
                     <li role="presentation" ng-repeat="addr in addresses">
                         <a role="menuitem" tabindex="-1" href ng-click="choiceShipping(addr.ID)">{{addr.Name}}</a>
@@ -160,8 +161,9 @@
         <h3 class="panel-title">
             Bill to
             <div class="dropdown pull-right" ng-if="!isGuestCheckout">
-                <i class="glyphicon glyphicon-chevron-down dropdown-toggle" id="dropdownMenu1"
-                   data-toggle="dropdown"></i>
+                <button class="btn btn-xs btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                    <span class="caret"></span>
+                </button>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
                     <li role="presentation" ng-repeat="addr in addresses">
                         <a role="menuitem" tabindex="-1" ng-click="choiceBilling(addr.ID)">{{addr.Name}}</a>
