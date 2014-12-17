@@ -38,7 +38,7 @@ deploy:
             hostname: $REMOTE_HOST
         - script:
             name: Copy Fig.yml
-            code: scp -r $WERCKER_OUTPUT_DIR/dist root@$REMOTE_HOST:/home/ottemo/storefront/dist
+            code: scp -r $WERCKER_OUTPUT_DIR/dist root@$REMOTE_HOST:/home/ottemo/testdir/dist
     after-steps:
         - wercker/hipchat-notify@1.0.3:
             token: $HIPCHAT_TOKEN
