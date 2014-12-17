@@ -346,7 +346,7 @@
                              ng-class="{ 'has-error' : (method.form.submited && method.form.number.$invalid) || (method.form.type.$invalid && !method.form.type.$pristine) }">
                             <label>Credit Card Type</label>
 
-                            <select name="type" class="form-control input-lg" ng-model="method.cc.type" required
+                            <select name="type" class="form-control input-lg" ng-model="method.cc.type" required ng-selected="c.Code == 'Visa' "
                                     ng-init="method.cc.type = creditTypes[0].Code"
                                     ng-options="c.Code as c.Name for c in creditTypes">
                             </select>

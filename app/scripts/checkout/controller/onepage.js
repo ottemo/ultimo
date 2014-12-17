@@ -661,7 +661,7 @@
                     }, true);
 
                     $scope.$watch("useAsBilling", function () {
-                        if ($scope.useAsBilling && !$scope.isGuestCheckout) {
+                        if ($scope.useAsBilling && !$scope.isGuestCheckout && $scope.checkout["shipping_address"] !== null) {
                             $scope.choiceBilling($scope.checkout["shipping_address"]._id || false);
                         }
 
