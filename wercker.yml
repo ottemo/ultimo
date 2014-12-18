@@ -37,13 +37,13 @@ deploy:
         - add-to-known_hosts:
             hostname: $REMOTE_HOST
         - script:
-            name: Copy Fig.yml
+            name: Copy dist dir to $REMOTE_HOST
             code: scp -r $WERCKER_OUTPUT_DIR/dist root@$REMOTE_HOST:/home/ottemo/testdir/dist
-    after-steps:
-        - wercker/hipchat-notify@1.0.3:
-            token: $HIPCHAT_TOKEN
-            room-id: 394852
-            from-name: Wercker
+#    after-steps:
+#        - wercker/hipchat-notify@1.0.3:
+#            token: $HIPCHAT_TOKEN
+#            room-id: 394852
+#            from-name: Wercker
 
 
 
