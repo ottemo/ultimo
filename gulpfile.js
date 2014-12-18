@@ -28,7 +28,7 @@
         "themes": 'themes',
         "js": ['app/scripts/*.js', 'app/scripts/**/*.js'],
         "vendor": 'app/lib/**/*.js',
-        "vendorTheme": 'app/themes/**/lib/*',
+        "vendorTheme": 'app/themes/**/lib/**/*',
         "sass": 'app/styles/sass/**/*.scss',
         "css": 'app/themes/**/styles/**/*.css',
         "images": ['app/themes/**/images/**/*', 'app/themes/**/styles/**/*.{png,jpg,jpec,ico}'],
