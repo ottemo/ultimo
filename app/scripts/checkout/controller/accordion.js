@@ -293,41 +293,41 @@
                         if ($scope.isGuestCheckout) {
                             $checkoutService.saveShippingAddress($scope.checkout["shipping_address"]).then(
                                 function (response) {
-                                    // if all ok, must update allowed shipping methods list
-                                    // and must set billing address if set appropriate checkbox
-                                    if (response.error === "") {
-                                        $checkoutService.loadShippingMethods().then(function (methods) {
-                                            $scope.shippingMethods = methods;
-                                        });
-                                        // sets billing address
-                                        if ($scope.useAsBilling) {
-                                            $scope.choiceBilling(response.result);
-                                        }
-                                    }
-
                                     // update checkout
-                                    info();
+                                    info().then(function(){
+                                        // if all ok, must update allowed shipping methods list
+                                        // and must set billing address if set appropriate checkbox
+                                        if (response.error === "") {
+                                            $checkoutService.loadShippingMethods().then(function (methods) {
+                                                $scope.shippingMethods = methods;
+                                            });
+                                            // sets billing address
+                                            if ($scope.useAsBilling) {
+                                                $scope.choiceBilling(response.result);
+                                            }
+                                        }
+                                    });
                                 }
                             );
-                        } else if ($scope.checkout["shipping_address"] !== null && $scope.checkout["shipping_address"]._id !== shippingId && Boolean(shippingId)) {
+                        } else if (($scope.checkout["shipping_address"] !== null && $scope.checkout["shipping_address"]._id !== shippingId) || Boolean(shippingId)) {
 
                             // Sets existing address as shipping
                             $checkoutService.saveShippingAddress({"id": shippingId}).then(
                                 function (response) {
-                                    // if all ok, must update allowed shipping methods list
-                                    // and must set billing address if set appropriate checkbox
-                                    if (response.error === "") {
-                                        $checkoutService.loadShippingMethods().then(function (methods) {
-                                            $scope.shippingMethods = methods;
-                                        });
-                                        // sets billing address
-                                        if ($scope.useAsBilling) {
-                                            $scope.choiceBilling(response.result._id);
-                                        }
-                                    }
-
                                     // update checkout
-                                    info();
+                                    info().then(function(){
+                                        // if all ok, must update allowed shipping methods list
+                                        // and must set billing address if set appropriate checkbox
+                                        if (response.error === "") {
+                                            $checkoutService.loadShippingMethods().then(function (methods) {
+                                                $scope.shippingMethods = methods;
+                                            });
+                                            // sets billing address
+                                            if ($scope.useAsBilling) {
+                                                $scope.choiceBilling(response.result._id);
+                                            }
+                                        }
+                                    });
                                 }
                             );
                         }
@@ -625,6 +625,8 @@
                         );
                     };
 
+
+
                     $scope.validateCcNumber = function () {
                         var i, payment, result;
                         result = false;
@@ -717,7 +719,7 @@
                     }, true);
 
                     $scope.$watch("useAsBilling", function () {
-                        if ($scope.useAsBilling && !$scope.isGuestCheckout) {
+                        if ($scope.useAsBilling && !$scope.isGuestCheckout && $scope.checkout["shipping_address"] !== null) {
                             $scope.choiceBilling($scope.checkout["shipping_address"]._id || false);
                         }
 
