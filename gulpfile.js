@@ -2,7 +2,8 @@
     'use strict';
 
     var gulp, minifyHTML, concat, stripDebug, uglify, jshint, changed, imagemin, autoprefix, sass, rjs, minifyCSS,
-        browserSync, pngquant, del, paths, host, themes, fs, request, recursive, configs, FOUNDATION_URI, THEME_AS_DEFAULT;
+        browserSync, pngquant, del, paths, host, themes, fs, request, recursive, configs, FOUNDATION_URI,
+        THEME_AS_DEFAULT, DEV_FOUNDATION_URI;
 
     gulp = require('gulp');
     minifyHTML = require('gulp-minify-html');
@@ -45,6 +46,7 @@
     };
 
     themes = [];
+    DEV_FOUNDATION_URI = 'http://localhost:3000';
     FOUNDATION_URI = 'http://dev.ottemo.io:3000';
     THEME_AS_DEFAULT = 'blitz';
 
@@ -123,10 +125,10 @@
         }
     ];
 
-    var setConfigOption = function (path, option) {
+    var setConfigValue = function (field, path, option) {
         for (var i = 0; i < configs.length; i += 1) {
             if (configs[i].path === path) {
-                configs[i].options = option;
+                configs[i][field] = option;
                 break;
             }
         }
@@ -357,7 +359,8 @@
             }
             themesData += '}';
 
-            setConfigOption("themes.list.active", themesData);
+            setConfigValue("options","themes.list.active", themesData);
+            setConfigValue("value", "general.app.foundation_url", FOUNDATION_URI);
             initConfigs();
 
             gulp.start('requirejs');
@@ -422,7 +425,8 @@
             }
             themesData += '}';
 
-            setConfigOption("themes.list.active", themesData);
+            setConfigValue("options", "themes.list.active", themesData);
+            setConfigValue("value", "general.app.foundation_url", DEV_FOUNDATION_URI);
             initConfigs();
         });
 
