@@ -316,6 +316,7 @@
                     });
 
                     $scope.loadMore = function () {
+                        $scope.clickMore = true;
                         $scope.currentPage += 1;
                         $categoryApiService.getProducts(getParams(), {"id": $scope.categoryId}).$promise.then(
                             function (response) {
