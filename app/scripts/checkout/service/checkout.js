@@ -131,12 +131,7 @@
 
                             $checkoutApiService.setBillingAddress(address).$promise.then(
                                 function (response) {
-                                    if (response.error === "") {
-                                        var result = response.result || {};
-                                        defer.resolve(result);
-                                    } else {
-                                        defer.resolve(response.error);
-                                    }
+                                    defer.resolve(response);
                                 }
                             );
 
@@ -148,9 +143,7 @@
 
                             $checkoutApiService.setShippingAddress(address).$promise.then(
                                 function (response) {
-                                    if (response.error === "") {
-                                        defer.resolve(response);
-                                    }
+                                    defer.resolve(response);
                                 }
                             );
 
