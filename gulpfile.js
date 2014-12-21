@@ -134,12 +134,12 @@
         }
     };
 
-    var setConfig = function (config) {
+    var setConfig = function (serverURI, config) {
         request({
-            uri: FOUNDATION_URI + '/config/unregister/' + config.path,
+            uri: serverURI + '/config/unregister/' + config.path,
             method: 'DELETE'
         }, function () {
-            var r = request.post(FOUNDATION_URI + '/config/register');
+            var r = request.post(serverURI + '/config/register');
             var form = r.form();
 
             form.append('path', config.path);
@@ -152,9 +152,9 @@
         });
     };
 
-    var initConfigs = function () {
+    var initConfigs = function (serverURI) {
         for (var i = 0; i < configs.length; i += 1) {
-            setConfig(configs[i]);
+            setConfig(serverURI, configs[i]);
         }
     };
 
@@ -361,7 +361,7 @@
 
             setConfigValue("options","themes.list.active", themesData);
             setConfigValue("value", "general.app.foundation_url", FOUNDATION_URI);
-            initConfigs();
+            initConfigs(FOUNDATION_URI);
 
             gulp.start('requirejs');
             gulp.start('vendor');
@@ -427,7 +427,7 @@
 
             setConfigValue("options", "themes.list.active", themesData);
             setConfigValue("value", "general.app.foundation_url", DEV_FOUNDATION_URI);
-            initConfigs();
+            initConfigs(DEV_FOUNDATION_URI);
         });
 
     });

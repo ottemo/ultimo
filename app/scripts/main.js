@@ -7,7 +7,7 @@ require.config({
     "paths": {
         "config": "config",
         "themeFiles": "design/themeFiles",
-        "angular": "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.min",
+        "angular": "../lib/angular/angular.min",
 
         "angular-scenario": "../lib/angular/angular-scenario.min",
         "angular-sanitize": "../lib/angular/angular-sanitize.min",

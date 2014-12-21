@@ -340,6 +340,10 @@
                                         info();
                                         $cartService.reload().then(
                                             function () {
+                                                $scope.subBillingAddress = false;
+                                                $scope.subShippingAddress = false;
+                                                $scope.subPaymentForm = false;
+                                                $scope.subAdditionalInfo = false;
                                                 $scope.purchase = response.result || {};
                                                 $('#processing').modal('hide');
                                                 $("#purchase-success").modal("show");
@@ -364,6 +368,7 @@
                                 "type": "danger",
                                 "message": "Please fill all required fields"
                             };
+
                         }
 
 
@@ -423,7 +428,7 @@
                                     info();
                                 }
                             );
-                        } else if ($scope.checkout["billing_address"] !== null && $scope.checkout["billing_address"]._id !== billingId && typeof billingId === "string" && billingId !== "") {
+                        } else if (($scope.checkout["billing_address"] !== null && $scope.checkout["billing_address"]._id !== billingId) || typeof billingId === "string" && billingId !== "") {
                             // Sets existing address as billing
                             $checkoutService.saveBillingAddress({"id": billingId}).then(
                                 function (response) {
@@ -454,7 +459,7 @@
                             $checkoutService.saveShippingAddress($scope.checkout["shipping_address"]).then(
                                 function (response) {
                                     // update checkout
-                                    info().then(function (){
+                                    info().then(function () {
                                         // if all ok, must update allowed shipping methods list
                                         // and must set billing address if set appropriate checkbox
                                         if (response.error === "") {
@@ -475,7 +480,7 @@
                             $checkoutService.saveShippingAddress({"id": shippingId}).then(
                                 function (response) {
                                     // update checkout
-                                    info().then(function (){
+                                    info().then(function () {
                                         // if all ok, must update allowed shipping methods list
                                         // and must set billing address if set appropriate checkbox
                                         if (response.error === "") {
