@@ -1,0 +1,92 @@
+<div id="mini-cart">
+    <!-- product row -->
+    <div>
+        <i class="glyphicon hide-cart glyphicon-arrow-right"></i>
+        <h2 class="text-center">Shopping cart</h2>
+        <hr>
+
+        <!-- if cart is empty -->
+        <h3 ng-hide="it.getCountItems()" class="text-center">Cart is empty</h3>
+        
+
+        <div class="product" ng-repeat="item in it.getItems()" ng-show="it.getCountItems()">
+
+            <!-- image -->
+            <div class="thumbnail col-xs-12 col-md-4 col-md-offset-4 col-xs-6 col-xs-offset-3">
+                <a href="{{productService.getUrl(item.pid)}}"><img err-src="placeholder.png" ng-src="{{getImage(item.product)}}" alt="{{item.product.name}}"/></a>
+            </div>
+
+            <div class="clearfix"></div>
+            
+            <!-- delete -->
+            <div class="delete">
+                <button class="btn btn-xs btn-danger" ng-click="remove(item.idx)">
+                    <i class="glyphicon glyphicon-remove"></i>
+                </button>
+            </div>
+
+
+            <!-- name -->
+            <h3>{{item.product.name}}</h3>
+
+            <!-- or message -->
+            
+
+            <!-- description -->
+            <p ng-repeat="(key, value) in item.options" ng-if="item.hasOptions">
+                {{key}}: {{productService.getOptStr(value)}}
+            </p>
+
+                
+            <!-- qty -->
+            <div class="qty">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" ng-click="changeQty(item,'up')" ng-blur="update(item.idx, item.qty)">
+                            +
+                        </button>
+                    </span>
+                    <input placeholder="Qtl" type="text" class="form-control text-center" value="{{item.qty}}"
+                                           ng-model="item.qty" ng-blur="update(item.idx, item.qty)">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button"  ng-click="changeQty(item,'down')" ng-blur="update(item.idx, item.qty)">
+                            -
+                        </button>
+                    </span>
+                </div>
+            </div>
+            
+            <!-- price -->
+            <h4 class="price">{{item.product.price * item.qty | currency}}</h3>
+
+            <div class="clearfix"></div>
+
+            <hr>
+
+            
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div ng-hide="!it.getCountItems()">
+            <h4 class="text-right">
+                Cart items:&nbsp;&nbsp;&nbsp;<strong>{{getSubtotal() | currency}}</strong>
+            </h4>
+
+            <h4 class="text-right">
+                Cart total:&nbsp;&nbsp;&nbsp;<strong>{{it.getCountItems()}}</strong>
+            </h4>
+            
+            <div class="clearfix"></div>
+            <br>
+
+            <div class="text-center">
+                <a class="btn btn-lg btn-info btn-block hidden-xs" href="#/cart">&nbsp;View Cart&nbsp;</a>
+                <a class="btn btn-lg btn-danger btn-block" href="{{checkout.getUrl()}}">&nbsp;&nbsp;Checkout&nbsp;&nbsp;</a>
+            </div>
+            <br>
+            <br>
+            
+        </div>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="modal fade bs-example-modal-lg" id="quick-view" ng-controller="visitorLoginController" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- close button -->
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+                <!-- modal title -->
+                <h4 class="modal-title">QuickView</h4>
+            </div>
+            <div class="modal-body">
+                <!-- image -->
+                <div class="col-sm-4 thumbnail">
+                    <img alt="{{popupProduct.name}}" ng-src="{{getImage(popupProduct)}}" err-src="placeholder.png">
+                </div>
+                
+                <!-- form of quick shop -->
+                <form class="col-sm-8" name="visitorForm" novalidate>
+
+                    <!-- product name -->
+                    <h3 class="text-center"><strong>{{popupProduct.name}}</strong></h3>
+                    
+                    <!-- product price -->
+                    <h3 class="text-center"><strong>{{popupProduct.price | currency}}</strong></h3>
+
+                    <br>
+
+                    <!-- short description -->
+                    <p ng-bind-html="popupProduct.short_description"></p>
+                    
+                    <br>
+
+                    <!-- Custom options -->
+                    <div class="row">
+                        <gui-custom-options item="popupProduct" object="this"></gui-custom-options>
+                    </div>
+                    
+                    <div class="clearfix"></div>
+
+                    <hr>
+                    
+                    <div class="row text-center">
+                        <!-- add to cart button -->
+                        <button class="btn btn-success btn-lg" ng-click="addToCart(popupProduct._id)">
+                            <span class="glyphicon glyphicon-shopping-cart"></span>
+                            Add to cart
+                        </button>
+
+                        <!-- view details -->
+                        <a href="{{productService.getUrl(popupProduct._id)}}" id="details_pdp" class="btn btn-primary btn-lg">
+                            Details
+                        </a>
+                    </div>
+
+                </form>
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" data-dismiss="modal" class="btn btn-default">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
