@@ -11,7 +11,7 @@
     </span>
 </div>-->
 
-<div class="text-center col-xs-12 col-lg-6">
+<div class="text-center col-xs-12 col-lg-6" ng-init="init()">
     <span class="col-sm-5 product" >
         <a class="img-zoom" href="{{getImage(imagesPath, img,'big')}}" ng-repeat="img in productImages" ng-if="img==product.default_image">
             <img class="slide-image" ng-src="{{getImage(imagesPath, img, 'thumb')}}" err-src="placeholder.png" alt=""/>

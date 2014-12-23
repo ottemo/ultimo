@@ -10,7 +10,8 @@
                 '$routeParams',
                 '$visitorLoginService',
                 '$visitorApiService',
-                function ($scope, $location, $routeParams, $visitorLoginService, $visitorApiService) {
+                '$commonUtilService',
+                function ($scope, $location, $routeParams, $visitorLoginService, $visitorApiService, $commonUtilService) {
                     var activePath;
 
                     $scope.orderId = $routeParams.id;
@@ -69,11 +70,9 @@
 
                     $scope.$watch('addedOrderId', function () {
                         if (typeof $scope.addedOrderId !== 'undefined') {
-                            $scope.message = {
-                                "type": "success",
-                                "message": "THANK YOU FOR YOUR PURCHASE!<br/>" +
+                            $scope.message = $commonUtilService.getMessage(null, "success", "THANK YOU FOR YOUR PURCHASE!<br/>" +
                                     "Your order # is: <a href=\"#/account/order/" + $scope.addedOrderId + "\">" + $scope.addedOrderId + "</a>"
-                            };
+                            );
                         }
                     });
 

@@ -323,7 +323,7 @@
                         if ($scope.isGuestCheckout && $scope.shippingAddress.$valid) {
                             $checkoutService.saveBillingAddress($scope.checkout["shipping_address"]).then(
                                 function (response) {
-                                    if (response.error === "") {
+                                    if (response.error === null) {
                                         isValidSteps.billingAddress = true;
                                     }
                                     // update checkout
@@ -334,7 +334,7 @@
                             // Sets existing address as billing
                             $checkoutService.saveBillingAddress({"id": billingId}).then(
                                 function (response) {
-                                    if (response.error === "") {
+                                    if (response.error === null) {
                                         isValidSteps.billingAddress = true;
                                     }
                                     // update checkout
@@ -345,7 +345,7 @@
                             if ($scope.shippingAddress.$valid) {
                                 $checkoutService.saveBillingAddress($scope.checkout["shipping_address"]).then(
                                     function (response) {
-                                        if (response.error === "") {
+                                        if (response.error === null) {
                                             isValidSteps.billingAddress = true;
                                         }
                                         // update checkout
@@ -364,7 +364,7 @@
                                     info().then(function () {
                                         // if all ok, must update allowed shipping methods list
                                         // and must set billing address if set appropriate checkbox
-                                        if (response.error === "") {
+                                        if (response.error === null) {
                                             $checkoutService.loadShippingMethods().then(function (methods) {
                                                 $scope.shippingMethods = methods;
                                             });
@@ -385,7 +385,7 @@
                                     info().then(function () {
                                         // if all ok, must update allowed shipping methods list
                                         // and must set billing address if set appropriate checkbox
-                                        if (response.error === "") {
+                                        if (response.error === null) {
                                             isValidSteps.shippingAddress = true;
                                             $checkoutService.loadShippingMethods().then(function (methods) {
                                                 $scope.shippingMethods = methods;
@@ -461,7 +461,7 @@
                                             });
                                             if ($scope.useAsBilling) {
                                                 $checkoutService.saveBillingAddress($scope.checkout["shipping_address"]).then(function (response) {
-                                                    if (response.error === "") {
+                                                    if (response.error === null) {
                                                         isValidSteps.billingAddress = true;
                                                     }
                                                     // update checkout
@@ -631,7 +631,7 @@
                                     } else if (null !== payment.method && payment.method.Type === "post_cc") {
                                         // Handler for direct post form for Authorize.net
                                         sendPostForm(payment.method, response);
-                                    } else if (response.error === "") {
+                                    } else if (response.error === null) {
                                         info();
                                         $cartService.reload().then(
                                             function () {
@@ -644,39 +644,27 @@
                                         $(this).parents('.confirm').css('display', 'block');
                                         $('#processing').modal('hide');
                                         // Errors from server
-                                        $scope.message = {
-                                            "type": "danger",
-                                            "message": response.error
-                                        };
+                                        $scope.message = $commonUtilService.getMessage(response);
                                     }
                                 }
                             );
                         } else {
                             $(this).parents('.confirm').css('display', 'block');
                             $('#processing').modal('hide');
-                            $scope.message = {
-                                "type": "danger",
-                                "message": "Please fill all required fields"
-                            };
+                            $scope.message = $commonUtilService.getMessage(null, "danger","Please fill all required fields");
                         }
                     };
 
                     $scope.discountApply = function () {
                         if ("" === $scope.discount || typeof $scope.discount === "undefined") {
-                            $scope.messageDiscounts = {
-                                "type": "warning",
-                                "message": "Discount code can't be empty"
-                            };
+                            $scope.messageDiscounts = $commonUtilService.getMessage(null, "warning", "Discount code can't be empty");
                         } else {
                             $checkoutService.discountApply({"code": $scope.discount}).then(
                                 function (response) {
-                                    if (response.error === "") {
+                                    if (response.error === null) {
                                         info();
                                     } else {
-                                        $scope.messageDiscounts = {
-                                            "type": "warning",
-                                            "message": response.error
-                                        };
+                                        $scope.messageDiscounts = $commonUtilService.getMessage(response);
                                         $scope.discount = "";
                                     }
                                 }
@@ -687,7 +675,7 @@
                     $scope.discountNeglect = function (code) {
                         $checkoutService.discountNeglect({"code": code}).then(
                             function (response) {
-                                if (response.error === "") {
+                                if (response.error === null) {
                                     info();
                                 }
                             }
