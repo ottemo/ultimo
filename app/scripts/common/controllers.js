@@ -80,40 +80,6 @@
                 "$route",
                 function ($scope, $designService, $commonApiService, $designImageService, $commonBreadcrumbsService,
                           $cartService, $pdpProductService, $route) {
-
-                    var splitName;
-
-                    splitName = function (string) {
-                        var parts;
-                        var regExp = /\[(.+)\](.+)/i;
-                        parts = string.match(regExp);
-
-                        return parts;
-                    };
-
-                    $scope.products = [];
-                    $scope.productService = $pdpProductService;
-
-                    $commonApiService.getProducts({
-                        "limit": "0,5",
-                        "extra": "price"
-                    }).$promise.then(
-                        function (response) {
-                            var result, i, parts;
-                            result = response.result || [];
-                            for (i = 0; i < result.length; i += 1) {
-                                parts = splitName(result[i].Name);
-                                $scope.products.push({
-                                    "Id": result[i].ID,
-                                    "Image": result[i].Image,
-                                    "Name": parts[2],
-                                    "Sku": parts[1],
-                                    "Price": result[i].Extra.price
-                                });
-                            }
-                        }
-                    );
-
                     /**
                      * Gets full path to image
                      *

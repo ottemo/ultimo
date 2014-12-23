@@ -23,7 +23,7 @@
                     $routeProvider
                         .when("/", {
                             templateUrl: angular.getTheme("common/home.html"),
-                            controller: "commonControllerBlitz"
+                            controller: 'commonControllerBlitz'
                         });
                 }])
                 .run([
