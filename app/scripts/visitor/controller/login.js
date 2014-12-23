@@ -12,7 +12,8 @@
             '$cartService',
             '$commonHeaderService',
             '$commonSidebarService',
-            function ($scope, $route, $routeParams, $visitorApiService, $visitorLoginService, $location, $cartService, $commonHeaderService, $commonSidebarService) {
+            '$commonUtilService',
+            function ($scope, $route, $routeParams, $visitorApiService, $visitorLoginService, $location, $cartService, $commonHeaderService, $commonSidebarService, $commonUtilService) {
                 $scope.login = $visitorLoginService.getVisitor();
                 $scope.loginCredentials = {};
                 var verifyCode = $routeParams["validate"];
@@ -26,20 +27,14 @@
                     var status;
                     if (typeof $scope.login.password === "undefined" ||
                         $scope.login.password.trim() === "") {
-                        $scope.message = {
-                            "type": "warning",
-                            "message": "Password can not be blank"
-                        };
+                        $scope.message = $commonUtilService.getMessage(null, "warning", "Password can not be blank");
                         $scope.isCoincide = false;
                         status = false;
                     } else if ($scope.login.password === $scope.login["confirm_password"]) {
                         $scope.isCoincide = true;
                         status = true;
                     } else {
-                        $scope.message = {
-                            "type": "warning",
-                            "message": "Passwords don't match"
-                        };
+                        $scope.message = $commonUtilService.getMessage(null, "warning", "Passwords don't match");
                         $scope.isCoincide = false;
                         status = false;
                     }
@@ -49,16 +44,10 @@
                 $scope.init = function () {
                     if (typeof verifyCode !== "undefined") {
                         $visitorApiService.validate({"key": verifyCode}).$promise.then(function (response) {
-                            if (response.error === "") {
-                                $scope.messageValidaion = {
-                                    "type": "success",
-                                    "message": VALIDATION_SUCCESS
-                                };
+                            if (response.error === null) {
+                                $scope.messageValidaion = $commonUtilService.getMessage(null, "success", VALIDATION_SUCCESS);
                             } else {
-                                $scope.messageValidaion = {
-                                    "type": "danger",
-                                    "message": response.error
-                                };
+                                $scope.messageValidaion = $commonUtilService.getMessage(response);
                             }
                         });
 
@@ -70,15 +59,9 @@
                     if ($scope.forgotForm.$valid) {
                         $visitorApiService.forgotPassword({"email": $scope.forgotCredentials.email}).$promise.then(function (response) {
                             if (response.result === 'ok') {
-                                $scope.messageValidaion = {
-                                    "type": "success",
-                                    "message": FORGOT_SUCCESS
-                                };
+                                $scope.messageValidaion = $commonUtilService.getMessage(null, "success", FORGOT_SUCCESS);
                             } else {
-                                $scope.messageValidaion = {
-                                    "type": "warning",
-                                    "message": response.error
-                                };
+                                $scope.messageValidaion = $commonUtilService.getMessage(response);
                             }
                             $('.modal').modal('hide');
                         });
@@ -91,15 +74,9 @@
                     if ($scope.invalidateForm.$valid) {
                         $visitorApiService.invalidate({"email": $scope.invalidateCredentials.email}).$promise.then(function (response) {
                             if (response.result === 'ok') {
-                                $scope.messageValidaion = {
-                                    "type": "success",
-                                    "message": INVALIDATE_SUCCESS
-                                };
+                                $scope.messageValidaion = $commonUtilService.getMessage(null, "success", INVALIDATE_SUCCESS);
                             } else {
-                                $scope.messageValidaion = {
-                                    "type": "warning",
-                                    "message": response.error
-                                };
+                                $scope.messageValidaion = $commonUtilService.getMessage(response);
                             }
                             $('.modal').modal('hide');
                         });
@@ -142,13 +119,10 @@
                         }
 
                         $visitorApiService.register(data).$promise.then(function (response) {
-                            if (response.error === "") {
+                            if (response.error === null) {
                                 $('.modal').modal('hide');
 
-                                $scope.message = {
-                                    "type": "success",
-                                    "message": "Thanks for registration. Please check your email and confirm your account"
-                                };
+                                $scope.message = $commonUtilService.getMessage(null, "success", "Thanks for registration. Please check your email and confirm your account");
                                 for (var field in $scope.register) {
                                     if ($scope.register.hasOwnProperty(field)) {
                                         $scope.register[field].$pristine = true;
@@ -157,10 +131,7 @@
                                 $scope.login = {};
                                 $scope.register.submitted = false;
                             } else {
-                                $scope.message = {
-                                    "type": "warning",
-                                    "message": response.error
-                                };
+                                $scope.message = $commonUtilService.getMessage(response);
                                 $scope.register.submitted = false;
                             }
                         });
@@ -198,10 +169,7 @@
                                     }
                                 );
                             } else {
-                                $scope.message = {
-                                    "type": "warning",
-                                    "message": response.error
-                                };
+                                $scope.message = $commonUtilService.getMessage(response);
                             }
                         });
                         $scope.loginForm.submitted = false;

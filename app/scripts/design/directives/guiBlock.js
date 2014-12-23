@@ -19,7 +19,7 @@
 
                         $cmsApiService.getBlock({"id": $scope.identifier}).$promise.then(
                             function (response) {
-                                if (response.error === "") {
+                                if (response.error === null) {
                                     $scope.block = response.result;
                                 }
                             }

@@ -55,7 +55,7 @@
                             $checkoutApiService.shippingMethod().$promise.then(function (response) {
                                 var i, method;
                                 allowedShippingMethods = [];
-                                if (response.error === "") {
+                                if (response.error === null) {
                                     for (i = 0; i < response.result.length; i += 1) {
                                         method = response.result[i] || [];
                                         if (method.Rates instanceof Array && method.Rates.length > 0) {
@@ -203,7 +203,7 @@
 
                             $checkoutApiService.discountNeglect(data).$promise.then(
                                 function (response) {
-                                    if (response.error === "") {
+                                    if (response.error === null) {
                                         defer.resolve(response);
                                     }
                                 }

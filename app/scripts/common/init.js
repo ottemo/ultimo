@@ -128,7 +128,7 @@
                                     $commonPageService.setTitle();
                                     $commonPageService.setMetaDescription();
                                     $commonPageService.setMetaKeywords();
-                                    if (data.error === "" &&
+                                    if (data.error === null &&
                                         data.result instanceof Array &&
                                         data.result.length > 0) {
                                         var rewrite = data.result[0];

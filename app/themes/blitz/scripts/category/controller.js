@@ -28,7 +28,7 @@
                             addItem = function () {
                                 $cartService.add(productId, 1, $pdpProductService.getOptions()).then(
                                     function (response) {
-                                        if (response.error !== "") {
+                                        if (response.error !== null) {
                                             miniCart.toggleClass('active');
                                             $location.path($pdpProductService.getUrl(productId).replace("#/", ""));
                                         } else {

@@ -154,7 +154,7 @@
 
                         $cartApiService.info().$promise.then(
                             function (response) {
-                                if (response.error === '') {
+                                if (response.error === null) {
 
                                     items = [];
                                     if (response.result.items instanceof Array) {
