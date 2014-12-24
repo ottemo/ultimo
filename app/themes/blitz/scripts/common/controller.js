@@ -68,7 +68,7 @@
                                        categoryFeaturedId = result[i].id;
                                        console.log(categoryFeaturedId);
 
-                                       $categoryApiService.getProducts({'limit':'0,6'}, {"id": categoryFeaturedId}).$promise.then(
+                                       $categoryApiService.getProducts({"id": categoryFeaturedId}).$promise.then(
                                            function (response) {
                                                var result, i;
                                                result = response.result || [];
@@ -87,6 +87,11 @@
                                 }
                             }
                         );
+
+                        $scope.preventLink = function ($event){
+                            $event.preventDefault();
+                        };
+
                     }
                 ]
             );
