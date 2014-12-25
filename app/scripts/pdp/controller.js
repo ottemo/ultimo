@@ -18,8 +18,26 @@
                 "$cartService",
                 "$visitorLoginService",
                 "$commonUtilService",
-                function ($scope, $routeParams, $location, $timeout, $pdpApiService, $pdpProductService, $designImageService, $cartService, $visitorLoginService, $commonUtilService) {
-                    var defaultProduct, reinitializeStars, getAverageValue, getStarsPercents, getDefaultRatingInfo;
+                function ($scope, $routeParams, $location, $timeout, $pdpApiService, $pdpProductService,
+                          $designImageService, $cartService, $visitorLoginService, $commonUtilService) {
+                    var defaultProduct, reinitializeStars, getAverageValue, getStarsPercents, getDefaultRatingInfo, initWatchers;
+
+                    initWatchers = function () {
+                        var defaultGetRatingInfo, defaultProductChange, defaultOptionChange;
+                        defaultGetRatingInfo = $scope.$watch("ratingInfo", function () {
+                            getAverageValue();
+                            getStarsPercents();
+                        }, true);
+
+                        defaultProductChange = $scope.$watch("product", function () {
+                            $scope.reloadImages();
+                        });
+
+                        defaultOptionChange = $scope.$watch("options", function () {
+                            $pdpProductService.setOptions($scope.options);
+                            $scope.product = $pdpProductService.getProduct();
+                        }, true);
+                    };
 
                     $scope.init = function () {
                         getDefaultRatingInfo = function () {
@@ -105,6 +123,7 @@
                         $scope.getRelatedProducts();
                         $scope.getReviews();
                         $scope.getRatingInfo();
+                        initWatchers();
                     };
 
                     $scope.getProduct = function () {
@@ -356,20 +375,6 @@
                         });
 
                     };
-
-                    $scope.$watch("ratingInfo", function () {
-                        getAverageValue();
-                        getStarsPercents();
-                    }, true);
-
-                    $scope.$watch("product", function () {
-                        $scope.reloadImages();
-                    });
-
-                    $scope.$watch("options", function () {
-                        $pdpProductService.setOptions($scope.options);
-                        $scope.product = $pdpProductService.getProduct();
-                    }, true);
 
                 }
             ]
