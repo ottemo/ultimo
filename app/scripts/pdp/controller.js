@@ -123,6 +123,31 @@
                         });
                     };
 
+                    $scope.getPublicAttributes = function () {
+                        if (typeof $scope.publicAttributes === "undefined") {
+                            $scope.hasPublicAttributes = false;
+                            $scope.publicAttributes = {};
+                            $pdpApiService.getAttributes().$promise.then(
+                                function (response) {
+                                    var result = response.result;
+
+                                    if (response.error === "") {
+                                        for (var i = 0; i < result.length; i += 1) {
+                                            if (result[i]['IsPublic'] && typeof $scope.product[result[i]['Attribute']] === "string") {
+                                                $scope.publicAttributes[result[i]['Label']] = $scope.product[result[i]['Attribute']];
+                                                $scope.hasPublicAttributes = true;
+                                            }
+                                            if (result[i]['IsPublic'] && $scope.product[result[i]['Attribute']] instanceof Array) {
+                                                $scope.publicAttributes[result[i]['Label']] = $scope.product[result[i]['Attribute']].join(", ");
+                                                $scope.hasPublicAttributes = true;
+                                            }
+                                        }
+                                    }
+                                }
+                            );
+                        }
+                    };
+
                     $scope.getTotal = function () {
                         return $scope.qty * $scope.product.price;
                     };
@@ -157,7 +182,6 @@
                                 });
                         }
                     };
-
 
                     /**
                      * Returns full path to image

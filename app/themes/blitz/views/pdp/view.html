@@ -106,7 +106,18 @@
         </a>
     </div>
 
+
     <div class="row pdp-desc">
+
+        <!-- Show available options -->
+        <div class="col-sx-12 description active" ng-init="getPublicAttributes()">
+            <h6 ng-if="hasPublicAttributes">Available options</h6>
+
+            <div class="description-block">
+                <p ng-repeat="(name, value) in publicAttributes"><b>{{name}}</b>: {{value}}</p>
+            </div>
+        </div>
+
         <div class="col-sx-12 description active">
             <h6>Description<span class="fa fa-chevron-down"></span></h6>
 
@@ -114,6 +125,7 @@
                 <p ng-bind-html="product.description"></p>
             </div>
         </div>
+
         <div class="col-sx-12 exchange active">
             <h6>RETURNS AND EXCHANGES<span class="fa fa-chevron-down"></span></h6>
 
