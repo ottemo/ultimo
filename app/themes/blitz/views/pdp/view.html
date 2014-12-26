@@ -110,8 +110,8 @@
     <div class="row pdp-desc">
 
         <!-- Show available options -->
-        <div class="col-sx-12 description active" ng-if="publicAttributes">
-            <h6>Available options</h6>
+        <div class="col-sx-12 description active" ng-init="getPublicAttributes()">
+            <h6 ng-if="hasPublicAttributes">Available options</h6>
 
             <div class="description-block">
                 <p ng-repeat="(name, value) in publicAttributes"><b>{{name}}</b>: {{value}}</p>
