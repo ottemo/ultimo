@@ -131,7 +131,7 @@
                                 function (response) {
                                     var result = response.result;
 
-                                    if (response.error === "") {
+                                    if (response.error === null) {
                                         for (var i = 0; i < result.length; i += 1) {
                                             if (result[i]['IsPublic'] && typeof $scope.product[result[i]['Attribute']] === "string") {
                                                 $scope.publicAttributes[result[i]['Label']] = $scope.product[result[i]['Attribute']];
