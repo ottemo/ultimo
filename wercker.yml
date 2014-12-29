@@ -38,7 +38,7 @@ deploy:
             hostname: $REMOTE_HOST
         - script:
             name: Copy dist dir to $REMOTE_HOST
-            code: scp -r $WERCKER_OUTPUT_DIR/ root@$REMOTE_HOST:/home/ottemo/testdir/dist
+            code: scp -r $WERCKER_SOURCE_DIR/dist root@$REMOTE_HOST:/home/ottemo/testdir/dist
 #    after-steps:
 #        - wercker/hipchat-notify@1.0.3:
 #            token: $HIPCHAT_TOKEN
