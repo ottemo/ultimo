@@ -10,12 +10,33 @@
         function (commonModule) {
 
             commonModule
-                /**
-                 *  $commonBreadcrumbsService implementation
-                 */
+            /**
+             *  $commonBreadcrumbsService implementation
+             */
                 .service("$commonBreadcrumbsService", [function () {
-                    var addItem, getItems, items, clear;
+                    var addItem, getItems, items, clear, removeDups;
                     items = [];
+
+                    /**
+                     * Removes duplicates from breadcrumbs
+                     *
+                     * @returns {Array} - breadcrumbs items
+                     */
+                    removeDups = function () {
+                        var i, item, tmp, hash;
+                        tmp = [];
+
+                        for (i = 0; i < items.length; i += 1) {
+                            item = items[i];
+                            hash = item.label + ":" + item.url;
+                            if (-1 !== tmp.indexOf(hash)) {
+                                items.splice(i, 1);
+                            }
+                            tmp.push(hash);
+                        }
+
+                        return items;
+                    };
 
                     /**
                      * Adds item
@@ -43,7 +64,7 @@
                      * @returns {Array}
                      */
                     getItems = function () {
-                        return items;
+                        return removeDups();
                     };
 
                     /**
