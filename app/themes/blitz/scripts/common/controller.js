@@ -1,4 +1,4 @@
-(function (define) {
+(function (define, $) {
     "use strict";
 
 
@@ -22,7 +22,7 @@
                     function ($scope, $controller, $designService, $commonApiService, $categoryApiService, $designImageService, $commonBreadcrumbsService, $cartService, $pdpProductService) {
                         $controller('commonController', {$scope: $scope});
 
-                        var getProducts = function () {
+                        $scope.loadProducts = function () {
                             var splitName;
 
                             splitName = function (string) {
@@ -58,20 +58,18 @@
                             );
                         };
 
-                        var getFeaturedProducts = function () {
-                            $scope.productFeatured = [];
-                            $commonApiService.getCategories().$promise.then(
-                                function (response) {
-                                    var result, i, categoryFeaturedId;
-                                    categoryFeaturedId = null;
-                                    result = response.result || [];
-                                    for (i = 0; i < result.length; i += 1) {
-                                        if (result[i].name === "featured") {
-                                            categoryFeaturedId = result[i].id;
-                                        }
-                                    }
-                                    if (categoryFeaturedId !== null) {
-                                        $categoryApiService.getProducts({'limit': '0,6'}, {"id": categoryFeaturedId}).$promise.then(
+
+                        $scope.productFeatured = [];
+
+                        $commonApiService.getCategories().$promise.then(
+                            function (response) {
+                                var result, i, categoryFeaturedId;
+                                result = response.result || [];
+                                for (i = 0; i < result.length; i += 1) {
+                                    if (result[i].name === "featured") {
+                                        categoryFeaturedId = result[i].id;
+
+                                        $categoryApiService.getProducts({"id": categoryFeaturedId}).$promise.then(
                                             function (response) {
                                                 var result, i;
                                                 result = response.result || [];
@@ -86,14 +84,15 @@
                                             }
                                         );
                                     }
+
                                 }
-                            );
+                            }
+                        );
+
+                        $scope.preventLink = function ($event) {
+                            $event.preventDefault();
                         };
 
-                        $scope.loadProducts = function () {
-                            getFeaturedProducts();
-                            getProducts();
-                        };
                     }
                 ]
             );
@@ -101,4 +100,4 @@
             return commonModule;
         }
     );
-})(window.define);
+})(window.define, jQuery);

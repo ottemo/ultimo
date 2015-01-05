@@ -18,8 +18,26 @@
                 "$cartService",
                 "$visitorLoginService",
                 "$commonUtilService",
-                function ($scope, $routeParams, $location, $timeout, $pdpApiService, $pdpProductService, $designImageService, $cartService, $visitorLoginService, $commonUtilService) {
-                    var defaultProduct, reinitializeStars, getAverageValue, getStarsPercents, getDefaultRatingInfo;
+                function ($scope, $routeParams, $location, $timeout, $pdpApiService, $pdpProductService,
+                          $designImageService, $cartService, $visitorLoginService, $commonUtilService) {
+                    var defaultProduct, reinitializeStars, getAverageValue, getStarsPercents, getDefaultRatingInfo, initWatchers;
+
+                    initWatchers = function () {
+                        var defaultGetRatingInfo, defaultProductChange, defaultOptionChange;
+                        defaultGetRatingInfo = $scope.$watch("ratingInfo", function () {
+                            getAverageValue();
+                            getStarsPercents();
+                        }, true);
+
+                        defaultProductChange = $scope.$watch("product", function () {
+                            $scope.reloadImages();
+                        });
+
+                        defaultOptionChange = $scope.$watch("options", function () {
+                            $pdpProductService.setOptions($scope.options);
+                            $scope.product = $pdpProductService.getProduct();
+                        }, true);
+                    };
 
                     $scope.init = function () {
                         getDefaultRatingInfo = function () {
@@ -105,6 +123,7 @@
                         $scope.getRelatedProducts();
                         $scope.getReviews();
                         $scope.getRatingInfo();
+                        initWatchers();
                     };
 
                     $scope.getProduct = function () {
@@ -121,6 +140,31 @@
                                 $location.path("/");
                             }
                         });
+                    };
+
+                    $scope.getPublicAttributes = function () {
+                        if (typeof $scope.publicAttributes === "undefined") {
+                            $scope.hasPublicAttributes = false;
+                            $scope.publicAttributes = {};
+                            $pdpApiService.getAttributes().$promise.then(
+                                function (response) {
+                                    var result = response.result;
+
+                                    if (response.error === null) {
+                                        for (var i = 0; i < result.length; i += 1) {
+                                            if (result[i]['IsPublic'] && typeof $scope.product[result[i]['Attribute']] === "string") {
+                                                $scope.publicAttributes[result[i]['Label']] = $scope.product[result[i]['Attribute']];
+                                                $scope.hasPublicAttributes = true;
+                                            }
+                                            if (result[i]['IsPublic'] && $scope.product[result[i]['Attribute']] instanceof Array) {
+                                                $scope.publicAttributes[result[i]['Label']] = $scope.product[result[i]['Attribute']].join(", ");
+                                                $scope.hasPublicAttributes = true;
+                                            }
+                                        }
+                                    }
+                                }
+                            );
+                        }
                     };
 
                     $scope.getTotal = function () {
@@ -157,7 +201,6 @@
                                 });
                         }
                     };
-
 
                     /**
                      * Returns full path to image
@@ -356,20 +399,6 @@
                         });
 
                     };
-
-                    $scope.$watch("ratingInfo", function () {
-                        getAverageValue();
-                        getStarsPercents();
-                    }, true);
-
-                    $scope.$watch("product", function () {
-                        $scope.reloadImages();
-                    });
-
-                    $scope.$watch("options", function () {
-                        $pdpProductService.setOptions($scope.options);
-                        $scope.product = $pdpProductService.getProduct();
-                    }, true);
 
                 }
             ]

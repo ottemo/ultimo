@@ -73,6 +73,15 @@
             <gui-custom-options item="product" object="this"></gui-custom-options>
         </div>
     </div>
+
+    <!-- Show available options -->
+    <div class="row" ng-init="getPublicAttributes()">
+        <div class="col-lg-3 col-md-4 form-group" ng-if="hasPublicAttributes">
+            <label>Available options</label>
+            <p ng-repeat="(name, value) in publicAttributes"><b>{{name}}</b>: {{value}}</p>
+        </div>
+    </div>
+
     <div class="clearfix"></div>
     <hr>
 

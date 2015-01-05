@@ -3,7 +3,7 @@
 
     var gulp, minifyHTML, concat, stripDebug, uglify, jshint, changed, imagemin, autoprefix, sass, rjs, minifyCSS,
         browserSync, pngquant, del, paths, host, themes, fs, request, recursive, configs, FOUNDATION_URI,
-        THEME_AS_DEFAULT, DEV_FOUNDATION_URI;
+        THEME_AS_DEFAULT, DEV_FOUNDATION_URI, DEFAULT_ROOT, DEFAULT_PASS;
 
     gulp = require('gulp');
     minifyHTML = require('gulp-minify-html');
@@ -47,6 +47,8 @@
 
     themes = [];
     DEV_FOUNDATION_URI = 'http://localhost:3000';
+    DEFAULT_ROOT = 'admin';
+    DEFAULT_PASS = 'admin';
     FOUNDATION_URI = 'http://dev.ottemo.io:3000';
     THEME_AS_DEFAULT = 'blitz';
 
@@ -136,10 +138,10 @@
 
     var setConfig = function (serverURI, config) {
         request({
-            uri: serverURI + '/config/unregister/' + config.path,
+            uri: serverURI + '/config/unregister/' + config.path + '?auth=' + DEFAULT_ROOT + ':' + DEFAULT_PASS,
             method: 'DELETE'
         }, function () {
-            var r = request.post(serverURI + '/config/register');
+            var r = request.post(serverURI + '/config/register?auth=' + DEFAULT_ROOT + ':' + DEFAULT_PASS);
             var form = r.form();
 
             form.append('path', config.path);
@@ -359,7 +361,7 @@
             }
             themesData += '}';
 
-            setConfigValue("options","themes.list.active", themesData);
+            setConfigValue("options", "themes.list.active", themesData);
             setConfigValue("value", "general.app.foundation_url", FOUNDATION_URI);
             initConfigs(FOUNDATION_URI);
 
