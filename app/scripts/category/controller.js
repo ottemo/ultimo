@@ -16,11 +16,12 @@
                 "$visitorLoginService",
                 "$cartService",
                 "$pdpProductService",
-                function ($scope, $location, $route, $routeParams, $categoryApiService, $designService,
-                          $designImageService, $categoryService, $visitorLoginService, $cartService, $pdpProductService) {
+                "$commonUtilService",
+                function ($scope, $location, $route, $routeParams, $categoryApiService, $designService, $designImageService,
+                          $categoryService, $visitorLoginService, $cartService, $pdpProductService, $commonUtilService) {
 
                     var init, getPage, addCategoryCrumbs, getFilters, setFilters, getParams, initWatchers,
-                        defaultFilterSet, defaultOptionSet;
+                        defaultFilterSet, defaultOptionSet, changeLocation;
 
                     getPage = function () {
                         var param, page;
@@ -79,7 +80,8 @@
                         $scope.productsList = [];
                         $scope.paths = [];
                         $scope.categoryId = $routeParams.id;
-                        $scope.searchText = $routeParams.name;
+                        $scope.searchField = 'name';
+
                         $scope.category = {};
                         $scope.popupProduct = {};
                         $scope.productService = $pdpProductService;
@@ -91,26 +93,36 @@
                             "filter": false
                         };
 
+                        var getSearchText = function () {
+                            $scope.searchText = "";
+                            if (typeof $routeParams[$scope.searchField] !== "undefined") {
+                                $scope.searchText = $routeParams[$scope.searchField].trim("~").replace(/,/g, " ");
+                            }
+                        };
+                        getSearchText();
+
                         addCategoryCrumbs();
                     };
                     init();
 
+                    changeLocation = function () {
+                        var filterStr, url, path;
+                        filterStr = getFilters();
+                        if (typeof filterStr !== "undefined") {
+                            url = $categoryService.getUrl($scope.categoryId);
+
+                            // removes the  "#" in the begin string
+                            path = url.substr(1, url.length);
+
+                            $location.$$path = path;
+                            $location.$$url = path;
+
+                            $location.search(filterStr);
+                        }
+                    };
+
                     initWatchers = function () {
-                        defaultFilterSet = $scope.$watch("filters", function () {
-                            var filterStr, url, path;
-                            filterStr = getFilters();
-                            if (typeof filterStr !== "undefined") {
-                                url = $categoryService.getUrl($scope.categoryId);
-
-                                // removes the  "#" in the begin string
-                                path = url.substr(1, url.length);
-
-                                $location.$$path = path;
-                                $location.$$url = path;
-
-                                $location.search(filterStr);
-                            }
-                        }, true);
+                        defaultFilterSet = $scope.$watch("filters", changeLocation, true);
 
                         defaultOptionSet = $scope.$watch("options", function () {
                             $pdpProductService.setOptions($scope.options);
@@ -133,12 +145,12 @@
                                 initFilter(attr);
 
                                 if (typeof params[attr] === "string") {
-                                    values = params[attr].split(",");
+                                    values = params[attr].replace(/[\?~]/, "").split(",");
                                     for (i = 0; i < values.length; i += 1) {
-                                        $scope.filters[attr.replace("?", "")][values[i]] = true;
+                                        $scope.filters[attr.replace(/[\?~]/, "")][values[i]] = true;
                                     }
-                                } else  {
-                                    $scope.filters[attr.replace("?", "")][params[attr]] = true;
+                                } else {
+                                    $scope.filters[attr.replace(/[\?~]/, "")][params[attr]] = true;
                                 }
 
                             }
@@ -150,36 +162,45 @@
                     setFilters();
 
                     getFilters = function () {
-                        var filters, getFilterValues, hasFilter;
+                        var filters, prepareFilters, hasFilter;
                         filters = [];
                         hasFilter = false;
 
-                        getFilterValues = function (attr) {
-                            var values, val;
-                            values = [];
+                        prepareFilters = function () {
+                            var getFilterValues;
 
-                            for (val in $scope.filters[attr]) {
-                                if ($scope.filters[attr].hasOwnProperty(val) &&
-                                    $scope.filters[attr][val] === true) {
-                                    values.push(val);
-                                    hasFilter = true;
+                            getFilterValues = function (attr) {
+                                var values, val;
+                                values = [];
+
+                                for (val in $scope.filters[attr]) {
+                                    if ($scope.filters[attr].hasOwnProperty(val) &&
+                                        $scope.filters[attr][val] === true) {
+                                        values.push(val);
+                                        hasFilter = true;
+                                    }
+                                }
+
+                                return values;
+                            };
+                            for (var attr in $scope.filters) {
+                                if ($scope.filters.hasOwnProperty(attr)) {
+                                    var values = getFilterValues(attr);
+                                    if (values.length > 0 && attr !== $scope.searchField) {
+                                        filters.push(attr + "=" + values.join(","));
+                                    } else if (values.length > 0 && attr === $scope.searchField) {
+                                        filters.push(attr + "=~" + values.join(","));
+                                    }
                                 }
                             }
-
-                            return values;
                         };
 
-                        for (var attr in $scope.filters) {
-                            if ($scope.filters.hasOwnProperty(attr)) {
-                                var values = getFilterValues(attr);
-                                if (values.length > 0) {
-                                    filters.push(attr + "=" + values.join(","));
-                                }
-                            }
-                        }
+                        prepareFilters();
+
                         if (!hasFilter) {
                             return "";
                         }
+
                         return filters.join("&");
                     };
 
@@ -279,15 +300,15 @@
                         jQuery('.shadow').css('display', 'none');
                     };
 
-                    $scope.addToCart = function (productId) {
+                    $scope.addToCart = function (product) {
                         var miniCart, addItem;
                         miniCart = $(".mini-cart");
                         addItem = function () {
-                            $cartService.add(productId, 1, $pdpProductService.getOptions()).then(
+                            $cartService.add(product._id, 1, $pdpProductService.getOptions()).then(
                                 function (response) {
                                     if (response.error !== null) {
-                                        $('.modal').modal('hide');
-                                        $scope.openPopUp(productId);
+                                        $scope.openPopUp(product);
+                                        $scope.message = $commonUtilService.getMessage(response);
                                     } else {
                                         $pdpProductService.setOptions({});
                                         $("#quick-view").modal('hide');
@@ -355,6 +376,8 @@
                     };
 
                     $scope.openPopUp = function (product) {
+                        $scope.message = {};
+                        $scope.options = {};
                         $pdpProductService.setProduct(product);
                         $scope.popupProduct = $pdpProductService.getProduct();
                         $scope.productService.getRatingInfo(product._id);
@@ -391,11 +414,14 @@
                     };
 
                     $scope.search = function () {
-                        $scope.filters.name = {};
-                        var values = $scope.searchText.split(/[, ]/);
+                        var searchObj, values;
+                        searchObj = {};
+                        values = this.searchText.split(/[, ]/);
+                        searchObj[$scope.searchField] = {};
                         for (var i = 0; i < values.length; i += 1) {
-                            $scope.filters.name[values[i]] = true;
+                            searchObj[$scope.searchField][values[i]] = true;
                         }
+                        $scope.filters[$scope.searchField] = searchObj[$scope.searchField];
                     };
                 }
             ]);
