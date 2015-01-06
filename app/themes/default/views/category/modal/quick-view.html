@@ -40,8 +40,10 @@
                     <hr>
                     
                     <div class="row text-center">
+                        <!-- error message -->
+                        <gui-message-manager item="message"></gui-message-manager>
                         <!-- add to cart button -->
-                        <button class="btn btn-success btn-lg" ng-click="addToCart(popupProduct._id)">
+                        <button class="btn btn-success btn-lg" ng-click="addToCart(popupProduct)">
                             <span class="glyphicon glyphicon-shopping-cart"></span>
                             Add to cart
                         </button>

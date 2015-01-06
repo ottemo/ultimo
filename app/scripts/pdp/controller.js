@@ -34,6 +34,7 @@
                         });
 
                         defaultOptionChange = $scope.$watch("options", function () {
+                            $scope.messageOptions = {};
                             $pdpProductService.setOptions($scope.options);
                             $scope.product = $pdpProductService.getProduct();
                         }, true);

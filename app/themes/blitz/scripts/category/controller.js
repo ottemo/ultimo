@@ -17,7 +17,10 @@
                     "$visitorLoginService",
                     "$cartService",
                     "$pdpProductService",
-                    function ($scope, $controller, $location, $route, $routeParams, $categoryApiService, $designService, $designImageService, $categoryService, $visitorLoginService, $cartService, $pdpProductService) {
+                    "$commonUtilService",
+                    function ($scope, $controller, $location, $route, $routeParams, $categoryApiService, $designService,
+                              $designImageService, $categoryService, $visitorLoginService, $cartService, $pdpProductService,
+                              $commonUtilService) {
                         $controller('categoryListController', {$scope: $scope});
 
                         $scope.addToCart = function (product) {
@@ -33,6 +36,7 @@
                                                 miniCart.toggleClass('active');
                                             }
                                             $scope.openPopUp(product);
+                                            $scope.message = $commonUtilService.getMessage(response);
                                         } else {
                                             $pdpProductService.setOptions({});
                                             $("#quick-view").modal('hide');
