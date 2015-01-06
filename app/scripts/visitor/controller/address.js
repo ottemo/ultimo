@@ -51,6 +51,7 @@
                      */
                     $scope.clearForm = function () {
                         $scope.address = {'visitor_id': $scope.visitor._id};
+                        $scope.submitted = false;
                     };
 
                     $scope.clearForm();
@@ -184,7 +185,7 @@
 
                     $scope.popUpOpen = function (addressId) {
                         if (typeof addressId === 'undefined') {
-                            $scope.address = {};
+                            $scope.clearForm();
                             $('#parent_popup_address').modal('show');
                         } else {
                             $visitorApiService.loadAddress({'id': addressId}).$promise.then(
