@@ -47,7 +47,7 @@
                 <div class="filter-search">
                     <form class="ng-pristine ng-valid">
                         <input class="form-control ng-pristine ng-valid" type="text" ng-model="searchText" placeholder="Search...">
-                        <span class="glyphicon glyphicon-search" ng-click=""></span>
+                        <span class="glyphicon glyphicon-search" ng-click="search()"></span>
                         <div class="clear"></div>
                     </form>
                     <div class="nav-close" ng-click="closeBlock('search')"></div>
@@ -64,7 +64,7 @@
                 </div>
             </div>
             <div class="category">
-                <div ng-controller="commonHeaderController"  id="sidebar">
+                <div ng-controller="commonHeaderController" id="sidebar">
                     <h6>categories</h6>
                     <div class="clearfix"></div>
                     <hr>
@@ -88,7 +88,7 @@
         </div>
         <!-- products -->
         <div class="col-xs-12">
-            <div class="col-sm-4 col-lg-3 col-xs-6 product" ng-repeat="_item in productsList | filter:searchText" ng-show="productsList.length">
+            <div class="col-sm-4 col-lg-3 col-xs-6 product" ng-repeat="_item in productsList" ng-show="productsList.length">
                 <!-- product desktop version with info -->
             <span class="thumbnail hidden-xs">
                 <!-- image -->
@@ -108,7 +108,7 @@
                                 </a>
                             </span>
                             <!-- fast shoping -->
-                            <span class="col-sm-6" ng-click="addToCart(_item._id)">
+                            <span class="col-sm-6" ng-click="addToCart(_item)">
                                 <a href="">
                                     <i class="glyphicon glyphicon-shopping-cart"></i>
                                 </a>

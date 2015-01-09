@@ -507,7 +507,7 @@
                         actionCustomerAdditionalInfo = function () {
                             $scope.subAdditionalInfo = true;
                             if ($scope.customerInfo.$valid) {
-                                if ((!Boolean($scope.checkout["shipping_address"]._id) && !$scope["isGuestCheckout"]) || $scope["isGuestCheckout"]) {
+                                if ($scope["isGuestCheckout"]) {
                                     $checkoutService.saveAdditionalInfo({
                                         "customer_email": $scope.checkout.info["customer_email"],
                                         "customer_name": $scope.checkout.info["customer_name"]
@@ -588,15 +588,48 @@
                         var payment, isValid, sendPostForm;
 
                         isValid = function () {
-                            var result = true;
+                            var result, message, getErrorMsg;
+                            message = "";
+                            result = {
+                                status: true,
+                                message: ""
+                            };
                             $scope.subBillingAddress = true;
                             $scope.subShippingAddress = true;
                             $scope.subPaymentForm = true;
                             $scope.subAdditionalInfo = true;
 
+                            getErrorMsg = function (step) {
+                                /*jshint maxcomplexity:6 */
+                                var msg = "Please fill all required fields";
+
+                                switch (step) {
+                                    case "billingAddress":
+                                        msg = "Please fill all required fields in billing section <br />";
+                                        break;
+                                    case "shippingAddress":
+                                        msg = "Please fill all required fields in shipping section <br />";
+                                        break;
+                                    case "shippingMethod":
+                                        msg = "Please choose shipping method <br />";
+                                        break;
+                                    case "paymentMethod":
+                                        msg = "Please choose payment method <br />";
+                                        break;
+                                    case "additionalInfo":
+                                        msg = "Please fill all required fields in additional section <br />";
+                                        break;
+                                }
+                                return msg;
+                            };
+
                             for (var step in isValidSteps) {
                                 if (isValidSteps.hasOwnProperty(step) && !isValidSteps[step]) {
-                                    result = false;
+                                    message += getErrorMsg(step);
+                                    result = {
+                                        status: false,
+                                        message: message
+                                    };
                                 }
                             }
 
@@ -621,38 +654,41 @@
                             payment.form.submited = true;
                         }
 
-                        if (isValid()) {
-                            $(this).parents('.confirm').css('display', 'none');
-                            $('#processing').modal('show');
-                            $checkoutApiService.save().$promise.then(
-                                function (response) {
-                                    if (null !== payment.method && payment.method.Type === "remote" && response.result === "redirect") {
-                                        w.location.replace(response.redirect);
-                                    } else if (null !== payment.method && payment.method.Type === "post_cc") {
-                                        // Handler for direct post form for Authorize.net
-                                        sendPostForm(payment.method, response);
-                                    } else if (response.error === null) {
-                                        info();
-                                        $cartService.reload().then(
-                                            function () {
-                                                $scope.purchase = response.result || {};
-                                                $('#processing').modal('hide');
-                                                $("#purchase-success").modal("show");
-                                            }
-                                        );
-                                    } else {
-                                        $(this).parents('.confirm').css('display', 'block');
-                                        $('#processing').modal('hide');
-                                        // Errors from server
-                                        $scope.message = $commonUtilService.getMessage(response);
+                        info().then(function(){
+                            var checkoutValid = isValid();
+                            if (checkoutValid.status) {
+                                $(this).parents('.confirm').css('display', 'none');
+                                $('#processing').modal('show');
+                                $checkoutApiService.save().$promise.then(
+                                    function (response) {
+                                        if (null !== payment.method && payment.method.Type === "remote" && response.result === "redirect") {
+                                            w.location.replace(response.redirect);
+                                        } else if (null !== payment.method && payment.method.Type === "post_cc") {
+                                            // Handler for direct post form for Authorize.net
+                                            sendPostForm(payment.method, response);
+                                        } else if (response.error === null) {
+                                            info();
+                                            $cartService.reload().then(
+                                                function () {
+                                                    $scope.purchase = response.result || {};
+                                                    $('#processing').modal('hide');
+                                                    $("#purchase-success").modal("show");
+                                                }
+                                            );
+                                        } else {
+                                            $(this).parents('.confirm').css('display', 'block');
+                                            $('#processing').modal('hide');
+                                            // Errors from server
+                                            $scope.message = $commonUtilService.getMessage(response);
+                                        }
                                     }
-                                }
-                            );
-                        } else {
-                            $(this).parents('.confirm').css('display', 'block');
-                            $('#processing').modal('hide');
-                            $scope.message = $commonUtilService.getMessage(null, "danger","Please fill all required fields");
-                        }
+                                );
+                            } else {
+                                $(this).parents('.confirm').css('display', 'block');
+                                $('#processing').modal('hide');
+                                $scope.message = $commonUtilService.getMessage(null, "danger",checkoutValid.message);
+                            }
+                        });
                     };
 
                     $scope.discountApply = function () {

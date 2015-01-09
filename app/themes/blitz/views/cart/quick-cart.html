@@ -70,11 +70,11 @@
 
         <div ng-hide="!it.getCountItems()">
             <h4 class="text-right">
-                Cart items:&nbsp;&nbsp;&nbsp;<strong>{{getSubtotal() | currency}}</strong>
+                Cart items:&nbsp;&nbsp;&nbsp;<strong>{{it.getTotalQuantity()}}</strong>
             </h4>
 
             <h4 class="text-right">
-                Cart total:&nbsp;&nbsp;&nbsp;<strong>{{it.getCountItems()}}</strong>
+                Cart total:&nbsp;&nbsp;&nbsp;<strong>{{getSubtotal() | currency}}</strong>
             </h4>
             
             <div class="clearfix"></div>

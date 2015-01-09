@@ -27,7 +27,7 @@
                     var addItem, init, reload, loadCartInfo, getItems, remove, update,
                         getSubtotal, getSalesTax, getShipping, getTotal,
                         setSubtotal, setSalesTax, setShipping, setTotal, getCountItems,
-                        getItemsForMiniCart;
+                        getItemsForMiniCart, getTotalQuantity;
 
                     items = [];
                     subtotal = 0;
@@ -122,7 +122,7 @@
                     };
 
                     /**
-                     * Total qty of items
+                     * Total unique goods
                      *
                      * @returns {number}
                      */
@@ -131,6 +131,23 @@
 
                         if (typeof items !== 'undefined') {
                             count = items.length;
+                        }
+
+                        return count;
+                    };
+
+                    /**
+                     * Total qty of items
+                     *
+                     * @returns {number}
+                     */
+                    getTotalQuantity = function () {
+                        var count = 0;
+
+                        if (typeof items !== 'undefined') {
+                            for(var i = 0; i < items.length; i += 1) {
+                                count += items[i].qty;
+                            }
                         }
 
                         return count;
@@ -242,6 +259,7 @@
                         'getItems': getItems,
                         'getItemsForMiniCart': getItemsForMiniCart,
                         'getCountItems': getCountItems,
+                        'getTotalQuantity': getTotalQuantity,
 
                         'getSubtotal': getSubtotal,
                         'setSubtotal': setSubtotal,
