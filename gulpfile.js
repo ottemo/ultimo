@@ -172,6 +172,7 @@
          */
         gulp.src('app/themes/**/scripts/**/*.js')
             .pipe(stripDebug())
+            .on('error', console.log.bind(console))
             .pipe(uglify({mangle: false}))
             .pipe(gulp.dest(paths.themeDest));
 
@@ -218,6 +219,7 @@
             }
         })
             .pipe(stripDebug())
+            .on('error', console.error.bind(console))
             .pipe(uglify({mangle: false}))
             .pipe(gulp.dest(paths.dist + '/scripts/'));
     });
