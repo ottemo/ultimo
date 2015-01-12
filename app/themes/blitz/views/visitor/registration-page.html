@@ -44,7 +44,7 @@
 
         <div class="form-group col-xs-12 col-md-6" ng-class="{ 'has-error' : (register.submitted && register.birthday.$error.$invalid) || (register.birthday.$error.$invalid && !register.birthday.$pristine) }">
             <input id="birth" style="display:none;" type="text" name="birthday" auto-fill-sync class="form-control input-lg" ng-model="login.birthday">
-            <div class="col-md-4 birth">
+            <div class="col-md-4 birth" style="padding-left:0;">
                 <label>Month of Birth</label>
                 <select class="form-control input-lg" id="monthBirth" ng-model="birthday.month">
                     <option selected="selected" value="0">Month</option>
@@ -99,7 +99,7 @@
                     <option value="31">31</option>
                 </select>
             </div>
-            <div class="col-md-4 birth">
+            <div class="col-md-4 birth" style="padding-right:0;">
                 <label>Year of Birth</label>
                 <select class="form-control input-lg" id="yearBirth" ng-model="birthday.year">
                     <option selected="selected" value="0">Year</option>
