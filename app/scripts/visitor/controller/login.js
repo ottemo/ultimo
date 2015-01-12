@@ -22,6 +22,12 @@
                 var INVALIDATE_SUCCESS = "We sent you new activation code. Please check your email and click on the verification link.";
                 var FORGOT_SUCCESS = "A new password has been created and forwarded to you. Please check your email.";
 
+                $scope.needBirthdayCheck = true;
+                $scope.birthday = {
+                    "day": 0,
+                    "month": 0,
+                    "year": 0
+                };
 
                 var checkPassword = function () {
                     var status;
@@ -38,6 +44,33 @@
                         $scope.isCoincide = false;
                         status = false;
                     }
+                    return status;
+                };
+
+                var checkBirthday = function () {
+                    /*jshint maxcomplexity:6 */
+                    var statuses = [];
+                    var status = true;
+
+                    if(!$scope.needBirthdayCheck){
+                        return status;
+                    }
+
+                    for (var part in $scope.birthday) {
+                        if ($scope.birthday.hasOwnProperty(part)) {
+                            statuses.push(Boolean(Number($scope.birthday[part])));
+                        }
+                    }
+                    for (var i = 1, prev = statuses[0]; i < statuses.length; i += 1) {
+                        if (prev !== statuses[i]) {
+                            $scope.message = $commonUtilService.getMessage(null, "warning", "Birthday is not valid");
+                            status = false;
+                        }
+                    }
+
+                    $scope.register.birthday.$error.$invalid = !status;
+                    $scope.register.birthday.$error.$pristine = true;
+
                     return status;
                 };
 
@@ -107,7 +140,7 @@
 
                 $scope.save = function () {
                     $scope.register.submitted = true;
-                    if ($scope.register.$valid && checkPassword()) {
+                    if ($scope.register.$valid && checkPassword() && checkBirthday()) {
                         delete $scope.login["billing_address_id"];
                         delete $scope.login["shipping_address_id"];
 

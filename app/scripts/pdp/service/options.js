@@ -125,7 +125,6 @@
 
                         for (var i = 0; i < data.length; i += 1) {
                             var deltaData = getDeltaPrice(startPrice, data[i].price);
-                            console.log(deltaData)
                             switch (deltaData["operation"]) {
                                 case "+":
                                     product.price = parseFloat(product.price) + deltaData["value"];

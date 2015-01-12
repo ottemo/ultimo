@@ -21,10 +21,8 @@
                 '$q',
                 function ($resource, $cartApiService, $cookieStore, $pdpProductOptionsService, LOGIN_COOKIE, $q) {
 
-                    /** Variables */
-                    var isInit, items, visitorId, subtotal, saleTax, shipping, total;
-                    /** Functions */
-                    var addItem, init, reload, loadCartInfo, getItems, remove, update,
+                    var isInit, items, visitorId, subtotal, saleTax, shipping, total,
+                        addItem, init, reload, loadCartInfo, getItems, remove, update,
                         getSubtotal, getSalesTax, getShipping, getTotal,
                         setSubtotal, setSalesTax, setShipping, setTotal, getCountItems,
                         getItemsForMiniCart, getTotalQuantity;
@@ -177,7 +175,6 @@
                                     if (response.result.items instanceof Array) {
                                         // Apply options by all products
                                         for (var i = 0; i < response.result.items.length; i += 1) {
-//                                        response.result.items[i].product = $pdpProductOptionsService.applyOptions(response.result.items[i].product, response.result.items[i].options);
                                             response.result.items[i].product = response.result.items[i].product;
                                             response.result.items[i].hasOptions = JSON.stringify(response.result.items[i].options) === JSON.stringify({}) ? false : true;
 

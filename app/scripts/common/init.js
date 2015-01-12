@@ -26,10 +26,10 @@
 
             angular.module.commonModule = angular.module("commonModule", ["ngRoute", "ngSanitize", "designModule"])
 
-                .constant("DEFAULT_TITLE", "Ottemo store")
-                .constant("DEFAULT_KEYWORDS", "Ottemo store")
-                .constant("DEFAULT_DESCRIPTION", "Ottemo store")
-                .constant("REST_SERVER_URI", angular.REST_SERVER_URI)
+                .value("DEFAULT_TITLE", "Ottemo store")
+                .value("DEFAULT_KEYWORDS", "Ottemo store")
+                .value("DEFAULT_DESCRIPTION", "Ottemo store")
+                .value("REST_SERVER_URI", angular.REST_SERVER_URI)
 
             /**
              *  Basic routing configuration
