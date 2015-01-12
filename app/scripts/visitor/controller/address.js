@@ -10,7 +10,8 @@
                 '$visitorLoginService',
                 '$visitorApiService',
                 '$designStateService',
-                function ($scope, $location, $visitorLoginService, $visitorApiService, $designStateService) {
+                '$commonUtilService',
+                function ($scope, $location, $visitorLoginService, $visitorApiService, $designStateService, $commonUtilService) {
                     var getFullName;
 
                     $scope.countries = [
@@ -50,6 +51,7 @@
                      */
                     $scope.clearForm = function () {
                         $scope.address = {'visitor_id': $scope.visitor._id};
+                        $scope.submitted = false;
                     };
 
                     $scope.clearForm();
@@ -104,10 +106,7 @@
                             function (response) {
                                 $visitorLoginService.setLogin(response.result);
                                 $scope.visitor = $visitorLoginService.getVisitor();
-                                $scope.message = {
-                                    'type': 'success',
-                                    'message': 'Address was selected as default with success'
-                                };
+                                $scope.message = $commonUtilService.getMessage(null, 'success', 'Address was selected as default with success');
                             }
                         );
                     };
@@ -129,7 +128,7 @@
                          * @param response
                          */
                         saveSuccess = function (response) {
-                            if (response.error === '') {
+                            if (response.error === null) {
                                 $scope.addresses.push({
                                         'ID': response.result._id,
                                         'Name': getFullName(response.result)
@@ -138,10 +137,7 @@
                             }
                             $('#parent_popup_address').modal("hide");
                             $scope.submitted = false;
-                            $scope.message = {
-                                'type': 'success',
-                                'message': 'New address was added with success'
-                            };
+                            $scope.message = $commonUtilService.getMessage(null, 'success', 'New address was added with success');
                         };
 
                         /**
@@ -157,7 +153,7 @@
                          */
                         updateSuccess = function (response) {
                             var i, addr;
-                            if (response.error === '') {
+                            if (response.error === null) {
                                 addr = response.result;
                                 for (i = 0; i < $scope.addresses.length; i += 1) {
                                     if ($scope.addresses[i].ID === addr._id) {
@@ -168,10 +164,7 @@
                             }
                             $('#parent_popup_address').modal('hide');
                             $scope.submitted = false;
-                            $scope.message = {
-                                'type': 'success',
-                                'message': 'Address was changed with success'
-                            };
+                            $scope.message = $commonUtilService.getMessage(null, 'success', 'Address was changed with success');
                         };
 
                         /**
@@ -192,7 +185,7 @@
 
                     $scope.popUpOpen = function (addressId) {
                         if (typeof addressId === 'undefined') {
-                            $scope.address = {};
+                            $scope.clearForm();
                             $('#parent_popup_address').modal('show');
                         } else {
                             $visitorApiService.loadAddress({'id': addressId}).$promise.then(

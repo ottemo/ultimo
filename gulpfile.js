@@ -2,7 +2,8 @@
     'use strict';
 
     var gulp, minifyHTML, concat, stripDebug, uglify, jshint, changed, imagemin, autoprefix, sass, rjs, minifyCSS,
-        browserSync, pngquant, del, paths, host, themes, fs, request, recursive, configs, FOUNDATION_URI, THEME_AS_DEFAULT;
+        browserSync, pngquant, del, paths, host, themes, fs, request, recursive, configs, FOUNDATION_URI,
+        THEME_AS_DEFAULT, DEV_FOUNDATION_URI, DEFAULT_ROOT, DEFAULT_PASS;
 
     gulp = require('gulp');
     minifyHTML = require('gulp-minify-html');
@@ -28,7 +29,7 @@
         "themes": 'themes',
         "js": ['app/scripts/*.js', 'app/scripts/**/*.js'],
         "vendor": 'app/lib/**/*.js',
-        "vendorTheme": 'app/themes/**/lib/*',
+        "vendorTheme": 'app/themes/**/lib/**/*',
         "sass": 'app/styles/sass/**/*.scss',
         "css": 'app/themes/**/styles/**/*.css',
         "images": ['app/themes/**/images/**/*', 'app/themes/**/styles/**/*.{png,jpg,jpec,ico}'],
@@ -45,6 +46,9 @@
     };
 
     themes = [];
+    DEV_FOUNDATION_URI = 'http://localhost:3000';
+    DEFAULT_ROOT = 'admin';
+    DEFAULT_PASS = 'admin';
     FOUNDATION_URI = 'http://dev.ottemo.io:3000';
     THEME_AS_DEFAULT = 'blitz';
 
@@ -123,21 +127,21 @@
         }
     ];
 
-    var setConfigOption = function (path, option) {
+    var setConfigValue = function (field, path, option) {
         for (var i = 0; i < configs.length; i += 1) {
             if (configs[i].path === path) {
-                configs[i].options = option;
+                configs[i][field] = option;
                 break;
             }
         }
     };
 
-    var setConfig = function (config) {
+    var setConfig = function (serverURI, config) {
         request({
-            uri: FOUNDATION_URI + '/config/unregister/' + config.path,
+            uri: serverURI + '/config/unregister/' + config.path + '?auth=' + DEFAULT_ROOT + ':' + DEFAULT_PASS,
             method: 'DELETE'
         }, function () {
-            var r = request.post(FOUNDATION_URI + '/config/register');
+            var r = request.post(serverURI + '/config/register?auth=' + DEFAULT_ROOT + ':' + DEFAULT_PASS);
             var form = r.form();
 
             form.append('path', config.path);
@@ -150,9 +154,9 @@
         });
     };
 
-    var initConfigs = function () {
+    var initConfigs = function (serverURI) {
         for (var i = 0; i < configs.length; i += 1) {
-            setConfig(configs[i]);
+            setConfig(serverURI, configs[i]);
         }
     };
 
@@ -168,6 +172,7 @@
          */
         gulp.src('app/themes/**/scripts/**/*.js')
             .pipe(stripDebug())
+            .on('error', console.log.bind(console))
             .pipe(uglify({mangle: false}))
             .pipe(gulp.dest(paths.themeDest));
 
@@ -214,6 +219,7 @@
             }
         })
             .pipe(stripDebug())
+            .on('error', console.error.bind(console))
             .pipe(uglify({mangle: false}))
             .pipe(gulp.dest(paths.dist + '/scripts/'));
     });
@@ -357,8 +363,9 @@
             }
             themesData += '}';
 
-            setConfigOption("themes.list.active", themesData);
-            initConfigs();
+            setConfigValue("options", "themes.list.active", themesData);
+            setConfigValue("value", "general.app.foundation_url", FOUNDATION_URI);
+            initConfigs(FOUNDATION_URI);
 
             gulp.start('requirejs');
             gulp.start('vendor');
@@ -422,8 +429,9 @@
             }
             themesData += '}';
 
-            setConfigOption("themes.list.active", themesData);
-            initConfigs();
+            setConfigValue("options", "themes.list.active", themesData);
+            setConfigValue("value", "general.app.foundation_url", DEV_FOUNDATION_URI);
+            initConfigs(DEV_FOUNDATION_URI);
         });
 
     });

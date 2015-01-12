@@ -78,11 +78,12 @@ ul {
     padding-top: 106px;
     min-height: 100%;
 }
-
+.h-item {
+    height: auto;
+}
 .logo {
     margin-top: 8px;
 }
-
 header.navbar {
     -webkit-box-shadow: 0 7px 6px -5px rgba(180, 180, 180, 1);
     -moz-box-shadow: 0 7px 6px -5px rgba(180, 180, 180, 1);
@@ -196,9 +197,17 @@ header .btn-login[href="#/logout"] span:first-child:before {
     background-color: #ffffff;
 }
 .h-slider-switch {
+    float: left;
     height: 56px;
-    margin: 65px auto;
-    width: 666px;
+    left: 50%;
+    margin: 65px 0;
+    position: relative;
+}
+.h-slider-switch li {
+    display: block;
+    float: left;
+    left: -50%;
+    position: relative;
 }
 .h-slider-switch li .btn-custom{
 	border-radius: 0;
@@ -398,6 +407,14 @@ header > a {
 }
 header .navbar-toggle {
     margin-top: 0;
+}
+.h-mytab {
+    position: relative;
+    overflow: hidden;
+}
+#featured .col-xs-6.col-sm-4.col-lg-2{
+  display: inline-block;
+  float: none;
 }
 
 /*//////////////////////////////////////////////////////////   end Home Page  */
@@ -1513,14 +1530,93 @@ progress::-moz-progress-bar {
     }
 }
 
+/*/////////////////////////////////////////////////////////////////////////////// end responsive design  */
 
+/*////////////////////////////////////////////////////////////////  start carousel for featured category */
 
+#owl-demo .item {
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+    position: relative;
+}
+.owl-carousel .fa {
+    color: #1F4258;
+    font-size: 25px;
+}
+.owl-carousel .fa:hover {
+    opacity: 0.8;
+}
+.owl-carousel .owl-wrapper:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+.owl-carousel{
+    display: none;
+    position: relative;
+    width: 100%;
+    -ms-touch-action: pan-y;
+}
+.owl-carousel .owl-wrapper{
+    display: none;
+    position: relative;
+    -webkit-transform: translate3d(0px, 0px, 0px);
+}
+.owl-carousel .owl-wrapper-outer{
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+.owl-carousel .owl-wrapper-outer.autoHeight{
+    -webkit-transition: height 500ms ease-in-out;
+    -moz-transition: height 500ms ease-in-out;
+    -ms-transition: height 500ms ease-in-out;
+    -o-transition: height 500ms ease-in-out;
+    transition: height 500ms ease-in-out;
+}
+.owl-carousel .owl-item{
+    float: left;
+}
+.owl-controls .owl-page,
+.owl-controls .owl-buttons div {
+    cursor: pointer;
+    position: absolute;
+    top: 45%;
+}
+.owl-controls .owl-prev {
+    left: -7px;
+}
+.owl-controls .owl-next {
+    right: -7px;
+}
+.owl-controls {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.grabbing {
+    cursor:url(grabbing.png) 8 8, move;
+}
+.owl-carousel  .owl-wrapper,
+.owl-carousel  .owl-item{
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility:    hidden;
+    -ms-backface-visibility:     hidden;
+    -webkit-transform: translate3d(0,0,0);
+    -moz-transform: translate3d(0,0,0);
+    -ms-transform: translate3d(0,0,0);
+}
 
-/*//////////////////////////////////////////////////// end responsive design  */
+/*////////////////////////////////////////////////////////////////  end carousel for featured category */
 
-
-
-/*///////////////////////////////////////////////////// start social buttons  */
+/*////////////////////////////////////////////////////////////////////////////// start social buttons  */
 
 .btn-soc .btn {
     border-radius: 0;
@@ -1853,3 +1949,4 @@ footer > div:last-child p {
     padding: 0;
   }
 }
+

@@ -55,7 +55,7 @@
                             $checkoutApiService.shippingMethod().$promise.then(function (response) {
                                 var i, method;
                                 allowedShippingMethods = [];
-                                if (response.error === "") {
+                                if (response.error === null) {
                                     for (i = 0; i < response.result.length; i += 1) {
                                         method = response.result[i] || [];
                                         if (method.Rates instanceof Array && method.Rates.length > 0) {
@@ -131,12 +131,7 @@
 
                             $checkoutApiService.setBillingAddress(address).$promise.then(
                                 function (response) {
-                                    if (response.error === "") {
-                                        var result = response.result || {};
-                                        defer.resolve(result);
-                                    } else {
-                                        defer.resolve(response.error);
-                                    }
+                                    defer.resolve(response);
                                 }
                             );
 
@@ -148,9 +143,7 @@
 
                             $checkoutApiService.setShippingAddress(address).$promise.then(
                                 function (response) {
-                                    if (response.error === "") {
-                                        defer.resolve(response);
-                                    }
+                                    defer.resolve(response);
                                 }
                             );
 
@@ -210,7 +203,7 @@
 
                             $checkoutApiService.discountNeglect(data).$promise.then(
                                 function (response) {
-                                    if (response.error === "") {
+                                    if (response.error === null) {
                                         defer.resolve(response);
                                     }
                                 }

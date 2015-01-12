@@ -18,7 +18,9 @@
                     "$designImageService",
                     "$cartService",
                     "$visitorLoginService",
-                    function ($scope, $controller, $routeParams, $location, $timeout, $pdpApiService, $pdpProductService, $designImageService, $cartService, $visitorLoginService) {
+                    "$commonUtilService",
+                    function ($scope, $controller, $routeParams, $location, $timeout, $pdpApiService, $pdpProductService,
+                              $designImageService, $cartService, $visitorLoginService, $commonUtilService) {
                         $controller('pdpController', {$scope: $scope});
 
                         $scope.addToCart = function () {
@@ -27,11 +29,8 @@
                                 $scope.submitted = true;
                                 $cartService.add($scope.productId, $scope.qty, $pdpProductService.getOptions()).then(
                                     function (response) {
-                                        if (response.error !== "") {
-                                            $scope.messageOptions = {
-                                                'type': 'danger',
-                                                'message': response.error
-                                            };
+                                        if (response.error !== null) {
+                                            $scope.messageOptions = $commonUtilService.getMessage(response);
                                         } else {
                                             var miniCart;
                                             miniCart = $("#mini-cart");

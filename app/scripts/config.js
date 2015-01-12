@@ -3,8 +3,8 @@ require.iniConfig = {
     "general.app.media_path": "media/",
     "themes.list.active": "blitz",
     // social networks
-    "general.app.login.facebook.appId" : "483159925160897",
-    "general.app.login.facebook.secretKey" : "9a362f8b5cd91dbdd908bff472468c7e",
+    "general.app.login.facebook.appId" : "728744980537129",
+    "general.app.login.facebook.secretKey" : "58f763bd74fab043aa3b3c0221291c94",
     "general.app.login.google.clientId" : "1074763412644-qq25glj3tb87bq7bk5m8793da11ddheh.apps.googleusercontent.com",
 
     // general

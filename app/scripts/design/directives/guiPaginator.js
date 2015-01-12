@@ -26,7 +26,11 @@
                     };
 
                     $scope.isShow = function () {
-                        return $scope.parent.pages;
+                        if($scope.parent.pages <= 1 || $scope.parent.clickMore){
+                            return false;
+                        }
+
+                        return true;
                     };
 
                     /**
@@ -52,7 +56,17 @@
                         return _class;
                     };
 
-                    $scope.showMoreBtn = $scope.parent.showMoreBtn;
+                    $scope.showMoreBtn = function () {
+                        var countLoadedGoods;
+                        countLoadedGoods = ($scope.parent.currentPage + 1) * $scope.parent.itemsPerPage;
+
+                        if (countLoadedGoods >= $scope.parent.totalItems) {
+                            return false;
+                        }
+
+                        return true;
+                    };
+
                     $scope.loadMore = $scope.parent.loadMore;
 
                     /**

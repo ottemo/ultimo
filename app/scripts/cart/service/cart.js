@@ -21,13 +21,11 @@
                 '$q',
                 function ($resource, $cartApiService, $cookieStore, $pdpProductOptionsService, LOGIN_COOKIE, $q) {
 
-                    /** Variables */
-                    var isInit, items, visitorId, subtotal, saleTax, shipping, total;
-                    /** Functions */
-                    var addItem, init, reload, loadCartInfo, getItems, remove, update,
+                    var isInit, items, visitorId, subtotal, saleTax, shipping, total,
+                        addItem, init, reload, loadCartInfo, getItems, remove, update,
                         getSubtotal, getSalesTax, getShipping, getTotal,
                         setSubtotal, setSalesTax, setShipping, setTotal, getCountItems,
-                        getItemsForMiniCart;
+                        getItemsForMiniCart, getTotalQuantity;
 
                     items = [];
                     subtotal = 0;
@@ -122,7 +120,7 @@
                     };
 
                     /**
-                     * Total qty of items
+                     * Total unique goods
                      *
                      * @returns {number}
                      */
@@ -131,6 +129,23 @@
 
                         if (typeof items !== 'undefined') {
                             count = items.length;
+                        }
+
+                        return count;
+                    };
+
+                    /**
+                     * Total qty of items
+                     *
+                     * @returns {number}
+                     */
+                    getTotalQuantity = function () {
+                        var count = 0;
+
+                        if (typeof items !== 'undefined') {
+                            for(var i = 0; i < items.length; i += 1) {
+                                count += items[i].qty;
+                            }
                         }
 
                         return count;
@@ -154,13 +169,12 @@
 
                         $cartApiService.info().$promise.then(
                             function (response) {
-                                if (response.error === '') {
+                                if (response.error === null) {
 
                                     items = [];
                                     if (response.result.items instanceof Array) {
                                         // Apply options by all products
                                         for (var i = 0; i < response.result.items.length; i += 1) {
-//                                        response.result.items[i].product = $pdpProductOptionsService.applyOptions(response.result.items[i].product, response.result.items[i].options);
                                             response.result.items[i].product = response.result.items[i].product;
                                             response.result.items[i].hasOptions = JSON.stringify(response.result.items[i].options) === JSON.stringify({}) ? false : true;
 
@@ -242,6 +256,7 @@
                         'getItems': getItems,
                         'getItemsForMiniCart': getItemsForMiniCart,
                         'getCountItems': getCountItems,
+                        'getTotalQuantity': getTotalQuantity,
 
                         'getSubtotal': getSubtotal,
                         'setSubtotal': setSubtotal,
