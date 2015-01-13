@@ -66,16 +66,25 @@
     themes = [];
     
     if (env === 'development') {
-        FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://localhost:3000';
+        DEV_FOUNDATION_URI = process.env.DEV_FOUNDATION_URI || 'http://localhost:3000';
+        FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://dev.ottemo.io:3000';
     } else if (env === 'staging') {
+        DEV_FOUNDATION_URI = process.env.DEV_FOUNDATION_URI || 'http://localhost:3000';
         FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://dev.ottemo.io:3000';
     } else if (env === 'production') {
+        DEV_FOUNDATION_URI = process.env.DEV_FOUNDATION_URI || 'http://localhost:3000';
         FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://demo.ottemo.io:3000';
     }
 
-    gutil.log("Running Gulp with the following environment settings, (these must match your environment): ");
+    gutil.log("Your db settings and your environment settings must match when");
+    gutil.log("running 'gulp build' or your templates will be blank.  Example");
+    gutil.log("");
+    gutil.log("    $ NODE_ENV=staging DEFAULT_ROOT=admin DEFAULT_PASS=admin FOUNDATION_URI=http://<server>:<port> gulp build");
+    gutil.log("");
+    gutil.log("Your current ENV settings are: ");
     gutil.log("");
     gutil.log("NODE_ENV = ", env);
+    gutil.log("DEV_FOUNDATION_URI = ", DEV_FOUNDATION_URI);
     gutil.log("FOUNDATION_URI = ", FOUNDATION_URI);
     gutil.log("DEFAULT_ROOT = ", DEFAULT_ROOT);
     gutil.log("DEFAULT_PASS = ", DEFAULT_PASS);
@@ -400,7 +409,7 @@
             gulp.start('requirejs');
             gulp.start('vendor');
             gulp.start('misc');
-            // gulp.start('html');
+            gulp.start('html');
             gulp.start('autoprefixer');
             gulp.start('imagemin');
         });
@@ -460,8 +469,8 @@
             themesData += '}';
 
             setConfigValue("options", "themes.list.active", themesData);
-            setConfigValue("value", "general.app.foundation_url", FOUNDATION_URI);
-            initConfigs(FOUNDATION_URI);
+            setConfigValue("value", "general.app.foundation_url", DEV_FOUNDATION_URI);
+            initConfigs(DEV_FOUNDATION_URI);
         });
 
     });
