@@ -69,7 +69,7 @@
                                     if (result[i].name === "featured") {
                                         categoryFeaturedId = result[i].id;
 
-                                        $categoryApiService.getProducts({"id": categoryFeaturedId}).$promise.then(
+                                        $categoryApiService.getProductsByCategoryId({"id": categoryFeaturedId}).$promise.then(
                                             function (response) {
                                                 var result, i;
                                                 result = response.result || [];
