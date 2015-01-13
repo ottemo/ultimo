@@ -56,11 +56,16 @@
         <div class="form-group col-md-6"
              ng-class="{ 'has-error' : (register.submitted && register.password.$error.required) || (register.password.$invalid && !register.password.$pristine) }">
             <label for="password">Password *</label>
-            <input id="password" type="password" class="form-control input-lg" name="password" placeholder="Password" ng-model="login.password" required autocomplete="off" />
-            
+            <input id="password" type="password" class="form-control input-lg" name="password" ot-password="true" placeholder="Password" ng-model="login.password" required autocomplete="off" />
+
             <!-- error message -->
-            <p ng-show="(register.submitted && register.password.$error.required) || (register.password.$invalid && !register.password.$pristine)"
+            <p ng-show="(register.submitted && register.password.$error.required)"
                class="help-block">This field is required.</p>
+
+            <p ng-if="!register.password.$error.required"
+               ng-show="(register.submitted && register.password.$invalid) ||
+                            (register.password.$invalid && !register.password.$pristine)"
+               class="help-block">{{register.password.message}}</p>
         </div>
         <!-- password confirm field + label-->
         <div class="form-group col-md-6"

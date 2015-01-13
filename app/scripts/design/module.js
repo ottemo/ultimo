@@ -16,6 +16,7 @@
 			"design/directives/validator/price",
 			"design/directives/validator/regexp",
 			"design/directives/validator/sku",
+			"design/directives/validator/password",
 
 			"design/directives/guiBlock",
 			"design/directives/guiListBar",
