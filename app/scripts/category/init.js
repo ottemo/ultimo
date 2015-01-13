@@ -13,7 +13,7 @@
             angular.module.categoryModule = angular.module("categoryModule", ["ngRoute", "ngResource", "designModule"])
 
                 .constant("SEARCH_KEY_NAME", "search")
-                .constant("GENERAL_CATEGORY_URI", "/shop.html")
+                .constant("GENERAL_CATEGORY_URI", "/shop")
             /**
              *  Basic routing configuration
              */
