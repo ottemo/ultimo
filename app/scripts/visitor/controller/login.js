@@ -140,7 +140,7 @@
 
                 $scope.save = function () {
                     $scope.register.submitted = true;
-                    if ($scope.register.$valid && checkPassword() && checkBirthday()) {
+                    if ($scope.register.$valid && checkPassword()) {
                         delete $scope.login["billing_address_id"];
                         delete $scope.login["shipping_address_id"];
 
