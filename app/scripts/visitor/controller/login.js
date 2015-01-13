@@ -176,7 +176,15 @@
                     if (isPopUp) {
                         $route.reload();
                     } else {
-                        $location.path('/account');
+                        if (typeof angular.module.visitorModule.back.path !== "undefined" &&
+                            -1 === ['login', 'login.html', 'home', 'home.html', 'logout', 'logout.html'].indexOf(angular.module.visitorModule.back.path.trim('/'))) {
+
+                            $location.$$path = angular.module.visitorModule.back.path;
+                            $location.$$url = angular.module.visitorModule.back.path;
+                            $location.search(angular.module.visitorModule.back.params);
+                        } else {
+                            $location.path('/account');
+                        }
                     }
                 };
 
