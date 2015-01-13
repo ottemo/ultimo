@@ -118,6 +118,9 @@
                             } else {
                                 result["value"] = parseFloat(parts[2]);
                             }
+                            if(isNaN(result["value"])){
+                                result["operation"] = null;
+                            }
                             return result;
                         };
 
