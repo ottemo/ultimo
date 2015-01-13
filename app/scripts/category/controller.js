@@ -17,8 +17,11 @@
                 "$cartService",
                 "$pdpProductService",
                 "$commonUtilService",
-                function ($scope, $location, $route, $routeParams, $categoryApiService, $designService, $designImageService,
-                          $categoryService, $visitorLoginService, $cartService, $pdpProductService, $commonUtilService) {
+                "GENERAL_CATEGORY_URI",
+                "SEARCH_KEY_NAME",
+                function ($scope, $location, $route, $routeParams, $categoryApiService, $designService,
+                          $designImageService, $categoryService, $visitorLoginService, $cartService,
+                          $pdpProductService, $commonUtilService, GENERAL_CATEGORY_URI, SEARCH_KEY_NAME) {
 
                     var init, getPage, addCategoryCrumbs, getFilters, setFilters, getParams, initWatchers,
                         defaultFilterSet, defaultOptionSet, changeLocation;
@@ -79,8 +82,9 @@
                         $scope.itemsPerPage = angular.appConfigValue("general.app.category.itemsPerPage");
                         $scope.productsList = [];
                         $scope.paths = [];
-                        $scope.categoryId = $routeParams.id;
-                        $scope.searchField = 'name';
+                        $scope.isShop = (GENERAL_CATEGORY_URI === $location.path());
+                        $scope.categoryId = $routeParams.id || null;
+                        $scope.searchField = SEARCH_KEY_NAME;
 
                         $scope.category = {};
                         $scope.popupProduct = {};
@@ -106,18 +110,16 @@
                     init();
 
                     changeLocation = function () {
-                        var filterStr, url, path;
+                        var filterStr, url;
                         filterStr = getFilters();
                         if (typeof filterStr !== "undefined") {
-                            url = $categoryService.getUrl($scope.categoryId);
+                            if($scope.categoryId === null && $scope.isShop){
+                                url = GENERAL_CATEGORY_URI;
+                            } else {
+                                url = $categoryService.getUrl($scope.categoryId);
+                            }
 
-                            // removes the  "#" in the begin string
-                            path = url.substr(1, url.length);
-
-                            $location.$$path = path;
-                            $location.$$url = path;
-
-                            $location.search(filterStr);
+                            $categoryService.setFiltersInLocation(url, filterStr);
                         }
                     };
 
@@ -186,9 +188,9 @@
                             for (var attr in $scope.filters) {
                                 if ($scope.filters.hasOwnProperty(attr)) {
                                     var values = getFilterValues(attr);
-                                    if (values.length > 0 && attr !== $scope.searchField) {
+                                    if (values.length > 0 && attr !== SEARCH_KEY_NAME) {
                                         filters.push(attr + "=" + values.join(","));
-                                    } else if (values.length > 0 && attr === $scope.searchField) {
+                                    } else if (values.length > 0 && attr === SEARCH_KEY_NAME && values.join(",") !== "") {
                                         filters.push(attr + "=~" + values.join(","));
                                     }
                                 }
@@ -208,40 +210,70 @@
                      * Gets number items into collection
                      */
                     $scope.getCountProduct = function () {
-                        $categoryApiService.getCountProducts(getParams(true), {"id": $scope.categoryId}).$promise.then(function (response) {
-                            var result = response.result || [];
-                            $scope.totalItems = result;
-                            $scope.pages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
-                        });
+                        if ($scope.isShop) {
+                            $categoryApiService.getShopCountProducts(getParams(true), {}).$promise.then(function (response) {
+                                var result = response.result || [];
+                                $scope.totalItems = result;
+                                $scope.pages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
+                            });
+                        } else {
+                            $categoryApiService.getCountProducts(getParams(true), {"id": $scope.categoryId}).$promise.then(function (response) {
+                                var result = response.result || [];
+                                $scope.totalItems = result;
+                                $scope.pages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
+                            });
+                        }
+
                     };
 
                     /**
                      * Gets list of products
                      */
                     $scope.getProducts = function () {
-                        $categoryApiService.getProducts(getParams(), {"id": $scope.categoryId}).$promise.then(function (response) {
-                            var result = response.result || [];
-                            $scope.productsList = result;
-                        });
+                        if ($scope.isShop) {
+                            $categoryApiService.getShopProducts(getParams(), {}).$promise.then(function (response) {
+                                var result = response.result || [];
+                                $scope.productsList = result;
+                            });
+                        } else {
+                            $categoryApiService.getProductsByCategoryId(getParams(), {"id": $scope.categoryId}).$promise.then(function (response) {
+                                var result = response.result || [];
+                                $scope.productsList = result;
+                            });
+                        }
                     };
 
                     /**
                      * Gets layers for category
                      */
                     $scope.getLayered = function () {
-                        $categoryApiService.getLayered($location.search(), {
-                            "id": $scope.categoryId
-                        }).$promise.then(function (response) {
-                                var result = response.result || [];
-                                $scope.layered = result;
-                                for (var filter in $scope.layered) {
-                                    if ($scope.layered.hasOwnProperty(filter)) {
-                                        $scope.filters[filter] = {};
+                        if ($scope.isShop) {
+                            $categoryApiService.getShopLayered($location.search(), {}).$promise.then(function (response) {
+                                    var result = response.result || [];
+                                    $scope.layered = result;
+                                    for (var filter in $scope.layered) {
+                                        if ($scope.layered.hasOwnProperty(filter)) {
+                                            $scope.filters[filter] = {};
+                                        }
                                     }
+                                    setFilters();
                                 }
-                                setFilters();
-                            }
-                        );
+                            );
+                        } else {
+                            $categoryApiService.getLayered($location.search(), {
+                                "id": $scope.categoryId
+                            }).$promise.then(function (response) {
+                                    var result = response.result || [];
+                                    $scope.layered = result;
+                                    for (var filter in $scope.layered) {
+                                        if ($scope.layered.hasOwnProperty(filter)) {
+                                            $scope.filters[filter] = {};
+                                        }
+                                    }
+                                    setFilters();
+                                }
+                            );
+                        }
                     };
 
                     $scope.init = function () {
@@ -261,13 +293,15 @@
                         $scope.getProducts();
                         $scope.getCountProduct();
 
-                        /**
-                         * Gets category
-                         */
-                        $categoryApiService.load({"id": $scope.categoryId}).$promise.then(function (response) {
-                            var result = response.result || [];
-                            $scope.category = result;
-                        });
+                        if($scope.categoryId !== null) {
+                            /**
+                             * Gets category
+                             */
+                            $categoryApiService.load({"id": $scope.categoryId}).$promise.then(function (response) {
+                                var result = response.result || [];
+                                $scope.category = result;
+                            });
+                        }
 
                         initWatchers();
                     };
@@ -405,12 +439,25 @@
                     $scope.loadMore = function () {
                         $scope.clickMore = true;
                         $scope.currentPage += 1;
-                        $categoryApiService.getProducts(getParams(), {"id": $scope.categoryId}).$promise.then(
+                        $categoryApiService.getProductsByCategoryId(getParams(), {"id": $scope.categoryId}).$promise.then(
                             function (response) {
                                 var result = response.result || [];
                                 $scope.productsList = $scope.productsList.concat(result);
                             }
                         );
+                        if ($scope.isShop) {
+                            $categoryApiService.getShopProducts(getParams(), {}).$promise.then(function (response) {
+                                var result = response.result || [];
+                                $scope.productsList = $scope.productsList.concat(result);
+                            });
+                        } else {
+                            $categoryApiService.getProductsByCategoryId(getParams(), {"id": $scope.categoryId}).$promise.then(
+                                function (response) {
+                                    var result = response.result || [];
+                                    $scope.productsList = $scope.productsList.concat(result);
+                                }
+                            );
+                        }
                     };
 
                     $scope.search = function () {

@@ -2,9 +2,9 @@
 <div class="form-group">
 	<div class="input-group">
       	<div class="input-group-addon">
-      		<i class="glyphicon glyphicon-search" ng-click="search()"></i>
+      		<i class="glyphicon glyphicon-search" ng-click="searchProducts(searchText)" ng-enter="searchProducts(searchText)"></i>
       	</div>
-      	<input class="form-control" placeholder="Search..." ng-model="searchText">
+      	<input class="form-control" placeholder="Search..." ng-model="searchText" ng-enter="searchProducts(searchText)">
 	</div>
 </div>
 

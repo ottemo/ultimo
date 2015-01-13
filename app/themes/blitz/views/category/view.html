@@ -46,8 +46,8 @@
             <div class="search">
                 <div class="filter-search">
                     <form class="ng-pristine ng-valid">
-                        <input class="form-control ng-pristine ng-valid" type="text" ng-model="searchText" placeholder="Search...">
-                        <span class="glyphicon glyphicon-search" ng-click="search()"></span>
+                        <input class="form-control ng-pristine ng-valid" type="text" ng-model="searchText" ng-enter="searchProducts(searchText)" placeholder="Search...">
+                        <span class="glyphicon glyphicon-search" ng-click="searchProducts(searchText)"></span>
                         <div class="clear"></div>
                     </form>
                     <div class="nav-close" ng-click="closeBlock('search')"></div>

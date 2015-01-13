@@ -11,7 +11,7 @@
     
     <!-- products -->
     <div class="col-sm-12 col-lg-9 col-xs-12">
-        <div class="col-sm-4 col-lg-3 col-xs-12 product" ng-repeat="_item in productsList" ng-show="productsList.length">
+        <div class="col-sm-4 col-lg-3 col-xs-12 product" ng-repeat="_item in productsList | filter:searchText" ng-show="productsList.length">
 
             <!-- product desktop version with info -->
             <span class="thumbnail hidden-xs">

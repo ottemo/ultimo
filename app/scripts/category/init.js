@@ -12,26 +12,26 @@
              */
             angular.module.categoryModule = angular.module("categoryModule", ["ngRoute", "ngResource", "designModule"])
 
+                .constant("SEARCH_KEY_NAME", "search")
+                .constant("GENERAL_CATEGORY_URI", "/shop.html")
             /**
              *  Basic routing configuration
              */
-                .config(["$routeProvider", function ($routeProvider) {
+                .config(["$routeProvider", "GENERAL_CATEGORY_URI", function ($routeProvider, GENERAL_CATEGORY_URI) {
                     $routeProvider
                         .when("/category/:id", {
+                            "templateUrl": angular.getTheme("category/view.html"),
+                            "controller": "categoryListController"
+                        })
+                        .when(GENERAL_CATEGORY_URI, {
                             "templateUrl": angular.getTheme("category/view.html"),
                             "controller": "categoryListController"
                         });
                 }])
 
-                .run(["$designService", "$rootScope", function ($designService, $rootScope) {
+                .run(["$rootScope", "$categoryService", "SEARCH_KEY_NAME", "GENERAL_CATEGORY_URI", function ($rootScope, $categoryService) {
 
-                    /**
-                     *  Global functions you can use in any angular template
-                     */
-                    $rootScope.getTemplate = $designService.getTemplate;
-                    $rootScope.getTopPage = $designService.getTopPage;
-                    $rootScope.getCss = $designService.getCssList;
-                    $rootScope.getImg = $designService.getImage;
+                    $rootScope.searchProducts = $categoryService.searchProducts;
 
                 }]);
 
