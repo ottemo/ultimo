@@ -26,7 +26,7 @@
 
                         activePath = $location.path();
 
-                        $scope.visitorService.isLoggedIn().then(function(isLoggedIn){
+                        $scope.visitorService.isLoggedIn().then(function (isLoggedIn) {
                             if (!isLoggedIn) {
                                 $location.path("/");
                             }
@@ -62,7 +62,8 @@
                         var date, month, day;
 
                         date = new Date(str);
-                        month = date.getMonth().toString().length < 2 ? '0' + date.getMonth() : date.getMonth();
+                        var m = date.getMonth() + 1;
+                        month = m.toString().length < 2 ? '0' + m : m;
                         day = date.getDate().toString().length < 2 ? '0' + date.getDate() : date.getDate();
 
                         return date.getFullYear() + '/' + month + '/' + day;
