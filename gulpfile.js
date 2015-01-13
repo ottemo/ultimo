@@ -45,12 +45,26 @@
         lrPort: '35729'
     };
 
+    var env = process.env.NODE_ENV || 'development';
+
     themes = [];
-    DEV_FOUNDATION_URI = 'http://localhost:3000';
-    DEFAULT_ROOT = 'admin';
-    DEFAULT_PASS = 'admin';
-    FOUNDATION_URI = 'http://dev.ottemo.io:3000';
-    THEME_AS_DEFAULT = 'blitz';
+    
+    if (env === 'development') {
+        FOUNDATION_URI = 'http://localhost:3000';
+        DEFAULT_ROOT = 'admin';
+        DEFAULT_PASS = 'admin';
+        THEME_AS_DEFAULT = 'blitz';
+    } else if (env === 'staging') {
+        FOUNDATION_URI = 'http://dev.ottemo.io:3000';
+        DEFAULT_ROOT = 'admin';
+        DEFAULT_PASS = 'admin';
+        THEME_AS_DEFAULT = 'blitz';
+    } else if (env === 'production') {
+        FOUNDATION_URI = 'http://demo.ottemo.io:3000';
+        DEFAULT_ROOT = 'admin';
+        DEFAULT_PASS = 'admin';
+        THEME_AS_DEFAULT = 'blitz';
+    }
 
     configs = [
         {
@@ -430,8 +444,8 @@
             themesData += '}';
 
             setConfigValue("options", "themes.list.active", themesData);
-            setConfigValue("value", "general.app.foundation_url", DEV_FOUNDATION_URI);
-            initConfigs(DEV_FOUNDATION_URI);
+            setConfigValue("value", "general.app.foundation_url", FOUNDATION_URI);
+            initConfigs(FOUNDATION_URI);
         });
 
     });
