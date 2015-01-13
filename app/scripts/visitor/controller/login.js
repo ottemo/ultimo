@@ -175,7 +175,12 @@
                                 $anchorScroll();
                             }
                         });
+                    }
 
+                    if ($location.hash() !== "infoRegister") {
+                        $location.hash('infoRegister');
+                    } else {
+                        $anchorScroll();
                     }
                 };
 

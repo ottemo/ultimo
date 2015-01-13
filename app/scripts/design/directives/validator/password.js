@@ -7,7 +7,7 @@
         minLen = 8;
         minCountUppercase = 1;
         minCountLowercase = 1;
-        minCountNumbers = 3;
+        minCountNumbers = 1;
         minCountSymbols = 1;
 
         passwordNotValidLength = "password should have " + minLen + " char or more";
