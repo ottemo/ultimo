@@ -56,7 +56,7 @@
      * NODE_ENV: options are 'development', 'staging', 'production'
      * FOUNDATION_URI: set to the url/port for Foundation
      * DEFAULT_ROOT: set to administrator userid
-     * DEFAULT_PASS: set to the adminstrator password
+     * DEFAULT_PASS: set to the administrator password
      * THEME_AS_DEFAULT: set to the desired default theme
      */
     var env = process.env.NODE_ENV || 'development';
