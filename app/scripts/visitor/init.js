@@ -69,10 +69,12 @@
                 .run([
                     "$rootScope",
                     "$location",
+                    "$anchorScroll",
                     "$commonHeaderService",
                     "$visitorLoginService",
                     "$commonSidebarService",
-                    function ($rootScope, $location, $commonHeaderService, $visitorLoginService, $commonSidebarService) {
+                    function ($rootScope, $location, $anchorScroll, $commonHeaderService, $visitorLoginService, $commonSidebarService) {
+                        $anchorScroll.yOffset = 150;
                         $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
                             if (isLoggedIn) {
                                 $commonHeaderService.addMenuRightItem("/account", "My Account", "/account");
