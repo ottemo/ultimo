@@ -1,11 +1,12 @@
 (function () {
     'use strict';
 
-    var gulp, minifyHTML, concat, stripDebug, uglify, jshint, changed, imagemin, autoprefix, sass, rjs, minifyCSS,
+    var gulp, gutil, minifyHTML, concat, stripDebug, uglify, jshint, changed, imagemin, autoprefix, sass, rjs, minifyCSS,
         browserSync, pngquant, del, paths, host, themes, fs, request, recursive, configs, FOUNDATION_URI,
         THEME_AS_DEFAULT, DEV_FOUNDATION_URI, DEFAULT_ROOT, DEFAULT_PASS;
 
     gulp = require('gulp');
+    gutil = require('gulp-util');
     minifyHTML = require('gulp-minify-html');
     concat = require('gulp-concat');
     stripDebug = require('gulp-strip-debug');
@@ -47,7 +48,8 @@
 
     /* 
      * Get the current environment in use, 'development' is selected by default
-     * Use like this: 
+     * Set the following environment variables or call directly from the 
+     * commandline like this: 
      * 
      *     $ NODE_ENV=staging DEFAULT_ROOT=admin DEFAULT_PASS=admin gulp build
      *
@@ -70,6 +72,15 @@
     } else if (env === 'production') {
         FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://demo.ottemo.io:3000';
     }
+
+    gutil.log("Running Gulp with the following environment settings, (these must match your environment): ");
+    gutil.log("");
+    gutil.log("NODE_ENV = ", env);
+    gutil.log("FOUNDATION_URI = ", FOUNDATION_URI);
+    gutil.log("DEFAULT_ROOT = ", DEFAULT_ROOT);
+    gutil.log("DEFAULT_PASS = ", DEFAULT_PASS);
+    gutil.log("THEME_AS_DEFAULT = ", THEME_AS_DEFAULT);
+    gutil.log("");
 
     configs = [
         {
@@ -389,7 +400,7 @@
             gulp.start('requirejs');
             gulp.start('vendor');
             gulp.start('misc');
-            gulp.start('html');
+            // gulp.start('html');
             gulp.start('autoprefixer');
             gulp.start('imagemin');
         });
