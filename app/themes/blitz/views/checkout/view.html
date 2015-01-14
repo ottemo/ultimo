@@ -387,7 +387,7 @@
                     <form name="method.form">
 
                         <div class="form-group col-md-6 col-xs-12"
-                             ng-class="{ 'has-error' : (method.form.submited && method.form.number.$invalid) || (method.form.type.$invalid && !method.form.type.$pristine) }">
+                             ng-class="{ 'has-error' : (method.form.submited && method.form.type.$invalid) || (method.form.type.$invalid && !method.form.type.$pristine) }">
                             <label>Credit Card Type</label>
 
                             <select name="type" class="form-control input-lg" ng-model="method.cc.type" required ng-selected="c.Code == 'Visa' "
@@ -395,35 +395,46 @@
                                     ng-options="c.Code as c.Name for c in creditTypes">
                             </select>
 
-                            <p ng-show="(method.form.submited && method.form.number.$invalid) || (method.form.type.$invalid && !method.form.type.$pristine)"
+                            <p ng-show="(method.form.submited && method.form.type.$invalid) || (method.form.type.$invalid && !method.form.type.$pristine)"
                                class="help-block">This field is required.</p>
                         </div>
 
                         <div class="form-group col-md-6 col-xs-12"
-                             ng-class="{ 'has-error' : (method.form.submited && method.form.number.$invalid) || (!method.form.number.$invalidFormat || method.form.number.$invalid) && !method.form.number.$pristine }">
-                            <label for="paymentCardNumber">Number</label>
+                             ng-class="{ 'has-error' : (method.form.submited && method.form.number.$invalid) || ((!method.form.number.$invalidFormat || method.form.number.$invalid) && !method.form.number.$pristine) }">
+
+                            <label for="paymentCardNumber">Number *</label>
                             <input type="text" class="form-control input-lg" id="paymentCardNumber" ng-model="method.cc.number"
                                    placeholder="Credit Card Number" name="number" ng-change="validateCcNumber()" required>
 
-                            <p ng-show="(method.form.submited && method.form.number.$invalid) || (method.form.number.$invalid && !method.form.number.$pristine)"
+                            <p ng-show="method.form.submited && method.form.number.$error.required"
                                class="help-block">This field is required.</p>
-                            <p ng-show="!method.form.number.$invalidFormat && !method.form.number.$pristine"
+                            <p ng-if="!method.form.number.$error.required"
+                               ng-show="(method.form.submited && method.form.number.$invalid) || ((!method.form.number.$invalidFormat || method.form.number.$invalid) && !method.form.number.$pristine)"
                                class="help-block">Invalid number format.</p>
                         </div>
 
 
-                        <div class="form-group col-md-4 col-xs-12">
-                            <label for="paymentCvv">CVV</label>
+                        <div class="form-group col-md-4 col-xs-12"
+                             ng-class="{ 'has-error' : (method.form.submited && method.form.cvv.$invalid) || (method.form.cvv.$invalid && !method.form.cvv.$pristine) }">
+
+                            <label for="paymentCvv">CVV *</label>
                             <input type="text" class="form-control input-lg" id="paymentCvv" name="cvv" ng-model="method.cc.cvv"
-                                   placeholder="CVV">
+                                   placeholder="CVV" ot-len="3" ot-number="true" ot-positive="true" required />
+
+                            <p ng-show="method.form.submited && method.form.cvv.$error.required"
+                               class="help-block">This field is required.</p>
+                            <p ng-if="!method.form.cvv.$error.required"
+                               ng-show="(method.form.submited && method.form.cvv.$invalid) || (method.form.cvv.$invalid && !method.form.cvv.$pristine)"
+                               class="help-block">{{method.form.cvv.message}}</p>
                         </div>
 
                         <div class="form-group col-md-4 col-xs-12"
-                             ng-class="{ 'has-error' : (method.form.expire_month.$invalid) && !method.form.expire_month.$pristine }">
+                             ng-class="{ 'has-error' : method.form.submited && method.form.expire_month.$invalid }">
                             <label>Expiration Date</label>
 
-                            <select name="status form-control" class="form-control input-lg" ng-model="method.cc.expire_month" name="expire_month" required>
-                                <option value="1" selected="selected">01</option>
+                            <select class="form-control input-lg" ng-model="method.cc.expire_month" name="expire_month" required>
+                                <option></option>
+                                <option value="1">01</option>
                                 <option value="2">02</option>
                                 <option value="3">03</option>
                                 <option value="4">04</option>
@@ -437,15 +448,16 @@
                                 <option value="12">12</option>
                             </select>
 
-                            <p ng-show="method.form.expire_month.$invalid && !method.form.expire_month.$pristine"
+                            <p ng-show="method.form.submited && method.form.expire_month.$invalid"
                                class="help-block">This field is required.</p>
                         </div>
 
                         <div class="form-group col-md-4 col-xs-12"
-                             ng-class="{ 'has-error' : (method.form.expire_year.$invalid) && !method.form.expire_year.$pristine }">
+                             ng-class="{ 'has-error' : method.form.submited && method.form.expire_year.$invalid }">
                             <label>Expiration Year</label>
-                            <select class="form-control input-lg" name="status form-control" ng-model="method.cc.expire_year" name="expire_year" required>
-                                <option value="2014" selected="selected">2014</option>
+                            <select class="form-control input-lg" ng-model="method.cc.expire_year" name="expire_year" required>
+                                <option></option>
+                                <option value="2014">2014</option>
                                 <option value="2015">2015</option>
                                 <option value="2016">2016</option>
                                 <option value="2017">2017</option>
@@ -453,7 +465,7 @@
                                 <option value="2019">2019</option>
                             </select>
 
-                            <p ng-show="method.form.expire_year.$invalid && !method.form.expire_year.$pristine"
+                            <p ng-show="method.form.submited && method.form.expire_year.$invalid"
                                class="help-block">This field is required.</p>
                         </div>
                     </form>

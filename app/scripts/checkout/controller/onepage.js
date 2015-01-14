@@ -102,8 +102,9 @@
                                             var isCreditCard;
                                             isCreditCard = $scope.paymentType.split("_").indexOf("cc") > 0;
                                             if (isCreditCard) {
+                                                var payment = getPaymentInfo();
                                                 isValidSteps.paymentMethod = false;
-                                                if ($scope.validateCcNumber()) {
+                                                if (payment.method.form.$valid && $scope.validateCcNumber()) {
                                                     isValidSteps.paymentMethod = true;
                                                 }
                                             } else {
@@ -124,7 +125,7 @@
 
                             if (payment.method !== null && payment.method.Type.split("_").indexOf("cc") > 0) {
 
-                                isValidSteps.paymentMethod = $scope.validateCcNumber();
+                                isValidSteps.paymentMethod = payment.method.form.$valid && $scope.validateCcNumber();
                             }
 
                         }, true);

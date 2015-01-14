@@ -96,6 +96,7 @@
                                 typeof $scope.checkout["payment_method_code"] !== "undefined" &&
                                 $scope.checkout["payment_method_code"] !== "" &&
                                 $scope.checkout["payment_method_code"] !== null) {
+
                                 $checkoutService.savePaymentMethod({
                                     "method": $scope.checkout["payment_method_code"]
                                 }).then(
@@ -104,8 +105,9 @@
                                             var isCreditCard;
                                             isCreditCard = $scope.paymentType.split("_").indexOf("cc") > 0;
                                             if (isCreditCard) {
+                                                var payment = getPaymentInfo();
                                                 isValidSteps.paymentMethod = false;
-                                                if ($scope.validateCcNumber()) {
+                                                if (payment.method.form.$valid && $scope.validateCcNumber()) {
                                                     isValidSteps.paymentMethod = true;
                                                 }
                                             } else {
@@ -126,7 +128,7 @@
 
                             if (payment.method !== null && payment.method.Type.split("_").indexOf("cc") > 0) {
 
-                                isValidSteps.paymentMethod = $scope.validateCcNumber();
+                                isValidSteps.paymentMethod = payment.method.form.$valid && $scope.validateCcNumber();
                             }
 
                         }, true);
@@ -496,7 +498,9 @@
                                 if (typeof $scope.paymentType !== "undefined") {
                                     isCreditCard = $scope.paymentType.split("_").indexOf("cc") > 0;
                                     if (isCreditCard) {
-                                        if ($scope.validateCcNumber()) {
+                                        var payment = getPaymentInfo();
+                                        payment.method.form.submited = true;
+                                        if (payment.method.form.$valid && $scope.validateCcNumber()) {
                                             $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
                                         }
                                     }

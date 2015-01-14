@@ -12,18 +12,23 @@
                     require: '?ngModel',
                     link: function (scope, elem, attrs, ngModel) {
                         var params = elem.attr('ot-len').split(",");
-
                         var validate = function (value) {
                             var valid;
-                            if (typeof value !== "undefined" &&
-                                value.length < params[0]) {
+                            if (params.length === 1 && typeof value !== "undefined" && value.length !== parseInt(params[0], 10)) {
                                 ngModel.message = stringToShort;
                                 valid = false;
-                            } else if (typeof value !== "undefined" && value.length > params[1]) {
-                                ngModel.message = stringToLong;
-                                valid = false;
                             } else {
-                                valid = true;
+                                if (typeof value !== "undefined" &&
+                                    value.length < parseInt(params[0], 10)) {
+                                    ngModel.message = stringToShort;
+                                    valid = false;
+                                } else if (typeof value !== "undefined" && value.length > parseInt(params[1], 10)) {
+                                    ngModel.message = stringToLong;
+                                    valid = false;
+                                } else {
+                                    valid = true;
+                                    ngModel.message = "";
+                                }
                             }
 
                             ngModel.$setValidity('ot-len', valid);

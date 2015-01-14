@@ -48,33 +48,6 @@
                     return status;
                 };
 
-                var checkBirthday = function () {
-                    /*jshint maxcomplexity:6 */
-                    var statuses = [];
-                    var status = true;
-
-                    if(!$scope.needBirthdayCheck){
-                        return status;
-                    }
-
-                    for (var part in $scope.birthday) {
-                        if ($scope.birthday.hasOwnProperty(part)) {
-                            statuses.push(Boolean(Number($scope.birthday[part])));
-                        }
-                    }
-                    for (var i = 1, prev = statuses[0]; i < statuses.length; i += 1) {
-                        if (prev !== statuses[i]) {
-                            $scope.message = $commonUtilService.getMessage(null, "warning", "Birthday is not valid");
-                            status = false;
-                        }
-                    }
-
-                    $scope.register.birthday.$error.$invalid = !status;
-                    $scope.register.birthday.$error.$pristine = true;
-
-                    return status;
-                };
-
                 $scope.init = function () {
                     if (typeof verifyCode !== "undefined") {
                         $visitorApiService.validate({"key": verifyCode}).$promise.then(function (response) {
