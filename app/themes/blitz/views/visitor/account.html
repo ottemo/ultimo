@@ -48,7 +48,7 @@
                 <div class="form-group col-xs-12"
                      ng-class="{ 'has-error' : visitorForm.email.$invalid && !visitorForm.email.$pristine }">
                     <label for="visitorFormCity">Email*</label>
-                    <input type="text" class="form-control input-lg" id="visitorFormCity" placeholder="Email" name="email"
+                    <input type="email" class="form-control input-lg" id="visitorFormCity" placeholder="Email" name="email"
                            ng-model="visitor.email" required>
 
                     <p ng-show="visitorForm.email.$invalid && !visitorForm.email.$pristine"

@@ -20,7 +20,7 @@
                         <div class="form-group col-md-6"
                              ng-class="{ 'has-error' : (register.submitted && register.email.$invalid) || (register.email.$invalid && !register.email.$pristine) }">
                             <label for="email">Email Address *</label>
-                            <input id="email" type="text" class="form-control input-lg" name="email" ot-email="true" placeholder="Email"  ng-model="login.email" required />
+                            <input id="email" type="email" class="form-control input-lg" name="email" ot-email="true" placeholder="Email"  ng-model="login.email" required />
                             
                             <!-- error message -->
                             <p ng-show="(register.submitted && register.email.$error.required)"

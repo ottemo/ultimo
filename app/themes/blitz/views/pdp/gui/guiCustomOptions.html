@@ -7,9 +7,9 @@
                     <div ng-switch="option.type">
                         
                         <!-- Input -->
-                        <div ng-switch-when="field" class="form-group">
+                        <div ng-switch-when="field" class="form-group col-md-6 col-xs-12">
                             <label>{{option.label}}<span class="asterisk" ng-if="option.required">*</span></label>
-                            <input type="text" class="form-control" data-ng-model="parent.options[option.label]"
+                            <input type="text" class="form-control input-lg" data-ng-model="parent.options[option.label]"
                                    id="{{ option.label }}" name="{{option.label}}" ng-required="option.required"/>
 
                             <span data-ng-show="parent.submitted && customOptionsFormIn['\{\{field.name\}\}'].$error.required"
@@ -30,7 +30,7 @@
                         </div>
 
                         <!-- Multi-select -->
-                        <div ng-switch-when="multi_select" ng-init="setOptionName(option.label)">
+                        <div ng-switch-when="multi_select" class="form-group col-md-6 col-xs-12" ng-init="setOptionName(option.label)">
                             <label>{{option.label}}<span class="asterisk" ng-if="option.required">*</span></label>
 
                             <div ng-repeat="(key, opt) in option.options">
