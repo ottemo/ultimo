@@ -646,8 +646,6 @@
                             actionCustomerAdditionalInfo;
 
                         actionBillingAddress = function () {
-                            console.log($scope.billingAddress)
-                            console.log($scope.checkout)
                             if ($scope.billingAddress.$valid) {
                                 $scope.subBillingAddress = true;
                                 $checkoutService.saveBillingAddress($scope.checkout["billing_address"]).then(
@@ -664,8 +662,6 @@
                         };
 
                         actionShippingAddress = function () {
-                            console.log($scope.shippingAddress)
-                            console.log($scope.checkout)
                             if ($scope.shippingAddress.$valid) {
                                 $scope.subShippingAddress = true;
                                 if ((!Boolean($scope.checkout["shipping_address"]._id) && !$scope["isGuestCheckout"]) || $scope["isGuestCheckout"]) {
