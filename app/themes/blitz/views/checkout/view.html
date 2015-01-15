@@ -529,21 +529,26 @@
 
                 <!-- Name -->
                 <div class="form-group col-md-6">
-                    <label for="customeInputName">Name</label>
-                    <input type="text" class="form-control input-lg" id="customeInputName" placeholder="Name"
+                    <label for="customerInputName">Name</label>
+                    <input type="text" class="form-control input-lg" id="customerInputName" placeholder="Name"
                            name="name" ng-model="checkout.info.customer_name" ng-blur="saveByBlur('customerInfo')" />
                 </div>
 
                 <!-- Email -->
                 <div class="form-group col-md-6"
                      ng-class="{ 'has-error' : (subAdditionalInfo && customerInfo.email.$invalid) || (customerInfo.email.$invalid && !customerInfo.email.$pristine) }">
-                    <label for="customeInputEmail">Email*</label>
-                    <input type="text" class="form-control input-lg" id="customeInputEmail" placeholder="Email"
-                           name="email" ng-model="checkout.info.customer_email" required ng-blur="saveByBlur('customerInfo')" />
+                    <label for="customerInputEmail">Email*</label>
+                    <input type="text" class="form-control input-lg" id="customerInputEmail" placeholder="Email"
+                           ot-email="true" name="email" ng-model="checkout.info.customer_email" required />
 
-
-                    <p ng-show="(subAdditionalInfo && customerInfo.email.$invalid) || (customerInfo.email.$invalid && !customerInfo.email.$pristine)"
+                    <!-- error message -->
+                    <p ng-show="(subAdditionalInfo && customerInfo.email.$error.required)"
                        class="help-block">This field is required.</p>
+
+                    <p ng-if="!customerInfo.email.$error.required"
+                       ng-show="(subAdditionalInfo && customerInfo.email.$invalid) ||
+                            (customerInfo.email.$invalid && !customerInfo.email.$pristine)"
+                       class="help-block">{{customerInfo.email.message}}</p>
                 </div>
 
                 <div class="clearfix"></div>

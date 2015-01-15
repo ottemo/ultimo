@@ -4,7 +4,7 @@
     /**
      *
      */
-    define(["checkout/init"], function (checkoutModule) {
+    define(["angular", "checkout/init"], function (angular, checkoutModule) {
 
         checkoutModule
             .controller("checkoutAccordionController", [
@@ -30,7 +30,7 @@
                      * @return {promise}
                      */
                     info = function () {
-                        var defer, initAddressesData, initCurrentShippingMethod, initCurrentPaymentType;
+                        var defer, initAddressesData, initCurrentShippingMethod, initCurrentPaymentType, initAdditionalInfo;
 
                         defer = $q.defer();
 
@@ -60,18 +60,27 @@
 
                         initCurrentPaymentType = function () {
                             var item, i;
+
+                            if(typeof $scope.paymentMethods !== "undefined"){
+                                return true;
+                            }
+
                             $scope.paymentMethods = $checkoutService.getAllowedPaymentMethods();
                             for (i = 0; i < $scope.paymentMethods.length; i += 1) {
                                 item = $scope.paymentMethods[i];
                                 if ($scope.checkout["payment_method_code"] === item.Code) {
-
                                     $scope.paymentType = item.Type;
-
                                     $scope.paymentMethods[i].cc = {};
                                     $scope.paymentMethods[i].cc.type = "VI";
                                     $scope.paymentMethods[i].cc["expire_month"] = "12";
                                     $scope.paymentMethods[i].cc["expire_year"] = "2017";
                                 }
+                            }
+                        };
+
+                        initAdditionalInfo = function() {
+                            if ($scope.isGuestCheckout && typeof $scope.customerInfo !== "undefined") {
+                                isValidSteps.additionalInfo = $scope.customerInfo.$valid;
                             }
                         };
 
@@ -81,6 +90,7 @@
                                 initCurrentShippingMethod();
                                 initCurrentPaymentType();
                                 initAddressesData();
+                                initAdditionalInfo();
                                 defer.resolve(true);
                             }
                         );
@@ -207,7 +217,7 @@
 
                     enabledGuestCheckout = function () {
                         $scope.subAdditionalInfo = false;
-                        return true;
+                        return angular.appConfigValue("general.checkout.guest_checkout");
                     };
 
                     /**
@@ -446,7 +456,11 @@
                     };
 
                     $scope.back = function (step) {
-                        $("#" + step).slideUp("slow").parents('.panel').prev('.panel').find('.accordion').slideDown(500);
+                        if(step === "review" && !$scope["isGuestCheckout"]) {
+                            $("#" + step).slideUp("slow").parents('.panel').prev('.panel').prev('.panel').find('.accordion').slideDown(500);
+                        } else {
+                            $("#" + step).slideUp("slow").parents('.panel').prev('.panel').find('.accordion').slideDown(500);
+                        }
                     };
 
                     $scope.next = function (step) {
@@ -513,7 +527,6 @@
 
                         actionPaymentMethod = function () {
                             $scope.subPaymentForm = true;
-
                             if (isValidSteps[step]) {
                                 $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
                             } else {
@@ -613,7 +626,7 @@
                      */
                     $scope.save = function () {
                         var payment, isValid, sendPostForm;
-
+                        $scope.message = "";
                         isValid = function () {
                             var result, message, getErrorMsg;
                             message = "";
@@ -680,7 +693,6 @@
                         if (payment.form !== null && typeof payment.form !== "undefined") {
                             payment.form.submited = true;
                         }
-
                         info().then(function(){
                             var checkoutValid = isValid();
                             if (checkoutValid.status) {
@@ -688,9 +700,9 @@
                                 $('#processing').modal('show');
                                 $checkoutApiService.save().$promise.then(
                                     function (response) {
-                                        if (null !== payment.method && payment.method.Type === "remote" && response.result === "redirect") {
+                                        if (response.error === null && null !== payment.method && payment.method.Type === "remote" && response.result === "redirect") {
                                             w.location.replace(response.redirect);
-                                        } else if (null !== payment.method && payment.method.Type === "post_cc") {
+                                        } else if (response.error === null && null !== payment.method && payment.method.Type === "post_cc") {
                                             // Handler for direct post form for Authorize.net
                                             sendPostForm(payment.method, response);
                                         } else if (response.error === null) {
