@@ -89,10 +89,12 @@
                         $rootScope.$on('$locationChangeStart',function(evt, absNewUrl, absOldUrl) {
                             var prevUri = absOldUrl.substring($location.absUrl().length - $location.url().length);
                             var matches = /^([^?]+)\?*(.*)$/g.exec(prevUri);
-                            angular.module.visitorModule.back = {};
-                            angular.module.visitorModule.back.url = absOldUrl;
-                            angular.module.visitorModule.back.path = matches[1] || "";
-                            angular.module.visitorModule.back.params = matches[2] || "";
+                            if(matches !== null) {
+                                angular.module.visitorModule.back = {};
+                                angular.module.visitorModule.back.url = absOldUrl;
+                                angular.module.visitorModule.back.path = matches[1] || "";
+                                angular.module.visitorModule.back.params = matches[2] || "";
+                            }
                         });
                     }
                 ]

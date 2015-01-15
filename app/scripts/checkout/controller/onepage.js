@@ -16,7 +16,8 @@
                 "$commonUtilService",
                 "$checkoutService",
                 "$q",
-                function ($scope, $location, $checkoutApiService, $designImageService, $visitorLoginService, $cartService, $designStateService, $commonUtilService, $checkoutService, $q) {
+                "$interval",
+                function ($scope, $location, $checkoutApiService, $designImageService, $visitorLoginService, $cartService, $designStateService, $commonUtilService, $checkoutService, $q, $interval) {
 
                     var init, info, getDefaultAddress, getAddresses, enabledGuestCheckout,
                         getPaymentInfo, creditCartTypes, isValidSteps, initWatchers, defaultChoosePaymentMethod,
@@ -123,7 +124,7 @@
                         defaultSetPaymentData = $scope.$watch("paymentMethods", function () {
                             var payment = getPaymentInfo();
 
-                            if (payment.method !== null && payment.method.Type.split("_").indexOf("cc") > 0) {
+                            if ( payment.method !== null && typeof payment.method.form !== "undefined" && payment.method.Type.split("_").indexOf("cc") > 0) {
 
                                 isValidSteps.paymentMethod = payment.method.form.$valid && $scope.validateCcNumber();
                             }
@@ -232,39 +233,58 @@
                      * Gets checkout information
                      */
                     $scope.init = function () {
-                        if (!enabledGuestCheckout()) {
-                            $scope.isGuestCheckout = false;
-                            $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
-                                if (!isLoggedIn) {
-                                    $location.path("/");
-                                }
-                            });
-                        } else {
-                            $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
-                                if (!isLoggedIn) {
-                                    $scope.isGuestCheckout = true;
-                                } else {
-                                    $scope.isGuestCheckout = false;
-                                }
-                            });
-                        }
-
-                        $cartService.init().then(function () {
-                            if ($cartService.getCountItems() === 0) {
-                                $location.path("/");
+                        var stopWaiting, stop;
+                        stopWaiting = function() {
+                            if (typeof $checkoutService.getType() !== "undefined") {
+                                $interval.cancel(stop);
+                                stop = undefined;
                             }
-                        });
+                        };
+                        stop = $interval(function() {
+                            if(typeof $checkoutService.getType() !== "undefined") {
+                                stopWaiting();
+                                if ("accordion" === $checkoutService.getType()) {
+                                    $location.path($checkoutService.getUrl().replace("#/", ""));
+                                }
 
-                        if ("accordion" !== $checkoutService.getType()) {
-                            $location.path($checkoutService.getUrl().replace("#/", ""));
-                        }
-                        getAddresses();
+                                $cartService.init().then(function () {
+                                    if ($cartService.getCountItems() === 0) {
+                                        $location.path("/");
+                                    } else {
+                                        if (!enabledGuestCheckout()) {
+                                            $scope.isGuestCheckout = false;
+                                            $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
+                                                if (!isLoggedIn) {
+                                                    $location.path("/");
+                                                } else {
+                                                    getAddresses();
+                                                    $checkoutService.init().then(function () {
+                                                        init();
+                                                        $scope.shippingMethods = $checkoutService.getAllowedShippingMethods();
+                                                        initWatchers();
+                                                    });
+                                                }
+                                            });
+                                        } else {
+                                            $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
+                                                if (!isLoggedIn) {
+                                                    $scope.isGuestCheckout = true;
+                                                } else {
+                                                    getAddresses();
+                                                    $checkoutService.init().then(function () {
+                                                        init();
+                                                        $scope.shippingMethods = $checkoutService.getAllowedShippingMethods();
+                                                        initWatchers();
+                                                    });
+                                                    $scope.isGuestCheckout = false;
+                                                }
+                                            });
+                                        }
+                                    }
+                                });
+                            }
+                        }, 100);
 
-                        $checkoutService.init().then(function () {
-                            init();
-                            $scope.shippingMethods = $checkoutService.getAllowedShippingMethods();
-                            initWatchers();
-                        });
 
                         $scope.$emit("add-breadcrumbs", {"label": "My Account", "url": "/account"});
                         $scope.$emit("add-breadcrumbs", {"label": "Checkout", "url": "/checkout"});
