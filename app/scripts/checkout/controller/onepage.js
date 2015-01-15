@@ -270,14 +270,14 @@
                                                 if (!isLoggedIn) {
                                                     $scope.isGuestCheckout = true;
                                                 } else {
-                                                    getAddresses();
-                                                    $checkoutService.init().then(function () {
-                                                        init();
-                                                        $scope.shippingMethods = $checkoutService.getAllowedShippingMethods();
-                                                        initWatchers();
-                                                    });
                                                     $scope.isGuestCheckout = false;
                                                 }
+                                                getAddresses();
+                                                $checkoutService.init().then(function () {
+                                                    init();
+                                                    $scope.shippingMethods = $checkoutService.getAllowedShippingMethods();
+                                                    initWatchers();
+                                                });
                                             });
                                         }
                                     }

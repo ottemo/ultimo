@@ -270,17 +270,17 @@
                                                 if (!isLoggedIn) {
                                                     $scope.isGuestCheckout = true;
                                                 } else {
-                                                    getAddresses();
-                                                    $checkoutService.init().then(function () {
-                                                        init();
-                                                        $scope.shippingMethods = $checkoutService.getAllowedShippingMethods();
-                                                        var defaultMethod = $checkoutService.getMinimalCostShippingMethods();
-                                                        $scope.indexShippingMethod = defaultMethod.index;
-                                                        $scope.choiceShippingMethod($scope.indexShippingMethod);
-                                                        initWatchers();
-                                                    });
                                                     $scope.isGuestCheckout = false;
                                                 }
+                                                getAddresses();
+                                                $checkoutService.init().then(function () {
+                                                    init();
+                                                    $scope.shippingMethods = $checkoutService.getAllowedShippingMethods();
+                                                    var defaultMethod = $checkoutService.getMinimalCostShippingMethods();
+                                                    $scope.indexShippingMethod = defaultMethod.index;
+                                                    $scope.choiceShippingMethod($scope.indexShippingMethod);
+                                                    initWatchers();
+                                                });
                                             });
                                         }
                                     }
