@@ -35,7 +35,7 @@
     font-style: normal;
 }
 
-
+.help-block {display: none !important}
 .cat {
     width: 100%;
     overflow-x:hidden;
