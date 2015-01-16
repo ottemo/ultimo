@@ -727,6 +727,7 @@ header .navbar-toggle {
     display: inline-block;
     float: none;
     vertical-align: middle;
+    cursor: pointer;
 }
 .cat .product img {
     max-height: 300px;
