@@ -6,7 +6,6 @@
             '$scope',
             '$route',
             '$routeParams',
-            '$anchorScroll',
             '$visitorApiService',
             '$visitorLoginService',
             '$location',
@@ -14,7 +13,7 @@
             '$commonHeaderService',
             '$commonSidebarService',
             '$commonUtilService',
-            function ($scope, $route, $routeParams, $anchorScroll, $visitorApiService, $visitorLoginService, $location, $cartService, $commonHeaderService, $commonSidebarService, $commonUtilService) {
+            function ($scope, $route, $routeParams, $visitorApiService, $visitorLoginService, $location, $cartService, $commonHeaderService, $commonSidebarService, $commonUtilService) {
                 $scope.login = $visitorLoginService.getVisitor();
                 $scope.loginCredentials = {};
                 var verifyCode = $routeParams["validate"];
@@ -142,18 +141,7 @@
 
                                 $scope.register.submitted = false;
                             }
-                            if ($location.hash() !== "infoRegister") {
-                                $location.hash('infoRegister');
-                            } else {
-                                $anchorScroll();
-                            }
                         });
-                    }
-
-                    if ($location.hash() !== "infoRegister") {
-                        $location.hash('infoRegister');
-                    } else {
-                        $anchorScroll();
                     }
                 };
 
@@ -161,8 +149,10 @@
                     if (isPopUp) {
                         $route.reload();
                     } else {
+                        var path = angular.module.visitorModule.back.path.trim('/');
                         if (typeof angular.module.visitorModule.back.path !== "undefined" &&
-                            -1 === ['login', 'login.html', 'home', 'home.html', 'logout', 'logout.html'].indexOf(angular.module.visitorModule.back.path.trim('/'))) {
+                            "" !== path &&
+                            -1 === ['login', 'login.html', 'home', 'home.html', 'logout', 'logout.html'].indexOf(path)) {
 
                             $location.$$path = angular.module.visitorModule.back.path;
                             $location.$$url = angular.module.visitorModule.back.path;
