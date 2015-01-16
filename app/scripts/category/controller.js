@@ -40,13 +40,17 @@
                     };
 
                     addCategoryCrumbs = function () {
-                        var list, i, category;
 
-                        list = $categoryService.getChainCategories($scope.categoryId);
+                        if ($scope.isShop) {
+                            $scope.$emit("add-breadcrumbs", {"label": "Shop", "url": $location.path()});
+                        } else {
+                            var list, i, category;
+                            list = $categoryService.getChainCategories($scope.categoryId);
 
-                        for (i = 0; i < list.length; i += 1) {
-                            category = list[i];
-                            $scope.$emit("add-breadcrumbs", {"label": category.name, "url": $categoryService.getUrl(category.id)});
+                            for (i = 0; i < list.length; i += 1) {
+                                category = list[i];
+                                $scope.$emit("add-breadcrumbs", {"label": category.name, "url": $categoryService.getUrl(category.id)});
+                            }
                         }
                     };
 
