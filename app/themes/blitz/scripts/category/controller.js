@@ -17,20 +17,26 @@
                     "$visitorLoginService",
                     "$cartService",
                     "$pdpProductService",
-                    function ($scope, $controller, $location, $route, $routeParams, $categoryApiService, $designService, $designImageService, $categoryService, $visitorLoginService, $cartService, $pdpProductService) {
+                    "$commonUtilService",
+                    function ($scope, $controller, $location, $route, $routeParams, $categoryApiService, $designService,
+                              $designImageService, $categoryService, $visitorLoginService, $cartService, $pdpProductService,
+                              $commonUtilService) {
                         $controller('categoryListController', {$scope: $scope});
 
-                        $scope.addToCart = function (productId) {
+                        $scope.addToCart = function (product) {
                             var miniCart, addItem;
                             miniCart = $("#mini-cart");
 
 
                             addItem = function () {
-                                $cartService.add(productId, 1, $pdpProductService.getOptions()).then(
+                                $cartService.add(product._id, 1, $pdpProductService.getOptions()).then(
                                     function (response) {
-                                        if (response.error !== "") {
-                                            miniCart.toggleClass('active');
-                                            $location.path($pdpProductService.getUrl(productId).replace("#/", ""));
+                                        if (response.error !== null) {
+                                            if(miniCart.hasClass("active")){
+                                                miniCart.toggleClass('active');
+                                            }
+                                            $scope.openPopUp(product);
+                                            $scope.message = $commonUtilService.getMessage(response);
                                         } else {
                                             $pdpProductService.setOptions({});
                                             $("#quick-view").modal('hide');

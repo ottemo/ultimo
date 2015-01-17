@@ -51,28 +51,38 @@
                 </div>
 
                 <!--First name-->
-                <div class="form-group col-md-6">
-                    <label for="shippingInputFirstName">First Name</label>
+                <div class="form-group col-md-6"
+                     ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.first_name.$invalid) || (shippingAddress.first_name.$invalid && !shippingAddress.first_name.$pristine) }">
+                    <label for="shippingInputFirstName">First Name*</label>
                     <input type="text" class="form-control" id="shippingInputFirstName" placeholder="First name"
+                           name="first_name" required
                            ng-model="checkout.shipping_address.first_name" ng-disabled="checkout.shipping_address._id">
+
+                    <p ng-show="(subShippingAddress && shippingAddress.first_name.$invalid) || (shippingAddress.first_name.$invalid && !shippingAddress.first_name.$pristine)"
+                       class="help-block">This field is required.</p>
                 </div>
 
                 <!--Last name-->
-                <div class="form-group col-md-6">
-                    <label for="shippingInputLastName">Last Name</label>
+                <div class="form-group col-md-6"
+                     ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.last_name.$invalid) || (shippingAddress.last_name.$invalid && !shippingAddress.last_name.$pristine) }">
+                    <label for="shippingInputLastName">Last Name*</label>
                     <input type="text" class="form-control" id="shippingInputLastName" placeholder="Last name"
+                           name="last_name" required
                            ng-model="checkout.shipping_address.last_name" ng-disabled="checkout.shipping_address._id">
+
+                    <p ng-show="(subShippingAddress && shippingAddress.last_name.$invalid) || (shippingAddress.last_name.$invalid && !shippingAddress.last_name.$pristine)"
+                       class="help-block">This field is required.</p>
                 </div>
 
                 <!--Address 1-->
                 <div class="form-group col-md-6"
-                     ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.address1.$error.required) || (shippingAddress.address1.$invalid && !shippingAddress.address1.$pristine) }">
+                     ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.address1.$invalid) || (shippingAddress.address1.$invalid && !shippingAddress.address1.$pristine) }">
                     <label for="shippingInputAddress">Address 1*</label>
                     <input type="text" class="form-control" id="shippingInputAddress" placeholder="Address 1"
                            name="address1"
                            ng-model="checkout.shipping_address.address_line1" ng-disabled="checkout.shipping_address._id" required>
 
-                    <p ng-show="(subShippingAddress && shippingAddress.address1.$error.required) || (shippingAddress.address1.$invalid && !shippingAddress.address1.$pristine)"
+                    <p ng-show="(subShippingAddress && shippingAddress.address1.$invalid) || (shippingAddress.address1.$invalid && !shippingAddress.address1.$pristine)"
                        class="help-block">This field is required.</p>
                 </div>
                 <!--Address 2-->
@@ -84,43 +94,48 @@
 
                 <!--Zip code-->
                 <div class="form-group col-md-6"
-                     ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.zip_code.$error.required) || (shippingAddress.zip_code.$invalid && !shippingAddress.zip_code.$pristine) }">
+                     ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.zip_code.$invalid) || (shippingAddress.zip_code.$invalid && !shippingAddress.zip_code.$pristine) }">
                     <label for="shippingAddressZip">Zip / Postal Code*</label>
                     <input type="text" class="form-control" id="shippingAddressZip" placeholder="Zip / Postal Code"
-                           name="zip_code"
+                           name="zip_code" ot-regexp="/^\d{5}(?:[-\s]\d{4})?$/"
                            ng-model="checkout.shipping_address.zip_code" ng-disabled="checkout.shipping_address._id" required>
 
-                    <p ng-show="(subShippingAddress && shippingAddress.zip_code.$error.required) || (shippingAddress.zip_code.$invalid && !shippingAddress.zip_code.$pristine)"
+                    <p ng-show="(subShippingAddress && shippingAddress.zip_code.$error.required)"
                        class="help-block">This field is required.</p>
+
+                    <p ng-if="!shippingAddress.zip_code.$error.required"
+                       ng-show="(subShippingAddress && shippingAddress.zip_code.$invalid) ||
+                            (shippingAddress.zip_code.$invalid && !shippingAddress.zip_code.$pristine)"
+                       class="help-block">{{shippingAddress.zip_code.message}}</p>
                 </div>
 
                 <!--City-->
                 <div class="form-group col-md-6"
-                     ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.city.$error.required) || (shippingAddress.city.$invalid && !shippingAddress.city.$pristine) }">
+                     ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.city.$invalid) || (shippingAddress.city.$invalid && !shippingAddress.city.$pristine) }">
                     <label for="shippingAddressCity">City*</label>
                     <input type="text" class="form-control" id="shippingAddressCity" placeholder="City" name="city"
                            ng-model="checkout.shipping_address.city" ng-disabled="checkout.shipping_address._id" required>
 
-                    <p ng-show="(subShippingAddress && shippingAddress.city.$error.required) || (shippingAddress.city.$invalid && !shippingAddress.city.$pristine)"
+                    <p ng-show="(subShippingAddress && shippingAddress.city.$invalid) || (shippingAddress.city.$invalid && !shippingAddress.city.$pristine)"
                        class="help-block">This field is required.</p>
                 </div>
 
                 <!--Country-->
                 <div class="form-group col-md-6"
-                     ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.country.$error.required) || (shippingAddress.country.$invalid && !shippingAddress.country.$pristine) }">
+                     ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.country.$invalid) || (shippingAddress.country.$invalid && !shippingAddress.country.$pristine) }">
                     <label for="shippingAddressCity">Country*</label>
 
                     <select name="country" class="form-control" ng-model="checkout.shipping_address.country" required
                             ng-options="c.Code as c.Name for c in countries" ng-disabled="checkout.shipping_address._id">
                     </select>
 
-                    <p ng-show="(subShippingAddress && shippingAddress.country.$error.required) || (shippingAddress.country.$invalid && !shippingAddress.country.$pristine)"
+                    <p ng-show="(subShippingAddress && shippingAddress.country.$invalid) || (shippingAddress.country.$invalid && !shippingAddress.country.$pristine)"
                        class="help-block">This field is required.</p>
                 </div>
 
                 <!--State-->
                 <div class="form-group col-md-6"
-                     ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.state.$error.required) || (shippingAddress.state.$invalid && !shippingAddress.state.$pristine) }">
+                     ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.state.$invalid) || (shippingAddress.state.$invalid && !shippingAddress.state.$pristine) }">
                     <label for="shippingAddressCity">State / Province / Region*</label>
 
                     <div class="select">
@@ -129,15 +144,25 @@
                         </select>
                     </div>
 
-                    <p ng-show="(subShippingAddress && shippingAddress.state.$error.required) || (shippingAddress.state.$invalid && !shippingAddress.state.$pristine)"
+                    <p ng-show="(subShippingAddress && shippingAddress.state.$invalid) || (shippingAddress.state.$invalid && !shippingAddress.state.$pristine)"
                        class="help-block">This field is required.</p>
                 </div>
 
                 <!--Phone-->
-                <div class="form-group col-md-6">
-                    <label for="shippingAddressPhone">Phone</label>
-                    <input type="text" class="form-control" id="shippingAddressPhone" placeholder="Phone"
+                <div class="form-group col-md-6"
+                     ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.phone.$invalid) || (shippingAddress.phone.$invalid && !shippingAddress.phone.$pristine) }">
+                    <label for="shippingAddressPhone">Phone*</label>
+                    <input type="text" class="form-control" id="shippingAddressPhone" placeholder="Phone" name="phone"
+                           ot-regexp="/^(\+?\d{1,3})?[- ]?\(?(\d{3})\)?[- ]?((?:\d{3})-?(?:\d{2})-?(?:\d{2}))$/" required
                            ng-model="checkout.shipping_address.phone" ng-disabled="checkout.shipping_address._id">
+
+                    <p ng-show="(subShippingAddress && shippingAddress.phone.$error.required)"
+                       class="help-block">This field is required.</p>
+
+                    <p ng-if="!shippingAddress.phone.$error.required"
+                       ng-show="(subShippingAddress && shippingAddress.phone.$invalid) ||
+                            (shippingAddress.phone.$invalid && !shippingAddress.phone.$pristine)"
+                       class="help-block">{{shippingAddress.phone.message}}</p>
                 </div>
 
                 <div class="clearfix"></div>
@@ -190,29 +215,39 @@
                 </div>
 
                 <!--First name-->
-                <div class="form-group col-md-6">
-                    <label for="billingInputFirstName">First Name</label>
+                <div class="form-group col-md-6"
+                     ng-class="{ 'has-error' : (subBillingAddress && billingAddress.first_name.$invalid) || (billingAddress.first_name.$invalid && !billingAddress.first_name.$pristine) }">
+                    <label for="billingInputFirstName">First Name*</label>
                     <input type="text" class="form-control" id="billingInputFirstName" placeholder="First name"
-                           ng-model="checkout.billing_address.first_name" ng-disabled="checkout.billing_address._id || useAsBilling">
+                           name="first_name" required
+                           ng-model="checkout.billing_address.first_name" ng-disabled="billing_address._id || useAsBilling">
+
+                    <p ng-show="(subBillingAddress && billingAddress.first_name.$invalid) || (billingAddress.first_name.$invalid && !billingAddress.first_name.$pristine)"
+                       class="help-block">This field is required.</p>
                 </div>
 
                 <!--Last name-->
-                <div class="form-group col-md-6">
-                    <label for="billingInputLastName">Last Name</label>
+                <div class="form-group col-md-6"
+                     ng-class="{ 'has-error' : (subBillingAddress && billingAddress.last_name.$invalid) || (billingAddress.last_name.$invalid && !billingAddress.last_name.$pristine) }">
+                    <label for="billingInputLastName">Last Name*</label>
                     <input type="text" class="form-control" id="billingInputLastName" placeholder="Last name"
-                           ng-model="checkout.billing_address.last_name" ng-disabled="checkout.billing_address._id || useAsBilling">
+                           name="last_name" required
+                           ng-model="checkout.billing_address.last_name" ng-disabled="billing_address._id || useAsBilling">
+
+                    <p ng-show="(subBillingAddress && billingAddress.last_name.$invalid) || (billingAddress.last_name.$invalid && !billingAddress.last_name.$pristine)"
+                       class="help-block">This field is required.</p>
                 </div>
 
                 <!--Address 1-->
                 <div class="form-group col-md-6"
-                     ng-class="{ 'has-error' : (subBillingAddress && billingAddress.address1.$error.required) || (billingAddress.address1.$invalid && !billingAddress.address1.$pristine) }">
+                     ng-class="{ 'has-error' : (subBillingAddress && billingAddress.address1.$invalid) || (billingAddress.address1.$invalid && !billingAddress.address1.$pristine) }">
                     <label for="billingInputAddress">Address 1*</label>
                     <input type="text" class="form-control" id="billingInputAddress" placeholder="Address 1"
                            name="address1"
                            ng-model="checkout.billing_address.address_line1" ng-disabled="checkout.billing_address._id || useAsBilling"
                            required>
 
-                    <p ng-show="(subBillingAddress && billingAddress.address1.$error.required) || (billingAddress.address1.$invalid && !billingAddress.address1.$pristine)"
+                    <p ng-show="(subBillingAddress && billingAddress.address1.$invalid) || (billingAddress.address1.$invalid && !billingAddress.address1.$pristine)"
                        class="help-block">This field is required.</p>
                 </div>
 
@@ -225,31 +260,36 @@
 
                 <!--Zip code-->
                 <div class="form-group col-md-6"
-                     ng-class="{ 'has-error' : (subBillingAddress && billingAddress.zip_code.$error.required) || (billingAddress.zip_code.$invalid && !billingAddress.zip_code.$pristine) }">
+                     ng-class="{ 'has-error' : (subBillingAddress && billingAddress.zip_code.$invalid) || (billingAddress.zip_code.$invalid && !billingAddress.zip_code.$pristine) }">
                     <label for="billingAddressZip">Zip / Postal Code*</label>
                     <input type="text" class="form-control" id="billingAddressZip" placeholder="Zip / Postal Code"
-                           name="zip_code"
-                           ng-model="checkout.billing_address.zip_code" ng-disabled="checkout.billing_address._id || useAsBilling"
+                           name="zip_code" ot-regexp="/^\d{5}(?:[-\s]\d{4})?$/"
+                           ng-model="checkout.billing_address.zip_code" ng-disabled="billing_address._id || useAsBilling"
                            required>
 
-                    <p ng-show="(subBillingAddress && billingAddress.zip_code.$error.required) || (billingAddress.zip_code.$invalid && !billingAddress.zip_code.$pristine)"
+                    <p ng-show="(subBillingAddress && billingAddress.zip_code.$error.required)"
                        class="help-block">This field is required.</p>
+
+                    <p ng-if="!billingAddress.zip_code.$error.required"
+                       ng-show="(subBillingAddress && billingAddress.zip_code.$invalid) ||
+                            (billingAddress.zip_code.$invalid && !billingAddress.zip_code.$pristine)"
+                       class="help-block">{{billingAddress.zip_code.message}}</p>
                 </div>
 
                 <!--City-->
                 <div class="form-group col-md-6"
-                     ng-class="{ 'has-error' : (subBillingAddress && billingAddress.city.$error.required) || (billingAddress.city.$invalid && !billingAddress.city.$pristine) }">
+                     ng-class="{ 'has-error' : (subBillingAddress && billingAddress.city.$invalid) || (billingAddress.city.$invalid && !billingAddress.city.$pristine) }">
                     <label for="billingAddressCity">City*</label>
                     <input type="text" class="form-control" id="billingAddressCity" placeholder="City" name="city"
                            ng-model="checkout.billing_address.city" ng-disabled="checkout.billing_address._id || useAsBilling" required>
 
-                    <p ng-show="(subBillingAddress && billingAddress.city.$error.required) || (billingAddress.city.$invalid && !billingAddress.city.$pristine)"
+                    <p ng-show="(subBillingAddress && billingAddress.city.$invalid) || (billingAddress.city.$invalid && !billingAddress.city.$pristine)"
                        class="help-block">This field is required.</p>
                 </div>
 
                 <!--Country-->
                 <div class="form-group col-md-6"
-                     ng-class="{ 'has-error' : (subBillingAddress && billingAddress.country.$error.required) || (billingAddress.country.$invalid && !billingAddress.country.$pristine) }">
+                     ng-class="{ 'has-error' : (subBillingAddress && billingAddress.country.$invalid) || (billingAddress.country.$invalid && !billingAddress.country.$pristine) }">
                     <label for="billingAddressCity">Country*</label>
 
                     <select name="country" class="form-control" ng-model="checkout.billing_address.country" required
@@ -257,13 +297,13 @@
                             ng-disabled="checkout.billing_address._id || useAsBilling">
                     </select>
 
-                    <p ng-show="(subBillingAddress && billingAddress.country.$error.required) || (billingAddress.country.$invalid && !billingAddress.country.$pristine)"
+                    <p ng-show="(subBillingAddress && billingAddress.country.$invalid) || (billingAddress.country.$invalid && !billingAddress.country.$pristine)"
                        class="help-block">This field is required.</p>
                 </div>
 
                 <!--State-->
                 <div class="form-group col-md-6"
-                     ng-class="{ 'has-error' : (subBillingAddress && billingAddress.state.$error.required) || (billingAddress.state.$invalid && !billingAddress.state.$pristine) }">
+                     ng-class="{ 'has-error' : (subBillingAddress && billingAddress.state.$invalid) || (billingAddress.state.$invalid && !billingAddress.state.$pristine) }">
                     <label for="billingAddressCity">State / Province / Region*</label>
 
 
@@ -272,14 +312,25 @@
                             ng-disabled="checkout.billing_address._id || useAsBilling">
                     </select>
 
-                    <p ng-show="(subBillingAddress && billingAddress.state.$error.required) || (billingAddress.state.$invalid && !billingAddress.state.$pristine)"
+                    <p ng-show="(subBillingAddress && billingAddress.state.$invalid) || (billingAddress.state.$invalid && !billingAddress.state.$pristine)"
                        class="help-block">This field is required.</p>
                 </div>
+
                 <!--Phone-->
-                <div class="form-group col-md-6">
-                    <label for="billingAddressPhone">Phone</label>
-                    <input type="text" class="form-control" id="billingAddressPhone" placeholder="Phone"
-                           ng-model="checkout.billing_address.phone" ng-disabled="checkout.billing_address._id || useAsBilling">
+                <div class="form-group col-md-6"
+                     ng-class="{ 'has-error' : (subBillingAddress && billingAddress.phone.$invalid) || (billingAddress.phone.$invalid && !billingAddress.phone.$pristine) }">
+                    <label for="billingAddressPhone">Phone*</label>
+                    <input type="text" class="form-control" id="billingAddressPhone" placeholder="Phone" name="phone"
+                           ot-regexp="/^(\+?\d{1,3})?[- ]?\(?(\d{3})\)?[- ]?((?:\d{3})-?(?:\d{2})-?(?:\d{2}))$/" required
+                           ng-model="checkout.billing_address.phone" ng-disabled="checkout.billing_address._id">
+
+                    <p ng-show="(subBillingAddress && billingAddress.phone.$error.required)"
+                       class="help-block">This field is required.</p>
+
+                    <p ng-if="!billingAddress.phone.$error.required"
+                       ng-show="(subBillingAddress && billingAddress.phone.$invalid) ||
+                            (billingAddress.phone.$invalid && !billingAddress.phone.$pristine)"
+                       class="help-block">{{billingAddress.phone.message}}</p>
                 </div>
                 <div class="clearfix"></div>
 
@@ -366,7 +417,7 @@
                     <form name="method.form" novalidate>
 
                         <div class="form-group col-md-6 col-xs-12"
-                             ng-class="{ 'has-error' : method.form.type.$invalid && !method.form.type.$pristine }">
+                             ng-class="{ 'has-error' : (method.form.submited && method.form.type.$invalid) || (method.form.type.$invalid && !method.form.type.$pristine) }">
                             <label>Credit Card Type</label>
 
                             <select name="type" class="form-control" ng-model="method.cc.type" required ng-selected="c.Code == 'Visa' "
@@ -374,35 +425,46 @@
                                     ng-options="c.Code as c.Name for c in creditTypes">
                             </select>
 
-                            <p ng-show="method.form.type.$invalid && !method.form.type.$pristine"
+                            <p ng-show="(method.form.submited && method.form.type.$invalid) || (method.form.type.$invalid && !method.form.type.$pristine)"
                                class="help-block">This field is required.</p>
                         </div>
 
                         <div class="form-group col-md-6 col-xs-12"
-                             ng-class="{ 'has-error' : (!method.form.number.$invalidFormat || method.form.number.$invalid) && !method.form.number.$pristine }">
-                            <label for="paymentCardNumber">Number</label>
+                             ng-class="{ 'has-error' : (method.form.submited && method.form.number.$invalid) || ((!method.form.number.$invalidFormat || method.form.number.$invalid) && !method.form.number.$pristine) }">
+
+                            <label for="paymentCardNumber">Number *</label>
                             <input type="text" class="form-control" id="paymentCardNumber" ng-model="method.cc.number"
                                    placeholder="Credit Card Number" name="number" ng-change="validateCcNumber()" required>
 
-                            <p ng-show="method.form.number.$invalid && !method.form.number.$pristine"
+                            <p ng-show="method.form.submited && method.form.number.$error.required"
                                class="help-block">This field is required.</p>
-                            <p ng-show="!method.form.number.$invalidFormat && !method.form.number.$pristine"
+                            <p ng-if="!method.form.number.$error.required"
+                               ng-show="(method.form.submited && method.form.number.$invalid) || ((!method.form.number.$invalidFormat || method.form.number.$invalid) && !method.form.number.$pristine)"
                                class="help-block">Invalid number format.</p>
                         </div>
 
 
-                        <div class="form-group col-md-4 col-xs-12">
-                            <label for="paymentCvv">CVV</label>
+                        <div class="form-group col-md-4 col-xs-12"
+                             ng-class="{ 'has-error' : (method.form.submited && method.form.cvv.$invalid) || (method.form.cvv.$invalid && !method.form.cvv.$pristine) }">
+
+                            <label for="paymentCvv">CVV *</label>
                             <input type="text" class="form-control" id="paymentCvv" name="cvv" ng-model="method.cc.cvv"
-                                   placeholder="CVV">
+                                   placeholder="CVV" ot-len="3" ot-number="true" ot-positive="true" required />
+
+                            <p ng-show="method.form.submited && method.form.cvv.$error.required"
+                               class="help-block">This field is required.</p>
+                            <p ng-if="!method.form.cvv.$error.required"
+                               ng-show="(method.form.submited && method.form.cvv.$invalid) || (method.form.cvv.$invalid && !method.form.cvv.$pristine)"
+                               class="help-block">{{method.form.cvv.message}}</p>
                         </div>
 
                         <div class="form-group col-md-4 col-xs-12"
-                             ng-class="{ 'has-error' : (method.form.expire_month.$invalid) && !method.form.expire_month.$pristine }">
+                             ng-class="{ 'has-error' : method.form.submited && method.form.expire_month.$invalid }">
                             <label>Expiration Date</label>
 
-                            <select name="status form-control" class="form-control" ng-model="method.cc.expire_month" name="expire_month" required>
-                                <option value="1" selected="selected">01</option>
+                            <select class="form-control" ng-model="method.cc.expire_month" name="expire_month" required>
+                                <option></option>
+                                <option value="1">01</option>
                                 <option value="2">02</option>
                                 <option value="3">03</option>
                                 <option value="4">04</option>
@@ -416,15 +478,16 @@
                                 <option value="12">12</option>
                             </select>
 
-                            <p ng-show="method.form.expire_month.$invalid && !method.form.expire_month.$pristine"
+                            <p ng-show="method.form.submited && method.form.expire_month.$invalid"
                                class="help-block">This field is required.</p>
                         </div>
 
                         <div class="form-group col-md-4 col-xs-12"
-                             ng-class="{ 'has-error' : (method.form.expire_year.$invalid) && !method.form.expire_year.$pristine }">
+                             ng-class="{ 'has-error' : method.form.submited && method.form.expire_year.$invalid }">
                             <label>Expiration Year</label>
-                            <select class="form-control" name="status form-control" ng-model="method.cc.expire_year" name="expire_year" required>
-                                <option value="2014" selected="selected">2014</option>
+                            <select class="form-control" ng-model="method.cc.expire_year" name="expire_year" required>
+                                <option></option>
+                                <option value="2014">2014</option>
                                 <option value="2015">2015</option>
                                 <option value="2016">2016</option>
                                 <option value="2017">2017</option>
@@ -432,7 +495,7 @@
                                 <option value="2019">2019</option>
                             </select>
 
-                            <p ng-show="method.form.expire_year.$invalid && !method.form.expire_year.$pristine"
+                            <p ng-show="method.form.submited && method.form.expire_year.$invalid"
                                class="help-block">This field is required.</p>
                         </div>
                     </form>
@@ -522,21 +585,26 @@
 
                 <!-- Name -->
                 <div class="form-group col-md-6">
-                    <label for="customeInputName">Name</label>
-                    <input type="text" class="form-control input-lg" id="customeInputName" placeholder="Name"
+                    <label for="customerInputName">Name</label>
+                    <input type="text" class="form-control input-lg" id="customerInputName" placeholder="Name"
                            name="name" ng-model="checkout.info.customer_name" />
                 </div>
 
                 <!-- Email -->
                 <div class="form-group col-md-6"
-                     ng-class="{ 'has-error' : (subAdditionalInfo && customerInfo.email.$error.required) || (customerInfo.email.$invalid && !customerInfo.email.$pristine) }">
-                    <label for="customeInputEmail">Email*</label>
-                    <input type="text" class="form-control input-lg" id="customeInputEmail" placeholder="Email"
-                           name="email" ng-model="checkout.info.customer_email" required />
+                     ng-class="{ 'has-error' : (subAdditionalInfo && customerInfo.email.$invalid) || (customerInfo.email.$invalid && !customerInfo.email.$pristine) }">
+                    <label for="customerInputEmail">Email*</label>
+                    <input type="text" class="form-control" id="customerInputEmail" placeholder="Email"
+                           ot-email="true" name="email" ng-model="checkout.info.customer_email" required />
 
-
-                    <p ng-show="(subAdditionalInfo && customerInfo.email.$error.required) || (customerInfo.email.$invalid && !customerInfo.email.$pristine)"
+                    <!-- error message -->
+                    <p ng-show="(subAdditionalInfo && customerInfo.email.$error.required)"
                        class="help-block">This field is required.</p>
+
+                    <p ng-if="!customerInfo.email.$error.required"
+                       ng-show="(subAdditionalInfo && customerInfo.email.$invalid) ||
+                            (customerInfo.email.$invalid && !customerInfo.email.$pristine)"
+                       class="help-block">{{customerInfo.email.message}}</p>
                 </div>
             </form>
             <div class="clearfix"></div>

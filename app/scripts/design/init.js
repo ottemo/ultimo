@@ -53,8 +53,9 @@
                      *  Global functions you can use in any angular template
                      */
                     $rootScope.getTemplate = $designService.getTemplate;
-                    $rootScope.getCss = $designService.getCss;
                     $rootScope.getTopPage = $designService.getTopPage;
+                    $rootScope.getCss = $designService.getCssList;
+                    $rootScope.getImg = $designService.getImage;
 
                 }]);
 

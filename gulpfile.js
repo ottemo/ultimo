@@ -1,11 +1,12 @@
 (function () {
     'use strict';
 
-    var gulp, minifyHTML, concat, stripDebug, uglify, jshint, changed, imagemin, autoprefix, sass, rjs, minifyCSS,
+    var gulp, gutil, minifyHTML, concat, stripDebug, uglify, jshint, changed, imagemin, autoprefix, sass, rjs, minifyCSS,
         browserSync, pngquant, del, paths, host, themes, fs, request, recursive, configs, FOUNDATION_URI,
-        THEME_AS_DEFAULT, DEV_FOUNDATION_URI;
+        THEME_AS_DEFAULT, DEV_FOUNDATION_URI, DEFAULT_ROOT, DEFAULT_PASS;
 
     gulp = require('gulp');
+    gutil = require('gulp-util');
     minifyHTML = require('gulp-minify-html');
     concat = require('gulp-concat');
     stripDebug = require('gulp-strip-debug');
@@ -45,10 +46,50 @@
         lrPort: '35729'
     };
 
+    /* 
+     * Get the current environment in use, 'development' is selected by default
+     * Set the following environment variables or call directly from the 
+     * commandline like this: 
+     * 
+     *     $ NODE_ENV=staging DEFAULT_ROOT=admin DEFAULT_PASS=admin gulp build
+     *
+     * NODE_ENV: options are 'development', 'staging', 'production'
+     * FOUNDATION_URI: set to the url/port for Foundation
+     * DEFAULT_ROOT: set to administrator userid
+     * DEFAULT_PASS: set to the administrator password
+     * THEME_AS_DEFAULT: set to the desired default theme
+     */
+    var env = process.env.NODE_ENV || 'development';
+    DEFAULT_ROOT = process.env.DEFAULT_ROOT || 'admin';
+    DEFAULT_PASS = process.env.DEFAULT_PASS || 'admin';
+    THEME_AS_DEFAULT = process.env.THEME_AS_DEFAULT || 'blitz';
     themes = [];
-    DEV_FOUNDATION_URI = 'http://localhost:3000';
-    FOUNDATION_URI = 'http://dev.ottemo.io:3000';
-    THEME_AS_DEFAULT = 'blitz';
+    
+    if (env === 'development') {
+        DEV_FOUNDATION_URI = process.env.DEV_FOUNDATION_URI || 'http://localhost:3000';
+        FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://dev.ottemo.io:3000';
+    } else if (env === 'staging') {
+        DEV_FOUNDATION_URI = process.env.DEV_FOUNDATION_URI || 'http://localhost:3000';
+        FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://dev.ottemo.io:3000';
+    } else if (env === 'production') {
+        DEV_FOUNDATION_URI = process.env.DEV_FOUNDATION_URI || 'http://localhost:3000';
+        FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://demo.ottemo.io:3000';
+    }
+
+    gutil.log("Your db settings and your environment settings must match when");
+    gutil.log("running 'gulp build' or your templates will be blank.  Example");
+    gutil.log("");
+    gutil.log("    $ NODE_ENV=staging DEFAULT_ROOT=admin DEFAULT_PASS=admin FOUNDATION_URI=http://<server>:<port> gulp build");
+    gutil.log("");
+    gutil.log("Your current ENV settings are: ");
+    gutil.log("");
+    gutil.log("NODE_ENV = ", env);
+    gutil.log("DEV_FOUNDATION_URI = ", DEV_FOUNDATION_URI);
+    gutil.log("FOUNDATION_URI = ", FOUNDATION_URI);
+    gutil.log("DEFAULT_ROOT = ", DEFAULT_ROOT);
+    gutil.log("DEFAULT_PASS = ", DEFAULT_PASS);
+    gutil.log("THEME_AS_DEFAULT = ", THEME_AS_DEFAULT);
+    gutil.log("");
 
     configs = [
         {
@@ -136,10 +177,10 @@
 
     var setConfig = function (serverURI, config) {
         request({
-            uri: serverURI + '/config/unregister/' + config.path,
+            uri: serverURI + '/config/unregister/' + config.path + '?auth=' + DEFAULT_ROOT + ':' + DEFAULT_PASS,
             method: 'DELETE'
         }, function () {
-            var r = request.post(serverURI + '/config/register');
+            var r = request.post(serverURI + '/config/register?auth=' + DEFAULT_ROOT + ':' + DEFAULT_PASS);
             var form = r.form();
 
             form.append('path', config.path);
@@ -170,6 +211,7 @@
          */
         gulp.src('app/themes/**/scripts/**/*.js')
             .pipe(stripDebug())
+            .on('error', console.log.bind(console))
             .pipe(uglify({mangle: false}))
             .pipe(gulp.dest(paths.themeDest));
 
@@ -216,6 +258,7 @@
             }
         })
             .pipe(stripDebug())
+            .on('error', console.error.bind(console))
             .pipe(uglify({mangle: false}))
             .pipe(gulp.dest(paths.dist + '/scripts/'));
     });
@@ -359,7 +402,7 @@
             }
             themesData += '}';
 
-            setConfigValue("options","themes.list.active", themesData);
+            setConfigValue("options", "themes.list.active", themesData);
             setConfigValue("value", "general.app.foundation_url", FOUNDATION_URI);
             initConfigs(FOUNDATION_URI);
 

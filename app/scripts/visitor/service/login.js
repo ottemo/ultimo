@@ -154,7 +154,7 @@
                             sendingRequest = [];
                         } else if (sendRequestFlag) {
                             $visitorApiService.info().$promise.then(function (response) {
-                                if (response.error === '') {
+                                if (response.error === null) {
                                     loginId = response.result._id || '';
                                     if (loginId !== '') {
                                         isLoggedIn = true;

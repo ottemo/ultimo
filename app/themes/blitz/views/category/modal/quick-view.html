@@ -34,6 +34,8 @@
                     
                     <div class="clearfix"></div>
 
+                    <!-- error message -->
+                    <gui-message-manager item="message"></gui-message-manager>
 
                     <!-- view details -->
                     <a href="{{productService.getUrl(popupProduct._id)}}" id="details_pdp" class="btn btn-primary btn-lg">
@@ -41,7 +43,7 @@
                     </a>
                     
                     <!-- add to cart button -->
-                    <button class="btn btn-danger btn-lg" ng-click="addToCart(popupProduct._id)">
+                    <button class="btn btn-danger btn-lg" ng-click="addToCart(popupProduct)">
                         <span class="glyphicon glyphicon-shopping-cart"></span>
                         Add to cart
                     </button>

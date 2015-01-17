@@ -28,7 +28,7 @@
 
                     $cmsApiService.getPage({"id": $scope.pageId}).$promise.then(
                         function (response) {
-                            if (response.error === "") {
+                            if (response.error === null) {
                                 var result = response.result || getDefaultPage();
                                 $scope.page = result;
 

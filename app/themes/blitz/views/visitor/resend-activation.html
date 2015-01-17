@@ -20,7 +20,7 @@
                 <div class="form-group"
                      ng-class="{ 'has-error' : (invalidateForm.submitted && invalidateForm.email.$error.required) || (invalidateForm.email.$invalid && !invalidateForm.email.$pristine) }">
                     <label for="email">Email *</label>
-                    <input class="form-control input-lg" type="text" id="email" placeholder="email"
+                    <input class="form-control input-lg" type="email" id="email" placeholder="email"
                            ng-model="invalidateCredentials.email" name="email" required />
                     
                     <!-- error message -->

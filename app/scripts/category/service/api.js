@@ -14,10 +14,23 @@
                 var categoryBaseURL = REST_SERVER_URI + "/category";
 
                 return $resource(categoryBaseURL, {}, {
-                    "getProducts": {
+                    "getProductsByCategoryId": {
                         method: "GET",
                         params: { id: "@id" },
                         url: categoryBaseURL + "/product/list/:id"
+                    },
+                    "getShopProducts": {
+                        method: "GET",
+                        url: REST_SERVER_URI + "/product/shop"
+                    },
+                    "getShopLayered": {
+                        method: "GET",
+                        url: REST_SERVER_URI + "/product/shop/layers"
+                    },
+                    "getShopCountProducts": {
+                        method: "GET",
+                        params: { id: "@id" },
+                        url: REST_SERVER_URI + "/product/count/:id"
                     },
                     "load": {
                         method: "GET",

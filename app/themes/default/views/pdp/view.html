@@ -11,7 +11,7 @@
     </span>
 </div>-->
 
-<div class="text-center col-xs-12 col-lg-6">
+<div class="text-center col-xs-12 col-lg-6" ng-init="init()">
     <span class="col-sm-5 product" >
         <a class="img-zoom" href="{{getImage(imagesPath, img,'big')}}" ng-repeat="img in productImages" ng-if="img==product.default_image">
             <img class="slide-image" ng-src="{{getImage(imagesPath, img, 'thumb')}}" err-src="placeholder.png" alt=""/>
@@ -73,6 +73,15 @@
             <gui-custom-options item="product" object="this"></gui-custom-options>
         </div>
     </div>
+
+    <!-- Show available options -->
+    <div class="row" ng-init="getPublicAttributes()">
+        <div class="col-lg-3 col-md-4 form-group" ng-if="hasPublicAttributes">
+            <label>Available options</label>
+            <p ng-repeat="(name, value) in publicAttributes"><b>{{name}}</b>: {{value}}</p>
+        </div>
+    </div>
+
     <div class="clearfix"></div>
     <hr>
 

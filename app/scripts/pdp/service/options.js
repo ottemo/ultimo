@@ -7,9 +7,9 @@
     define(["pdp/init"], function (pdpModule) {
 
         pdpModule
-            /**
-             *  $pdpProductOptionsService applies the custom options for product
-             */
+        /**
+         *  $pdpProductOptionsService applies the custom options for product
+         */
             .service("$pdpProductOptionsService", [
                 "$commonUtilService",
                 function ($commonUtilService) {
@@ -100,11 +100,44 @@
                             return a.order < b.order;
                         });
 
-                        for (var i = 0; i < data.length; i += 1) {
-                            if ("percent" === data[i]["price_type"]) {
-                                product.price = parseFloat(product.price) + (parseFloat(product.price) * (parseFloat(data[i].price || 0) / 100));
+                        var getDeltaPrice = function (productPrice, optionPrice) {
+                            var result = {
+                                "operation": "+",
+                                "value": 0
+                            };
+
+                            var parts = /^([\+\-]?)([\d]*)([\%]?)$/.exec(optionPrice);
+                            if (parts === null) {
+                                return result;
+                            }
+
+                            result["operation"] = parts[1] || "=";
+
+                            if (parts[3] === "%") {
+                                result["value"] = parseFloat(productPrice * (parts[2] / 100));
                             } else {
-                                product.price = parseFloat(product.price) + parseFloat(data[i].price || 0);
+                                result["value"] = parseFloat(parts[2]);
+                            }
+                            if(isNaN(result["value"])){
+                                result["operation"] = null;
+                            }
+                            return result;
+                        };
+
+                        var startPrice = parseFloat(product.price);
+
+                        for (var i = 0; i < data.length; i += 1) {
+                            var deltaData = getDeltaPrice(startPrice, data[i].price);
+                            switch (deltaData["operation"]) {
+                                case "+":
+                                    product.price = parseFloat(product.price) + deltaData["value"];
+                                    break;
+                                case "-":
+                                    product.price = parseFloat(product.price) - deltaData["value"];
+                                    break;
+                                case "=":
+                                    product.price = deltaData["value"];
+                                    break;
                             }
                         }
                     };

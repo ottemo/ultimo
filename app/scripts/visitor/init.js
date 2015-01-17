@@ -67,10 +67,14 @@
                         });
                 }])
                 .run([
+                    "$rootScope",
+                    "$location",
+                    "$anchorScroll",
                     "$commonHeaderService",
                     "$visitorLoginService",
                     "$commonSidebarService",
-                    function ($commonHeaderService, $visitorLoginService, $commonSidebarService) {
+                    function ($rootScope, $location, $anchorScroll, $commonHeaderService, $visitorLoginService, $commonSidebarService) {
+                        $anchorScroll.yOffset = 150;
                         $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
                             if (isLoggedIn) {
                                 $commonHeaderService.addMenuRightItem("/account", "My Account", "/account");
@@ -82,6 +86,16 @@
                             }
                         });
 
+                        $rootScope.$on('$locationChangeStart',function(evt, absNewUrl, absOldUrl) {
+                            var prevUri = absOldUrl.substring($location.absUrl().length - $location.url().length);
+                            var matches = /^([^?]+)\?*(.*)$/g.exec(prevUri);
+                            if(matches !== null) {
+                                angular.module.visitorModule.back = {};
+                                angular.module.visitorModule.back.url = absOldUrl;
+                                angular.module.visitorModule.back.path = matches[1] || "";
+                                angular.module.visitorModule.back.params = matches[2] || "";
+                            }
+                        });
                     }
                 ]
             );

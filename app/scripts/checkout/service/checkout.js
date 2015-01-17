@@ -28,7 +28,8 @@
                         // Functions
                         var init, getUrl, getType, setType, update, loadShippingMethods, loadPaymentMethods,
                             saveBillingAddress, saveShippingAddress, saveShippingMethod, savePaymentMethod, discountApply, discountNeglect,
-                            getCheckout, getAllowedPaymentMethods, getAllowedShippingMethods, saveAdditionalInfo, getAllowedGuestCheckout;
+                            getCheckout, getAllowedPaymentMethods, getAllowedShippingMethods, saveAdditionalInfo, getAllowedGuestCheckout,
+                            getMinimalCostShippingMethods;
 
                         checkout = {};
                         defaultType = "accordion";
@@ -45,6 +46,7 @@
                                     allowedShippingMethods.push(
                                         {
                                             "Name": method.Name + " - " + rate.Name + " ($" + rate.Price + ")",
+                                            "Price": rate.Price,
                                             "Method": method.Code,
                                             "Rate": rate.Code
                                         }
@@ -55,7 +57,7 @@
                             $checkoutApiService.shippingMethod().$promise.then(function (response) {
                                 var i, method;
                                 allowedShippingMethods = [];
-                                if (response.error === "") {
+                                if (response.error === null) {
                                     for (i = 0; i < response.result.length; i += 1) {
                                         method = response.result[i] || [];
                                         if (method.Rates instanceof Array && method.Rates.length > 0) {
@@ -203,7 +205,7 @@
 
                             $checkoutApiService.discountNeglect(data).$promise.then(
                                 function (response) {
-                                    if (response.error === "") {
+                                    if (response.error === null) {
                                         defer.resolve(response);
                                     }
                                 }
@@ -257,6 +259,26 @@
                             return angular.appConfigValue("general.checkout.guest_checkout");
                         };
 
+                        getMinimalCostShippingMethods = function() {
+                            var result, currentMinPrice;
+
+                            for (var i = 0; i < allowedShippingMethods.length; i += 1){
+                                if(typeof currentMinPrice === "undefined"){
+                                    currentMinPrice = allowedShippingMethods[i].Price;
+                                    result = allowedShippingMethods[i];
+                                    result.index = i;
+                                    continue;
+                                }
+                                if(currentMinPrice > allowedShippingMethods[i].Price){
+                                    currentMinPrice = allowedShippingMethods[i].Price;
+                                    result = allowedShippingMethods[i];
+                                    result.index = i;
+                                }
+                            }
+
+                            return result;
+                        };
+
                         return {
                             "init": init,
                             "update": update,
@@ -274,7 +296,8 @@
                             "saveAdditionalInfo": saveAdditionalInfo,
                             "discountNeglect": discountNeglect,
                             "discountApply": discountApply,
-                            "getAllowedGuestCheckout": getAllowedGuestCheckout
+                            "getAllowedGuestCheckout": getAllowedGuestCheckout,
+                            "getMinimalCostShippingMethods": getMinimalCostShippingMethods
                         };
                     }
                 ]

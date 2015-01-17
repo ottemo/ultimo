@@ -16,12 +16,15 @@
              */
                 .service("$categoryService",
                 [
+                    "$location",
                     "$commonRewriteService",
-                    function ($commonRewriteService) {
+                    "SEARCH_KEY_NAME",
+                    "GENERAL_CATEGORY_URI",
+                    function ($location, $commonRewriteService, SEARCH_KEY_NAME, GENERAL_CATEGORY_URI) {
                         // Variables
                         var tree, type;
                         // Functions
-                        var getTree, setTree, getChainCategories, getSubMenuItem, getUrl;
+                        var getTree, setTree, getChainCategories, getSubMenuItem, getUrl, setFiltersInLocation, searchProducts;
                         type = "category";
 
                         getUrl = function (id) {
@@ -93,11 +96,28 @@
                             return list.reverse();
                         };
 
+                        setFiltersInLocation = function(path, filter) {
+                            // removes the  "#" in the begin string
+                            var pathClear = path.trim('#');
+
+                            $location.$$path = pathClear;
+                            $location.$$url = pathClear;
+
+                            $location.search(filter);
+                        };
+
+                        searchProducts = function (searchText) {
+                            var params = SEARCH_KEY_NAME + "=~" + searchText.replace(/\s/g, ',');
+                            setFiltersInLocation(GENERAL_CATEGORY_URI, params);
+                        };
+
                         return {
                             getUrl: getUrl,
                             setTree: setTree,
                             getTree: getTree,
-                            getChainCategories: getChainCategories
+                            getChainCategories: getChainCategories,
+                            setFiltersInLocation: setFiltersInLocation,
+                            searchProducts: searchProducts
                         };
                     }
                 ]
