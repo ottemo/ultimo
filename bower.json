@@ -1,6 +1,6 @@
 {
-  "name": "storefront",
-  "version": "0.9.018",
+  "name": "store-ng",
+  "version": "0.9.4-preview-b385",
   "dependencies": {
     "angular": "1.3.7",
     "json3": "~3.2.6",

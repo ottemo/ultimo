@@ -1,14 +1,14 @@
 {
-  "name": "Storefront",
-  "version": "0.9.018",
-  "description": "Ottemo Storefront",
+  "name": "Store-ng",
+  "version": "0.9.4-preview-b385",
+  "description": "Ottemo Store-ng",
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/ottemo/storefront.git"
+    "url": "git://github.com/ottemo/store-ng.git"
   },
   "devDependencies": {
     "bin-check": "^1.0.0",

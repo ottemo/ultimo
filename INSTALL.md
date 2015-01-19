@@ -15,17 +15,17 @@
     sudo add-apt-repository -y ppa:chris-lea/node.js
     sudo apt-get update
     sudo apt-get install nodejs
-   
-    sudo apt-get install git-flow
-    
-    npm install -g bower gulp 
 
-### Install Local Project Dependencies 
+    sudo apt-get install git-flow
+
+    npm install -g bower gulp
+
+### Install Local Project Dependencies
     cd <directory of your cloned repository>
     npm install
     bower install
 
-## Prerequisites 
+## Prerequisites
 
 Before you begin with this guide, there are a few steps that need to be completed first.
 
@@ -39,10 +39,10 @@ Ottemo supports three different deployment options: *Standalone (with Nginx), Do
 
 #### Create ottemo user
 ```
-adduser ottemo 
+adduser ottemo
 ```
 
-Give sudo privileges. 
+Give sudo privileges.
 
 ```
 visudo
@@ -54,8 +54,8 @@ Change to ottemo user: ```su ottemo```
 
 ```
 cd;
-mkdir dashboard
-mkdir storefront
+mkdir dash
+mkdir store-ng
 mkdir foundation
 ```
 
@@ -75,52 +75,53 @@ You may run ```sudo service nginx configtest``` to confirm that the copy worked 
 
 To create this file run ```sudo vim /etc/nginx/sites-available/ottemo```
 
-Copy this into the file opened with Vim (replace $IPADDRESS with the IP Address of your host):
+Copy this into the file opened with Vim (replace PATH-TO with your path and $IPADDRESS with the IP Address of your host):
+
 ```
 server {
     listen 8080;
- 
-    root /home/ottemo/dashboard/dist/;
+
+    root /PATH-TO/store-ng/dist/;
     index index.html;
-    
+
     location / {
         try_files $uri $uri/ =404;
     }
 }
- 
+
 server {
     listen 80;
- 
-    root /home/ottemo/dashboard/dist/;
+
+    root /PATH-TO/store-ng/dist/;
     index index.html;
-    
+
     server_name admin.$HOSTNAME;
- 
+
     location / {
         try_files $uri $uri/ =404;
     }
 }
- 
+
 server {
     listen 80;
- 
+
     server_name api.$HOSTNAME;
- 
+
     location / {
          proxy_pass http://127.0.0.1:3000;
     }
 }
- 
+
 server {
 	listen 80 default_server;
 	listen [::]:80 default_server ipv6only=on;
- 
- 	root /home/ottemo/storefront/dist;
+
+ 	root /home/ottemo/store-ng/dist;
 	index index.html index.htm;
- 
+
 	# Make site accessible from http://localhost/
 	server_name localhost;
- 
+
         location /foundation {
             proxy_pass http://127.0.0.1:3000;
         }
@@ -129,7 +130,7 @@ server {
 		# as directory, then fall back to displaying a 404.
 		try_files $uri $uri/ =404;
 	}
- 
+
 }
 ```
 
@@ -143,7 +144,7 @@ sudo rm default ../sites-available/default
 ```
 #### DNS Records
 
-You will need to create three A records in your DNS records for your domain name. 
+You will need to create three A records in your DNS records for your domain name.
 ```
 www            A    $IPADDRESS
 admin.         A    $IPADDRESS
@@ -156,29 +157,29 @@ api.           A    $IPADDRESS
 
 We are now ready to download and install Ottemo. To see what the latest stable version of the Ottemo Developer Edition is, head over to the community download page. In this example, the current release number was 0.1.0, but you should substitute that number for the latest release available to you. It is always recommended to use the latest version of Ottemo, as new releases often include important security updates in addition to new and improved features.
 
-Visit the [Downloads](http://ottemo.io/downloads.html) page and download the tarballs for the Ottemo stack: OttemoStorefront-0.x.x.gz, OttemoDashboard-0.x.x.gz, OttemoFoundation-0.x.x.gz
+Visit the [Downloads](http://ottemo.io/downloads.html) page and download the tarballs for the Ottemo stack: OttemoStore-ng-0.x.x.gz, OttemoDashboard-0.x.x.gz, OttemoFoundation-0.x.x.gz
 
 You may use ```wget``` to download the tarballs.
 ```
 cd ~
-wget http://www.ottemo.io/downloads/assets/0.1.0/OttemoStorefront-0.1.0.tar.gz
+wget http://www.ottemo.io/downloads/assets/0.1.0/OttemoStore-ng-0.1.0.tar.gz
 wget http://www.ottemo.io/downloads/assets/0.1.0/OttemoDashboard-0.1.0.tar.gz
 wget http://www.ottemo.io/downloads/assets/0.1.0/OttemoFoundation-0.1.0.tar.gz
 ```
 
 We can extract the archived files into the directories we created earlier and rebuild the Ottemo directories with tar:
 ```
-tar -xvzf OttemoStorefront-0.1.0.tar.gz storefront
+tar -xvzf OttemoStore-ng-0.1.0.tar.gz store-ng
 tar -xvzf OttemoDashboard-0.1.0.tar.gz dashboard
 tar -xvzf OttemoFoundation-0.1.0.tar.gz foundation
 ```
 
-If you would like to compile the latest build of OttemoStorefront and OttemoDashboard from source, please follow [these instructions](http://ottemo.io/howto/install.html#LINK).
+If you would like to compile the latest build of OttemoStore-ng and OttemoDashboard from source, please follow [these instructions](http://ottemo.io/howto/install.html#LINK).
 
 #### Build
-##### Build Ottemo Storefront
-We must first build the storefront and dashboard.
-Change directory to storefront: ```cd storefront```
+##### Build Ottemo Store-ng
+We must first build the store-ng and dashboard.
+Change directory to store-ng: ```cd store-ng```
 
 Use npm to install necessary node modules. Gulp and bower must be installed globally:
 ```
@@ -188,7 +189,7 @@ npm install -g gulp bower
 
 Install bower components: ```bower install```
 
-Use gulp to compile the Angular storefront for Ottemo:
+Use gulp to compile the Angular store-ng for Ottemo:
 ```
 gulp build FOUNDATION_URI=http://localhost:3000 THEME_AS_DEFAULT=default DEFAULT_ROOT=admin DEFAULT_PASS=admin
 ```
@@ -207,14 +208,14 @@ Install bower components: ```bower install```
 
 Use gulp to compile the Angular dashboard for Ottemo:```gulp build```
 
-These builds will create a directory named "dist" within 'storefront' and 'dashboard'.
+These builds will create a directory named "dist" within 'store-ng' and 'dashboard'.
 
 #### Configure Foundation
 ```
 cd ~/foundation
 ```
 
-#### Install 
+#### Install
 
 To install Ottemo we must create the init script:
 ```
@@ -287,6 +288,6 @@ sudo service ottemo start
 ```
 
 You may now browse to the IP address of your host in your browser to view Ottemo running on your host:
-```http://$HOSTNAME``` for Ottemo Storefront
-```http://admin.$HOSTNAME``` for Ottemo Dashboard
-```http://api.$HOSTNAME``` for Ottemo Foundation (API)
+```http://$HOSTNAME``` for Ottemo Store-ng
+```http://admin.$HOSTNAME``` for Ottemo Dash
+```http://api.$HOSTNAME``` for Ottemo Foundation (API Server)

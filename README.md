@@ -1,4 +1,4 @@
-Storefront
+store-ng
 ==========
 
 [![wercker status](https://app.wercker.com/status/e115eef144560e16f26e4979cec78b28/m "wercker status")](https://app.wercker.com/project/bykey/e115eef144560e16f26e4979cec78b28)
@@ -7,19 +7,19 @@ Storefront
 
     npm install -g bower gulp
 
-## Install Storefront packages
+## Install Store packages
 
     npm install
 
 ## Workflow with gulp
 
-### Build Storefront
-Builds project and moves files on the destination folder. Makes concat and minify css and JS. Compiling SASS to css. Checks JS on errors using JSHint
+### Build Store
+Builds project and moves files on the destination folder, dist, which is used for running the application in production. This step currently concats and minifies the CSS and JS, compiles LESS and runs JSHint.
 
     gulp build
 
 ### Run Client in Development Mode
-Moves images, bower-files into destination folder. Compiling sass. Adds watcher on a changes in css, scss, js, html and images. After a change these files browser automatically will be update  content
+Adds watcher on a changes in css, scss, js, html and images. Upon detection of a change the content is update and the browser is reloaded.
 
     gulp build && gulp dev
     or
@@ -36,7 +36,7 @@ Not configured yet. Will be realized in the near future
     gulp clean  // Removes the _dist_ folder
 
 ### How start with Vagrantfile
-Clone ottemo/storefront github repo. The vagrant instance will start with nginx available at http://localhost:8888 - You can use gulp serve as well and will be available at http://localhost:8080
+Clone ottemo/store-ng github repo. The vagrant instance will start with nginx available at http://localhost:8888 - You can use gulp serve as well and will find your web site at http://localhost:8080
 
     vagrant up
     vagrant ssh
@@ -47,13 +47,13 @@ Clone ottemo/storefront github repo. The vagrant instance will start with nginx 
 ### How to run ottemo/foundation docker container
 Pull latest image from docker hub
 
-    docker pull ottemo/storefront
+    docker pull ottemo/store-ng
 
 Start the container and access locally
 
-    docker run -d -p 80:80 -t ottemo/storefront
+    docker run -d -p 80:80 -t ottemo/store-ng
 
-## Contribute to Ottemo Storefront development
+## Contribute to Ottemo Store development
 We use git-flow internally, but if you do not like git-flow you may use [this document](CONTRIBUTOR.md) as an alternative.
 
 Below is a mini quickstart if you are new to git-flow and can't wait to jump into the code.
@@ -61,7 +61,7 @@ Below is a mini quickstart if you are new to git-flow and can't wait to jump int
 ### Initialize git-flow
 
     # fork or clone Ottemo Storefont like below
-    $ git clone https://github.com/ottemo/storefront.git
+    $ git clone https://github.com/ottemo/store-ng.git
 
     # init git-flow, (git-flow must be installed for your OS locally)
     $ git checkout master
@@ -82,7 +82,7 @@ Below is a mini quickstart if you are new to git-flow and can't wait to jump int
 
 ## License
 
-[MIT License](http://mit-license.org/) copyright 2014, Ottemo
+[MIT License](LICENSE.md) Copyright 2015, Ottemo, Inc
 
 ## Terms and Conditions
 
