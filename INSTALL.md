@@ -15,17 +15,17 @@
     sudo add-apt-repository -y ppa:chris-lea/node.js
     sudo apt-get update
     sudo apt-get install nodejs
-   
-    sudo apt-get install git-flow
-    
-    npm install -g bower gulp 
 
-### Install Local Project Dependencies 
+    sudo apt-get install git-flow
+
+    npm install -g bower gulp
+
+### Install Local Project Dependencies
     cd <directory of your cloned repository>
     npm install
     bower install
 
-## Prerequisites 
+## Prerequisites
 
 Before you begin with this guide, there are a few steps that need to be completed first.
 
@@ -39,10 +39,10 @@ Ottemo supports three different deployment options: *Standalone (with Nginx), Do
 
 #### Create ottemo user
 ```
-adduser ottemo 
+adduser ottemo
 ```
 
-Give sudo privileges. 
+Give sudo privileges.
 
 ```
 visudo
@@ -54,8 +54,8 @@ Change to ottemo user: ```su ottemo```
 
 ```
 cd;
-mkdir dashboard
-mkdir storefront
+mkdir dash
+mkdir store-ng
 mkdir foundation
 ```
 
@@ -75,52 +75,53 @@ You may run ```sudo service nginx configtest``` to confirm that the copy worked 
 
 To create this file run ```sudo vim /etc/nginx/sites-available/ottemo```
 
-Copy this into the file opened with Vim (replace $IPADDRESS with the IP Address of your host):
+Copy this into the file opened with Vim (replace PATH-TO with your path and $IPADDRESS with the IP Address of your host):
+
 ```
 server {
     listen 8080;
- 
-    root /home/ottemo/dashboard/dist/;
+
+    root /PATH-TO/store-ng/dist/;
     index index.html;
-    
+
     location / {
         try_files $uri $uri/ =404;
     }
 }
- 
+
 server {
     listen 80;
- 
-    root /home/ottemo/dashboard/dist/;
+
+    root /PATH-TO/store-ng/dist/;
     index index.html;
-    
+
     server_name admin.$HOSTNAME;
- 
+
     location / {
         try_files $uri $uri/ =404;
     }
 }
- 
+
 server {
     listen 80;
- 
+
     server_name api.$HOSTNAME;
- 
+
     location / {
          proxy_pass http://127.0.0.1:3000;
     }
 }
- 
+
 server {
 	listen 80 default_server;
 	listen [::]:80 default_server ipv6only=on;
- 
+
  	root /home/ottemo/storefront/dist;
 	index index.html index.htm;
- 
+
 	# Make site accessible from http://localhost/
 	server_name localhost;
- 
+
         location /foundation {
             proxy_pass http://127.0.0.1:3000;
         }
@@ -129,7 +130,7 @@ server {
 		# as directory, then fall back to displaying a 404.
 		try_files $uri $uri/ =404;
 	}
- 
+
 }
 ```
 
@@ -143,7 +144,7 @@ sudo rm default ../sites-available/default
 ```
 #### DNS Records
 
-You will need to create three A records in your DNS records for your domain name. 
+You will need to create three A records in your DNS records for your domain name.
 ```
 www            A    $IPADDRESS
 admin.         A    $IPADDRESS
@@ -214,7 +215,7 @@ These builds will create a directory named "dist" within 'storefront' and 'dashb
 cd ~/foundation
 ```
 
-#### Install 
+#### Install
 
 To install Ottemo we must create the init script:
 ```
@@ -287,6 +288,6 @@ sudo service ottemo start
 ```
 
 You may now browse to the IP address of your host in your browser to view Ottemo running on your host:
-```http://$HOSTNAME``` for Ottemo Storefront
-```http://admin.$HOSTNAME``` for Ottemo Dashboard
-```http://api.$HOSTNAME``` for Ottemo Foundation (API)
+```http://$HOSTNAME``` for Ottemo Store-ng
+```http://admin.$HOSTNAME``` for Ottemo Dash
+```http://api.$HOSTNAME``` for Ottemo Foundation (API Server)
