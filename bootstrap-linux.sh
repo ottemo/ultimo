@@ -22,7 +22,7 @@ bower install --allow-root
 npm install -g gulp
 gulp build
 rm -f /etc/nginx/sites-enabled/default
-cp -f ./config/storefront.conf /etc/nginx/conf.d/
-sed -i 's/\/opt\/storefront/\/vagrant/g' /etc/nginx/conf.d/storefront.conf
+cp -f ./config/store-ng.conf /etc/nginx/conf.d/
+sed -i 's/\/opt\/store-ng/\/vagrant/g' /etc/nginx/conf.d/store-ng.conf
 service nginx restart
 
