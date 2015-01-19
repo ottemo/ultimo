@@ -82,7 +82,7 @@ Below is a mini quickstart if you are new to git-flow and can't wait to jump int
 
 ## License
 
-[MIT License](http://mit-license.org/) copyright 2014, Ottemo
+[MIT License](LICENSE.md) Copyright 2015, Ottemo, Inc
 
 ## Terms and Conditions
 
