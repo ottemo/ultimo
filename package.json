@@ -1,6 +1,6 @@
 {
   "name": "Store-ng",
-  "version": "0.9.4-preview-b384",
+  "version": "0.9.4-preview-b385",
   "description": "Ottemo Store-ng",
   "main": "gulpfile.js",
   "scripts": {
