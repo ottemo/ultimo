@@ -116,7 +116,7 @@ server {
 	listen 80 default_server;
 	listen [::]:80 default_server ipv6only=on;
 
- 	root /home/ottemo/storefront/dist;
+ 	root /home/ottemo/store-ng/dist;
 	index index.html index.htm;
 
 	# Make site accessible from http://localhost/
@@ -157,29 +157,29 @@ api.           A    $IPADDRESS
 
 We are now ready to download and install Ottemo. To see what the latest stable version of the Ottemo Developer Edition is, head over to the community download page. In this example, the current release number was 0.1.0, but you should substitute that number for the latest release available to you. It is always recommended to use the latest version of Ottemo, as new releases often include important security updates in addition to new and improved features.
 
-Visit the [Downloads](http://ottemo.io/downloads.html) page and download the tarballs for the Ottemo stack: OttemoStorefront-0.x.x.gz, OttemoDashboard-0.x.x.gz, OttemoFoundation-0.x.x.gz
+Visit the [Downloads](http://ottemo.io/downloads.html) page and download the tarballs for the Ottemo stack: OttemoStore-ng-0.x.x.gz, OttemoDashboard-0.x.x.gz, OttemoFoundation-0.x.x.gz
 
 You may use ```wget``` to download the tarballs.
 ```
 cd ~
-wget http://www.ottemo.io/downloads/assets/0.1.0/OttemoStorefront-0.1.0.tar.gz
+wget http://www.ottemo.io/downloads/assets/0.1.0/OttemoStore-ng-0.1.0.tar.gz
 wget http://www.ottemo.io/downloads/assets/0.1.0/OttemoDashboard-0.1.0.tar.gz
 wget http://www.ottemo.io/downloads/assets/0.1.0/OttemoFoundation-0.1.0.tar.gz
 ```
 
 We can extract the archived files into the directories we created earlier and rebuild the Ottemo directories with tar:
 ```
-tar -xvzf OttemoStorefront-0.1.0.tar.gz storefront
+tar -xvzf OttemoStore-ng-0.1.0.tar.gz store-ng
 tar -xvzf OttemoDashboard-0.1.0.tar.gz dashboard
 tar -xvzf OttemoFoundation-0.1.0.tar.gz foundation
 ```
 
-If you would like to compile the latest build of OttemoStorefront and OttemoDashboard from source, please follow [these instructions](http://ottemo.io/howto/install.html#LINK).
+If you would like to compile the latest build of OttemoStore-ng and OttemoDashboard from source, please follow [these instructions](http://ottemo.io/howto/install.html#LINK).
 
 #### Build
-##### Build Ottemo Storefront
-We must first build the storefront and dashboard.
-Change directory to storefront: ```cd storefront```
+##### Build Ottemo Store-ng
+We must first build the store-ng and dashboard.
+Change directory to store-ng: ```cd store-ng```
 
 Use npm to install necessary node modules. Gulp and bower must be installed globally:
 ```
@@ -189,7 +189,7 @@ npm install -g gulp bower
 
 Install bower components: ```bower install```
 
-Use gulp to compile the Angular storefront for Ottemo:
+Use gulp to compile the Angular store-ng for Ottemo:
 ```
 gulp build FOUNDATION_URI=http://localhost:3000 THEME_AS_DEFAULT=default DEFAULT_ROOT=admin DEFAULT_PASS=admin
 ```
@@ -208,7 +208,7 @@ Install bower components: ```bower install```
 
 Use gulp to compile the Angular dashboard for Ottemo:```gulp build```
 
-These builds will create a directory named "dist" within 'storefront' and 'dashboard'.
+These builds will create a directory named "dist" within 'store-ng' and 'dashboard'.
 
 #### Configure Foundation
 ```

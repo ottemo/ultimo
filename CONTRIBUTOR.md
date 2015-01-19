@@ -2,7 +2,7 @@
 
 Fork the [Ottemo Store-ng project](http://github.com/ottemo/store-ng) on Github.
 
-For example, to fork the Ottemo Storefront repository, and set up a new local branch that tracks against develop in our github repository, from your shell you would run:
+For example, to fork the Ottemo Store repository, and set up a new local branch that tracks against develop in our github repository, from your shell you would run:
 
     > git clone https://github.com/ottemo/store-ng.git
     > cd store-ng

@@ -46,11 +46,11 @@
         lrPort: '35729'
     };
 
-    /* 
+    /*
      * Get the current environment in use, 'development' is selected by default
-     * Set the following environment variables or call directly from the 
-     * commandline like this: 
-     * 
+     * Set the following environment variables or call directly from the
+     * commandline like this:
+     *
      *     $ NODE_ENV=staging DEFAULT_ROOT=admin DEFAULT_PASS=admin gulp build
      *
      * NODE_ENV: options are 'development', 'staging', 'production'
@@ -64,7 +64,7 @@
     DEFAULT_PASS = process.env.DEFAULT_PASS || 'admin';
     THEME_AS_DEFAULT = process.env.THEME_AS_DEFAULT || 'blitz';
     themes = [];
-    
+
     if (env === 'development') {
         DEV_FOUNDATION_URI = process.env.DEV_FOUNDATION_URI || 'http://localhost:3000';
         FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://dev.ottemo.io:3000';
@@ -126,7 +126,7 @@
             "editor": "themes_manager",
             "options": "",
             "label": "Active theme",
-            "description": "Active theme on storefront"
+            "description": "Active theme on store-ng"
         },
         {
             "path": "general.app.login.facebook.appId",
@@ -222,7 +222,7 @@
             .pipe(gulp.dest(paths.themeDest));
     });
 
-    // copy vendor js 
+    // copy vendor js
     gulp.task('vendor', ['clean', 'vendorTheme'], function () {
         return gulp.src(paths.vendor)
             .pipe(gulp.dest(paths.dist + '/lib'));
@@ -234,7 +234,7 @@
             .pipe(gulp.dest(paths.dist));
     });
 
-    // Run JSHint 
+    // Run JSHint
     gulp.task('jshint', function () {
         gulp.src(paths.js)
             .pipe(jshint())
