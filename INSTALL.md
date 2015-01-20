@@ -31,7 +31,7 @@ Before you begin with this guide, there are a few steps that need to be complete
 
 Due to the demands of processing Ottemo operations, it is recommended that you install Ottemo on a VPS with at least 1 GB of RAM. This will ensure that all of the software involved in managing the store will have enough memory to work.
 
-Ottemo supports three different deployment options: *Standalone (with Nginx), Docker (Linux Containers), or *Vagrant (Virtual Boxes)*
+Ottemo supports three different deployment options: *Standalone (with Nginx) or Docker (Linux Containers), or *Vagrant (Virtual Boxes)*
 
 ## Standalone Installation (Self Host)
 
@@ -134,7 +134,6 @@ server {
 }
 ```
 
-Alternatively, you may run ```wget http://ottemo.io/downloads/assets/nginx.conf``` and then move it with ```sudo mv nginx.conf /etc/nginx/sites-available/ottemo```.
 
 To enable the configuration you will need to symlink it to sites-available with and remove the default file so it uses our configuration:
 ```
@@ -155,26 +154,15 @@ api.           A    $IPADDRESS
 
 #### Download Ottemo
 
-We are now ready to download and install Ottemo. To see what the latest stable version of the Ottemo Developer Edition is, head over to the community download page. In this example, the current release number was 0.1.0, but you should substitute that number for the latest release available to you. It is always recommended to use the latest version of Ottemo, as new releases often include important security updates in addition to new and improved features.
+We are now ready to download and install Ottemo. To see what the latest stable version of the Ottemo Developer Edition is, head over to our source code on [GitHub](http://github.com/ottemo). 
 
-Visit the [Downloads](http://ottemo.io/downloads.html) page and download the tarballs for the Ottemo stack: OttemoStore-ng-0.x.x.gz, OttemoDashboard-0.x.x.gz, OttemoFoundation-0.x.x.gz
 
-You may use ```wget``` to download the tarballs.
 ```
 cd ~
-wget http://www.ottemo.io/downloads/assets/0.1.0/OttemoStore-ng-0.1.0.tar.gz
-wget http://www.ottemo.io/downloads/assets/0.1.0/OttemoDashboard-0.1.0.tar.gz
-wget http://www.ottemo.io/downloads/assets/0.1.0/OttemoFoundation-0.1.0.tar.gz
+git clone https://github.com/ottemo/store-ng store-ng
+git clone https://github.com/ottemo/dash dashboard
 ```
 
-We can extract the archived files into the directories we created earlier and rebuild the Ottemo directories with tar:
-```
-tar -xvzf OttemoStore-ng-0.1.0.tar.gz store-ng
-tar -xvzf OttemoDashboard-0.1.0.tar.gz dashboard
-tar -xvzf OttemoFoundation-0.1.0.tar.gz foundation
-```
-
-If you would like to compile the latest build of OttemoStore-ng and OttemoDashboard from source, please follow [these instructions](http://ottemo.io/howto/install.html#LINK).
 
 #### Build
 ##### Build Ottemo Store-ng
@@ -211,11 +199,30 @@ Use gulp to compile the Angular dashboard for Ottemo:```gulp build```
 These builds will create a directory named "dist" within 'store-ng' and 'dashboard'.
 
 #### Configure Foundation
+
+##### Download
+
+Foundation, written in Golang, comes pre-compiled and is available on [GitHub](http://github.com/ottemo/foundation-stable).
+
+Head over to the [releases](https://github.com/ottemo/foundation-stable/releases) page to download the specific build for your operating system. 
+
+For Ubuntu we will need the 64-bit build, so you may also download it by running the following command: 
+
+(replace $VERSION with current version): 0.9.4
+
 ```
 cd ~/foundation
+wget https://github.com/ottemo/foundation-stable/releases/download/$VERSION-preview/OttemoFoundation-$VERSION-preview-linux-amd64.tar.gz
 ```
 
-#### Install
+Then you must extract the foundation executable along with the sample configuration file to ```~/foundation```:
+```
+tar xvzf OttemoFoundation-$VERSION-preview-linux-amd64.tar.gz
+```
+
+Note: The sample configuration file will by default connect to sqlite and create a database in /home/ottemo/foundation/ottemo.db
+
+#### Install Foundation (Ottemo)
 
 To install Ottemo we must create the init script:
 ```
