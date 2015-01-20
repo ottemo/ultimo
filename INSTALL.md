@@ -178,8 +178,14 @@ npm install -g gulp bower
 Install bower components: ```bower install```
 
 Use gulp to compile the Angular store-ng for Ottemo:
+Note: You must first set a few environment variables.
+
 ```
-gulp build FOUNDATION_URI=http://localhost:3000 THEME_AS_DEFAULT=default DEFAULT_ROOT=admin DEFAULT_PASS=admin
+export FOUNDATION_URI=http://localhost:3000
+export THEME_AS_DEFUALT=default
+export DEFAULT_PASS=admin
+export DEFAULT_ROOT=admin
+gulp build 
 ```
 You may set the defaultRoot and defaultPass to your own preference.
 
