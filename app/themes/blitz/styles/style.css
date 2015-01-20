@@ -1787,8 +1787,7 @@ progress::-moz-progress-bar {
     filter: progid:DXImageTransform.Microsoft.Shadow(Strength=7, Direction=90, Color=rgba(0,0,0,0.2)); /*IE 5.5-7*/
     z-index: 3050;
     display: block;
-    padding-top: 20px;
-    padding: 20px;
+    overflow: hidden;
     -webkit-transition: all 0.5s ease;/* Safari 3.2+, Chrome */
     -moz-transition: all 0.5s ease;/* Firefox 4-15 */
     -o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
@@ -1800,6 +1799,17 @@ progress::-moz-progress-bar {
     -moz-transition: all 0.5s ease;/* Firefox 4-15 */
     -o-transition: all 0.5s ease;/* Opera 10.5-12.00 */
     transition: all 0.5s ease;/* Firefox 16+, Opera 12.50+ */
+}
+#mini-cart > div {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    padding: 0;
+    right: -17px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 20px;
 }
 #mini-cart h3 {
     color: #484848;
