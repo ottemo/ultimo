@@ -31,7 +31,7 @@ Before you begin with this guide, there are a few steps that need to be complete
 
 Due to the demands of processing Ottemo operations, it is recommended that you install Ottemo on a VPS with at least 1 GB of RAM. This will ensure that all of the software involved in managing the store will have enough memory to work.
 
-Ottemo supports three different deployment options: *Standalone (with Nginx), Docker (Linux Containers), or *Vagrant (Virtual Boxes)*
+Ottemo supports three different deployment options: *Standalone (with Nginx) or Docker (Linux Containers), or *Vagrant (Virtual Boxes)*
 
 ## Standalone Installation (Self Host)
 
@@ -134,7 +134,6 @@ server {
 }
 ```
 
-Alternatively, you may run ```wget http://ottemo.io/downloads/assets/nginx.conf``` and then move it with ```sudo mv nginx.conf /etc/nginx/sites-available/ottemo```.
 
 To enable the configuration you will need to symlink it to sites-available with and remove the default file so it uses our configuration:
 ```
@@ -200,11 +199,30 @@ Use gulp to compile the Angular dashboard for Ottemo:```gulp build```
 These builds will create a directory named "dist" within 'store-ng' and 'dashboard'.
 
 #### Configure Foundation
+
+##### Download
+
+Foundation, written in Golang, comes pre-compiled and is available on [GitHub](http://github.com/ottemo/foundation-stable).
+
+Head over to the [releases](https://github.com/ottemo/foundation-stable/releases) page to download the specific build for your operating system. 
+
+For Ubuntu we will need the 64-bit build, so you may also download it by running the following command: 
+
+(replace $VERSION with current version): 0.9.4
+
 ```
 cd ~/foundation
+wget https://github.com/ottemo/foundation-stable/releases/download/$VERSION-preview/OttemoFoundation-$VERSION-preview-linux-amd64.tar.gz
 ```
 
-#### Install
+Then you must extract the foundation executable along with the sample configuration file to ```~/foundation```:
+```
+tar xvzf OttemoFoundation-$VERSION-preview-linux-amd64.tar.gz
+```
+
+Note: The sample configuration file will by default connect to sqlite and create a database in /home/ottemo/foundation/ottemo.db
+
+#### Install Foundation (Ottemo)
 
 To install Ottemo we must create the init script:
 ```
