@@ -9,8 +9,6 @@
                     cursorcolor: "#484848",
                     cursoropacitymin: "0.4"
                 });
-
-                $("html").niceScroll();
         },1000)
 
         // toggle for left sidebar to see all items
