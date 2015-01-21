@@ -218,6 +218,8 @@ wget https://github.com/ottemo/foundation-stable/releases/download/$VERSION-prev
 Then you must extract the foundation executable along with the sample configuration file to ```~/foundation```:
 ```
 tar xvzf OttemoFoundation-$VERSION-preview-linux-amd64.tar.gz
+cp release/foundation .
+cp release/ottemo.iml .
 ```
 
 Note: The sample configuration file will by default connect to sqlite and create a database in /home/ottemo/foundation/ottemo.db
