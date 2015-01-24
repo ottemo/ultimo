@@ -3,7 +3,7 @@ store-ng
 
 [![wercker status](https://app.wercker.com/status/e115eef144560e16f26e4979cec78b28/m "wercker status")](https://app.wercker.com/project/bykey/e115eef144560e16f26e4979cec78b28)
 
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ottemo/store-ng?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[Link to HipChat Room for Support](https://www.hipchat.com/gWgE1EkYF)
 
 ## Install Bower and Gulp
 
