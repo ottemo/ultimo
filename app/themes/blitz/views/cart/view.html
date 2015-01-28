@@ -56,14 +56,14 @@
             <div class="col-xs-12 col-sm-7">
                 <div class="input-group qty">
                     <span class="input-group-btn">
-                        <button class="btn btn-primary" type="button" ng-click="changeQty(item,'up')" ng-blur="update(item.idx, item.qty)">
+                        <button class="btn btn-primary" type="button" ng-click="changeQty(item,'up');update(item.idx, item.qty)">
                             +
                         </button>
                     </span>
                     <input placeholder="Qtl" type="text" class="form-control text-center" value="{{item.qty}}"
-                                           ng-model="item.qty" ng-blur="update(item.idx, item.qty)">
+                                           ng-model="item.qty" ng-change="update(item.idx, item.qty)" />
                     <span class="input-group-btn">
-                        <button class="btn btn-primary" type="button"  ng-click="changeQty(item,'down')" ng-blur="update(item.idx, item.qty)">
+                        <button class="btn btn-primary" type="button" ng-click="changeQty(item,'down');update(item.idx, item.qty)">
                             -
                         </button>
                     </span>

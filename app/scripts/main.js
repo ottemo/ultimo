@@ -16,9 +16,10 @@ require.config({
         "angular-route": "../lib/angular/angular-route.min",
         "angular-resource": "../lib/angular/angular-resource.min",
         "angular-cookies": "../lib/angular/angular-cookies.min",
-        "angular-mocks": "../lib/angular/angular-mocks",
+        "angular-mocks": "../lib/angular/angular-mocks"
     },
     "shim": {
+        "jQuery": {exports: "jQuery"},
         "config": {deps: ["jQuery"], exports: "config"},
         "bootstrap": { deps: ["jQuery"], exports: "jQuery"},
         "angular": {deps: ["config", "bootstrap"], exports: "angular"},
@@ -51,8 +52,8 @@ require(['angular'], function (angular) {
 });
 
 require([
-        "angular",
         "jQuery",
+        "angular",
         "design/themeFiles",
         "design/module",
         "common/module",
@@ -64,8 +65,22 @@ require([
         "checkout/module",
         "cms/module"
     ],
-    function (angular, jQuery, files) {
-
+    function ($, angular, files) {
+        /**
+         * Page loader
+         */
+        $('#loader .progress-bar').animate({width: '60%'}, 800, function () {
+            setTimeout(function () {
+                $('#loader .progress-bar').animate({width: '100%'}, 200, function () {
+                    $('#loader').animate({opacity: 0}, 400, function () {
+                        $(this).css('display', 'none');
+                        setTimeout(function () {
+                            $('#content').removeClass('ng-hide');
+                        }, 100);
+                    });
+                });
+            }, 500);
+        });
 
         angular.element(document).ready(function () {
             angular.referrer = document.referrer;
