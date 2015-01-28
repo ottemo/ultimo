@@ -3,14 +3,6 @@
 
     $(document).ready(function () {
 
-        //padding for fixed navigation
-        setTimeout(function(){
-            $("#mini-cart").niceScroll({
-                    cursorcolor: "#484848",
-                    cursoropacitymin: "0.4"
-                });
-        },1000)
-
         // toggle for left sidebar to see all items
         $(document).on('click', '#sidebar .toggler', function () {
             $(this).siblings('ul').slideToggle(400);

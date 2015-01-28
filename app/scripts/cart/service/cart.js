@@ -21,22 +21,26 @@
                 '$q',
                 function ($resource, $cartApiService, $cookieStore, $pdpProductOptionsService, LOGIN_COOKIE, $q) {
 
-                    var isInit, items, visitorId, subtotal, saleTax, shipping, total,
+                    var isInit, items, visitorId, subtotal, saleTax, shipping, total, activeRequests, initScope,
                         addItem, init, reload, loadCartInfo, getItems, remove, update,
                         getSubtotal, getSalesTax, getShipping, getTotal,
                         setSubtotal, setSalesTax, setShipping, setTotal, getCountItems,
-                        getItemsForMiniCart, getTotalQuantity;
+                        getItemsForMiniCart, getTotalQuantity, getItem, increaseCountRequest, decreaseCountRequest;
 
-                    items = [];
-                    subtotal = 0;
-                    saleTax = 0;
-                    shipping = 0;
-                    total = 0;
+                    initScope = function() {
+                        items = [];
+                        subtotal = 0;
+                        saleTax = 0;
+                        shipping = 0;
+                        total = 0;
+                        activeRequests = 0;
+                    };
 
                     init = function () {
                         var defer = $q.defer();
 
                         if (typeof isInit === 'undefined') {
+                            initScope();
                             loadCartInfo().then(
                                 function () {
                                     isInit = true;
@@ -52,6 +56,19 @@
 
                     getItems = function () {
                         return items;
+                    };
+
+                    getItem = function (_idx) {
+                        var _item, i;
+
+                        for (i = 0; i < items.length; i += 1) {
+                            if (items[i].idx === _idx) {
+                                _item = items[i];
+                                break;
+                            }
+                        }
+
+                        return _item;
                     };
 
                     getItemsForMiniCart = function () {
@@ -143,7 +160,7 @@
                         var count = 0;
 
                         if (typeof items !== 'undefined') {
-                            for(var i = 0; i < items.length; i += 1) {
+                            for (var i = 0; i < items.length; i += 1) {
                                 count += items[i].qty;
                             }
                         }
@@ -166,31 +183,34 @@
 
                     loadCartInfo = function () {
                         var deferLoadCart = $q.defer();
+                        if (activeRequests > 0) {
+                            deferLoadCart.resolve(true);
+                        } else {
+                            $cartApiService.info().$promise.then(
+                                function (response) {
+                                    if (response.error === null) {
 
-                        $cartApiService.info().$promise.then(
-                            function (response) {
-                                if (response.error === null) {
+                                        items = [];
+                                        if (response.result.items instanceof Array) {
+                                            // Apply options by all products
+                                            for (var i = 0; i < response.result.items.length; i += 1) {
+                                                response.result.items[i].product = response.result.items[i].product;
+                                                response.result.items[i].hasOptions = JSON.stringify(response.result.items[i].options) === JSON.stringify({}) ? false : true;
 
-                                    items = [];
-                                    if (response.result.items instanceof Array) {
-                                        // Apply options by all products
-                                        for (var i = 0; i < response.result.items.length; i += 1) {
-                                            response.result.items[i].product = response.result.items[i].product;
-                                            response.result.items[i].hasOptions = JSON.stringify(response.result.items[i].options) === JSON.stringify({}) ? false : true;
-
-                                            items.push(response.result.items[i]);
+                                                items.push(response.result.items[i]);
+                                            }
                                         }
-                                    }
 
-                                    visitorId = response.result["visitor_id"];
-                                    deferLoadCart.resolve(true);
-                                } else {
-                                    items = undefined;
-                                    visitorId = undefined;
-                                    deferLoadCart.resolve(false);
+                                        visitorId = response.result["visitor_id"];
+                                        deferLoadCart.resolve(true);
+                                    } else {
+                                        items = undefined;
+                                        visitorId = undefined;
+                                        deferLoadCart.resolve(false);
+                                    }
                                 }
-                            }
-                        );
+                            );
+                        }
 
                         return deferLoadCart.promise;
                     };
@@ -213,7 +233,6 @@
                     remove = function (itemIdx) {
                         if (w.confirm('You really want remove this item from shopping cart?')) {
                             var deferRemoveItem = $q.defer();
-
                             $cartApiService.remove({'itemIdx': itemIdx}).$promise.then(
                                 function () {
                                     loadCartInfo().then(
@@ -236,6 +255,7 @@
                             'qty': qty
                         }).$promise.then(
                             function () {
+                                activeRequests -= 1;
                                 loadCartInfo().then(
                                     function () {
                                         deferRemoveItem.resolve(true);
@@ -247,13 +267,23 @@
                         return deferRemoveItem.promise;
                     };
 
+                    increaseCountRequest = function () {
+                        activeRequests += 1;
+                    };
+                    decreaseCountRequest = function () {
+                        activeRequests -= 1;
+                    };
+
                     return {
+                        'increaseCountRequest': increaseCountRequest,
+                        'decreaseCountRequest': decreaseCountRequest,
                         'init': init,
                         'reload': reload,
                         'add': addItem,
                         'remove': remove,
                         'update': update,
                         'getItems': getItems,
+                        'getItem': getItem,
                         'getItemsForMiniCart': getItemsForMiniCart,
                         'getCountItems': getCountItems,
                         'getTotalQuantity': getTotalQuantity,

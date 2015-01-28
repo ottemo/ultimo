@@ -5,14 +5,14 @@
 
         var dateNotValid = "Please enter a valid date (mm/dd/yyyy)";
 
-        designModule.directive("otDate", function () {
+        designModule.directive("otDate", ["$commonUtilService", function ($commonUtilService) {
             return {
                 restrict: 'A',
                 require: '?ngModel',
                 link: function (scope, elem, attrs, ngModel) {
 
                     var validate = function (value) {
-                        var date = new Date(value);
+                        var date = $commonUtilService.getDate(value);
                         var valid = (!isNaN(date) && value.length === 10);
                         ngModel.$setValidity('ot-date', valid);
                         if (!valid) {
@@ -28,6 +28,6 @@
                     ngModel.$formatters.unshift(validate);
                 }
             };
-        });
+        }]);
     });
 })(window.define);
