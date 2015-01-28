@@ -61,7 +61,7 @@
                     $scope.getDateCreated = function (str) {
                         var date, month, day;
 
-                        date = new Date(str);
+                        date = $commonUtilService.getDate(str);
                         var m = date.getMonth() + 1;
                         month = m.toString().length < 2 ? '0' + m : m;
                         day = date.getDate().toString().length < 2 ? '0' + date.getDate() : date.getDate();

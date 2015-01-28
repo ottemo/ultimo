@@ -48,7 +48,7 @@
          *  $commonUtilService interaction service
          */
         commonModule.service("$commonUtilService", function () {
-                var cloneObj, getMessage, getMessageByCode;
+                var cloneObj, getMessage, getMessageByCode, getDate;
 
                 cloneObj = function (obj) {
                     if (null === obj || "object" !== typeof obj) {
@@ -105,9 +105,29 @@
                     return messageObj;
                 };
 
+                /**
+                 * Fix convert date from string to object. Need for Safari, IE
+                 *
+                 * @param dateStr
+                 * @returns {Date}
+                 */
+                getDate = function (dateStr) {
+                    var parts, date;
+                    parts = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(Z|(\+|-)(\d{2}?):?(\d{2})?)$/.exec(dateStr);
+
+                    if (parts === null) {
+                        date = new Date();
+                    } else {
+                        date = new Date(parts[1], parts[2]-1, parts[3], parts[4], parts[5], parts[6]);
+                    }
+
+                    return date;
+                };
+
                 return {
                     "clone": cloneObj,
-                    "getMessage": getMessage
+                    "getMessage": getMessage,
+                    "getDate": getDate
                 };
             }
         );

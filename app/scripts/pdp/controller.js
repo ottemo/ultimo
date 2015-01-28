@@ -325,9 +325,9 @@
                             "July", "August", "September", "October", "November", "December"
                         ];
 
-                        date = new Date(str);
-                        month = date.getMonth();
-                        day = date.getDate().toString().length < 2 ? "0" + date.getDate() : date.getDate();
+                        date = $commonUtilService.getDate(str);
+                        month = date.getMonth() + 1;
+                        day = date.getDay().toString().length < 2 ? "0" + date.getDay() : date.getDay();
 
                         return months[month] + " " + day + ", " + date.getFullYear();
                     };
