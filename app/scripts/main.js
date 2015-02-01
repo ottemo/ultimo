@@ -6,6 +6,8 @@ require.config({
     "baseUrl": "scripts",
     "paths": {
         "config": "config",
+        "jQuery": "../lib/jquery.min",
+        "bootstrap": "../lib/bootstrap.min",
         "themeFiles": "design/themeFiles",
         "angular": "../lib/angular/angular.min",
 
@@ -14,23 +16,19 @@ require.config({
         "angular-route": "../lib/angular/angular-route.min",
         "angular-resource": "../lib/angular/angular-resource.min",
         "angular-cookies": "../lib/angular/angular-cookies.min",
-        "angular-mocks": "../lib/angular/angular-mocks",
-
-        "angular-animate": "../lib/angular/angular-animate.min",
-        "angular-bootstrap": "../lib/angular/ui-bootstrap-tpls.min"
+        "angular-mocks": "../lib/angular/angular-mocks"
     },
     "shim": {
-        "config": {exports: "config"},
-        "angular": {deps: ["config"], exports: "angular"},
+        "jQuery": {exports: "jQuery"},
+        "config": {deps: ["jQuery"], exports: "config"},
+        "bootstrap": { deps: ["jQuery"], exports: "jQuery"},
+        "angular": {deps: ["config", "bootstrap"], exports: "angular"},
 
         "angular-route": ["angular"],
         "angular-cookies": ["angular"],
         "angular-sanitize": ["angular"],
         "angular-resource": ["angular"],
-        "angular-animate": ["angular"],
-
-        "angular-mocks": { deps: ["angular"], exports: "angular.mock"},
-        "angular-bootstrap": { deps: ["angular"], exports: "uiBootstrap"}
+        "angular-mocks": { deps: ["angular"], exports: "angular.mock"}
     },
     "priority": ["config", "angular"]
 });
@@ -54,8 +52,8 @@ require(['angular'], function (angular) {
 });
 
 require([
+        "jQuery",
         "angular",
-        "angular-bootstrap",
         "design/themeFiles",
         "design/module",
         "common/module",
@@ -67,7 +65,22 @@ require([
         "checkout/module",
         "cms/module"
     ],
-    function (angular, ngBootstrap, files) {
+    function ($, angular, files) {
+        /**
+         * Page loader
+         */
+        $('#loader .progress-bar').animate({width: '60%'}, 800, function () {
+            setTimeout(function () {
+                $('#loader .progress-bar').animate({width: '100%'}, 200, function () {
+                    $('#loader').animate({opacity: 0}, 400, function () {
+                        $(this).css('display', 'none');
+                        setTimeout(function () {
+                            $('#content').removeClass('ng-hide');
+                        }, 100);
+                    });
+                });
+            }, 500);
+        });
 
         angular.element(document).ready(function () {
             angular.referrer = document.referrer;
@@ -109,7 +122,7 @@ require([
              * Use jQuery ajax for sending existing cookie value
              * angular.element.get can not send cookie
              */
-            jQuery.ajax({
+            $.ajax({
                 url: angular.appConfigValue("general.app.foundation_url") + "/config/get/themes.list.active",
                 type: "GET",
                 timeout: 10000,
@@ -122,7 +135,7 @@ require([
             /**
              * increase count of visits
              */
-            jQuery.ajax({
+            $.ajax({
                 url: angular.REST_SERVER_URI + "/rts/visit",
                 type: "GET",
                 xhrFields: {

@@ -6,6 +6,7 @@
 
             .controller("cartListController", [
                 "$scope",
+                "$interval",
                 "$cartApiService",
                 "$cartService",
                 "$designImageService",
@@ -13,7 +14,7 @@
                 "$pdpProductService",
                 "$checkoutService",
                 "$location",
-                function ($scope, $cartApiService, $cartService, $designImageService, $visitorLoginService, $pdpProductService, $checkoutService, $location) {
+                function ($scope, $interval, $cartApiService, $cartService, $designImageService, $visitorLoginService, $pdpProductService, $checkoutService, $location) {
                     $scope.it = $cartService;
                     $scope.checkout = $checkoutService;
                     $scope.productService = $pdpProductService;
@@ -35,11 +36,45 @@
                     };
 
                     $scope.remove = function (itemIdx) {
+                        $cartService.increaseCountRequest();
                         $cartService.remove(itemIdx);
                     };
 
-                    $scope.update = function (itemIdx, qty) {
-                        $cartService.update(itemIdx, qty);
+                    var stop = {}, dateLastClick;
+                    $scope.update = function (itemIdx) {
+                        var stopCurrentInterval, delay, callback, getStartTime;
+                        delay = 500;
+
+                        dateLastClick = new Date();
+
+                        stopCurrentInterval = function () {
+                            if (angular.isDefined(stop[itemIdx])) {
+                                $interval.cancel(stop[itemIdx]);
+                                stop[itemIdx] = undefined;
+                            }
+                        };
+
+                        getStartTime = function () {
+                            return dateLastClick.getTime();
+                        };
+
+                        callback = function () {
+                            var duration, d, qty;
+                            d = new Date();
+                            duration = d.getTime() - getStartTime();
+
+                            if (duration >= delay) {
+                                var item = $cartService.getItem(itemIdx);
+                                qty = item.qty;
+                                stopCurrentInterval();
+                                $cartService.update(itemIdx, qty);
+                            }
+                        };
+
+                        if (typeof stop[itemIdx] === "undefined") {
+                            $cartService.increaseCountRequest();
+                            stop[itemIdx] = $interval(callback, 100);
+                        }
                     };
 
                     /**
@@ -69,13 +104,14 @@
                     };
 
                     $scope.changeQty = function (item, action) {
+                        var _qty = parseInt(item.qty, 10);
 
                         if (action === "up") {
-                            item.qty = item.qty + 1;
+                            item.qty = _qty + 1;
                         }
                         else if (action === "down") {
-                            if (item.qty > 1) {
-                                item.qty = item.qty - 1;
+                            if (_qty > 1) {
+                                item.qty = _qty - 1;
                             }
                         }
                     };
