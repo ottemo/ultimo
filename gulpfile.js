@@ -177,10 +177,10 @@
 
     var setConfig = function (serverURI, config) {
         request({
-            uri: serverURI + '/config/unregister/' + config.path + '?auth=' + DEFAULT_ROOT + ':' + DEFAULT_PASS,
+            uri: serverURI + '/config/value/' + config.path + '?auth=' + DEFAULT_ROOT + ':' + DEFAULT_PASS,
             method: 'DELETE'
         }, function () {
-            var r = request.post(serverURI + '/config/register?auth=' + DEFAULT_ROOT + ':' + DEFAULT_PASS);
+            var r = request.post(serverURI + '/config/value/' + config.path + '?auth=' + DEFAULT_ROOT + ':' + DEFAULT_PASS);
             var form = r.form();
 
             form.append('path', config.path);

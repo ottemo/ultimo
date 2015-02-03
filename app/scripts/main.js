@@ -123,7 +123,7 @@ require([
              * angular.element.get can not send cookie
              */
             $.ajax({
-                url: angular.appConfigValue("general.app.foundation_url") + "/config/get/themes.list.active",
+                url: angular.appConfigValue("general.app.foundation_url") + "/config/item/themes.list.active",
                 type: "GET",
                 timeout: 10000,
                 xhrFields: {
@@ -137,7 +137,7 @@ require([
              */
             $.ajax({
                 url: angular.REST_SERVER_URI + "/rts/visit",
-                type: "GET",
+                type: "POST",
                 xhrFields: {
                     withCredentials: true
                 },

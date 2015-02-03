@@ -18,15 +18,15 @@
                 var methods = {
                     "getProducts": {
                         method: "POST",
-                        url: categoryBaseURL + "/product/list"
+                        url: categoryBaseURL + "/products"
                     },
                     "getCategories": {
                         method: "GET",
-                        url: categoryBaseURL + "/category/tree"
+                        url: categoryBaseURL + "/categories/tree"
                     },
                     "getRewriteUrls": {
                         method: "GET",
-                        url: REST_SERVER_URI + "/url_rewrite/list"
+                        url: REST_SERVER_URI + "/seo/items"
                     }
                 };
 
