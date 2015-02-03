@@ -218,7 +218,7 @@
                     addItem = function (productId, qty, options) {
                         var deferAddItem = $q.defer();
                         $cartApiService.add({
-                            'productId': productId,
+                            'pid': productId,
                             'qty': qty
                         }, options).$promise.then(
                             function (response) {

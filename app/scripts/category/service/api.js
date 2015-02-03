@@ -11,53 +11,50 @@
              */
             .service("$categoryApiService", ["$resource", "REST_SERVER_URI", function ($resource, REST_SERVER_URI) {
 
-                var categoryBaseURL = REST_SERVER_URI + "/category";
-
-                return $resource(categoryBaseURL, {}, {
+                return $resource(REST_SERVER_URI, {}, {
                     "getProductsByCategoryId": {
                         method: "GET",
-                        params: { id: "@id" },
-                        url: categoryBaseURL + "/product/list/:id"
+                        url: REST_SERVER_URI + "/category/:categoryID/products"
                     },
                     "getShopProducts": {
                         method: "GET",
-                        url: REST_SERVER_URI + "/product/shop"
+                        url: REST_SERVER_URI + "/products/shop"
                     },
                     "getShopLayered": {
                         method: "GET",
-                        url: REST_SERVER_URI + "/product/shop/layers"
+                        url: REST_SERVER_URI + "/products/shop/layers"
                     },
                     "getShopCountProducts": {
                         method: "GET",
-                        params: { id: "@id" },
-                        url: REST_SERVER_URI + "/product/count/:id"
+                        params: { action: "count" },
+                        url: REST_SERVER_URI + "/products"
                     },
                     "load": {
                         method: "GET",
                         params: { id: "@id" },
-                        url: categoryBaseURL + "/get/:id"
+                        url: REST_SERVER_URI + "/get/:id"
                     },
                     "getCountProducts": {
                         method: "GET",
-                        params: { id: "@id" },
-                        url: categoryBaseURL + "/product/count/:id"
+                        params: { action: "count" },
+                        url: REST_SERVER_URI + "/category/:categoryID/products"
                     },
                     "getPath":{
                         method: "GET",
                         params: {
-                            productId: "@productId",
+                            productID: "@productId",
                             mediaType: "@mediaType"
                         },
-                        url: REST_SERVER_URI + "/product/media/path/:productId/:mediaType"
+                        url: REST_SERVER_URI + "/product/:productID/mediapath/:mediaType"
+
                     },
                     "getCategories": {
                         method: "GET",
-                        url: categoryBaseURL + "/tree"
+                        url: REST_SERVER_URI + "/categories/tree"
                     },
                     "getLayered": {
                         method: "GET",
-                        params: { id: "@id" },
-                        url: categoryBaseURL + "/layers/:id"
+                        url: REST_SERVER_URI + "/category/:categoryID/layers"
                     }
                 });
             }]);

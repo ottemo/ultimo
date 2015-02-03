@@ -14,12 +14,10 @@
                 "REST_SERVER_URI",
                 function ($resource, REST_SERVER_URI) {
 
-                    var checkoutBaseURL = REST_SERVER_URI + "/checkout";
-
-                    return $resource(checkoutBaseURL, {}, {
-                        "shippingMethod": {
+                    return $resource(REST_SERVER_URI, {}, {
+                        "shippingMethods": {
                             method: "GET",
-                            url: checkoutBaseURL + "/shipping/methods"
+                            url: REST_SERVER_URI + "/checkout/shipping/methods"
                         },
                         "setShippingMethod": {
                             method: "POST",
@@ -27,64 +25,54 @@
                                 method: "@method",
                                 rate: "@rate"
                             },
-                            url: checkoutBaseURL + "/set/shipping/method/:method/:rate"
+                            url: REST_SERVER_URI + "/checkout/shipping/method/:method/:rate"
                         },
-                        "paymentMethod": {
+                        "paymentMethods": {
                             method: "GET",
-                            url: checkoutBaseURL + "/payment/methods"
+                            url: REST_SERVER_URI + "/checkout/payment/methods"
                         },
                         "setPaymentMethod": {
                             method: "POST",
                             params: {
                                 method: "@method"
                             },
-                            url: checkoutBaseURL + "/set/payment/method/:method"
+                            url: REST_SERVER_URI + "/checkout/payment/method/:method"
                         },
                         "setShippingAddress": {
-                            method: "POST",
-                            url: checkoutBaseURL + "/set/shipping/address"
+                            method: "PUT",
+                            url: REST_SERVER_URI + "/checkout/shipping/address"
                         },
                         "setBillingAddress": {
-                            method: "POST",
-                            url: checkoutBaseURL + "/set/billing/address"
+                            method: "PUT",
+                            url: REST_SERVER_URI + "/checkout/billing/address"
                         },
                         "setInfo": {
                             method: "POST",
-                            url: checkoutBaseURL + "/set/info"
-                        },
-                        "totals": {
-                            method: "GET",
-                            url: checkoutBaseURL + "/totals"
+                            url: REST_SERVER_URI + "/checkout/info"
                         },
                         "submit": {
                             method: "POST",
-                            url: checkoutBaseURL + "/submit"
+                            url: REST_SERVER_URI + "/checkout/submit"
                         },
                         "getAddresses": {
                             method: "GET",
-                            url: REST_SERVER_URI + "/visitor/address/list"
+                            url: REST_SERVER_URI + "/visit/addresses"
                         },
                         "info": {
                             method: "GET",
-                            url: checkoutBaseURL + "/info"
+                            url: REST_SERVER_URI + "/visit/info"
                         },
                         "save": {
                             method: "POST",
-                            url: checkoutBaseURL + "/submit"
+                            url: REST_SERVER_URI + "/checkout/submit"
                         },
                         "discountApply": {
                             method: "GET",
-                            params: {
-                                code: "@code"
-                            },
-                            url: REST_SERVER_URI + "/discount/apply/:code"
+                            url: REST_SERVER_URI + "/discount/:coupon/apply"
                         },
                         "discountNeglect": {
                             method: "GET",
-                            params: {
-                                code: "@code"
-                            },
-                            url: REST_SERVER_URI + "/discount/neglect/:code"
+                            url: REST_SERVER_URI + "/discount/:coupon/neglect"
                         }
                     });
                 }

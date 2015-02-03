@@ -11,25 +11,19 @@
              */
             .service("$cartApiService", ["$resource", "REST_SERVER_URI", function ($resource, REST_SERVER_URI) {
 
-                var cartBaseURL = REST_SERVER_URI + "/cart";
-
-                return $resource(cartBaseURL, {}, {
+                return $resource(REST_SERVER_URI, {}, {
                     "add": {
                         method: "POST",
-                        params: {
-                            productId: "@productId",
-                            qty: "@qty"
-                        },
-                        url: cartBaseURL + "/add/:productId/:qty"
+                        url: REST_SERVER_URI + "/cart/item"
                     },
                     "remove": {
                         method: "DELETE",
                         params: { itemIdx: "@itemIdx" },
-                        url: cartBaseURL + "/delete/:itemIdx"
+                        url: REST_SERVER_URI + "/cart/item/:itemIdx"
                     },
                     "info": {
                         method: "GET",
-                        url: cartBaseURL + "/info"
+                        url: REST_SERVER_URI + "/cart"
                     },
                     "update": {
                         method: "PUT",
@@ -37,7 +31,7 @@
                             itemIdx: "@itemIdx",
                             qty: "@qty"
                         },
-                        url: cartBaseURL + "/update/:itemIdx/:qty"
+                        url: REST_SERVER_URI + "/cart/item/:itemIdx/:qty"
                     }
                 });
             }]);

@@ -56,7 +56,7 @@
 
                     $scope.clearForm();
 
-                    $visitorApiService.getAddresses({'visitorId': $scope.visitor._id}).$promise.then(
+                    $visitorApiService.getAddresses({'visitorID': $scope.visitor._id}).$promise.then(
                         function (response) {
                             var result = response.result || [];
                             $scope.addresses = result;
@@ -70,7 +70,7 @@
                      * @param id
                      */
                     $scope.select = function (id) {
-                        $visitorApiService.loadAddress({'id': id}).$promise.then(
+                        $visitorApiService.loadAddress({'addressID': addressId}).$promise.then(
                             function (response) {
                                 var result = response.result || {};
                                 $scope.address = result;
@@ -88,7 +88,7 @@
                         var i, answer;
                         answer = window.confirm('You really want to remove this address');
                         if (answer) {
-                            $visitorApiService.deleteAddress({'id': id}, function (response) {
+                            $visitorApiService.deleteAddress({'addressID': id}, function (response) {
                                 if (response.result === 'ok') {
                                     for (i = 0; i < $scope.addresses.length; i += 1) {
                                         if ($scope.addresses[i].ID === id) {
@@ -188,7 +188,7 @@
                             $scope.clearForm();
                             $('#parent_popup_address').modal('show');
                         } else {
-                            $visitorApiService.loadAddress({'id': addressId}).$promise.then(
+                            $visitorApiService.loadAddress({'addressID': addressId}).$promise.then(
                                 function (response) {
                                     $scope.address = response.result || [];
 

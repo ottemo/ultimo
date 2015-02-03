@@ -54,7 +54,7 @@
                                 }
                             };
 
-                            $checkoutApiService.shippingMethod().$promise.then(function (response) {
+                            $checkoutApiService.shippingMethods().$promise.then(function (response) {
                                 var i, method;
                                 allowedShippingMethods = [];
                                 if (response.error === null) {
@@ -75,7 +75,7 @@
                         loadPaymentMethods = function () {
                             var defer = $q.defer();
                             allowedPaymentMethods = [];
-                            $checkoutApiService.paymentMethod().$promise.then(function (response) {
+                            $checkoutApiService.paymentMethods().$promise.then(function (response) {
                                 allowedPaymentMethods = response.result || [];
                                 defer.resolve(allowedPaymentMethods);
                             });

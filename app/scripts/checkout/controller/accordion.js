@@ -734,7 +734,7 @@
                         if ("" === $scope.discount || typeof $scope.discount === "undefined") {
                             $scope.messageDiscounts = $commonUtilService.getMessage(null, "warning", "Discount code can't be empty");
                         } else {
-                            $checkoutService.discountApply({"code": $scope.discount}).then(
+                            $checkoutService.discountApply({"coupon": $scope.discount}).then(
                                 function (response) {
                                     if (response.error === null) {
                                         info();
@@ -748,7 +748,7 @@
                     };
 
                     $scope.discountNeglect = function (code) {
-                        $checkoutService.discountNeglect({"code": code}).then(
+                        $checkoutService.discountNeglect({"coupon": code}).then(
                             function (response) {
                                 if (response.error === null) {
                                     info();
