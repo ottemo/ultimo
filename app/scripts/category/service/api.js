@@ -32,7 +32,7 @@
                     "load": {
                         method: "GET",
                         params: { id: "@id" },
-                        url: REST_SERVER_URI + "/get/:id"
+                        url: REST_SERVER_URI + "/category/:id"
                     },
                     "getCountProducts": {
                         method: "GET",

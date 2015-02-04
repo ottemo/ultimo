@@ -56,7 +56,7 @@
 
                     $scope.clearForm();
 
-                    $visitorApiService.getAddresses({'visitorID': $scope.visitor._id}).$promise.then(
+                    $visitorApiService.getAddresses().$promise.then(
                         function (response) {
                             var result = response.result || [];
                             $scope.addresses = result;

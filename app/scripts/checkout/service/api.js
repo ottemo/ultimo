@@ -20,7 +20,7 @@
                             url: REST_SERVER_URI + "/checkout/shipping/methods"
                         },
                         "setShippingMethod": {
-                            method: "POST",
+                            method: "PUT",
                             params: {
                                 method: "@method",
                                 rate: "@rate"
@@ -32,7 +32,7 @@
                             url: REST_SERVER_URI + "/checkout/payment/methods"
                         },
                         "setPaymentMethod": {
-                            method: "POST",
+                            method: "PUT",
                             params: {
                                 method: "@method"
                             },
@@ -47,8 +47,8 @@
                             url: REST_SERVER_URI + "/checkout/billing/address"
                         },
                         "setInfo": {
-                            method: "POST",
-                            url: REST_SERVER_URI + "/checkout/info"
+                            method: "PUT",
+                            url: REST_SERVER_URI + "/checkout"
                         },
                         "submit": {
                             method: "POST",
@@ -60,7 +60,7 @@
                         },
                         "info": {
                             method: "GET",
-                            url: REST_SERVER_URI + "/visit/info"
+                            url: REST_SERVER_URI + "/checkout"
                         },
                         "save": {
                             method: "POST",

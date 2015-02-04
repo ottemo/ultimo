@@ -47,12 +47,11 @@
                         },
                         "update": {
                             method: "PUT",
-                            params: { visitorID: "@id" },
-                            url: REST_SERVER_URI + "/visitor/:visitorID"
+                            url: REST_SERVER_URI + "/visit"
                         },
                         "getAddresses": {
                             method: "GET",
-                            url: REST_SERVER_URI + "/visitor/:visitorID/addresses"
+                            url: REST_SERVER_URI + "/visit/addresses"
                         },
                         "addressUpdate":{
                             method: "PUT",
