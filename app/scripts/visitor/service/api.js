@@ -69,7 +69,7 @@
                         },
                         "deleteAddress": {
                             method: "DELETE",
-                            url: REST_SERVER_URI + "/visitors/address/:addressID"
+                            url: REST_SERVER_URI + "/visit/address/:addressID"
                         },
                         "getOrderList": {
                             method: "GET",
