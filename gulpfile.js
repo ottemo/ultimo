@@ -402,9 +402,9 @@
             }
             themesData += '}';
 
-            setConfigValue("options", "themes.list.active", themesData);
-            setConfigValue("value", "general.app.foundation_url", FOUNDATION_URI);
-            initConfigs(FOUNDATION_URI);
+            //setConfigValue("options", "themes.list.active", themesData);
+            //setConfigValue("value", "general.app.foundation_url", FOUNDATION_URI);
+            //initConfigs(FOUNDATION_URI);
 
             gulp.start('requirejs');
             gulp.start('vendor');
@@ -416,6 +416,13 @@
     });
 
     gulp.task('default', ['build']);
+
+    // Run this task tell foundation which theme to use
+    gulp.task('post-build', ['build'], function () {
+        setConfigValue("options", "themes.list.active", themesData);
+        setConfigValue("value", "general.app.foundation_url", FOUNDATION_URI);
+        initConfigs(FOUNDATION_URI);
+    });
 
     gulp.task('retrieve-files', function () {
         var jsCode, themesData;
