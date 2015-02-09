@@ -18,7 +18,7 @@ build:
         code: gulp jshint
     - script:
         name: Run gulp build
-        code: gulp build
+        code: NODE_ENV=wercker gulp wercker-build
 
     # A custom script step, name value is used in the UI
     # and the code value contains the command that get executed
@@ -38,7 +38,10 @@ deploy:
             hostname: $REMOTE_HOST
         - script:
             name: Copy dist dir to $REMOTE_HOST
-            code: scp -r $WERCKER_SOURCE_DIR/dist root@$REMOTE_HOST:/home/ottemo/storefront/
+            code: scp -r $WERCKER_SOURCE_DIR/app root@$REMOTE_HOST:/home/ottemo/storefront/
+        - script:
+            name: Post-Build Gulp
+            code: ssh root@$REMOTE_HOST "cd /home/ottemo/storefront/; gulp post-build" 
     after-steps:
         - wercker/hipchat-notify@1.0.3:
             token: $HIPCHAT_TOKEN
