@@ -156,7 +156,7 @@
                                 };
 
                                 $http({
-                                    url: REST_SERVER_URI + "/seo/item/" + $location.$$path,
+                                    url: REST_SERVER_URI + "/seo/url/" + $location.$$path,
                                     method: "GET"
                                 }).success(successFunction).error(errorFunction);
                             }

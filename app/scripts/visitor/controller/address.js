@@ -69,7 +69,7 @@
                      *
                      * @param id
                      */
-                    $scope.select = function (id) {
+                    $scope.select = function (addressId) {
                         $visitorApiService.loadAddress({'addressID': addressId}).$promise.then(
                             function (response) {
                                 var result = response.result || {};

@@ -14,7 +14,7 @@
                 'REST_SERVER_URI',
                 function ($resource, REST_SERVER_URI) {
 
-                    return $resource(cmsBaseURL, {}, {
+                    return $resource(REST_SERVER_URI, {}, {
                         'getPage': {
                             method: 'GET',
                             url: REST_SERVER_URI + '/cms/page/:pageID'

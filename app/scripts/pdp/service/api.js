@@ -22,14 +22,14 @@
                     },
                     'listImages': {
                         method: 'GET',
-                        url: REST_SERVER_URI + '/product/:productID/media/:mediaType'
+                        url: REST_SERVER_URI + '/product/:productID/media/image'
                     },
                     "getProducts": {
-                        method: "POST",
+                        method: "GET",
                         url: REST_SERVER_URI + "/products"
                     },
                     "getRelated": {
-                        method: "POST",
+                        method: "GET",
                         url: REST_SERVER_URI + "/product/:productID/related"
                     },
                     "ratingInfo": {
