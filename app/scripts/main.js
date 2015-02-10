@@ -87,7 +87,8 @@ require([
 
             angular.isExistFile = function (path) {
 
-                if (files[angular.appConfigValue("themes.list.active")].indexOf(path) !== -1) {
+                var themeFiles = files[angular.appConfigValue("themes.list.active")];
+                if (themeFiles !== undefined && themeFiles.indexOf(path) !== -1) {
                     return true;
                 }
 
