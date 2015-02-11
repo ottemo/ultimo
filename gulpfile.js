@@ -70,7 +70,7 @@
         FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://dev.ottemo.io:3000';
     } else if (env === 'staging') {
         DEV_FOUNDATION_URI = process.env.DEV_FOUNDATION_URI || 'http://localhost:3000';
-        FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://dev.ottemo.io:3000';
+        FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://staging.ottemo.io:3000';
     } else if (env === 'wercker') {
         DEV_FOUNDATION_URI = process.env.DEV_FOUNDATION_URI || 'http://localhost:3000';
         FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://localhost:3000';
@@ -395,136 +395,29 @@
             }
             themesData += '}';
 
-            setConfigValue("options", "themes.list.active", themesData);
-            setConfigValue("value", "general.app.foundation_url", DEV_FOUNDATION_URI);
-            initConfigs(DEV_FOUNDATION_URI);
-        });
+            if (env === 'development') {
+                setConfigValue("options", "themes.list.active", themesData);
+                setConfigValue("value", "general.app.foundation_url", DEV_FOUNDATION_URI);
+                initConfigs(DEV_FOUNDATION_URI);
+            } else if (env === 'wercker') {
+                gulp.start('requirejs');
+                gulp.start('vendor');
+                gulp.start('misc');
+                gulp.start('html');
+                gulp.start('autoprefixer');
+                gulp.start('imagemin');
+            } else if (env === 'production' || env === 'staging') {
+                setConfigValue("options", "themes.list.active", themesData);
+                setConfigValue("value", "general.app.foundation_url", FOUNDATION_URI);
+                initConfigs(FOUNDATION_URI);
 
-    });
-
-    gulp.task('wercker-build', function () {
-        var jsCode, themesData;
-        themesData = '';
-
-        recursive(paths.themesDir, function (err, files) {
-            var i, theme, filePath, parts, regExp;
-            theme = null;
-            regExp = new RegExp('app[/\\\\]themes[/\\\\](\\w+)[/\\\\](.+)', 'i');
-
-            jsCode = '/* jshint ignore:start */\n' +
-            '(function (define) {\n' +
-            '"use strict";\n' +
-            'define(function () {\n' +
-            'return {\n';
-
-            for (i = 0; i < files.length; i += 1) {
-                filePath = files[i];
-                parts = filePath.match(regExp);
-                if (parts instanceof Array) {
-                    if (theme !== parts[1] && theme === null) {
-                        themes.push(parts[1]);
-                        jsCode += '\'' + parts[1] + '\' : [\n';
-                    }
-                    if (theme !== parts[1] && theme !== null) {
-                        themes.push(parts[1]);
-                        jsCode += '],\n\'' + parts[1] + '\' : [\n';
-                    }
-                    jsCode += '\'/' + parts[2] + '\',\n';
-                    theme = parts[1];
-                }
+                gulp.start('requirejs');
+                gulp.start('vendor');
+                gulp.start('misc');
+                gulp.start('html');
+                gulp.start('autoprefixer');
+                gulp.start('imagemin');
             }
-
-            jsCode += ']\n};\n' +
-            '});\n' +
-            '})(window.define);\n' +
-            '/* jshint ignore:end */';
-
-            fs.writeFile('app/scripts/design/themeFiles.js', jsCode, function (err) {
-                if (err) {
-                    return console.log('Found a problem: ' + err);
-                }
-            });
-
-            themesData = '{';
-            for (i = 0; i < themes.length; i += 1) {
-                themesData += '"' + themes[i] + '":"' + themes[i] + '"';
-                if (i < themes.length - 1) {
-                    themesData += ',';
-                }
-            }
-            themesData += '}';
-
-            gulp.start('requirejs');
-            gulp.start('vendor');
-            gulp.start('misc');
-            gulp.start('html');
-            gulp.start('autoprefixer');
-            gulp.start('imagemin');
-        });
-    });
-
-    gulp.task('prod-build', function () {
-        var jsCode, themesData;
-        themesData = '';
-
-        recursive(paths.themesDir, function (err, files) {
-            var i, theme, filePath, parts, regExp;
-            theme = null;
-            regExp = new RegExp('app[/\\\\]themes[/\\\\](\\w+)[/\\\\](.+)', 'i');
-
-            jsCode = '/* jshint ignore:start */\n' +
-            '(function (define) {\n' +
-            '"use strict";\n' +
-            'define(function () {\n' +
-            'return {\n';
-
-            for (i = 0; i < files.length; i += 1) {
-                filePath = files[i];
-                parts = filePath.match(regExp);
-                if (parts instanceof Array) {
-                    if (theme !== parts[1] && theme === null) {
-                        themes.push(parts[1]);
-                        jsCode += '\'' + parts[1] + '\' : [\n';
-                    }
-                    if (theme !== parts[1] && theme !== null) {
-                        themes.push(parts[1]);
-                        jsCode += '],\n\'' + parts[1] + '\' : [\n';
-                    }
-                    jsCode += '\'/' + parts[2] + '\',\n';
-                    theme = parts[1];
-                }
-            }
-
-            jsCode += ']\n};\n' +
-            '});\n' +
-            '})(window.define);\n' +
-            '/* jshint ignore:end */';
-
-            fs.writeFile('./app/scripts/design/themeFiles.js', jsCode, function (err) {
-                if (err) {
-                    return console.log(err);
-                }
-            });
-
-            themesData = '{';
-            for (i = 0; i < themes.length; i += 1) {
-                themesData += '"' + themes[i] + '":"' + themes[i] + '"';
-                if (i < themes.length - 1) {
-                    themesData += ',';
-                }
-            }
-            themesData += '}';
-
-            setConfigValue("options", "themes.list.active", themesData);
-            setConfigValue("value", "general.app.foundation_url", FOUNDATION_URI);
-            initConfigs(FOUNDATION_URI);
-
-            gulp.start('requirejs');
-            gulp.start('vendor');
-            gulp.start('misc');
-            gulp.start('html');
-            gulp.start('autoprefixer');
-            gulp.start('imagemin');
         });
 
     });
