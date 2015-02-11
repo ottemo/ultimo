@@ -41,7 +41,7 @@ deploy:
             code: scp -r $WERCKER_SOURCE_DIR/app root@$REMOTE_HOST:/home/ottemo/storefront/
         - script:
             name: Post-Build Gulp
-            code: ssh root@$REMOTE_HOST "cd /home/ottemo/storefront/; gulp post-build" 
+            code: ssh root@$REMOTE_HOST "cd /home/ottemo/storefront/; NODE_ENV=production gulp build"
     after-steps:
         - wercker/hipchat-notify@1.0.3:
             token: $HIPCHAT_TOKEN
