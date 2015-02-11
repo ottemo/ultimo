@@ -17,7 +17,7 @@
                     "getActiveTheme": {
                         method: "GET",
                         params: { path: "@path" },
-                        url: REST_SERVER_URI + "/config/get/:path"
+                        url: REST_SERVER_URI + "/config/value/:path"
                     }
                 });
             }]);

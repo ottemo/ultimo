@@ -87,7 +87,8 @@ require([
 
             angular.isExistFile = function (path) {
 
-                if (files[angular.appConfigValue("themes.list.active")].indexOf(path) !== -1) {
+                var themeFiles = files[angular.appConfigValue("themes.list.active")];
+                if (themeFiles !== undefined && themeFiles.indexOf(path) !== -1) {
                     return true;
                 }
 
@@ -123,7 +124,7 @@ require([
              * angular.element.get can not send cookie
              */
             $.ajax({
-                url: angular.appConfigValue("general.app.foundation_url") + "/config/get/themes.list.active",
+                url: angular.appConfigValue("general.app.foundation_url") + "/config/item/themes.list.active",
                 type: "GET",
                 timeout: 10000,
                 xhrFields: {
@@ -137,7 +138,7 @@ require([
              */
             $.ajax({
                 url: angular.REST_SERVER_URI + "/rts/visit",
-                type: "GET",
+                type: "POST",
                 xhrFields: {
                     withCredentials: true
                 },

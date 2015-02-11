@@ -23,7 +23,7 @@
                     var activePath;
 
                     var getAddressList = function () {
-                        $visitorApiService.getAddresses({"visitorId": $scope.visitor._id}).$promise.then(
+                        $visitorApiService.getAddresses().$promise.then(
                             function (response) {
                                 var result = response.result || [];
                                 $scope.addresses = result;

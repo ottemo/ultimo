@@ -14,18 +14,14 @@
                 'REST_SERVER_URI',
                 function ($resource, REST_SERVER_URI) {
 
-                    var cmsBaseURL = REST_SERVER_URI + '/cms';
-
-                    return $resource(cmsBaseURL, {}, {
+                    return $resource(REST_SERVER_URI, {}, {
                         'getPage': {
                             method: 'GET',
-                            params: { id: '@id' },
-                            url: cmsBaseURL + '/page/get/:id'
+                            url: REST_SERVER_URI + '/cms/page/:pageID'
                         },
                         'getBlock': {
                             method: 'GET',
-                            params: { id: '@id' },
-                            url: cmsBaseURL + '/block/get/:id'
+                            url: REST_SERVER_URI + '/cms/block/:blockID'
                         }
                     });
                 }

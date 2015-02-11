@@ -128,7 +128,7 @@
                     };
 
                     $scope.getProduct = function () {
-                        $pdpApiService.getProduct({"id": $scope.productId}).$promise.then(function (response) {
+                        $pdpApiService.getProduct({"productID": $scope.productId}).$promise.then(function (response) {
                             if (response.error === null) {
                                 var result = response.result || defaultProduct();
 
@@ -178,13 +178,13 @@
                     $scope.reloadImages = function () {
                         if ($scope.product !== undefined && $scope.product._id !== undefined) {
                             // taking media patch for new product
-                            $pdpApiService.getImagePath({"productId": $scope.product._id}).$promise.then(
+                            $pdpApiService.getImagePath({"productID": $scope.product._id}).$promise.then(
                                 function (response) {
                                     $scope.imagesPath = response.result || "";
                                 });
 
                             // taking registered images for product
-                            $pdpApiService.listImages({"productId": $scope.product._id}).$promise.then(
+                            $pdpApiService.listImages({"productID": $scope.product._id}).$promise.then(
                                 function (response) {
                                     $scope.productImages = response.result || [];
 
@@ -251,7 +251,7 @@
                      * "Related" products
                      */
                     $scope.getRelatedProducts = function () {
-                        $pdpApiService.getRelated({"pid": $scope.productId}, {"extra": 'price'}).$promise.then(function (response) {
+                        $pdpApiService.getRelated({"productID": $scope.productId, "extra": 'price'}).$promise.then(function (response) {
                             var result, i, parts, splitName;
 
                             splitName = function (string) {
@@ -292,7 +292,7 @@
                      * Gets reviews list
                      */
                     $scope.getReviews = function () {
-                        $pdpApiService.reviewList({"pid": $scope.productId}).$promise.then(function (response) {
+                        $pdpApiService.reviewList({"productID": $scope.productId}).$promise.then(function (response) {
                             $scope.reviewsList = response.result || [];
                         });
                     };
@@ -301,7 +301,7 @@
                      * Gets rating info
                      */
                     $scope.getRatingInfo = function () {
-                        $pdpApiService.ratingInfo({"pid": $scope.productId}).$promise.then(function (response) {
+                        $pdpApiService.ratingInfo({"productID": $scope.productId}).$promise.then(function (response) {
                             if (response.result instanceof Array) {
                                 $scope.ratingInfo = response.result[0];
                             } else {

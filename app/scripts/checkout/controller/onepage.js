@@ -603,7 +603,7 @@
                     };
 
                     $scope.discountApply = function () {
-                        $checkoutService.discountApply({"code": $scope.discount}).$promise.then(
+                        $checkoutService.discountApply({"coupon": $scope.discount}).$promise.then(
                             function (response) {
                                 if (response.error === null) {
                                     info();
@@ -613,7 +613,7 @@
                     };
 
                     $scope.discountNeglect = function (code) {
-                        $checkoutService.discountNeglect({"code": code}).$promise.then(
+                        $checkoutService.discountNeglect({"coupon": code}).$promise.then(
                             function (response) {
                                 if (response.error === null) {
                                     info();
