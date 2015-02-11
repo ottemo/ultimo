@@ -70,16 +70,19 @@
         FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://dev.ottemo.io:3000';
     } else if (env === 'staging') {
         DEV_FOUNDATION_URI = process.env.DEV_FOUNDATION_URI || 'http://localhost:3000';
-        FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://dev.ottemo.io:3000';
+        FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://staging.ottemo.io:3000';
+    } else if (env === 'wercker') {
+        DEV_FOUNDATION_URI = process.env.DEV_FOUNDATION_URI || 'http://localhost:3000';
+        FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://localhost:3000';
     } else if (env === 'production') {
         DEV_FOUNDATION_URI = process.env.DEV_FOUNDATION_URI || 'http://localhost:3000';
-        FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://demo.ottemo.io:3000';
+        FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://dev.ottemo.io:3000';
     }
 
     gutil.log("Your db settings and your environment settings must match when");
     gutil.log("running 'gulp build' or your templates will be blank.  Example");
     gutil.log("");
-    gutil.log("    $ NODE_ENV=staging DEFAULT_ROOT=admin DEFAULT_PASS=admin FOUNDATION_URI=http://<server>:<port> gulp build");
+    gutil.log("    $ NODE_ENV=development DEFAULT_ROOT=admin DEFAULT_PASS=admin FOUNDATION_URI=http://<server>:<port> gulp build");
     gutil.log("");
     gutil.log("Your current ENV settings are: ");
     gutil.log("");
@@ -199,6 +202,11 @@
         }
     };
 
+    // Print a node stack trace upon error
+    gulp.on('err', function(e) {
+        console.log(e.err.stack);
+    });
+
     // Empties folders to start fresh
     gulp.task('clean', function (cb) {
         del(['dist/*', '!dist/media'], cb);
@@ -307,24 +315,6 @@
             .pipe(gulp.dest(paths.themeDest));
     });
 
-    // Protractor tests
-    // gulp.task('protractorUpdate', protractor.webdriverUpdate);
-    // gulp.task('protractor', ['protractorUpdate'], function (cb) {
-    //     gulp.src(['tests/e2e/**/*.js']).pipe(protractor.protractor({
-    //         configFile: 'protractor.conf.js'
-    //     })).on('error', function (e) {
-    //         console.log(e);
-    //     }).on('end', cb);
-    // });
-    //
-    // // Jasmine test
-    // gulp.task('jasmine', function() {
-    //     gulp.src('spec/**/*.js')
-    //         .pipe(jasmine({verbose:true, includeStackTrace: true}));
-    // });
-    //
-    // gulp.task('test', ['protractor', 'jasmine'], function () {});
-
     // browser-sync task for starting server
     gulp.task('browser-sync', function () {
         browserSync({
@@ -348,7 +338,11 @@
         gulp.watch('app/scripts/**/*.js', ['jshint', browserSync.reload]);
     });
 
-    gulp.task('serve', ['dev', 'retrieve-files']);
+    gulp.task('serve', ['build', 'dev']);
+
+    gulp.task('default', ['build']);
+
+    // Run this task tell foundation which theme to use
 
     gulp.task('build', function () {
         var jsCode, themesData;
@@ -392,7 +386,6 @@
                     return console.log(err);
                 }
             });
-
             themesData = '{';
             for (i = 0; i < themes.length; i += 1) {
                 themesData += '"' + themes[i] + '":"' + themes[i] + '"';
@@ -402,75 +395,29 @@
             }
             themesData += '}';
 
-            setConfigValue("options", "themes.list.active", themesData);
-            setConfigValue("value", "general.app.foundation_url", FOUNDATION_URI);
-            initConfigs(FOUNDATION_URI);
+            if (env === 'development') {
+                setConfigValue("options", "themes.list.active", themesData);
+                setConfigValue("value", "general.app.foundation_url", DEV_FOUNDATION_URI);
+                initConfigs(DEV_FOUNDATION_URI);
+            } else if (env === 'wercker') {
+                gulp.start('requirejs');
+                gulp.start('vendor');
+                gulp.start('misc');
+                gulp.start('html');
+                gulp.start('autoprefixer');
+                gulp.start('imagemin');
+            } else if (env === 'production' || env === 'staging') {
+                setConfigValue("options", "themes.list.active", themesData);
+                setConfigValue("value", "general.app.foundation_url", FOUNDATION_URI);
+                initConfigs(FOUNDATION_URI);
 
-            gulp.start('requirejs');
-            gulp.start('vendor');
-            gulp.start('misc');
-            gulp.start('html');
-            gulp.start('autoprefixer');
-            gulp.start('imagemin');
-        });
-    });
-
-    gulp.task('default', ['build']);
-
-    gulp.task('retrieve-files', function () {
-        var jsCode, themesData;
-        themesData = '';
-
-        recursive(paths.themesDir, function (err, files) {
-            var i, theme, filePath, parts, regExp;
-            theme = null;
-            regExp = new RegExp('app[/\\\\]themes[/\\\\](\\w+)[/\\\\](.+)', 'i');
-
-            jsCode = '/* jshint ignore:start */\n' +
-                '(function (define) {\n' +
-                '"use strict";\n' +
-                'define(function () {\n' +
-                'return {\n';
-
-            for (i = 0; i < files.length; i += 1) {
-                filePath = files[i];
-                parts = filePath.match(regExp);
-                if (parts instanceof Array) {
-                    if (theme !== parts[1] && theme === null) {
-                        themes.push(parts[1]);
-                        jsCode += '\'' + parts[1] + '\' : [\n';
-                    }
-                    if (theme !== parts[1] && theme !== null) {
-                        themes.push(parts[1]);
-                        jsCode += '],\n\'' + parts[1] + '\' : [\n';
-                    }
-                    jsCode += '\'/' + parts[2] + '\',\n';
-                    theme = parts[1];
-                }
+                gulp.start('requirejs');
+                gulp.start('vendor');
+                gulp.start('misc');
+                gulp.start('html');
+                gulp.start('autoprefixer');
+                gulp.start('imagemin');
             }
-
-            jsCode += ']\n};\n' +
-                '});\n' +
-                '})(window.define);\n' +
-                '/* jshint ignore:end */';
-
-            fs.writeFile('./app/scripts/design/themeFiles.js', jsCode, function (err) {
-                if (err) {
-                    return console.log(err);
-                }
-            });
-            themesData = '{';
-            for (i = 0; i < themes.length; i += 1) {
-                themesData += '"' + themes[i] + '":"' + themes[i] + '"';
-                if (i < themes.length - 1) {
-                    themesData += ',';
-                }
-            }
-            themesData += '}';
-
-            setConfigValue("options", "themes.list.active", themesData);
-            setConfigValue("value", "general.app.foundation_url", DEV_FOUNDATION_URI);
-            initConfigs(DEV_FOUNDATION_URI);
         });
 
     });
