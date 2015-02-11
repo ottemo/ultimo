@@ -11,60 +11,51 @@
              */
             .service('$pdpApiService', ['$resource', 'REST_SERVER_URI', function ($resource, REST_SERVER_URI) {
 
-                var pdpBaseURL = REST_SERVER_URI + '/product';
-
-                return $resource(pdpBaseURL, {}, {
+                return $resource(REST_SERVER_URI, {}, {
                     'getProduct': {
                         method: 'GET',
-                        params: { id: '@id' },
-                        url: pdpBaseURL + '/get/:id'
+                        url: REST_SERVER_URI + '/product/:productID'
                     },
                     'getImagePath': {
                         method: 'GET',
-                        params: { productId: '@productId' },
-                        url: pdpBaseURL + '/media/path/:productId/image'
+                        url: REST_SERVER_URI + '/product/:productID/mediapath/image'
                     },
                     'listImages': {
                         method: 'GET',
-                        params: { productId: '@productId' },
-                        url: pdpBaseURL + '/media/list/:productId/image'
+                        url: REST_SERVER_URI + '/product/:productID/media/image'
                     },
                     "getProducts": {
-                        method: "POST",
-                        url: pdpBaseURL + "/list"
+                        method: "GET",
+                        url: REST_SERVER_URI + "/products"
                     },
                     "getRelated": {
-                        method: "POST",
-                        params: {pid: "@pid"},
-                        url: pdpBaseURL + "/related/:pid"
+                        method: "GET",
+                        url: REST_SERVER_URI + "/product/:productID/related"
                     },
                     "ratingInfo": {
                         method: "GET",
-                        params: { pid: "@pid" },
-                        url: pdpBaseURL + "/rating/info/:pid"
+                        url: REST_SERVER_URI + "/product/:productID/rating"
                     },
                     "addReview": {
                         method: "POST",
                         params: {
-                            pid: "@pid",
+                            productID: "@pid",
                             stars: "@stars"
                         },
                         headers: {"Content-Type": "text/plain"},
-                        url: pdpBaseURL + "/review/add/:pid/:stars"
+                        url: REST_SERVER_URI + "/product/:productID/review"
                     },
                     "reviewList": {
                         method: "GET",
-                        params: { pid: "@pid" },
-                        url: pdpBaseURL + "/review/list/:pid"
+                        url: REST_SERVER_URI + "/product/:productID/reviews"
                     },
                     "reviewRemove": {
                         method: "DELETE",
-                        params: { reviewId: "@reviewId" },
-                        url: pdpBaseURL + "/review/remove/:reviewId"
+                        url: REST_SERVER_URI + "/product/:productID/review/:reviewID"
                     },
                     "getAttributes": {
                         method: "GET",
-                        url: pdpBaseURL + "/attribute/list"
+                        url: REST_SERVER_URI + "/products/attributes"
                     }
                 });
             }]);

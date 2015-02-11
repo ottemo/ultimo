@@ -11,81 +11,72 @@
              */
             .service("$visitorApiService", ["$resource", "REST_SERVER_URI", function ($resource, REST_SERVER_URI) {
 
-                var visitorBaseURL = REST_SERVER_URI + "/visitor";
-
-                return $resource(visitorBaseURL, {},
+                return $resource(REST_SERVER_URI, {},
                     {
                         "register": {
                             method: "POST",
-                            url: visitorBaseURL + "/register"
+                            url: REST_SERVER_URI + "/visitors/register"
                         },
                         "loginFacebook": {
                             method: "POST",
-                            url: visitorBaseURL + "/login-facebook"
+                            url: REST_SERVER_URI + "/visit/login-facebook"
                         },
                         "loginGoolge": {
                             method: "POST",
-                            url: visitorBaseURL + "/login-google"
+                            url: REST_SERVER_URI + "/visit/login-google"
                         },
                         "login": {
                             method: "POST",
-                            url: visitorBaseURL + "/login"
+                            url: REST_SERVER_URI + "/visit/login"
                         },
                         "validate": {
                             method: "GET",
-                            params: {key: "@key"},
-                            url: visitorBaseURL + "/validate/:key"
+                            url: REST_SERVER_URI + "/visitors/validate/:key"
                         },
                         "forgotPassword": {
                             method: "GET",
-                            params: {email: "@email"},
-                            url: visitorBaseURL + "/forgot-password/:email"
+                            url: REST_SERVER_URI + "/visitors/forgot-password/:email"
                         },
                         "invalidate": {
                             method: "GET",
-                            params: {email: "@email"},
-                            url: visitorBaseURL + "/invalidate/:email"
+                            url: REST_SERVER_URI + "/visitors/invalidate/:email"
                         },
                         "info": {
                             method: "GET",
-                            url: visitorBaseURL + "/info"
+                            url: REST_SERVER_URI + "/visit"
                         },
                         "update": {
                             method: "PUT",
-                            url: visitorBaseURL + "/update"
+                            url: REST_SERVER_URI + "/visit"
                         },
                         "getAddresses": {
                             method: "GET",
-                            params: {visitorId: "@visitorId"},
-                            url: visitorBaseURL + "/address/list/:visitorId"
+                            url: REST_SERVER_URI + "/visit/addresses"
                         },
                         "addressUpdate":{
                             method: "PUT",
-                            params: {id: "@id"},
-                            url: visitorBaseURL + "/address/update/:id"
+                            params: { addressID: "@id" },
+                            url: REST_SERVER_URI + "/visit/address/:addressID"
                         },
                         "saveAddress": {
                             method: "POST",
-                            url: visitorBaseURL + "/address/create"
+                            url: REST_SERVER_URI + "/visit/address"
                         },
                         "loadAddress": {
                             method: "GET",
-                            params: {id: "@id"},
-                            url: visitorBaseURL + "/address/load/:id"
+                            url: REST_SERVER_URI + "/visit/address/:addressID"
                         },
                         "deleteAddress": {
                             method: "DELETE",
-                            params: { id: "@id" },
-                            url: visitorBaseURL + "/address/delete/:id"
+                            url: REST_SERVER_URI + "/visit/address/:addressID"
                         },
                         "getOrderList": {
-                            method: "POST",
-                            url: visitorBaseURL + "/order/list"
+                            method: "GET",
+                            url: REST_SERVER_URI + "/visit/orders"
                         },
                         "getOrder": {
                             method: "GET",
-                            params: { id: "@id" },
-                            url: visitorBaseURL + "/order/details/:id"
+                            url: REST_SERVER_URI + "/visit/order/:orderID"
                         }
                     });
             }]);

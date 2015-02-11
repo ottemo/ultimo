@@ -49,7 +49,7 @@
                     }
 
                     if ($scope.orderId) {
-                        $visitorApiService.getOrder({"id": $scope.orderId}).$promise.then(
+                        $visitorApiService.getOrder({"orderID": $scope.orderId}).$promise.then(
                             function (response) {
                                 $scope.order = response.result || [];
                                 $scope.$emit('add-breadcrumbs', {'label': $scope.order["increment_id"], 'url': '/account/order/' + $scope.orderId});

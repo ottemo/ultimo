@@ -88,7 +88,7 @@
                     getRatingInfo = function (productId) {
                         var defer = $q.defer();
 
-                        $pdpApiService.ratingInfo({"pid": productId}).$promise.then(
+                        $pdpApiService.ratingInfo({"productID": productId}).$promise.then(
                             function (response) {
                                 if(response.result instanceof Array) {
                                     ratingInfo = response.result[0];

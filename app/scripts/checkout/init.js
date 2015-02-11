@@ -43,7 +43,7 @@
                     "$checkoutService",
                     function ($http, REST_SERVER_URI, CHECKOUT_TYPE, $checkoutService) {
                         $http({
-                            url: REST_SERVER_URI + "/config/get/" + CHECKOUT_TYPE,
+                            url: REST_SERVER_URI + "/config/value/" + CHECKOUT_TYPE,
                             method: "GET"
                         }).success(function (response) {
                             $checkoutService.setType(response.result);

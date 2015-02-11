@@ -17,7 +17,7 @@
                     template: "<div class='custom-block' ng-bind-html='showContent()'></div>",
                     controller: function ($scope) {
 
-                        $cmsApiService.getBlock({"id": $scope.identifier}).$promise.then(
+                        $cmsApiService.getBlock({"blockID": $scope.identifier}).$promise.then(
                             function (response) {
                                 if (response.error === null) {
                                     $scope.block = response.result;
