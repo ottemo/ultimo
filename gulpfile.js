@@ -73,7 +73,7 @@
         FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://staging.ottemo.io:3000';
     } else if (env === 'wercker') {
         DEV_FOUNDATION_URI = process.env.DEV_FOUNDATION_URI || 'http://localhost:3000';
-        FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://localhost:3000';
+        FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://dev.ottemo.io:3000';
     } else if (env === 'production') {
         DEV_FOUNDATION_URI = process.env.DEV_FOUNDATION_URI || 'http://localhost:3000';
         FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://dev.ottemo.io:3000';
@@ -317,12 +317,21 @@
 
     // browser-sync task for starting server
     gulp.task('browser-sync', function () {
-        browserSync({
-            server: {
-                baseDir: './app'
-            },
-            port: host.port
-        });
+        if (env === 'production') {
+            browserSync({
+                server: {
+                    baseDir: './dist'
+                },
+                port: host.port
+            });
+        } else {
+            browserSync({
+                server: {
+                    baseDir: './app'
+                },
+                port: host.port
+            });
+        }
     });
 
     gulp.task('bs-reload', function () {
