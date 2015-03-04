@@ -124,7 +124,7 @@ require([
              * angular.element.get can not send cookie
              */
             $.ajax({
-                url: angular.appConfigValue("general.app.foundation_url") + "/config/item/themes.list.active",
+                url: angular.appConfigValue("general.app.foundation_url") + "/config/value/themes.list.active",
                 type: "GET",
                 timeout: 10000,
                 xhrFields: {
