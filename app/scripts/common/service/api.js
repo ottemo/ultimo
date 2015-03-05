@@ -16,7 +16,7 @@
 
                 var methods = {
                     "getProducts": {
-                        method: "POST",
+                        method: "GET",
                         url: REST_SERVER_URI + "/products"
                     },
                     "getCategories": {
