@@ -235,6 +235,7 @@
                             var deferRemoveItem = $q.defer();
                             $cartApiService.remove({'itemIdx': itemIdx}).$promise.then(
                                 function () {
+                                    activeRequests -= 1;
                                     loadCartInfo().then(
                                         function () {
                                             deferRemoveItem.resolve(true);
