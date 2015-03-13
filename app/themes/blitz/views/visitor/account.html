@@ -69,10 +69,22 @@
             <gui-message-manager item="messagePassword"></gui-message-manager>
             <!-- change password form -->
             <form role="form">
+                <!-- old password -->
+                <div class="form-group col-xs-12"
+                     ng-class="{ 'has-error' : passwordForm.old_password.$invalid && !passwordForm.confirm.$pristine }">
+                    <label for="passwordFormOldPassword">Old password *</label>
+                    <input type="password" class="form-control input-lg" id="passwordFormOldPassword" placeholder="Old password"
+                           name="old_password"
+                           ng-model="changePswCredentials.oldpassword">
+
+                    <p ng-show="passwordForm.oldpassword.$invalid && !passwordForm.oldpassword.$pristine"
+                       class="help-block">This field is required.</p>
+                </div>
+
                 <!-- new password -->
                 <div class="form-group col-xs-12"
                      ng-class="{ 'has-error' : passwordForm.password.$invalid && !passwordForm.password.$pristine }">
-                    <label for="passwordFormPassword">Password</label>
+                    <label for="passwordFormPassword">New password *</label>
                     <input type="password" class="form-control input-lg" id="passwordFormPassword" placeholder="Password"
                            name="password"
                            ng-model="changePswCredentials.password" required>
@@ -84,7 +96,7 @@
                 <!-- confirm password -->
                 <div class="form-group col-xs-12"
                      ng-class="{ 'has-error' : passwordForm.confirm.$invalid && !passwordForm.confirm.$pristine }">
-                    <label for="passwordFormConfirm">Confirm password *</label>
+                    <label for="passwordFormConfirm">Confirm new password *</label>
                     <input type="password" class="form-control input-lg" id="passwordFormConfirm" placeholder="Confirm password"
                            name="confirm"
                            ng-model="changePswCredentials.confirm">
