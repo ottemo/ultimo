@@ -33,16 +33,21 @@
 
                     var checkPassword = function () {
                         var status;
-                        if (typeof $scope.changePswCredentials.password === "undefined" ||
-                            $scope.changePswCredentials.password.trim() === "") {
-                            $scope.messagePassword = $commonUtilService.getMessage(null, "warning", "Password can not be blank");
+                        if (typeof $scope.changePswCredentials.oldpassword === "undefined" ||
+                        $scope.changePswCredentials.oldpassword.trim() === "") {
+                            $scope.messagePassword = $commonUtilService.getMessage(null, "warning", "Old password field can not be blank");
+                            $scope.isCoincide = false;
+                            status = false;
+                        } else if (typeof $scope.changePswCredentials.password === "undefined" ||
+                         $scope.changePswCredentials.password.trim() === "") {
+                            $scope.messagePassword = $commonUtilService.getMessage(null, "warning", "Password field can not be blank");
                             $scope.isCoincide = false;
                             status = false;
                         } else if ($scope.changePswCredentials.password === $scope.changePswCredentials["confirm"]) {
                             $scope.isCoincide = true;
                             status = true;
                         } else {
-                            $scope.messagePassword = $commonUtilService.getMessage(null, "warning", "Passwords don't match");
+                            $scope.messagePassword = $commonUtilService.getMessage(null, "warning", "New Passwords don't match");
                             $scope.isCoincide = false;
                             status = false;
                         }
@@ -87,7 +92,9 @@
 
                     $scope.changePassword = function () {
                         if (checkPassword()) {
-                            $visitorApiService.update({"password": $scope.changePswCredentials.password}).$promise.then(
+                            $visitorApiService.update({
+                            "old_password": $scope.changePswCredentials.oldpassword,
+                            "password": $scope.changePswCredentials.password}).$promise.then(
                                 function (response) {
                                     setTimeout(function () {
                                         $("#form-change-password").modal("hide");
