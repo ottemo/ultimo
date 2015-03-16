@@ -1,0 +1,17 @@
+# Folders
+.idea
+.tmp
+.sass-cache
+.vagrant
+
+app/bower_components
+app/media
+dist
+nbproject/*
+node_modules
+tags
+
+# Files
+*.iml
+app/scripts/design/themeFiles.js
+

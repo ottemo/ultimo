@@ -1,0 +1,371 @@
+<div class="pdp" ng-init="init()">
+<!-- images -->
+<div class="text-center col-xs-12 col-md-3 col-md-offset-1 hidden-sm hidden-xs">
+    <div class="pdp-slider">
+        <div ng-repeat="img in productImages" ng-class='{big:img==product.default_image}'>
+            <img class="slide-image" data-ng-src="{{getImage(imagesPath, img, 'thumb')}}" err-src="placeholder.png"
+                 alt="" data-zoom-image="{{getImage(imagesPath, img, 'big')}}"/>
+        </div>
+    </div>
+</div>
+<div id="carousel-example-generic" class="carousel pdp-mobile-slider slide visible-sm visible-xs" data-ride="carousel">
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+        <div class="item" ng-class="{active : $first}" ng-repeat="img in productImages">
+            <img class="text-center" err-src="placeholder.png" ng-src="{{getImage(imagesPath, img, 'thumb')}}" alt=""/>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev" target="_serf">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next" target="_serf">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+<!--info desktop -->
+<div class="col-xs-12 col-md-7 pdp-title">
+    <div class="row">
+        <!-- product name -->
+        <h2 class="col-xs-9">
+            {{product.name}}
+        </h2>
+
+        <!-- product price -->
+            <span class="col-xs-3 price text-right">
+                {{product.price | currency}}
+            </span>
+    </div>
+
+    <!-- Quantity -->
+    <div class="row">
+        <div class="col-sx-12 form-group">
+            <div class="col-sx-12 btn-soc">
+                <a class="btn btn-social-icon btn-facebook" href="http://facebook.com" target="_blank">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a class="btn btn-social-icon btn-google-plus" href="https://plus.google.com/" target="_blank">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+                <a class="btn btn-social-icon btn-pinterest" href="https://www.pinterest.com/" target="_blank">
+                    <i class="fa fa-pinterest"></i>
+                </a>
+                <a class="btn btn-social-icon btn-microsoft" href="http://live.com" target="_blank">
+                    <i class="fa fa-windows"></i>
+                </a>
+                <a class="btn btn-social-icon btn-twitter" href="https://twitter.com" target="_blank">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </div>
+            <div class="input-group pdp-qty">
+                    <span class="input-group-btn">
+                        <button class="btn btn-lg btn-default" type="button" ng-click="changeQty(qty,'up')">
+                            +
+                        </button>
+                    </span>
+                <input type="text" class="form-control text-center input-lg" placeholder="Qtl" type="text"
+                       class="form-control" value="{{qty}}"
+                       ng-model="qty" ng-change="update(idx, qty)">
+                    <span class="input-group-btn">
+                        <button class="btn btn-lg btn-default" type="button" ng-click="changeQty(qty,'down')"
+                                ng-blur="update(item.idx, item.qty)">
+                            -
+                        </button>
+                    </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- fns -->
+    <div class="row pdp-option">
+        <gui-custom-options item="product" object="this"></gui-custom-options>
+    </div>
+    <div class="clearfix"></div>
+
+    <!-- error message -->
+    <div class="row">
+        <div class="col-xs-12 col-md-8">
+            <gui-message-manager item="messageOptions"></gui-message-manager>
+        </div>
+    </div>
+
+    <!-- total -->
+    <div class="row">
+        <p class="price">Total: {{product.price * qty | currency}}</p>
+    </div>
+
+    <!-- add to cart button -->
+    <div class="row pdp-btn-cart">
+        <a href="" target="_self" class="btn btn-lg btn btn-danger" ng-click="addToCart()">
+            <span class="glyphicon glyphicon-shopping-cart"></span>
+            &nbsp;Add to cart
+        </a>
+    </div>
+
+
+    <div class="row pdp-desc">
+
+        <!-- Show available options -->
+        <div class="col-sx-12 description active" ng-init="getPublicAttributes()">
+            <h6 ng-if="hasPublicAttributes">Available options</h6>
+
+            <div class="description-block">
+                <p ng-repeat="(name, value) in publicAttributes"><b>{{name}}</b>: {{value}}</p>
+            </div>
+        </div>
+
+        <div class="col-sx-12 description active">
+            <h6>Description<span class="fa fa-chevron-down"></span></h6>
+
+            <div class="description-block">
+                <p ng-bind-html="product.description"></p>
+            </div>
+        </div>
+
+        <div class="col-sx-12 exchange active">
+            <h6>RETURNS AND EXCHANGES<span class="fa fa-chevron-down"></span></h6>
+
+            <div class="exchange-block">
+                <p>Here is a descrioption block for blitz-store</p>
+
+                <p>
+                    I love this product on the sole reason that it saves me quite a bit of money. If I can get my
+                    friends abroad and even my friends here in the UK to become FishText users then it's free to text! I
+                    find using the app. near the same as sending a normal message from the phone and the message sends
+                    instantly. Downloading the app. wasn't too hard, you just type your number into the website and they
+                    send u a link to the download, obviously your phone needs internet.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+    <div class="col-xs-12 col-sm-6 col-sm-4 col-lg-2" ng-class="{'col-lg-offset-1' : $first}" ng-repeat="_item in related" ng-show="related.length">
+        <a href="{{productService.getUrl(_item.ID)}}" class="thumbnail">
+            <img ng-src="
+            {{getImage('',_item.Image, 'thumb')}}" alt="_item.Name"/>
+        </a>
+    </div>
+    <div class="clear"></div>
+    <section class="rating col-xs-12">
+        <div class="col-xs-12 col-md-10 col-md-offset-1">
+            <div class="left-block">
+                <h5>customers reviews</h5>
+                <form>
+                    <input id="input-21d" value="{{ratingInfo.averageValue | number:2}}" type="number" class="rating disabled" min=0 max=5 step=0.1
+                           data-size="xxs">
+                </form>
+                <p>{{ratingInfo.averageValue | number}} out of 5</p>
+                <div class="clearfix"></div>
+                <div class="progressbar">
+                    <table>
+                        <tr>
+                            <td>5 star</td>
+                            <td>
+                                <progress value="{{ratingInfo.fifeStarPersent}}" max="100">{{ratingInfo.fifeStarPersent}}</progress>
+                            </td>
+                            <td>{{ratingInfo.stars_5 | number}}</td>
+                        </tr>
+                        <tr>
+                            <td>4 star</td>
+                            <td>
+                                <progress value="{{ratingInfo.fourStarPersent}}" max="100">{{ratingInfo.fourStarPersent}}%</progress>
+                            </td>
+                            <td>{{ratingInfo.stars_4 | number}}</td>
+                        </tr>
+                        <tr>
+                            <td>3 star</td>
+                            <td>
+                                <progress value="{{ratingInfo.threeStarPersent}}" max="100">{{ratingInfo.threeStarPersent}}%</progress>
+                            </td>
+                            <td>{{ratingInfo.stars_3 | number}}</td>
+                        </tr>
+                        <tr>
+                            <td>2 star</td>
+                            <td>
+                                <progress value="{{ratingInfo.twoStarPersent}}" max="100">{{ratingInfo.twoStarPersent}}%</progress>
+                            </td>
+                            <td>{{ratingInfo.stars_2 | number}}</td>
+                        </tr>
+                        <tr>
+                            <td>1 star</td>
+                            <td>
+                                <progress value="{{ratingInfo.oneStarPersent}}" max="100">{{ratingInfo.oneStarPersent}}%</progress>
+                            </td>
+                            <td>{{ratingInfo.stars_1 | number}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="right-block">
+                <h5>your rating</h5>
+
+                <form name="reviewForm">
+                    <input id="input-21d" value="1" ng-model="review.stars" type="number" class="rating" min=0 max=5 step=1
+                           data-size="xxs">
+
+                    <div class="col-md-12">
+                        <gui-message-manager item="messageReview"></gui-message-manager>
+                        <div ng-class="{ 'has-error' : (submittedReview && reviewForm.review.$error.required) || (reviewForm.review.$invalid && !reviewForm.review.$pristine) }">
+                            <input class="form-control" type="text" name="review" ng-model="review.comment" required>
+
+                            <p ng-show="(submittedReview && reviewForm.review.$error.required) || (reviewForm.review.$invalid && !reviewForm.review.$pristine)"
+                               class="help-block">This field is required.</p>
+                        </div>
+                    </div>
+                </form>
+                <div class="btn btn-default btn-lg pull-right" ng-click="saveReview()">submit</div>
+                <div class="clearfix"></div>
+                <div class="review-sort btn btn-primary btn-xs pull-right">
+                    <ul class="navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href role="button" data-toggle="dropdown">
+                                <p>Sort by : <span>{{sorting}}</span></p>&nbsp;&nbsp;&nbsp;
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li role="presentation">
+                                    <a role="menuitem" href="" target="_self" ng-click="sortByRating('desc')">High to
+                                        Low</a>
+                                </li>
+                                <li role="presentation">
+                                    <a role="menuitem" href="" target="_self" ng-click="sortByRating('asc')">Low to High</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="reviews">
+            <div class="col-md-12 col-md-10 col-md-offset-1">
+                <div class="tab-review-sort">
+                    <ul>
+                        <li>
+                            <a href="" target="_self" ng-click="sortByRating('desc')">High to Low</a>
+                        </li>
+                        <li>
+                            <a class="active" href="" target="_self" ng-click="sortByRating('asc')">Low to High</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+                <div ng-repeat="_item in reviewsList">
+                    <div class="left-block">
+                        <form>
+                            <input id="input-21d" value="{{_item.rating}}" type="number" class="rating disabled" min=0 max=5
+                                   step=0.1 data-size="xxs">
+                        </form>
+                        <h6>{{_item.username}}</h6>
+                    </div>
+                    <div class="right-block">
+                        <span>{{getDate(_item.created_at)}}</span>
+
+                        <p>
+                            {{_item.review}}
+                        </p>
+                    </div>
+                    <div class="clearfix"></div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+    (function ($) {
+        "use strict";
+
+        $(document).ready(function () {
+            //slider
+            $(document).on("click", ".pdp-slider > div", function () {
+
+                if ($(this).hasClass("big")) {
+                    return true;
+                }
+
+                $('.zoomContainer').remove();
+
+                $('.pdp-slider > .big').fadeOut('fast', function () {
+                    $(this).removeClass('big');
+                    $(this).fadeIn('fast');
+                });
+
+                $(this).fadeOut('fast', function () {
+                    $(this).addClass('big');
+                    $('.pdp-slider').prepend($(this));
+                    $(this).fadeIn('fast');
+                    $(this).children('img').elevateZoom({
+                        scrollZoom: true
+                    });
+                });
+            });
+
+            // rating
+            setTimeout(function () {
+                $("input.rating").each(function () {
+                    if ($(this).hasClass("disabled")) {
+                        $(this).rating({
+                            readonly: true,
+                            disabled: true,
+                            showCaption: false,
+                            showClear: false
+                        });
+                    } else {
+                        $(this).rating({
+                            showCaption: false,
+                            showClear: false
+                        });
+                    }
+                });
+            }, 500);
+
+            // image zoom
+            $('.big > img').elevateZoom({
+                scrollZoom: true
+            });
+
+            setTimeout(function () {
+                $('.big > img').elevateZoom({
+                    scrollZoom: true
+                });
+            }, 500);
+        });
+
+        $('body').removeClass('modal-open');
+
+        $('.pdp-desc h6').on('click', function () {
+            $(this).next().slideToggle();
+            $(this).toggleClass('active');
+            if ($(this).hasClass('active')) {
+                $(this).find('span').removeClass('fa-chevron-down');
+                $(this).find('span').addClass('fa-chevron-right');
+            }
+            else {
+                $(this).find('span').removeClass('fa-chevron-right');
+                $(this).find('span').addClass('fa-chevron-down');
+            }
+        });
+
+    })(jQuery)
+</script>
+<style>
+    .product {
+        float: none;
+        display: inline-block;
+    }
+
+    .product img {
+        width: 100%;
+        height: auto;
+    }
+
+    .zoomContainer {
+        display: block;
+    }
+</style>

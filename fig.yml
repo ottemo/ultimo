@@ -1,0 +1,7 @@
+web:
+    image: ottemo/storefront
+    command: gulp serve
+    ports:
+    - "8080:8080"
+    volumes:
+    - .:/storefront
