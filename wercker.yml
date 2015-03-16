@@ -18,7 +18,7 @@ build:
         code: gulp jshint
     - script:
         name: Run gulp build
-        code: NODE_ENV=wercker FOUNDATION_URI=http://dev.ottemo.io:3000 gulp build
+        code: NODE_ENV=wercker FOUNDATION_URI=http://173.255.117.157:3000/ gulp build
 
     # A custom script step, name value is used in the UI
     # and the code value contains the command that get executed
@@ -28,7 +28,7 @@ build:
   after-steps:
     - wercker/hipchat-notify@1.0.3:
         token: $HIPCHAT_TOKEN
-        room-id: 394852
+        room-id: 1312123
         from-name: Wercker
 deploy:
     steps:
@@ -43,11 +43,11 @@ deploy:
             # As well as <USER> and <PASS> via DEFAULT_ROOT and DEFAULT_PASS
         - script:
             name: Post-Build Gulp
-            code: ssh root@$REMOTE_HOST "cd /home/ottemo/storefront/; FOUNDATION_URI=http://dev.ottemo.io:3000 NODE_ENV=production gulp build"
+            code: ssh root@$REMOTE_HOST "cd /home/ottemo/storefront/; FOUNDATION_URI=http://173.255.117.157:3000/ NODE_ENV=production gulp build"
     after-steps:
         - wercker/hipchat-notify@1.0.3:
             token: $HIPCHAT_TOKEN
-            room-id: 394852
+            room-id: 1312123
             from-name: Wercker
 
 
