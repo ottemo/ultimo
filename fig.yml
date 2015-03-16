@@ -1,0 +1,7 @@
+web:
+    image: ottemo/store-ng
+    command: gulp serve
+    ports:
+    - "8080:8080"
+    volumes:
+    - .:/store-ng
