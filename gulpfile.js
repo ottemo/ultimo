@@ -62,21 +62,21 @@
     var env = process.env.NODE_ENV || 'development';
     DEFAULT_ROOT = process.env.DEFAULT_ROOT || 'admin';
     DEFAULT_PASS = process.env.DEFAULT_PASS || 'admin';
-    THEME_AS_DEFAULT = process.env.THEME_AS_DEFAULT || 'blitz';
+    THEME_AS_DEFAULT = process.env.THEME_AS_DEFAULT || 'karigran';
     themes = [];
 
     if (env === 'development') {
         DEV_FOUNDATION_URI = process.env.DEV_FOUNDATION_URI || 'http://localhost:3000';
-        FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://dev.ottemo.io:3000';
+        FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://173.255.117.157:3000/';
     } else if (env === 'staging') {
         DEV_FOUNDATION_URI = process.env.DEV_FOUNDATION_URI || 'http://localhost:3000';
-        FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://staging.ottemo.io:3000';
+        FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://173.255.117.157:3000/';
     } else if (env === 'wercker') {
         DEV_FOUNDATION_URI = process.env.DEV_FOUNDATION_URI || 'http://localhost:3000';
-        FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://dev.ottemo.io:3000';
+        FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://173.255.117.157:3000/';
     } else if (env === 'production') {
         DEV_FOUNDATION_URI = process.env.DEV_FOUNDATION_URI || 'http://localhost:3000';
-        FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://dev.ottemo.io:3000';
+        FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://173.255.117.157:3000/';
     }
 
     gutil.log("Your db settings and your environment settings must match when");
