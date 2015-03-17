@@ -1,7 +1,7 @@
 require.iniConfig = {
-    "general.app.foundation_url": "http://dev.ottemo.io:3000",
+    "general.app.foundation_url": "http://foundation.kg.dev.ottemo.io:3000",
     "general.app.media_path": "media/",
-    "themes.list.active": "blitz",
+    "themes.list.active": "karigran",
     // social networks
     "general.app.login.facebook.appId" : "728744980537129",
     "general.app.login.facebook.secretKey" : "58f763bd74fab043aa3b3c0221291c94",
