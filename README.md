@@ -12,6 +12,7 @@ KariGran Store
 ## Install Store packages
 
     npm install
+    bower install
 
 ## Workflow with gulp
 
