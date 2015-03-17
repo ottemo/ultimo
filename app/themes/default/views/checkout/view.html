@@ -1,0 +1,690 @@
+<!-- checkout page -->
+<h2 class="text-center">Checkout</h2>
+<br>
+<div ng-init="init()" class="col-xs-12 col-md-9 col-md-offset-0 col-sm-8 col-sm-offset-2">
+
+
+<!-- Shipping Block -->
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            Ship to
+            <div class="dropdown pull-right" ng-if="!isGuestCheckout">
+                <button class="btn btn-xs btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
+                    <li role="presentation" ng-repeat="addr in addresses">
+                        <a role="menuitem" tabindex="-1" href ng-click="choiceShipping(addr.ID)">{{addr.Name}}</a>
+                    </li>
+                    <li role="presentation" class="divider"></li>
+                    <li role="presentation">
+                        <a role="menuitem" tabindex="-1" href ng-click="newShipping()">New</a>
+                    </li>
+                </ul>
+            </div>
+        </h3>
+    </div>
+
+    <div class="panel-body">
+        <div id="shippingAddress" class="accordion">
+
+            <!-- Form to add shipping addresses -->
+            <form name="shippingAddress">
+                <div class="form-group col-md-12">
+                    <div class="checkbox">
+                        <label class="myCheckbox" for="shippingUseAsBilling">
+                            <input type="checkbox" name="test" id="shippingUseAsBilling"
+                                   ng-model="useAsBilling"
+                                   ng-checked="useAsBilling">
+                            Use same for billing address
+                        </label>
+                    </div>
+                </div>
+
+                <!--Company-->
+                <div class="form-group col-md-6">
+                    <label for="shippingInputCompany">Company Name</label>
+                    <input type="text" class="form-control" id="shippingInputCompany"
+                           placeholder="Company name"
+                           name="company" ng-blur="saveByBlur('shippingAddress')"
+                           ng-model="checkout.shipping_address.company" ng-disabled="checkout.shipping_address._id">
+                </div>
+
+                <!--First name-->
+                <div class="form-group col-md-6"
+                     ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.first_name.$invalid) || (shippingAddress.first_name.$invalid && !shippingAddress.first_name.$pristine) }">
+                    <label for="shippingInputFirstName">First Name*</label>
+                    <input type="text" class="form-control" id="shippingInputFirstName" placeholder="First name"
+                           name="first_name" required ng-blur="saveByBlur('shippingAddress')"
+                           ng-model="checkout.shipping_address.first_name" ng-disabled="checkout.shipping_address._id">
+
+                    <p ng-show="(subShippingAddress && shippingAddress.first_name.$invalid) || (shippingAddress.first_name.$invalid && !shippingAddress.first_name.$pristine)"
+                       class="help-block">This field is required.</p>
+                </div>
+
+                <!--Last name-->
+                <div class="form-group col-md-6"
+                     ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.last_name.$invalid) || (shippingAddress.last_name.$invalid && !shippingAddress.last_name.$pristine) }">
+                    <label for="shippingInputLastName">Last Name*</label>
+                    <input type="text" class="form-control" id="shippingInputLastName" placeholder="Last name"
+                           name="last_name" required ng-blur="saveByBlur('shippingAddress')"
+                           ng-model="checkout.shipping_address.last_name" ng-disabled="checkout.shipping_address._id">
+
+                    <p ng-show="(subShippingAddress && shippingAddress.last_name.$invalid) || (shippingAddress.last_name.$invalid && !shippingAddress.last_name.$pristine)"
+                       class="help-block">This field is required.</p>
+                </div>
+
+                <!--Address 1-->
+                <div class="form-group col-md-6"
+                     ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.address1.$invalid) || (shippingAddress.address1.$invalid && !shippingAddress.address1.$pristine) }">
+                    <label for="shippingInputAddress">Address 1*</label>
+                    <input type="text" class="form-control" id="shippingInputAddress" placeholder="Address 1"
+                           name="address1" ng-blur="saveByBlur('shippingAddress')"
+                           ng-model="checkout.shipping_address.address_line1" ng-disabled="checkout.shipping_address._id" required>
+
+                    <p ng-show="(subShippingAddress && shippingAddress.address1.$invalid) || (shippingAddress.address1.$invalid && !shippingAddress.address1.$pristine)"
+                       class="help-block">This field is required.</p>
+                </div>
+                <!--Address 2-->
+                <div class="form-group col-md-6">
+                    <label for="shippingInputAddress2">Address 2</label>
+                    <input type="text" class="form-control" id="shippingInputAddress2" placeholder="Address 2"
+                           ng-model="checkout.shipping_address.address_line2" ng-disabled="checkout.shipping_address._id"
+                           ng-blur="saveByBlur('shippingAddress')">
+                </div>
+
+                <!--Zip code-->
+                <div class="form-group col-md-6"
+                     ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.zip_code.$invalid) || (shippingAddress.zip_code.$invalid && !shippingAddress.zip_code.$pristine) }">
+                    <label for="shippingAddressZip">Zip / Postal Code*</label>
+                    <input type="text" class="form-control" id="shippingAddressZip" placeholder="Zip / Postal Code"
+                           name="zip_code" ot-regexp="/^\d{5}(?:[-\s]\d{4})?$/" ng-blur="saveByBlur('shippingAddress')"
+                           ng-model="checkout.shipping_address.zip_code" ng-disabled="checkout.shipping_address._id" required>
+
+                    <p ng-show="(subShippingAddress && shippingAddress.zip_code.$error.required)"
+                       class="help-block">This field is required.</p>
+
+                    <p ng-if="!shippingAddress.zip_code.$error.required"
+                       ng-show="(subShippingAddress && shippingAddress.zip_code.$invalid) ||
+                            (shippingAddress.zip_code.$invalid && !shippingAddress.zip_code.$pristine)"
+                       class="help-block">{{shippingAddress.zip_code.message}}</p>
+                </div>
+
+                <!--City-->
+                <div class="form-group col-md-6"
+                     ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.city.$invalid) || (shippingAddress.city.$invalid && !shippingAddress.city.$pristine) }">
+                    <label for="shippingAddressCity">City*</label>
+                    <input type="text" class="form-control" id="shippingAddressCity" placeholder="City"
+                           name="city" ng-blur="saveByBlur('shippingAddress')"
+                           ng-model="checkout.shipping_address.city" ng-disabled="checkout.shipping_address._id" required>
+
+                    <p ng-show="(subShippingAddress && shippingAddress.city.$invalid) || (shippingAddress.city.$invalid && !shippingAddress.city.$pristine)"
+                       class="help-block">This field is required.</p>
+                </div>
+
+                <!--Country-->
+                <div class="form-group col-md-6"
+                     ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.country.$invalid) || (shippingAddress.country.$invalid && !shippingAddress.country.$pristine) }">
+                    <label for="shippingAddressCity">Country*</label>
+
+                    <select name="country" class="form-control" ng-model="checkout.shipping_address.country" required
+                            ng-blur="saveByBlur('shippingAddress')"
+                            ng-options="c.Code as c.Name for c in countries" ng-disabled="checkout.shipping_address._id">
+                    </select>
+
+                    <p ng-show="(subShippingAddress && shippingAddress.country.$invalid) || (shippingAddress.country.$invalid && !shippingAddress.country.$pristine)"
+                       class="help-block">This field is required.</p>
+                </div>
+
+                <!--State-->
+                <div class="form-group col-md-6"
+                     ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.state.$invalid) || (shippingAddress.state.$invalid && !shippingAddress.state.$pristine) }">
+                    <label for="shippingAddressCity">State / Province / Region*</label>
+
+                    <div class="select">
+                        <select name="state" class="form-control" ng-model="checkout.shipping_address.state" required
+                                ng-blur="saveByBlur('shippingAddress')"
+                                ng-options="c.Code as c.Name for c in states" ng-disabled="checkout.shipping_address._id">
+                        </select>
+                    </div>
+
+                    <p ng-show="(subShippingAddress && shippingAddress.state.$invalid) || (shippingAddress.state.$invalid && !shippingAddress.state.$pristine)"
+                       class="help-block">This field is required.</p>
+                </div>
+
+                <!--Phone-->
+                <div class="form-group col-md-6"
+                     ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.phone.$invalid) || (shippingAddress.phone.$invalid && !shippingAddress.phone.$pristine) }">
+                    <label for="shippingAddressPhone">Phone*</label>
+                    <input type="text" class="form-control" id="shippingAddressPhone" placeholder="Phone" name="phone"
+                           ot-regexp="/^(\+?\d{1,3})?[- ]?\(?(\d{3})\)?[- ]?((?:\d{3})-?(?:\d{2})-?(?:\d{2}))$/" required
+                           ng-blur="saveByBlur('shippingAddress')"
+                           ng-model="checkout.shipping_address.phone" ng-disabled="checkout.shipping_address._id" ng-blur="saveByBlur('shippingAddress')">
+
+                    <p ng-show="(subShippingAddress && shippingAddress.phone.$error.required)"
+                       class="help-block">This field is required.</p>
+
+                    <p ng-if="!shippingAddress.phone.$error.required"
+                       ng-show="(subShippingAddress && shippingAddress.phone.$invalid) ||
+                            (shippingAddress.phone.$invalid && !shippingAddress.phone.$pristine)"
+                       class="help-block">{{shippingAddress.phone.message}}</p>
+                </div>
+
+                <div class="clearfix"></div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Billing Block -->
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            Bill to
+            <div class="dropdown pull-right" ng-if="!isGuestCheckout">
+                <button class="btn btn-xs btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
+                    <li role="presentation" ng-repeat="addr in addresses">
+                        <a role="menuitem" tabindex="-1" ng-click="choiceBilling(addr.ID)">{{addr.Name}}</a>
+                    </li>
+                    <li role="presentation" class="divider"></li>
+                    <li role="presentation">
+                        <a role="menuitem" tabindex="-1" href="" ng-click="newBilling()">New</a>
+                    </li>
+                </ul>
+            </div>
+        </h3>
+    </div>
+
+    <div class="panel-body">
+        <div id="billingAddress" class="accordion">
+            <!-- Form to add billing addresses -->
+            <form name="billingAddress" novalidate>
+
+                <!--Company-->
+                <div class="form-group col-md-6">
+                    <label for="billingInputCompany">Company Name</label>
+                    <input type="text" class="form-control" id="billingInputCompany" placeholder="Company name"
+                           name="company" ng-blur="saveByBlur('billingAddress')"
+                           ng-model="checkout.billing_address.company" ng-disabled="checkout.billing_address._id || useAsBilling">
+                </div>
+
+                <!--First name-->
+                <div class="form-group col-md-6"
+                     ng-class="{ 'has-error' : (subBillingAddress && billingAddress.first_name.$invalid) || (billingAddress.first_name.$invalid && !billingAddress.first_name.$pristine) }">
+                    <label for="billingInputFirstName">First Name*</label>
+                    <input type="text" class="form-control" id="billingInputFirstName" placeholder="First name"
+                           name="first_name" required ng-blur="saveByBlur('billingAddress')"
+                           ng-model="checkout.billing_address.first_name" ng-disabled="billing_address._id || useAsBilling">
+
+                    <p ng-show="(subBillingAddress && billingAddress.first_name.$invalid) || (billingAddress.first_name.$invalid && !billingAddress.first_name.$pristine)"
+                       class="help-block">This field is required.</p>
+                </div>
+
+                <!--Last name-->
+                <div class="form-group col-md-6"
+                     ng-class="{ 'has-error' : (subBillingAddress && billingAddress.last_name.$invalid) || (billingAddress.last_name.$invalid && !billingAddress.last_name.$pristine) }">
+                    <label for="billingInputLastName">Last Name*</label>
+                    <input type="text" class="form-control" id="billingInputLastName" placeholder="Last name"
+                           name="last_name" required ng-blur="saveByBlur('billingAddress')"
+                           ng-model="checkout.billing_address.last_name" ng-disabled="billing_address._id || useAsBilling">
+
+                    <p ng-show="(subBillingAddress && billingAddress.last_name.$invalid) || (billingAddress.last_name.$invalid && !billingAddress.last_name.$pristine)"
+                       class="help-block">This field is required.</p>
+                </div>
+
+                <!--Address 1-->
+                <div class="form-group col-md-6"
+                     ng-class="{ 'has-error' : (subBillingAddress && billingAddress.address1.$invalid) || (billingAddress.address1.$invalid && !billingAddress.address1.$pristine) }">
+                    <label for="billingInputAddress">Address 1*</label>
+                    <input type="text" class="form-control" id="billingInputAddress" placeholder="Address 1"
+                           name="address1" ng-blur="saveByBlur('billingAddress')"
+                           ng-model="checkout.billing_address.address_line1" ng-disabled="checkout.billing_address._id || useAsBilling"
+                           required>
+
+                    <p ng-show="(subBillingAddress && billingAddress.address1.$invalid) || (billingAddress.address1.$invalid && !billingAddress.address1.$pristine)"
+                       class="help-block">This field is required.</p>
+                </div>
+
+                <!--Address 2-->
+                <div class="form-group col-md-6">
+                    <label for="billingInputAddress2">Address 2</label>
+                    <input type="text" class="form-control" id="billingInputAddress2" placeholder="Address 2"
+                           ng-blur="saveByBlur('billingAddress')"
+                           ng-model="checkout.billing_address.address_line2" ng-disabled="checkout.billing_address._id || useAsBilling">
+                </div>
+
+                <!--Zip code-->
+                <div class="form-group col-md-6"
+                     ng-class="{ 'has-error' : (subBillingAddress && billingAddress.zip_code.$invalid) || (billingAddress.zip_code.$invalid && !billingAddress.zip_code.$pristine) }">
+                    <label for="billingAddressZip">Zip / Postal Code*</label>
+                    <input type="text" class="form-control" id="billingAddressZip" placeholder="Zip / Postal Code"
+                           name="zip_code" ot-regexp="/^\d{5}(?:[-\s]\d{4})?$/" ng-blur="saveByBlur('billingAddress')"
+                           ng-model="checkout.billing_address.zip_code" ng-disabled="billing_address._id || useAsBilling"
+                           required>
+
+                    <p ng-show="(subBillingAddress && billingAddress.zip_code.$error.required)"
+                       class="help-block">This field is required.</p>
+
+                    <p ng-if="!billingAddress.zip_code.$error.required"
+                       ng-show="(subBillingAddress && billingAddress.zip_code.$invalid) ||
+                            (billingAddress.zip_code.$invalid && !billingAddress.zip_code.$pristine)"
+                       class="help-block">{{billingAddress.zip_code.message}}</p>
+                </div>
+
+                <!--City-->
+                <div class="form-group col-md-6"
+                     ng-class="{ 'has-error' : (subBillingAddress && billingAddress.city.$invalid) || (billingAddress.city.$invalid && !billingAddress.city.$pristine) }">
+                    <label for="billingAddressCity">City*</label>
+                    <input type="text" class="form-control" id="billingAddressCity" placeholder="City"
+                           name="city" ng-blur="saveByBlur('billingAddress')"
+                           ng-model="checkout.billing_address.city" ng-disabled="checkout.billing_address._id || useAsBilling" required>
+
+                    <p ng-show="(subBillingAddress && billingAddress.city.$invalid) || (billingAddress.city.$invalid && !billingAddress.city.$pristine)"
+                       class="help-block">This field is required.</p>
+                </div>
+
+                <!--Country-->
+                <div class="form-group col-md-6"
+                     ng-class="{ 'has-error' : (subBillingAddress && billingAddress.country.$invalid) || (billingAddress.country.$invalid && !billingAddress.country.$pristine) }">
+                    <label for="billingAddressCity">Country*</label>
+
+                    <select name="country" class="form-control" ng-model="checkout.billing_address.country" required
+                            ng-options="c.Code as c.Name for c in countries" ng-blur="saveByBlur('billingAddress')"
+                            ng-disabled="checkout.billing_address._id || useAsBilling">
+                    </select>
+
+                    <p ng-show="(subBillingAddress && billingAddress.country.$invalid) || (billingAddress.country.$invalid && !billingAddress.country.$pristine)"
+                       class="help-block">This field is required.</p>
+                </div>
+
+                <!--State-->
+                <div class="form-group col-md-6"
+                     ng-class="{ 'has-error' : (subBillingAddress && billingAddress.state.$invalid) || (billingAddress.state.$invalid && !billingAddress.state.$pristine) }">
+                    <label for="billingAddressCity">State / Province / Region*</label>
+
+
+                    <select name="state" class="form-control" ng-model="checkout.billing_address.state" required
+                            ng-options="c.Code as c.Name for c in states" ng-blur="saveByBlur('billingAddress')"
+                            ng-disabled="checkout.billing_address._id || useAsBilling">
+                    </select>
+
+                    <p ng-show="(subBillingAddress && billingAddress.state.$invalid) || (billingAddress.state.$invalid && !billingAddress.state.$pristine)"
+                       class="help-block">This field is required.</p>
+                </div>
+
+                <!--Phone-->
+                <div class="form-group col-md-6"
+                     ng-class="{ 'has-error' : (subBillingAddress && billingAddress.phone.$invalid) || (billingAddress.phone.$invalid && !billingAddress.phone.$pristine) }">
+                    <label for="billingAddressPhone">Phone*</label>
+                    <input type="text" class="form-control" id="billingAddressPhone" placeholder="Phone" name="phone"
+                           ot-regexp="/^(\+?\d{1,3})?[- ]?\(?(\d{3})\)?[- ]?((?:\d{3})-?(?:\d{2})-?(?:\d{2}))$/" required
+                           ng-model="checkout.billing_address.phone" ng-disabled="checkout.billing_address._id" ng-blur="saveByBlur('billingAddress')">
+
+                    <p ng-show="(subBillingAddress && billingAddress.phone.$error.required)"
+                       class="help-block">This field is required.</p>
+
+                    <p ng-if="!billingAddress.phone.$error.required"
+                       ng-show="(subBillingAddress && billingAddress.phone.$invalid) ||
+                            (billingAddress.phone.$invalid && !billingAddress.phone.$pristine)"
+                       class="help-block">{{billingAddress.phone.message}}</p>
+                </div>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Shipping Method -->
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            Shipping Method
+        </h3>
+    </div>
+    <div class="panel-body">
+        <div id="shippingMethod" class="accordion">
+            <form>
+                <div class="form-group col-md-6" ng-repeat="method in shippingMethods">
+                    <div class="checkbox">
+                        <label class="myCheckbox">
+                            <input type="radio" ng-click="choiceShippingMethod($index)" value="{{$index}}"
+                                   name="shipping_method" ng-model="indexShippingMethod">
+                            {{method.Name}}
+                        </label>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Payment Method -->
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            Payment Method
+        </h3>
+    </div>
+    <div class="panel-body">
+        <div id="paymentMethod" class="accordion">
+
+            <div class="form-group col-xs-12" ng-repeat="method in paymentMethods">
+                <div class="checkbox">
+                    <label class="myCheckbox">
+                        <input type="radio" name="test" value="{{method.Code}}" ng-model="checkout.payment_method_code"
+                               ng-change=setPaymentType(method.Type)>
+                        {{method.Name}}
+                    </label>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="paypal" ng-show="isCreditCard()" ng-if="showFormCc(method)">
+                    <form name="method.form" novalidate>
+
+                        <div class="form-group col-md-6 col-xs-12"
+                             ng-class="{ 'has-error' : (method.form.submited && method.form.type.$invalid) || (method.form.type.$invalid && !method.form.type.$pristine) }">
+                            <label>Credit Card Type</label>
+
+                            <select name="type" class="form-control" ng-model="method.cc.type" required ng-selected="c.Code == 'Visa' "
+                                    ng-init="method.cc.type = creditTypes[0].Code"
+                                    ng-options="c.Code as c.Name for c in creditTypes">
+                            </select>
+
+                            <p ng-show="(method.form.submited && method.form.type.$invalid) || (method.form.type.$invalid && !method.form.type.$pristine)"
+                               class="help-block">This field is required.</p>
+                        </div>
+
+                        <div class="form-group col-md-6 col-xs-12"
+                             ng-class="{ 'has-error' : (method.form.submited && method.form.number.$invalid) || ((!method.form.number.$invalidFormat || method.form.number.$invalid) && !method.form.number.$pristine) }">
+
+                            <label for="paymentCardNumber">Number *</label>
+                            <input type="text" class="form-control" id="paymentCardNumber" ng-model="method.cc.number"
+                                   placeholder="Credit Card Number" name="number" ng-change="validateCcNumber()" required>
+
+                            <p ng-show="method.form.submited && method.form.number.$error.required"
+                               class="help-block">This field is required.</p>
+                            <p ng-if="!method.form.number.$error.required"
+                               ng-show="(method.form.submited && method.form.number.$invalid) || ((!method.form.number.$invalidFormat || method.form.number.$invalid) && !method.form.number.$pristine)"
+                               class="help-block">Invalid number format.</p>
+                        </div>
+
+
+                        <div class="form-group col-md-4 col-xs-12"
+                             ng-class="{ 'has-error' : (method.form.submited && method.form.cvv.$invalid) || (method.form.cvv.$invalid && !method.form.cvv.$pristine) }">
+
+                            <label for="paymentCvv">CVV *</label>
+                            <input type="text" class="form-control" id="paymentCvv" name="cvv" ng-model="method.cc.cvv"
+                                   placeholder="CVV" ot-len="3" ot-number="true" ot-positive="true" required />
+
+                            <p ng-show="method.form.submited && method.form.cvv.$error.required"
+                               class="help-block">This field is required.</p>
+                            <p ng-if="!method.form.cvv.$error.required"
+                               ng-show="(method.form.submited && method.form.cvv.$invalid) || (method.form.cvv.$invalid && !method.form.cvv.$pristine)"
+                               class="help-block">{{method.form.cvv.message}}</p>
+                        </div>
+
+                        <div class="form-group col-md-4 col-xs-12"
+                             ng-class="{ 'has-error' : method.form.submited && method.form.expire_month.$invalid }">
+                            <label>Expiration Date</label>
+
+                            <select class="form-control" ng-model="method.cc.expire_month" name="expire_month" required>
+                                <option></option>
+                                <option value="1">01</option>
+                                <option value="2">02</option>
+                                <option value="3">03</option>
+                                <option value="4">04</option>
+                                <option value="5">05</option>
+                                <option value="6">06</option>
+                                <option value="7">07</option>
+                                <option value="8">08</option>
+                                <option value="9">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+
+                            <p ng-show="method.form.submited && method.form.expire_month.$invalid"
+                               class="help-block">This field is required.</p>
+                        </div>
+
+                        <div class="form-group col-md-4 col-xs-12"
+                             ng-class="{ 'has-error' : method.form.submited && method.form.expire_year.$invalid }">
+                            <label>Expiration Year</label>
+                            <select class="form-control" ng-model="method.cc.expire_year" name="expire_year" required>
+                                <option></option>
+                                <option value="2014">2014</option>
+                                <option value="2015">2015</option>
+                                <option value="2016">2016</option>
+                                <option value="2017">2017</option>
+                                <option value="2018">2018</option>
+                                <option value="2019">2019</option>
+                            </select>
+
+                            <p ng-show="method.form.submited && method.form.expire_year.$invalid"
+                               class="help-block">This field is required.</p>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Discounts -->
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            Discounts
+        </h3>
+    </div>
+    <div class="panel-body">
+        <div id="discounts" class="accordion">
+            <gui-message-manager item="messageDiscounts"></gui-message-manager>
+            <div class="form-group col-md-8 col-md-offset-1">
+                <input type="text" class="form-control" id="discount" placeholder="Discount code"
+                       name="discount"
+                       ng-model="discount">
+            </div>
+
+            <div class="form-group col-md-2 text-center">
+                <a href ng-click="discountApply()" class="btn btn-default">Apply code</a>
+            </div>
+
+            <div class="form-group col-md-6" ng-show="checkout.discounts.length">
+                <ul>
+                    <li class="form-group col-md-6" ng-repeat="discount in checkout.discounts">
+                        <div>{{discount.Code}} - {{discount.Amount | currency}}</div>
+                        <div class="glyphicon glyphicon-remove right" ng-click="discountNeglect(discount.Code)"></div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Guest checkout user credential form -->
+<div class="panel panel-default" ng-show="isGuestCheckout">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            Additional info
+        </h3>
+    </div>
+    <div class="panel-body">
+        <div id="customerInfo" class="accordion">
+
+            <!-- Form to add shipping addresses -->
+            <form name="customerInfo">
+
+                <!-- Name -->
+                <div class="form-group col-md-6">
+                    <label for="customerInputName">Name</label>
+                    <input type="text" class="form-control" id="customerInputName" placeholder="Name"
+                           name="name" ng-model="checkout.info.customer_name" ng-blur="saveByBlur('customerInfo')" />
+                </div>
+
+                <div class="form-group col-md-6"
+                     ng-class="{ 'has-error' : (subAdditionalInfo && customerInfo.email.$invalid) || (customerInfo.email.$invalid && !customerInfo.email.$pristine) }">
+                    <label for="customerInputEmail">Email*</label>
+                    <input type="text" class="form-control" id="customerInputEmail" placeholder="Email"
+                           ot-email="true" name="email" ng-model="checkout.info.customer_email" required />
+
+                    <!-- error message -->
+                    <p ng-show="(subAdditionalInfo && customerInfo.email.$error.required)"
+                       class="help-block">This field is required.</p>
+
+                    <p ng-if="!customerInfo.email.$error.required"
+                       ng-show="(subAdditionalInfo && customerInfo.email.$invalid) ||
+                            (customerInfo.email.$invalid && !customerInfo.email.$pristine)"
+                       class="help-block">{{customerInfo.email.message}}</p>
+                </div>
+
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- preview -->
+<div class="panel panel-default">
+    <div class="panel-heading hidden-md hidden-lg">
+        <h3 class="panel-title ">
+            Order preview
+        </h3>
+    </div>
+    <div class="panel-body">
+        <div id="review" class="accordion">
+
+            <div class="row hidden-md hidden-lg">
+                <table class="table table-bordered" ng-show="cart.getCountItems()" ng-class="{'last':$last}">
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                    </tr>
+                    <tr ng-repeat="item in cart.getItems()">
+                        <td>{{item.product.name}}</td>
+                        <td>{{item.qty}}</td>
+                        <td>{{item.product.price | number: 2 | currency}}</td>
+                    </tr>
+                </table>
+                <table class="table table-bordered" ng-show="cart.getCountItems()" ng-class="{'last':$last}">
+                    <tr>
+                        <td>SUBTOTAL</td>
+                        <td>{{checkout.subtotal | currency}}</td>
+                    </tr>
+                    <tr>
+                        <td>Tax</td>
+                        <td>{{checkout.tax_amount | currency}}</td>
+                    </tr>
+                    <tr>
+                        <td>Shipping</td>
+                        <td>{{checkout.shipping_amount | currency}}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Total</td>
+                        <td>{{checkout.grandtotal | currency}}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <gui-message-manager item="message"></gui-message-manager>
+
+            <div class="text-center confirm">
+
+                <!-- next step -->
+                <button class="next btn-lg btn btn-danger" ng-click="save()">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    Confirm purchase
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="col-md-3 hidden-xs hidden-sm">
+    <div class="mini-cart checkout">
+        <!-- product row -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Order summary</h3>
+            </div>
+            <div class="panel-body">
+                <div ng-controller="cartListController">
+                    <!-- if cart is empty -->
+                    <h3 ng-hide="it.getCountItems()" class="text-center">Cart is empty</h3>
+
+
+                    <div class="product " ng-repeat="item in it.getItems()" ng-show="it.getCountItems()">
+
+                        <!-- image -->
+                        <div class="thumbnail col-md-4">
+                            <a href="{{productService.getUrl(item.pid)}}"><img err-src="placeholder.png" ng-src="{{getImage(item.product)}}" alt="{{item.product.name}}"/></a>
+                        </div>
+
+                        <div class="col-md-8">
+                            <!-- name -->
+                            <h4>{{item.product.name}}</h4>
+
+
+                            <!-- description -->
+                            <p class="options" ng-repeat="(key, value) in item.options" ng-if="item.hasOptions">
+                                {{key}}: {{productService.getOptStr(value)}}
+                            </p>
+
+                            <div class="row">
+                                <!-- qty -->
+                                <p class="col-xs-6">QTY:{{item.qty}}</p>
+
+                                <!-- price -->
+                                <h4>
+                                    <strong class="price col-xs-6">{{item.product.price * item.qty | currency}}</strong>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <hr>
+                </div>
+                <div class="total" ng-show="cart.getCountItems()" ng-class="{'last':$last}">
+                    <h4>
+                        <div class="text-left col-xs-6">Subtotal:</div>
+                        <strong class="text-right col-xs-6">{{checkout.subtotal | currency}}</strong>
+                    </h4>
+                    <h4>
+                        <div class="text-left col-xs-6">Tax:</div>
+                        <strong class="text-right col-xs-6">{{checkout.tax_amount | currency}}</strong>
+                    </h4>
+                    <h4>
+                        <div class="text-left col-xs-6">Shipping:</div>
+                        <strong class="text-right col-xs-6">{{checkout.shipping_amount | currency}}</strong>
+                    </h4>
+
+                    <h4 class="text-right">
+                        <div class="col-xs-6 text-left">Total:</div>
+                        <strong class="text-right col-xs-6">{{checkout.grandtotal | currency}}</strong>
+                    </h4>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-include src="getTemplate('checkout/modal/checkout-purchase-success.html')"></ng-include>
+<ng-include src="getTemplate('checkout/modal/redirect.html')"></ng-include>

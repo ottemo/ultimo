@@ -1,0 +1,94 @@
+<div ng-init="init()" class="container" ng-controller="visitorLoginController">
+    
+    <!-- page title -->
+    <h2 class="text-center row">Login page</h2>
+    <hr>
+    <gui-message-manager item="messageValidaion"></gui-message-manager>
+    <div class="row">
+        <!-- desktop social login  -->
+        <div class="text-center col-md-3 visible-md visible-lg">
+            <h4>Login With Social Media</h4>
+            <br>
+                <div class="btn btn-info" ng-click="facebookLogin()">
+                    <i class="fa fa-facebook"></i>
+                    Login with Facebook
+                </div>
+                <br><br>
+                <div class="btn btn-danger" ng-click="googleLogin()">
+                    <i class="fa fa-google-plus"></i>
+                    Login with Google+
+                </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <!-- login form -->
+        <div class="col-md-6">
+            <h4 class="text-center">Already Registered?</h4>
+
+            <!-- form -->
+            <form name="loginForm">
+
+                <!-- error message -->
+                <gui-message-manager item="message"></gui-message-manager>
+
+                <!-- login field + label -->
+                <div class="form-group"
+                     ng-class="{ 'has-error' : (loginForm.submitted && loginForm.email.$error.required) || (loginForm.email.$invalid && !loginForm.email.$pristine) }">
+                    <label for="email">Email *</label>
+                    <input class="form-control" type="text" id="email" placeholder="email"
+                           ng-model="loginCredentials.email" name="email" required />
+                    
+                    <!-- error message -->
+                    <p ng-show="(loginForm.submitted && loginForm.email.$error.required) || (loginForm.email.$invalid && !loginForm.email.$pristine)"
+                       class="help-block">This field is required.</p>
+                </div>
+
+                <!-- password field + label -->
+                <div class="form-group"
+                     ng-class="{ 'has-error' : (loginForm.submitted && loginForm.password.$error.required) || (loginForm.password.$invalid && !loginForm.password.$pristine) }">
+                    <label for="password">Password *</label>
+                    <input class="form-control" type="password" id="password" placeholder="password"
+                           ng-model="loginCredentials.password"
+                           name="password" required autocomplete="off" />
+                    <!-- error message -->
+                    <p ng-show="(loginForm.submitted && loginForm.password.$error.required) || (loginForm.password.$invalid && !loginForm.password.$pristine)"
+                       class="help-block">This field is required.</p>
+                </div>
+
+                <!-- submit button -->
+                <button type="submit" class="btn btn-primary col-xs-6 col-xs-offset-3" ng-click="signIn()">Login</button>
+                <div class="clearfix"></div>  
+            </form>
+        </div>
+
+        <!-- tablet/mobile social login  -->
+        <div class="text-center visible-xs visible-sm">
+            <hr>
+            <h4>Login With Social Media</h4>
+            <div class="btn-group-vertical col-xs-8 col-xs-offset-2 col-sm-6 col-sm-offset-3">
+                <div class="btn btn-info" ng-click="facebookLogin()">
+                    <i class="fa fa-facebook"></i>
+                    Login with Facebook
+                </div>
+                <div class="btn btn-danger" ng-click="googleLogin()">
+                    <i class="fa fa-google-plus"></i>
+                    Login with Google+
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <hr>
+        </div>
+
+        <!-- registration link -->
+        <div class="text-center col-md-3">
+            <h4>Don't have an Account?</h4>
+            <br>
+            <a href="#/registration" class="btn btn-primary">Create Account</a>
+            <br><br>
+            <a href="#/forgot-password" class="">Forgot your password?</a>
+            <br>
+            <a href="#/resend-activation" class="text-primary">Lost activation email?</a> 
+        </div>
+        <div class="clearfix"></div>  
+    </div>
+</div>
