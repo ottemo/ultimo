@@ -38,12 +38,12 @@ deploy:
             hostname: $REMOTE_HOST
         - script:
             name: Copy dist dir to $REMOTE_HOST
-            code: scp -r $WERCKER_SOURCE_DIR/app root@$REMOTE_HOST:/home/ottemo/storefront/
+            code: scp -r $WERCKER_SOURCE_DIR/app ottemo@$REMOTE_HOST:/home/ottemo/storefront/
             # Remember to set FOUNDATION_URI and NODE_ENV
             # As well as <USER> and <PASS> via DEFAULT_ROOT and DEFAULT_PASS
         - script:
             name: Post-Build Gulp
-            code: ssh root@$REMOTE_HOST "cd /home/ottemo/storefront/; FOUNDATION_URI=http://foundation.kg.dev.ottemo.io NODE_ENV=production gulp build"
+            code: ssh ottemo@$REMOTE_HOST "cd /home/ottemo/storefront/; FOUNDATION_URI=http://foundation.kg.dev.ottemo.io NODE_ENV=production gulp build"
     after-steps:
         - wercker/hipchat-notify@1.0.3:
             token: $HIPCHAT_TOKEN
