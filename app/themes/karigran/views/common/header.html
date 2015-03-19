@@ -1,10 +1,10 @@
 <!-- Navigation bar -->
-<nav role="navigation" class="navbar-default navbar navbar-fixed-top">
+<nav id="header" role="navigation" class="navbar-default navbar">
     <div class="container-fluid">
         <div class="navbar-header">
             <!-- Logo -->
-            <a href="#/">
-                <img alt="logo" class="" ng-src="{{getImg('logo.png')}}" style="margin-top:5px;margin-right:15px">
+            <a class="logo" href="#/">
+                <img alt="logo" class="" ng-src="{{getImg('logo.png')}}">
             </a>  
 
             <!-- toggle button -->
@@ -16,30 +16,28 @@
             </button>
         </div>
 
-        <!-- Cart icon -->
-        <div class="navbar-form navbar-right">
+        <div class="navbar-collapse collapse pull-right" id="navbar">
+            <!-- Cart icon -->
+            <div class="navbar-form navbar-right  hidden-xs">
+                <div class="pull-right subscriber">
+                    <form class="navbar-form" role="search" id="mc-embedded-subscribe-form-top" name="mc-embedded-subscribe-form-top" method="post" action="http://karigran.us5.list-manage1.com/subscribe/post?u=6355acb494cba6e3f035232b8&id=9b54ed013d">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Enter email for hot promotions" id="mce-EMAIL-top" name="EMAIL">
+                            <div class="input-group-btn">
+                                <button class="btn btn-danger" type="submit" onclick="ga('send', 'event', 'Newsletter Signup', 'Signup from top newletter form');" title="Subscribe" value="Subscribe" id="mc-embedded-subscribe-top">
+                                    GO
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
-            <!-- cart controller wrapper -->
-            <a class="" href="" target="_self" ng-click="clickToCartDesktop()" ng-controller="visitorLoginController" >
-                <!-- cart button -->
-                <button type="button" class="btn btn-default" ng-controller="commonHeaderController" >
-                    <!-- icon cart -->
-                    <span class="glyphicon glyphicon-shopping-cart"></span> 
-                    <!-- items counter -->
-                    <span ng-controller="cartListController">{{it.getCountItems()}}</span>
-                </button>
-            </a>
+            <h4 class="pull-right hidden-xs">always free shipping</h4>
 
-            <!-- login controller wrapper -->
-            <span class="btn-group" ng-controller="commonHeaderController">
-
-                <!-- login/account/logout buttons -->
-                <a href="{{item.link}}"  ng-repeat="item in rightMenu.getMenuRight()" class="btn" ng-class="{'btn-primary': $first, 'btn-default': $last}" >{{item.label}}</a>
-            </span>
+            <div class="clearfix"></div>
+            <!-- main menu -->
+            <ng-include src="getTemplate('common/navigation/main.html')"></ng-include>
         </div>
-        
-        <!-- main menu -->
-        <ng-include src="getTemplate('common/navigation/main.html')"></ng-include>
-        
     </div>
 </nav>

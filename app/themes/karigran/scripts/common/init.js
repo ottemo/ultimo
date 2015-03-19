@@ -9,7 +9,7 @@
             angular.module.commonModule
                 .config(["$routeProvider", function ($routeProvider) {
                     $routeProvider
-                        .when("/css-test.html", { templateUrl:  angular.getTheme("common/css-test.html"), "controller":""});
+                        // .when("/css-test.html", { templateUrl:  angular.getTheme("common/css-test.html"), "controller":""});
                 }])
                 .run([
                     "$rootScope",
@@ -18,7 +18,9 @@
 
                         // Left navigation menu
 
-                        $commonSidebarService.addItem("STYLE CHECK", "css-test.html", "glyphicon glyphicon-book");
+                        $commonSidebarService.addItem("Press", "press");
+                        $commonSidebarService.addItem("Blog", "blog");
+                        $commonSidebarService.addItem("Contact", "contact");
 
                         return angular.module.commonModule;
                     }

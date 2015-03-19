@@ -90,8 +90,7 @@
                         $rootScope.page = $commonPageService;
 
                         // Left navigation menu
-                        $commonSidebarService.addItem("HOME", "", "glyphicon glyphicon-home", 100);
-                        $commonSidebarService.addItem("ABOUT", "about.html", "glyphicon glyphicon-info-sign");
+                        $commonSidebarService.addItem("home", "", "glyphicon glyphicon-home", 100);
 
                         $commonRewriteService.init();
 
