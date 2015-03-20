@@ -121,4 +121,4 @@
 
         return commonModule;
     });
-})(window.define, jQuery);
+})(window.define);
