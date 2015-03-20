@@ -13,9 +13,22 @@ body {
 	box-shadow: 0px 0px 13px rgba(50, 50, 50, 0.2);
 }
 
+p {
+	color: #6c7272;
+    font-family: Arial;
+    font-size: 14px;
+    font-weight: 200;
+    line-height: 31px;
+}
+
 a:focus,button:focus,a:active,button:active {
 	outline: none !important;
 } 
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+	background: #fff;
+	color: #F53797 !important;
+}
 
 input.form-control {
 	border-color: #F53797;
@@ -71,7 +84,6 @@ a:hover,.btn:hover {
      transition: ease-out 0.3s;
 }
 
-
 /*---------------
  Header 
  ---------------*/
@@ -106,9 +118,14 @@ a:hover,.btn:hover {
 /* subscriber */
 #header .subscriber input.form-control {
 	width: 300px;
+	margin-right: 10px;
+}
+#footer .subscriber input.form-control {
+	width: 300px;
+	margin-right: 10px;
 }
 
-#header .subscriber button {
+.subscriber button {
 	margin-left: 10px;
 	border-radius: 0;
 	padding: 7px 0 7px 5px;
@@ -118,7 +135,7 @@ a:hover,.btn:hover {
 	font-family: Georgia;
 	font-style: italic;
 }
-#header .subscriber button:after {
+.subscriber button:after {
 	content: "";
 	position: absolute;
 	top: 0;
@@ -133,7 +150,7 @@ a:hover,.btn:hover {
      -o-transition: ease-out 0.3s;
      transition: ease-out 0.3s;
 }
-#header .subscriber button:hover:after {
+.subscriber button:hover:after {
 	border-left-color:#e52888;
 	-webkit-transition: ease-out 0.3s;
      -moz-transition: ease-out 0.3s;
@@ -244,7 +261,7 @@ a:hover,.btn:hover {
   color: rgb(108, 114, 114);
   cursor: auto;
   display: block;
-  font-family: 'Helvetica Neue', Helvetica;
+  font-family: Arial;
   font-size: 14px;
   font-style: normal;
   font-variant: normal;
@@ -265,6 +282,122 @@ a:hover,.btn:hover {
 }
 
 /*---------------
+ Home 
+ ---------------*/
+.home a.main-banner {
+	display: block;
+	margin-bottom: 40px;
+}
+
+.home a.main-banner .promo-text {
+	height: auto;
+	padding: 5px;
+	text-align: center;
+	background: #000;
+	color: #fff;
+	font-size: 25px;
+	font-family: Arial;
+	font-weight: 300;
+}
+
+.home a.main-banner .promo-text strong {
+	font-style: italic;
+	font-family: Georgia;
+}
+
+.home .main-banner img {
+	width: 100%;
+}
+
+.home .categories .inner {
+	position: relative;
+	margin-bottom: 40px;
+}
+
+.home .categories a img {
+	width: 100%;
+}
+
+.home .categories .inner span {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	left: 0;
+	height: auto;
+	background: rgba(0,0,0,0.8);
+	color: #fff;
+	padding: 5px;
+	text-align: center;
+	font-style: italic;
+	font-family: Georgia;
+	font-size: 16px; 
+	font-weight: 300;
+}
+
+.home .about {
+	border-bottom: 1px #000 solid;
+}
+
+.home .wonderwork {
+	margin-top: 20px;
+}
+
+.home .about img {
+	width: 100%;
+	height: auto;
+	margin-bottom: 20px;
+}
+
+.home .wonderwork video{
+	width: 100%;
+	height: auto;
+}
+
+.home .about h4, .home .wonderwork h4 {
+	font-family: Arial;
+	font-style: normal;
+	text-transform: uppercase;
+	margin-top: 0;
+}
+
+.home .about a {
+	color: #F53797;
+	font-family: Georgia;
+    font-size: 14px;
+    font-style: italic;
+    text-decoration: underline !important;
+    display: block;
+    margin: 0 0 20px;
+}
+
+/*---------------
+ Category
+ ---------------*/
+.category .menu {
+	background: none repeat scroll 0 0 rgba(255, 95, 176, 0.8);
+	padding: 5px 0;
+	margin-bottom: 40px;
+}
+
+.category .menu a > a {
+	color: #fff;
+    display: inline-block;
+    font-family: Georgia;
+    font-size: 14px;
+    font-style: italic;
+    font-weight: normal;
+    margin: 0;
+    text-decoration: none;
+    text-transform: capitalize;
+}
+
+.category .menu a:not(:last-child) > a:after {
+	content: "/";
+	margin: 0 10px;
+}
+
+
+/*---------------
  Footer 
  ---------------*/
 #footer {
@@ -274,6 +407,10 @@ a:hover,.btn:hover {
 	background: none;
 	padding-top: 25px;
 	border-top: 1px solid #000;
+}
+
+#footer .social {
+	margin-bottom: 20px;
 }
 
 #footer .links a {
@@ -299,10 +436,11 @@ a:hover,.btn:hover {
 	font-size: 25px;
 	line-height: 1;
 	color: #fff;
-	background: #6c7372;
+	background: #bbb;
 	display: inline-block;
 	vertical-align: middle;
 	margin: 0 2px;
+	text-align: center;
 }
 
 #footer .social a:hover {
@@ -333,13 +471,93 @@ a:hover,.btn:hover {
 }
 
 @media screen and (max-width: 750px) {
+	.content-wrapper {
+		padding: 10px;
+	}
+
+	#header {
+		margin-bottom: 20px;
+	}
+
 	#navbar {
 		width: 100%;
+		margin: 0;
+		padding: 0;
 	}
+
+	.main-menu ul > li {
+		margin: 2px 0;
+	}
+
+	#navbar .main-menu a {
+		display: block !important;
+		width: 100% !important;
+		padding: 10px;
+	}
+
+	.main-menu ul > li:last-child {
+		margin-bottom: 0;
+	}
+
+	.main-menu ul.navbar-nav {
+		margin: 0;
+	}
+
+	.subscriber .navbar-form {
+		margin: 15px 0 0;
+	}
+
+	.subscriber {
+		float: none !important;
+	}
+
+	.subscriber .input-group {
+		width: 100%;
+	}
+
+	.subscriber input.form-control {
+		width: calc(100% - 50px) !important;
+	}
+
+	.navbar-nav .open .dropdown-menu {
+		padding-left: 20px;
+	}
+
+	#navbar .subscriber .input-group-btn{
+		float: none;
+		display: inline-block;
+	}
+
+
+	#navbar .navbar-form.navbar-right {
+		padding:0;
+		margin: 0;
+		border: none;
+	}
+
 	#header .main-menu {
 		width: 100%;
 	}
 	.navbar-default .navbar-toggle {
 		margin-top: 20px;
+	}
+	.home .main-banner .promo-text {
+		font-size: 20px !important;
+	}
+	#footer .copyrights {
+		margin: 20px 0;
+	}
+	#footer .social, #footer .subscriber {
+		text-align: center;
+	}
+
+	#footer .subscriber form  .input-group{
+		display: inline-block;
+	}
+
+	#footer .subscriber .input-group-btn {
+		float: none;
+		display: inline-block;
+		width: 40px;
 	}
 }

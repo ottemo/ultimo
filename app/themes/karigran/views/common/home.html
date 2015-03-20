@@ -1,57 +1,67 @@
-<!-- 
-<div class="col-xs-12 col-md-10 col-md-offset-1">
-    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-        Indicators
-        <ol class="carousel-indicators hidden-xs hidden-sm">
-            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-        </ol>
-
-        Wrapper for slides
-        <div class="carousel-inner" role="listbox">
-            <div class="item active">
-                <img ng-src="{{getImg('slide1.jpg')}}" alt="">
-                <div class="carousel-caption hidden-xs">
-                    <h1>Welcome to Ottemo!</h1>
-                </div>
-            </div>
-            <div class="item">
-                <img ng-src="{{getImg('slide2.jpg')}}" alt="">
-                <div class="carousel-caption hidden-xs">
-                    <h1>eCommerce reinvented for the modern enterprise.</h1>
-                </div>
-            </div>
-            <div class="item">
-                <img ng-src="{{getImg('slide3.jpg')}}" alt="">
-                <div class="carousel-caption hidden-xs">
-                    <h1>Super-fast, cutting-edge, and mobile-first.</h1>
-                </div>
-            </div>
+<div class="home">
+    <a href="#/category/makeup" class="main-banner">
+        <img ng-src="{{getImg('home_1.jpg')}}" alt="" err-src="placeholder.png">
+        <div class="promo-text">
+            15% off all makeup through March 31st
+            <br>
+            <strong>Shop Now</strong>
         </div>
+    </a>
 
-        Controls
-        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev" target="_serf">
-            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
+    <div class="categories row">
+        <a href="#/lip_treatment" class="col-xs-12 col-sm-4">
+            <div class="inner">
+                <img ng-src="{{getImg('home_2.jpg')}}" alt="" err-src="placeholder.png">
+                <span>Lip Treatment</span>
+            </div>
         </a>
-        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next" target="_serf">
-            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
+        <a href="#/skin_care" class="col-xs-12 col-sm-4">
+            <div class="inner">
+                <img ng-src="{{getImg('home_3.jpg')}}" alt="" err-src="placeholder.png">
+                <span>Skin Care</span>
+            </div>
+        </a>
+        <a href="#/makeup" class="col-xs-12 col-sm-4">
+            <div class="inner">
+                <img ng-src="{{getImg('home_4.jpg')}}" alt="" err-src="placeholder.png">
+                <span>15% off Makeup</span>
+            </div>
         </a>
     </div>
+
+    <div class="about">
+        <div class="row">
+            <div class="col-xs-12 col-md-5">
+                <img ng-src="{{getImg('home_5.jpg')}}" alt="" err-src="placeholder.png" class="img-responsive">
+            </div>
+            <div class="col-xs-12 col-md-7">
+                <h4>About Kari Gran</h4>
+                <p>
+                    Kari Gran is an eco-luxe skin care brand providing a simple, elegant, all natural skin care solution that works flawlessly for any age and skin type. Beautiful skin isn’t a gift or something you can buy; it’s a habit cultivated holistically. Our products are hand poured with the highest quality natural, organic, wildharvested and non-GMO ingredients, our simple, easy-to-use, all natural skin care system results in an everyday ritual. Always paraben and toxin free—the little black dress of eco-skin care.
+                </p>
+            </div>
+        </div>
+        <a href="#/our-story">learn more</a>
+    </div>
+
+    <div class="wonderwork">
+        <div class="row">
+            <div class="col-xs-12 col-md-7">
+                <h4>WonderWork</h4>
+                <p>
+                    We believe beauty is not measured by an age, a dollar sign or stereotype and that we do not need to be fixed, plumped, erased or changed. We believe that beauty is achieved by how you live your life, and the choices you make. One choice we have made is to try to live everyday with gratitude and to share in our abundance. So, we have partnered with WonderWork, an organization committed to saving the lives of children and their families by providing free, life-changing surgeries. For every dollar you spend, we donate 1% to the cause. And we are grateful that we have so many Kari Gran clients that make this gift possible. Whether it’s a lip whip or a system purchase, you are helping to change lives. Now, isn’t that beautiful.
+                </p>
+            </div>
+            <div class="col-xs-12 col-md-5">
+                <video poster="themes/karigran/images/wonderwork-poster.png" controls="controls" id="videoplayer">
+                    <!--ADD mp4 to src -->
+                    <source type="video/mp4" src="themes/karigran/images/video/first-sight-sonia-and-anita.mp4" id="vidsrcmp4"></source>
+                    <!--ADD ogg to src -->
+                    <source type="video/ogg" src="themes/karigran/images/video/first-sight-sonia-and-anita.ogv" id="vidsrcogv"></source>
+                    <source type="video/webm" src="themes/karigran/images/video/first-sight-sonia-and-anita.webm" id="vidsrcwebm"></source>
+                    <!-- add swf value to data-->
+                </video>
+            </div>
+        </div>
+    </div>
 </div>
-<style>
-    .carousel-caption {
-        top:10px;
-    }
-    .carousel-caption h1 {
-        font-size:45px;
-    }
-</style>
-<script>
-    $('.carousel').carousel({
-        interval: 3000
-    })
-</script>
- -->
