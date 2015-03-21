@@ -118,9 +118,11 @@ a:hover,.btn:hover {
 /* subscriber */
 #header .subscriber input.form-control {
 	width: 300px;
+	margin-right: 10px;
 }
 #footer .subscriber input.form-control {
 	width: 300px;
+	margin-right: 10px;
 }
 
 .subscriber button {
@@ -407,6 +409,10 @@ a:hover,.btn:hover {
 	border-top: 1px solid #000;
 }
 
+#footer .social {
+	margin-bottom: 20px;
+}
+
 #footer .links a {
 	color: #6c7372;
     font-family: "Helvetica Neue",Helvetica;
@@ -510,7 +516,7 @@ a:hover,.btn:hover {
 	}
 
 	.subscriber input.form-control {
-		width: calc(100% - 45px) !important;
+		width: calc(100% - 50px) !important;
 	}
 
 	.navbar-nav .open .dropdown-menu {
@@ -552,5 +558,6 @@ a:hover,.btn:hover {
 	#footer .subscriber .input-group-btn {
 		float: none;
 		display: inline-block;
+		width: 40px;
 	}
 }
