@@ -2,7 +2,7 @@
 	
 	<ul ng-controller="commonHeaderController" class="nav navbar-nav">
 		<!-- categories controller wrapper -->
-	    <li ng-repeat="item in categories;" class="list-unstyled" >
+	    <li ng-repeat="item in categories;" class="list-unstyled hidden-xs" >
 			<a href="{{categoryService.getUrl(item.id)}}" target="{{item.id != null ? '' : '_self'}}" class="text-muted display">
 				{{item.name}}
 		    </a>
@@ -12,8 +12,19 @@
 		    </ul>
 		</li> 
 
-		<li class="list-unstyled" >
-			<a href="#">We're Different</a>
+		<li ng-repeat="item in categories;" class="visible-xs" >
+			<a href="{{categoryService.getUrl(item.id)}}" target="{{item.id != null ? '' : '_self'}}" class="text-muted dropdown-toggle" aria-expanded="false" role="button" data-toggle="dropdown">
+				{{item.name}}
+				<span class="caret" ng-if="item.child.length &gt; 0"></span>
+		    </a>
+
+		    <ul class="dropdown-menu" role="menu" ng-if="item.child.length &gt 0">
+		      	<li class="list-unstyled" ng-repeat="item in item.child;" ng-include="getTemplate('common/navigation/categories-items.html')"></li>
+		    </ul>
+		</li>
+
+		<li class="list-unstyled hidden-xs">
+			<a href="">We're Different</a>
 
 		    <ul class="second-level">
 		      	<li class="list-unstyled">
@@ -30,9 +41,30 @@
 		      	</li>
 		    </ul>
 		</li> 
+		<li class="list-unstyled visible-xs">
+			<a aria-expanded="false" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">
+				We're Different 
+				<span class="caret"></span>
+			</a>
+
+		    <ul class="dropdown-menu" role="menu">
+		      	<li class="list-unstyled">
+		      		<a href="#/our-story">Our Story</a>
+		      	</li>
+		      	<li class="list-unstyled">
+		      		<a href="#/ingredients">Ingredients</a>
+		      	</li>
+		      	<li class="list-unstyled">
+		      		<a href="#/ingredients">Philosophy</a>
+		      	</li>
+		      	<li class="list-unstyled">
+		      		<a href="#/why-oil-works">Why Oils Work</a>
+		      	</li>
+		    </ul>
+		</li> 
 		
-		<li class="list-unstyled" >
-			<a href="#">how to</a>
+		<li class="list-unstyled hidden-xs">
+			<a href="">how to</a>
 
 		    <ul class="second-level">
 		      	<li class="list-unstyled">
@@ -48,7 +80,28 @@
 		      		<a href="#/faq">FAQ</a>
 		      	</li>
 		    </ul>
-		</li> 
+		</li>
+		<li class="list-unstyled visible-xs">
+			<a aria-expanded="false" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">
+				how to 
+				<span class="caret"></span>
+			</a>
+
+		    <ul class="dropdown-menu" role="menu">
+		      	<li class="list-unstyled">
+		      		<a href="#/how-to-skin-care-morning">Skin Care - Morning</a>
+		      	</li>
+		      	<li class="list-unstyled">
+		      		<a href="#/how-to-skin-care-evening">Skin Care - Evening</a>
+		      	</li>
+		      	<li class="list-unstyled">
+		      		<a href="#/holistic-skin-care-tips">Holistic Skin Care Tips</a>
+		      	</li>
+		      	<li class="list-unstyled">
+		      		<a href="#/faq">FAQ</a>
+		      	</li>
+		    </ul>
+		</li>  
 
 	    <li class="visible-xs">
 	    	<a href="#/cart" class="text-uppercase">Cart</a>
