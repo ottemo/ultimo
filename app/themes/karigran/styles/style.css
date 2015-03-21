@@ -497,20 +497,20 @@ a:hover,.btn:hover {
 		margin: 0;
 	}
 
-	#navbar .subscriber .navbar-form {
+	.subscriber .navbar-form {
 		margin: 15px 0 0;
 	}
 
-	#navbar .subscriber {
+	.subscriber {
 		float: none !important;
 	}
 
-	#header .subscriber .input-group {
+	.subscriber .input-group {
 		width: 100%;
 	}
 
-	#header .subscriber input.form-control {
-		width: calc(100% - 45px);
+	.subscriber input.form-control {
+		width: calc(100% - 45px) !important;
 	}
 
 	.navbar-nav .open .dropdown-menu {
