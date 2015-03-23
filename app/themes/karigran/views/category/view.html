@@ -5,7 +5,7 @@
 
     <div class="menu hidden-xs" ng-controller="commonHeaderController">
         <div ng-repeat="item in categories;" class="text-center">
-            <span ng-repeat="item in item.child;" ng-include="getTemplate('common/navigation/categories-items.html')"></span>
+            <a href="" ng-repeat="item in item.child;" ng-include="getTemplate('common/navigation/categories-items.html')"></a>
         </div>
     </div>
 
@@ -14,7 +14,7 @@
             <a href="" class="btn btn-lg btn-danger" ng-repeat="item in item.child;" ng-include="getTemplate('common/navigation/categories-items.html')"></a>
         </div>
     </div>
-    
+
     <div class="row products-area">
         <h3 class="col-xs-12 col-sm-4 col-lg-3">{{category.name}}</h3>
         
@@ -41,9 +41,6 @@
             <gui-paginator object="this" ng-if="pages > 1"></gui-paginator>
         </div>
     </div>
-    <div class="clearfix"></div>
-    
-</div>
 
-<!-- quick view modal -->
-<ng-include src="getTemplate('category/modal/quick-view.html')"></ng-include>
+    <div class="clearfix"></div>
+</div>
