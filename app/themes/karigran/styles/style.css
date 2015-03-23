@@ -1,5 +1,5 @@
 /*---------------
- Overwrite bootstrap and common styles
+ Bootstrap and common styles
  ---------------*/
 body {
 	padding: 10px 0 0; 
@@ -65,6 +65,7 @@ h4 {
 
 .btn.btn-danger {
 	background: #F53797;
+	border-color: #fff;
 }
 
 .btn.btn-danger:hover {
@@ -376,10 +377,23 @@ a:hover,.btn:hover {
 .category .menu {
 	background: none repeat scroll 0 0 rgba(255, 95, 176, 0.8);
 	padding: 5px 0;
-	margin-bottom: 40px;
+	margin-bottom: 70px;
 }
 
-.category .menu a {
+.category .category-image {
+	width: 100%;
+}
+
+.category .mobile-categories {
+	margin: 0 0 20px;
+	font-size: 20px;
+}
+.category .mobile-categories a {
+	color: #fff;
+	text-transform: capitalize;
+}
+
+.category .menu a > a {
 	color: #fff;
     display: inline-block;
     font-family: Georgia;
@@ -391,11 +405,48 @@ a:hover,.btn:hover {
     text-transform: capitalize;
 }
 
-.category .menu span:not(:last-child) a:after {
+.category .menu a:not(:last-child) > a:after {
 	content: "/";
 	margin: 0 10px;
 }
 
+.category h3 {
+	color: #4e4e4e;
+	font-family: Georgia;
+    font-size: 24px;
+    font-style: italic;
+    font-weight: normal;
+    text-align: right;
+    margin-top: 0;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.category .products-area .product{
+	display: inline-block;
+	float: none;
+	margin-bottom: 40px;
+	vertical-align: top;
+}
+
+.category .products-area .product img {
+	width: 100%;
+}
+
+.category .products-area .product h5 {
+	color: #111;
+    font-family: Georgia;
+    font-size: 14px;
+    font-style: italic;
+    text-decoration: none;
+}
+
+.category .products-area .product h4{
+	color: #4e4e4e;
+    font-family: Georgia;
+    font-size: 14px;
+    font-weight: normal;
+}
 
 /*---------------
  Footer 
@@ -470,10 +521,6 @@ a:hover,.btn:hover {
 	color: #F53797;
 }
 
-/*---------------
- Responsive
- ---------------*/
-
 @media screen and (max-width: 750px) {
 	.content-wrapper {
 		padding: 10px;
@@ -542,12 +589,20 @@ a:hover,.btn:hover {
 	#header .main-menu {
 		width: 100%;
 	}
+
 	.navbar-default .navbar-toggle {
 		margin-top: 20px;
 	}
+
 	.home .main-banner .promo-text {
 		font-size: 20px !important;
 	}
+	
+	.category h3 {
+		margin-bottom: 20px;
+
+	}
+
 	#footer .copyrights {
 		margin: 20px 0;
 	}
