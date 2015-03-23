@@ -1,56 +1,46 @@
 <div ng-init="init()" class="category">
-
-    <h3 class="text-center">&nbsp;{{category.name}}</h3>
     
-    <div class="menu" ng-controller="commonHeaderController">
+    <!-- there is a sample image. It needs to be replaced with dinamic image from object 'category' -->
+    <img class="category-image" ng-src="{{getImg('category_shop.jpg')}}" alt="" err-src="placeholder.png">
+
+    <div class="menu hidden-xs" ng-controller="commonHeaderController">
         <div ng-repeat="item in categories;" class="text-center">
             <a href="" ng-repeat="item in item.child;" ng-include="getTemplate('common/navigation/categories-items.html')"></a>
         </div>
     </div>
-    
-    <!-- products -->
-    <div class="row">
-        <div class="col-sm-4 col-lg-3 col-xs-12 product" ng-repeat="_item in productsList | filter:searchText" ng-show="productsList.length">
 
-            <!-- product desktop version with info -->
-            <span class="thumbnail hidden-xs"  ng-click="openPopUp(_item);">
+    <div class="visible-xs mobile-categories" ng-controller="commonHeaderController">
+        <div ng-repeat="item in categories;" class="btn-group-vertical visible-xs-block" role="group" aria-label="..."  >
+            <a href="" class="btn btn-lg btn-danger" ng-repeat="item in item.child;" ng-include="getTemplate('common/navigation/categories-items.html')"></a>
+        </div>
+    </div>
+    
+    <div class="row products-area">
+        <h3 class="col-xs-12 col-sm-4 col-lg-3">{{category.name}}</h3>
+        
+        <div class="col-xs-12 col-sm-8 col-lg-9">
+            <!-- products -->
+            <a href="{{productService.getUrl(_item._id)}}" class="col-xs-12 col-sm-4 col-lg-3 product" ng-repeat="_item in productsList | filter:searchText" ng-show="productsList.length">
+
                 <!-- image -->
-                <img class="img-responsive" ng-src="{{getImage(_item)}}" ng-click="openPopUp(_item);" alt="" err-src="placeholder.png">
+                <img ng-src="{{getImage(_item)}}" alt="" err-src="placeholder.png">
+
                 <span class="caption text-center">
                     <!-- product name -->
                     <h5 class="ng-binding">{{_item.name}}</h5>
                     <!-- product price -->
                     <h4 class="ng-binding">{{_item.price | number : 2 | currency}}</h4>
-
                 </span>
-            </span>
-            <a href="{{productService.getUrl(_item._id)}}" class="thumbnail visible-xs">
-                <img ng-src="{{getImage(_item)}}" alt="" err-src="placeholder.png">
             </a>
         </div>
+
+        
         <div class="clearfix"></div>
+
         <div class="text-center">
             <gui-paginator object="this" ng-if="pages > 1"></gui-paginator>
         </div>
     </div>
+
     <div class="clearfix"></div>
-    
 </div>
-
-<!-- quick view modal -->
-<ng-include src="getTemplate('category/modal/quick-view.html')"></ng-include>
-
-<style>
-    .product {
-        float: none;
-        display: inline-block;
-    }
-    .product img {
-        width: 100%;
-        height: 340px;
-    }
-    .product h5 {
-        height: 30px;
-        margin-top: 0;
-    }
-</style>
