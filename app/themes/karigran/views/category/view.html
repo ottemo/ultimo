@@ -4,7 +4,7 @@
     
     <div class="menu" ng-controller="commonHeaderController">
         <div ng-repeat="item in categories;" class="text-center">
-            <a href="" ng-repeat="item in item.child;" ng-include="getTemplate('common/navigation/categories-items.html')"></a>
+            <span ng-repeat="item in item.child;" ng-include="getTemplate('common/navigation/categories-items.html')"></span>
         </div>
     </div>
     
@@ -39,18 +39,3 @@
 
 <!-- quick view modal -->
 <ng-include src="getTemplate('category/modal/quick-view.html')"></ng-include>
-
-<style>
-    .product {
-        float: none;
-        display: inline-block;
-    }
-    .product img {
-        width: 100%;
-        height: 340px;
-    }
-    .product h5 {
-        height: 30px;
-        margin-top: 0;
-    }
-</style>

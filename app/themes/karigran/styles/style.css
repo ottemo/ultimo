@@ -1,5 +1,5 @@
 /*---------------
- Bootstrap and common styles
+ Overwrite bootstrap and common styles
  ---------------*/
 body {
 	padding: 10px 0 0; 
@@ -379,7 +379,7 @@ a:hover,.btn:hover {
 	margin-bottom: 40px;
 }
 
-.category .menu a > a {
+.category .menu a {
 	color: #fff;
     display: inline-block;
     font-family: Georgia;
@@ -391,7 +391,7 @@ a:hover,.btn:hover {
     text-transform: capitalize;
 }
 
-.category .menu a:not(:last-child) > a:after {
+.category .menu span:not(:last-child) a:after {
 	content: "/";
 	margin: 0 10px;
 }
@@ -469,6 +469,10 @@ a:hover,.btn:hover {
 #footer .copyrights a:hover {
 	color: #F53797;
 }
+
+/*---------------
+ Responsive
+ ---------------*/
 
 @media screen and (max-width: 750px) {
 	.content-wrapper {
