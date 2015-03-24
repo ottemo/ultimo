@@ -6,6 +6,7 @@
             '$scope',
             '$route',
             '$routeParams',
+            '$anchorScroll',
             '$visitorApiService',
             '$visitorLoginService',
             '$location',
@@ -13,7 +14,7 @@
             '$commonHeaderService',
             '$commonSidebarService',
             '$commonUtilService',
-            function ($scope, $route, $routeParams, $visitorApiService, $visitorLoginService, $location, $cartService, $commonHeaderService, $commonSidebarService, $commonUtilService) {
+            function ($scope, $route, $routeParams, $anchorScroll, $visitorApiService, $visitorLoginService, $location, $cartService, $commonHeaderService, $commonSidebarService, $commonUtilService) {
                 $scope.login = $visitorLoginService.getVisitor();
                 $scope.loginCredentials = {};
                 var verifyCode = $routeParams["validate"];
@@ -140,6 +141,11 @@
                                 $scope.message = $commonUtilService.getMessage(response);
 
                                 $scope.register.submitted = false;
+                            }
+                            if ($location.hash() !== "infoRegister") {
+                                $location.hash('infoRegister');
+                            } else {
+                                $anchorScroll();
                             }
                         });
                     }
