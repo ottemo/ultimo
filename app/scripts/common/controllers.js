@@ -94,7 +94,7 @@
                     //
                     $scope.$on("$locationChangeSuccess", function () {
                         $commonBreadcrumbsService.clear();
-                        $commonBreadcrumbsService.addItem("Home", "#/");
+                        $commonBreadcrumbsService.addItem("Home", "/");
                     });
 
                     $scope.$on("add-breadcrumbs", function (event, param) {

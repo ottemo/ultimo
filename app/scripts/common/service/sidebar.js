@@ -84,7 +84,7 @@
                         if (httpRegex.test(path) === true) {
                             result = path;
                         } else {
-                            result = "#/" + path;
+                            result = "/" + path;
                         }
 
                         return result;

@@ -20,7 +20,7 @@
             <div class="panel-body visible-xs">
                 <div ng-repeat="order in ordersList">
                     <strong class="">Order number: </strong>
-                    <a href="#/account/order/{{order.ID}}">{{order.Name}}</a>
+                    <a href="/account/order/{{order.ID}}">{{order.Name}}</a>
 
                     <br>
 
@@ -67,7 +67,7 @@
 
                 <tr ng-repeat="order in ordersList">
                     <td>
-                        <a href="#/account/order/{{order.ID}}">{{order.Name}}</a>
+                        <a href="/account/order/{{order.ID}}">{{order.Name}}</a>
                     </td>
                     <td>{{getDateCreated(order.Extra.created_at)}}</td>
                     <td>{{order.Desc}}</td>

@@ -1,7 +1,7 @@
 <div class="navbar-collapse collapse" id="navbar">
     <ul class="nav navbar-nav"  ng-controller="commonSidebarController">
         <li ng-repeat="item in sidebar.getItems()">
-            <a href="#/{{item.link}}" title="{{item.title}}">{{item.title}}</a>
+            <a href="/{{item.link}}" title="{{item.title}}">{{item.title}}</a>
             <span ng-if="!$last"></span>
         </li>
     </ul>

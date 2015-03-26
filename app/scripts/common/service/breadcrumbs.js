@@ -54,7 +54,7 @@
                             }
                         }
                         if (!isPresent) {
-                            items.push({"label": label, "url": "#" + url.replace(new RegExp("^[#]+"), "")});
+                            items.push({"label": label, "url": url.replace(new RegExp("^[#]+"), "")});
                         }
                     };
 

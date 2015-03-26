@@ -24,7 +24,7 @@
                             url = type + "/" + id;
                         }
 
-                        return "#/" + url;
+                        return "/" + url;
                     };
 
                     return {
