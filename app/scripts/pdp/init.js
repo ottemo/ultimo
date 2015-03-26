@@ -19,12 +19,13 @@
                 /*
                  *  Basic routing configuration
                  */
-                .config(["$routeProvider", function ($routeProvider) {
+                .config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
                     $routeProvider
                         .when("/product/:id", {
                             templateUrl: angular.getTheme("pdp/view.html"),
                             controller: "pdpController"
                         });
+                    $locationProvider.html5Mode(true);
                 }]);
 
             return angular.module.pdpModule;

@@ -17,7 +17,7 @@
             /**
              *  Basic routing configuration
              */
-                .config(["$routeProvider", "GENERAL_CATEGORY_URI", function ($routeProvider, GENERAL_CATEGORY_URI) {
+                .config(["$routeProvider", "$locationProvider", "GENERAL_CATEGORY_URI", function ($routeProvider, $locationProvider, GENERAL_CATEGORY_URI) {
                     $routeProvider
                         .when("/category/:id", {
                             "templateUrl": angular.getTheme("category/view.html"),
@@ -27,6 +27,7 @@
                             "templateUrl": angular.getTheme("category/view.html"),
                             "controller": "categoryListController"
                         });
+                    $locationProvider.html5Mode(true)
                 }])
 
                 .run(["$rootScope", "$categoryService", "SEARCH_KEY_NAME", "GENERAL_CATEGORY_URI", function ($rootScope, $categoryService) {

@@ -72,7 +72,7 @@
                     $scope.$watch('addedOrderId', function () {
                         if (typeof $scope.addedOrderId !== 'undefined') {
                             $scope.message = $commonUtilService.getMessage(null, "success", "THANK YOU FOR YOUR PURCHASE!<br/>" +
-                                    "Your order # is: <a href=\"#/account/order/" + $scope.addedOrderId + "\">" + $scope.addedOrderId + "</a>"
+                                    "Your order # is: <a href=\"/account/order/" + $scope.addedOrderId + "\">" + $scope.addedOrderId + "</a>"
                             );
                         }
                     });

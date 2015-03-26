@@ -34,7 +34,7 @@
                             url = type + "/" + id;
                         }
 
-                        return "#/" + url;
+                        return "/" + url;
                     };
 
                     setProduct = function (obj) {

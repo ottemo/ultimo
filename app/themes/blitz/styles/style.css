@@ -105,12 +105,12 @@ header.navbar {
     margin-right: 9px;
     text-transform: uppercase;
 }
-header .btn-login[href="#/account"] span:first-child:before,header .btn-login[href="#/login"] span:first-child:before {
+header .btn-login[href="/account"] span:first-child:before,header .btn-login[href="/login"] span:first-child:before {
     content: "\e008";
     font-size: 25px;
     font-family: "Glyphicons Halflings";
 }
-header .btn-login[href="#/logout"] span:first-child:before {
+header .btn-login[href="/logout"] span:first-child:before {
     content: "\e163";
     font-size: 25px;
     font-family: "Glyphicons Halflings";
@@ -1944,7 +1944,7 @@ footer > div:last-child p {
 }  
 }
 @media (max-width: 992px) {
-  header .btn-login[href="#/account"] {
+  header .btn-login[href="/account"] {
     display: none;
     visibility: hidden;
     margin: 0;
