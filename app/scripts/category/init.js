@@ -27,7 +27,7 @@
                             "templateUrl": angular.getTheme("category/view.html"),
                             "controller": "categoryListController"
                         });
-                    $locationProvider.html5Mode(true)
+                    $locationProvider.html5Mode(true);
                 }])
 
                 .run(["$rootScope", "$categoryService", "SEARCH_KEY_NAME", "GENERAL_CATEGORY_URI", function ($rootScope, $categoryService) {
