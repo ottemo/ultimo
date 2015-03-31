@@ -46,8 +46,21 @@
                             mediaType: "@mediaType"
                         },
                         url: REST_SERVER_URI + "/product/:productID/mediapath/:mediaType"
-
                     },
+
+                    "getImage": {
+                        method: "GET",
+                        url: REST_SERVER_URI + "/category/:categoryID/media/image/:mediaName"
+                    },
+                    "getImagePath": {
+                        method: "GET",
+                        url: REST_SERVER_URI + "/category/:categoryID/mediapath/image"
+                    },
+                    "listImages": {
+                        method: "GET",
+                        url: REST_SERVER_URI + "/category/:categoryID/media/image"
+                    },
+
                     "getCategories": {
                         method: "GET",
                         url: REST_SERVER_URI + "/categories/tree"
