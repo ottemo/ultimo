@@ -300,7 +300,6 @@
                         $scope.getLayered();
                         $scope.getProducts();
                         $scope.getCountProduct();
-                        $scope.initCategoryImages();
 
                         if($scope.categoryId !== null) {
                             /**
@@ -309,6 +308,7 @@
                             $categoryApiService.load({"id": $scope.categoryId}).$promise.then(function (response) {
                                 var result = response.result || [];
                                 $scope.category = result;
+                                $scope.initCategoryImages();
                             });
                         }
 
@@ -408,12 +408,14 @@
                             $scope.category.images = response.result || [];
                             var categoryImagesPath = {};
                             for (var i=0, imageName, imagePath; i < $scope.category.images.length; i+=1) {
-                                imageName = $scope.categoryImagesList[i];
+                                imageName = $scope.category.images[i];
                                 imagePath = $designImageService.getFullImagePath("", categoryImageBasePath + imageName);
                                 categoryImagesPath[imageName] = imagePath;
                             }
                             $scope.category.images = categoryImagesPath;
-                            $scope.category.image = $designImageService.getFullImagePath("", categoryImageBasePath + $scope.category.image);
+                            if (typeof $scope.category.image !== "undefined") {
+                                $scope.category.image = $designImageService.getFullImagePath("", categoryImageBasePath + $scope.category.image);
+                            }
                         });
                     };
 
