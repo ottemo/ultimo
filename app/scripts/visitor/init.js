@@ -22,7 +22,7 @@
             /**
              *  Basic routing configuration
              */
-                .config(["$routeProvider", function ($routeProvider) {
+                .config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
 
                     fb.init();
                     gl.init();
@@ -65,6 +65,7 @@
                             templateUrl: angular.getTheme("visitor/registration-page.html"),
                             controller: "visitorLoginController"
                         });
+                    $locationProvider.html5Mode(true);
                 }])
                 .run([
                     "$rootScope",

@@ -82,7 +82,7 @@
                         </tr> 
                     </table>
                     <div class="text-center" ng-if="$last && (it.getCountItems() > it.getItemsForMiniCart().length)">
-                        <a href="#/cart" class="total">
+                        <a href="/cart" class="total">
                             <strong>{{it.getCountItems() - 3}} items more...</strong>
                         </a>
                     </div>
@@ -101,7 +101,7 @@
                 <a href="{{checkout.getUrl()}}" target="_self" class="right">
                     <button type="button" class="btn btn-default">Checkout</button>
                 </a>
-                <a href="#/cart" target="_self" class="btn btn-primary">
+                <a href="/cart" target="_self" class="btn btn-primary">
                    View cart
                 </a>
             </div>

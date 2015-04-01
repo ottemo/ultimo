@@ -85,7 +85,7 @@
                 if (fullUrlRegex.test(link)) {
                     href = link;
                 } else {
-                    href = (link !== null ? '#' + link : null);
+                    href = (link !== null ? link : null);
                 }
 
                 return href;
