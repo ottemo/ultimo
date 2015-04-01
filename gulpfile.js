@@ -2,7 +2,7 @@
     'use strict';
 
     var gulp, gutil, minifyHTML, concat, stripDebug, uglify, jshint, changed, imagemin, autoprefix, sass, rjs, minifyCSS,
-        browserSync, pngquant, del, paths, host, themes, fs, request, recursive, configs, FOUNDATION_URI,
+        browserSync, modRewrite, pngquant, del, paths, host, themes, fs, request, recursive, configs, FOUNDATION_URI,
         THEME_AS_DEFAULT, DEV_FOUNDATION_URI, DEFAULT_ROOT, DEFAULT_PASS;
 
     gulp = require('gulp');
@@ -19,6 +19,7 @@
     rjs = require('gulp-requirejs');
     minifyCSS = require('gulp-minify-css');
     browserSync = require('browser-sync');
+    modRewrite = require('connect-modrewrite');
     pngquant = require('imagemin-pngquant');
     del = require('del');
     fs = require('fs');
@@ -327,7 +328,12 @@
         } else {
             browserSync({
                 server: {
-                    baseDir: './app'
+                baseDir: './app',
+                middleware: [
+                    modRewrite([
+                        '!\\. /index.html [L]'
+                    ])
+                ]
                 },
                 port: host.port
             });

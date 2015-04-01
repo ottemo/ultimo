@@ -34,7 +34,7 @@
             /**
              *  Basic routing configuration
              */
-                .config(["$routeProvider", function ($routeProvider) {
+                .config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
                     $routeProvider
                         .when("/", {
                             templateUrl: angular.getTheme("common/home.html"),
@@ -59,6 +59,7 @@
                                 return deferControllerValue;
                             }
                         });
+                    $locationProvider.html5Mode(true);
 
                 }])
 

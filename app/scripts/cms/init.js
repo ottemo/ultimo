@@ -20,12 +20,13 @@
                 /*
                  *  Basic routing configuration
                  */
-                .config(["$routeProvider", function ($routeProvider) {
+                .config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
                     $routeProvider
                         .when("/page/:id", {
                             templateUrl: angular.getTheme("cms/page.html"),
                             controller: "cmsPageController"
                         });
+                    $locationProvider.html5Mode(true);
                 }]);
 
             return angular.module.cmsModule;

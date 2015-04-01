@@ -224,7 +224,7 @@
                             }
 
 
-                            return "#" + url;
+                            return url;
                         };
 
                         setType = function (type) {
