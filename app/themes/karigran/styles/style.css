@@ -7,7 +7,7 @@ body {
 	overflow: hidden;
 }
 .content-wrapper {
-	padding: 25px 35px;
+	padding: 34px 38px;
 	margin-bottom: 25px;
 	border-radius: 10px;
 	box-shadow: 0px 0px 13px rgba(50, 50, 50, 0.2);
@@ -25,26 +25,34 @@ a:focus,button:focus,a:active,button:active {
 	outline: none !important;
 } 
 
-.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
 	background: #fff;
 	color: #F53797 !important;
 }
 
-input.form-control {
+.navbar-form input.form-control {
 	border-color: #F53797;
-	border-radius: 0;
 	color: #F53797;
 	font-size: 14px;
-	font-family: Georgia;
 	font-style: italic;
+}
+.navbar-form input.form-control:focus {
+	border-color:#000;
+}
+
+.form-control {
+	border-radius: 0;
+	font-family: Georgia;
 	box-shadow: none !important;
 }
-input.form-control::-webkit-input-placeholder {color:rgba(245,55,151,0.6);}
-input.form-control::-moz-placeholder          {color:rgba(245,55,151,0.6);}/* Firefox 19+ */
-input.form-control:-moz-placeholder           {color:rgba(245,55,151,0.6);}/* Firefox 18- */
-input.form-control:-ms-input-placeholder      {color:rgba(245,55,151,0.6);}
+.form-control::-webkit-input-placeholder {color:rgba(245,55,151,0.6);}
+.form-control::-moz-placeholder          {color:rgba(245,55,151,0.6);}/* Firefox 19+ */
+.form-control:-moz-placeholder           {color:rgba(245,55,151,0.6);}/* Firefox 18- */
+.form-control:-ms-input-placeholder      {color:rgba(245,55,151,0.6);}
 
-input.form-control:focus {
+.form-control:focus {
 	border-color:#000;
 }
 
@@ -57,13 +65,20 @@ h4 {
 }
 
 .btn {
-	color: #fff;
-	font-size: 14px;
+	
+	/*font-size: 14px;*/
 	font-family: Georgia;
 	font-style: italic;
+	border-radius: 0;
 }
 
+.btn-primary {
+	color: #fff;
+	background-color: #F53797;
+	border-color: #F53797;
+}
 .btn.btn-danger {
+	color: #fff;
 	background: #F53797;
 	border-color: #fff;
 }
@@ -446,6 +461,31 @@ a:hover,.btn:hover {
     font-family: Georgia;
     font-size: 14px;
     font-weight: normal;
+}
+
+/*---------------
+ PDP 
+ ---------------*/
+.pdp-product-name {
+	color: #F53797;
+	font-family: 'Helvetica Neue', Helvetica;
+	margin-bottom: 20px;
+	font-weight: 200;
+	font-size: 21px;
+	text-transform: uppercase;
+	margin-top: 0px;
+}
+.pdp-description {
+    font-size: 14px;
+    color: #6C7272;
+}
+.pdp-price {
+    /*text-align: right;*/
+}
+.pdp-primary-img {
+	display: block;
+	border: 1px solid #ddd;
+	margin-bottom: 10px;
 }
 
 /*---------------
