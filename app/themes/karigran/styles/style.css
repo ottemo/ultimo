@@ -15,10 +15,10 @@ body {
 
 p {
 	color: #6c7272;
-    font-family: Arial;
-    font-size: 14px;
-    font-weight: 200;
-    line-height: 31px;
+	font-family: Arial;
+	font-size: 14px;
+	font-weight: 200;
+	line-height: 31px;
 }
 
 a:focus,button:focus,a:active,button:active {
@@ -102,11 +102,11 @@ label {
 }
 
 h4 {
-  	color: #F53797;
-  	font-family: Georgia;
-  	font-style: italic;
-  	font-size: 18px;
-  	font-weight: 300;
+	color: #F53797;
+	font-family: Georgia;
+	font-style: italic;
+	font-size: 18px;
+	font-weight: 300;
 }
 
 .btn {
@@ -134,15 +134,15 @@ h4 {
 
 a,.btn,input,input:focus,input:active, input:hover {
 	-webkit-transition: ease-out 0.3s;
-     -moz-transition: ease-out 0.3s;
-     -o-transition: ease-out 0.3s;
-     transition: ease-out 0.3s;
+	 -moz-transition: ease-out 0.3s;
+	 -o-transition: ease-out 0.3s;
+	 transition: ease-out 0.3s;
 }
 a:hover,.btn:hover {
 	-webkit-transition: ease-out 0.3s;
-     -moz-transition: ease-out 0.3s;
-     -o-transition: ease-out 0.3s;
-     transition: ease-out 0.3s;
+	 -moz-transition: ease-out 0.3s;
+	 -o-transition: ease-out 0.3s;
+	 transition: ease-out 0.3s;
 }
 
 /*---------------
@@ -207,16 +207,16 @@ a:hover,.btn:hover {
 	border-width: 17px 0 17px 14px;
 	border-color: transparent transparent transparent #f53796;
 	-webkit-transition: ease-out 0.3s;
-     -moz-transition: ease-out 0.3s;
-     -o-transition: ease-out 0.3s;
-     transition: ease-out 0.3s;
+	 -moz-transition: ease-out 0.3s;
+	 -o-transition: ease-out 0.3s;
+	 transition: ease-out 0.3s;
 }
 .subscriber button:hover:after {
 	border-left-color:#e52888;
 	-webkit-transition: ease-out 0.3s;
-     -moz-transition: ease-out 0.3s;
-     -o-transition: ease-out 0.3s;
-     transition: ease-out 0.3s;
+	 -moz-transition: ease-out 0.3s;
+	 -o-transition: ease-out 0.3s;
+	 transition: ease-out 0.3s;
 }
 
 /* shopping cart */
@@ -236,17 +236,17 @@ a:hover,.btn:hover {
 	margin-top: -10px;
 	margin-left: 10px;
 	-webkit-transition: ease-out 0.3s;
-     -moz-transition: ease-out 0.3s;
-     -o-transition: ease-out 0.3s;
-     transition: ease-out 0.3s;
+	 -moz-transition: ease-out 0.3s;
+	 -o-transition: ease-out 0.3s;
+	 transition: ease-out 0.3s;
 }
 #header .shopping-cart:hover {
 	background-position: 0 -34px;
 	color: #fff; 
 	-webkit-transition: ease-out 0.3s;
-     -moz-transition: ease-out 0.3s;
-     -o-transition: ease-out 0.3s;
-     transition: ease-out 0.3s;
+	 -moz-transition: ease-out 0.3s;
+	 -o-transition: ease-out 0.3s;
+	 transition: ease-out 0.3s;
 }
 
 /* main menu */
@@ -257,16 +257,16 @@ a:hover,.btn:hover {
 #navbar a {
 	width: auto !important;
 	font-family: Georgia;
-  	font-size: 16px;
-  	font-style: italic;
-  	font-weight: 300;
-  	color: #000;
-  	display: inline !important;
-  	float:none !important;
-  	text-transform: capitalize !important;
-  	text-align: left;
-  	line-height: 1;
-  	padding: 10px 15px;
+	font-size: 16px;
+	font-style: italic;
+	font-weight: 300;
+	color: #000;
+	display: inline !important;
+	float:none !important;
+	text-transform: capitalize !important;
+	text-align: left;
+	line-height: 1;
+	padding: 10px 15px;
 }
 
 #navbar a:hover {
@@ -308,9 +308,9 @@ a:hover,.btn:hover {
 	border-radius: 0 0 10px 10px;
 	box-shadow: 1px 2px 5px rgba(50, 50, 50, 0.5);
 	-webkit-transition: ease-out 0.3s;
-     -moz-transition: ease-out 0.3s;
-     -o-transition: ease-out 0.3s;
-     transition: ease-out 0.3s;
+	 -moz-transition: ease-out 0.3s;
+	 -o-transition: ease-out 0.3s;
+	 transition: ease-out 0.3s;
 }
 
 #navbar ul.second-level li {
@@ -424,11 +424,11 @@ a:hover,.btn:hover {
 .home .about a {
 	color: #F53797;
 	font-family: Georgia;
-    font-size: 14px;
-    font-style: italic;
-    text-decoration: underline !important;
-    display: block;
-    margin: 0 0 20px;
+	font-size: 14px;
+	font-style: italic;
+	text-decoration: underline !important;
+	display: block;
+	margin: 0 0 20px;
 }
 
 /*---------------
@@ -455,14 +455,14 @@ a:hover,.btn:hover {
 
 .category .menu a > a {
 	color: #fff;
-    display: inline-block;
-    font-family: Georgia;
-    font-size: 14px;
-    font-style: italic;
-    font-weight: normal;
-    margin: 0;
-    text-decoration: none;
-    text-transform: capitalize;
+	display: inline-block;
+	font-family: Georgia;
+	font-size: 14px;
+	font-style: italic;
+	font-weight: normal;
+	margin: 0;
+	text-decoration: none;
+	text-transform: capitalize;
 }
 
 .category .menu a:not(:last-child) > a:after {
@@ -473,13 +473,13 @@ a:hover,.btn:hover {
 .category h3 {
 	color: #4e4e4e;
 	font-family: Georgia;
-    font-size: 24px;
-    font-style: italic;
-    font-weight: normal;
-    text-align: right;
-    margin-top: 0;
-    text-align: center;
-    text-transform: capitalize;
+	font-size: 24px;
+	font-style: italic;
+	font-weight: normal;
+	text-align: right;
+	margin-top: 0;
+	text-align: center;
+	text-transform: capitalize;
 }
 
 .category .products-area .product{
@@ -495,17 +495,17 @@ a:hover,.btn:hover {
 
 .category .products-area .product h5 {
 	color: #111;
-    font-family: Georgia;
-    font-size: 14px;
-    font-style: italic;
-    text-decoration: none;
+	font-family: Georgia;
+	font-size: 14px;
+	font-style: italic;
+	text-decoration: none;
 }
 
 .category .products-area .product h4{
 	color: #4e4e4e;
-    font-family: Georgia;
-    font-size: 14px;
-    font-weight: normal;
+	font-family: Georgia;
+	font-size: 14px;
+	font-weight: normal;
 }
 
 /*---------------
@@ -525,15 +525,15 @@ a:hover,.btn:hover {
 
 	/*TODO: correct these when we have a wysiwyg input;*/
 	font-size: 14px;
-    color: #6C7272;
-    line-height: 30px;
+	color: #6C7272;
+	line-height: 30px;
 }
 .pdp-description p {
 }
 .pdp-price-value {
-    color: #F53797;
-    font-size: 18px;
-    font-style: italic;
+	color: #F53797;
+	font-size: 18px;
+	font-style: italic;
 }
 .pdp-primary-img {
 	display: block;
@@ -570,13 +570,13 @@ a:hover,.btn:hover {
 
 #footer .links a {
 	color: #6c7372;
-    font-family: "Helvetica Neue",Helvetica;
-    font-size: 14px;
-    font-weight: 200;
-    padding: 3px 0;
-    text-decoration: none;
-    text-transform: uppercase;
-    display: block;
+	font-family: "Helvetica Neue",Helvetica;
+	font-size: 14px;
+	font-weight: 200;
+	padding: 3px 0;
+	text-decoration: none;
+	text-transform: uppercase;
+	display: block;
 }
 
 #footer .links a:hover {
@@ -604,12 +604,12 @@ a:hover,.btn:hover {
 
 #footer .social span {
 	color: #6c7372;
-    font-family: "Helvetica Neue",Helvetica;
-    font-size: 14px;
-    font-weight: 200;
-    line-height: 35px;
-    margin-right: 10px;
-    text-transform: uppercase;
+	font-family: "Helvetica Neue",Helvetica;
+	font-size: 14px;
+	font-weight: 200;
+	line-height: 35px;
+	margin-right: 10px;
+	text-transform: uppercase;
 }
 
 #footer .copyrights {
