@@ -61,7 +61,7 @@ template {
 }
 a {
   background-color: transparent;
-  text-decoration: none !important;
+  text-decoration: none;
 }
 a:active,
 a:hover {
@@ -6372,7 +6372,7 @@ button.close {
     display: none !important;
   }
 }
-/*# sourceMappingURL=bootstrap.css.map */
+
 /*
  * Style tweaks
  * --------------------------------------------------

@@ -1,177 +1,123 @@
-<br> <br>
 
-<!-- images
-<div class="text-center col-xs-12 col-lg-6">
-    <span class="col-sm-5 product" ng-repeat="img in productImages">
-        <span class="thumbnail" >
-            <a class="img-zoom" href="{{getImage(imagesPath, img,'big')}}">
-                <img ng-src="{{getImage(imagesPath, img, 'thumb')}}" alt="" err-src="placeholder.png">
+<div class="row">
+    <!-- product image  -->
+    <div class="text-center col-xs-12 col-md-6" ng-init="init()">
+        <a
+        class="pdp-primary-img"
+        href="{{getImage(imagesPath, img,'big')}}"
+        ng-repeat="img in productImages"
+        ng-if="img==product.default_image">
+            <img
+            class="img-responsive center-block"
+            ng-src="{{getImage(imagesPath, img, 'thumb')}}"
+            err-src="placeholder.png"
+            alt=""/>
+        </a>
+        <div class="row">
+            <div ng-repeat="img in productImages" class="col-xs-4">
+                <a class="thumbnail" href>
+                    <img
+                    class="slide-small text-left img-rounded"
+                    ng-src="{{getImage(imagesPath, img, 'thumb')}}"
+                    err-src="placeholder.png"
+                    alt=""
+                    data-src-big="{{getImage(imagesPath, img,'big')}}"/>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- info -->      
+    <div class="col-xs-12 col-md-6">
+        <h1 class="pdp-product-name">{{product.name}}</h1>
+
+        <!-- TODO: is this actually html content -->
+        <div class="pdp-description" ng-bind-html="product.description"></div>
+
+        <div class="pdp-price">
+            <label>Price:</label>
+            <span class="pdp-price-value">{{product.price | currency}}</span>
+        </div>
+
+        <hr/>
+
+        <!-- options -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="row">
+                    <gui-custom-options item="product" object="this"></gui-custom-options>
+                </div>
+            </div>
+        </div>
+
+        <!-- Show available options -->
+        <div class="row" ng-init="getPublicAttributes()">
+            <div class="col-md-4 form-group" ng-if="hasPublicAttributes">
+                <label>Available options</label>
+                <p ng-repeat="(name, value) in publicAttributes"><b>{{name}}</b>: {{value}}</p>
+            </div>
+        </div>
+
+        <!-- error message -->
+        <div class="row">
+            <div class="col-xs-12 col-md-8">
+                <gui-message-manager item="messageOptions"></gui-message-manager>
+            </div>
+        </div>
+        
+        <div class="form-inline form-spaced pdp-purchase-form-2">
+            <!-- Quantity -->
+            <div class="form-group">
+                <label for="qty">Qty:</label>
+                <input
+                type="text"
+                id="qty"
+                class="form-control text-center form-control--2char"
+                placeholder="1"
+                value="{{qty}}"
+                ng-model="qty"
+                ng-change="update(idx, qty)">
+            </div>
+
+            <!-- add to cart button -->
+            <a href="" target="_self" class="btn btn-primary" ng-click="addToCart()">
+                Add to bag
+            </a>
+
+            <!-- gift wrapping options -->
+            <div class="checkbox">
+                <label class="label-minor">
+                    <input type="checkbox"> Gift Wrap
+                </label>
+            </div>
+        </div>
+
+        <p class="pdp-purchase-form-details">Have questions? Check out the <a href="">FAQ's</a></p>
+
+        <!-- social links -->
+        <ul class="list-social">
+            <!-- TODO: social hrefs -->
+            <li><a href="" class="fa fa-facebook fa-fw"></a></li>
+            <li><a href="" class="fa fa-twitter fa-fw"></a></li>
+            <li><a href="" class="fa fa-pinterest-p fa-fw"></a></li>
+            <li><a href="" class="fa fa-envelope fa-fw"></a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="text-center col-sm-10 col-xs-offset-1 col-md-12 ">
+        <span class="col-xs-12 col-sm-6 col-md-2 "  ng-repeat="_item in related" ng-show="related.length">
+            <a class="thumbnail" href="{{productService.getUrl(_item.ID)}}">
+                <img class="text center" ng-src="
+                    {{getImage('',_item.Image, 'thumb')}}" alt="_item.Name"/>
             </a>
         </span>
-    </span>
-</div>-->
-
-<div class="text-center col-xs-12 col-lg-6" ng-init="init()">
-    <span class="col-sm-5 product" >
-        <a class="img-zoom" href="{{getImage(imagesPath, img,'big')}}" ng-repeat="img in productImages" ng-if="img==product.default_image">
-            <img class="slide-image" ng-src="{{getImage(imagesPath, img, 'thumb')}}" err-src="placeholder.png" alt=""/>
-        </a>
-        <div class="col-xs-12">
-            <span ng-repeat="img in productImages" class="col-xs-4 product">
-                <a class="thumbnail" href>
-                    <img class="slide-small text-left img-rounded" ng-src="{{getImage(imagesPath, img, 'thumb')}}"
-                         err-src="placeholder.png" alt="" data-src-big="{{getImage(imagesPath, img,'big')}}"/>
-                </a>
-            </span>
-        </div>
-    </span>
+        <div class="clear"></div>
+    </div>
 </div>
 
-
-
-<!--info desktop -->      
-<div class="col-xs-12 col-sm-5 visible-lg">
-    <div class="row">
-        <!-- product name -->
-        <h2 class="col-sm-9">&nbsp;<strong>{{product.name}}</strong></h2>
-
-        <!-- product price -->
-        <h2 class="col-sm-3 text-right">&nbsp;<strong>{{product.price | currency}}</strong></h2>
-    </div>
-    
-    <hr>
-
-
-    <h5 ng-bind-html="product.description"></h5>
-
-    <br>
-
-    <!-- Quantity -->
-    <div class="row">
-        <div class="col-lg-3 col-md-4 form-group">
-            <label for="">Quantity</label>
-            <div class="input-group" style="width:150px;">
-                <span class="input-group-btn">
-                    <button class="btn btn-primary" type="button" ng-click="changeQty(qty,'up')">
-                        +
-                    </button>
-                </span>
-                <input type="text" class="form-control text-center" placeholder="Qtl" type="text" class="form-control" value="{{qty}}"
-                   ng-model="qty" ng-change="update(idx, qty)">
-                <span class="input-group-btn">
-                    <button class="btn btn-primary" type="button" ng-click="changeQty(qty,'down')"  ng-blur="update(item.idx, item.qty)">
-                        -
-                    </button>
-                </span>
-            </div>
-        </div>
-    </div>
-
-    <!-- options -->
-    <div class="row">
-        <div class="col-xs-12 col-md-8 row">
-            <gui-custom-options item="product" object="this"></gui-custom-options>
-        </div>
-    </div>
-
-    <!-- Show available options -->
-    <div class="row" ng-init="getPublicAttributes()">
-        <div class="col-lg-3 col-md-4 form-group" ng-if="hasPublicAttributes">
-            <label>Available options</label>
-            <p ng-repeat="(name, value) in publicAttributes"><b>{{name}}</b>: {{value}}</p>
-        </div>
-    </div>
-
-    <div class="clearfix"></div>
-    <hr>
-
-    <!-- error message -->
-    <div class="row">
-        <div class="col-xs-12 col-md-8">
-            <gui-message-manager item="messageOptions"></gui-message-manager>
-        </div>
-    </div>
-    
-    <!-- add to cart button -->
-    <a href="" target="_self" class="btn btn-lg btn-success" ng-click="addToCart()">
-        <span class="glyphicon glyphicon-plus"></span>
-        &nbsp;Add to cart
-    </a>
-</div>
-
-<!-- info mobile -->
-<div class="col-xs-10 col-xs-offset-1 text-center hidden-lg">
-    <div class="row">
-        <!-- product name -->
-        <h2>&nbsp;<strong>{{product.name}}</strong></h2>
-
-        <!-- product price -->
-        <h2>&nbsp;<strong>{{product.price | currency}}</strong></h2>
-    </div>
-
-    <hr>
-
-    <h4>
-        {{product.description}}
-    </h4>
-
-    <hr>
-
-
-    <!-- Quantity -->
-    <div class="row text-center">
-        <div class="form-group">
-            <label for="">Quantity</label>
-            <div class="input-group" style="width:200px; margin:0 auto;">
-                <span class="input-group-btn">
-                    <button class="btn btn-primary btn-lg" type="button" ng-click="changeQty(qty,'up')">
-                        +
-                    </button>
-                </span>
-                <input type="text" class="form-control text-center input-lg" placeholder="Qtl" type="text" class="form-control" value="{{qty}}"
-                   ng-model="qty" ng-change="update(idx, qty)">
-                <span class="input-group-btn">
-                    <button class="btn btn-primary btn-lg" type="button" ng-click="changeQty(qty,'down')"  ng-blur="update(item.idx, item.qty)">
-                        -
-                    </button>
-                </span>
-            </div>
-        </div>
-    </div>
-
-    <!-- options -->
-    <div class="row text-center">
-        <div class="input-lg">
-            <gui-custom-options item="product" object="this"></gui-custom-options>
-        </div>
-    </div>
-
-    <hr>
-
-    <!-- error message -->
-    <div class="row">
-        <div class="col-xs-12 col-md-8">
-            <gui-message-manager item="messageOptions"></gui-message-manager>
-        </div>
-    </div>
-    
-    <!-- add to cart button -->
-    <a href="" target="_self" class="btn btn-lg btn-success" ng-click="addToCart()">
-        <span class="glyphicon glyphicon-plus"></span>
-        &nbsp;Add to cart
-    </a>
-</div>
-<div class="clearfix"></div>
-<br>
-<div class="text-center col-sm-10 col-xs-offset-1 col-md-12 ">
-    <span class="col-xs-12 col-sm-6 col-md-2 "  ng-repeat="_item in related" ng-show="related.length">
-        <a class="thumbnail" href="{{productService.getUrl(_item.ID)}}">
-            <img class="text center" ng-src="
-                {{getImage('',_item.Image, 'thumb')}}" alt="_item.Name"/>
-        </a>
-    </span>
-    <div class="clear"></div>
-</div>
+<!-- TODO: move out -->
 <script>
     $('body').removeClass('modal-open');
     $("a.img-zoom").fancybox({
@@ -197,13 +143,3 @@
     });
 
 </script>
-<style>
-    .product {
-        float: none;
-        display: inline-block;
-    }
-    .product img {
-        width: 100%;
-        height: auto;
-    }
-</style>
