@@ -23,7 +23,16 @@ p {
 
 a:focus,button:focus,a:active,button:active {
 	outline: none !important;
-} 
+}
+
+label {
+	font-weight: normal;
+	color: #6C7272;
+}
+
+.progress {
+	border-radius: 0;
+}
 
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
@@ -56,6 +65,10 @@ a:focus,button:focus,a:active,button:active {
 	border-color:#000;
 }
 
+.form-inline .form-control--2char {
+	width: 40px;
+}
+
 h4 {
   	color: #F53797;
   	font-family: Georgia;
@@ -65,7 +78,7 @@ h4 {
 }
 
 .btn {
-	
+	text-transform: capitalize;
 	/*font-size: 14px;*/
 	font-family: Georgia;
 	font-style: italic;
@@ -476,11 +489,17 @@ a:hover,.btn:hover {
 	margin-top: 0px;
 }
 .pdp-description {
+	margin-bottom: 20px;
+}
+.pdp-description p {
     font-size: 14px;
     color: #6C7272;
+
 }
-.pdp-price {
-    /*text-align: right;*/
+.pdp-price-value {
+    color: #F53797;
+    font-size: 18px;
+    font-style: italic;
 }
 .pdp-primary-img {
 	display: block;

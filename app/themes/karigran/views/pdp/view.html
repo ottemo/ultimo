@@ -1,106 +1,105 @@
-<!-- product image  -->
-<div class="text-center col-xs-12 col-md-6" ng-init="init()">
-    <a
+
+<div class="row">
+    <!-- product image  -->
+    <div class="text-center col-xs-12 col-md-6" ng-init="init()">
+        <a
         class="pdp-primary-img"
         href="{{getImage(imagesPath, img,'big')}}"
         ng-repeat="img in productImages"
         ng-if="img==product.default_image">
-        <img
+            <img
             class="img-responsive center-block"
             ng-src="{{getImage(imagesPath, img, 'thumb')}}"
             err-src="placeholder.png"
             alt=""/>
-    </a>
-    <div class="row">
-        <div ng-repeat="img in productImages" class="col-xs-4 product">
-            <a class="thumbnail" href>
-                <img
+        </a>
+        <div class="row">
+            <div ng-repeat="img in productImages" class="col-xs-4">
+                <a class="thumbnail" href>
+                    <img
                     class="slide-small text-left img-rounded"
                     ng-src="{{getImage(imagesPath, img, 'thumb')}}"
                     err-src="placeholder.png"
                     alt=""
                     data-src-big="{{getImage(imagesPath, img,'big')}}"/>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- info -->      
+    <div class="col-xs-12 col-md-6">
+        <h1 class="pdp-product-name">{{product.name}}</h1>
+
+        <!-- TODO: is this actually html content -->
+        <div class="pdp-description" ng-bind-html="product.description"></div>
+
+        <div class="pdp-price">
+            <label>Price:</label>
+            <span class="pdp-price-value">{{product.price | currency}}</span>
+        </div>
+
+        <hr/>
+
+        <!-- options -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="row">
+                    <gui-custom-options item="product" object="this"></gui-custom-options>
+                </div>
+            </div>
+        </div>
+
+        <!-- Show available options -->
+        <div class="row" ng-init="getPublicAttributes()">
+            <div class="col-md-4 form-group" ng-if="hasPublicAttributes">
+                <label>Available options</label>
+                <p ng-repeat="(name, value) in publicAttributes"><b>{{name}}</b>: {{value}}</p>
+            </div>
+        </div>
+
+        <!-- error message -->
+        <div class="row">
+            <div class="col-xs-12 col-md-8">
+                <gui-message-manager item="messageOptions"></gui-message-manager>
+            </div>
+        </div>
+        
+        <div class="form-inline">
+            <!-- Quantity -->
+            <div class="form-group">
+                <label for="qty">Qty:</label>
+                <input
+                type="text"
+                id="qty"
+                class="form-control text-center form-control--2char"
+                placeholder="1"
+                value="{{qty}}"
+                ng-model="qty"
+                ng-change="update(idx, qty)">
+            </div>
+
+            <!-- add to cart button -->
+            <a href="" target="_self" class="btn btn-primary" ng-click="addToCart()">
+                Add to bag
             </a>
         </div>
     </div>
 </div>
 
-
-<!-- info -->      
-<div class="col-xs-12 col-md-6">
-    <h1 class="pdp-product-name">{{product.name}}</h1>
-
-    <!-- <h2 class="col-sm-3 pdp-price">{{product.price | currency}}</h2> -->
-
-    <!-- TODO: is this actually html content -->
-    <p class="pdp-description" ng-bind-html="product.description"></p>
-    <br>
-
-    <!-- Quantity -->
-    <div class="row">
-        <div class="col-md-4 form-group">
-            <label for="">Quantity</label>
-            <div class="input-group" style="width:150px;">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button" ng-click="changeQty(qty,'up')">
-                        <i class="glyphicon glyphicon-plus"></i>
-                    </button>
-                </span>
-                <input type="text" class="form-control text-center" placeholder="Qtl" type="text" class="form-control" value="{{qty}}"
-                   ng-model="qty" ng-change="update(idx, qty)">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button" ng-click="changeQty(qty,'down')"  ng-blur="update(item.idx, item.qty)">
-                        <i class="glyphicon glyphicon-minus"></i>
-                    </button>
-                </span>
-            </div>
-        </div>
+<div class="row">
+    <div class="text-center col-sm-10 col-xs-offset-1 col-md-12 ">
+        <span class="col-xs-12 col-sm-6 col-md-2 "  ng-repeat="_item in related" ng-show="related.length">
+            <a class="thumbnail" href="{{productService.getUrl(_item.ID)}}">
+                <img class="text center" ng-src="
+                    {{getImage('',_item.Image, 'thumb')}}" alt="_item.Name"/>
+            </a>
+        </span>
+        <div class="clear"></div>
     </div>
-
-    <!-- options -->
-    <div class="row">
-        <div class="col-xs-12 col-md-8">
-            <div class="row">
-                <gui-custom-options item="product" object="this"></gui-custom-options>
-            </div>
-        </div>
-    </div>
-
-    <!-- Show available options -->
-    <div class="row" ng-init="getPublicAttributes()">
-        <div class="col-md-4 form-group" ng-if="hasPublicAttributes">
-            <label>Available options</label>
-            <p ng-repeat="(name, value) in publicAttributes"><b>{{name}}</b>: {{value}}</p>
-        </div>
-    </div>
-
-    <div class="clearfix"></div>
-    <hr>
-
-    <!-- error message -->
-    <div class="row">
-        <div class="col-xs-12 col-md-8">
-            <gui-message-manager item="messageOptions"></gui-message-manager>
-        </div>
-    </div>
-    
-    <!-- add to cart button -->
-    <a href="" target="_self" class="btn btn-lg btn-primary" ng-click="addToCart()">
-        Add to cart
-    </a>
 </div>
 
-<div class="clearfix"></div>
-<br>
-<div class="text-center col-sm-10 col-xs-offset-1 col-md-12 ">
-    <span class="col-xs-12 col-sm-6 col-md-2 "  ng-repeat="_item in related" ng-show="related.length">
-        <a class="thumbnail" href="{{productService.getUrl(_item.ID)}}">
-            <img class="text center" ng-src="
-                {{getImage('',_item.Image, 'thumb')}}" alt="_item.Name"/>
-        </a>
-    </span>
-    <div class="clear"></div>
-</div>
+<!-- TODO: move out -->
 <script>
     $('body').removeClass('modal-open');
     $("a.img-zoom").fancybox({
