@@ -69,6 +69,38 @@ label {
 	width: 40px;
 }
 
+.form-inline.form-spaced .form-group,
+.form-inline.form-spaced .checkbox,
+.form-inline.form-spaced .btn {
+	margin-right: 15px;
+}
+
+.label-minor {
+	color: #6C7272;
+	font-style: italic;
+}
+
+.list-social {
+	padding: 0;
+	margin: 0 0 0 -2px;
+}
+.list-social li {
+	display: inline-block;
+	padding: 0 2px;
+}
+.list-social a {
+	width: 25px;
+	height: 25px;
+	border-radius: 20px;
+	background: #aaa;
+	color: #fff;
+	font-size: 17px;
+	line-height: 25px;
+}
+.list-social a:hover {
+	background-color: #F53797;
+}
+
 h4 {
   	color: #F53797;
   	font-family: Georgia;
@@ -490,11 +522,13 @@ a:hover,.btn:hover {
 }
 .pdp-description {
 	margin-bottom: 20px;
+
+	/*TODO: correct these when we have a wysiwyg input;*/
+	font-size: 14px;
+    color: #6C7272;
+    line-height: 30px;
 }
 .pdp-description p {
-    font-size: 14px;
-    color: #6C7272;
-
 }
 .pdp-price-value {
     color: #F53797;
@@ -505,6 +539,17 @@ a:hover,.btn:hover {
 	display: block;
 	border: 1px solid #ddd;
 	margin-bottom: 10px;
+}
+.pdp-purchase-form-details {
+	margin-bottom: 0;
+}
+.pdp-purchase-form-details a {
+	font-style: italic;
+	text-decoration: underline;
+	font-family: Georgia;
+}
+.pdp-purchase-form-2 {
+	margin-bottom: 15px;
 }
 
 /*---------------
