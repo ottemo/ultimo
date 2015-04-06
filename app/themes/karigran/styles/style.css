@@ -21,8 +21,14 @@ p {
 	line-height: 31px;
 }
 
-a:focus,button:focus,a:active,button:active {
+a:focus,
+button:focus,
+a:active,
+button:active {
 	outline: none !important;
+}
+a:hover {
+	text-decoration: none;
 }
 
 label {
