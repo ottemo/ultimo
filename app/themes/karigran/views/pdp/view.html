@@ -30,9 +30,10 @@
     <!-- info -->      
     <div class="col-xs-12 col-md-6">
         <h1 class="pdp-product-name">{{product.name}}</h1>
+        <p class="pdp-description">{{product.description}}</p>
 
-        <!-- TODO: is this actually html content -->
-        <div class="pdp-description" ng-bind-html="product.description"></div>
+        <!-- optional video field -->
+        <div class="std" ng-bind-html="product.video"></div>
 
         <div class="pdp-price">
             <label>Price:</label>
@@ -47,14 +48,6 @@
                 <div class="row">
                     <gui-custom-options item="product" object="this"></gui-custom-options>
                 </div>
-            </div>
-        </div>
-
-        <!-- Show available options -->
-        <div class="row" ng-init="getPublicAttributes()">
-            <div class="col-md-4 form-group" ng-if="hasPublicAttributes">
-                <label>Available options</label>
-                <p ng-repeat="(name, value) in publicAttributes"><b>{{name}}</b>: {{value}}</p>
             </div>
         </div>
 
@@ -80,34 +73,42 @@
             </div>
 
             <!-- add to cart button -->
-            <a href="" target="_self" class="btn btn-primary" ng-click="addToCart()">
+            <a
+            href=""
+            target="_self"
+            class="btn btn-primary"
+            ng-click="addToCart()">
                 Add to bag
             </a>
 
-            <!-- gift wrapping options -->
-            <div class="checkbox">
-                <label class="label-minor">
-                    <input type="checkbox"> Gift Wrap
-                </label>
-            </div>
         </div>
 
-        <p class="pdp-purchase-form-details">Have questions? Check out the <a href="">FAQ's</a></p>
+        <p class="pdp-purchase-form-details">Have questions? Check out the <a href="/faq">FAQ's</a></p>
 
         <!-- social links -->
         <ul class="list-social">
-            <!-- TODO: social hrefs -->
-            <li><a href="" class="fa fa-facebook fa-fw"></a></li>
-            <li><a href="" class="fa fa-twitter fa-fw"></a></li>
-            <li><a href="" class="fa fa-pinterest-p fa-fw"></a></li>
-            <li><a href="" class="fa fa-envelope fa-fw"></a></li>
+            <li>
+                <a href="https://www.facebook.com/karigranskincare" class="fa fa-facebook fa-fw"></a>
+            </li>
+            <li>
+                <a href="https://twitter.com/KariGranSkin" class="fa fa-twitter fa-fw"></a>
+            </li>
+            <li>
+                <a href="http://pinterest.com/karigranskin/" class="fa fa-pinterest-p fa-fw"></a>
+            </li>
+            <li>
+                <a href="mailto:info@karigran.com?subject=Website Form Submission" class="fa fa-envelope fa-fw"></a>
+            </li>
         </ul>
     </div>
 </div>
 
+<!-- optional additional product description -->
+<div class="std" ng-bind-html="product.description_additional"></div>
+
 <div class="row">
     <div class="text-center col-sm-10 col-xs-offset-1 col-md-12 ">
-        <span class="col-xs-12 col-sm-6 col-md-2 "  ng-repeat="_item in related" ng-show="related.length">
+        <span class="col-xs-12 col-sm-6 col-md-2 " ng-repeat="_item in related" ng-show="related.length">
             <a class="thumbnail" href="{{productService.getUrl(_item.ID)}}">
                 <img class="text center" ng-src="
                     {{getImage('',_item.Image, 'thumb')}}" alt="_item.Name"/>
