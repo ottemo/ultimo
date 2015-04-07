@@ -107,8 +107,11 @@ label {
 	background-color: #F53797;
 }
 
-h4 {
+h1,h2,h3,h4 {
 	color: #F53797;
+}
+
+h4 {
 	font-family: Georgia;
 	font-style: italic;
 	font-size: 18px;
@@ -515,11 +518,9 @@ a:hover,.btn:hover {
 }
 
 /*---------------
- PDP 
+ PDP .pdp 
  ---------------*/
 .pdp-product-name {
-	color: #F53797;
-	font-family: 'Helvetica Neue', Helvetica;
 	margin-bottom: 20px;
 	font-weight: 200;
 	font-size: 21px;
@@ -528,13 +529,12 @@ a:hover,.btn:hover {
 }
 .pdp-description {
 	margin-bottom: 20px;
-
-	/*TODO: correct these when we have a wysiwyg input;*/
 	font-size: 14px;
 	color: #6C7272;
 	line-height: 30px;
 }
-.pdp-description p {
+.pdp-price {
+	margin: 30px 0 0 0;
 }
 .pdp-price-value {
 	color: #F53797;
@@ -556,6 +556,17 @@ a:hover,.btn:hover {
 }
 .pdp-purchase-form-2 {
 	margin-bottom: 15px;
+}
+/*---------------
+ .std 
+ ---------------*/
+.std {
+	color: #6C7272;
+	line-height: 30px;
+}
+.std h3 {
+	font-size: 18px;
+	text-transform: uppercase;
 }
 
 /*---------------
