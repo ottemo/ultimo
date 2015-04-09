@@ -1,29 +1,19 @@
 <div ng-init="init()" class="category">
     
     <img
-    class="category-image"
+    class="category-image img-responsive"
     alt="{{category.name}}"
     ng-if="category.image"
     ng-src="{{category.image_url}}"
     err-src="{{getImg('category_shop.jpg')}}">
 
-    <div class="menu hidden-xs" ng-controller="commonHeaderController">
+    <div class="menu" ng-controller="commonHeaderController" role="navigation">
         <ul ng-repeat="item in categories" class="list-inline text-center">
             <li
             ng-repeat="item in item.child"
             ng-include="getTemplate('common/navigation/categories-items.html')">
             </li>
         </ul>
-    </div>
-
-    <div class="visible-xs mobile-categories" ng-controller="commonHeaderController">
-        <div ng-repeat="item in categories;" class="btn-group-vertical visible-xs-block" role="group" aria-label="..."  >
-            <a
-            class="btn btn-lg btn-danger"
-            ng-repeat="item in item.child;"
-            ng-include="getTemplate('common/navigation/categories-items.html')">
-            </a>
-        </div>
     </div>
 
     <div class="row products-area">

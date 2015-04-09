@@ -444,25 +444,32 @@ a:hover,.btn:hover {
  Category
  ---------------*/
 .category .menu {
-	background: none repeat scroll 0 0 rgba(255, 95, 176, 0.8);
+	background: rgb(255, 126, 191);
 	padding: 5px 0;
-	margin-bottom: 70px;
+	margin-bottom: 20px;
+}
+@media (min-width: 768px) {
+	.category .menu {
+		margin-bottom: 70px;
+	}
 }
 
-.category .category-image {
-	width: 100%;
-}
 
 .category .mobile-categories {
 	margin: 0 0 20px;
 	font-size: 20px;
 }
 .category .mobile-categories a {
-	color: #fff;
+	text-align: center;
+	 color: #fff; 
 	text-transform: capitalize;
+	display: block;
 }
 .category .menu ul {
 	margin: 0;
+}
+.category .menu ul li {
+	padding: 0;
 }
 .category .menu a {
 	color: #fff;
