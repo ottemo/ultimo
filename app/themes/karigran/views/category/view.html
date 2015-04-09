@@ -8,14 +8,21 @@
     err-src="{{getImg('category_shop.jpg')}}">
 
     <div class="menu hidden-xs" ng-controller="commonHeaderController">
-        <div ng-repeat="item in categories;" class="text-center">
-            <a href="" ng-repeat="item in item.child;" ng-include="getTemplate('common/navigation/categories-items.html')"></a>
-        </div>
+        <ul ng-repeat="item in categories" class="list-inline text-center">
+            <li
+            ng-repeat="item in item.child"
+            ng-include="getTemplate('common/navigation/categories-items.html')">
+            </li>
+        </ul>
     </div>
 
     <div class="visible-xs mobile-categories" ng-controller="commonHeaderController">
         <div ng-repeat="item in categories;" class="btn-group-vertical visible-xs-block" role="group" aria-label="..."  >
-            <a href="" class="btn btn-lg btn-danger" ng-repeat="item in item.child;" ng-include="getTemplate('common/navigation/categories-items.html')"></a>
+            <a
+            class="btn btn-lg btn-danger"
+            ng-repeat="item in item.child;"
+            ng-include="getTemplate('common/navigation/categories-items.html')">
+            </a>
         </div>
     </div>
 

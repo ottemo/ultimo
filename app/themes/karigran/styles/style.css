@@ -461,10 +461,11 @@ a:hover,.btn:hover {
 	color: #fff;
 	text-transform: capitalize;
 }
-
-.category .menu a > a {
+.category .menu ul {
+	margin: 0;
+}
+.category .menu a {
 	color: #fff;
-	display: inline-block;
 	font-family: Georgia;
 	font-size: 14px;
 	font-style: italic;
@@ -474,9 +475,13 @@ a:hover,.btn:hover {
 	text-transform: capitalize;
 }
 
-.category .menu a:not(:last-child) > a:after {
+.category .menu a:after {
 	content: "/";
 	margin: 0 10px;
+}
+.category .menu li:last-child a:after {
+	content: "";
+	margin: 0;
 }
 
 .category h3 {
