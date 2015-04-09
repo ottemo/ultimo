@@ -446,6 +446,9 @@ a:hover,.btn:hover {
 /*---------------
  Category
  ---------------*/
+.category .category-image {
+	width: 100%;
+}
 .category .menu {
 	background: rgb(255, 126, 191);
 	padding: 5px 0;
@@ -456,7 +459,6 @@ a:hover,.btn:hover {
 		margin-bottom: 70px;
 	}
 }
-
 
 .category .mobile-categories {
 	margin: 0 0 20px;
