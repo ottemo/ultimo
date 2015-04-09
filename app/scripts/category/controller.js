@@ -308,6 +308,17 @@
                             $categoryApiService.load({"id": $scope.categoryId}).$promise.then(function (response) {
                                 var result = response.result || [];
                                 $scope.category = result;
+                            })
+                            .then(function(){
+                                if ($scope.category.image) {
+                                    // fetch the category image path
+                                    $categoryApiService.getCategoryImagePath({'categoryID': $scope.category._id})
+                                    .$promise.then(function(response){
+                                        var imgPath = response.result;
+                                        var imgUrl = $designImageService.getFullImagePath(imgPath, $scope.category.image)
+                                        $scope.category.image_url = imgUrl;
+                                    });
+                                }
                             });
                         }
 

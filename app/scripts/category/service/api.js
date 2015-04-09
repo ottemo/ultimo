@@ -39,6 +39,11 @@
                         params: { action: "count" },
                         url: REST_SERVER_URI + "/category/:categoryID/products"
                     },
+                    'getCategoryImagePath': {
+                        method: 'GET',
+                        params: { categoryID: '@categoryID' },
+                        url: REST_SERVER_URI + '/category/:categoryID/mediapath/image'
+                    },
                     "getPath":{
                         method: "GET",
                         params: {

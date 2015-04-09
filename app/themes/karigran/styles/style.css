@@ -492,12 +492,20 @@ a:hover,.btn:hover {
 }
 
 .category .products-area .product{
-	display: inline-block;
-	float: none;
 	margin-bottom: 40px;
-	vertical-align: top;
 }
-
+@media (min-width: 768px) and (max-width: 1199px) {
+	/*col-sm-4*/
+	.category .products-area .product:nth-child(3n+1) {
+		clear: left;
+	}
+}
+@media (min-width: 1200px) {
+	/*col-lg-3*/
+	.category .products-area .product:nth-child(4n+1) {
+		clear: left;
+	}
+}
 .category .products-area .product img {
 	width: 100%;
 }
