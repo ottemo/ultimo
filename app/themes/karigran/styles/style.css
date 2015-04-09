@@ -131,6 +131,9 @@ h4 {
 	background-color: #F53797;
 	border-color: #F53797;
 }
+.btn-primary:hover {
+	background: #e52888;
+}
 .btn.btn-danger {
 	color: #fff;
 	background: #F53797;
@@ -506,14 +509,14 @@ a:hover,.btn:hover {
 .category .products-area .product{
 	margin-bottom: 40px;
 }
-@media (min-width: 768px) and (max-width: 1199px) {
+@media (min-width: 768px) and (max-width: 991px) {
 	/*col-sm-4*/
 	.category .products-area .product:nth-child(3n+1) {
 		clear: left;
 	}
 }
-@media (min-width: 1200px) {
-	/*col-lg-3*/
+@media (min-width: 992px) {
+	/*col-md-3*/
 	.category .products-area .product:nth-child(4n+1) {
 		clear: left;
 	}
