@@ -33,7 +33,9 @@
         <p class="pdp-description">{{product.description}}</p>
 
         <!-- optional video field -->
-        <div class="std" ng-bind-html="product.video"></div>
+        <div class="embed-responsive embed-responsive-16by9" ng-if="product.video_url">
+            <iframe class="embed-responsive-item" ng-src="{{product.video_url | trustedUrl}}" ></iframe>
+        </div>
 
         <div class="pdp-price">
             <label>Price:</label>
