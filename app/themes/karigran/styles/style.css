@@ -564,11 +564,37 @@ a:hover,.btn:hover {
 	color: #6C7272;
 	line-height: 30px;
 }
+.std h1,
+.std h2,
 .std h3 {
-	font-size: 18px;
 	text-transform: uppercase;
 }
-
+.std h1 {
+	font-family: 'Helvetica Neue', Helvetica;
+	color: #F53797;
+	font-size: 26px;
+	margin-bottom: 25px;
+}
+.std h3 {
+	font-size: 18px;
+}
+.std h5 {
+	font-weight: bold;
+	margin: 20px 0 10px 0;
+}
+.std .header-link {
+	float: right;
+	margin-left: 20px;
+	font-size: 14px;
+	line-height: 26px;
+	text-decoration: underline;
+}
+.cms-hero {
+	width: 100%;
+}
+.std p {
+	margin-bottom: 30px;
+}
 /*---------------
  Footer 
  ---------------*/

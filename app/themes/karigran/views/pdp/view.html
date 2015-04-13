@@ -30,10 +30,12 @@
     <!-- info -->      
     <div class="col-xs-12 col-md-6">
         <h1 class="pdp-product-name">{{product.name}}</h1>
-        <p class="pdp-description">{{product.description}}</p>
+        <div class="pdp-description std" ng-bind-html="product.description"></div>
 
         <!-- optional video field -->
-        <div class="std" ng-bind-html="product.video"></div>
+        <div class="embed-responsive embed-responsive-16by9" ng-if="product.video_url">
+            <iframe class="embed-responsive-item" ng-src="{{product.video_url | trustedUrl}}" ></iframe>
+        </div>
 
         <div class="pdp-price">
             <label>Price:</label>
@@ -104,7 +106,8 @@
 </div>
 
 <!-- optional additional product description -->
-<div class="std" ng-bind-html="product.description_additional"></div>
+<div class="std" ng-bind-html="product.ritual"></div>
+<div class="std" ng-bind-html="product.ingredients"></div>
 
 <div class="row">
     <div class="text-center col-sm-10 col-xs-offset-1 col-md-12 ">
