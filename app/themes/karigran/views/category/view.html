@@ -1,11 +1,10 @@
 <div ng-init="init()" class="category">
     
+    <!-- category hero image, with a default -->
     <img
     class="category-image"
     alt="{{category.name}}"
-    ng-if="category.image"
-    ng-src="{{category.image_url}}"
-    err-src="{{getImg('category_shop.jpg')}}">
+    ng-src="{{category.image_url || getImg('category_shop.jpg')}}">
 
     <div class="menu" ng-controller="commonHeaderController" role="navigation">
         <ul ng-repeat="item in categories" class="list-inline text-center">
