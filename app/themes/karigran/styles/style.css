@@ -456,7 +456,7 @@ a:hover,.btn:hover {
 }
 @media (min-width: 768px) {
 	.category .menu {
-		margin-bottom: 70px;
+		margin-bottom: 50px;
 	}
 }
 
@@ -506,6 +506,10 @@ a:hover,.btn:hover {
 	margin-top: 0;
 	text-align: center;
 	text-transform: capitalize;
+}
+.category .shop-page-categories + .shop-page-categories{
+	border-top: 1px solid #ddd;
+	padding-top: 30px;
 }
 
 .category .products-area .product{

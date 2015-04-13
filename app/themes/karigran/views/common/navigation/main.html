@@ -3,7 +3,7 @@
 	<ul ng-controller="commonHeaderController" class="nav navbar-nav">
 		<!-- categories controller wrapper -->
 	    <li ng-repeat="item in categories;" class="list-unstyled hidden-xs" >
-			<a href="{{categoryService.getUrl(item.id)}}" target="{{item.id != null ? '' : '_self'}}" class="text-muted display">
+			<a ng-href="{{categoryService.getUrl(item.id)}}" target="{{item.id != null ? '' : '_self'}}" class="text-muted display">
 				{{item.name}}
 		    </a>
 

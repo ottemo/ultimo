@@ -17,27 +17,58 @@
     </div>
 
     <div class="row products-area">
-        <h3 class="col-xs-12 col-sm-3 col-lg-3">{{category.name}}</h3>
-        
-        <div class="col-xs-12 col-sm-9 col-lg-9">
-            <div class="row">
-                <!-- products: clears handled in `.category .products-area .product:nth-child` -->
-                <a
-                class="col-xs-12 col-sm-4 col-md-3 product"
-                ng-href="{{productService.getUrl(_item._id)}}"
-                ng-repeat="_item in productsList | filter:searchText"
-                ng-show="productsList.length">
 
-                    <!-- image -->
-                    <img ng-src="{{getImage(_item)}}" alt="" err-src="placeholder.png">
+        <!-- shop page has products sectioned off into categories -->
+        <div class="shop-page-categories" ng-if="isShop" ng-repeat="category in shopCategories">
+            <h3 class="col-xs-12 col-sm-3 col-lg-3">{{category.name}}</h3>
 
-                    <span class="caption text-center">
-                        <!-- product name -->
-                        <h5>{{_item.name}}</h5>
-                        <!-- product price -->
-                        <h4>{{_item.price | number : 2 | currency}}</h4>
-                    </span>
-                </a>
+            <div class="col-xs-12 col-sm-9 col-lg-9">
+                <div class="row">
+                    <!-- products: clears handled in `.category .products-area .product:nth-child` -->
+                    <a
+                    class="col-xs-12 col-sm-4 col-md-3 product"
+                    ng-repeat="_item in category.productList | filter:searchText"
+                    ng-href="{{productService.getUrl(_item._id)}}">
+
+                        <!-- image -->
+                        <img ng-src="{{getImage(_item)}}" alt="" err-src="placeholder.png">
+
+                        <span class="caption text-center">
+                            <!-- product name -->
+                            <h5>{{_item.name}}</h5>
+                            <!-- product price -->
+                            <h4>{{_item.price | number : 2 | currency}}</h4>
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <!-- regular category pages -->
+        <div ng-if="!isShop">
+            <h3 class="col-xs-12 col-sm-3 col-lg-3">{{category.name}}</h3>
+
+            <div class="col-xs-12 col-sm-9 col-lg-9">
+                <div class="row">
+                    <!-- products: clears handled in `.category .products-area .product:nth-child` -->
+                    <a
+                    class="col-xs-12 col-sm-4 col-md-3 product"
+                    ng-href="{{productService.getUrl(_item._id)}}"
+                    ng-repeat="_item in productsList | filter:searchText"
+                    ng-show="productsList.length">
+
+                        <!-- image -->
+                        <img ng-src="{{getImage(_item)}}" alt="" err-src="placeholder.png">
+
+                        <span class="caption text-center">
+                            <!-- product name -->
+                            <h5>{{_item.name}}</h5>
+                            <!-- product price -->
+                            <h4>{{_item.price | number : 2 | currency}}</h4>
+                        </span>
+                    </a>
+                </div>
             </div>
         </div>
 
