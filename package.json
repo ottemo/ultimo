@@ -20,8 +20,8 @@
     "gulp": "^3.8.7",
     "gulp-autoprefixer": "0.0.8",
     "gulp-bower-files": "^0.2.7",
+    "gulp-browserify": "^0.5.1",
     "gulp-changed": "^1.0.0",
-    "gulp-concat": "^2.3.4",
     "gulp-connect": "^2.0.6",
     "gulp-imagemin": "^1.0.0",
     "gulp-jasmine": "^1.0.0",
@@ -31,7 +31,6 @@
     "gulp-myth": "^1.0.0",
     "gulp-protractor": "0.0.11",
     "gulp-rename": "*",
-    "gulp-requirejs": "*",
     "gulp-sass": "^0.7.3",
     "gulp-sourcemaps": "^1.1.1",
     "gulp-strip-debug": "^1.0.0",
@@ -42,9 +41,12 @@
     "imagemin-gifsicle": "*",
     "imagemin-jpegtran": "^1.0.0",
     "imagemin-optipng": "*",
-    "imagemin-pngquant": "^1.0.1",
     "jshint-stylish": "^0.4.0",
+    "lodash.assign": "^3.0.0",
     "recursive-readdir": "^1.2.0",
-    "request": "^2.47.0"
+    "request": "^2.47.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.1.0"
   }
 }
