@@ -352,7 +352,7 @@
                         if (!$scope.reviewForm.$invalid) {
                             $pdpApiService.addReview(
                                 {
-                                    "pid": $scope.productId,
+                                    "productID": $scope.productId,
                                     "stars": $scope.review.stars
                                 }, $scope.review.comment).$promise.then(
                                 function (response) {

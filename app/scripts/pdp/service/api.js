@@ -39,7 +39,7 @@
                     "addReview": {
                         method: "POST",
                         params: {
-                            productID: "@pid",
+                            productID: "@productID",
                             stars: "@stars"
                         },
                         headers: {"Content-Type": "text/plain"},
