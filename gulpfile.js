@@ -266,12 +266,15 @@
     b.on('log', gutil.log);
 
     function bundle() {
-        return b.bundle()
+        var result = b.bundle()
             .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-            .pipe(source('bundle.js'))
-            .pipe(buffer())
-            .pipe(uglify())
-            .pipe(gulp.dest('./app'));
+            .pipe(source('bundle.js'));
+        if (env !== 'development'){
+            result = result
+                .pipe(buffer())
+                .pipe(uglify())
+        }
+        return result.pipe(gulp.dest('./app'));
     }
     /* End Browserify */
 
