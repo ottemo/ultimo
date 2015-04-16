@@ -158,6 +158,16 @@ a:hover,.btn:hover {
 }
 
 /*---------------
+ Thumb Thumbnail 
+ ---------------*/
+.thumbnail {
+	padding: 0;
+	border-radius: 0;
+}
+.thumbnail-quick-view {
+	margin-bottom: 0;
+}
+/*---------------
  Header 
  ---------------*/
 #header {
