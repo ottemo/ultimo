@@ -24,21 +24,35 @@
             <div class="col-xs-12 col-sm-9 col-lg-9">
                 <div class="row">
                     <!-- products: clears handled in `.category .products-area .product:nth-child` -->
-                    <a
-                    class="col-xs-12 col-sm-4 col-md-3 product"
-                    ng-repeat="_item in category.productList | filter:searchText"
-                    ng-href="{{productService.getUrl(_item._id)}}">
+                    <div
+                    class="col-xs-12 col-sm-4 col-md-3"
+                    ng-repeat="_item in category.productList | filter:searchText">
+                        <div class="product">
+                            <a
+                            class="btn btn-primary btn-product-list-quick"
+                            ng-click="openPopUp(_item)">
+                                <i class="fa fa-search-plus "></i> Quick View
+                            </a>
+                                
+                            <a
+                            class="product-list--image"
+                            ng-href="{{productService.getUrl(_item._id)}}">
+                                <img
+                                alt=""
+                                ng-src="{{getImage(_item)}}"
+                                err-src="placeholder.png">
+                            </a>
 
-                        <!-- image -->
-                        <img ng-src="{{getImage(_item)}}" alt="" err-src="placeholder.png">
-
-                        <span class="caption text-center">
-                            <!-- product name -->
-                            <h5>{{_item.name}}</h5>
-                            <!-- product price -->
-                            <h4>{{_item.price | number : 2 | currency}}</h4>
-                        </span>
-                    </a>
+                            <a ng-href="{{productService.getUrl(_item._id)}}">
+                                <span class="caption text-center">
+                                    <!-- product name -->
+                                    <h5>{{_item.name}}</h5>
+                                    <!-- product price -->
+                                    <h4>{{_item.price | number : 2 | currency}}</h4>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -81,3 +95,6 @@
 
     <div class="clearfix"></div>
 </div>
+
+<!-- quick view modal -->
+<ng-include src="getTemplate('category/modal/quick-view.html')"></ng-include>
