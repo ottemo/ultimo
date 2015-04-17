@@ -60,27 +60,41 @@
 
         <!-- regular category pages -->
         <div ng-if="!isShop">
+            <!-- TODO: this whole bit could be a directive that we could reuse -->
             <h3 class="col-xs-12 col-sm-3 col-lg-3">{{category.name}}</h3>
 
             <div class="col-xs-12 col-sm-9 col-lg-9">
                 <div class="row">
                     <!-- products: clears handled in `.category .products-area .product:nth-child` -->
-                    <a
-                    class="col-xs-12 col-sm-4 col-md-3 product"
-                    ng-href="{{productService.getUrl(_item._id)}}"
-                    ng-repeat="_item in productsList | filter:searchText"
-                    ng-show="productsList.length">
+                    <div
+                    class="col-xs-12 col-sm-4 col-md-3"
+                    ng-repeat="_item in productsList | filter:searchText">
+                        <div class="product">
+                            <a
+                            class="btn btn-primary btn-product-list-quick"
+                            ng-click="openPopUp(_item)">
+                                <i class="fa fa-search-plus "></i> Quick View
+                            </a>
 
-                        <!-- image -->
-                        <img ng-src="{{getImage(_item)}}" alt="" err-src="placeholder.png">
+                            <a
+                            class="product-list--image"
+                            ng-href="{{productService.getUrl(_item._id)}}">
+                                <img
+                                alt=""
+                                ng-src="{{getImage(_item)}}"
+                                err-src="placeholder.png">
+                            </a>
 
-                        <span class="caption text-center">
-                            <!-- product name -->
-                            <h5>{{_item.name}}</h5>
-                            <!-- product price -->
-                            <h4>{{_item.price | number : 2 | currency}}</h4>
-                        </span>
-                    </a>
+                            <a ng-href="{{productService.getUrl(_item._id)}}">
+                                <span class="caption text-center">
+                                    <!-- product name -->
+                                    <h5>{{_item.name}}</h5>
+                                    <!-- product price -->
+                                    <h4>{{_item.price | number : 2 | currency}}</h4>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
