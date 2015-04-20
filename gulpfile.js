@@ -25,6 +25,7 @@
     fs = require('fs');
     request = require('request');
     recursive = require('recursive-readdir');
+
     paths = {
         "app": require('./bower.json').appPath || 'app',
         "dist": 'dist',
@@ -221,7 +222,7 @@
         gulp.src('app/themes/**/scripts/**/*.js')
             .pipe(stripDebug())
             .on('error', console.log.bind(console))
-            .pipe(uglify({mangle: false}))
+            // .pipe(uglify({mangle: false}))
             .pipe(gulp.dest(paths.themeDest));
 
         /**
@@ -268,7 +269,7 @@
         })
             .pipe(stripDebug())
             .on('error', console.error.bind(console))
-            .pipe(uglify({mangle: false}))
+            // .pipe(uglify({mangle: false}))
             .pipe(gulp.dest(paths.dist + '/scripts/'));
     });
 
@@ -310,7 +311,7 @@
     gulp.task('autoprefixer', ['clean', 'sass'], function () {
         gulp.src(paths.css)
             .pipe(autoprefix('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-            .pipe(minifyCSS())
+            // .pipe(minifyCSS())
             .pipe(gulp.dest(paths.themeDest));
         gulp.src(paths.fonts)
             .pipe(gulp.dest(paths.themeDest));
