@@ -14,20 +14,6 @@
         ],
         function (angular) {
 
-            angular.getTheme = function (path) {
-
-                return function () {
-                    var template, tpl;
-                    tpl = "/views/" + path;
-
-                    
-                    template = "themes/" + angular.appConfigValue("themes.list.active") + tpl;
-                    
-
-                    return template;
-                };
-            };
-
             /**
              *  Angular "designModule" allows to use themes
              *

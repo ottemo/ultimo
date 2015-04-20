@@ -38,12 +38,9 @@
                         return data.topPage;
                     },
 
+                    //TODO: DEPRECATE
                     getTemplate: function (templateName) {
-                        var template;
-
-                        template = angular.getTheme(templateName)();
-
-                        return template;
+                        return "themes/blitz/views/"+templateName;
                     },
 
                     addCss: function (cssName) {

@@ -18,7 +18,7 @@
                 .config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
                     $routeProvider
                         .when("/cart", {
-                            templateUrl: angular.getTheme("cart/view.html"),
+                            templateUrl: "themes/blitz/views/cart/view.html",
                             controller: "cartListController"
                         });
                     $locationProvider.html5Mode(true);

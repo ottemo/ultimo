@@ -22,7 +22,7 @@
                 .config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
                     $routeProvider
                         .when("/product/:id", {
-                            templateUrl: angular.getTheme("pdp/view.html"),
+                            templateUrl: "themes/blitz/views/pdp/view.html",
                             controller: "pdpController"
                         });
                     $locationProvider.html5Mode(true);

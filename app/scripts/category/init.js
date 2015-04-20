@@ -20,11 +20,11 @@
                 .config(["$routeProvider", "$locationProvider", "GENERAL_CATEGORY_URI", function ($routeProvider, $locationProvider, GENERAL_CATEGORY_URI) {
                     $routeProvider
                         .when("/category/:id", {
-                            "templateUrl": angular.getTheme("category/view.html"),
+                            "templateUrl": "themes/blitz/views/category/view.html",
                             "controller": "categoryListController"
                         })
                         .when(GENERAL_CATEGORY_URI, {
-                            "templateUrl": angular.getTheme("category/view.html"),
+                            "templateUrl": "themes/blitz/views/category/view.html",
                             "controller": "categoryListController"
                         });
                     $locationProvider.html5Mode(true);

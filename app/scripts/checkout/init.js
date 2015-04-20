@@ -27,11 +27,11 @@
                     function ($routeProvider, $locationProvider, ONEPAGE_URL, ACCORDION_URL) {
                         $routeProvider
                             .when(ONEPAGE_URL, {
-                                templateUrl: angular.getTheme("checkout/view.html"),
+                                templateUrl: "themes/blitz/views/checkout/view.html",
                                 controller: "checkoutOnepageController"
                             })
                             .when(ACCORDION_URL, {
-                                templateUrl: angular.getTheme("checkout/view2.html"),
+                                templateUrl: "themes/blitz/views/checkout/view2.html",
                                 controller: "checkoutAccordionController"
                             });
                         $locationProvider.html5Mode(true);

@@ -22,7 +22,7 @@
                 .config(["$routeProvider", function ($routeProvider) {
                     $routeProvider
                         .when("/", {
-                            templateUrl: angular.getTheme("common/home.html"),
+                            templateUrl: "themes/blitz/views/common/home.html",
                             controller: 'commonControllerBlitz'
                         });
                 }])

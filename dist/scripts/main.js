@@ -339,20 +339,6 @@ define("angular-sanitize", function(){});
         ],
         function (angular) {
 
-            angular.getTheme = function (path) {
-
-                return function () {
-                    var template, tpl;
-                    tpl = "/views/" + path;
-
-                    
-                    template = "themes/" + angular.appConfigValue("themes.list.active") + tpl;
-                    
-
-                    return template;
-                };
-            };
-
             /**
              *  Angular "designModule" allows to use themes
              *
@@ -1411,12 +1397,9 @@ define("angular-sanitize", function(){});
                         return data.topPage;
                     },
 
+                    //TODO: DEPRECATE
                     getTemplate: function (templateName) {
-                        var template;
-
-                        template = angular.getTheme(templateName)();
-
-                        return template;
+                        return "themes/blitz/views/"+templateName;
                     },
 
                     addCss: function (cssName) {
@@ -1632,16 +1615,16 @@ define("angular-route", function(){});
                 .config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
                     $routeProvider
                         .when("/", {
-                            templateUrl: angular.getTheme("common/home.html"),
+                            templateUrl: "themes/blitz/views/common/home.html",
                             controller: "commonController"
                         })
                         .when("/not-found", {
-                            templateUrl: angular.getTheme("common/not-found.html"),
+                            templateUrl: "themes/blitz/views/common/not-found.html",
                             controller: "commonController"
                         })
                         .when("/help", { templateUrl: "views/help.html"})
                         .when("/about.html", {
-                            templateUrl: angular.getTheme("common/about.html"),
+                            templateUrl: "themes/blitz/views/common/about.html",
                             controller: ""
                         })
                         .otherwise({
@@ -2830,36 +2813,36 @@ define("angular-cookies", function(){});
                             controller: "visitorLogoutController"
                         })
                         .when("/account", {
-                            templateUrl: angular.getTheme("visitor/account.html"),
+                            templateUrl: "themes/blitz/views/visitor/account.html",
                             controller: "visitorAccountController"
                         })
                         .when("/account/address", {
-                            templateUrl: angular.getTheme("visitor/account/address-manager.html"),
+                            templateUrl: "themes/blitz/views/visitor/account/address-manager.html",
                             controller: "visitorAddressController"
                         })
                         .when("/account/orders", {
-                            templateUrl: angular.getTheme("visitor/account/order.html"),
+                            templateUrl: "themes/blitz/views/visitor/account/order.html",
                             controller: "visitorOrderController"
                         })
 
                         .when("/account/order/:id", {
-                            templateUrl: angular.getTheme("visitor/account/order-details.html"),
+                            templateUrl: "themes/blitz/views/visitor/account/order-details.html",
                             controller: "visitorOrderController"
                         })
                         .when("/login", {
-                            templateUrl: angular.getTheme("visitor/login-page.html"),
+                            templateUrl: "themes/blitz/views/visitor/login-page.html",
                             controller: "visitorLoginController"
                         })
                         .when("/forgot-password", {
-                            templateUrl: angular.getTheme("visitor/forgot-password.html"),
+                            templateUrl: "themes/blitz/views/visitor/forgot-password.html",
                             controller: "visitorLoginController"
                         })
                         .when("/resend-activation", {
-                            templateUrl: angular.getTheme("visitor/resend-activation.html"),
+                            templateUrl: "themes/blitz/views/visitor/resend-activation.html",
                             controller: "visitorLoginController"
                         })
                         .when("/registration", {
-                            templateUrl: angular.getTheme("visitor/registration-page.html"),
+                            templateUrl: "themes/blitz/views/visitor/registration-page.html",
                             controller: "visitorLoginController"
                         });
 
@@ -2902,6 +2885,7 @@ define("angular-cookies", function(){});
         });
 
 })(window.define);
+
 (function (define) {
     
 
@@ -4056,11 +4040,11 @@ define("angular-cookies", function(){});
                 .config(["$routeProvider", "$locationProvider", "GENERAL_CATEGORY_URI", function ($routeProvider, $locationProvider, GENERAL_CATEGORY_URI) {
                     $routeProvider
                         .when("/category/:id", {
-                            "templateUrl": angular.getTheme("category/view.html"),
+                            "templateUrl": "themes/blitz/views/category/view.html",
                             "controller": "categoryListController"
                         })
                         .when(GENERAL_CATEGORY_URI, {
-                            "templateUrl": angular.getTheme("category/view.html"),
+                            "templateUrl": "themes/blitz/views/category/view.html",
                             "controller": "categoryListController"
                         });
                     $locationProvider.html5Mode(true);
@@ -4076,6 +4060,7 @@ define("angular-cookies", function(){});
         });
 
 })(window.define);
+
 (function (define) {
     
 
@@ -4843,7 +4828,7 @@ define("angular-cookies", function(){});
                 .config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
                     $routeProvider
                         .when("/product/:id", {
-                            templateUrl: angular.getTheme("pdp/view.html"),
+                            templateUrl: "themes/blitz/views/pdp/view.html",
                             controller: "pdpController"
                         });
                     $locationProvider.html5Mode(true);
@@ -4853,6 +4838,7 @@ define("angular-cookies", function(){});
         });
 
 })(window.define);
+
 (function (define) {
     
 
@@ -5773,7 +5759,7 @@ define("angular-cookies", function(){});
                 .config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
                     $routeProvider
                         .when("/cart", {
-                            templateUrl: angular.getTheme("cart/view.html"),
+                            templateUrl: "themes/blitz/views/cart/view.html",
                             controller: "cartListController"
                         });
                     $locationProvider.html5Mode(true);
@@ -5783,6 +5769,7 @@ define("angular-cookies", function(){});
         });
 
 })(window.define);
+
 (function (define) {
     
 
@@ -6312,11 +6299,11 @@ define("angular-cookies", function(){});
                     function ($routeProvider, $locationProvider, ONEPAGE_URL, ACCORDION_URL) {
                         $routeProvider
                             .when(ONEPAGE_URL, {
-                                templateUrl: angular.getTheme("checkout/view.html"),
+                                templateUrl: "themes/blitz/views/checkout/view.html",
                                 controller: "checkoutOnepageController"
                             })
                             .when(ACCORDION_URL, {
-                                templateUrl: angular.getTheme("checkout/view2.html"),
+                                templateUrl: "themes/blitz/views/checkout/view2.html",
                                 controller: "checkoutAccordionController"
                             });
                         $locationProvider.html5Mode(true);
@@ -6343,6 +6330,7 @@ define("angular-cookies", function(){});
         });
 
 })(window.define);
+
 (function (define) {
     
 
@@ -8361,7 +8349,7 @@ define("angular-cookies", function(){});
                 .config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
                     $routeProvider
                         .when("/page/:id", {
-                            templateUrl: angular.getTheme("cms/page.html"),
+                            templateUrl: "themes/blitz/views/cms/page.html",
                             controller: "cmsPageController"
                         });
                     $locationProvider.html5Mode(true);
@@ -8371,6 +8359,7 @@ define("angular-cookies", function(){});
         });
 
 })(window.define);
+
 (function (define) {
     
 
