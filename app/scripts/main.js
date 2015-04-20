@@ -92,32 +92,11 @@ require([
                 
             };
 
-            var errorResponse = function () {
-                angular.activeTheme = "default";
-                angular.appConfig["themes.list.active"] = "default";
-                runApp();
-            };
+            angular.activeTheme = "blitz";
+            angular.appConfig["themes.list.active"] = "blitz";
+            runApp();
 
-            var successResponse = function (data) {
-                angular.activeTheme = data.result === null ? "default" : data.result;
-                angular.appConfig["themes.list.active"] = angular.activeTheme;
-                runApp();
-            };
 
-            /**
-             * Use jQuery ajax for sending existing cookie value
-             * angular.element.get can not send cookie
-             */
-            $.ajax({
-                url: angular.appConfigValue("general.app.foundation_url") + "/config/value/themes.list.active",
-                type: "GET",
-                timeout: 10000,
-                xhrFields: {
-                    withCredentials: true
-                },
-                error: errorResponse,
-                success: successResponse
-            });
             /**
              * increase count of visits
              */
