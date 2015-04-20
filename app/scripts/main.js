@@ -84,6 +84,7 @@ require([
         angular.element(document).ready(function () {
             angular.referrer = document.referrer;
 
+            //TODO: not sure why we do it this way
             var runApp = function () {
                 
                 require(["../themes/blitz/scripts/init"], function () {
