@@ -8,28 +8,17 @@
          */
             .service("$designService", [function () {
 
-                var data = {
-                    theme: angular.appConfigValue("themes.list.active")
-                };
-
-                var isFullPathRegex = new RegExp("^http[s]?://", "i");
-
                 return {
-                    getTheme: function () {
-                        return data.theme;
-                    },
-
                     getTopPage: function () {
                         return this.getTemplate("index.html");
                     },
 
-                    //TODO: DEPRECATE
                     getTemplate: function (templateName) {
-                        return "themes/blitz/views/"+templateName;
+                        return "themes/blitz/views/" + templateName;
                     },
 
                     getImage: function (img) {
-                        return "themes/" + data.theme + "/images/" + img;
+                        return "themes/blitz/images/" + img;
                     }
                 };
             }]);
