@@ -6,7 +6,7 @@
 
 app/bower_components
 app/media
-dist
+#dist
 nbproject/*
 node_modules
 tags
