@@ -363,7 +363,6 @@ define("angular-sanitize", function(){});
                      */
                     $rootScope.getTemplate = $designService.getTemplate;
                     $rootScope.getTopPage = $designService.getTopPage;
-                    $rootScope.getCss = $designService.getCssList;
                     $rootScope.getImg = $designService.getImage;
 
                 }]);
@@ -1367,23 +1366,16 @@ define("angular-sanitize", function(){});
          */
             .service("$designService", [function () {
 
-                var data = { theme: angular.appConfigValue("themes.list.active"), topPage: "index.html", cssList: []};
+                var data = {
+                    theme: angular.appConfigValue("themes.list.active"),
+                    topPage: "index.html",
+                    cssList: []
+                };
                 var isFullPathRegex = new RegExp("^http[s]?://", "i");
-                var isCssRegex = new RegExp(".css$", "i");
                 var themesDir = "themes/";
 
                 return {
                     getTheme: function () {
-                        return data.theme;
-                    },
-
-                    setTheme: function (newTheme) {
-                        data.theme = newTheme;
-
-                        angular.activeTheme = newTheme;
-                        angular.appConfig["themes.list.active"] = newTheme;
-                        data.cssList = [];
-
                         return data.theme;
                     },
 
@@ -1400,32 +1392,6 @@ define("angular-sanitize", function(){});
                     //TODO: DEPRECATE
                     getTemplate: function (templateName) {
                         return "themes/blitz/views/"+templateName;
-                    },
-
-                    addCss: function (cssName) {
-                        var fileName;
-
-                        if (isFullPathRegex.test(cssName) === false && isCssRegex.test(cssName) === true) {
-                            fileName = "/styles/" + cssName;
-
-                            cssName = (themesDir + data.theme + fileName).replace(/\/+/, "/");
-                            
-                        }
-                        data.cssList.push(cssName);
-
-                        return cssName;
-                    },
-
-                    getCssList: function () {
-                        var i, uniqueCss;
-                        uniqueCss = [];
-                        for (i = 0; i < data.cssList.length; i += 1) {
-                            if (-1 === uniqueCss.indexOf(data.cssList[i])) {
-                                uniqueCss.push(data.cssList[i]);
-                            }
-                        }
-
-                        return uniqueCss;
                     },
 
                     getImage: function (img) {
@@ -1449,20 +1415,6 @@ define("angular-sanitize", function(){});
 
     define('design/directives/design',["design/init"], function (designModule) {
         designModule
-        /**
-         *  Directive that allows to declare CSS inside module templates
-         */
-            .directive("addCss", ["$designService", function ($designService) {
-                return {
-                    restrict: "E",
-                    link: function (scope, elem, attrs) {
-                        var cssFile = attrs.src;
-                        if (typeof cssFile !== "undefined" && cssFile !== "") {
-                            $designService.addCss(cssFile);
-                        }
-                    }
-                };
-            }])
 
             /*
              *  Directive to solve browser auto-fill issue on model
@@ -1523,6 +1475,7 @@ define("angular-sanitize", function(){});
         return designModule;
     });
 })(window.define);
+
 (function (define) {
     
 
@@ -1855,10 +1808,7 @@ define("angular-route", function(){});
 
                     // Switching themes
                     $scope.theme = angular.appConfigValue("themes.list.active");
-                    $scope.setTheme = function(){
-                        $designService.setTheme($scope.theme);
-                        $route.reload();
-                    };
+
 
                     /**
                      * Cart initialization
@@ -1871,6 +1821,7 @@ define("angular-route", function(){});
         return commonModule;
     });
 })(window.define, jQuery);
+
 (function (define) {
     
 

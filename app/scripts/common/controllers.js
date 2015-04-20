@@ -106,10 +106,7 @@
 
                     // Switching themes
                     $scope.theme = angular.appConfigValue("themes.list.active");
-                    $scope.setTheme = function(){
-                        $designService.setTheme($scope.theme);
-                        $route.reload();
-                    };
+
 
                     /**
                      * Cart initialization

@@ -3,20 +3,6 @@
 
     define(["design/init"], function (designModule) {
         designModule
-        /**
-         *  Directive that allows to declare CSS inside module templates
-         */
-            .directive("addCss", ["$designService", function ($designService) {
-                return {
-                    restrict: "E",
-                    link: function (scope, elem, attrs) {
-                        var cssFile = attrs.src;
-                        if (typeof cssFile !== "undefined" && cssFile !== "") {
-                            $designService.addCss(cssFile);
-                        }
-                    }
-                };
-            }])
 
             /*
              *  Directive to solve browser auto-fill issue on model

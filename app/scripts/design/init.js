@@ -38,7 +38,6 @@
                      */
                     $rootScope.getTemplate = $designService.getTemplate;
                     $rootScope.getTopPage = $designService.getTopPage;
-                    $rootScope.getCss = $designService.getCssList;
                     $rootScope.getImg = $designService.getImage;
 
                 }]);
