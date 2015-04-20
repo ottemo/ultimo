@@ -107,33 +107,6 @@
             "description": "URL application will use to generate foundation resources links"
         },
         {
-            "path": "themes",
-            "value": "",
-            "type": "group",
-            "editor": "",
-            "options": "",
-            "label": "Themes",
-            "description": ""
-        },
-        {
-            "path": "themes.list",
-            "value": "",
-            "type": "group",
-            "editor": "themes_manager",
-            "options": "",
-            "label": "Themes",
-            "description": ""
-        },
-        {
-            "path": "themes.list.active",
-            "value": THEME_AS_DEFAULT,
-            "type": "",
-            "editor": "themes_manager",
-            "options": "",
-            "label": "Active theme",
-            "description": "Active theme on store-ng"
-        },
-        {
             "path": "general.app.login.facebook.appId",
             "value": "483159925160897",
             "type": "varchar(255)",
@@ -393,7 +366,6 @@
             themesData += '}';
 
             if (env === 'development') {
-                setConfigValue("options", "themes.list.active", themesData);
                 setConfigValue("value", "general.app.foundation_url", DEV_FOUNDATION_URI);
                 initConfigs(DEV_FOUNDATION_URI);
             } else if (env === 'wercker') {
@@ -404,7 +376,6 @@
                 gulp.start('autoprefixer');
                 gulp.start('imagemin');
             } else if (env === 'production' || env === 'staging') {
-                setConfigValue("options", "themes.list.active", themesData);
                 setConfigValue("value", "general.app.foundation_url", FOUNDATION_URI);
                 initConfigs(FOUNDATION_URI);
 

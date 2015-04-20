@@ -2,7 +2,7 @@
 require.iniConfig = {
     "general.app.foundation_url": "http://dev.ottemo.io:3000",
     "general.app.media_path": "media/",
-    "themes.list.active": "blitz",
+
     // social networks
     "general.app.login.facebook.appId" : "728744980537129",
     "general.app.login.facebook.secretKey" : "58f763bd74fab043aa3b3c0221291c94",
@@ -8517,15 +8517,13 @@ require([
 
             var runApp = function () {
                 
-                require(["../themes/" + angular.appConfigValue("themes.list.active") + "/scripts/init"], function () {
+                require(["../themes/blitz/scripts/init"], function () {
                     var modules = Object.keys(angular.module);
                     angular.resumeBootstrap(modules);
                 });
                 
             };
 
-            angular.activeTheme = "blitz";
-            angular.appConfig["themes.list.active"] = "blitz";
             runApp();
 
 

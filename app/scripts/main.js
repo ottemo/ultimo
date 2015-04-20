@@ -86,15 +86,13 @@ require([
 
             var runApp = function () {
                 
-                require(["../themes/" + angular.appConfigValue("themes.list.active") + "/scripts/init"], function () {
+                require(["../themes/blitz/scripts/init"], function () {
                     var modules = Object.keys(angular.module);
                     angular.resumeBootstrap(modules);
                 });
                 
             };
 
-            angular.activeTheme = "blitz";
-            angular.appConfig["themes.list.active"] = "blitz";
             runApp();
 
 
