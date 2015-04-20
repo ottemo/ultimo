@@ -9,8 +9,9 @@
             .service("$designService", [function () {
 
                 var data = {
-                    theme: angular.appConfigValue("themes.list.active"),
+                    theme: angular.appConfigValue("themes.list.active")
                 };
+
                 var isFullPathRegex = new RegExp("^http[s]?://", "i");
 
                 return {

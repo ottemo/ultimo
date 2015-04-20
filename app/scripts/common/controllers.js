@@ -103,11 +103,6 @@
                     //
                     // HANDLERS FOR BREADCRUMBS (START)
 
-
-                    // Switching themes
-                    $scope.theme = angular.appConfigValue("themes.list.active");
-
-
                     /**
                      * Cart initialization
                      */

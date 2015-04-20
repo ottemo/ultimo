@@ -1367,8 +1367,9 @@ define("angular-sanitize", function(){});
             .service("$designService", [function () {
 
                 var data = {
-                    theme: angular.appConfigValue("themes.list.active"),
+                    theme: angular.appConfigValue("themes.list.active")
                 };
+
                 var isFullPathRegex = new RegExp("^http[s]?://", "i");
 
                 return {
@@ -1789,11 +1790,6 @@ define("angular-route", function(){});
                     });
                     //
                     // HANDLERS FOR BREADCRUMBS (START)
-
-
-                    // Switching themes
-                    $scope.theme = angular.appConfigValue("themes.list.active");
-
 
                     /**
                      * Cart initialization
