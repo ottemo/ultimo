@@ -20,11 +20,9 @@
                     var template, tpl;
                     tpl = "/views/" + path;
 
-                    if (angular.isExistFile(tpl)) {
-                        template = "themes/" + angular.appConfigValue("themes.list.active") + tpl;
-                    } else {
-                        template = "themes/default" + tpl;
-                    }
+                    
+                    template = "themes/" + angular.appConfigValue("themes.list.active") + tpl;
+                    
 
                     return template;
                 };

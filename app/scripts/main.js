@@ -85,26 +85,13 @@ require([
         angular.element(document).ready(function () {
             angular.referrer = document.referrer;
 
-            angular.isExistFile = function (path) {
-
-                var themeFiles = files[angular.appConfigValue("themes.list.active")];
-                if (themeFiles !== undefined && themeFiles.indexOf(path) !== -1) {
-                    return true;
-                }
-
-                return false;
-            };
-
             var runApp = function () {
-                if (angular.isExistFile("/scripts/init.js")) {
-                    require(["../themes/" + angular.appConfigValue("themes.list.active") + "/scripts/init"], function () {
-                        var modules = Object.keys(angular.module);
-                        angular.resumeBootstrap(modules);
-                    });
-                } else {
+                
+                require(["../themes/" + angular.appConfigValue("themes.list.active") + "/scripts/init"], function () {
                     var modules = Object.keys(angular.module);
                     angular.resumeBootstrap(modules);
-                }
+                });
+                
             };
 
             var errorResponse = function () {

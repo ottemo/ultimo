@@ -64,7 +64,7 @@
     var env = process.env.NODE_ENV || 'development';
     DEFAULT_ROOT = process.env.DEFAULT_ROOT || 'admin';
     DEFAULT_PASS = process.env.DEFAULT_PASS || 'admin';
-    THEME_AS_DEFAULT = process.env.THEME_AS_DEFAULT || 'blitz';
+    THEME_AS_DEFAULT = 'blitz';
     themes = [];
 
     if (env === 'development') {
@@ -348,9 +348,9 @@
     // run in development mode with easy browser reloading
     gulp.task('dev', ['browser-sync'], function () {
 
-        gulp.watch('app/views/**/*.html', [browserSync.reload]);
-        gulp.watch('app/styles/**/*.css', [browserSync.reload]);
-        gulp.watch('app/styles/**/*.scss', ['sass', browserSync.reload]);
+        gulp.watch('app/views/**/*.html', [browserSync.reload]);            //TODO: path does not exist
+        gulp.watch('app/styles/**/*.css', [browserSync.reload]);            //TODO: path does not exist
+        gulp.watch('app/styles/**/*.scss', ['sass', browserSync.reload]);   //TODO: path does not exist
         gulp.watch('app/scripts/**/*.js', ['jshint', browserSync.reload]);
     });
 

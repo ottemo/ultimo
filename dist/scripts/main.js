@@ -516,11 +516,9 @@ define("angular-sanitize", function(){});
                     var template, tpl;
                     tpl = "/views/" + path;
 
-                    if (angular.isExistFile(tpl)) {
-                        template = "themes/" + angular.appConfigValue("themes.list.active") + tpl;
-                    } else {
-                        template = "themes/default" + tpl;
-                    }
+                    
+                    template = "themes/" + angular.appConfigValue("themes.list.active") + tpl;
+                    
 
                     return template;
                 };
@@ -1598,11 +1596,8 @@ define("angular-sanitize", function(){});
                         if (isFullPathRegex.test(cssName) === false && isCssRegex.test(cssName) === true) {
                             fileName = "/styles/" + cssName;
 
-                            if (angular.isExistFile(fileName)) {
-                                cssName = (themesDir + data.theme + fileName).replace(/\/+/, "/");
-                            } else {
-                                cssName = (themesDir + "default" + fileName).replace(/\/+/, "/");
-                            }
+                            cssName = (themesDir + data.theme + fileName).replace(/\/+/, "/");
+                            
                         }
                         data.cssList.push(cssName);
 
@@ -1625,11 +1620,8 @@ define("angular-sanitize", function(){});
                         var image;
                         img = "/images/" + img;
 
-                        if (angular.isExistFile(img)) {
-                            image = themesDir + data.theme + img;
-                        } else {
-                            image = themesDir + "default" + img;
-                        }
+                        image = themesDir + data.theme + img;
+                        
 
                         return image;
                     }
@@ -1639,6 +1631,7 @@ define("angular-sanitize", function(){});
         return designModule;
     });
 })(window.define);
+
 (function (define) {
     
 
@@ -8812,26 +8805,13 @@ require([
         angular.element(document).ready(function () {
             angular.referrer = document.referrer;
 
-            angular.isExistFile = function (path) {
-
-                var themeFiles = files[angular.appConfigValue("themes.list.active")];
-                if (themeFiles !== undefined && themeFiles.indexOf(path) !== -1) {
-                    return true;
-                }
-
-                return false;
-            };
-
             var runApp = function () {
-                if (angular.isExistFile("/scripts/init.js")) {
-                    require(["../themes/" + angular.appConfigValue("themes.list.active") + "/scripts/init"], function () {
-                        var modules = Object.keys(angular.module);
-                        angular.resumeBootstrap(modules);
-                    });
-                } else {
+                
+                require(["../themes/" + angular.appConfigValue("themes.list.active") + "/scripts/init"], function () {
                     var modules = Object.keys(angular.module);
                     angular.resumeBootstrap(modules);
-                }
+                });
+                
             };
 
             var errorResponse = function () {
