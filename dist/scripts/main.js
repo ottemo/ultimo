@@ -1464,34 +1464,6 @@ define("angular-sanitize", function(){});
 (function (define) {
     
 
-    /**
-     *
-     */
-    define('design/service/api',["design/init"], function (designModule) {
-
-        designModule
-            /*
-             *  $designApiService interaction service
-             */
-            .service("$designApiService", ["$resource", "REST_SERVER_URI", function ($resource, REST_SERVER_URI) {
-
-
-                return $resource(REST_SERVER_URI, {}, {
-                    "getActiveTheme": {
-                        method: "GET",
-                        params: { path: "@path" },
-                        url: REST_SERVER_URI + "/config/value/:path"
-                    }
-                });
-            }]);
-
-        return designModule;
-    });
-
-})(window.define);
-(function (define) {
-    
-
     define('design/directives/design',["design/init"], function (designModule) {
         designModule
         /**
@@ -1594,7 +1566,6 @@ define("angular-sanitize", function(){});
 			"design/directives/guiMessageManager",
             "design/service/image",
             "design/service/design",
-            "design/service/api",
             "design/directives/design"
         ],
         function (designModule) {
@@ -1603,6 +1574,7 @@ define("angular-sanitize", function(){});
         });
 
 })(window.define);
+
 /*
  AngularJS v1.3.7
  (c) 2010-2014 Google, Inc. http://angularjs.org

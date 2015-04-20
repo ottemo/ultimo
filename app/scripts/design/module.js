@@ -24,7 +24,6 @@
 			"design/directives/guiMessageManager",
             "design/service/image",
             "design/service/design",
-            "design/service/api",
             "design/directives/design"
         ],
         function (designModule) {
