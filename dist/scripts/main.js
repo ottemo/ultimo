@@ -1368,11 +1368,8 @@ define("angular-sanitize", function(){});
 
                 var data = {
                     theme: angular.appConfigValue("themes.list.active"),
-                    topPage: "index.html",
-                    cssList: []
                 };
                 var isFullPathRegex = new RegExp("^http[s]?://", "i");
-                var themesDir = "themes/";
 
                 return {
                     getTheme: function () {
@@ -1380,13 +1377,7 @@ define("angular-sanitize", function(){});
                     },
 
                     getTopPage: function () {
-                        return this.getTemplate(data.topPage);
-                    },
-
-                    setTopPage: function (newTopPage) {
-                        data.topPage = newTopPage;
-
-                        return data.topPage;
+                        return this.getTemplate("index.html");
                     },
 
                     //TODO: DEPRECATE
@@ -1395,13 +1386,7 @@ define("angular-sanitize", function(){});
                     },
 
                     getImage: function (img) {
-                        var image;
-                        img = "/images/" + img;
-
-                        image = themesDir + data.theme + img;
-                        
-
-                        return image;
+                        return "themes/" + data.theme + "/images/" + img;
                     }
                 };
             }]);
@@ -8514,6 +8499,7 @@ require(['angular'], function (angular) {
 require([
         "jQuery",
         "angular",
+
         "design/module",
         "common/module",
 
@@ -8524,7 +8510,7 @@ require([
         "checkout/module",
         "cms/module"
     ],
-    function ($, angular, files) {
+    function ($, angular) {
         /**
          * Page loader
          */

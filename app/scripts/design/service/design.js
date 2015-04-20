@@ -10,10 +10,8 @@
 
                 var data = {
                     theme: angular.appConfigValue("themes.list.active"),
-                    topPage: "index.html"
                 };
                 var isFullPathRegex = new RegExp("^http[s]?://", "i");
-                var themesDir = "themes/";
 
                 return {
                     getTheme: function () {
@@ -21,13 +19,7 @@
                     },
 
                     getTopPage: function () {
-                        return this.getTemplate(data.topPage);
-                    },
-
-                    setTopPage: function (newTopPage) {
-                        data.topPage = newTopPage;
-
-                        return data.topPage;
+                        return this.getTemplate("index.html");
                     },
 
                     //TODO: DEPRECATE
@@ -36,13 +28,7 @@
                     },
 
                     getImage: function (img) {
-                        var image;
-                        img = "/images/" + img;
-
-                        image = themesDir + data.theme + img;
-                        
-
-                        return image;
+                        return "themes/" + data.theme + "/images/" + img;
                     }
                 };
             }]);
