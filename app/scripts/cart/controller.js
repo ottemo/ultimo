@@ -1,131 +1,125 @@
-(function (define, $) {
-    "use strict";
+module.exports = function (angular, cartModule) {
+    cartModule
 
-    define(["angular", "cart/init"], function (angular, cartModule) {
-        cartModule
+        .controller("cartListController", [
+            "$scope",
+            "$interval",
+            "$cartApiService",
+            "$cartService",
+            "$designImageService",
+            "$visitorLoginService",
+            "$pdpProductService",
+            "$checkoutService",
+            "$location",
+            function ($scope, $interval, $cartApiService, $cartService, $designImageService, $visitorLoginService, $pdpProductService, $checkoutService, $location) {
+                $scope.it = $cartService;
+                $scope.checkout = $checkoutService;
+                $scope.productService = $pdpProductService;
+                $scope.visitorService = $visitorLoginService;
 
-            .controller("cartListController", [
-                "$scope",
-                "$interval",
-                "$cartApiService",
-                "$cartService",
-                "$designImageService",
-                "$visitorLoginService",
-                "$pdpProductService",
-                "$checkoutService",
-                "$location",
-                function ($scope, $interval, $cartApiService, $cartService, $designImageService, $visitorLoginService, $pdpProductService, $checkoutService, $location) {
-                    $scope.it = $cartService;
-                    $scope.checkout = $checkoutService;
-                    $scope.productService = $pdpProductService;
-                    $scope.visitorService = $visitorLoginService;
+                $scope.init = function () {
+                    if (!angular.appConfigValue("general.checkout.guest_checkout")) {
+                        $scope.visitorService.isLoggedIn().then(function (isLoggedIn) {
+                            if (!isLoggedIn) {
+                                $location.path("/");
+                            }
+                        });
+                    }
 
-                    $scope.init = function () {
-                        if (!angular.appConfigValue("general.checkout.guest_checkout")) {
-                            $scope.visitorService.isLoggedIn().then(function (isLoggedIn) {
-                                if (!isLoggedIn) {
-                                    $location.path("/");
-                                }
-                            });
+                    $cartService.reload();
+
+                    $scope.$emit("add-breadcrumbs", {"label": "My Account", "url": "/account"});
+                    $scope.$emit("add-breadcrumbs", {"label": "Shopping Cart", "url": "/cart"});
+                };
+
+                $scope.remove = function (itemIdx) {
+                    $cartService.increaseCountRequest();
+                    $cartService.remove(itemIdx);
+                };
+
+                var stop = {}, dateLastClick;
+                $scope.update = function (itemIdx) {
+                    var stopCurrentInterval, delay, callback, getStartTime;
+                    delay = 500;
+
+                    dateLastClick = new Date();
+
+                    stopCurrentInterval = function () {
+                        if (angular.isDefined(stop[itemIdx])) {
+                            $interval.cancel(stop[itemIdx]);
+                            stop[itemIdx] = undefined;
                         }
-
-                        $cartService.reload();
-
-                        $scope.$emit("add-breadcrumbs", {"label": "My Account", "url": "/account"});
-                        $scope.$emit("add-breadcrumbs", {"label": "Shopping Cart", "url": "/cart"});
                     };
 
-                    $scope.remove = function (itemIdx) {
+                    getStartTime = function () {
+                        return dateLastClick.getTime();
+                    };
+
+                    callback = function () {
+                        var duration, d, qty;
+                        d = new Date();
+                        duration = d.getTime() - getStartTime();
+
+                        if (duration >= delay) {
+                            var item = $cartService.getItem(itemIdx);
+                            qty = item.qty;
+                            stopCurrentInterval();
+                            $cartService.update(itemIdx, qty);
+                        }
+                    };
+
+                    if (typeof stop[itemIdx] === "undefined") {
                         $cartService.increaseCountRequest();
-                        $cartService.remove(itemIdx);
-                    };
+                        stop[itemIdx] = $interval(callback, 100);
+                    }
+                };
 
-                    var stop = {}, dateLastClick;
-                    $scope.update = function (itemIdx) {
-                        var stopCurrentInterval, delay, callback, getStartTime;
-                        delay = 500;
+                /**
+                 * Gets full path to image
+                 *
+                 * @param {object} product
+                 * @returns {string}
+                 */
+                $scope.getImage = function (product, size) {
+                    return $designImageService.getFullImagePath("", product.image, size);
+                };
 
-                        dateLastClick = new Date();
+                $scope.getSubtotal = function () {
+                    return $cartService.getSubtotal();
+                };
 
-                        stopCurrentInterval = function () {
-                            if (angular.isDefined(stop[itemIdx])) {
-                                $interval.cancel(stop[itemIdx]);
-                                stop[itemIdx] = undefined;
-                            }
-                        };
+                $scope.getSalesTax = function () {
+                    return $cartService.getSalesTax();
+                };
 
-                        getStartTime = function () {
-                            return dateLastClick.getTime();
-                        };
+                $scope.getShipping = function () {
+                    return $cartService.getShipping();
+                };
 
-                        callback = function () {
-                            var duration, d, qty;
-                            d = new Date();
-                            duration = d.getTime() - getStartTime();
+                $scope.getTotal = function () {
+                    return $cartService.getTotal();
+                };
 
-                            if (duration >= delay) {
-                                var item = $cartService.getItem(itemIdx);
-                                qty = item.qty;
-                                stopCurrentInterval();
-                                $cartService.update(itemIdx, qty);
-                            }
-                        };
+                $scope.changeQty = function (item, action) {
+                    var _qty = parseInt(item.qty, 10);
 
-                        if (typeof stop[itemIdx] === "undefined") {
-                            $cartService.increaseCountRequest();
-                            stop[itemIdx] = $interval(callback, 100);
+                    if (action === "up") {
+                        item.qty = _qty + 1;
+                    }
+                    else if (action === "down") {
+                        if (_qty > 1) {
+                            item.qty = _qty - 1;
                         }
-                    };
+                    }
+                };
 
-                    /**
-                     * Gets full path to image
-                     *
-                     * @param {object} product
-                     * @returns {string}
-                     */
-                    $scope.getImage = function (product, size) {
-                        return $designImageService.getFullImagePath("", product.image, size);
-                    };
+                /**
+                 * Hides mini-cart after change url
+                 */
+                $scope.$on("$locationChangeSuccess", function () {
+                    $(".mini-cart").modal('hide');
+                });
 
-                    $scope.getSubtotal = function () {
-                        return $cartService.getSubtotal();
-                    };
-
-                    $scope.getSalesTax = function () {
-                        return $cartService.getSalesTax();
-                    };
-
-                    $scope.getShipping = function () {
-                        return $cartService.getShipping();
-                    };
-
-                    $scope.getTotal = function () {
-                        return $cartService.getTotal();
-                    };
-
-                    $scope.changeQty = function (item, action) {
-                        var _qty = parseInt(item.qty, 10);
-
-                        if (action === "up") {
-                            item.qty = _qty + 1;
-                        }
-                        else if (action === "down") {
-                            if (_qty > 1) {
-                                item.qty = _qty - 1;
-                            }
-                        }
-                    };
-
-                    /**
-                     * Hides mini-cart after change url
-                     */
-                    $scope.$on("$locationChangeSuccess", function () {
-                        $(".mini-cart").modal('hide');
-                    });
-
-                }
-            ])
-        ;
-        return cartModule;
-    });
-})(window.define, jQuery);
+            }
+        ]);
+};

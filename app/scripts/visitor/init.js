@@ -1,20 +1,22 @@
-(function (define) {
-    "use strict";
+module.exports =
+    //define([
+    //        "angular",
+    //        "angular-route",
+    //        "angular-resource",
+    //        "visitor/service/facebook",
+    //        "visitor/service/google",
+    //        "angular-cookies"
+    //    ],
+        function (angular/*, aRoute, aResource, fb, gl*/) {
 
-    define([
-            "angular",
-            "angular-route",
-            "angular-resource",
-            "visitor/service/facebook",
-            "visitor/service/google",
-            "angular-cookies"
-        ],
-        function (angular, aRoute, aResource, fb, gl) {
+            var fb = require('./service/facebook')(angular);
+            var gl = require('./service/google')(angular);
+
 
             /**
              *  Angular "visitorModule" declaration
              */
-            angular.module.visitorModule = angular.module("visitorModule", ["ngRoute", "ngResource", "ngCookies", "ngCookies"])
+            angular.module.visitorModule = visitorModule = angular.module("visitorModule", ["ngRoute", "ngResource", "ngCookies", "ngCookies"])
 
                 .constant("LOGIN_COOKIE", "OTTEMOSESSION")
                 .constant("VISITOR_DEFAULT_AVATAR", "avatar-placeholder.png")
@@ -23,6 +25,7 @@
              *  Basic routing configuration
              */
                 .config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
+
 
                     fb.init();
                     gl.init();
@@ -101,7 +104,13 @@
                     }
                 ]
             );
-            return angular.module.visitorModule;
-        });
 
-})(window.define);
+            require('./service/api')(visitorModule);
+            require('./service/login')(visitorModule, fb, gl);
+            require('./controller/account')(visitorModule);
+            require('./controller/address')(visitorModule);
+            require('./controller/login')(visitorModule, gl);
+            require('./controller/logout')(visitorModule);
+            require('./controller/order')(visitorModule);
+
+        };

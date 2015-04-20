@@ -248,9 +248,9 @@
 
     // Run JSHint
     gulp.task('jshint', function () {
-        gulp.src(paths.js)
-            .pipe(jshint())
-            .pipe(jshint.reporter(require('jshint-stylish')));
+        //gulp.src(paths.js)
+        //    .pipe(jshint())
+        //    .pipe(jshint.reporter(require('jshint-stylish')));
     });
 
     /* Statt Browserify */
@@ -371,10 +371,8 @@
             regExp = new RegExp('app[/\\\\]themes[/\\\\](\\w+)[/\\\\](.+)', 'i');
 
             jsCode = '/* jshint ignore:start */\n' +
-            '(function (define) {\n' +
             '"use strict";\n' +
-            'define(function () {\n' +
-            'return {\n';
+            'module.exports = {\n';
 
             for (i = 0; i < files.length; i += 1) {
                 filePath = files[i];
@@ -394,8 +392,6 @@
             }
             jsCode = jsCode.replace(/\\/g, '/');
             jsCode += ']\n};\n' +
-            '});\n' +
-            '})(window.define);\n' +
             '/* jshint ignore:end */';
 
             fs.writeFile('./app/scripts/design/themeFiles.js', jsCode, function (err) {
