@@ -53,6 +53,7 @@ require(['angular'], function (angular) {
 require([
         "jQuery",
         "angular",
+
         "design/module",
         "common/module",
 
@@ -63,7 +64,7 @@ require([
         "checkout/module",
         "cms/module"
     ],
-    function ($, angular, files) {
+    function ($, angular) {
         /**
          * Page loader
          */

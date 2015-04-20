@@ -10,8 +10,7 @@
 
                 var data = {
                     theme: angular.appConfigValue("themes.list.active"),
-                    topPage: "index.html",
-                    cssList: []
+                    topPage: "index.html"
                 };
                 var isFullPathRegex = new RegExp("^http[s]?://", "i");
                 var themesDir = "themes/";
