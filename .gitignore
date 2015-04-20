@@ -15,5 +15,5 @@ tags
 
 # Files
 *.iml
-app/scripts/design/themeFiles.js
+#app/scripts/design/themeFiles.js
 
