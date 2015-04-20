@@ -1,1 +1,0 @@
-<a href="{{categoryService.getUrl(item.id)}}" target="{{item.id != null ? '' : '_self'}}" class="text-muted"><h5>- {{item.name}} <span class="caret" ng-if="item.child.length &gt; 0"></span></h5></a><ul ng-if="item.child.length &gt 0"><li ng-repeat="item in item.child;" ng-include="getTemplate('navigation/categories_items.html')"></li></ul>
