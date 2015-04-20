@@ -1,0 +1,14 @@
+<div class="block-details shipping-address"><div><div class="static"><label for="shipping_id">Shipping address:</label><br><select class="form-control" id="shipping_id" ng-change="updateDefaultAddress()" ng-init="visitor.shipping_address_id = visitor.shipping_address_id || addresses[0]" data-ng-model="visitor.shipping_address_id" data-ng-options="choice.ID as choice.Name for choice in addresses"></select></div><div ng-show="visitor.shipping_address_id"><div>Street: <label ng-bind="visitor.shipping_address.street" for="address-street"><input type="text" class="editable hidden" ng-model="visitor.shipping_address.street" id="address-street"></label></div><div>City: <label ng-bind="visitor.shipping_address.city" for="address-city"><input type="text" class="editable hidden" ng-model="visitor.shipping_address.city" id="address-city"></label></div><div>State: <label ng-bind="visitor.shipping_address.state" for="address-state"><gui-state class="editable hidden" model="visitor.shipping_address.state" id="shippingAddressState"></gui-state></label></div><div>Phone: <label ng-bind="visitor.shipping_address.phone" for="address-phone"><input type="text" class="editable hidden" ng-model="visitor.shipping_address.phone" id="address-phone"></label></div><div>Zip code: <label ng-bind="visitor.shipping_address.zip_code" for="address-zip"><input type="text" class="editable hidden" ng-model="visitor.shipping_address.zip_code" id="address-zip"></label></div></div></div><button type="submit" id="shipping-edit" class="btn btn-primary">Edit</button> <button type="submit" id="shipping-update" class="btn btn-primary hidden" ng-click="shippingUpdate()">Save</button></div><script>
+    $("#shipping-edit").click(function () {
+        $(".shipping-address").find(":not(.static)>label").hide();
+        $(".shipping-address").find(".editable").removeClass("hidden");
+        $("#shipping-update").removeClass("hidden");
+        $("#shipping-edit").addClass("hidden");
+    })
+    $("#shipping-update").click(function () {
+        $(".shipping-address").find(":not(.static)>label").show();
+        $(".shipping-address").find(".editable:not(.static)").addClass("hidden");
+        $("#shipping-update").addClass("hidden");
+        $("#shipping-edit").removeClass("hidden");
+    })
+</script>
