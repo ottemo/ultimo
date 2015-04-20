@@ -8,7 +8,6 @@ require.config({
         "config": "config",
         "jQuery": "../lib/jquery.min",
         "bootstrap": "../lib/bootstrap.min",
-        "themeFiles": "design/themeFiles",
         "angular": "../lib/angular/angular.min",
 
         "angular-scenario": "../lib/angular/angular-scenario.min",
@@ -54,7 +53,6 @@ require(['angular'], function (angular) {
 require([
         "jQuery",
         "angular",
-        "design/themeFiles",
         "design/module",
         "common/module",
 
