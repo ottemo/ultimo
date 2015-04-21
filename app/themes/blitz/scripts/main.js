@@ -1,5 +1,4 @@
-(function ($) {
-    'use strict';
+module.exports = function (angular, $) {
 
     $(document).ready(function () {
 
@@ -46,4 +45,13 @@
         });
     });
 
-})(jQuery);
+
+    require('./cart/init')(angular);
+    require('./category/init')(angular);
+    require('./common/init')(angular);
+    require('./pdp/init')(angular);
+    require('./visitor/init')(angular);
+
+
+
+};

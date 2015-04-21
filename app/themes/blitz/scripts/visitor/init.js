@@ -1,12 +1,6 @@
-(function (define) {
-    "use strict";
+module.exports = function (angular) {
 
-    define([
-            "angular"
-        ],
-        function (angular) {
-            
-			return angular.module.visitorModule;
-        }
-	);
-})(window.define);
+    visitorModule = angular.module.visitorModule;
+    require('./controller/login')(angular);
+
+};

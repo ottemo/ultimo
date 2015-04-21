@@ -1,4 +1,4 @@
-(function ($) {
+module.exports = function (angular, $) {
 
     $(document).ready(function () {
         
@@ -29,5 +29,8 @@
 	     });
 
     });
-})(jQuery);
 
+
+	//require('./common/init')(angular);
+
+};

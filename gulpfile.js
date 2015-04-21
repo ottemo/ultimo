@@ -68,7 +68,7 @@
     var THEME_AS_DEFAULT = process.env.THEME_AS_DEFAULT || 'blitz';
     var themes = [];
 
-    var DEV_FOUNDATION_URI, FOUNDATION_URI
+    var DEV_FOUNDATION_URI, FOUNDATION_URI;
     if (env === 'development') {
         DEV_FOUNDATION_URI = process.env.DEV_FOUNDATION_URI || 'http://dev.ottemo.io:3000';
         FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://dev.ottemo.io:3000';
@@ -261,7 +261,7 @@
     var b = watchify(browserify(assign({}, watchify.args, customOpts)));
 
     gulp.task('browserify', bundle);
-    b.on('update', bundle);
+    //b.on('update', bundle);
     b.on('update', bundle);
     b.on('log', gutil.log);
 

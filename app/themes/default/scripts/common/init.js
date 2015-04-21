@@ -1,27 +1,20 @@
-(function (define) {
-    "use strict";
+module.exports = function (angular) {
 
-    define([
-            "angular"
-        ],
-        function (angular) {
+    angular.module.commonModule
+        .config(["$routeProvider", function ($routeProvider) {
+            $routeProvider
+                .when("/css-test.html", { templateUrl:  angular.getTheme("common/css-test.html"), "controller":""});
+        }])
+        .run([
+            "$rootScope",
+            "$commonSidebarService",
+            function ($rootScope, $commonSidebarService) {
 
-            angular.module.commonModule
-                .config(["$routeProvider", function ($routeProvider) {
-                    $routeProvider
-                        .when("/css-test.html", { templateUrl:  angular.getTheme("common/css-test.html"), "controller":""});
-                }])
-                .run([
-                    "$rootScope",
-                    "$commonSidebarService",
-                    function ($rootScope, $commonSidebarService) {
+                // Left navigation menu
 
-                        // Left navigation menu
+                $commonSidebarService.addItem("STYLE CHECK", "css-test.html", "glyphicon glyphicon-book");
 
-                        $commonSidebarService.addItem("STYLE CHECK", "css-test.html", "glyphicon glyphicon-book");
-
-                        return angular.module.commonModule;
-                    }
-                ]);
-        });
-})(window.define);
+                return angular.module.commonModule;
+            }
+        ]);
+};
