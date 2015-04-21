@@ -253,7 +253,9 @@
         //    .pipe(jshint.reporter(require('jshint-stylish')));
     });
 
-    /* Statt Browserify */
+    // TODO: This works only for development mode  - jwv
+
+    /* Start Browserify */
     var customOpts = {
         entries: ['./app/scripts/main.js'],
         debug: false

@@ -17,7 +17,7 @@ build:
         name: Run jshint
         code: gulp jshint
     - script:
-        name: Run gulp build
+        name: Run gulp createTheme
         code: NODE_ENV=wercker FOUNDATION_URI=http://dev.ottemo.io:3000 gulp build
 
     # A custom script step, name value is used in the UI
