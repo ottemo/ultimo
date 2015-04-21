@@ -203,7 +203,7 @@
         gulp.src(paths.theme.js)
             .pipe(stripDebug())
             .on('error', console.log.bind(console))
-            // .pipe(uglify({mangle: false}))
+            .pipe(uglify({mangle: false}))
             .pipe(gulp.dest(paths.theme.dest + '/scripts'));
 
         /**
@@ -250,7 +250,7 @@
         })
         .pipe(stripDebug())
         .on('error', console.error.bind(console))
-        // .pipe(uglify({mangle: false}))
+        .pipe(uglify({mangle: false}))
         .pipe(gulp.dest(paths.dist + '/scripts/'));
     });
 
@@ -282,7 +282,7 @@
     gulp.task('autoprefixer', ['clean'], function () {
         gulp.src(paths.theme.css)
             .pipe(autoprefix('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-            // .pipe(minifyCSS())
+            .pipe(minifyCSS())
             .pipe(gulp.dest(paths.theme.dest + '/styles'));
 
         gulp.src(paths.theme.fonts)
