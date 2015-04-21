@@ -1,9 +1,19 @@
-module.exports = function () {
+module.exports = function (){
+    /*
+     *  Angular "cartModule" declaration
+     */
+    return angular.module.cartModule = angular.module("cartModule", ["ngRoute", "ngResource", "designModule"])
 
-    var cartModule = require('./module')();
-
-    require('./service/api')(cartModule);
-    require('./service/cart')(cartModule);
-    require('./controller')(cartModule);
+        /*
+         *  Basic routing configuration
+         */
+        .config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
+            $routeProvider
+                .when("/cart", {
+                    templateUrl: angular.getTheme("cart/view.html"),
+                    controller: "cartListController"
+                });
+            $locationProvider.html5Mode(true);
+        }]);
 
 };

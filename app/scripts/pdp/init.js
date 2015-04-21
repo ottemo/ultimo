@@ -1,12 +1,19 @@
-module.exports = function () {
+module.exports = function(){
+    /*
+     *  Angular "pdpModule" declaration
+     */
+    return angular.module.pdpModule = angular.module("pdpModule", ["ngRoute", "ngResource"])
 
-    var pdpModule = require('./module')();
-
-    require('./controller')(pdpModule);
-    require('./service/api')(pdpModule);
-    require('./service/options')(pdpModule);
-    require('./service/product')(pdpModule);
-    require('./directive/guiCustomOptions')(pdpModule);
+        /*
+         *  Basic routing configuration
+         */
+        .config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
+            $routeProvider
+                .when("/product/:id", {
+                    templateUrl: angular.getTheme("pdp/view.html"),
+                    controller: "pdpController"
+                });
+            $locationProvider.html5Mode(true);
+        }]);
 
 };
-
