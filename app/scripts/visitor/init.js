@@ -33,36 +33,36 @@
                             controller: "visitorLogoutController"
                         })
                         .when("/account", {
-                            templateUrl: "themes/blitz/views/visitor/account.html",
+                            templateUrl: "theme/views/visitor/account.html",
                             controller: "visitorAccountController"
                         })
                         .when("/account/address", {
-                            templateUrl: "themes/blitz/views/visitor/account/address-manager.html",
+                            templateUrl: "theme/views/visitor/account/address-manager.html",
                             controller: "visitorAddressController"
                         })
                         .when("/account/orders", {
-                            templateUrl: "themes/blitz/views/visitor/account/order.html",
+                            templateUrl: "theme/views/visitor/account/order.html",
                             controller: "visitorOrderController"
                         })
 
                         .when("/account/order/:id", {
-                            templateUrl: "themes/blitz/views/visitor/account/order-details.html",
+                            templateUrl: "theme/views/visitor/account/order-details.html",
                             controller: "visitorOrderController"
                         })
                         .when("/login", {
-                            templateUrl: "themes/blitz/views/visitor/login-page.html",
+                            templateUrl: "theme/views/visitor/login-page.html",
                             controller: "visitorLoginController"
                         })
                         .when("/forgot-password", {
-                            templateUrl: "themes/blitz/views/visitor/forgot-password.html",
+                            templateUrl: "theme/views/visitor/forgot-password.html",
                             controller: "visitorLoginController"
                         })
                         .when("/resend-activation", {
-                            templateUrl: "themes/blitz/views/visitor/resend-activation.html",
+                            templateUrl: "theme/views/visitor/resend-activation.html",
                             controller: "visitorLoginController"
                         })
                         .when("/registration", {
-                            templateUrl: "themes/blitz/views/visitor/registration-page.html",
+                            templateUrl: "theme/views/visitor/registration-page.html",
                             controller: "visitorLoginController"
                         });
 

@@ -18,6 +18,7 @@
                 .run(["$rootScope", function ($rootScope) {
                     $rootScope.$on("$locationChangeSuccess", function () {
                         $("#mini-cart").removeClass('active');
+                        alert('working still');
                     });
                 }]);
 

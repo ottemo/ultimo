@@ -14,11 +14,11 @@
                     },
 
                     getTemplate: function (templateName) {
-                        return "themes/blitz/views/" + templateName;
+                        return "theme/views/" + templateName;
                     },
 
                     getImage: function (img) {
-                        return "themes/blitz/images/" + img;
+                        return "theme/images/" + img;
                     }
                 };
             }]);

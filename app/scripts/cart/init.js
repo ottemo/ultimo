@@ -18,7 +18,7 @@
                 .config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
                     $routeProvider
                         .when("/cart", {
-                            templateUrl: "themes/blitz/views/cart/view.html",
+                            templateUrl: "theme/views/cart/view.html",
                             controller: "cartListController"
                         });
                     $locationProvider.html5Mode(true);

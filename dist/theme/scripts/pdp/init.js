@@ -22,7 +22,7 @@
                 .config(["$routeProvider", function ($routeProvider) {
                     $routeProvider
                         .when("/product/:id", {
-                            templateUrl: "themes/blitz/views/pdp/view.html",
+                            templateUrl: "theme/views/pdp/view.html",
                             controller: "pdpControllerBlitz"
                         });
                 }]);

@@ -1372,11 +1372,11 @@ define("angular-sanitize", function(){});
                     },
 
                     getTemplate: function (templateName) {
-                        return "themes/blitz/views/" + templateName;
+                        return "theme/views/" + templateName;
                     },
 
                     getImage: function (img) {
-                        return "themes/blitz/images/" + img;
+                        return "theme/images/" + img;
                     }
                 };
             }]);
@@ -1543,16 +1543,16 @@ define("angular-route", function(){});
                 .config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
                     $routeProvider
                         .when("/", {
-                            templateUrl: "themes/blitz/views/common/home.html",
+                            templateUrl: "theme/views/common/home.html",
                             controller: "commonController"
                         })
                         .when("/not-found", {
-                            templateUrl: "themes/blitz/views/common/not-found.html",
+                            templateUrl: "theme/views/common/not-found.html",
                             controller: "commonController"
                         })
                         .when("/help", { templateUrl: "views/help.html"})
                         .when("/about.html", {
-                            templateUrl: "themes/blitz/views/common/about.html",
+                            templateUrl: "theme/views/common/about.html",
                             controller: ""
                         })
                         .otherwise({
@@ -2734,36 +2734,36 @@ define("angular-cookies", function(){});
                             controller: "visitorLogoutController"
                         })
                         .when("/account", {
-                            templateUrl: "themes/blitz/views/visitor/account.html",
+                            templateUrl: "theme/views/visitor/account.html",
                             controller: "visitorAccountController"
                         })
                         .when("/account/address", {
-                            templateUrl: "themes/blitz/views/visitor/account/address-manager.html",
+                            templateUrl: "theme/views/visitor/account/address-manager.html",
                             controller: "visitorAddressController"
                         })
                         .when("/account/orders", {
-                            templateUrl: "themes/blitz/views/visitor/account/order.html",
+                            templateUrl: "theme/views/visitor/account/order.html",
                             controller: "visitorOrderController"
                         })
 
                         .when("/account/order/:id", {
-                            templateUrl: "themes/blitz/views/visitor/account/order-details.html",
+                            templateUrl: "theme/views/visitor/account/order-details.html",
                             controller: "visitorOrderController"
                         })
                         .when("/login", {
-                            templateUrl: "themes/blitz/views/visitor/login-page.html",
+                            templateUrl: "theme/views/visitor/login-page.html",
                             controller: "visitorLoginController"
                         })
                         .when("/forgot-password", {
-                            templateUrl: "themes/blitz/views/visitor/forgot-password.html",
+                            templateUrl: "theme/views/visitor/forgot-password.html",
                             controller: "visitorLoginController"
                         })
                         .when("/resend-activation", {
-                            templateUrl: "themes/blitz/views/visitor/resend-activation.html",
+                            templateUrl: "theme/views/visitor/resend-activation.html",
                             controller: "visitorLoginController"
                         })
                         .when("/registration", {
-                            templateUrl: "themes/blitz/views/visitor/registration-page.html",
+                            templateUrl: "theme/views/visitor/registration-page.html",
                             controller: "visitorLoginController"
                         });
 
@@ -3961,11 +3961,11 @@ define("angular-cookies", function(){});
                 .config(["$routeProvider", "$locationProvider", "GENERAL_CATEGORY_URI", function ($routeProvider, $locationProvider, GENERAL_CATEGORY_URI) {
                     $routeProvider
                         .when("/category/:id", {
-                            "templateUrl": "themes/blitz/views/category/view.html",
+                            "templateUrl": "theme/views/category/view.html",
                             "controller": "categoryListController"
                         })
                         .when(GENERAL_CATEGORY_URI, {
-                            "templateUrl": "themes/blitz/views/category/view.html",
+                            "templateUrl": "theme/views/category/view.html",
                             "controller": "categoryListController"
                         });
                     $locationProvider.html5Mode(true);
@@ -4749,7 +4749,7 @@ define("angular-cookies", function(){});
                 .config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
                     $routeProvider
                         .when("/product/:id", {
-                            templateUrl: "themes/blitz/views/pdp/view.html",
+                            templateUrl: "theme/views/pdp/view.html",
                             controller: "pdpController"
                         });
                     $locationProvider.html5Mode(true);
@@ -5680,7 +5680,7 @@ define("angular-cookies", function(){});
                 .config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
                     $routeProvider
                         .when("/cart", {
-                            templateUrl: "themes/blitz/views/cart/view.html",
+                            templateUrl: "theme/views/cart/view.html",
                             controller: "cartListController"
                         });
                     $locationProvider.html5Mode(true);
@@ -6220,11 +6220,11 @@ define("angular-cookies", function(){});
                     function ($routeProvider, $locationProvider, ONEPAGE_URL, ACCORDION_URL) {
                         $routeProvider
                             .when(ONEPAGE_URL, {
-                                templateUrl: "themes/blitz/views/checkout/view.html",
+                                templateUrl: "theme/views/checkout/view.html",
                                 controller: "checkoutOnepageController"
                             })
                             .when(ACCORDION_URL, {
-                                templateUrl: "themes/blitz/views/checkout/view2.html",
+                                templateUrl: "theme/views/checkout/view2.html",
                                 controller: "checkoutAccordionController"
                             });
                         $locationProvider.html5Mode(true);
@@ -8270,7 +8270,7 @@ define("angular-cookies", function(){});
                 .config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
                     $routeProvider
                         .when("/page/:id", {
-                            templateUrl: "themes/blitz/views/cms/page.html",
+                            templateUrl: "theme/views/cms/page.html",
                             controller: "cmsPageController"
                         });
                     $locationProvider.html5Mode(true);
@@ -8515,9 +8515,10 @@ require([
         angular.element(document).ready(function () {
             angular.referrer = document.referrer;
 
+            //TODO: not sure why we do it this way
             var runApp = function () {
                 
-                require(["../themes/blitz/scripts/init"], function () {
+                require(["../theme/scripts/init"], function () {
                     var modules = Object.keys(angular.module);
                     angular.resumeBootstrap(modules);
                 });

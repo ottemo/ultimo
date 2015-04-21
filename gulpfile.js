@@ -27,22 +27,32 @@
     recursive = require('recursive-readdir');
 
     paths = {
-        "app": require('./bower.json').appPath || 'app',
-        "dist": 'dist',
-        "themes": 'themes',
-        "js": ['app/scripts/*.js', 'app/scripts/**/*.js'],
-        "vendor": 'app/lib/**/*.js',
-        "vendorTheme": 'app/themes/**/lib/**/*',
-        "sass": 'app/styles/sass/**/*.scss',
-        "css": 'app/themes/**/styles/**/*.css',
-        "images": ['app/themes/**/images/**/*', 'app/themes/**/styles/**/*.{png,jpg,jpec,ico}'],
-        "fonts": ['app/themes/**/styles/fonts/**/*', 'app/themes/**/fonts/**/*'],
-        "html": 'app/**/*.html',
-        "misc": 'app/*.{txt,htaccess,ico}',
-        "themeDest": "dist/themes",
-        "themesDir": "./app/themes"
+        'app': require('./bower.json').appPath || 'app',
+        'dist': 'dist',
 
+        // Core
+        'js': 'app/scripts/**/*.js',
+        'vendor': 'app/lib/**/*.js',
+
+        // Theme Libs
+        'vendorTheme': 'app/theme/**/lib/**/*',
+
+        // Theme
+        'theme': {
+            'sass': 'app/styles/sass/**/*.scss', //TODO: not resolving
+            'css': 'app/theme/styles/**/*.css',
+            'images': 'app/theme/**/*.{png,jpg,jpec,ico}',
+            'fonts': 'app/theme/fonts/**/*',
+            'js': 'app/theme/scripts/**/*.js',
+            'dest': 'dist/theme', //old themesDest
+            'src': './app/theme' // am i needed themesDir
+        },
+
+        // Title
+        'html': 'app/**/*.html',
+        'misc': 'app/*.{txt,htaccess,ico}',
     };
+
     host = {
         port: '8080',
         lrPort: '35729'
@@ -64,8 +74,6 @@
     var env = process.env.NODE_ENV || 'development';
     DEFAULT_ROOT = process.env.DEFAULT_ROOT || 'admin';
     DEFAULT_PASS = process.env.DEFAULT_PASS || 'admin';
-    THEME_AS_DEFAULT = 'blitz';
-    themes = [];
 
     if (env === 'development') {
         DEV_FOUNDATION_URI = process.env.DEV_FOUNDATION_URI || 'http://localhost:3000';
@@ -93,7 +101,6 @@
     gutil.log("FOUNDATION_URI = ", FOUNDATION_URI);
     gutil.log("DEFAULT_ROOT = ", DEFAULT_ROOT);
     gutil.log("DEFAULT_PASS = ", DEFAULT_PASS);
-    gutil.log("THEME_AS_DEFAULT = ", THEME_AS_DEFAULT);
     gutil.log("");
 
     configs = [
@@ -192,17 +199,18 @@
         /**
          * Minify and uglify the custom scripts in folder 'scripts' in each theme
          */
-        gulp.src('app/themes/**/scripts/**/*.js')
+        //TODO: this shouldn't be in vendorTheme task, or task should be renamed
+        gulp.src(paths.theme.js)
             .pipe(stripDebug())
             .on('error', console.log.bind(console))
             // .pipe(uglify({mangle: false}))
-            .pipe(gulp.dest(paths.themeDest));
+            .pipe(gulp.dest(paths.theme.dest + '/scripts'));
 
         /**
          * copy vendor js from theme folder
          */
         return gulp.src(paths.vendorTheme)
-            .pipe(gulp.dest(paths.themeDest));
+            .pipe(gulp.dest(paths.theme.dest));
     });
 
     // copy vendor js
@@ -240,16 +248,16 @@
                 "config": {exports: "config"}
             }
         })
-            .pipe(stripDebug())
-            .on('error', console.error.bind(console))
-            // .pipe(uglify({mangle: false}))
-            .pipe(gulp.dest(paths.dist + '/scripts/'));
+        .pipe(stripDebug())
+        .on('error', console.error.bind(console))
+        // .pipe(uglify({mangle: false}))
+        .pipe(gulp.dest(paths.dist + '/scripts/'));
     });
 
     // Sass task, will run when any SCSS files change & BrowserSync
     // will auto-update browsers
     gulp.task('sass', function () {
-        return gulp.src(paths.sass)
+        return gulp.src(paths.theme.sass)
             .pipe(sass({imagePath: '../../images'}))
             .pipe(autoprefix('last 1 version'))
             .pipe(gulp.dest(paths.dist + '/styles'))
@@ -258,10 +266,10 @@
 
     // minify new images
     gulp.task('imagemin', ['clean'], function () {
-        return gulp.src(paths.images)
-            .pipe(changed(paths.themeDest))
+        return gulp.src(paths.theme.images)
+            .pipe(changed(paths.theme.dest))
             .pipe(imagemin())
-            .pipe(gulp.dest(paths.themeDest));
+            .pipe(gulp.dest(paths.theme.dest));
     });
 
     // minify new or changed HTML pages
@@ -282,12 +290,13 @@
 
     // CSS auto-prefix and minify
     gulp.task('autoprefixer', ['clean', 'sass'], function () {
-        gulp.src(paths.css)
+        gulp.src(paths.theme.css)
             .pipe(autoprefix('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
             // .pipe(minifyCSS())
-            .pipe(gulp.dest(paths.themeDest));
-        gulp.src(paths.fonts)
-            .pipe(gulp.dest(paths.themeDest));
+            .pipe(gulp.dest(paths.theme.dest + '/styles'));
+
+        gulp.src(paths.theme.fonts)
+            .pipe(gulp.dest(paths.theme.dest + '/fonts'));
     });
 
     // browser-sync task for starting server
@@ -334,60 +343,27 @@
     // Run this task tell foundation which theme to use
 
     gulp.task('build', function () {
-        var jsCode, themesData;
-        themesData = '';
+        if (env === 'development') {
+            setConfigValue("value", "general.app.foundation_url", DEV_FOUNDATION_URI);
+            initConfigs(DEV_FOUNDATION_URI);
+        } else if (env === 'wercker') {
+            gulp.start('requirejs');
+            gulp.start('vendor');
+            gulp.start('misc');
+            gulp.start('html');
+            gulp.start('autoprefixer');
+            gulp.start('imagemin');
+        } else if (env === 'production' || env === 'staging') {
+            setConfigValue("value", "general.app.foundation_url", FOUNDATION_URI);
+            initConfigs(FOUNDATION_URI);
 
-        recursive(paths.themesDir, function (err, files) {
-            var i, theme, filePath, parts, regExp;
-            theme = null;
-            regExp = new RegExp('app[/\\\\]themes[/\\\\](\\w+)[/\\\\](.+)', 'i');
-
-            for (i = 0; i < files.length; i += 1) {
-                filePath = files[i];
-                parts = filePath.match(regExp);
-                if (parts instanceof Array) {
-                    if (theme !== parts[1] && theme === null) {
-                        themes.push(parts[1]);
-                    }
-                    if (theme !== parts[1] && theme !== null) {
-                        themes.push(parts[1]);
-                    }
-                    theme = parts[1];
-                }
-            }
-
-            themesData = '{';
-            for (i = 0; i < themes.length; i += 1) {
-                themesData += '"' + themes[i] + '":"' + themes[i] + '"';
-                if (i < themes.length - 1) {
-                    themesData += ',';
-                }
-            }
-            themesData += '}';
-
-            if (env === 'development') {
-                setConfigValue("value", "general.app.foundation_url", DEV_FOUNDATION_URI);
-                initConfigs(DEV_FOUNDATION_URI);
-            } else if (env === 'wercker') {
-                gulp.start('requirejs');
-                gulp.start('vendor');
-                gulp.start('misc');
-                gulp.start('html');
-                gulp.start('autoprefixer');
-                gulp.start('imagemin');
-            } else if (env === 'production' || env === 'staging') {
-                setConfigValue("value", "general.app.foundation_url", FOUNDATION_URI);
-                initConfigs(FOUNDATION_URI);
-
-                gulp.start('requirejs');
-                gulp.start('vendor');
-                gulp.start('misc');
-                gulp.start('html');
-                gulp.start('autoprefixer');
-                gulp.start('imagemin');
-            }
-        });
-
+            gulp.start('requirejs');
+            gulp.start('vendor');
+            gulp.start('misc');
+            gulp.start('html');
+            gulp.start('autoprefixer');
+            gulp.start('imagemin');
+        }
     });
 
 })();

@@ -23,7 +23,7 @@
                 .config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
                     $routeProvider
                         .when("/page/:id", {
-                            templateUrl: "themes/blitz/views/cms/page.html",
+                            templateUrl: "theme/views/cms/page.html",
                             controller: "cmsPageController"
                         });
                     $locationProvider.html5Mode(true);

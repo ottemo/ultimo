@@ -87,7 +87,7 @@ require([
             //TODO: not sure why we do it this way
             var runApp = function () {
                 
-                require(["../themes/blitz/scripts/init"], function () {
+                require(["../theme/scripts/init"], function () {
                     var modules = Object.keys(angular.module);
                     angular.resumeBootstrap(modules);
                 });

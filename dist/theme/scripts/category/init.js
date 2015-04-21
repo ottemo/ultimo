@@ -18,11 +18,11 @@
                 .config(["$routeProvider", "GENERAL_CATEGORY_URI", function ($routeProvider, GENERAL_CATEGORY_URI) {
                     $routeProvider
                         .when("/category/:id", {
-                            "templateUrl": "themes/blitz/views/category/view.html",
+                            "templateUrl": "theme/views/category/view.html",
                             "controller": "categoryListControllerBlitz"
                         })
                         .when(GENERAL_CATEGORY_URI, {
-                            "templateUrl": "themes/blitz/views/category/view.html",
+                            "templateUrl": "theme/views/category/view.html",
                             "controller": "categoryListControllerBlitz"
                         });
                 }]);

@@ -37,16 +37,16 @@
                 .config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
                     $routeProvider
                         .when("/", {
-                            templateUrl: "themes/blitz/views/common/home.html",
+                            templateUrl: "theme/views/common/home.html",
                             controller: "commonController"
                         })
                         .when("/not-found", {
-                            templateUrl: "themes/blitz/views/common/not-found.html",
+                            templateUrl: "theme/views/common/not-found.html",
                             controller: "commonController"
                         })
                         .when("/help", { templateUrl: "views/help.html"})
                         .when("/about.html", {
-                            templateUrl: "themes/blitz/views/common/about.html",
+                            templateUrl: "theme/views/common/about.html",
                             controller: ""
                         })
                         .otherwise({
