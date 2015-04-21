@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    var gulp, gutil, minifyHTML, concat, stripDebug, uglify, jshint, changed, imagemin, autoprefix, sass, rjs, minifyCSS,
+    var gulp, gutil, minifyHTML, concat, stripDebug, uglify, jshint, changed, imagemin, autoprefix, rjs, minifyCSS,
         browserSync, modRewrite, pngquant, del, paths, host, themes, fs, request, recursive, configs, FOUNDATION_URI,
         THEME_AS_DEFAULT, DEV_FOUNDATION_URI, DEFAULT_ROOT, DEFAULT_PASS;
 
@@ -15,7 +15,6 @@
     changed = require('gulp-changed');
     imagemin = require('gulp-imagemin');
     autoprefix = require('gulp-autoprefixer');
-    sass = require('gulp-sass');
     rjs = require('gulp-requirejs');
     minifyCSS = require('gulp-minify-css');
     browserSync = require('browser-sync');
@@ -39,13 +38,12 @@
 
         // Theme
         'theme': {
-            'sass': 'app/styles/sass/**/*.scss', //TODO: not resolving
             'css': 'app/theme/styles/**/*.css',
             'images': 'app/theme/**/*.{png,jpg,jpec,ico}',
             'fonts': 'app/theme/fonts/**/*',
             'js': 'app/theme/scripts/**/*.js',
-            'dest': 'dist/theme', //old themesDest
-            'src': './app/theme' // am i needed themesDir
+            'dest': 'dist/theme',
+            'src': './app/theme'
         },
 
         // Title
@@ -151,6 +149,7 @@
         }
     ];
 
+    //TODO: can we move away from this
     var setConfigValue = function (field, path, option) {
         for (var i = 0; i < configs.length; i += 1) {
             if (configs[i].path === path) {
@@ -160,6 +159,7 @@
         }
     };
 
+    //TODO: can we move away from this
     var setConfig = function (serverURI, config) {
         request({
             uri: serverURI + '/config/value/' + config.path + '?auth=' + DEFAULT_ROOT + ':' + DEFAULT_PASS,
@@ -254,16 +254,6 @@
         .pipe(gulp.dest(paths.dist + '/scripts/'));
     });
 
-    // Sass task, will run when any SCSS files change & BrowserSync
-    // will auto-update browsers
-    gulp.task('sass', function () {
-        return gulp.src(paths.theme.sass)
-            .pipe(sass({imagePath: '../../images'}))
-            .pipe(autoprefix('last 1 version'))
-            .pipe(gulp.dest(paths.dist + '/styles'))
-            .pipe(gulp.dest(paths.app + '/styles'));
-    });
-
     // minify new images
     gulp.task('imagemin', ['clean'], function () {
         return gulp.src(paths.theme.images)
@@ -289,7 +279,7 @@
     });
 
     // CSS auto-prefix and minify
-    gulp.task('autoprefixer', ['clean', 'sass'], function () {
+    gulp.task('autoprefixer', ['clean'], function () {
         gulp.src(paths.theme.css)
             .pipe(autoprefix('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
             // .pipe(minifyCSS())
@@ -329,11 +319,7 @@
 
     // run in development mode with easy browser reloading
     gulp.task('dev', ['browser-sync'], function () {
-
-        gulp.watch('app/views/**/*.html', [browserSync.reload]);            //TODO: path does not exist
-        gulp.watch('app/styles/**/*.css', [browserSync.reload]);            //TODO: path does not exist
-        gulp.watch('app/styles/**/*.scss', ['sass', browserSync.reload]);   //TODO: path does not exist
-        gulp.watch('app/scripts/**/*.js', ['jshint', browserSync.reload]);
+        gulp.watch(paths.js, ['jshint', browserSync.reload]);
     });
 
     gulp.task('serve', ['build', 'dev']);
