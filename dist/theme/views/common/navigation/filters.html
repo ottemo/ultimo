@@ -1,1 +1,0 @@
-<div ng-repeat="(filter, items) in layered track by $index" ng-if="items.length>0"><h6>{{filter}}</h6><span class="toggler glyphicon glyphicon-chevron-down"></span><div class="clearfix"></div><hr><ul><li ng-repeat="item in items track by $index"><label class="checkbox-inline"><input type="checkbox" ng-model="filters[filter][item]"> <span>{{item}}</span></label></li></ul></div>
