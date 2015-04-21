@@ -359,9 +359,10 @@
 
     gulp.task('default', ['build']);
 
-    // Run this task tell foundation which theme to use
+    gulp.task('build', ['createTheme', 'browserify']);
 
-    gulp.task('build', ['browserify'], function () {
+    // Run this task tell foundation which theme to use
+    gulp.task('createTheme', function () {
         var jsCode, themesData;
         themesData = '';
 
