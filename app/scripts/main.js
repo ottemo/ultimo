@@ -84,7 +84,8 @@ require([
         angular.element(document).ready(function () {
             angular.referrer = document.referrer;
 
-            //TODO: not sure why we do it this way
+            //TODO: We should find a better way to do this
+            // instead of loading in theme files here
             var runApp = function () {
                 
                 require(["../theme/scripts/init"], function () {
