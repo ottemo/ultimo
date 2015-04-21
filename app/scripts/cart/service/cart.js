@@ -7,11 +7,11 @@ module.exports = function (cartModule) {
         .service('$cartService', [
             '$resource',
             '$cartApiService',
-            //'$cookieStore',
+            '$cookieStore',
             '$pdpProductOptionsService',
-            //'LOGIN_COOKIE',
+            'LOGIN_COOKIE',
             '$q',
-            function ($resource, $cartApiService, /*$cookieStore,*/ $pdpProductOptionsService, /*LOGIN_COOKIE,*/ $q) {
+            function ($resource, $cartApiService, $cookieStore, $pdpProductOptionsService, LOGIN_COOKIE, $q) {
 
                 var isInit, items, visitorId, subtotal, saleTax, shipping, total, activeRequests, initScope,
                     addItem, init, reload, loadCartInfo, getItems, remove, update,
@@ -223,7 +223,7 @@ module.exports = function (cartModule) {
                 };
 
                 remove = function (itemIdx) {
-                    if (w.confirm('You really want remove this item from shopping cart?')) {
+                    if (window.confirm('You really want remove this item from shopping cart?')) {
                         var deferRemoveItem = $q.defer();
                         $cartApiService.remove({'itemIdx': itemIdx}).$promise.then(
                             function () {

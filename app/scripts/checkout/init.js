@@ -1,50 +1,6 @@
-module.exports = function (angular) {
-    /**
-     *  Angular "checkoutModule" declaration
-     */
-    angular.module.checkoutModule = checkoutModule = angular.module("checkoutModule", ["ngRoute", "ngResource", "designModule"])
+module.exports = function () {
 
-        .constant("CHECKOUT_TYPE", "general.checkout.checkout_type")
-        .constant("ONEPAGE_URL", "/spcheckout")
-        .constant("ACCORDION_URL", "/checkout")
-
-        /*
-         *  Basic routing configuration
-         */
-        .config([
-            "$routeProvider",
-            "$locationProvider",
-            "ONEPAGE_URL",
-            "ACCORDION_URL",
-            function ($routeProvider, $locationProvider, ONEPAGE_URL, ACCORDION_URL) {
-                $routeProvider
-                    .when(ONEPAGE_URL, {
-                        templateUrl: angular.getTheme("checkout/view.html"),
-                        controller: "checkoutOnepageController"
-                    })
-                    .when(ACCORDION_URL, {
-                        templateUrl: angular.getTheme("checkout/view2.html"),
-                        controller: "checkoutAccordionController"
-                    });
-                $locationProvider.html5Mode(true);
-            }
-        ])
-
-        .run([
-            "$http",
-            "REST_SERVER_URI",
-            "CHECKOUT_TYPE",
-            "$checkoutService",
-            function ($http, REST_SERVER_URI, CHECKOUT_TYPE, $checkoutService) {
-                $http({
-                    url: REST_SERVER_URI + "/config/value/" + CHECKOUT_TYPE,
-                    method: "GET"
-                }).success(function (response) {
-                    $checkoutService.setType(response.result);
-                });
-            }
-        ]
-    );
+    var checkoutModule = require('./module')();
 
     require('./service/api')(checkoutModule);
     require('./service/checkout')(checkoutModule);

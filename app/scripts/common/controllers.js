@@ -1,4 +1,4 @@
-module.exports = function (angular, commonModule) {
+module.exports = function (commonModule) {
 
 commonModule
         /*

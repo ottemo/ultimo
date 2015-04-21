@@ -1,6 +1,6 @@
-module.exports = function (commonModule) {
+module.exports = function (categoryModule) {
 
-    commonModule
+    categoryModule
     /**
      *  $categoryService implementation
      *  Saves in the tree a categories list. Used for the breadcrumbs

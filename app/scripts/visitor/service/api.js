@@ -75,6 +75,5 @@ module.exports = function (productModule) {
                 });
         }]);
 
-    return productModule;
 };
 

@@ -1,4 +1,4 @@
-module.exports = function (angular) {
+module.exports = function () {
 
         var init, requestData, login, loginCallback, userData, avatar, getAvatar;
         userData = {'access_token': ''};

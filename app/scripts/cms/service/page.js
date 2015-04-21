@@ -1,5 +1,5 @@
-module.exports = function (pdpModule) {
-    pdpModule
+module.exports = function (cmsModule) {
+    cmsModule
         /*
          *  $productApiService interaction service
          */

@@ -32,5 +32,4 @@ module.exports = function (designModule) {
             };
         }]);
 
-    return designModule;
 };

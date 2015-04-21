@@ -1,5 +1,5 @@
-module.exports =  function (productModule) {
-    productModule
+module.exports =  function (categoryModule) {
+    categoryModule
         /*
          *  $productApiService interaction service
          */

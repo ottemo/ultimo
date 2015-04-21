@@ -1,4 +1,4 @@
-module.exports = function (angular) {
+module.exports = function () {
 
     angular.module.commonModule
         .config(["$routeProvider", function ($routeProvider) {

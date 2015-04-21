@@ -72,5 +72,4 @@ module.exports = function (commonModule) {
             };
         }]);
 
-    return commonModule;
 };

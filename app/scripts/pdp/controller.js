@@ -1,4 +1,4 @@
-module.exports = function (angular, pdpModule) {
+module.exports = function (pdpModule) {
 
     pdpModule
     /**

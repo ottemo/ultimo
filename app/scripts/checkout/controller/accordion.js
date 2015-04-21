@@ -695,7 +695,7 @@ module.exports = function (checkoutModule) {
                             $checkoutApiService.save().$promise.then(
                                 function (response) {
                                     if (response.error === null && null !== payment.method && payment.method.Type === "remote" && response.result === "redirect") {
-                                        w.location.replace(response.redirect);
+                                        window.location.replace(response.redirect);
                                     } else if (response.error === null && null !== payment.method && payment.method.Type === "post_cc") {
                                         // Handler for direct post form for Authorize.net
                                         sendPostForm(payment.method, response);

@@ -1,4 +1,4 @@
-module.exports = function (angular, cartModule) {
+module.exports = function (cartModule) {
     cartModule
 
         .controller("cartListController", [

@@ -55,19 +55,18 @@ module.exports = function (pdpModule) {
             }
         };
     }])
-        .filter('getOrdered', function () {
-            return function (input) {
-                var ordered = {};
-                for (var key in input) {
-                    if (input.hasOwnProperty(key)) {
+    .filter('getOrdered', function () {
+        return function (input) {
+            var ordered = {};
+            for (var key in input) {
+                if (input.hasOwnProperty(key)) {
 
-                        ordered[input[key].order] = input[key];
-                    }
+                    ordered[input[key].order] = input[key];
                 }
+            }
 
-                return ordered;
-            };
-        });
+            return ordered;
+        };
+    });
 
-    return pdpModule;
 };

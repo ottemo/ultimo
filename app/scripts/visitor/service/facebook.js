@@ -1,4 +1,4 @@
-module.exports = function (angular) {
+module.exports = function () {
 
     var init, avatarLarge, avatarMedium , avatarSmall, avatarSquare, getAvatar;
 

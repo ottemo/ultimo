@@ -1,4 +1,4 @@
-module.exports = function (angular, $) {
+module.exports = function () {
 
     $(document).ready(function () {
 
@@ -46,11 +46,11 @@ module.exports = function (angular, $) {
     });
 
 
-    require('./cart/init')(angular);
-    require('./category/init')(angular);
-    require('./common/init')(angular);
-    require('./pdp/init')(angular);
-    require('./visitor/init')(angular);
+    require('./cart/init')();
+    require('./category/init')();
+    require('./common/init')();
+    require('./pdp/init')();
+    require('./visitor/init')();
 
 
 

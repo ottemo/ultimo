@@ -181,7 +181,6 @@ module.exports = function (commonModule) {
         }
     );
 
-
 };
 
 

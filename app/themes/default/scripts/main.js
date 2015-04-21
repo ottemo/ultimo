@@ -1,4 +1,4 @@
-module.exports = function (angular, $) {
+module.exports = function () {
 
     $(document).ready(function () {
         
@@ -30,7 +30,6 @@ module.exports = function (angular, $) {
 
     });
 
-
-	//require('./common/init')(angular);
+	require('./common/init')();
 
 };

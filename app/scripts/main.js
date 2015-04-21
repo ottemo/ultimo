@@ -2,7 +2,7 @@
 
 window.name = "NG_DEFER_BOOTSTRAP!";
 
-
+// add node libs
 var $ = window.$ = window.jQuery = require('jquery');
 require('bootstrap');
 var angular = require('angular');
@@ -11,12 +11,8 @@ require('angular-sanitize');
 require('angular-resource');
 require('angular-cookies');
 
-
-//init
-
+// config
 iniConfig = require('./config');
-
-
 angular.appConfig = {};
 angular.appConfigValue = function (valueName) {
     if (typeof angular.appConfig[valueName] !== "undefined") {
@@ -29,19 +25,22 @@ angular.appConfigValue = function (valueName) {
     return "";
 };
 
+// add modules
+require('./design/init')();
+require('./common/init')();
+require('./cart/init')();
+require('./pdp/init')();
+require('./category/init')();
+require('./visitor/init')();
+require('./checkout/init')();
+require('./cms/init')();
 
-require('./design/init')(angular);
-require('./common/init')(angular);
-require('./cart/init')(angular);
-require('./pdp/init')(angular);
-require('./category/init')(angular);
-require('./visitor/init')(angular);
-require('./checkout/init')(angular);
-require('./cms/init')(angular);
+// add themes
+require('../themes/default/scripts/main')();
+require('../themes/blitz/scripts/main')();
 
-require('../themes/default/scripts/main')(angular, $);
-require('../themes/blitz/scripts/main')(angular, $);
 
+// animate
 $('#loader .progress-bar').animate({width: '60%'}, 800, function () {
     setTimeout(function () {
         $('#loader .progress-bar').animate({width: '100%'}, 200, function () {
@@ -55,14 +54,10 @@ $('#loader .progress-bar').animate({width: '60%'}, 800, function () {
     }, 500);
 });
 
-
-
-
-
+// ready
 angular.element(document).ready(function () {
+
     angular.referrer = document.referrer;
-
-
 
     var files = require('./design/themeFiles');
     angular.isExistFile = function (path) {
@@ -72,8 +67,6 @@ angular.element(document).ready(function () {
 
     var modules = Object.keys(angular.module);
     angular.resumeBootstrap(modules);
-
-
 
     /**
      * increase count of visits
