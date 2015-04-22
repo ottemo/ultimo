@@ -62,8 +62,7 @@
      * DEFAULT_PASS: set to the administrator password
      * THEME_AS_DEFAULT: set to the desired default theme
      */
-    //var env = process.env.NODE_ENV || 'development';
-    var env = 'production';
+    var env = process.env.NODE_ENV || 'development';
     var DEFAULT_ROOT = process.env.DEFAULT_ROOT || 'admin';
     var DEFAULT_PASS = process.env.DEFAULT_PASS || 'admin';
     var THEME_AS_DEFAULT = process.env.THEME_AS_DEFAULT || 'blitz';
