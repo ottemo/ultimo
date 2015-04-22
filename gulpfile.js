@@ -253,7 +253,9 @@
         //    .pipe(jshint.reporter(require('jshint-stylish')));
     });
 
-    /* Statt Browserify */
+    // TODO: This works only for development mode  - jwv
+
+    /* Start Browserify */
     var customOpts = {
         entries: ['./app/scripts/main.js'],
         debug: false
@@ -359,9 +361,10 @@
 
     gulp.task('default', ['build']);
 
-    // Run this task tell foundation which theme to use
+    gulp.task('build', ['createTheme', 'browserify']);
 
-    gulp.task('build', ['browserify'], function () {
+    // Run this task tell foundation which theme to use
+    gulp.task('createTheme', function () {
         var jsCode, themesData;
         themesData = '';
 
