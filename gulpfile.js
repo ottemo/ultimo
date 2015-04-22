@@ -62,7 +62,8 @@
      * DEFAULT_PASS: set to the administrator password
      * THEME_AS_DEFAULT: set to the desired default theme
      */
-    var env = process.env.NODE_ENV || 'development';
+    //var env = process.env.NODE_ENV || 'development';
+    var env = 'production';
     var DEFAULT_ROOT = process.env.DEFAULT_ROOT || 'admin';
     var DEFAULT_PASS = process.env.DEFAULT_PASS || 'admin';
     var THEME_AS_DEFAULT = process.env.THEME_AS_DEFAULT || 'blitz';
@@ -217,21 +218,9 @@
     });
 
     // Actions with js-files from theme
-    gulp.task('vendorTheme', ['clean'], function () {
-        /**
-         * Minify and uglify the custom scripts in folder 'scripts' in each theme
-         */
-        gulp.src('app/themes/**/scripts/**/*.js')
-            .pipe(stripDebug())
-            .on('error', console.log.bind(console))
-            .pipe(uglify({mangle: false}))
-            .pipe(gulp.dest(paths.themeDest));
-
-        /**
-         * copy vendor js from theme folder
-         */
-        return gulp.src(paths.vendorTheme)
-            .pipe(gulp.dest(paths.themeDest));
+    gulp.task('vendorTheme', ['clean', 'browserify'], function () {
+        return gulp.src('app/bundle.js')
+            .pipe(gulp.dest('dist'));
     });
 
     // copy vendor js
@@ -248,9 +237,9 @@
 
     // Run JSHint
     gulp.task('jshint', function () {
-        //gulp.src(paths.js)
-        //    .pipe(jshint())
-        //    .pipe(jshint.reporter(require('jshint-stylish')));
+        gulp.src(paths.js)
+            .pipe(jshint())
+            .pipe(jshint.reporter(require('jshint-stylish')));
     });
 
     // TODO: This works only for development mode  - jwv
@@ -354,7 +343,7 @@
         gulp.watch('app/views/**/*.html', [browserSync.reload]);
         gulp.watch('app/styles/**/*.css', [browserSync.reload]);
         gulp.watch('app/styles/**/*.scss', ['sass', browserSync.reload]);
-        gulp.watch('app/bundle.js', ['jshint', browserSync.reload]);
+        gulp.watch('app/scripts/**/*.js', ['jshint', browserSync.reload]);
     });
 
     gulp.task('serve', ['build', 'dev']);
