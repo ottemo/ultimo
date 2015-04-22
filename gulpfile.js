@@ -216,14 +216,8 @@
         del(['dist/*', '!dist/media'], cb);
     });
 
-    // Actions with js-files from theme
-    gulp.task('vendorTheme', ['clean', 'browserify'], function () {
-        return gulp.src('app/bundle.js')
-            .pipe(gulp.dest('dist'));
-    });
-
     // copy vendor js
-    gulp.task('vendor', ['clean', 'vendorTheme'], function () {
+    gulp.task('vendor', ['clean'], function () {
         return gulp.src(paths.vendor)
             .pipe(gulp.dest(paths.dist + '/lib'));
     });
@@ -244,27 +238,35 @@
     // TODO: This works only for development mode  - jwv
 
     /* Start Browserify */
+    function bundle() {
+        return b.bundle()
+            .on('error', gutil.log.bind(gutil, 'Browserify Error'))
+            .pipe(source('bundle.js'))
+            .pipe(gulp.dest('./app'));
+    }
     var customOpts = {
         entries: ['./app/scripts/main.js'],
         debug: false
     };
+
     var b = watchify(browserify(assign({}, watchify.args, customOpts)));
 
-    gulp.task('browserify', bundle);
-    //b.on('update', bundle);
-    b.on('update', bundle);
-    b.on('log', gutil.log);
-
-    function bundle() {
-        var result = b.bundle()
-            .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-            .pipe(source('bundle.js'));
-        if (env !== 'development'){
-            result = result
+    if(env === 'development') {
+        gulp.task('browserify', bundle);
+        b.on('update', bundle);
+        b.on('log', gutil.log);
+    } else {
+        // production build
+        gulp.task('browserify', function () {
+            return browserify()
+                .add('./app/scripts/main.js')
+                .bundle()
+                .on('error', gutil.log.bind(gutil, 'Browserify Error'))
+                .pipe(source('bundle.js'))
                 .pipe(buffer())
                 .pipe(uglify())
-        }
-        return result.pipe(gulp.dest('./app'));
+                .pipe(gulp.dest('./dist'));
+        });
     }
     /* End Browserify */
 
