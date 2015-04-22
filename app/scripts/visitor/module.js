@@ -1,23 +1,16 @@
-(function (define) {
-    "use strict";
+module.exports = function () {
 
-    /**
-     *  requireJS module entry point
-     *  (to use that module you should include it to main.js)
-     */
-    define([
-            "visitor/service/api",
-            "visitor/service/login",
+    var fb = require('./service/facebook')();
+    var gl = require('./service/google')();
 
-            "visitor/controller/login",
-            "visitor/controller/logout",
-            "visitor/controller/address",
-            "visitor/controller/account",
-            "visitor/controller/order"
-        ],
-        function (visitorModule) {
+    var visitorModule = require('./init')(fb, gl);
 
-            return visitorModule;
-        });
+    require('./service/api')(visitorModule);
+    require('./service/login')(visitorModule, fb, gl);
+    require('./controller/account')(visitorModule);
+    require('./controller/address')(visitorModule);
+    require('./controller/login')(visitorModule, gl);
+    require('./controller/logout')(visitorModule);
+    require('./controller/order')(visitorModule);
 
-})(window.define);
+};

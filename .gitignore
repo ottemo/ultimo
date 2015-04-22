@@ -14,4 +14,4 @@ tags
 # Files
 *.iml
 app/scripts/design/themeFiles.js
-
+app/bundle.js

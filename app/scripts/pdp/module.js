@@ -1,21 +1,12 @@
-(function (define) {
-    "use strict";
+module.exports = function () {
 
-    /**
-     *  Module contains general purpose directives and services used to render HTML page
-     */
-    define([
-            "pdp/service/api",
-            "pdp/service/options",
-            "pdp/service/product",
+    var pdpModule = require('./init')();
 
-            "pdp/directive/guiCustomOptions",
+    require('./controller')(pdpModule);
+    require('./service/api')(pdpModule);
+    require('./service/options')(pdpModule);
+    require('./service/product')(pdpModule);
+    require('./directive/guiCustomOptions')(pdpModule);
 
-            "pdp/controller"
-        ],
-        function (pdpModule) {
+};
 
-            return pdpModule;
-        });
-
-})(window.define);

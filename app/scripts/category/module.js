@@ -1,18 +1,9 @@
-(function (define) {
-    "use strict";
+module.exports = function () {
 
-    /*
-     *  requireJS module entry point
-     *  (to use that module you should include it to main.js)
-     */
-    define([
-            "category/service/api",
-            "category/service/category",
-            "category/controller"
-        ],
-        function (categoryModule) {
+    var categoryModule = require('./init')();
 
-            return categoryModule;
-        });
+    require('./service/api')(categoryModule);
+    require('./service/category')(categoryModule);
+    require('./controller')(categoryModule);
 
-})(window.define);
+};

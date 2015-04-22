@@ -1,27 +1,17 @@
-(function (define) {
-    "use strict";
+module.exports = function () {
+    /*
+     *  Angular "cartModule" declaration
+     */
+    angular.module.cartModule
 
-    define([
-            "angular",
-            "angular-route",
-            "angular-resource"
-        ],
-        function (angular) {
-            /*
-             *  Angular "cartModule" declaration
-             */
-            angular.module.cartModule
+        /*
+         *  Basic routing configuration
+         */
+        .run(["$rootScope", function ($rootScope) {
+            $rootScope.$on("$locationChangeSuccess", function () {
+                $("#mini-cart").removeClass('active');
+            });
+        }]);
 
-                /*
-                 *  Basic routing configuration
-                 */
-                .run(["$rootScope", function ($rootScope) {
-                    $rootScope.$on("$locationChangeSuccess", function () {
-                        $("#mini-cart").removeClass('active');
-                    });
-                }]);
+};
 
-            return angular.module.cartModule;
-        });
-
-})(window.define);

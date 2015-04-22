@@ -1,24 +1,15 @@
-(function (define) {
-    "use strict";
+module.exports = function() {
 
-    /*
-     *  requireJS module entry point
-     *  (to use that module you should include it to main.js)
-     */
-    define([
-            "common/controllers",
+    var commonModule = require('./init')();
 
-            "common/service/api",
-            "common/service/page",
-            "common/service/header",
-            "common/service/breadcrumbs",
-            "common/service/sidebar",
-            "common/service/utils",
-            "common/service/rewrite"
-        ],
-        function (commonModule) {
+    require('./service/api')(commonModule);
+    require('./service/breadcrumbs')(commonModule);
+    require('./service/header')(commonModule);
+    require('./service/page')(commonModule);
+    require('./service/rewrite')(commonModule);
+    require('./service/sidebar')(commonModule);
+    require('./service/utils')(commonModule);
+    require('./controllers')(commonModule);
 
-            return commonModule;
-        });
+};
 
-})(window.define);

@@ -35,55 +35,7 @@
     font-style: normal;
 }
 
-.form-group {
-    position: relative;
-}
-.form-group.has-error .help-block {
-    -webkit-animation: helpBlock 0.5s; /* Chrome, Safari, Opera */
-    animation: helpBlock 0.5s;
-}
-.help-block {
-    background: #333;
-    z-index: 5;
-    position: absolute;
-    top: 105%;
-    left: 50%;
-    margin-left: -100px;
-    padding: 10px;
-    width: 200px;
-    text-align: center;
-    color: #fff !important;
-    border-radius: 2px;
-    text-transform: uppercase;
-}
-.help-block:after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    margin-left: -3.75px;
-    bottom: 99%;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 0 7.5px 8px 7.5px;
-    border-color: transparent transparent #333;
-}
-/* Chrome, Safari, Opera */
-@-webkit-keyframes helpBlock {
-    from {opacity: 0;top: 70%;}
-    to {opacity: 1;}
-}
-/* Standard syntax */
-@keyframes helpBlock {
-    from {opacity: 0;top: 70%}
-    to {opacity: 1;}
-} 
-i,input,.btn,button,.toogler span,a:not(.product),.btn:hover,button:hover,.toggler:hover span,a:not(.product):hover,input:hover,input:focus,i:hover {
-	-webkit-transition: all 0.3s ease;/* Safari 3.2+, Chrome */
-	-moz-transition: all 0.3s ease;/* Firefox 4-15 */
-	-o-transition: all 0.3s ease;/* Opera 10.5-12.00 */
-	transition: all 0.3s ease;/* Firefox 16+, Opera 12.50+ */
-}
+.help-block {display: none !important}
 .cat {
     width: 100%;
     overflow-x:hidden;
@@ -1323,7 +1275,7 @@ progress::-moz-progress-bar {
         margin-left: 0;
         position: relative;
     }
-
+    
     .h-slider-switch {
         height: 56px;
         margin: 20px auto 10px;
@@ -1448,7 +1400,7 @@ progress::-moz-progress-bar {
     .h-container {
         padding: 0 25px;
     }
-
+    
     .h-bottom h4, .h-bottom a {
         font-size: 24px;
         line-height: 32px;
@@ -1968,7 +1920,7 @@ footer div:last-child {
 }
 footer > div:last-child {
     margin-top: 10px;
-
+    
 }
 footer > div:last-child p {
     margin-bottom: 0;
@@ -1989,7 +1941,7 @@ footer > div:last-child p {
  }
 #wrapper-inner {
     padding-top: 57px;
-}
+}  
 }
 @media (max-width: 992px) {
   header .btn-login[href="/account"] {

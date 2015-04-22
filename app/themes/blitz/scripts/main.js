@@ -1,5 +1,4 @@
-(function ($) {
-    'use strict';
+module.exports = function () {
 
     $(document).ready(function () {
 
@@ -46,4 +45,13 @@
         });
     });
 
-})(jQuery);
+
+    require('./cart/init')();
+    require('./category/init')();
+    require('./common/init')();
+    require('./pdp/init')();
+    require('./visitor/init')();
+
+
+
+};

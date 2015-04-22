@@ -1,4 +1,4 @@
-(function ($) {
+module.exports = function () {
 
     $(document).ready(function () {
         
@@ -29,5 +29,7 @@
 	     });
 
     });
-})(jQuery);
 
+	require('./common/init')();
+
+};
