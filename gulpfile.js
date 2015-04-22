@@ -235,8 +235,6 @@
             .pipe(jshint.reporter(require('jshint-stylish')));
     });
 
-    // TODO: This works only for development mode  - jwv
-
     /* Start Browserify */
     function bundle() {
         return b.bundle()
@@ -351,10 +349,8 @@
 
     gulp.task('default', ['build']);
 
-    gulp.task('build', ['createTheme', 'browserify']);
-
-    // Run this task tell foundation which theme to use
-    gulp.task('createTheme', function () {
+    // build task
+    gulp.task('build', function () {
         var jsCode, themesData;
         themesData = '';
 
@@ -405,12 +401,14 @@
                 setConfigValue("options", "themes.list.active", themesData);
                 setConfigValue("value", "general.app.foundation_url", DEV_FOUNDATION_URI);
                 initConfigs(DEV_FOUNDATION_URI);
+                gulp.start('browserify');
             } else if (env === 'wercker') {
                 gulp.start('vendor');
                 gulp.start('misc');
                 gulp.start('html');
                 gulp.start('autoprefixer');
                 gulp.start('imagemin');
+                gulp.start('browserify');
             } else if (env === 'production' || env === 'staging') {
                 setConfigValue("options", "themes.list.active", themesData);
                 setConfigValue("value", "general.app.foundation_url", FOUNDATION_URI);
@@ -420,6 +418,7 @@
                 gulp.start('html');
                 gulp.start('autoprefixer');
                 gulp.start('imagemin');
+                gulp.start('browserify');
             }
         });
 
