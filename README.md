@@ -7,11 +7,12 @@ store-ng
 
 ## Install Gulp Globally
 
-    npm install -g gulp
+    npm install -g gulp bower
 
 ## Install Store packages
 
     npm install
+    bower install
 
 ## Workflow with gulp
 
