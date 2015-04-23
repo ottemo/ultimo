@@ -26,5 +26,8 @@ module.exports = function() {
             });
 
         });
+
     })(jQuery);
+
+    require('./common/init')();
 }
