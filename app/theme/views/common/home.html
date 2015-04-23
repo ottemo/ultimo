@@ -1,237 +1,67 @@
-<style>
-    .breadcrumb {
-    display: none;
-    }
+<div class="home">
+    <a href="/makeup" class="main-banner">
+        <img ng-src="{{getImg('home_1.jpg')}}" alt="" err-src="placeholder.png">
+        <div class="promo-text">
+            15% off all makeup through March 31st
+            <br>
+            <strong>Shop Now</strong>
+        </div>
+    </a>
 
-    .nav-tabs {
-    display: none;
-    }
-</style>
-<div ng-init="init()">
-    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-        <a href="/shop" class="shop visible-lg">Shop Now</a>
-        <ol class="carousel-indicators">
-            <li class="active" data-slide-to="0" data-target="#carousel-example-generic"></li>
-            <li class="" data-slide-to="1" data-target="#carousel-example-generic"></li>
-        </ol>
-        <div class="carousel-inner">
-            <div class="item active">
-                <img class="slide-image" alt="" ng-src="{{getImg('slides1.jpg')}}" err-src="placeholder.png">
+    <div class="categories row">
+        <a href="/lip_treatment" class="col-xs-12 col-sm-4">
+            <div class="inner">
+                <img ng-src="{{getImg('home_2.jpg')}}" alt="" err-src="placeholder.png">
+                <span>Lip Treatment</span>
             </div>
-            <div class="item">
-                <img class="slide-image" alt="" ng-src="{{getImg('slides2.jpg')}}" err-src="placeholder.png">
-            </div>
-        </div>
-        <a class="left carousel-control" data-slide="prev" ng-click="preventLink($event)" href="#carousel-example-generic">
-            <!--<span class="glyphicon glyphicon-chevron-left"></span>-->
         </a>
-        <a class="right carousel-control" data-slide="next" ng-click="preventLink($event)" href="#carousel-example-generic">
-            <!--<span class="glyphicon glyphicon-chevron-right"></span>-->
+        <a href="/skin_care" class="col-xs-12 col-sm-4">
+            <div class="inner">
+                <img ng-src="{{getImg('home_3.jpg')}}" alt="" err-src="placeholder.png">
+                <span>Skin Care</span>
+            </div>
         </a>
-    </div>
-    <div id="carousel-example-generic2" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="item">
-                <div class="row h-carousel row-no-margin">
-                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                        <a href="">
-                            <img class="slide-image" alt="" ng-src="{{getImg('carousel1.jpg')}}">
-                        </a>
-                    </div>
-                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                        <a href="">
-                            <img class="slide-image" alt="" ng-src="{{getImg('carousel2.jpg')}}">
-                        </a>
-                    </div>
-                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                        <a href="">
-                            <img class="slide-image" alt="" ng-src="{{getImg('carousel3.jpg')}}">
-                        </a>
-                    </div>
-                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                        <a href="">
-                            <img class="slide-image" alt="" ng-src="{{getImg('carousel1.jpg')}}">
-                        </a>
-                    </div>
-                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                        <a href="">
-                            <img class="slide-image" alt="" ng-src="{{getImg('carousel2.jpg')}}">
-                        </a>
-                    </div>
-                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                        <a href="">
-                            <img class="slide-image" alt="" ng-src="{{getImg('carousel3.jpg')}}">
-                        </a>
-                    </div>
-                </div>
+        <a href="/makeup" class="col-xs-12 col-sm-4">
+            <div class="inner">
+                <img ng-src="{{getImg('home_4.jpg')}}" alt="" err-src="placeholder.png">
+                <span>15% off Makeup</span>
             </div>
-            <div class="item">
-                <div class="row h-carousel row-no-margin">
-                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                        <img class="slide-image" alt="" ng-src="{{getImg('carousel3.jpg')}}">
-                    </div>
-                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                        <img class="slide-image" alt="" ng-src="{{getImg('carousel2.jpg')}}">
-                    </div>
-                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                        <img class="slide-image" alt="" ng-src="{{getImg('carousel1.jpg')}}">
-                    </div>
-                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                        <img class="slide-image" alt="" ng-src="{{getImg('carousel3.jpg')}}">
-                    </div>
-                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                        <img class="slide-image" alt="" ng-src="{{getImg('carousel2.jpg')}}">
-                    </div>
-                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                        <img class="slide-image" alt="" ng-src="{{getImg('carousel1.jpg')}}">
-                    </div>
-                </div>
-            </div>
-            <div class="item active">
-                <div class="row h-carousel row-no-margin">
-                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                        <img class="slide-image" alt="" ng-src="{{getImg('carousel1.jpg')}}">
-                    </div>
-                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                        <img class="slide-image" alt="" ng-src="{{getImg('carousel2.jpg')}}">
-                    </div>
-                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                        <img class="slide-image" alt="" ng-src="{{getImg('carousel3.jpg')}}">
-                    </div>
-                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                        <img class="slide-image" alt="" ng-src="{{getImg('carousel1.jpg')}}">
-                    </div>
-                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                        <img class="slide-image" alt="" ng-src="{{getImg('carousel2.jpg')}}">
-                    </div>
-                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 row-no-padding">
-                        <img class="slide-image" alt="" ng-src="{{getImg('carousel3.jpg')}}">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <a class="left carousel-control" data-slide="prev" ng-click="preventLink($event)" href="#carousel-example-generic2">
-        </a>
-        <a class="right carousel-control" data-slide="next" ng-click="preventLink($event)" href="#carousel-example-generic2">
         </a>
     </div>
-    <div id="myTab" class="h-mytab" role="tabpanel">
-        <!-- Nav tabs -->
-        <ul class="nav h-slider-switch" role="tablist">
-            <li ng-if="(productFeatured.length > 0 && productFeatured.length < 7)" role="presentation" class="active">
-                <a class="btn-custom" href="#featured" aria-controls="featured" ng-click="preventLink($event)"
-                   role="tab" data-toggle="tab">Featured</a>
-            </li>
-            <li ng-if="(productFeatured.length > 6)" role="presentation" class="active">
-                <a class="btn-custom" href="#featuredSlide" aria-controls="featuredSlide" ng-click="preventLink($event)"
-                   role="tab" data-toggle="tab">Featured</a>
-            </li>
-            <li role="presentation" ng-class="{'active': (productFeatured.length < 1)}">
-                <a class="btn-custom" href="#bestseller" aria-controls="bestseller" role="tab"
-                   data-toggle="tab">Bestseller</a>
-            </li>
-            <li role="presentation">
-                <a class="btn-custom" href="#latest" aria-controls="latest" role="tab"
-                   data-toggle="tab">Latest</a>
-            </li>
-        </ul>
-    </div>
-    <div class="h-container" ng-init="loadProducts()">
-        <div class="row h-item tab-content">
-            <div role="tabpanel" class="tab-pane" ng-class="{'active': (productFeatured.length > 6)}"
-                 id="featuredSlide" ng-show="(productFeatured.length > 6)">
-                <div id="demo">
-                    <div id="owl-demo" class="owl-carousel">
-                        <div class="item" ng-repeat="_item in productFeatured">
-                            <a href="{{productService.getUrl(_item.Id)}}" class="thumbnail">
-                                <img ng-src="{{getImage(_item.Image)}}" alt="_item.Name" err-src="placeholder.png"/>
-                            </a>
-                        </div>
 
-                    </div>
-                </div>
+    <div class="about">
+        <div class="row">
+            <div class="col-xs-12 col-md-5">
+                <img ng-src="{{getImg('home_5.jpg')}}" alt="" err-src="placeholder.png" class="img-responsive">
             </div>
-            <div role="tabpanel" class="tab-pane text-center" id="featured"
-                 ng-show="(productFeatured.length < 7 && productFeatured.length > 0)"
-                 ng-class="{'active': (productFeatured.length < 7 && productFeatured.length > 0)}" >
-                <div class="col-xs-6 col-sm-4 col-lg-2" ng-repeat="_item in productFeatured" >
-                    <a href="{{productService.getUrl(_item.Id)}}" class="thumbnail">
-                        <img ng-src="{{getImage(_item.Image)}}" alt="_item.Name" err-src="placeholder.png"/>
-                    </a>
-                </div>
+            <div class="col-xs-12 col-md-7">
+                <h4>About Kari Gran</h4>
+                <p>
+                    Kari Gran is an eco-luxe skin care brand providing a simple, elegant, all natural skin care solution that works flawlessly for any age and skin type. Beautiful skin isn’t a gift or something you can buy; it’s a habit cultivated holistically. Our products are hand poured with the highest quality natural, organic, wildharvested and non-GMO ingredients, our simple, easy-to-use, all natural skin care system results in an everyday ritual. Always paraben and toxin free—the little black dress of eco-skin care.
+                </p>
             </div>
-            <div role="tabpanel" class="tab-pane" ng-class="{'active': (productFeatured.length < 1)}" id="bestseller">
-                <div class="col-xs-6 col-sm-4 col-lg-2" ng-repeat="_item in products | orderBy:'Price':true"
-                     ng-show="products.length">
-                    <a href="{{productService.getUrl(_item.Id)}}" class="thumbnail">
-                        <img ng-src="{{getImage(_item.Image)}}" alt="_item.Name" err-src="placeholder.png"/>
-                    </a>
-                </div>
-            </div>
-            <div role="tabpanel" class="tab-pane" id="latest">
-                <div class="col-xs-6 col-sm-4 col-lg-2" ng-repeat="_item in products | orderBy:'Id':true"
-                     ng-show="products.length">
-                    <a href="{{productService.getUrl(_item.Id)}}" class="thumbnail">
-                        <img ng-src="{{getImage(_item.Image)}}" alt="_item.Name" err-src="placeholder.png"/>
-                    </a>
-                </div>
-            </div>
-            <div class="clearfix"></div>
         </div>
-        <div class="clearfix"></div>
-        <div class="text-center h-shipping">
-            <h4>FREE SHIPPING! <span>ALL ORDERS OVER $199</span></h4>
-            <h5>FREE 2 DAY SHIPPING: SPEND OVER $140 AND USE PROMOTION AT CHECKOUT</h5>
-        </div>
-        <div class="row h-item">
-            <div class="col-xs-6 col-sm-4 col-lg-2" ng-repeat="_item in products | orderBy:'Id':true"
-                 ng-show="products.length">
-                <a href="{{productService.getUrl(_item.Id)}}" class="thumbnail">
-                    <img ng-src="{{getImage(_item.Image)}}" alt="_item.Name" err-src="placeholder.png"/>
-                </a>
+        <a href="/our-story">learn more</a>
+    </div>
+
+    <div class="wonderwork">
+        <div class="row">
+            <div class="col-xs-12 col-md-7">
+                <h4>WonderWork</h4>
+                <p>
+                    We believe beauty is not measured by an age, a dollar sign or stereotype and that we do not need to be fixed, plumped, erased or changed. We believe that beauty is achieved by how you live your life, and the choices you make. One choice we have made is to try to live everyday with gratitude and to share in our abundance. So, we have partnered with WonderWork, an organization committed to saving the lives of children and their families by providing free, life-changing surgeries. For every dollar you spend, we donate 1% to the cause. And we are grateful that we have so many Kari Gran clients that make this gift possible. Whether it’s a lip whip or a system purchase, you are helping to change lives. Now, isn’t that beautiful.
+                </p>
+            </div>
+            <div class="col-xs-12 col-md-5">
+                <video poster="themes/karigran/images/wonderwork-poster.png" controls="controls" id="videoplayer">
+                    <!--ADD mp4 to src -->
+                    <source type="video/mp4" src="themes/karigran/images/video/first-sight-sonia-and-anita.mp4" id="vidsrcmp4"></source>
+                    <!--ADD ogg to src -->
+                    <source type="video/ogg" src="themes/karigran/images/video/first-sight-sonia-and-anita.ogv" id="vidsrcogv"></source>
+                    <source type="video/webm" src="themes/karigran/images/video/first-sight-sonia-and-anita.webm" id="vidsrcwebm"></source>
+                    <!-- add swf value to data-->
+                </video>
             </div>
         </div>
     </div>
-    <div class="clearfix"></div>
-    <div class="h-bottom text-center">
-        <h4>Ut enim ad minim veniam<br>
-            quis nostrud exercitation ullamco laboris</h4>
-
-        <p>Duis aute irure dolor in reprehenderit in voluptate<br>
-            velit esse cillum dolore eu fugiat nulla pariatur Excepteur<br>
-            sint occaecat cupidatat non proident, sunt</p>
-        <a href="">Learn More</a>
-
-        <div class="clearfix"></div>
-    </div>
-    <div class="clearfix"></div>
 </div>
-
-<script>
-    (function ($) {
-        $(document).ready(function () {
-            $('#myTab a').click(function (e) {
-                e.preventDefault();
-                $(this).tab('show')
-            });
-            $('.carousel').carousel({
-                interval: 3000
-            });
-            $('#carousel-example-generic2').carousel({
-                interval: 10000
-            });
-            setTimeout(function(){
-                var owl = $("#owl-demo");
-                owl.owlCarousel({
-                    itemsCustom : [
-                        [0, 1],
-                        [410, 2],
-                        [768, 3],
-                        [1200, 6]
-                    ],
-                    navigation : true
-                });
-            },1000);
-        });
-    })(jQuery)
-</script>

@@ -1,39 +1,43 @@
-<header id="top" class="navbar nav navbar-fixed-top bs-docs-nav" role="banner">
-    <div class="navbar-header col-lg-4 col-md-4 col-sm-2 col-xs-2">
-        <button id="btn-left-drop-nav" class="navbar-toggle" data-target=".bs-navbar-collapse" data-toggle="collapse" type="button">
-            <i class="fa fa-navicon"></i>
-            <span class="sr-only">Toggle navigation</span>
-        </button>
-    </div>
-    <a class="text-center col-lg-4 col-md-4 col-sm-8 col-xs-6 col-md-offset-0 col-sm-offset-0 col-xs-offset-1" href="/">
-        <img alt="logo" class="" ng-src="{{getImg('h-logo.png')}}">
-    </a>
-    <div class="col-lg-4 col-md-4 col-sm-2 col-xs-3 pull-right">
-        <div class="pull-right">
-            <a class="cart" href="" target="_self" ng-click="clickToCartDesktop()" ng-controller="visitorLoginControllerBlitz" >
-                <!-- cart button -->
-                <div ng-controller="commonHeaderController" >
-                    <!-- icon cart -->
-                    <span class="glyphicon glyphicon-shopping-cart"></span>
+<!-- Navigation bar -->
+<nav id="header" role="navigation" class="navbar-default navbar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <!-- Logo -->
+            <a class="logo" href="/">
+                <img alt="logo" class="" ng-src="{{getImg('logo.png')}}">
+            </a>  
+
+            <!-- toggle button -->
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed col-xs-offset-1" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+
+        <div class="navbar-collapse collapse pull-right" id="navbar">
+            <!-- Cart icon -->
+            <div class="navbar-form navbar-right">
+                <div class="pull-right subscriber">
+                    <form class="navbar-form" role="search" id="mc-embedded-subscribe-form-top" name="mc-embedded-subscribe-form-top" method="post" action="http://karigran.us5.list-manage1.com/subscribe/post?u=6355acb494cba6e3f035232b8&id=9b54ed013d">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Enter email for hot promotions" id="mce-EMAIL-top" name="EMAIL">
+                            <div class="input-group-btn">
+                                <button class="btn btn-danger" type="submit" onclick="ga('send', 'event', 'Newsletter Signup', 'Signup from top newletter form');" title="Subscribe" value="Subscribe" id="mc-embedded-subscribe-top">
+                                    GO
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </a>
-        </div>
-        <div class="pull-right" ng-controller="commonHeaderController">
-            <!-- login/account/logout buttons -->
-            <a href="{{item.link}}"  ng-repeat="item in rightMenu.getMenuRight()" class="btn-login pull-right">
-                <span class="visible-xs visible-sm"></span>
-                <span class="visible-md visible-lg">{{item.label}}</span>
-            </a>
-        </div>
-    </div>
-    <div id="left-drop-nav" class="visible-xs col-xs-12">
-        <nav class="h-nav collapse navbar-collapse bs-navbar-collapse" role="navigation">
+            </div>
+
+            <h4 class="pull-right hidden-xs">always free shipping</h4>
+
+            <div class="clearfix"></div>
+            <!-- main menu -->
             <ng-include src="getTemplate('common/navigation/main.html')"></ng-include>
-        </nav>
+        </div>
     </div>
-    <div class="hidden-xs col-xs-12">
-        <nav class="h-nav collapse navbar-collapse bs-navbar-collapse" role="navigation">
-            <ng-include src="getTemplate('common/navigation/main.html')"></ng-include>
-        </nav>
-    </div>
-</header>
+</nav>

@@ -1,17 +1,18 @@
-<br>
 <h2 class="text-center">
-    CART
+    Cart
 </h2>
 <br>
 
 <!-- product row -->
-<div ng-init="init()" class="product container">
+<div ng-init="init()" class="product">
     <div class="col-xs-12 vcenter" ng-repeat="item in it.getItems()" ng-show="it.getCountItems()">
 
         <!-- image -->
         <div class="col-sm-2 col-xs-12 text-center vcenter">
             <div class="thumbnail col-xs-12 vcenter">
-                <a href="{{productService.getUrl(item.pid)}}"><img err-src="placeholder.png" ng-src="{{getImage(item.product)}}" alt="{{item.product.name}}"/></a>
+                <a href="{{productService.getUrl(item.pid)}}">
+                    <img ng-src="{{getImage(item.product)}}" err-src="placeholder.png" alt="{{item.product.name}}"/>
+                </a>
             </div>
         </div>
         
@@ -54,7 +55,7 @@
         <!-- qty -->
         <div class="col-xs-8 col-xs-offset-2 col-sm-3 col-sm-offset-0 vcenter  text-center">
             <div class="col-xs-12 col-sm-7">
-                <div class="input-group qty">
+                <div class="input-group">
                     <span class="input-group-btn">
                         <button class="btn btn-primary" type="button" ng-click="changeQty(item,'up');update(item.idx, item.qty)">
                             +
@@ -104,20 +105,21 @@
     <div class="clearfix"></div>
 
     <div ng-hide="!it.getCountItems()">
-        <h4 class="col-sm-12 col-xs-12 text-right">
+        <h4 class="col-sm-10 col-xs-12 text-right">
             Cart items:&nbsp;&nbsp;&nbsp;<strong>{{it.getTotalQuantity()}}</strong>
         </h4>
 
-        <h4 class="col-sm-12 col-xs-12 text-right">
+        <h4 class="col-sm-10 col-xs-12 text-right">
             Cart total:&nbsp;&nbsp;&nbsp;<strong>{{getSubtotal() | currency}}</strong>
         </h4>
         
         <div class="clearfix"></div>
         <br>
         <br>
-        
-            <a class="btn btn-lg btn-danger col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-4" href="{{checkout.getUrl()}}">Checkout</a>
-            <div class="clearfix"></div>
+        <div class="text-center">
+            <a class="btn btn-lg btn-primary" href="{{checkout.getUrl()}}">&nbsp;&nbsp;Checkout&nbsp;&nbsp;</a>
+        </div>
+        <br>
         <br>
     </div>
 </div>
