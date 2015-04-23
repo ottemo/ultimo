@@ -36,11 +36,11 @@ require('./checkout/module')();
 require('./cms/module')();
 
 // add themes
-require('../themes/default/scripts/main')();
-require('../themes/blitz/scripts/main')();
+require('../theme/scripts/main')();
 
 
 // animate
+// TODO: WE REALLY NEED TO GET RID OF THIS 
 $('#loader .progress-bar').animate({width: '60%'}, 800, function () {
     setTimeout(function () {
         $('#loader .progress-bar').animate({width: '100%'}, 200, function () {
@@ -59,12 +59,7 @@ angular.element(document).ready(function () {
 
     angular.referrer = document.referrer;
 
-    var files = require('./design/themeFiles');
-    angular.isExistFile = function (path) {
-        var themeFiles = files[angular.appConfigValue("themes.list.active")];
-        return (themeFiles !== undefined && themeFiles.indexOf(path) !== -1) ? true : false;
-    };
-
+    // TODO: Do we still need to hijack the bootstrapping process?
     var modules = Object.keys(angular.module);
     angular.resumeBootstrap(modules);
 
@@ -82,13 +77,3 @@ angular.element(document).ready(function () {
         }
     });
 });
-
-
-
-
-
-
-
-
-
-

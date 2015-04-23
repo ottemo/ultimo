@@ -1,7 +1,7 @@
 module.exports = {
     "general.app.foundation_url": "http://dev.ottemo.io:3000",
-    "general.app.media_path": "media/",
-    "themes.list.active": "blitz",
+    "general.app.media_path": "//dev.ottemo.io/media/",
+
     // social networks
     "general.app.login.facebook.appId" : "728744980537129",
     "general.app.login.facebook.secretKey" : "58f763bd74fab043aa3b3c0221291c94",

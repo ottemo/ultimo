@@ -3,6 +3,8 @@
 .tmp
 .sass-cache
 .vagrant
+*.sublime-project
+*.sublime-workspace
 
 app/bower_components
 app/media
@@ -13,5 +15,5 @@ tags
 
 # Files
 *.iml
-app/scripts/design/themeFiles.js
 app/bundle.js
+

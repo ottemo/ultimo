@@ -21,36 +21,36 @@ module.exports = function(fb, gl){
                     controller: "visitorLogoutController"
                 })
                 .when("/account", {
-                    templateUrl: angular.getTheme("visitor/account.html"),
+                    templateUrl: "theme/views/visitor/account.html",
                     controller: "visitorAccountController"
                 })
                 .when("/account/address", {
-                    templateUrl: angular.getTheme("visitor/account/address-manager.html"),
+                    templateUrl: "theme/views/visitor/account/address-manager.html",
                     controller: "visitorAddressController"
                 })
                 .when("/account/orders", {
-                    templateUrl: angular.getTheme("visitor/account/order.html"),
+                    templateUrl: "theme/views/visitor/account/order.html",
                     controller: "visitorOrderController"
                 })
 
                 .when("/account/order/:id", {
-                    templateUrl: angular.getTheme("visitor/account/order-details.html"),
+                    templateUrl: "theme/views/visitor/account/order-details.html",
                     controller: "visitorOrderController"
                 })
                 .when("/login", {
-                    templateUrl: angular.getTheme("visitor/login-page.html"),
+                    templateUrl: "theme/views/visitor/login-page.html",
                     controller: "visitorLoginController"
                 })
                 .when("/forgot-password", {
-                    templateUrl: angular.getTheme("visitor/forgot-password.html"),
+                    templateUrl: "theme/views/visitor/forgot-password.html",
                     controller: "visitorLoginController"
                 })
                 .when("/resend-activation", {
-                    templateUrl: angular.getTheme("visitor/resend-activation.html"),
+                    templateUrl: "theme/views/visitor/resend-activation.html",
                     controller: "visitorLoginController"
                 })
                 .when("/registration", {
-                    templateUrl: angular.getTheme("visitor/registration-page.html"),
+                    templateUrl: "theme/views/visitor/registration-page.html",
                     controller: "visitorLoginController"
                 });
 
