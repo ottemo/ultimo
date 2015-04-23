@@ -25,24 +25,26 @@
     var assign = require('lodash.assign');
 
     var paths = {
-        "app": require('./bower.json').appPath || 'app',
-        "dist": 'dist',
-        "themes": 'themes',
-        "js": ['app/scripts/**/*.js'],
-        "vendor": 'app/lib/**/*.js',
-        "vendorTheme": 'app/themes/**/lib/**/*',
-        "sass": 'app/styles/sass/**/*.scss',
-        "css": 'app/themes/**/styles/**/*.css',
-        "images": ['app/themes/**/images/**/*', 'app/themes/**/styles/**/*.{png,jpg,jpec,ico}'],
-        "fonts": ['app/themes/**/styles/fonts/**/*', 'app/themes/**/fonts/**/*'],
-        "html": 'app/**/*.html',
-        "misc": 'app/*.{txt,htaccess,ico}',
-        "themeDest": "dist/themes",
-        "themesDir": "./app/themes"
+        'app': require('./bower.json').appPath || 'app',
+        'dist': 'dist',
 
-        // Title
-        'html': 'app/**/*.html',
-        'misc': 'app/*.{txt,htaccess,ico}',
+        // Core
+        'js': 'app/scripts/**/*.js',
+        'vendor': 'app/lib/**/*.js',
+
+        // Theme Libs
+        'vendorTheme': 'app/theme/**/lib/**/*',
+
+        // Theme
+        'theme': {
+            'css': 'app/theme/styles/**/*.css',
+            'images': 'app/theme/**/*.{png,jpg,jpec,ico}',
+            'fonts': 'app/theme/fonts/**/*',
+            'js': 'app/theme/scripts/**/*.js',
+            'dest': 'dist/theme',
+            'src': './app/theme'
+        },
+
     };
 
     var host = {
@@ -66,23 +68,9 @@
     var env = process.env.NODE_ENV || 'development';
     var DEFAULT_ROOT = process.env.DEFAULT_ROOT || 'admin';
     var DEFAULT_PASS = process.env.DEFAULT_PASS || 'admin';
-    var THEME_AS_DEFAULT = process.env.THEME_AS_DEFAULT || 'blitz';
-    var themes = [];
 
-    var DEV_FOUNDATION_URI, FOUNDATION_URI;
-    if (env === 'development') {
-        DEV_FOUNDATION_URI = process.env.DEV_FOUNDATION_URI || 'http://dev.ottemo.io:3000';
-        FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://dev.ottemo.io:3000';
-    } else if (env === 'staging') {
-        DEV_FOUNDATION_URI = process.env.DEV_FOUNDATION_URI || 'http://dev.ottemo.io:3000';
-        FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://staging.ottemo.io:3000';
-    } else if (env === 'wercker') {
-        DEV_FOUNDATION_URI = process.env.DEV_FOUNDATION_URI || 'http://dev.ottemo.io:3000';
-        FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://dev.ottemo.io:3000';
-    } else if (env === 'production') {
-        DEV_FOUNDATION_URI = process.env.DEV_FOUNDATION_URI || 'http://dev.ottemo.io:3000';
-        FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://dev.ottemo.io:3000';
-    }
+    var DEV_FOUNDATION_URI = process.env.DEV_FOUNDATION_URI || 'http://dev.ottemo.io:3000';
+    var FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://dev.ottemo.io:3000';
 
 //    gutil.log("Your db settings and your environment settings must match when");
 //    gutil.log("running 'gulp build' or your templates will be blank.  Example");
@@ -94,93 +82,8 @@
 //    gutil.log("NODE_ENV = ", env);
 //    gutil.log("DEV_FOUNDATION_URI = ", DEV_FOUNDATION_URI);
 //    gutil.log("FOUNDATION_URI = ", FOUNDATION_URI);
-//    gutil.log("DEFAULT_ROOT = ", DEFAULT_ROOT);
-//    gutil.log("DEFAULT_PASS = ", DEFAULT_PASS);
-//    gutil.log("THEME_AS_DEFAULT = ", THEME_AS_DEFAULT);
 //    gutil.log("");
 
-    var configs = [
-        {
-            "path": "general.app.foundation_url",
-            "value": FOUNDATION_URI,
-            "type": "varchar(255)",
-            "editor": "text",
-            "options": "",
-            "label": "Foundation host URL",
-            "description": "URL application will use to generate foundation resources links"
-        },
-        {
-            "path": "general.app.login.facebook.appId",
-            "value": "483159925160897",
-            "type": "varchar(255)",
-            "editor": "text",
-            "options": "",
-            "label": "Facebook: App ID",
-            "description": "Facebook: Application ID"
-        },
-        {
-            "path": "general.app.login.facebook.secretKey",
-            "value": "9a362f8b5cd91dbdd908bff472468c7e",
-            "type": "varchar(255)",
-            "editor": "text",
-            "options": "",
-            "label": "Facebook: App Secret",
-            "description": "Facebook: Application secret key"
-        },
-        {
-            "path": "general.app.login.google.clientId",
-            "value": "1074763412644-qq25glj3tb87bq7bk5m8793da11ddheh.apps.googleusercontent.com",
-            "type": "varchar(255)",
-            "editor": "text",
-            "options": "",
-            "label": "Google: Client ID",
-            "description": ""
-        },
-        {
-            "path": "general.app.category.itemsPerPage",
-            "value": 10,
-            "type": "int",
-            "editor": "text",
-            "options": "",
-            "label": "Items on page",
-            "description": ""
-        }
-    ];
-
-    //TODO: can we move away from this
-    var setConfigValue = function (field, path, option) {
-        for (var i = 0; i < configs.length; i += 1) {
-            if (configs[i].path === path) {
-                configs[i][field] = option;
-                break;
-            }
-        }
-    };
-
-    //TODO: can we move away from this
-    var setConfig = function (serverURI, config) {
-        request({
-            uri: serverURI + '/config/value/' + config.path + '?auth=' + DEFAULT_ROOT + ':' + DEFAULT_PASS,
-            method: 'DELETE'
-        }, function () {
-            var r = request.post(serverURI + '/config/value/' + config.path + '?auth=' + DEFAULT_ROOT + ':' + DEFAULT_PASS);
-            var form = r.form();
-
-            form.append('path', config.path);
-            form.append('value', config.value);
-            form.append('type', config.type);
-            form.append('editor', config.editor);
-            form.append('options', config.options);
-            form.append('label', config.label);
-            form.append('description', config.description);
-        });
-    };
-
-    var initConfigs = function (serverURI) {
-        for (var i = 0; i < configs.length; i += 1) {
-            setConfig(serverURI, configs[i]);
-        }
-    };
 
     // Print a node stack trace upon error
     gulp.on('err', function(e) {
@@ -194,6 +97,8 @@
 
     // copy vendor js
     gulp.task('vendor', ['clean'], function () {
+        gulp.src(paths.vendorTheme)
+            .pipe(gulp.dest(paths.theme.dest));
         return gulp.src(paths.vendor)
             .pipe(gulp.dest(paths.dist + '/lib'));
     });
@@ -244,20 +149,10 @@
     }
     /* End Browserify */
 
-
-    // Sass task, will run when any SCSS files change & BrowserSync
-    // will auto-update browsers
-    gulp.task('sass', function () {
-        return gulp.src(paths.sass)
-            .pipe(sass({imagePath: '../../images'}))
-            .pipe(autoprefix('last 1 version'))
-            .pipe(gulp.dest(paths.dist + '/styles'))
-            .pipe(gulp.dest(paths.app + '/styles'));
-    });
-
     // minify new images
     gulp.task('imagemin', ['clean'], function () {
         return gulp.src(paths.theme.images)
+
             .pipe(changed(paths.theme.dest))
             .pipe(imagemin())
             .pipe(gulp.dest(paths.theme.dest));
@@ -280,7 +175,7 @@
     });
 
     // CSS auto-prefix and minify
-    gulp.task('autoprefixer', ['clean'], function () {
+    gulp.task('css', ['clean'], function () {
         gulp.src(paths.theme.css)
             .pipe(autoprefix('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
             .pipe(minifyCSS())
@@ -315,14 +210,11 @@
     });
 
     // run in development mode with easy browser reloading
-    gulp.task('dev', ['browser-sync'], function () {
-        gulp.watch('app/views/**/*.html', [browserSync.reload]); //TODO: Does not exist
-        gulp.watch('app/styles/**/*.css', [browserSync.reload]); //TODO: Does not exist
-        gulp.watch('app/styles/**/*.scss', ['sass', browserSync.reload]); //TODO: Does not exist
-        gulp.watch('app/scripts/**/*.js', ['jshint', browserSync.reload]);
+    gulp.task('serve', ['build','browser-sync'], function () {
+        gulp.watch(paths.html, [browserSync.reload]);
+        gulp.watch(paths.css, [browserSync.reload]);
+        gulp.watch([paths.js, paths.theme.js], ['browserify', browserSync.reload]);
     });
-
-    gulp.task('serve', ['build', 'dev']);
 
     gulp.task('default', ['build']);
 
@@ -330,23 +222,18 @@
     gulp.task('build', function () {
 
         if (env === 'development') {
-            setConfigValue("value", "general.app.foundation_url", DEV_FOUNDATION_URI);
-            initConfigs(DEV_FOUNDATION_URI);
-            gulp.start('browserify');
-        } else if (env === 'wercker') {
+            gulp.start('jshint')
             gulp.start('vendor');
             gulp.start('misc');
             gulp.start('html');
-            gulp.start('autoprefixer');
+            gulp.start('css');
             gulp.start('imagemin');
             gulp.start('browserify');
-        } else if (env === 'production' || env === 'staging') {
-            setConfigValue("value", "general.app.foundation_url", FOUNDATION_URI);
-            initConfigs(FOUNDATION_URI);
+        } else {
             gulp.start('vendor');
             gulp.start('misc');
             gulp.start('html');
-            gulp.start('autoprefixer');
+            gulp.start('css');
             gulp.start('imagemin');
             gulp.start('browserify');
         }
