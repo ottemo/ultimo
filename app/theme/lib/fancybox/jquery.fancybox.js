@@ -17,7 +17,7 @@
 		W = $(window),
 		D = $(document),
 		F = $.fancybox = function () {
-			F.open.apply( this, arguments );
+			F.open.apply( this, arguments, true );
 		},
 		IE =  navigator.userAgent.match(/msie/i),
 		didUpdate	= null,
@@ -967,6 +967,7 @@
 			F.showLoading();
 
 			F.ajaxLoad = $.ajax($.extend({}, coming.ajax, {
+				async: true,
 				url: coming.href,
 				error: function (jqXHR, textStatus) {
 					if (F.coming && textStatus !== 'abort') {
@@ -1950,7 +1951,7 @@
 					options.index = idx;
 
 					// Stop an event from bubbling if everything is fine
-					if (F.open(what, options) !== false) {
+					if (F.open(what, options, true) !== false) {
 						e.preventDefault();
 					}
 				}
