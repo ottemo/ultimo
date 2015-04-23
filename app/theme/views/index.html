@@ -1,0 +1,24 @@
+<div id="wrapper">
+	<div id="wrapper-inner">
+                <!-- header layout -->
+                <ng-include src="getTemplate('common/header.html')"></ng-include>
+
+                <!-- main content layout -->
+                <ng-view></ng-view>
+	</div>
+        <div class="clearfix"></div>
+	<!-- footer layout -->
+	<ng-include src="getTemplate('common/footer.html')"></ng-include>
+</div>
+
+<!-- login and registration modals -->
+<ng-include src="getTemplate('visitor/modal/login.html')"></ng-include>
+<ng-include src="getTemplate('visitor/modal/registration.html')"></ng-include>
+
+<!-- minicart modal -->
+<ng-include src="getTemplate('cart/quick-cart.html')" ng-controller="cartListController"></ng-include>
+
+<!-- add your srcipts here -->
+<script src="theme/lib/star-rating.min.js"></script>
+<script src="theme/lib/jquery.elevatezoom.js"></script>
+<script src="theme/lib/owl.carousel.js"></script>

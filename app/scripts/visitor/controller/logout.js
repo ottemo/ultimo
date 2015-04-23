@@ -1,44 +1,40 @@
-(function (define) {
-    "use strict";
+module.exports = function (loginModule) {
+    loginModule.controller("visitorLogoutController", [
+        "$scope",
+        "$visitorLoginService",
+        "$location",
+        "$cartService",
+        "$commonHeaderService",
+        "$commonSidebarService",
+        function ($scope, $visitorLoginService, $location, $cartService, $commonHeaderService, $commonSidebarService) {
 
-    define(["visitor/init"], function (loginModule) {
-        loginModule.controller("visitorLogoutController", [
-            "$scope",
-            "$visitorLoginService",
-            "$location",
-            "$cartService",
-            "$commonHeaderService",
-            "$commonSidebarService",
-            function ($scope, $visitorLoginService, $location, $cartService, $commonHeaderService, $commonSidebarService) {
+            $visitorLoginService.isLoggedIn().then(function(isLoggedIn){
+                if (!isLoggedIn) {
+                    $location.path("/");
+                } else {
+                    $visitorLoginService.logout().then(
+                        function () {
 
-                $visitorLoginService.isLoggedIn().then(function(isLoggedIn){
-                    if (!isLoggedIn) {
-                        $location.path("/");
-                    } else {
-                        $visitorLoginService.logout().then(
-                            function () {
+                            $cartService.reload().then(
+                                function () {
 
-                                $cartService.reload().then(
-                                    function () {
+                                    // Update right menu
+                                    $commonHeaderService.addMenuRightItem("/login", "Login", "/login");
+                                    $commonHeaderService.removeItem("right", "/account");
+                                    $commonHeaderService.removeItem("right", "/logout");
 
-                                        // Update right menu
-                                        $commonHeaderService.addMenuRightItem("/login", "Login", "/login");
-                                        $commonHeaderService.removeItem("right", "/account");
-                                        $commonHeaderService.removeItem("right", "/logout");
+                                    // Update sidebar
+                                    $commonSidebarService.removeItem("account");
 
-                                        // Update sidebar
-                                        $commonSidebarService.removeItem("account");
+                                    $location.path("/");
+                                }
+                            );
 
-                                        $location.path("/");
-                                    }
-                                );
+                        }
+                    );
+                }
+            });
+        }
+    ]);
 
-                            }
-                        );
-                    }
-                });
-            }
-        ]);
-        return loginModule;
-    });
-})(window.define);
+};

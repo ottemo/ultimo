@@ -1,35 +1,24 @@
-(function (define) {
-    "use strict";
+module.exports = function(){
 
-    /**
-     *
-     */
-    define([
-			"design/service/states",
+    var designModule = require('./init')();
 
-			"design/directives/validator/between",
-			"design/directives/validator/date",
-			"design/directives/validator/email",
-			"design/directives/validator/len",
-			"design/directives/validator/number",
-			"design/directives/validator/positive",
-			"design/directives/validator/price",
-			"design/directives/validator/regexp",
-			"design/directives/validator/sku",
-			"design/directives/validator/password",
+    require('./service/design')(designModule);
+    require('./service/image')(designModule);
+    require('./service/states')(designModule);
+    require('./directives/design')(designModule);
+    require('./directives/guiBlock')(designModule);
+    require('./directives/guiListBar')(designModule);
+    require('./directives/guiMessageManager')(designModule);
+    require('./directives/guiPaginator')(designModule);
+    require('./directives/validator/between')(designModule);
+    require('./directives/validator/date')(designModule);
+    require('./directives/validator/email')(designModule);
+    require('./directives/validator/len')(designModule);
+    require('./directives/validator/number')(designModule);
+    require('./directives/validator/password')(designModule);
+    require('./directives/validator/positive')(designModule);
+    require('./directives/validator/price')(designModule);
+    require('./directives/validator/regexp')(designModule);
+    require('./directives/validator/sku')(designModule);
 
-			"design/directives/guiBlock",
-			"design/directives/guiListBar",
-			"design/directives/guiPaginator",
-			"design/directives/guiMessageManager",
-            "design/service/image",
-            "design/service/design",
-            "design/service/api",
-            "design/directives/design"
-        ],
-        function (designModule) {
-
-            return designModule;
-        });
-
-})(window.define);
+}

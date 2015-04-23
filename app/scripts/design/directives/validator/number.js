@@ -1,34 +1,30 @@
-(function (define) {
-    "use strict";
+module.exports = function (designModule) {
 
-    define(["design/init"], function (designModule) {
+    var re = new RegExp("^[\\-]*[\\d]+$", "");
+    var integerNotValid = "Please enter a valid number in this field.";
 
-        var re = new RegExp("^[\\-]*[\\d]+$", "");
-        var integerNotValid = "Please enter a valid number in this field.";
+    designModule.directive("otNumber", function () {
+        return {
+            restrict: 'A',
+            require: '?ngModel',
+            link: function (scope, elem, attrs, ngModel) {
 
-        designModule.directive("otNumber", function () {
-            return {
-                restrict: 'A',
-                require: '?ngModel',
-                link: function (scope, elem, attrs, ngModel) {
+                var validate = function (value) {
+                    var valid = re.test(value);
+                    ngModel.$setValidity('ot-number', valid);
+                    if (!valid) {
+                        ngModel.message = integerNotValid;
+                    }
 
-                    var validate = function (value) {
-                        var valid = re.test(value);
-                        ngModel.$setValidity('ot-number', valid);
-                        if (!valid) {
-                            ngModel.message = integerNotValid;
-                        }
-
-                        return value;
-                    };
+                    return value;
+                };
 
 
-                    //For DOM -> model validation
-                    ngModel.$parsers.unshift(validate);
-                    //For model -> DOM validation
-                    ngModel.$formatters.unshift(validate);
-                }
-            };
-        });
+                //For DOM -> model validation
+                ngModel.$parsers.unshift(validate);
+                //For model -> DOM validation
+                ngModel.$formatters.unshift(validate);
+            }
+        };
     });
-})(window.define);
+};

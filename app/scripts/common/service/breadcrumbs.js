@@ -1,87 +1,75 @@
-(function (define) {
-    "use strict";
+module.exports = function (commonModule) {
 
+    commonModule
     /**
-     *  HTML top page header manipulation stuff
+     *  $commonBreadcrumbsService implementation
      */
-    define([
-            "common/init"
-        ],
-        function (commonModule) {
+        .service("$commonBreadcrumbsService", [function () {
+            var addItem, getItems, items, clear, removeDups;
+            items = [];
 
-            commonModule
             /**
-             *  $commonBreadcrumbsService implementation
+             * Removes duplicates from breadcrumbs
+             *
+             * @returns {Array} - breadcrumbs items
              */
-                .service("$commonBreadcrumbsService", [function () {
-                    var addItem, getItems, items, clear, removeDups;
-                    items = [];
+            removeDups = function () {
+                var i, item, tmp, hash;
+                tmp = [];
 
-                    /**
-                     * Removes duplicates from breadcrumbs
-                     *
-                     * @returns {Array} - breadcrumbs items
-                     */
-                    removeDups = function () {
-                        var i, item, tmp, hash;
-                        tmp = [];
+                for (i = 0; i < items.length; i += 1) {
+                    item = items[i];
+                    hash = item.label + ":" + item.url;
+                    if (-1 !== tmp.indexOf(hash)) {
+                        items.splice(i, 1);
+                    }
+                    tmp.push(hash);
+                }
 
-                        for (i = 0; i < items.length; i += 1) {
-                            item = items[i];
-                            hash = item.label + ":" + item.url;
-                            if (-1 !== tmp.indexOf(hash)) {
-                                items.splice(i, 1);
-                            }
-                            tmp.push(hash);
-                        }
+                return items;
+            };
 
-                        return items;
-                    };
+            /**
+             * Adds item
+             *
+             * @param {string} label
+             * @param {string} url
+             */
+            addItem = function (label, url) {
+                var i, isPresent, item;
+                isPresent = false;
+                for (i = 0; i < items.length; i += 1) {
+                    item = items[i];
+                    if (item.label === label && item.url === url) {
+                        isPresent = true;
+                    }
+                }
+                if (!isPresent) {
+                    items.push({"label": label, "url": url.replace(new RegExp("^[#]+"), "")});
+                }
+            };
 
-                    /**
-                     * Adds item
-                     *
-                     * @param {string} label
-                     * @param {string} url
-                     */
-                    addItem = function (label, url) {
-                        var i, isPresent, item;
-                        isPresent = false;
-                        for (i = 0; i < items.length; i += 1) {
-                            item = items[i];
-                            if (item.label === label && item.url === url) {
-                                isPresent = true;
-                            }
-                        }
-                        if (!isPresent) {
-                            items.push({"label": label, "url": url.replace(new RegExp("^[#]+"), "")});
-                        }
-                    };
+            /**
+             * Gets items
+             *
+             * @returns {Array}
+             */
+            getItems = function () {
+                return removeDups();
+            };
 
-                    /**
-                     * Gets items
-                     *
-                     * @returns {Array}
-                     */
-                    getItems = function () {
-                        return removeDups();
-                    };
+            /**
+             * Removes all items
+             */
+            clear = function () {
+                items = [];
+            };
 
-                    /**
-                     * Removes all items
-                     */
-                    clear = function () {
-                        items = [];
-                    };
+            return {
+                addItem: addItem,
+                getItems: getItems,
+                clear: clear
+            };
+        }]);
 
-                    return {
-                        addItem: addItem,
-                        getItems: getItems,
-                        clear: clear
-                    };
-                }]);
-
-            return commonModule;
-        });
-
-})(window.define);
+};
