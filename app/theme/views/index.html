@@ -1,24 +1,19 @@
-<!-- Default bootstrap.css Don't replace it -->
-<add-css src="lib/bootstrap/bootstrap.css"></add-css>
-<!-- your custom.css -->
-<add-css src="style.css"></add-css>
+<link href="theme/lib/fancybox/jquery.fancybox.css" rel="stylesheet">
 
-<link href="themes/default/lib/fancybox/jquery.fancybox.css" rel="stylesheet">
+<!-- header layout -->
+<ng-include src="getTemplate('common/header.html')"></ng-include>
 
-		<!-- header layout -->
-		<ng-include src="getTemplate('common/header.html')"></ng-include>
+<div class="clearfix"></div>
 
-		<div class="clearfix"></div>
-		
-		<div class="content-wrapper">
-			<!-- main content layout -->
-			<ng-view></ng-view>
+<div class="content-wrapper">
+	<!-- main content layout -->
+	<ng-view></ng-view>
 
-			<div class="clearfix"></div>
+	<div class="clearfix"></div>
 
-			<!-- footer layout -->
-			<ng-include src="getTemplate('common/footer.html')"></ng-include>
-		</div>
+	<!-- footer layout -->
+	<ng-include src="getTemplate('common/footer.html')"></ng-include>
+</div>
 
 <!-- login and registration modals -->
 <ng-include src="getTemplate('visitor/modal/login.html')"></ng-include>
@@ -28,5 +23,4 @@
 <ng-include src="getTemplate('cart/quick-cart.html')" ng-controller="cartListController"></ng-include>
 
 <!-- add your srcipts here -->
-<script src="themes/karigran/scripts/main.js"></script>
-<script src="themes/karigran/lib/fancybox/jquery.fancybox.js"></script>
+<script src="theme/lib/fancybox/jquery.fancybox.js"></script>
