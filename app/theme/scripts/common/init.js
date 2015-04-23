@@ -1,46 +1,32 @@
-(function (define, $) {
-    "use strict";
-
+module.exports = function () {
     /*
      *  Angular "pdpModule" declaration
-     *  (module internal files refers to this instance)
      */
-    define([
-            "angular",
-            "angular-route",
-            "angular-resource"
-        ],
-        function (angular) {
-            /*
-             *  Angular "pdpModule" declaration
-             */
-            angular.module.commonModule
+    angular.module.commonModule
+        /*
+         *  Basic routing configuration
+         */
+        .config(["$routeProvider", function ($routeProvider) {
+            $routeProvider
+                .when("/", {
+                    templateUrl: "theme/views/common/home.html",
+                    controller: 'commonControllerBlitz'
+                });
+        }])
+        .run([
+            "$rootScope",
+            "$commonSidebarService",
+            function ($rootScope, $commonSidebarService) {
 
-                /*
-                 *  Basic routing configuration
-                 */
-                .config(["$routeProvider", function ($routeProvider) {
-                    $routeProvider
-                        .when("/", {
-                            templateUrl: "theme/views/common/home.html",
-                            controller: 'commonControllerBlitz'
-                        });
-                }])
-                .run([
-                    "$rootScope",
-                    "$commonSidebarService",
-                    function ($rootScope, $commonSidebarService) {
+                // Left navigation menu
+                $commonSidebarService.addItem("SHOP", "shop", "glyphicon glyphicon-book");
 
-                        // Left navigation menu
-                        $commonSidebarService.addItem("SHOP", "shop", "glyphicon glyphicon-book");
+                $rootScope.$on("$locationChangeSuccess", function () {
+                    $(".zoomContainer").remove();
+                });
+            }
+        ]);
 
-                        $rootScope.$on("$locationChangeSuccess", function () {
-                            $(".zoomContainer").remove();
-                        });
-                    }
-                ]);
+    require('./controller')(angular.module.commonModule);
 
-            return angular.module.commonModule;
-        });
-
-})(window.define, jQuery);
+};

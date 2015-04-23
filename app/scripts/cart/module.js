@@ -1,18 +1,9 @@
-(function (define) {
-    "use strict";
+module.exports = function () {
 
-    /*
-     *  requireJS module entry point
-     *  (to use that module you should include it to main.js)
-     */
-    define([
-            "cart/service/api",
-            "cart/service/cart",
-            "cart/controller"
-        ],
-        function (cartModule) {
+    var cartModule = require('./init')();
 
-            return cartModule;
-        });
+    require('./service/api')(cartModule);
+    require('./service/cart')(cartModule);
+    require('./controller')(cartModule);
 
-})(window.define);
+};

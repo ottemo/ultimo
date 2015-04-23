@@ -1,19 +1,11 @@
-(function (define) {
-    "use strict";
+module.exports = function () {
 
-    /*
-     *  requireJS module entry point
-     *  (to use that module you should include it to main.js)
-     */
-    define([
-            "checkout/service/api",
-            "checkout/service/checkout",
-            "checkout/controller/onepage",
-            "checkout/controller/accordion"
-        ],
-        function (checkoutModule) {
+    var checkoutModule = require('./init')();
 
-            return checkoutModule;
-        });
+    require('./service/api')(checkoutModule);
+    require('./service/checkout')(checkoutModule);
+    require('./controller/accordion')(checkoutModule);
+    require('./controller/onepage')(checkoutModule);
 
-})(window.define);
+};
+

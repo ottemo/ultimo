@@ -1,18 +1,9 @@
-(function (define) {
-    "use strict";
+module.exports = function () {
 
-    /**
-     *
-     */
-    define([
-            "cms/service/api",
-            "cms/service/page",
+    var cmsModule = require('./init')();
 
-            "cms/controller/page"
-        ],
-        function (cmsModule) {
+    require('./controller/page')(cmsModule);
+    require('./service/api')(cmsModule);
+    require('./service/page/')(cmsModule);
 
-            return cmsModule;
-        });
-
-})(window.define);
+};

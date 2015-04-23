@@ -1,60 +1,49 @@
-(function (define) {
-    "use strict";
+module.exports = function(){
+    /**
+     *  Angular "checkoutModule" declaration
+     */
+    return angular.module.checkoutModule = angular.module("checkoutModule", ["ngRoute", "ngResource", "designModule"])
 
-    define([
-            "angular",
-            "angular-route",
-            "angular-resource"
-        ],
-        function (angular) {
-            /**
-             *  Angular "checkoutModule" declaration
-             */
-            angular.module.checkoutModule = angular.module("checkoutModule", ["ngRoute", "ngResource", "designModule"])
+        .constant("CHECKOUT_TYPE", "general.checkout.checkout_type")
+        .constant("ONEPAGE_URL", "/spcheckout")
+        .constant("ACCORDION_URL", "/checkout")
 
-                .constant("CHECKOUT_TYPE", "general.checkout.checkout_type")
-                .constant("ONEPAGE_URL", "/spcheckout")
-                .constant("ACCORDION_URL", "/checkout")
+        /*
+         *  Basic routing configuration
+         */
+        .config([
+            "$routeProvider",
+            "$locationProvider",
+            "ONEPAGE_URL",
+            "ACCORDION_URL",
+            function ($routeProvider, $locationProvider, ONEPAGE_URL, ACCORDION_URL) {
+                $routeProvider
+                    .when(ONEPAGE_URL, {
+                        templateUrl: "theme/views/checkout/view.html",
+                        controller: "checkoutOnepageController"
+                    })
+                    .when(ACCORDION_URL, {
+                        templateUrl: "theme/views/checkout/view2.html",
+                        controller: "checkoutAccordionController"
+                    });
+                $locationProvider.html5Mode(true);
+            }
+        ])
 
-                /*
-                 *  Basic routing configuration
-                 */
-                .config([
-                    "$routeProvider",
-                    "$locationProvider",
-                    "ONEPAGE_URL",
-                    "ACCORDION_URL",
-                    function ($routeProvider, $locationProvider, ONEPAGE_URL, ACCORDION_URL) {
-                        $routeProvider
-                            .when(ONEPAGE_URL, {
-                                templateUrl: "theme/views/checkout/view.html",
-                                controller: "checkoutOnepageController"
-                            })
-                            .when(ACCORDION_URL, {
-                                templateUrl: "theme/views/checkout/view2.html",
-                                controller: "checkoutAccordionController"
-                            });
-                        $locationProvider.html5Mode(true);
-                    }
-                ])
+        .run([
+            "$http",
+            "REST_SERVER_URI",
+            "CHECKOUT_TYPE",
+            "$checkoutService",
+            function ($http, REST_SERVER_URI, CHECKOUT_TYPE, $checkoutService) {
+                $http({
+                    url: REST_SERVER_URI + "/config/value/" + CHECKOUT_TYPE,
+                    method: "GET"
+                }).success(function (response) {
+                    $checkoutService.setType(response.result);
+                });
+            }
+        ]
+    );
+};
 
-                .run([
-                    "$http",
-                    "REST_SERVER_URI",
-                    "CHECKOUT_TYPE",
-                    "$checkoutService",
-                    function ($http, REST_SERVER_URI, CHECKOUT_TYPE, $checkoutService) {
-                        $http({
-                            url: REST_SERVER_URI + "/config/value/" + CHECKOUT_TYPE,
-                            method: "GET"
-                        }).success(function (response) {
-                            $checkoutService.setType(response.result);
-                        });
-                    }
-                ]
-            );
-
-            return angular.module.checkoutModule;
-        });
-
-})(window.define);

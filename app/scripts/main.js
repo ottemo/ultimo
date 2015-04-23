@@ -1,117 +1,79 @@
-"use strict";
+"use sctict";
 
 window.name = "NG_DEFER_BOOTSTRAP!";
 
-require.config({
-    "baseUrl": "scripts",
-    "paths": {
-        "config": "config",
-        "jQuery": "../lib/jquery.min",
-        "bootstrap": "../lib/bootstrap.min",
-        "angular": "../lib/angular/angular.min",
+// add node libs
+var $ = window.$ = window.jQuery = require('jquery');
+require('bootstrap');
+var angular = require('angular');
+require('angular-route');
+require('angular-sanitize');
+require('angular-resource');
+require('angular-cookies');
 
-        "angular-scenario": "../lib/angular/angular-scenario.min",
-        "angular-sanitize": "../lib/angular/angular-sanitize.min",
-        "angular-route": "../lib/angular/angular-route.min",
-        "angular-resource": "../lib/angular/angular-resource.min",
-        "angular-cookies": "../lib/angular/angular-cookies.min",
-        "angular-mocks": "../lib/angular/angular-mocks"
-    },
-    "shim": {
-        "jQuery": {exports: "jQuery"},
-        "config": {deps: ["jQuery"], exports: "config"},
-        "bootstrap": { deps: ["jQuery"], exports: "jQuery"},
-        "angular": {deps: ["config", "bootstrap"], exports: "angular"},
-
-        "angular-route": ["angular"],
-        "angular-cookies": ["angular"],
-        "angular-sanitize": ["angular"],
-        "angular-resource": ["angular"],
-        "angular-mocks": { deps: ["angular"], exports: "angular.mock"}
-    },
-    "priority": ["config", "angular"]
-});
-
-require(['angular'], function (angular) {
-    if (typeof require.iniConfig === "undefined") {
-        require.iniConfig = {};
-    }
-
-    angular.appConfig = {};
-    angular.appConfigValue = function (valueName) {
-        if (typeof angular.appConfig[valueName] !== "undefined") {
-            return angular.appConfig[valueName];
-        } else {
-            if (typeof require.iniConfig[valueName] !== "undefined") {
-                return require.iniConfig[valueName];
-            }
+// config
+iniConfig = require('./config');
+angular.appConfig = {};
+angular.appConfigValue = function (valueName) {
+    if (typeof angular.appConfig[valueName] !== "undefined") {
+        return angular.appConfig[valueName];
+    } else {
+        if (typeof iniConfig[valueName] !== "undefined") {
+            return iniConfig[valueName];
         }
-        return "";
-    };
-});
+    }
+    return "";
+};
 
-require([
-        "jQuery",
-        "angular",
+// add modules
+require('./design/module')();
+require('./common/module')();
+require('./cart/module')();
+require('./pdp/module')();
+require('./category/module')();
+require('./visitor/module')();
+require('./checkout/module')();
+require('./cms/module')();
 
-        "design/module",
-        "common/module",
-
-        "visitor/module",
-        "category/module",
-        "pdp/module",
-        "cart/module",
-        "checkout/module",
-        "cms/module"
-    ],
-    function ($, angular) {
-        /**
-         * Page loader
-         */
-        $('#loader .progress-bar').animate({width: '60%'}, 800, function () {
-            setTimeout(function () {
-                $('#loader .progress-bar').animate({width: '100%'}, 200, function () {
-                    $('#loader').animate({opacity: 0}, 400, function () {
-                        $(this).css('display', 'none');
-                        setTimeout(function () {
-                            $('#content').removeClass('ng-hide');
-                        }, 100);
-                    });
-                });
-            }, 500);
-        });
-
-        angular.element(document).ready(function () {
-            angular.referrer = document.referrer;
-
-            //TODO: We should find a better way to do this
-            // instead of loading in theme files here
-            var runApp = function () {
-                
-                require(["../theme/scripts/init"], function () {
-                    var modules = Object.keys(angular.module);
-                    angular.resumeBootstrap(modules);
-                });
-                
-            };
-
-            runApp();
+// add themes
+require('../themes/blitz/scripts/main')();
 
 
-            /**
-             * increase count of visits
-             */
-            $.ajax({
-                url: angular.REST_SERVER_URI + "/rts/visit",
-                type: "POST",
-                xhrFields: {
-                    withCredentials: true
-                },
-                headers: {
-                    "X-Referer": angular.referrer
-                }
+// animate
+// TODO: WE REALLY NEED TO GET RID OF THIS 
+$('#loader .progress-bar').animate({width: '60%'}, 800, function () {
+    setTimeout(function () {
+        $('#loader .progress-bar').animate({width: '100%'}, 200, function () {
+            $('#loader').animate({opacity: 0}, 400, function () {
+                $(this).css('display', 'none');
+                setTimeout(function () {
+                    $('#content').removeClass('ng-hide');
+                }, 100);
             });
         });
-    }
-);
+    }, 500);
+});
 
+// ready
+angular.element(document).ready(function () {
+
+    angular.referrer = document.referrer;
+
+    // TODO: Do we still need to hijack the bootstrapping process?
+    var modules = Object.keys(angular.module);
+    angular.resumeBootstrap(modules);
+
+    /**
+     * increase count of visits
+     */
+    $.ajax({
+        url: angular.REST_SERVER_URI + "/rts/visit",
+        type: "POST",
+        xhrFields: {
+            withCredentials: true
+        },
+        headers: {
+            "X-Referer": angular.referrer
+        }
+    });
+});
