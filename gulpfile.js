@@ -45,6 +45,9 @@
             'src': './app/theme'
         },
 
+        // Static
+        'html': 'app/**/*.html',
+        'misc': 'app/*.{txt,htaccess,ico}'
     };
 
     var host = {
@@ -222,7 +225,7 @@
     gulp.task('build', function () {
 
         if (env === 'development') {
-            gulp.start('jshint')
+            //gulp.start('jshint')
             gulp.start('vendor');
             gulp.start('misc');
             gulp.start('html');

@@ -3,7 +3,6 @@ module.exports = function(){
     var designModule = require('./init')();
 
     require('./service/design')(designModule);
-    require('./service/api')(designModule);
     require('./service/image')(designModule);
     require('./service/states')(designModule);
     require('./directives/design')(designModule);

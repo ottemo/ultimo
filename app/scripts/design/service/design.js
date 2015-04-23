@@ -5,11 +5,6 @@ module.exports = function (designModule) {
      */
         .service("$designService", [function () {
 
-            var data = { theme: angular.appConfigValue("themes.list.active"), topPage: "index.html", cssList: []};
-            var isFullPathRegex = new RegExp("^http[s]?://", "i");
-            var isCssRegex = new RegExp(".css$", "i");
-            var themesDir = "themes/";
-
             return {
                 getTopPage: function () {
                     return this.getTemplate("index.html");

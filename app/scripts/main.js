@@ -36,7 +36,7 @@ require('./checkout/module')();
 require('./cms/module')();
 
 // add themes
-require('../themes/blitz/scripts/main')();
+require('../theme/scripts/main')();
 
 
 // animate
