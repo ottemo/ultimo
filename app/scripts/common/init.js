@@ -72,10 +72,6 @@ module.exports = function(){
 
                 $rootScope.page = $commonPageService;
 
-                // Left navigation menu
-                $commonSidebarService.addItem("HOME", "", "glyphicon glyphicon-home", 100);
-                $commonSidebarService.addItem("ABOUT", "about.html", "glyphicon glyphicon-info-sign");
-
                 $commonRewriteService.init();
 
                 $commonPageService.setTitle();
