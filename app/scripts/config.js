@@ -1,6 +1,6 @@
 module.exports = {
-    "general.app.foundation_url": "http://dev.ottemo.io:3000",
-    "general.app.media_path": "//dev.ottemo.io/media/",
+    "general.app.foundation_url": "http://foundation.kg.dev.ottemo.io",
+    "general.app.media_path": "//kg.dev.ottemo.io/media/",
 
     // social networks
     "general.app.login.facebook.appId" : "728744980537129",
