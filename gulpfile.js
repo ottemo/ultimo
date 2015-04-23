@@ -146,7 +146,7 @@
                 .on('error', gutil.log.bind(gutil, 'Browserify Error'))
                 .pipe(source('bundle.js'))
                 .pipe(buffer())
-                .pipe(uglify())
+                .pipe(uglify({mangle: false}))
                 .pipe(gulp.dest('./dist'));
         });
     }
