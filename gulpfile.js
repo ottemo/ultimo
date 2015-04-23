@@ -38,7 +38,7 @@
         // Theme
         'theme': {
             'css': 'app/theme/styles/**/*.css',
-            'images': 'app/theme/**/*.{png,jpg,jpec,ico}',
+            'images': 'app/theme/**/*.{png,jpg,jpec,ico,mp4,ogv,webm}',
             'fonts': 'app/theme/fonts/**/*',
             'js': 'app/theme/scripts/**/*.js',
             'dest': 'dist/theme',
