@@ -190,14 +190,7 @@
 
     // browser-sync task for starting server
     gulp.task('browser-sync', function () {
-        if (env === 'production') {
-            browserSync({
-                server: {
-                    baseDir: './dist'
-                },
-                port: host.port
-            });
-        } else {
+        if (env === 'development') {
             browserSync({
                 server: {
                     baseDir: './app',
@@ -206,6 +199,13 @@
                             '!\\. /index.html [L]'
                         ])
                     ]
+                },
+                port: host.port
+            });
+        } else {
+            browserSync({
+                server: {
+                    baseDir: './dist'
                 },
                 port: host.port
             });
