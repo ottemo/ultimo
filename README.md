@@ -5,9 +5,9 @@ KariGran Store
 
 [Link to HipChat Room for Support](https://www.hipchat.com/gWgE1EkYF)
 
-## Install Bower and Gulp
+## Install Gulp Globally
 
-    npm install -g bower gulp
+    npm install -g gulp bower
 
 ## Install Store packages
 
@@ -15,6 +15,23 @@ KariGran Store
     bower install
 
 ## Workflow with gulp
+
+### Edit the config.js to Customize your Store
+Modify the following settings or pass environment variables to *gulp serve*
+
+    module.exports = {
+        "general.app.foundation_url": "http://dev.ottemo.io:3000",
+        "general.app.media_path": "media/",
+        "themes.list.active": "blitz",
+        // social networks
+        "general.app.login.facebook.appId" : "728744980537129",
+        "general.app.login.facebook.secretKey" : "58f763bd74fab043aa3b3c0221291c94",
+        "general.app.login.google.clientId" : "1074763412644-qq25glj3tb87bq7bk5m8793da11ddheh.apps.googleusercontent.com",
+    
+        // general
+        "general.app.category.itemsPerPage" : 10,
+        "general.checkout.guest_checkout" : true
+    };
 
 ### Build Store
 Builds project and moves files on the destination folder, dist, which is used for running the application in production. This step currently concats and minifies the CSS and JS, compiles LESS and runs JSHint.

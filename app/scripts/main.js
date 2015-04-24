@@ -1,154 +1,80 @@
-"use strict";
+"use sctict";
 
 window.name = "NG_DEFER_BOOTSTRAP!";
 
-require.config({
-    "baseUrl": "scripts",
-    "paths": {
-        "config": "config",
-        "jQuery": "../lib/jquery.min",
-        "bootstrap": "../lib/bootstrap.min",
-        "themeFiles": "design/themeFiles",
-        "angular": "../lib/angular/angular.min",
+// add node libs
+var $ = window.$ = window.jQuery = require('jquery');
+require('bootstrap');
+var angular = require('angular');
+require('angular-route');
+require('angular-sanitize');
+require('angular-resource');
+require('angular-cookies');
 
-        "angular-scenario": "../lib/angular/angular-scenario.min",
-        "angular-sanitize": "../lib/angular/angular-sanitize.min",
-        "angular-route": "../lib/angular/angular-route.min",
-        "angular-resource": "../lib/angular/angular-resource.min",
-        "angular-cookies": "../lib/angular/angular-cookies.min",
-        "angular-mocks": "../lib/angular/angular-mocks"
-    },
-    "shim": {
-        "jQuery": {exports: "jQuery"},
-        "config": {deps: ["jQuery"], exports: "config"},
-        "bootstrap": { deps: ["jQuery"], exports: "jQuery"},
-        "angular": {deps: ["config", "bootstrap"], exports: "angular"},
-
-        "angular-route": ["angular"],
-        "angular-cookies": ["angular"],
-        "angular-sanitize": ["angular"],
-        "angular-resource": ["angular"],
-        "angular-mocks": { deps: ["angular"], exports: "angular.mock"}
-    },
-    "priority": ["config", "angular"]
-});
-
-require(['angular'], function (angular) {
-    if (typeof require.iniConfig === "undefined") {
-        require.iniConfig = {};
-    }
-
-    angular.appConfig = {};
-    angular.appConfigValue = function (valueName) {
-        if (typeof angular.appConfig[valueName] !== "undefined") {
-            return angular.appConfig[valueName];
-        } else {
-            if (typeof require.iniConfig[valueName] !== "undefined") {
-                return require.iniConfig[valueName];
-            }
+// config
+iniConfig = require('./config');
+angular.appConfig = {};
+angular.appConfigValue = function (valueName) {
+    if (typeof angular.appConfig[valueName] !== "undefined") {
+        return angular.appConfig[valueName];
+    } else {
+        if (typeof iniConfig[valueName] !== "undefined") {
+            return iniConfig[valueName];
         }
-        return "";
-    };
+    }
+    return "";
+};
+
+// add modules
+require('./design/module')();
+require('./common/module')();
+require('./cart/module')();
+require('./pdp/module')();
+require('./category/module')();
+require('./visitor/module')();
+require('./checkout/module')();
+require('./cms/module')();
+
+// add themes
+require('../theme/scripts/main')();
+
+
+// animate
+// TODO: WE REALLY NEED TO GET RID OF THIS 
+$('#loader .progress-bar').animate({width: '60%'}, 800, function () {
+    setTimeout(function () {
+        $('#loader .progress-bar').animate({width: '100%'}, 200, function () {
+            $('#loader').animate({opacity: 0}, 400, function () {
+                $(this).css('display', 'none');
+                setTimeout(function () {
+                    $('#content').removeClass('ng-hide');
+                }, 100);
+            });
+        });
+    }, 500);
 });
 
-require([
-        "jQuery",
-        "angular",
-        "design/themeFiles",
-        "design/module",
-        "common/module",
+// ready
+angular.element(document).ready(function () {
 
-        "filters/module",
+    angular.referrer = document.referrer;
 
-        "visitor/module",
-        "category/module",
-        "pdp/module",
-        "cart/module",
-        "checkout/module",
-        "cms/module"
-    ],
-    function ($, angular, files) {
-        /**
-         * Page loader
-         */
-        $('#loader .progress-bar').animate({width: '60%'}, 800, function () {
-            setTimeout(function () {
-                $('#loader .progress-bar').animate({width: '100%'}, 200, function () {
-                    $('#loader').animate({opacity: 0}, 400, function () {
-                        $(this).css('display', 'none');
-                        setTimeout(function () {
-                            $('#content').removeClass('ng-hide');
-                        }, 100);
-                    });
-                });
-            }, 500);
-        });
+    // TODO: Do we still need to hijack the bootstrapping process?
+    var modules = Object.keys(angular.module);
+    angular.resumeBootstrap(modules);
 
-        angular.element(document).ready(function () {
-            angular.referrer = document.referrer;
-
-            angular.isExistFile = function (path) {
-
-                var themeFiles = files[angular.appConfigValue("themes.list.active")];
-                if (themeFiles !== undefined && themeFiles.indexOf(path) !== -1) {
-                    return true;
-                }
-
-                return false;
-            };
-
-            var runApp = function () {
-                if (angular.isExistFile("/scripts/init.js")) {
-                    require(["../themes/" + angular.appConfigValue("themes.list.active") + "/scripts/init"], function () {
-                        var modules = Object.keys(angular.module);
-                        angular.resumeBootstrap(modules);
-                    });
-                } else {
-                    var modules = Object.keys(angular.module);
-                    angular.resumeBootstrap(modules);
-                }
-            };
-
-            var errorResponse = function () {
-                angular.activeTheme = "default";
-                angular.appConfig["themes.list.active"] = "default";
-                runApp();
-            };
-
-            var successResponse = function (data) {
-                angular.activeTheme = data.result === null ? "default" : data.result;
-                angular.appConfig["themes.list.active"] = angular.activeTheme;
-                runApp();
-            };
-
-            /**
-             * Use jQuery ajax for sending existing cookie value
-             * angular.element.get can not send cookie
-             */
-            $.ajax({
-                url: angular.appConfigValue("general.app.foundation_url") + "/config/value/themes.list.active",
-                type: "GET",
-                timeout: 10000,
-                xhrFields: {
-                    withCredentials: true
-                },
-                error: errorResponse,
-                success: successResponse
-            });
-            /**
-             * increase count of visits
-             */
-            $.ajax({
-                url: angular.REST_SERVER_URI + "/rts/visit",
-                type: "POST",
-                xhrFields: {
-                    withCredentials: true
-                },
-                headers: {
-                    "X-Referer": angular.referrer
-                }
-            });
-        });
-    }
-);
-
+    /**
+     * increase count of visits
+     */
+    $.ajax({
+        async: true,
+        url: angular.REST_SERVER_URI + "/rts/visit",
+        type: "POST",
+        xhrFields: {
+            withCredentials: true
+        },
+        headers: {
+            "X-Referer": angular.referrer
+        }
+    });
+});

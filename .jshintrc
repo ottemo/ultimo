@@ -22,9 +22,9 @@
     "noarg": true,
     "quotmark": "true",
     "regexp": true,
-    "undef": true,
+    "undef": false,
     "unused": true,
-    "strict": true,
+    "strict": false,
     "sub": true,
     "trailing": true
 }

@@ -1,33 +1,29 @@
-(function (define) {
-    "use strict";
+module.exports = function (designModule) {
 
-    define(["design/init"], function (designModule) {
+    var dateNotValid = "Please enter a valid date (mm/dd/yyyy)";
 
-        var dateNotValid = "Please enter a valid date (mm/dd/yyyy)";
+    designModule.directive("otDate", ["$commonUtilService", function ($commonUtilService) {
+        return {
+            restrict: 'A',
+            require: '?ngModel',
+            link: function (scope, elem, attrs, ngModel) {
 
-        designModule.directive("otDate", ["$commonUtilService", function ($commonUtilService) {
-            return {
-                restrict: 'A',
-                require: '?ngModel',
-                link: function (scope, elem, attrs, ngModel) {
+                var validate = function (value) {
+                    var date = $commonUtilService.getDate(value);
+                    var valid = (!isNaN(date) && value.length === 10);
+                    ngModel.$setValidity('ot-date', valid);
+                    if (!valid) {
+                        ngModel.message = dateNotValid;
+                    }
 
-                    var validate = function (value) {
-                        var date = $commonUtilService.getDate(value);
-                        var valid = (!isNaN(date) && value.length === 10);
-                        ngModel.$setValidity('ot-date', valid);
-                        if (!valid) {
-                            ngModel.message = dateNotValid;
-                        }
+                    return value;
+                };
 
-                        return value;
-                    };
-
-                    //For DOM -> model validation
-                    ngModel.$parsers.unshift(validate);
-                    //For model -> DOM validation
-                    ngModel.$formatters.unshift(validate);
-                }
-            };
-        }]);
-    });
-})(window.define);
+                //For DOM -> model validation
+                ngModel.$parsers.unshift(validate);
+                //For model -> DOM validation
+                ngModel.$formatters.unshift(validate);
+            }
+        };
+    }]);
+};
