@@ -209,6 +209,7 @@ module.exports = function (categoryModule) {
                 };
 
                 // KG homepage shows products separated by category
+                // TODO: move KG cusomization to app/theme dir - jwv - 23/4/2015
                 getShopPageProducts = function (categories) {
                     if ($scope.isShop && categories.length) {
                         var params, productsPromise, shopCategories;
