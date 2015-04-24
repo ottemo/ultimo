@@ -14,14 +14,15 @@ module.exports = function (categoryModule) {
             "$cartService",
             "$pdpProductService",
             "$commonUtilService",
+            "$q",
             "GENERAL_CATEGORY_URI",
             "SEARCH_KEY_NAME",
             function ($scope, $location, $route, $routeParams, $categoryApiService, $designService,
                       $designImageService, $categoryService, $visitorLoginService, $cartService,
-                      $pdpProductService, $commonUtilService, GENERAL_CATEGORY_URI, SEARCH_KEY_NAME) {
+                      $pdpProductService, $commonUtilService, $q, GENERAL_CATEGORY_URI, SEARCH_KEY_NAME) {
 
                 var init, getPage, addCategoryCrumbs, getFilters, setFilters, getParams, initWatchers,
-                    defaultFilterSet, defaultOptionSet, changeLocation;
+                    defaultFilterSet, defaultOptionSet, changeLocation, getShopPageProducts;
 
                 getPage = function () {
                     var param, page;
@@ -46,10 +47,7 @@ module.exports = function (categoryModule) {
 
                         for (i = 0; i < list.length; i += 1) {
                             category = list[i];
-                            $scope.$emit("add-breadcrumbs", {
-                                "label": category.name,
-                                "url": $categoryService.getUrl(category.id)
-                            });
+                            $scope.$emit("add-breadcrumbs", {"label": category.name, "url": $categoryService.getUrl(category.id)});
                         }
                     }
                 };
@@ -210,6 +208,45 @@ module.exports = function (categoryModule) {
                     return filters.join("&");
                 };
 
+                // KG homepage shows products separated by category
+                getShopPageProducts = function (categories) {
+                    if ($scope.isShop && categories.length) {
+                        var params, productsPromise, shopCategories;
+
+                        params = getParams();
+                        productsPromise = [];
+                        shopCategories = [];
+
+                        // Get thr product from each of the categories
+                        $.each(categories[0].child, function (i, cat) {
+                            shopCategories.push(cat);
+                            params['categoryID'] = cat.id;
+
+                            productsPromise.push(
+                                $categoryApiService.getProductsByCategoryId(params)
+                                    .$promise.then(function (response) {
+                                        response.id = cat.id;
+                                        return response;
+                                    })
+                            );
+                        });
+
+                        // When they all finish, assemble a response
+                        $q.all(productsPromise).then(function (result) {
+                            $.each(result, function (i, cat) {
+                                $.each(shopCategories, function (j, outCat) {
+                                    if (outCat.id == cat.id) {
+                                        shopCategories[j]['productList'] = cat.result;
+                                        return false; //break
+                                    }
+                                });
+                            });
+
+                            $scope.shopCategories = shopCategories;
+                        });
+                    }
+                };
+
                 /**
                  * Gets number items into collection
                  */
@@ -229,372 +266,279 @@ module.exports = function (categoryModule) {
                             $scope.pages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
                         });
                     }
-                    // KG homepage shows products separated by category
-                    getShopPageProducts = function (categories) {
-                        if ($scope.isShop && categories.length) {
-                            var params, productsPromise, shopCategories;
 
-                            params = getParams();
-                            productsPromise = [];
-                            shopCategories = [];
+                };
 
-                            // Get thr product from each of the categories
-                            $.each(categories[0].child, function (i, cat) {
-                                shopCategories.push(cat);
-                                params['categoryID'] = cat.id;
-
-                                productsPromise.push(
-                                    $categoryApiService.getProductsByCategoryId(params)
-                                        .$promise.then(function (response) {
-                                            response.id = cat.id;
-                                            return response;
-                                        })
-                                );
-                            });
-
-                            // When they all finish, assemble a response
-                            $q.all(productsPromise).then(function (result) {
-                                $.each(result, function (i, cat) {
-                                    $.each(shopCategories, function (j, outCat) {
-                                        if (outCat.id == cat.id) {
-                                            shopCategories[j]['productList'] = cat.result;
-                                            return false; //break
-                                        }
-                                    });
-                                });
-
-                                $scope.shopCategories = shopCategories;
-                            });
-                        }
-                    };
-
-                    /**
-                     * Gets number items into collection
-                     */
-                    $scope.getCountProduct = function () {
-                        if ($scope.isShop) {
-                            $categoryApiService.getShopCountProducts(getParams(true)).$promise.then(function (response) {
-                                var result = response.result || [];
-                                $scope.totalItems = result;
-                                $scope.pages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
-                            });
-                        } else {
-                            var params = getParams(true);
-                            params["categoryID"] = $scope.categoryId;
-                            $categoryApiService.getCountProducts(params).$promise.then(function (response) {
-                                var result = response.result || [];
-                                $scope.totalItems = result;
-                                $scope.pages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
-                            });
+                /**
+                 * Gets list of products
+                 */
+                $scope.getProducts = function () {
+                    if ($scope.isShop) {
+                        var categories = $categoryService.getTree();
+                        if (categories) {
+                            getShopPageProducts(categories);
                         }
 
-                    };
+                        // KG /shop is dependent on the category tree
+                        // $categoryApiService.getShopProducts(getParams(), {}).$promise.then(function (response) {
+                        //     var result = response.result || [];
+                        //     $scope.productsList = result;
+                        // });
 
-                    /**
-                     * Gets list of products
-                     */
-                    $scope.getProducts = function () {
-                        if ($scope.isShop) {
-                            $categoryApiService.getShopProducts(getParams(), {}).$promise.then(function (response) {
-                                var result = response.result || [];
-                                $scope.productsList = result;
-                            });
-                        } else {
-                            var params = getParams();
-                            params["categoryID"] = $scope.categoryId;
-                            $categoryApiService.getProductsByCategoryId(params).$promise.then(function (response) {
-                                var result = response.result || [];
-                                $scope.productsList = result;
-                            });
-                        }
-                    };
-                    /**
-                     * Gets list of products
-                     */
-                    $scope.getProducts = function () {
-                        if ($scope.isShop) {
-                            var categories = $categoryService.getTree();
-                            if (categories) {
-                                getShopPageProducts(categories);
-                            }
-
-                            // KG /shop is dependent on the category tree
-                            // $categoryApiService.getShopProducts(getParams(), {}).$promise.then(function (response) {
-                            //     var result = response.result || [];
-                            //     $scope.productsList = result;
-                            // });
-
-                        } else {
-                            var params = getParams();
-                            params["categoryID"] = $scope.categoryId;
-                            $categoryApiService.getProductsByCategoryId(params).$promise.then(function (response) {
-                                var result = response.result || [];
-                                $scope.productsList = result;
-                            });
-                        }
-                    };
-
-                    /**
-                     * Gets layers for category
-                     */
-                    $scope.getLayered = function () {
-                        if ($scope.isShop) {
-                            $categoryApiService.getShopLayered($location.search(), {}).$promise.then(function (response) {
-                                    var result = response.result || [];
-                                    $scope.layered = result;
-                                    for (var filter in $scope.layered) {
-                                        if ($scope.layered.hasOwnProperty(filter)) {
-                                            $scope.filters[filter] = {};
-                                        }
-                                    }
-                                    setFilters();
-                                }
-                            );
-                        } else {
-                            var params = $location.search();
-                            params["categoryID"] = $scope.categoryId;
-                            $categoryApiService.getLayered(params).$promise.then(function (response) {
-                                    var result = response.result || [];
-                                    $scope.layered = result;
-                                    for (var filter in $scope.layered) {
-                                        if ($scope.layered.hasOwnProperty(filter)) {
-                                            $scope.filters[filter] = {};
-                                        }
-                                    }
-                                    setFilters();
-                                }
-                            );
-                        }
-                    };
-
-                    $scope.init = function () {
-                        var tree;
-
-                        tree = $categoryService.getTree();
-                        if (typeof tree === "undefined") {
-                            $categoryApiService.getCategories().$promise.then(
-                                function (response) {
-                                    var categories = response.result || [];
-                                    $categoryService.setTree(categories);
-                                    addCategoryCrumbs();
-                                }
-                            );
-                        }
-                        $scope.getLayered();
-                        $scope.getProducts();
-                        $scope.getCountProduct();
-
-                        if ($scope.categoryId !== null) {
-                            /**
-                             * Gets category
-                             */
-                            $categoryApiService.load({"id": $scope.categoryId}).$promise.then(function (response) {
-                                var result = response.result || [];
-                                $scope.category = result;
-                                $scope.initCategoryImages();
-                            });
-                        }
-
-                        initWatchers();
-                    };
-
-                    $scope.toggleBlock = function (activeBlock) {
-                        var block;
-
-                        for (block in $scope.blocks) {
-
-                            if ($scope.blocks.hasOwnProperty(block)) {
-                                if (block === activeBlock) {
-                                    if ($scope.blocks[block]) {
-                                        $scope.blocks[block] = false;
-                                    } else {
-                                        $scope.blocks[block] = true;
-                                    }
-                                } else {
-                                    $scope.blocks[block] = false;
-                                }
-                            }
-
-                        }
-
-                        return true;
-                    };
-
-                    $scope.closeBlock = function (nameBlock) {
-                        $scope.blocks[nameBlock] = false;
-                        jQuery('.list-bar span').removeClass('active');
-                        jQuery('.shadow').css('display', 'none');
-                    };
-
-                    $scope.addToCart = function (product) {
-                        var miniCart, addItem;
-                        miniCart = $(".mini-cart");
-                        addItem = function () {
-                            $cartService.add(product._id, 1, $pdpProductService.getOptions()).then(
-                                function (response) {
-                                    if (response.error !== null) {
-                                        $scope.openPopUp(product);
-                                        $scope.message = $commonUtilService.getMessage(response);
-                                    } else {
-                                        $pdpProductService.setOptions({});
-                                        $("#quick-view").modal('hide');
-
-                                        miniCart.modal('show');
-                                        setTimeout(function () {
-                                            miniCart.modal('hide');
-                                        }, 2000);
-                                    }
-                                }
-                            );
-                        };
-
-                        if (angular.appConfigValue("general.checkout.guest_checkout")) {
-                            addItem();
-                        } else {
-                            $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
-                                if (isLoggedIn) {
-                                    addItem();
-                                } else {
-                                    $("#form-login").modal("show");
-                                }
-                            });
-                        }
-
-                    };
-
-                    /**
-                     * Gets full path to image
-                     *
-                     * @param {object} product
-                     * @returns {string}
-                     */
-                    $scope.getImage = function (product, size) {
-                        if (typeof product === "undefined") {
-                            return $designImageService.getFullImagePath("", null, size);
-                        }
-                        return $designImageService.getFullImagePath("", product["default_image"], size);
-                    };
-
-                    /**
-                     * Set category image and images attributes value as a path
-                     * $scope.category.image - default image path
-                     * $scope.category.images - list of all images in this category
-                     */
-                    $scope.initCategoryImages = function () {
-                        var categoryImageBasePath;
-
-                        $categoryApiService.getImagePath({"categoryID": $scope.categoryId}).$promise.then(function (response) {
-                            categoryImageBasePath = response.result || [];
-                        });
-
-                        $categoryApiService.listImages({"categoryID": $scope.categoryId}).$promise.then(function (response) {
-                            $scope.category.images = response.result || [];
-                            var categoryImagesPath = {};
-                            for (var i = 0, imageName, imagePath; i < $scope.category.images.length; i += 1) {
-                                imageName = $scope.category.images[i];
-                                imagePath = $designImageService.getFullImagePath("", categoryImageBasePath + imageName);
-                                categoryImagesPath[imageName] = imagePath;
-                            }
-                            $scope.category.images = categoryImagesPath;
-                            if (typeof $scope.category.image !== "undefined") {
-                                $scope.category.image = $designImageService.getFullImagePath("", categoryImageBasePath + $scope.category.image);
-                            }
-                        });
-                    };
-
-                    $scope.sortByPrice = function (order) {
-                        var orderStr;
-
-                        if (order === "asc") {
-                            orderStr = "price";
-                        } else {
-                            orderStr = "^price";
-                        }
-
-                        $scope.filters.sort = {};
-                        $scope.filters.sort[orderStr] = true;
-                    };
-
-                    $scope.sortByName = function (order) {
-                        var orderStr;
-
-                        if (order === "asc") {
-                            orderStr = "name";
-                        } else {
-                            orderStr = "^name";
-                        }
-
-                        $scope.filters.sort = {};
-                        $scope.filters.sort[orderStr] = true;
-                    };
-
-                    $scope.openPopUp = function (product) {
-                        $scope.message = {};
-                        $scope.options = {};
-                        $pdpProductService.setProduct(product);
-                        $scope.popupProduct = $pdpProductService.getProduct();
-                        $scope.productService.getRatingInfo(product._id);
-                        $("#quick-view").modal('show');
-                        setTimeout(function () {
-                            try {
-                                $('.rating').rating('update', $scope.productService.getAverageRating());
-                            } catch (e) {
-
-                            }
-                        }, 300);
-                    };
-
-                    $scope.showMoreBtn = function () {
-                        var countLoadedGoods;
-                        countLoadedGoods = ($scope.currentPage + 1) * $scope.itemsPerPage;
-
-                        if (countLoadedGoods >= $scope.totalItems) {
-                            return false;
-                        }
-
-                        return true;
-                    };
-
-                    $scope.loadMore = function () {
-                        $scope.clickMore = true;
-                        $scope.currentPage += 1;
-
+                    } else {
                         var params = getParams();
                         params["categoryID"] = $scope.categoryId;
+                        $categoryApiService.getProductsByCategoryId(params).$promise.then(function (response) {
+                            var result = response.result || [];
+                            $scope.productsList = result;
+                        });
+                    }
+                };
 
+                /**
+                 * Gets layers for category
+                 */
+                $scope.getLayered = function () {
+                    if ($scope.isShop) {
+                        $categoryApiService.getShopLayered($location.search(), {}).$promise.then(function (response) {
+                                var result = response.result || [];
+                                $scope.layered = result;
+                                for (var filter in $scope.layered) {
+                                    if ($scope.layered.hasOwnProperty(filter)) {
+                                        $scope.filters[filter] = {};
+                                    }
+                                }
+                                setFilters();
+                            }
+                        );
+                    } else {
+                        var params = $location.search();
+                        params["categoryID"] = $scope.categoryId;
+                        $categoryApiService.getLayered(params).$promise.then(function (response) {
+                                var result = response.result || [];
+                                $scope.layered = result;
+                                for (var filter in $scope.layered) {
+                                    if ($scope.layered.hasOwnProperty(filter)) {
+                                        $scope.filters[filter] = {};
+                                    }
+                                }
+                                setFilters();
+                            }
+                        );
+                    }
+                };
+
+                $scope.init = function () {
+                    var tree;
+
+                    tree = $categoryService.getTree();
+                    if (typeof tree === "undefined") {
+                        $categoryApiService.getCategories().$promise.then(
+                            function (response) {
+                                var categories = response.result || [];
+                                $categoryService.setTree(categories);
+                                addCategoryCrumbs();
+                                return categories;
+                            }
+                        )
+                            .then( getShopPageProducts );
+                    }
+                    $scope.getLayered();
+                    $scope.getProducts();
+                    $scope.getCountProduct();
+
+                    if ($scope.categoryId !== null) {
+                        /**
+                         * Gets category
+                         */
+                        $categoryApiService.load({"id": $scope.categoryId}).$promise.then(function (response) {
+                            var result = response.result || [];
+                            $scope.category = result;
+                        })
+                            .then(function(){
+                                if ($scope.category.image) {
+                                    // fetch the category image path
+                                    $categoryApiService.getCategoryImagePath({'categoryID': $scope.category._id})
+                                        .$promise.then(function(response){
+                                            var imgPath = response.result;
+                                            var imgUrl = $designImageService.getFullImagePath(imgPath, $scope.category.image)
+                                            $scope.category.image_url = imgUrl;
+                                        });
+                                }
+                            });
+                    }
+
+                    initWatchers();
+                };
+
+                $scope.toggleBlock = function (activeBlock) {
+                    var block;
+
+                    for (block in $scope.blocks) {
+
+                        if ($scope.blocks.hasOwnProperty(block)) {
+                            if (block === activeBlock) {
+                                if ($scope.blocks[block]) {
+                                    $scope.blocks[block] = false;
+                                } else {
+                                    $scope.blocks[block] = true;
+                                }
+                            } else {
+                                $scope.blocks[block] = false;
+                            }
+                        }
+
+                    }
+
+                    return true;
+                };
+
+                $scope.closeBlock = function (nameBlock) {
+                    $scope.blocks[nameBlock] = false;
+                    jQuery('.list-bar span').removeClass('active');
+                    jQuery('.shadow').css('display', 'none');
+                };
+
+                $scope.addToCart = function (product) {
+                    var miniCart, addItem;
+                    miniCart = $(".mini-cart");
+                    addItem = function () {
+                        $cartService.add(product._id, 1, $pdpProductService.getOptions()).then(
+                            function (response) {
+                                if (response.error !== null) {
+                                    $scope.openPopUp(product);
+                                    $scope.message = $commonUtilService.getMessage(response);
+                                } else {
+                                    $pdpProductService.setOptions({});
+                                    $("#quick-view").modal('hide');
+
+                                    miniCart.modal('show');
+                                    setTimeout(function () {
+                                        miniCart.modal('hide');
+                                    }, 2000);
+                                }
+                            }
+                        );
+                    };
+
+                    if (angular.appConfigValue("general.checkout.guest_checkout")) {
+                        addItem();
+                    } else {
+                        $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
+                            if (isLoggedIn) {
+                                addItem();
+                            } else {
+                                $("#form-login").modal("show");
+                            }
+                        });
+                    }
+
+                };
+
+                /**
+                 * Gets full path to image
+                 *
+                 * @param {object} product
+                 * @returns {string}
+                 */
+                $scope.getImage = function (product, size) {
+                    if (typeof product === "undefined") {
+                        return $designImageService.getFullImagePath("", null, size);
+                    }
+                    return $designImageService.getFullImagePath("", product["default_image"], size);
+                };
+
+                $scope.sortByPrice = function (order) {
+                    var orderStr;
+
+                    if (order === "asc") {
+                        orderStr = "price";
+                    } else {
+                        orderStr = "^price";
+                    }
+
+                    $scope.filters.sort = {};
+                    $scope.filters.sort[orderStr] = true;
+                };
+
+                $scope.sortByName = function (order) {
+                    var orderStr;
+
+                    if (order === "asc") {
+                        orderStr = "name";
+                    } else {
+                        orderStr = "^name";
+                    }
+
+                    $scope.filters.sort = {};
+                    $scope.filters.sort[orderStr] = true;
+                };
+
+                $scope.openPopUp = function (product) {
+                    $scope.message = {};
+                    $scope.options = {};
+                    $pdpProductService.setProduct(product);
+                    $scope.popupProduct = $pdpProductService.getProduct();
+                    $scope.productService.getRatingInfo(product._id);
+                    $("#quick-view").modal('show');
+                    setTimeout(function () {
+                        try {
+                            $('.rating').rating('update', $scope.productService.getAverageRating());
+                        } catch (e) {
+
+                        }
+                    }, 300);
+                };
+
+                $scope.showMoreBtn = function () {
+                    var countLoadedGoods;
+                    countLoadedGoods = ($scope.currentPage + 1) * $scope.itemsPerPage;
+
+                    if (countLoadedGoods >= $scope.totalItems) {
+                        return false;
+                    }
+
+                    return true;
+                };
+
+                $scope.loadMore = function () {
+                    $scope.clickMore = true;
+                    $scope.currentPage += 1;
+
+                    var params = getParams();
+                    params["categoryID"] = $scope.categoryId;
+
+                    $categoryApiService.getProductsByCategoryId(params).$promise.then(
+                        function (response) {
+                            var result = response.result || [];
+                            $scope.productsList = $scope.productsList.concat(result);
+                        }
+                    );
+                    if ($scope.isShop) {
+                        $categoryApiService.getShopProducts(params).$promise.then(function (response) {
+                            var result = response.result || [];
+                            $scope.productsList = $scope.productsList.concat(result);
+                        });
+                    } else {
                         $categoryApiService.getProductsByCategoryId(params).$promise.then(
                             function (response) {
                                 var result = response.result || [];
                                 $scope.productsList = $scope.productsList.concat(result);
                             }
                         );
-                        if ($scope.isShop) {
-                            $categoryApiService.getShopProducts(params).$promise.then(function (response) {
-                                var result = response.result || [];
-                                $scope.productsList = $scope.productsList.concat(result);
-                            });
-                        } else {
-                            $categoryApiService.getProductsByCategoryId(params).$promise.then(
-                                function (response) {
-                                    var result = response.result || [];
-                                    $scope.productsList = $scope.productsList.concat(result);
-                                }
-                            );
-                        }
-                    };
+                    }
+                };
 
-                    $scope.search = function () {
-                        var searchObj, values;
-                        searchObj = {};
-                        values = this.searchText.split(/[, ]/);
-                        searchObj[$scope.searchField] = {};
-                        for (var i = 0; i < values.length; i += 1) {
-                            searchObj[$scope.searchField][values[i]] = true;
-                        }
-                        $scope.filters[$scope.searchField] = searchObj[$scope.searchField];
-                    };
-                }
+                $scope.search = function () {
+                    var searchObj, values;
+                    searchObj = {};
+                    values = this.searchText.split(/[, ]/);
+                    searchObj[$scope.searchField] = {};
+                    for (var i = 0; i < values.length; i += 1) {
+                        searchObj[$scope.searchField][values[i]] = true;
+                    }
+                    $scope.filters[$scope.searchField] = searchObj[$scope.searchField];
+                };
             }
-        ]);
-
+    ]);
 };
