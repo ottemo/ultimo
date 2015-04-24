@@ -1,20 +1,6 @@
-(function (define) {
-    "use strict";
+module.exports = function () {
+    angular.module.filtersModule = angular.module("filtersModule",[]);
 
-    /*
-     *  Angular "filtersModule" declaration
-     *  (module internal files refers to this instance)
-     */
-    define([
-            "angular"
-        ],
-        function (angular) {
-            /*
-             *  Angular "filtersModule" declaration
-             */
-            angular.module.filtersModule = angular.module("filtersModule",[]);
+    return angular.module.filtersModule;
+};
 
-            return angular.module.filtersModule;
-        });
-
-})(window.define);

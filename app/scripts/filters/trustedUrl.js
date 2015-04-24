@@ -1,21 +1,9 @@
-(function (define) {
-    "use strict";
+module.exports = function (filtersModule) {
 
-    /**
-     *  Any filters
-     */
-    define([
-            "filters/init",
-        ],
-        function (filtersModule) {
+    filtersModule.filter('trustedUrl', ['$sce', function ($sce) {
+        return function(url) {
+            return $sce.trustAsResourceUrl(url);
+        };
+    }]);
+}
 
-            filtersModule.filter('trustedUrl', ['$sce', function ($sce) {
-                return function(url) {
-                    return $sce.trustAsResourceUrl(url);
-                };
-            }]);
-
-            return filtersModule;
-        });
-
-})(window.define);

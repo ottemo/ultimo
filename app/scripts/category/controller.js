@@ -359,7 +359,7 @@ module.exports = function (categoryModule) {
                             .then(function(){
                                 if ($scope.category.image) {
                                     // fetch the category image path
-                                    $categoryApiService.getCategoryImagePath({'categoryID': $scope.category._id})
+                                    $categoryApiService.getImagePath({'categoryID': $scope.category._id})
                                         .$promise.then(function(response){
                                             var imgPath = response.result;
                                             var imgUrl = $designImageService.getFullImagePath(imgPath, $scope.category.image)
