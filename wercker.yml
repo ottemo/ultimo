@@ -43,7 +43,7 @@ deploy:
             # As well as <USER> and <PASS> via DEFAULT_ROOT and DEFAULT_PASS
         - script:
             name: Post-Build Gulp
-            code: ssh ottemo@$REMOTE_HOST "cd /home/ottemo/storefront/; FOUNDATION_URI=http://foundation.kg.dev.ottemo.io NODE_ENV=production gulp build"
+            code: ssh ottemo@$REMOTE_HOST "cd /home/ottemo/storefront/; npm cache clear; npm install -g bower gulp; npm install; bower install; FOUNDATION_URI=http://foundation.kg.dev.ottemo.io NODE_ENV=production gulp build"
     after-steps:
         - wercker/hipchat-notify@1.0.3:
             token: $HIPCHAT_TOKEN
