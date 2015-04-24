@@ -8,6 +8,6 @@ module.exports = {
     "general.app.login.google.clientId" : "1074763412644-qq25glj3tb87bq7bk5m8793da11ddheh.apps.googleusercontent.com",
 
     // general
-    "general.app.category.itemsPerPage" : 10,
+    "general.app.category.itemsPerPage" : 30,
     "general.checkout.guest_checkout" : true
 };

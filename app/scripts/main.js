@@ -26,14 +26,15 @@ angular.appConfigValue = function (valueName) {
 };
 
 // add modules
-require('./design/module')();
-require('./common/module')();
 require('./cart/module')();
-require('./pdp/module')();
 require('./category/module')();
-require('./visitor/module')();
 require('./checkout/module')();
 require('./cms/module')();
+require('./common/module')();
+require('./design/module')();
+require('./filters/module')();
+require('./pdp/module')();
+require('./visitor/module')();
 
 // add themes
 require('../theme/scripts/main')();
