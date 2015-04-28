@@ -15,11 +15,12 @@ module.exports = function (categoryModule) {
             "$pdpProductService",
             "$commonUtilService",
             "$q",
+            "$timeout",
             "GENERAL_CATEGORY_URI",
             "SEARCH_KEY_NAME",
             function ($scope, $location, $route, $routeParams, $categoryApiService, $designService,
                       $designImageService, $categoryService, $visitorLoginService, $cartService,
-                      $pdpProductService, $commonUtilService, $q, GENERAL_CATEGORY_URI, SEARCH_KEY_NAME) {
+                      $pdpProductService, $commonUtilService, $q, $timeout, GENERAL_CATEGORY_URI, SEARCH_KEY_NAME) {
 
                 var init, getPage, addCategoryCrumbs, getFilters, setFilters, getParams, initWatchers,
                     defaultFilterSet, defaultOptionSet, changeLocation, getShopPageProducts;
@@ -400,6 +401,17 @@ module.exports = function (categoryModule) {
                     jQuery('.shadow').css('display', 'none');
                 };
 
+                $scope.viewDetails = function (product) {
+
+                    //TODO: we should get away from touching the dom in the
+                    // controllers
+                    $("#quick-view").modal('hide');
+                    $timeout(function() {
+                        var url = $pdpProductService.getUrl(product._id);
+                        $location.path(url);
+                    }, 250);
+                }
+
                 $scope.addToCart = function (product) {
                     var miniCart, addItem;
                     miniCart = $(".mini-cart");
@@ -414,6 +426,8 @@ module.exports = function (categoryModule) {
                                     $("#quick-view").modal('hide');
 
                                     miniCart.modal('show');
+
+                                    //TODO: cleanup
                                     setTimeout(function () {
                                         miniCart.modal('hide');
                                     }, 2000);
