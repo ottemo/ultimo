@@ -644,39 +644,8 @@ a:hover,.btn:hover {
 	font-weight: bold;
 	margin: 20px 0 10px 0;
 }
-.std .col-lg-1 h2:first-child, .std .col-lg-10 h2:first-child, .std .col-lg-11 h2:first-child,
-.std .col-lg-12 h2:first-child, .std .col-lg-2 h2:first-child, .std .col-lg-3 h2:first-child,
-.std .col-lg-4 h2:first-child, .std .col-lg-5 h2:first-child, .std .col-lg-6 h2:first-child,
-.std .col-lg-7 h2:first-child, .std .col-lg-8 h2:first-child, .std .col-lg-9 h2:first-child,
-.std .col-md-1 h2:first-child, .std .col-md-10 h2:first-child, .std .col-md-11 h2:first-child,
-.std .col-md-12 h2:first-child, .std .col-md-2 h2:first-child, .std .col-md-3 h2:first-child,
-.std .col-md-4 h2:first-child, .std .col-md-5 h2:first-child, .std .col-md-6 h2:first-child,
-.std .col-md-7 h2:first-child, .std .col-md-8 h2:first-child, .std .col-md-9 h2:first-child,
-.std .col-sm-1 h2:first-child, .std .col-sm-10 h2:first-child, .std .col-sm-11 h2:first-child,
-.std .col-sm-12 h2:first-child, .std .col-sm-2 h2:first-child, .std .col-sm-3 h2:first-child,
-.std .col-sm-4 h2:first-child, .std .col-sm-5 h2:first-child, .std .col-sm-6 h2:first-child,
-.std .col-sm-7 h2:first-child, .std .col-sm-8 h2:first-child, .std .col-sm-9 h2:first-child,
-.std .col-xs-1 h2:first-child, .std .col-xs-10 h2:first-child, .std .col-xs-11 h2:first-child,
-.std .col-xs-12 h2:first-child, .std .col-xs-2 h2:first-child, .std .col-xs-3 h2:first-child,
-.std .col-xs-4 h2:first-child, .std .col-xs-5 h2:first-child, .std .col-xs-6 h2:first-child,
-.std .col-xs-7 h2:first-child, .std .col-xs-8 h2:first-child, .std .col-xs-9 h2:first-child,
-.std .col-lg-1 h3:first-child, .std .col-lg-10 h3:first-child, .std .col-lg-11 h3:first-child,
-.std .col-lg-12 h3:first-child, .std .col-lg-2 h3:first-child, .std .col-lg-3 h3:first-child,
-.std .col-lg-4 h3:first-child, .std .col-lg-5 h3:first-child, .std .col-lg-6 h3:first-child,
-.std .col-lg-7 h3:first-child, .std .col-lg-8 h3:first-child, .std .col-lg-9 h3:first-child,
-.std .col-md-1 h3:first-child, .std .col-md-10 h3:first-child, .std .col-md-11 h3:first-child,
-.std .col-md-12 h3:first-child, .std .col-md-2 h3:first-child, .std .col-md-3 h3:first-child,
-.std .col-md-4 h3:first-child, .std .col-md-5 h3:first-child, .std .col-md-6 h3:first-child,
-.std .col-md-7 h3:first-child, .std .col-md-8 h3:first-child, .std .col-md-9 h3:first-child,
-.std .col-sm-1 h3:first-child, .std .col-sm-10 h3:first-child, .std .col-sm-11 h3:first-child,
-.std .col-sm-12 h3:first-child, .std .col-sm-2 h3:first-child, .std .col-sm-3 h3:first-child,
-.std .col-sm-4 h3:first-child, .std .col-sm-5 h3:first-child, .std .col-sm-6 h3:first-child,
-.std .col-sm-7 h3:first-child, .std .col-sm-8 h3:first-child, .std .col-sm-9 h3:first-child,
-.std .col-xs-1 h3:first-child, .std .col-xs-10 h3:first-child, .std .col-xs-11 h3:first-child,
-.std .col-xs-12 h3:first-child, .std .col-xs-2 h3:first-child, .std .col-xs-3 h3:first-child,
-.std .col-xs-4 h3:first-child, .std .col-xs-5 h3:first-child, .std .col-xs-6 h3:first-child,
-.std .col-xs-7 h3:first-child, .std .col-xs-8 h3:first-child, .std .col-xs-9 h3:first-child {
-	margin-top:0;
+.std .flat-top {
+	margin-top: 0;
 }
 
 .std .header-link {
@@ -713,6 +682,51 @@ the extra space looks funny */
 .std .col-xs-7 ul:last-child, .std .col-xs-8 ul:last-child, .std .col-xs-9 ul:last-child {
 	margin-bottom: 0;
 }
+
+/*---------------
+ CMS Buzz Page 
+ ---------------*/
+/* clear the floats so we can just have one row */
+.buzz-list .col-sm-6:nth-child(2n+1) {
+	clear:left;
+}
+.buzz-item {
+	padding: 10px 0;
+	overflow: hidden;
+	line-height: 1.3;
+	border-bottom: 1px solid #ddd;
+}
+.buzz-item > a {
+	display: block;
+	margin-bottom: 10px;
+}
+.buzz-item > a > img {
+	width: 100%;
+}
+/* .col-sm */
+@media (min-width: 768px) {
+	.buzz-item {
+		min-height: 180px;
+	}
+	.buzz-item > a {
+		width: 50%;
+		padding-right: 2%;
+		float: left;
+		margin: 0; /* reset the margin */
+	}
+	.buzz-item > a + div {
+		width: 50%;
+		padding-left: 2%;
+		float: left;
+	}
+}
+/* .col-lg */
+@media (min-width: 1200px) {
+	.buzz-item {
+		min-height: 142px;
+	}
+}
+
 
 /*---------------
  Footer 
