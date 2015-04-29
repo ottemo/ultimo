@@ -616,7 +616,8 @@ a:hover,.btn:hover {
 	margin-bottom: 15px;
 }
 /*---------------
- .std 
+ .std any Content that comes from a wysiwyg
+ Pages, Descriptions
  ---------------*/
 .std {
 	color: #6C7272;
@@ -633,6 +634,9 @@ a:hover,.btn:hover {
 	font-size: 26px;
 	margin-bottom: 25px;
 }
+.std h2 {
+	font-size: 20px;
+}
 .std h3 {
 	font-size: 18px;
 }
@@ -640,6 +644,41 @@ a:hover,.btn:hover {
 	font-weight: bold;
 	margin: 20px 0 10px 0;
 }
+.std .col-lg-1 h2:first-child, .std .col-lg-10 h2:first-child, .std .col-lg-11 h2:first-child,
+.std .col-lg-12 h2:first-child, .std .col-lg-2 h2:first-child, .std .col-lg-3 h2:first-child,
+.std .col-lg-4 h2:first-child, .std .col-lg-5 h2:first-child, .std .col-lg-6 h2:first-child,
+.std .col-lg-7 h2:first-child, .std .col-lg-8 h2:first-child, .std .col-lg-9 h2:first-child,
+.std .col-md-1 h2:first-child, .std .col-md-10 h2:first-child, .std .col-md-11 h2:first-child,
+.std .col-md-12 h2:first-child, .std .col-md-2 h2:first-child, .std .col-md-3 h2:first-child,
+.std .col-md-4 h2:first-child, .std .col-md-5 h2:first-child, .std .col-md-6 h2:first-child,
+.std .col-md-7 h2:first-child, .std .col-md-8 h2:first-child, .std .col-md-9 h2:first-child,
+.std .col-sm-1 h2:first-child, .std .col-sm-10 h2:first-child, .std .col-sm-11 h2:first-child,
+.std .col-sm-12 h2:first-child, .std .col-sm-2 h2:first-child, .std .col-sm-3 h2:first-child,
+.std .col-sm-4 h2:first-child, .std .col-sm-5 h2:first-child, .std .col-sm-6 h2:first-child,
+.std .col-sm-7 h2:first-child, .std .col-sm-8 h2:first-child, .std .col-sm-9 h2:first-child,
+.std .col-xs-1 h2:first-child, .std .col-xs-10 h2:first-child, .std .col-xs-11 h2:first-child,
+.std .col-xs-12 h2:first-child, .std .col-xs-2 h2:first-child, .std .col-xs-3 h2:first-child,
+.std .col-xs-4 h2:first-child, .std .col-xs-5 h2:first-child, .std .col-xs-6 h2:first-child,
+.std .col-xs-7 h2:first-child, .std .col-xs-8 h2:first-child, .std .col-xs-9 h2:first-child,
+.std .col-lg-1 h3:first-child, .std .col-lg-10 h3:first-child, .std .col-lg-11 h3:first-child,
+.std .col-lg-12 h3:first-child, .std .col-lg-2 h3:first-child, .std .col-lg-3 h3:first-child,
+.std .col-lg-4 h3:first-child, .std .col-lg-5 h3:first-child, .std .col-lg-6 h3:first-child,
+.std .col-lg-7 h3:first-child, .std .col-lg-8 h3:first-child, .std .col-lg-9 h3:first-child,
+.std .col-md-1 h3:first-child, .std .col-md-10 h3:first-child, .std .col-md-11 h3:first-child,
+.std .col-md-12 h3:first-child, .std .col-md-2 h3:first-child, .std .col-md-3 h3:first-child,
+.std .col-md-4 h3:first-child, .std .col-md-5 h3:first-child, .std .col-md-6 h3:first-child,
+.std .col-md-7 h3:first-child, .std .col-md-8 h3:first-child, .std .col-md-9 h3:first-child,
+.std .col-sm-1 h3:first-child, .std .col-sm-10 h3:first-child, .std .col-sm-11 h3:first-child,
+.std .col-sm-12 h3:first-child, .std .col-sm-2 h3:first-child, .std .col-sm-3 h3:first-child,
+.std .col-sm-4 h3:first-child, .std .col-sm-5 h3:first-child, .std .col-sm-6 h3:first-child,
+.std .col-sm-7 h3:first-child, .std .col-sm-8 h3:first-child, .std .col-sm-9 h3:first-child,
+.std .col-xs-1 h3:first-child, .std .col-xs-10 h3:first-child, .std .col-xs-11 h3:first-child,
+.std .col-xs-12 h3:first-child, .std .col-xs-2 h3:first-child, .std .col-xs-3 h3:first-child,
+.std .col-xs-4 h3:first-child, .std .col-xs-5 h3:first-child, .std .col-xs-6 h3:first-child,
+.std .col-xs-7 h3:first-child, .std .col-xs-8 h3:first-child, .std .col-xs-9 h3:first-child {
+	margin-top:0;
+}
+
 .std .header-link {
 	float: right;
 	margin-left: 20px;
@@ -653,6 +692,28 @@ a:hover,.btn:hover {
 .std p {
 	margin-bottom: 30px;
 }
+
+/* we have a lot of columns that are just separating uls, and when they collapse in small views
+the extra space looks funny */
+.std .col-lg-1 ul:last-child, .std .col-lg-10 ul:last-child, .std .col-lg-11 ul:last-child,
+.std .col-lg-12 ul:last-child, .std .col-lg-2 ul:last-child, .std .col-lg-3 ul:last-child,
+.std .col-lg-4 ul:last-child, .std .col-lg-5 ul:last-child, .std .col-lg-6 ul:last-child,
+.std .col-lg-7 ul:last-child, .std .col-lg-8 ul:last-child, .std .col-lg-9 ul:last-child,
+.std .col-md-1 ul:last-child, .std .col-md-10 ul:last-child, .std .col-md-11 ul:last-child,
+.std .col-md-12 ul:last-child, .std .col-md-2 ul:last-child, .std .col-md-3 ul:last-child,
+.std .col-md-4 ul:last-child, .std .col-md-5 ul:last-child, .std .col-md-6 ul:last-child,
+.std .col-md-7 ul:last-child, .std .col-md-8 ul:last-child, .std .col-md-9 ul:last-child,
+.std .col-sm-1 ul:last-child, .std .col-sm-10 ul:last-child, .std .col-sm-11 ul:last-child,
+.std .col-sm-12 ul:last-child, .std .col-sm-2 ul:last-child, .std .col-sm-3 ul:last-child,
+.std .col-sm-4 ul:last-child, .std .col-sm-5 ul:last-child, .std .col-sm-6 ul:last-child,
+.std .col-sm-7 ul:last-child, .std .col-sm-8 ul:last-child, .std .col-sm-9 ul:last-child,
+.std .col-xs-1 ul:last-child, .std .col-xs-10 ul:last-child, .std .col-xs-11 ul:last-child,
+.std .col-xs-12 ul:last-child, .std .col-xs-2 ul:last-child, .std .col-xs-3 ul:last-child,
+.std .col-xs-4 ul:last-child, .std .col-xs-5 ul:last-child, .std .col-xs-6 ul:last-child,
+.std .col-xs-7 ul:last-child, .std .col-xs-8 ul:last-child, .std .col-xs-9 ul:last-child {
+	margin-bottom: 0;
+}
+
 /*---------------
  Footer 
  ---------------*/
