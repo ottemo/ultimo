@@ -23,7 +23,7 @@ module.exports = function() {
 
                 // Left navigation menu
 
-                $commonSidebarService.addItem("Press", "press");
+                $commonSidebarService.addItem("Press", "buzz");
                 $commonSidebarService.addItem("Blog", "blog");
                 $commonSidebarService.addItem("Contact", "contact");
 
