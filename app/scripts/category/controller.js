@@ -14,16 +14,15 @@ module.exports = function (categoryModule) {
             "$cartService",
             "$pdpProductService",
             "$commonUtilService",
-            "$q",
             "$timeout",
             "GENERAL_CATEGORY_URI",
             "SEARCH_KEY_NAME",
             function ($scope, $location, $route, $routeParams, $categoryApiService, $designService,
                       $designImageService, $categoryService, $visitorLoginService, $cartService,
-                      $pdpProductService, $commonUtilService, $q, $timeout, GENERAL_CATEGORY_URI, SEARCH_KEY_NAME) {
+                      $pdpProductService, $commonUtilService, $timeout, GENERAL_CATEGORY_URI, SEARCH_KEY_NAME) {
 
                 var init, getPage, addCategoryCrumbs, getFilters, setFilters, getParams, initWatchers,
-                    defaultFilterSet, defaultOptionSet, changeLocation, getShopPageProducts;
+                    defaultFilterSet, defaultOptionSet, changeLocation;
 
                 getPage = function () {
                     var param, page;
@@ -116,7 +115,7 @@ module.exports = function (categoryModule) {
                     var filterStr, url;
                     filterStr = getFilters();
                     if (typeof filterStr !== "undefined") {
-                        if ($scope.categoryId === null && $scope.isShop) {
+                        if($scope.categoryId === null && $scope.isShop){
                             url = GENERAL_CATEGORY_URI;
                         } else {
                             url = $categoryService.getUrl($scope.categoryId);
@@ -209,46 +208,6 @@ module.exports = function (categoryModule) {
                     return filters.join("&");
                 };
 
-                // KG homepage shows products separated by category
-                // TODO: move KG cusomization to app/theme dir - jwv - 23/4/2015
-                getShopPageProducts = function (categories) {
-                    if ($scope.isShop && categories.length) {
-                        var params, productsPromise, shopCategories;
-
-                        params = getParams();
-                        productsPromise = [];
-                        shopCategories = [];
-
-                        // Get thr product from each of the categories
-                        $.each(categories[0].child, function (i, cat) {
-                            shopCategories.push(cat);
-                            params['categoryID'] = cat.id;
-
-                            productsPromise.push(
-                                $categoryApiService.getProductsByCategoryId(params)
-                                    .$promise.then(function (response) {
-                                        response.id = cat.id;
-                                        return response;
-                                    })
-                            );
-                        });
-
-                        // When they all finish, assemble a response
-                        $q.all(productsPromise).then(function (result) {
-                            $.each(result, function (i, cat) {
-                                $.each(shopCategories, function (j, outCat) {
-                                    if (outCat.id == cat.id) {
-                                        shopCategories[j]['productList'] = cat.result;
-                                        return false; //break
-                                    }
-                                });
-                            });
-
-                            $scope.shopCategories = shopCategories;
-                        });
-                    }
-                };
-
                 /**
                  * Gets number items into collection
                  */
@@ -276,17 +235,10 @@ module.exports = function (categoryModule) {
                  */
                 $scope.getProducts = function () {
                     if ($scope.isShop) {
-                        var categories = $categoryService.getTree();
-                        if (categories) {
-                            getShopPageProducts(categories);
-                        }
-
-                        // KG /shop is dependent on the category tree
-                        // $categoryApiService.getShopProducts(getParams(), {}).$promise.then(function (response) {
-                        //     var result = response.result || [];
-                        //     $scope.productsList = result;
-                        // });
-
+                        $categoryApiService.getShopProducts(getParams(), {}).$promise.then(function (response) {
+                            var result = response.result || [];
+                            $scope.productsList = result;
+                        });
                     } else {
                         var params = getParams();
                         params["categoryID"] = $scope.categoryId;
@@ -340,34 +292,22 @@ module.exports = function (categoryModule) {
                                 var categories = response.result || [];
                                 $categoryService.setTree(categories);
                                 addCategoryCrumbs();
-                                return categories;
                             }
-                        )
-                            .then( getShopPageProducts );
+                        );
                     }
                     $scope.getLayered();
                     $scope.getProducts();
                     $scope.getCountProduct();
 
-                    if ($scope.categoryId !== null) {
+                    if($scope.categoryId !== null) {
                         /**
                          * Gets category
                          */
                         $categoryApiService.load({"id": $scope.categoryId}).$promise.then(function (response) {
                             var result = response.result || [];
                             $scope.category = result;
-                        })
-                            .then(function(){
-                                if ($scope.category.image) {
-                                    // fetch the category image path
-                                    $categoryApiService.getImagePath({'categoryID': $scope.category._id})
-                                        .$promise.then(function(response){
-                                            var imgPath = response.result;
-                                            var imgUrl = $designImageService.getFullImagePath(imgPath, $scope.category.image)
-                                            $scope.category.image_url = imgUrl;
-                                        });
-                                }
-                            });
+                            $scope.initCategoryImages();
+                        });
                     }
 
                     initWatchers();
@@ -426,8 +366,6 @@ module.exports = function (categoryModule) {
                                     $("#quick-view").modal('hide');
 
                                     miniCart.modal('show');
-
-                                    //TODO: cleanup
                                     setTimeout(function () {
                                         miniCart.modal('hide');
                                     }, 2000);
@@ -461,6 +399,33 @@ module.exports = function (categoryModule) {
                         return $designImageService.getFullImagePath("", null, size);
                     }
                     return $designImageService.getFullImagePath("", product["default_image"], size);
+                };
+
+                /**
+                 * Set category image and images attributes value as a path
+                 * $scope.category.image - default image path
+                 * $scope.category.images - list of all images in this category
+                 */
+                $scope.initCategoryImages = function () {
+                    var categoryImageBasePath;
+
+                    $categoryApiService.getImagePath({"categoryID": $scope.categoryId}).$promise.then(function (response) {
+                        categoryImageBasePath = response.result || [];
+                    });
+
+                    $categoryApiService.listImages({"categoryID": $scope.categoryId}).$promise.then(function (response) {
+                        $scope.category.images = response.result || [];
+                        var categoryImagesPath = {};
+                        for (var i=0, imageName, imagePath; i < $scope.category.images.length; i+=1) {
+                            imageName = $scope.category.images[i];
+                            imagePath = $designImageService.getFullImagePath("", categoryImageBasePath + imageName);
+                            categoryImagesPath[imageName] = imagePath;
+                        }
+                        $scope.category.images = categoryImagesPath;
+                        if (typeof $scope.category.image !== "undefined") {
+                            $scope.category.image = $designImageService.getFullImagePath("", categoryImageBasePath + $scope.category.image);
+                        }
+                    });
                 };
 
                 $scope.sortByPrice = function (order) {
@@ -555,5 +520,6 @@ module.exports = function (categoryModule) {
                     $scope.filters[$scope.searchField] = searchObj[$scope.searchField];
                 };
             }
-    ]);
+        ]);
+
 };
