@@ -416,12 +416,15 @@ a:hover,.btn:hover {
 	font-weight: 300;
 }
 
-.home .about {
-	border-bottom: 1px #000 solid;
-}
-
+.home .about,
+.home .reviews,
 .home .wonderwork {
-	margin-top: 20px;
+	margin: 20px 0;
+	padding: 0 0 20px 0;
+}
+.home .about,
+.home .reviews {
+	border-bottom: 1px solid #ddd;
 }
 
 .home .about img {
@@ -435,7 +438,9 @@ a:hover,.btn:hover {
 	height: auto;
 }
 
-.home .about h4, .home .wonderwork h4 {
+.home .about h4,
+.home .reviews h4,
+.home .wonderwork h4 {
 	font-family: Arial;
 	font-style: normal;
 	text-transform: uppercase;
