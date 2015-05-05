@@ -13,4 +13,6 @@ module.exports = function() {
             });
         $locationProvider.html5Mode(true);
     }]);
+
+    require('./controller')(angular.module.categoryModule);
 }
