@@ -89,10 +89,7 @@ module.exports = function (categoryModule) {
                 $scope.categoryId = $routeParams.id || null;
                 $scope.searchField = SEARCH_KEY_NAME;
 
-                $scope.category = {
-                    'banner': '/theme/images/category/shop.jpg'
-                };
-
+                $scope.category = {};
                 $scope.popupProduct = {};
                 $scope.productService = $pdpProductService;
                 $scope.options = {};
@@ -368,6 +365,8 @@ module.exports = function (categoryModule) {
 
                         $scope.category.banner = categoryImages[$scope.categoryId] || categoryImages.default;
                     });
+                } else {
+                    $scope.category.banner = '/theme/images/category/shop.jpg';
                 }
 
                 initWatchers();
