@@ -30,4 +30,5 @@ module.exports = function() {
     })(jQuery);
 
     require('./common/init')();
+    require('./category/init')();
 }
