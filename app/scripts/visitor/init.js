@@ -69,7 +69,7 @@ module.exports = function(fb, gl){
                     if (isLoggedIn) {
                         $commonHeaderService.addMenuRightItem("/account", "My Account", "/account");
                         $commonHeaderService.addMenuRightItem("/logout", "Logout", "/logout");
-                        $commonSidebarService.addItem("ACCOUNT", "account", "glyphicon glyphicon-user", 90);
+                        // $commonSidebarService.addItem("ACCOUNT", "account", "glyphicon glyphicon-user", 90);
                     } else {
                         $commonHeaderService.addMenuRightItem("/login", "Login", "/login");
                         $commonSidebarService.removeItem("logout");

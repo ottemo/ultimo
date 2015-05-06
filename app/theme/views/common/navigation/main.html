@@ -104,7 +104,7 @@
 		</li>  
 
 	    <li class="visible-xs">
-	    	<a href="/cart" class="text-uppercase">Cart</a>
+	    	<a href="/cart">Cart</a>
 	    </li>
 	    
 	</ul>
@@ -118,7 +118,7 @@
 
 	    <!-- login/account/logout buttons -->
 	    <li ng-controller="commonHeaderController" >
-	    	<a href="{{item.link}}" class="text-uppercase" ng-repeat="item in rightMenu.getMenuRight()" >{{item.label}}</a>
+	    	<a href="{{item.link}}" ng-repeat="item in rightMenu.getMenuRight()" >{{item.label}}</a>
 	    </li>
 
 	    <!-- cart controller wrapper -->

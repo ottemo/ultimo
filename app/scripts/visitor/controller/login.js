@@ -182,7 +182,7 @@ module.exports = function (loginModule, gl) {
                                     $commonHeaderService.addMenuRightItem('/logout', 'Logout', '/logout');
 
                                     // Update sidebar
-                                    $commonSidebarService.addItem('ACCOUNT', 'account', 'glyphicon glyphicon-user', 90);
+                                    // $commonSidebarService.addItem('ACCOUNT', 'account', 'glyphicon glyphicon-user', 90);
 
                                     singInSuccess(isPopUp);
                                 }
@@ -215,7 +215,7 @@ module.exports = function (loginModule, gl) {
                                             $commonHeaderService.addMenuRightItem('/logout', 'Logout', '/logout');
 
                                             // Update sidebar
-                                            $commonSidebarService.addItem('ACCOUNT', 'account', 'glyphicon glyphicon-user', 90);
+                                            // $commonSidebarService.addItem('ACCOUNT', 'account', 'glyphicon glyphicon-user', 90);
 
                                             singInSuccess(isPopUp);
                                         }
