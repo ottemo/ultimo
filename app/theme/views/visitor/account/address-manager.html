@@ -29,8 +29,12 @@
                                 {{getAddressName(address)}}
                             </td>
                             <td class="text-right">
-                                <button class="glyphicon glyphicon-pencil btn btn-xs btn-info" ng-click="popUpOpen(address.ID)"></button>
-                                <button class="glyphicon glyphicon-remove btn btn-xs btn-danger" ng-click="remove(address.ID)"></button>
+                                <button class="btn btn-primary" ng-click="popUpOpen(address.ID)">
+                                    <i class="fa fa-pencil fa-fw"></i>
+                                </button>
+                                <button class="btn btn-danger" ng-click="remove(address.ID)">
+                                    <i class="fa fa-remove fa-fw"></i>
+                                </button>
                             </td>
                         </tr>
                     </table>

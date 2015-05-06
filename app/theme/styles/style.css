@@ -139,6 +139,7 @@ h4 {
 	font-weight: 300;
 }
 
+
 .btn {
 	text-transform: capitalize;
 	/*font-size: 14px;*/
@@ -153,15 +154,6 @@ h4 {
 	border-color: #F53797;
 }
 .btn-primary:hover {
-	background: #e52888;
-}
-.btn.btn-danger {
-	color: #fff;
-	background: #F53797;
-	border-color: #fff;
-}
-
-.btn.btn-danger:hover {
 	background: #e52888;
 }
 
