@@ -80,6 +80,28 @@ label {
 	margin-right: 15px;
 }
 
+
+.list-group-item:first-child,
+.list-group-item:last-child {
+	border-radius: 0;
+}
+.list-group-item.active,
+.list-group-item.active:hover,
+.list-group-item.active:focus {
+	background-color: #e52888;
+	border-color: #8E1E57;
+}
+
+.panel,
+.panel-heading,
+.panel > .table:last-child,
+.panel > .table-responsive:last-child > .table:last-child {
+	border-radius: 0;
+}
+.panel-footer {
+	background-color: #fff; 
+}
+
 .label-minor {
 	color: #6C7272;
 	font-style: italic;
@@ -117,6 +139,7 @@ h4 {
 	font-weight: 300;
 }
 
+
 .btn {
 	text-transform: capitalize;
 	/*font-size: 14px;*/
@@ -131,15 +154,6 @@ h4 {
 	border-color: #F53797;
 }
 .btn-primary:hover {
-	background: #e52888;
-}
-.btn.btn-danger {
-	color: #fff;
-	background: #F53797;
-	border-color: #fff;
-}
-
-.btn.btn-danger:hover {
 	background: #e52888;
 }
 
@@ -752,7 +766,7 @@ the extra space looks funny */
 	margin: 30px 0 0;
 	background: none;
 	padding-top: 25px;
-	border-top: 1px solid #000;
+	border-top: 1px solid #ddd;
 }
 
 #footer .social {

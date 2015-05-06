@@ -16,31 +16,53 @@
                 <form role="form" name="visitorForm">
 
                     <!--First Name-->
-                    <div class="form-group col-xs-12 col-sm-10 col-sm-offset-1"
-                         ng-class="{ 'has-error' : visitorForm.first_name.$invalid && !visitorForm.first_name.$pristine }">
-                        <label for="visitorFormZip">First Name *</label>
-                        <input type="text" class="form-control" id="visitorFormZip" placeholder="First Name"
-                               name="first_name"
-                               ng-model="visitor.fname" required>
+                    <div
+                    class="form-group"
+                    ng-class="{ 'has-error' : visitorForm.first_name.$invalid && !visitorForm.first_name.$pristine }">
+                        <label for="visitorFormFName">First Name *</label>
+                        <input
+                        type="text"
+                        class="form-control"
+                        id="visitorFormFName"
+                        placeholder="First Name"
+                        name="first_name"
+                        ng-model="visitor.fname"
+                        required>
 
                         <p ng-show="visitorForm.first_name.$invalid && !visitorForm.first_name.$pristine"
                            class="help-block">This field is required.</p>
                     </div>
                     
                     <!--Last Name-->
-                    <div class="form-group col-xs-12 col-sm-10 col-sm-offset-1">
-                        <label for="billingInputCompany">Last Name</label>
-                        <input type="text" class="form-control" id="billingInputCompany" placeholder="Last Name"
-                               name="company"
-                               ng-model="visitor.lname">
+                    <div
+                    class="form-group"
+                    ng-class="{ 'has-error' : visitorForm.last_name.$invalid && !visitorForm.last_name.$pristine }">
+                        <label for="visitorFormLName">Last Name *</label>
+                        <input
+                        type="text"
+                        class="form-control"
+                        id="visitorFormLName"
+                        placeholder="Last Name"
+                        name="last_name"
+                        ng-model="visitor.lname"
+                        required>
+
+                        <p ng-show="visitorForm.last_name.$invalid && !visitorForm.last_name.$pristine"
+                           class="help-block">This field is required.</p>
                     </div>
 
                     <!--Email-->
-                    <div class="form-group col-xs-12 col-sm-10 col-sm-offset-1"
+                    <div class="form-group"
                          ng-class="{ 'has-error' : visitorForm.email.$invalid && !visitorForm.email.$pristine }">
-                        <label for="visitorFormCity">Email*</label>
-                        <input type="text" class="form-control" id="visitorFormCity" placeholder="Email" name="email"
-                               ng-model="visitor.email" required>
+                        <label for="visitorFormEmail">Email*</label>
+                        <input
+                        type="text"
+                        class="form-control"
+                        id="visitorFormEmail"
+                        placeholder="Email"
+                        name="email"
+                        ng-model="visitor.email"
+                        required>
 
                         <p ng-show="visitorForm.email.$invalid && !visitorForm.email.$pristine"
                            class="help-block">This field is required.</p>
@@ -49,8 +71,8 @@
                 <div class="clearfix"></div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" ng-click="save()">Save</button>
                 <button type="submit" data-dismiss="modal" class="btn btn-default">Close</button>
+                <button type="submit" class="btn btn-primary" ng-click="save()">Save</button>
             </div>
         </div>
     </div>

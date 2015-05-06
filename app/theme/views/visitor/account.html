@@ -3,87 +3,68 @@
 	<h2 class="text-center">My Account</h2>
 	<br>
 
-    <!-- left-side menu -->
-    <ng-include src="getTemplate('visitor/account/menu.html')"></ng-include>
+	<div class="row">
+		<!-- left-side menu -->
+		<ng-include src="getTemplate('visitor/account/menu.html')"></ng-include>
 
-    <!-- profile layout -->
-    <div class="col-xs-12 col-sm-10" ng-controller="visitorAccountController">
-	    
-	    <!-- account info -->
-	    <div class="col-sm-8 col-sm-offset-1 row">
-	        <div class="panel panel-primary">
-	            <div class="panel-heading">
-	                <h3 class="panel-title">
-	                    Account info
-	                </h3>
-	            </div>
-	            <table class="table text-center table-striped">
-	                <!-- first name -->
-	                <tr>
-	                    <td>
-	                        First name
-	                    </td>
-	                    <td>
-	                        <!-- account first name from base -->
-	                        <strong ng-bind="visitor.fname"></strong>
-	                    </td>
-	                </tr>
-	                <!-- last name -->
-	                <tr>
-	                    <td>
-	                        Last name
-	                    </td>
-	                    <td>
-	                        <!-- account last name from base -->
-	                        <strong ng-bind="visitor.lname"></strong>
-	                    </td>
-	                </tr>
-	                <!-- email -->
-	                <tr>
-	                    <td>
-	                        Email
-	                    </td>
-	                    <td>
-	                        <!-- account email from base -->
-	                        <strong ng-bind="visitor.email"></strong>
-	                    </td>
-	                </tr>
-	                <tr>
-	                    <td colspan="2">
-	                        <div class="hidden-xs">
-	                        	<!-- change password modal button -->
-		                        <button data-toggle="modal" data-target="#form-change-password" class="btn btn-primary" >
-		                            <i class="glyphicon glyphicon-lock"></i>&nbsp;
-		                            Change Password 
-		                        </button>
+		<!-- profile layout -->
+		<div class="col-xs-12 col-sm-9" ng-controller="visitorAccountController">
+			
+			<!-- account info -->
+			<div class="">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							Account info
+						</h3>
+					</div>
+					<table class="table">
+						<!-- first name -->
+						<tr>
+							<td>
+								First name
+							</td>
+							<td>
+								<!-- account first name from base -->
+								<strong ng-bind="visitor.fname"></strong>
+							</td>
+						</tr>
+						<!-- last name -->
+						<tr>
+							<td>
+								Last name
+							</td>
+							<td>
+								<!-- account last name from base -->
+								<strong ng-bind="visitor.lname"></strong>
+							</td>
+						</tr>
+						<!-- email -->
+						<tr>
+							<td>
+								Email
+							</td>
+							<td>
+								<!-- account email from base -->
+								<strong ng-bind="visitor.email"></strong>
+							</td>
+						</tr>
+					</table>
+					<div class="panel-footer">
+						<button class="btn btn-primary" data-toggle="modal" data-target="#parent_popup_profile" >
+							Edit info
+						</button>
 
-		                        <!-- change info modal button -->
-		                        <button class="btn btn-success" data-toggle="modal" data-target="#parent_popup_profile" >
-		                            <i class="glyphicon glyphicon-user"></i>&nbsp;
-		                            Edit info
-		                        </button>
-	                        </div>
-	                        <span class="visible-xs btn-group-vertical">
-	                        	<!-- change password modal button -->
-		                        <button data-toggle="modal" data-target="#form-change-password" class="btn btn-primary" >
-		                            <i class="glyphicon glyphicon-lock"></i>&nbsp;
-		                            Change Password 
-		                        </button>
-
-		                        <!-- change info modal button -->
-		                        <button class="btn btn-success" data-toggle="modal" data-target="#parent_popup_profile" >
-		                            <i class="glyphicon glyphicon-user"></i>&nbsp;
-		                            Edit info
-		                        </button>
-	                        </span>
-	                    </td>
-	                </tr>
-	            </table>
-	        </div>
-	    </div>
+						<button data-toggle="modal" data-target="#form-change-password" class="btn btn-default" >
+							Change Password 
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
-    <!-- change password modal -->
+	<!-- change password modal -->
 	<ng-include src="getTemplate('visitor/account/modal/change-password.html')"></ng-include>
 
 	<!-- change info modal -->
