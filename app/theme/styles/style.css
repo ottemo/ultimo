@@ -80,6 +80,28 @@ label {
 	margin-right: 15px;
 }
 
+
+.list-group-item:first-child,
+.list-group-item:last-child {
+	border-radius: 0;
+}
+.list-group-item.active,
+.list-group-item.active:hover,
+.list-group-item.active:focus {
+	background-color: #e52888;
+	border-color: #8E1E57;
+}
+
+.panel,
+.panel-heading,
+.panel > .table:last-child,
+.panel > .table-responsive:last-child > .table:last-child {
+	border-radius: 0;
+}
+.panel-footer {
+	background-color: #fff; 
+}
+
 .label-minor {
 	color: #6C7272;
 	font-style: italic;

@@ -16,7 +16,7 @@
                 <form role="form" name="visitorForm">
 
                     <!--First Name-->
-                    <div class="form-group col-xs-12 col-sm-10 col-sm-offset-1"
+                    <div class="form-group"
                          ng-class="{ 'has-error' : visitorForm.first_name.$invalid && !visitorForm.first_name.$pristine }">
                         <label for="visitorFormZip">First Name *</label>
                         <input type="text" class="form-control" id="visitorFormZip" placeholder="First Name"
@@ -28,7 +28,7 @@
                     </div>
                     
                     <!--Last Name-->
-                    <div class="form-group col-xs-12 col-sm-10 col-sm-offset-1">
+                    <div class="form-group">
                         <label for="billingInputCompany">Last Name</label>
                         <input type="text" class="form-control" id="billingInputCompany" placeholder="Last Name"
                                name="company"
@@ -36,7 +36,7 @@
                     </div>
 
                     <!--Email-->
-                    <div class="form-group col-xs-12 col-sm-10 col-sm-offset-1"
+                    <div class="form-group"
                          ng-class="{ 'has-error' : visitorForm.email.$invalid && !visitorForm.email.$pristine }">
                         <label for="visitorFormCity">Email*</label>
                         <input type="text" class="form-control" id="visitorFormCity" placeholder="Email" name="email"
@@ -49,8 +49,8 @@
                 <div class="clearfix"></div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" ng-click="save()">Save</button>
                 <button type="submit" data-dismiss="modal" class="btn btn-default">Close</button>
+                <button type="submit" class="btn btn-primary" ng-click="save()">Save</button>
             </div>
         </div>
     </div>
