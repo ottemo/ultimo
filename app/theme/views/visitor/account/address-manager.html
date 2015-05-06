@@ -111,11 +111,16 @@
                                 <!--Country-->
                                 <div class="form-group"
                                      ng-class="{ 'has-error' : (submitted && addressForm.country.$error.required) || (addressForm.country.$invalid && !addressForm.country.$pristine) }">
-                                    <label for="addressFormCity">Country*</label>
+                                    <label for="addressFormCountry">Country*</label>
 
                                     <div >
-                                        <select class="form-control" name="country" ng-model="address.country" required
-                                                ng-options="c.Code as c.Name for c in countries" >
+                                        <select
+                                        class="form-control"
+                                        id="addressFormCountry"
+                                        name="country"
+                                        ng-model="address.country"
+                                        required
+                                        ng-options="c.Code as c.Name for c in countries" >
                                         </select>
                                     </div>
 
