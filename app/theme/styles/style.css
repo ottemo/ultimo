@@ -287,8 +287,14 @@ a:hover,.btn:hover {
 /* main menu */
 #navbar {
 	border: none;
+	padding:0;
+	margin: 0 -2px;
 }
-
+@media (min-width: 992px) {
+	#navbar {
+		margin: 0;
+	}
+}
 #navbar a {
 	width: auto !important;
 	font-family: Georgia;
