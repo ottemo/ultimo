@@ -5,8 +5,11 @@ build:
   steps:
     # A step that executes `npm install` command
     - script:
+        name: Install Node v0.12 Package
+        code: curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash -
+    - script: 
         name: Install Node v0.12
-        code: curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash -; sudo apt-get install -y nodejs
+        code: sudo apt-get update -y ; sudo apt-get install -y nodejs
     - script:
         name: Upgrade NPM
         code: sudo npm update -g npm
