@@ -10,8 +10,11 @@ build:
     - script:
         name: Upgrade NPM
         code: sudo npm update -g npm
+    - script: 
+        name: Check Node Version
+        code: sudo npm version
     - script:
-        name: Install bower/gulp
+        name: NPM Install
         code: sudo npm install -g bower gulp && sudo npm install
     - script:
         name: Run bower install
@@ -47,6 +50,3 @@ deploy:
             token: $HIPCHAT_TOKEN
             room-id: 1312123
             from-name: Wercker
-
-
-
