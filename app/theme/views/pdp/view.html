@@ -14,7 +14,7 @@
             err-src="placeholder.png"
             alt=""/>
         </a>
-        <div class="row" ng-if="productImages.length > 1">
+        <div class="row hidden-xs" ng-if="productImages.length > 1">
             <div ng-repeat="img in productImages" class="col-xs-4">
                 <a class="thumbnail" href>
                     <img
@@ -26,17 +26,17 @@
                 </a>
             </div>
         </div>
+
+        <!-- optional video field -->
+        <div class="embed-responsive embed-responsive-16by9" ng-if="product.video_url">
+            <iframe class="embed-responsive-item" ng-src="{{product.video_url | trustedUrl}}" ></iframe>
+        </div>
     </div>
 
     <!-- info -->      
     <div class="col-xs-12 col-md-6">
         <h1 class="pdp-product-name">{{product.name}}</h1>
         <div class="pdp-description std" ng-bind-html="product.description"></div>
-
-        <!-- optional video field -->
-        <div class="embed-responsive embed-responsive-16by9" ng-if="product.video_url">
-            <iframe class="embed-responsive-item" ng-src="{{product.video_url | trustedUrl}}" ></iframe>
-        </div>
 
         <div class="pdp-price">
             <label>Price:</label>
