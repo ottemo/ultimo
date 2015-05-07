@@ -12,13 +12,13 @@ build:
         code: sudo apt-get update -y ; sudo apt-get install -y nodejs
     - script:
         name: Upgrade NPM
-        code: sudo npm update -g npm
+        code: sudo /usr/bin/npm update -g npm
     - script: 
         name: Check Node Version
-        code: sudo npm version
+        code: sudo /usr/bin/npm version
     - script:
         name: NPM Install
-        code: sudo npm install -g bower gulp && sudo npm install
+        code: sudo /usr/bin/npm install -g bower gulp && sudo /usr/bin/npm install
     - script:
         name: Run bower install
         code: bower install
@@ -33,7 +33,7 @@ build:
     # and the code value contains the command that get executed
     - script:
         name: Echo NPM information
-        code: npm version
+        code: /usr/bin/npm version
   after-steps:
     - wercker/hipchat-notify@1.0.3:
         token: $HIPCHAT_TOKEN
