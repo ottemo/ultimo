@@ -1,7 +1,7 @@
 {
-  "name": "Kari Gran eCommerce Store",
+  "name": "KariGran",
   "version": "0.9.7-b385",
-  "description": "Storefront for Kari Gran",
+  "description": "Storefront for Kari Gran eCommerce",
   "repository": {
     "type": "git",
     "url": "git://github.com/ottemo/karigran.git"
