@@ -9,16 +9,16 @@ build:
         code: curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash -
     - script: 
         name: Install Node v0.12
-        code: sudo apt-get update -y ; sudo apt-get install -y nodejs
+        code: sudo apt-get update -y ; sudo apt-get upgrade -y nodejs
     - script:
         name: Upgrade NPM
-        code: sudo /usr/bin/npm update -g npm
+        code: sudo npm update -g npm
     - script: 
         name: Check Node Version
-        code: sudo /usr/bin/npm version
+        code: sudo npm version
     - script:
         name: NPM Install
-        code: sudo /usr/bin/npm install -g bower gulp && sudo /usr/bin/npm install
+        code: sudo npm install -g bower gulp && sudo npm install
     - script:
         name: Run bower install
         code: bower install
@@ -33,7 +33,7 @@ build:
     # and the code value contains the command that get executed
     - script:
         name: Echo NPM information
-        code: /usr/bin/npm version
+        code: npm version
   after-steps:
     - wercker/hipchat-notify@1.0.3:
         token: $HIPCHAT_TOKEN
