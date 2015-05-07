@@ -51,37 +51,13 @@
     };
 
     /*
-     * Get the current environment in use, 'development' is selected by default
-     * Set the following environment variables or call directly from the
-     * commandline like this:
+     * Set the current environment in use, 'development' is selected by default
      *
-     *     $ NODE_ENV=staging DEFAULT_ROOT=admin DEFAULT_PASS=admin gulp build
+     *     $ NODE_ENV=production gulp build
      *
-     * NODE_ENV: options are 'development', 'staging', 'production'
-     * FOUNDATION_URI: set to the url/port for Foundation
-     * DEFAULT_ROOT: set to administrator userid
-     * DEFAULT_PASS: set to the administrator password
-     * THEME_AS_DEFAULT: set to the desired default theme
+     * NODE_ENV: options are 'development' & 'production'
      */
     var env = process.env.NODE_ENV || 'development';
-    var DEFAULT_ROOT = process.env.DEFAULT_ROOT || 'admin';
-    var DEFAULT_PASS = process.env.DEFAULT_PASS || 'admin';
-
-    var DEV_FOUNDATION_URI = process.env.DEV_FOUNDATION_URI || 'http://dev.ottemo.io:3000';
-    var FOUNDATION_URI = process.env.FOUNDATION_URI || 'http://dev.ottemo.io:3000';
-
-//    gutil.log("Your db settings and your environment settings must match when");
-//    gutil.log("running 'gulp build' or your templates will be blank.  Example");
-//    gutil.log("");
-//    gutil.log("    $ NODE_ENV=development DEFAULT_ROOT=admin DEFAULT_PASS=admin FOUNDATION_URI=http://<server>:<port> gulp build");
-//    gutil.log("");
-//    gutil.log("Your current ENV settings are: ");
-//    gutil.log("");
-//    gutil.log("NODE_ENV = ", env);
-//    gutil.log("DEV_FOUNDATION_URI = ", DEV_FOUNDATION_URI);
-//    gutil.log("FOUNDATION_URI = ", FOUNDATION_URI);
-//    gutil.log("");
-
 
     // Print a node stack trace upon error
     gulp.on('err', function(e) {
@@ -219,22 +195,12 @@
     // build task
     gulp.task('build', function () {
 
-        if (env === 'development') {
-            //gulp.start('jshint')
-            gulp.start('vendor');
-            gulp.start('misc');
-            gulp.start('html');
-            gulp.start('css');
-            gulp.start('imagemin');
-            gulp.start('browserify');
-        } else {
-            gulp.start('vendor');
-            gulp.start('misc');
-            gulp.start('html');
-            gulp.start('css');
-            gulp.start('imagemin');
-            gulp.start('browserify');
-        }
+        gulp.start('vendor');
+        gulp.start('misc');
+        gulp.start('html');
+        gulp.start('css');
+        gulp.start('imagemin');
+        gulp.start('browserify');
     });
 
 })();
