@@ -15,7 +15,7 @@ build:
         code: sudo npm update -g npm
     - script: 
         name: Check Node Version
-        code: sudo npm version
+        code: sudo node -v ; which node
     - script:
         name: NPM Install
         code: sudo npm install -g bower gulp && sudo npm install
