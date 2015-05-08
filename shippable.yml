@@ -5,12 +5,15 @@ node_js:
 
 # build image
 build_image: shippableimages/ubuntu1404_nodejs
+
+before_install:
+    # install NodeJS v0.12
     - source ~/.nvm/nvm.sh && nvm install $SHIPPABLE_NODE_VERSION
     - npm version
     - npm install -g gulp bower
 
-# install the required dependencies
 install: 
+    # install the required dependencies
     - npm install
     - bower install
 
