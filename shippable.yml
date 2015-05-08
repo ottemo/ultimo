@@ -9,7 +9,7 @@ build_image: shippableimages/ubuntu1404_nodejs
 env: 
   global:
     - PROJECT=KariGran HIPCHAT_ROOM=KariGran
-    - secure: 8b95e19a-1a63-49b0-a03e-ae4fedce4be7
+    - secure: Z1cpkgfxpFoLbu6K5VG/ADqTqAMCGbqKFx8GopC7CaRBbokbc9TZ5+Ww+RRO2yS8EXshOLcukdmDVlY8HW2JA26/xmFWhr46jqzwYYPJBQ4ZUv7FAqt9TJh0hhvvX6Fzwl/P9kWq5s8ZcqTq1z383P3M0mSTKr7H80AlfLspdi4nEMnwyzU2LipfmyGPbZliuGj1DII9u5YdZig+UFVb737Hk1CGJkp3bTTC1PNy9bkVg5P0yD1ExE8DmzCBHrTB5KtuI5X+y0+ITgZ9tQAAr52oqFJfkkr7Vr3AuiX4pk1Nt8BrurEGnYsHWJ4myNJ3IKb7l+YtiehLxvygtJ2ftw==
 
 before_install:
     # install NodeJS v0.12
