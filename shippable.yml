@@ -21,7 +21,7 @@ before_install:
 install: 
     # install the required dependencies
     - npm install
-    - bower install
+    - bower install --allow-root
 
 script: 
     - NODE_ENV=production gulp build
