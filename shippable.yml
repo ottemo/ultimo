@@ -9,9 +9,8 @@ build_image: shippableimages/ubuntu1404_nodejs
 env: 
   global:
     - PROJECT=KariGran HIPCHAT_ROOM=KariGran
-#    - secure: Z1cpkgfxpFoLbu6K5VG/ADqTqAMCGbqKFx8GopC7CaRBbokbc9TZ5+Ww+RRO2yS8EXshOLcukdmDVlY8HW2JA26/xmFWhr46jqzwYYPJBQ4ZUv7FAqt9TJh0hhvvX6Fzwl/P9kWq5s8ZcqTq1z383P3M0mSTKr7H80AlfLspdi4nEMnwyzU2LipfmyGPbZliuGj1DII9u5YdZig+UFVb737Hk1CGJkp3bTTC1PNy9bkVg5P0yD1ExE8DmzCBHrTB5KtuI5X+y0+ITgZ9tQAAr52oqFJfkkr7Vr3AuiX4pk1Nt8BrurEGnYsHWJ4myNJ3IKb7l+YtiehLxvygtJ2ftw==
-    - secure: mVZTFVZNKkys6wso2miwNGN6+pLR7EFCMYG2h+sxE1tPhvFAPO7wZvSRQPTvFpXBYna2+1VsVivddUvTyq778mnmDLjWZQCWul2/tQl2aI83ZGDnpnqf41/gxNzVObL/A6e+W/Ip1HPZHymTCV6/Nyu++bvM+olQhDBWXncBUJf2jL2gHjSfFZADkIg9rbbP/mDTXdm9QBuTQSczho7mXN1EnTCsqZr1eU5W+jR8+NJ9hXp2KMqiKhoTJ4lDlA2H4+1coH/tfQPBQlz6pI8XPKVA5xAMuds0T2lfVA4r8TESP4qDauq0+8ejIWaQg2FNvb6Z3W2s+Gq2jAVUum49Tw==
-
+    - secure: JePvX8e49vPPWRLagd9lvuwV8wRBUD1EDkHnANJ8bTzfnDiAPBgqrgocliz7KR6F5ZPHBAvRkrIa6ZP1PVLdC/LeOzoojFyPzU7iiKxkatT2+Ry+QKnH603UGJzIfui1bLQ/eZT2D8wOjMggs4z8DXH62HCmzl+ovhboU1XBYRBuYVMZBKKN/2kcz8LVTZ0BP9jLLMJ5xHb9PDOX7fwBREnjn0dN2yy6uNpz9t7rKJCxNf4uk7+M6AHrryU4mEHpEfu9wbUhMGve5Del78YcZfc5PMDtmKqvamUDICOMCzHRFdl3kpkNsr72ynoZ3s0Vus/3cH9hShCfHNacVk4xQA==
+      
 before_install:
     # install NodeJS v0.12
     - source ~/.nvm/nvm.sh && nvm install $SHIPPABLE_NODE_VERSION
