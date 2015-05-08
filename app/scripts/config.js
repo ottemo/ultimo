@@ -3,9 +3,9 @@ module.exports = {
     "general.app.media_path": "//kg.dev.ottemo.io/media/",
 
     // social networks
-    "general.app.login.facebook.appId" : "728744980537129",
-    "general.app.login.facebook.secretKey" : "58f763bd74fab043aa3b3c0221291c94",
-    "general.app.login.google.clientId" : "1074763412644-qq25glj3tb87bq7bk5m8793da11ddheh.apps.googleusercontent.com",
+    "general.app.login.facebook.appId" : "553891724751037",
+    "general.app.login.facebook.secretKey" : "1b0aed24d291d155cccaf115fc976184",
+    "general.app.login.google.clientId" : "386198944881-iv1hl0ta5n1v7u75jqvjot5sr2egn9uc.apps.googleusercontent.com",
 
     // general
     "general.app.category.itemsPerPage" : 30,
