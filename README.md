@@ -1,7 +1,7 @@
 KariGran Store
 ==========
 
-[![wercker status](https://app.wercker.com/status/1e2fcb8f688e528503e95f17fbf5b081/m "wercker status")](https://app.wercker.com/project/bykey/1e2fcb8f688e528503e95f17fbf5b081)
+[![Build Status](https://api.shippable.com/projects/554bf823edd7f2c052e51c88/badge?branchName=develop)](https://app.shippable.com/projects/554bf823edd7f2c052e51c88/builds/latest)
 
 [Link to HipChat Room for Support](https://www.hipchat.com/gWgE1EkYF)
 
