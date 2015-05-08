@@ -1,0 +1,18 @@
+language: node_js
+
+node_js: 
+    - 0.12
+
+# build image
+build_image: shippableimages/ubuntu1404_nodejs
+    - source ~/.nvm/nvm.sh && nvm install $SHIPPABLE_NODE_VERSION
+    - npm version
+    - npm install -g gulp bower
+
+# install the required dependencies
+install: 
+    - npm install
+    - bower install
+
+script: 
+    - NODE_ENV=production gulp build
