@@ -9,8 +9,9 @@ build_image: shippableimages/ubuntu1404_nodejs
 env: 
   global:
     - PROJECT=KariGran HIPCHAT_ROOM=KariGran
+    - REMOTE_HOST=http://kg.dev.ottemo.io FOUNDATION_URI=http://foundation.kg.dev.ottemo.io
     - secure: JePvX8e49vPPWRLagd9lvuwV8wRBUD1EDkHnANJ8bTzfnDiAPBgqrgocliz7KR6F5ZPHBAvRkrIa6ZP1PVLdC/LeOzoojFyPzU7iiKxkatT2+Ry+QKnH603UGJzIfui1bLQ/eZT2D8wOjMggs4z8DXH62HCmzl+ovhboU1XBYRBuYVMZBKKN/2kcz8LVTZ0BP9jLLMJ5xHb9PDOX7fwBREnjn0dN2yy6uNpz9t7rKJCxNf4uk7+M6AHrryU4mEHpEfu9wbUhMGve5Del78YcZfc5PMDtmKqvamUDICOMCzHRFdl3kpkNsr72ynoZ3s0Vus/3cH9hShCfHNacVk4xQA==
-    - secure: Sc8X6PKKcbsu9XyDH6m7rMDKJ7RUMwwagNQpThqrxMGTcTkDRxUM/+dTDukUKzQdfFu5VQSYBq+HPinB0eg3kPNjjzr0Lr3XfyXMXGo5ZyWAO7LluvlyDIYCHVRJNlVOxa0wvFbxtFCXCCFkoN2V0C7olRpXWK+LEWdfFdOWO1ARfGa0PLCzfrWAtTif8P2cnFXK8uaUvT8Fhv8nxF0BjtlRzGC8cj3OR6FxOiRkYbsSw9BK8YQCtiRSIYUrHDGVenrIJg/HOG0DDeVib9HfCDhV3YOEpZCwiZiDG01JRUAQVjWAOeriRtdg0Jw+uS8tiW2PJ3W2ih7ObOjYcGo6ZB5dHhRN9wCq3gJiTQJ5oH6r9MAyfJaoUZyWzbANEMRzwLeWUIsA71ONaH6QVjIIUmAfhk91ed5FNU37zQszw6+2QmZ4IafVP9rG03ncFseWXVcLKu1ZqTxwU7c5l4LPm8OVjoFVTawM5OOwTbxVe1NcJKK8xlOvfSoQXI2tq45As8Lpg9HCcOB+Mc+S08tzoIRNod8c62xYoCGWCaPaMNsDWB+OtCQYHEHs5fWFetD0/mLtSjQB9FTEt85hbtORSqc7aj8i/TZEqRn68hLihN02EGo1IMkKMDWvYlKOSifuWmab5xCCQ7w6hAFfDNqYnTUEh4ZG2gOn+nSAP/joOY9MxuAbyZ8Q7c063++KHC1BZcfCtzoChFZhMmZQn/niEmYHyhLA8UuG0IIBidb7wx8AExXGI3e6CsdSg6nJbVLz0d4fRIa7IQPXiasQiwfJNeHM51lNyfHQ4cFYPCHLtPLcdFFUWrK5zZOeM1YJnRhTuvDGbPFRsBubMlV13172SwWBJsiSHkR/ULKIx02mwSAAWSswHZVIsUZzv6Zt6319esHGI5gyaY+vVQN9kQPMyhVZENa0VqhqesI3+ZS4YtNMy5qPNMKy8lIflTnF0OhAx8PIRP1SUdTsTblDIvHxdEJTTlh5W8UwiQfDnDMfwBOj4zTv5EsVwq+1Wg6gChBt 
+    - secure: dNcmaHssl+2DzpCxXk90IXwcaQ1nS2DCBmVgZRyYUkkLsPYFSeO0UV1Adohpf6mBLM3h4+i5M2SBl7m5ZwjDnUXKUTQYc0Z32semUdFb4CjuLeubMeLXMuDiGh1AwZPhJ3Ki6H1BEG1XekUHoVl7Nc218RX9gATKIQtSrfAdgT6kgnSdbvd4Z2u7YX6iGWld1pu6xYf0Q9y24eUEPkQUxiCSFp+qutj+e5zeq//Y/615RM9ImIqPYRTGUQmxeNWSKH4iGE/vf5nrwfl+Y7EoxI8cSvAv4TfgMM59mj5brAzplWhN80Isjy1TmNj+bBkxHLyVH90exgcgV2fzZMD0NIAr11//hmIo6g4EREDSymi6CiCGjER0pY+nHVEipJKS5njLLrBNF/yHzmmf44+pbmM/g6C0n2LLR8R6BOhmx9QH9tInbDLzRZ/VN5mB9TqOeJuVg7EE+3SiyvOeHqV0aehV7IHzE5TRrukVYZ8TDJZ4jgS4eXTkE7SFBa3tCXtmg2fJiwejHfDe6Wl7/KgpZdB6wqouVXjhmSFFLFhw6EWYnJRFazHLg+iJlLQHdrvkgF5SHZPAFkK0zow1bwEn2XearC7NQLTbHUTiyXckgypkVCn3Je69noN5SUBlftCOiMNPfyhxPh0xmUMjcyRjSVRxikvV4q+P7mCE53VhP8Q=
 
 before_install:
     # install NodeJS v0.12
@@ -25,12 +26,12 @@ install:
     - bower install --allow-root
 
 script: 
-    - NODE_ENV=production FOUNDATION_URI=$FOUNDATION gulp build
+    - NODE_ENV=production gulp build
 
 after_failure:
     - python hipchat_notifier.py --project $PROJECT --room $HIPCHAT_ROOM --token $HIPCHAT_TOKEN
 
 after_success:
     - echo "$REMOTE_HOST_KEY" >> ./id_rsa.pub 
-    - scp -i ./id_rsa.pub ./dist ottemo@$REMOTE_HOST:~/storefront/dist
+    - scp -i id_rsa.pub dist ottemo@$REMOTE_HOST:~/storefront/dist
     - python hipchat_notifier.py --project $PROJECT --room $HIPCHAT_ROOM --token $HIPCHAT_TOKEN -s
