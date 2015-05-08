@@ -1,14 +1,23 @@
-box: wercker/nodejs
+box: nahody/ubuntu12.04-nodejs0.12@0.3.0
 # Build definition
 build:
   # The steps that will be executed on build
   steps:
     # A step that executes `npm install` command
+    # - script:
+    #    name: Install Node v0.12 Package
+    #    code: curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash -
+    #- script: 
+    #    name: Install Node v0.12
+    #    code: sudo apt-get update -y ; sudo apt-get upgrade -y nodejs
     - script:
         name: Upgrade NPM
         code: sudo npm update -g npm
+    - script: 
+        name: Check Node Version
+        code: sudo node -v ; which node
     - script:
-        name: Install bower/gulp
+        name: NPM Install
         code: sudo npm install -g bower gulp && sudo npm install
     - script:
         name: Run bower install
@@ -44,6 +53,3 @@ deploy:
             token: $HIPCHAT_TOKEN
             room-id: 1312123
             from-name: Wercker
-
-
-
