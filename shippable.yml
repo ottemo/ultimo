@@ -6,6 +6,11 @@ node_js:
 # build image
 build_image: shippableimages/ubuntu1404_nodejs
 
+env: 
+  global:
+    - PROJECT=KariGran HIPCHAT_ROOM=KariGran
+    - secure: 8b95e19a-1a63-49b0-a03e-ae4fedce4be7
+
 before_install:
     # install NodeJS v0.12
     - source ~/.nvm/nvm.sh && nvm install $SHIPPABLE_NODE_VERSION
@@ -20,3 +25,9 @@ install:
 
 script: 
     - NODE_ENV=production gulp build
+
+after_failure:
+    - python hipchat_notifier_v2.py --project $PROJECT --room $HIPCHAT_ROOM --token $HIPCHAT_TOKEN
+
+after_success:
+    - python hipchat_notifier_v2.py --project $PROJECT --room $HIPCHAT_ROOM --token $HIPCHAT_TOKEN -s
