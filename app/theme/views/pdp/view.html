@@ -2,9 +2,10 @@
 <div class="row">
     <!-- product image  -->
     <div class="text-center col-xs-12 col-md-6" ng-init="init()">
+        <!-- TODO: We shouldn't have to loop over the images to find the default -->
         <a
-        class="pdp-primary-img"
-        href="{{getImage(imagesPath, img,'big')}}"
+        class="pdp-primary-img js-img-zoom"
+        href="{{getImage(imagesPath, img)}}"
         ng-repeat="img in productImages"
         ng-if="img==product.default_image">
             <img
@@ -13,7 +14,7 @@
             err-src="placeholder.png"
             alt=""/>
         </a>
-        <div class="row">
+        <div class="row hidden-xs" ng-if="productImages.length > 1">
             <div ng-repeat="img in productImages" class="col-xs-4">
                 <a class="thumbnail" href>
                     <img
@@ -21,9 +22,14 @@
                     ng-src="{{getImage(imagesPath, img, 'thumb')}}"
                     err-src="placeholder.png"
                     alt=""
-                    data-src-big="{{getImage(imagesPath, img,'big')}}"/>
+                    data-src-big="{{getImage(imagesPath, img)}}"/>
                 </a>
             </div>
+        </div>
+
+        <!-- optional video field -->
+        <div class="embed-responsive embed-responsive-16by9" ng-if="product.video_url">
+            <iframe class="embed-responsive-item" ng-src="{{product.video_url | trustedUrl}}" ></iframe>
         </div>
     </div>
 
@@ -31,11 +37,6 @@
     <div class="col-xs-12 col-md-6">
         <h1 class="pdp-product-name">{{product.name}}</h1>
         <div class="pdp-description std" ng-bind-html="product.description"></div>
-
-        <!-- optional video field -->
-        <div class="embed-responsive embed-responsive-16by9" ng-if="product.video_url">
-            <iframe class="embed-responsive-item" ng-src="{{product.video_url | trustedUrl}}" ></iframe>
-        </div>
 
         <div class="pdp-price">
             <label>Price:</label>
@@ -124,7 +125,7 @@
 <!-- TODO: move out -->
 <script>
     $('body').removeClass('modal-open');
-    $("a.img-zoom").fancybox({
+    $('.js-img-zoom').fancybox({
         helpers: {
             title : {
                 type : 'outside'
@@ -137,12 +138,12 @@
 
     $(document).ready(function () {
         //slider
-        $(document).on('click','.slide-small',function() {
+        $(document).on('click', '.slide-small', function() {
             $('.slide-image')
-                             .attr('src',$(this).attr('src'))
-                             .hide()
-                             .fadeIn(500)
-                             .parent().attr('href',$(this).attr('data-src-big'))
+            .attr('src',$(this).attr('src'))
+            .hide()
+            .fadeIn(500)
+            .parent().attr('href',$(this).attr('data-src-big'))
         });
     });
 
