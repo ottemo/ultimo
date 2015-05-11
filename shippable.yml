@@ -22,7 +22,11 @@ install:
     # install the required dependencies
     - npm install
     - bower install --allow-root
-    - scp -r dist ottemo@$REMOTE_HOST:~/storefront/
+    - if ["$BRANCH" = "develop"]; then\
+        scp -r dist ottemo@$REMOTE_HOST:~/storefront/\
+    else\
+    fi
+        
 script: 
     - NODE_ENV=production gulp build
 
