@@ -32,7 +32,10 @@ def post_message(connection, url, room, success, project):
 
     status_text = 'succeeded' if success else 'failed'
     color = 'green' if success else 'red'
-    title = '<a href="%s">Build #%s</a> %s for project <strong>%s</strong> on branch %s' % (build_url, build_number, status_text, project, branch)
+    if branch != 'develop':
+        title = '<a href="%s">Build #%s</a> %s for project <strong>%s</strong> on branch %s' % (build_url, build_number, status_text, project, branch)
+    elif branch == 'develop':
+        title = '<a href="%s">Build & Deployment #%s</a> %s for project <strong>%s</strong> on branch %s' % (build_url, build_number, status_text, project, branch)
     author = '<strong>%s</strong><br>%s' % (get_author(commit), get_date(commit))
     description = '<strong>%s</strong><br>%s' % (get_title(commit), get_full_message(commit))
     message = '<br>'.join([title, author, description])
