@@ -32,4 +32,4 @@ after_failure:
 after_success:
     - python hipchat_notifier.py --project $PROJECT --room $HIPCHAT_ROOM --token $HIPCHAT_TOKEN -s
 after_script:
-    - scp -r dist ottemo@$REMOTE_HOST:~/storefront/dist
+    - scp -r dist ottemo@$REMOTE_HOST:~/storefront/
