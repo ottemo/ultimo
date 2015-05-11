@@ -32,6 +32,6 @@ after_failure:
     - python hipchat_notifier.py --project $PROJECT --room $HIPCHAT_ROOM --token $HIPCHAT_TOKEN
 
 after_success:
-    - echo "$REMOTE_HOST_KEY" >> ./id_rsa.pub 
+    - echo "$REMOTE_HOST_KEY" >> ./id_rsa.pub && chmod 400 ./id_rsa.pub 
     - scp -i id_rsa.pub dist ottemo@$REMOTE_HOST:~/storefront/dist
     - python hipchat_notifier.py --project $PROJECT --room $HIPCHAT_ROOM --token $HIPCHAT_TOKEN -s
