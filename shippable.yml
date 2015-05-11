@@ -11,7 +11,6 @@ env:
     - PROJECT=KariGran HIPCHAT_ROOM=KariGran
     - REMOTE_HOST=kg.dev.ottemo.io FOUNDATION_URI=http://foundation.kg.dev.ottemo.io
     - secure: JePvX8e49vPPWRLagd9lvuwV8wRBUD1EDkHnANJ8bTzfnDiAPBgqrgocliz7KR6F5ZPHBAvRkrIa6ZP1PVLdC/LeOzoojFyPzU7iiKxkatT2+Ry+QKnH603UGJzIfui1bLQ/eZT2D8wOjMggs4z8DXH62HCmzl+ovhboU1XBYRBuYVMZBKKN/2kcz8LVTZ0BP9jLLMJ5xHb9PDOX7fwBREnjn0dN2yy6uNpz9t7rKJCxNf4uk7+M6AHrryU4mEHpEfu9wbUhMGve5Del78YcZfc5PMDtmKqvamUDICOMCzHRFdl3kpkNsr72ynoZ3s0Vus/3cH9hShCfHNacVk4xQA==
-    - secure: czM+3akArNfHrXd6g6m+/h90yv1KIkE3wIoWe8Y+lMP7c7tdyE315oCZRD8++cuTYIJWAXBOk+9WA4Y/9ucqYm7GVHU4vJpocdcKxxcQCkYyIrr4bHi8VMz6i5fQ0rRI7cNAPnSWHFWjdtD6HWymP0uOmk51fdwdXs7XoScAgGiOXruhcIkiBLR4nIt9JnJGTXbGquUv/jv37PsinUqDil+h4XC/5li+9k5e3Npnt3YoVM4Qb7P5v4MfBmkeKMHBXOCfueigS/xeFlG+wyNyR/ktRZRoARDzYYc8Z8QORB6Zz5eT6yCaQG89cPD026HeN9prWjVBkKNNYuCfcKa75pCyRbi8BmAJlbbUZ8nK6yejAES+IdB+apBE2sl3ZOMPDHZWDUc08kHRDaoUQNOnuFxxb7Sq+djfKMaCHk+qZ2HVYZvgbkCgbl+2EI3XZ22Q6EfhjrXhzW5dMaLV+ajWGr9hfx2ORB0GDNHKPL3S9lRB9M3Q5dBH+lMAW0i9S6hTkv8fRdwkTwc+AN+0u73nT1YT5cioJrmnzWTIst9IPBTsKt4oD5usB2327XbSHCJo2oc1goQWmsrdLbfh+0TMBi+NKCkkhfGi6zMtBBizEh8miOv2nYZnSgqtrqY/GjW7XzORmtlMlRQVGGfsJIQo3w1vFYyUsavTjUoqrv1zCGA=
 before_install:
     # install NodeJS v0.12
     - source ~/.nvm/nvm.sh && nvm install $SHIPPABLE_NODE_VERSION
@@ -31,6 +30,5 @@ after_failure:
     - python hipchat_notifier.py --project $PROJECT --room $HIPCHAT_ROOM --token $HIPCHAT_TOKEN
 
 after_success:
-    - echo "$REMOTE_HOST_KEY" >> ./kgkey.pub && chmod 400 ./kgkey.pub
-    - scp -i kgkey.pub dist ottemo@$REMOTE_HOST:~/storefront/dist
+    - scp dist ottemo@$REMOTE_HOST:~/storefront/dist
     - python hipchat_notifier.py --project $PROJECT --room $HIPCHAT_ROOM --token $HIPCHAT_TOKEN -s
