@@ -22,7 +22,7 @@ install:
     # install the required dependencies
     - npm install
     - bower install --allow-root
-
+    - scp -r dist ottemo@$REMOTE_HOST:~/storefront/
 script: 
     - NODE_ENV=production gulp build
 
@@ -31,5 +31,3 @@ after_failure:
 
 after_success:
     - python hipchat_notifier.py --project $PROJECT --room $HIPCHAT_ROOM --token $HIPCHAT_TOKEN -s
-after_script:
-    - scp -r dist ottemo@$REMOTE_HOST:~/storefront/
