@@ -56,7 +56,7 @@
                          ng-class="{ 'has-error' : visitorForm.email.$invalid && !visitorForm.email.$pristine }">
                         <label for="visitorFormEmail">Email*</label>
                         <input
-                        type="text"
+                        type="email" ot-email
                         class="form-control"
                         id="visitorFormEmail"
                         placeholder="Email"
@@ -65,7 +65,7 @@
                         required>
 
                         <p ng-show="visitorForm.email.$invalid && !visitorForm.email.$pristine"
-                           class="help-block">This field is required.</p>
+                           class="help-block">PLEASE ENTER A VALID EMAIL ADDRESS. FOR EXAMPLE JOHNDOE@DOMAIN.COM.</p>
                     </div>
                 </form>
                 <div class="clearfix"></div>

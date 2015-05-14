@@ -189,10 +189,12 @@ module.exports = function (visitorModule) {
                             function (response) {
                                 $scope.address = response.result || [];
 
-                                $scope.shippingAddressId = (typeof $scope.visitor["shipping_address"] !== 'undefined' && $scope.visitor["shipping_address"] !== null) ?
+                                var shippingAddressId = (typeof $scope.visitor["shipping_address"] !== 'undefined' && $scope.visitor["shipping_address"] !== null) ?
                                     $scope.visitor["shipping_address"]._id : null;
-                                $scope.billingAddressId = (typeof $scope.visitor["billing_address"] !== 'undefined' && $scope.visitor["billing_address"] !== null) ?
+                                var billingAddressId = (typeof $scope.visitor["billing_address"] !== 'undefined' && $scope.visitor["billing_address"] !== null) ?
                                     $scope.visitor["billing_address"]._id : null;
+                                $scope.useAsDefaultShipping = (shippingAddressId && shippingAddressId === $scope.address._id) ? true : false;
+                                $scope.useAsDefaultBilling = (billingAddressId && billingAddressId === $scope.address._id) ? true : false;
 
                                 $('#parent_popup_address').modal('show');
 
@@ -205,8 +207,9 @@ module.exports = function (visitorModule) {
                 $scope.changeShippingAsDefault = function (id) {
                     delete $scope.visitor["billing_address"];
                     delete $scope.visitor["shipping_address"];
+                    delete $scope.visitor["password"];
 
-                    if (!$scope.shippingAddressId) {
+                    if (!$scope.useAsDefaultShipping) {
                         $scope.visitor["shipping_address_id"] = "";
                     } else {
                         $scope.visitor["shipping_address_id"] = id;
@@ -223,7 +226,9 @@ module.exports = function (visitorModule) {
                 $scope.changeBillingAsDefault = function (id) {
                     delete $scope.visitor["billing_address"];
                     delete $scope.visitor["shipping_address"];
-                    if (!$scope.billingAddressId) {
+                    delete $scope.visitor["password"];
+
+                    if (!$scope.useAsDefaultBilling) {
                         $scope.visitor["billing_address_id"] = "";
                     } else {
                         $scope.visitor["billing_address_id"] = id;

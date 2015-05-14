@@ -27,8 +27,12 @@ module.exports = function (visitorModule) {
                 };
 
                 var checkPassword = function () {
-                    var status;
-                    if (typeof $scope.changePswCredentials.oldpassword === "undefined" ||
+                    var status = true;
+                    $scope.isCoincide = true;
+                    if($scope.passwordForm.password && $scope.passwordForm.password.$invalid){
+                            $scope.isCoincide = false;
+                            status = false;
+                    } else if (typeof $scope.changePswCredentials.oldpassword === "undefined" ||
                     $scope.changePswCredentials.oldpassword.trim() === "") {
                         $scope.messagePassword = $commonUtilService.getMessage(null, "warning", "Old password field can not be blank");
                         $scope.isCoincide = false;
@@ -38,10 +42,7 @@ module.exports = function (visitorModule) {
                         $scope.messagePassword = $commonUtilService.getMessage(null, "warning", "Password field can not be blank");
                         $scope.isCoincide = false;
                         status = false;
-                    } else if ($scope.changePswCredentials.password === $scope.changePswCredentials["confirm"]) {
-                        $scope.isCoincide = true;
-                        status = true;
-                    } else {
+                    } else if ($scope.changePswCredentials.password !== $scope.changePswCredentials["confirm"]) {
                         $scope.messagePassword = $commonUtilService.getMessage(null, "warning", "New Passwords don't match");
                         $scope.isCoincide = false;
                         status = false;

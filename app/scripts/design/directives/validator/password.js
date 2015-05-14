@@ -36,6 +36,7 @@ module.exports = function (designModule) {
                     return (matches === null || (matches !== null && matches.join("").length < minCountSymbols));
                 };
                 var validate = function (value) {
+                    if(!value) return value;
                     /*jshint maxcomplexity:6 */
                     var valid = true;
                     if (value.length < minLen) {
