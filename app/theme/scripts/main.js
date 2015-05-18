@@ -25,6 +25,14 @@ module.exports = function() {
                 $("#form-login").modal("show");
             });
 
+
+            // mobile collapse the nav
+            $(document).on('click', '.main-menu a:not(.dropdown-toggle)', function(e){
+                var $navToggle = $('.navbar-toggle');
+                if ($navToggle.is(':visible')) {
+                    $navToggle.click();
+                }
+            });
         });
 
     })(jQuery);
