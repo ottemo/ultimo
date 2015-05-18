@@ -70,3 +70,16 @@
         </div>
     </div>
 </div>
+
+<script>
+    setTimeout(function(){
+        var mailChimpModal = sessionStorage.getItem("showedModal");
+        if (mailChimpModal !== "true") {
+            $('#mailchimp').modal('show');
+        }
+
+        $('.carousel').carousel({
+            interval: 5000
+        });
+    },3000)
+</script>
