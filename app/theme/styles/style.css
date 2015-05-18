@@ -130,14 +130,31 @@ label {
 
 h1,h2,h3,h4 {
 	color: #F53797;
+	font-weight: 300;
 }
 
+h1 {
+	font-size: 26px;
+	margin-bottom: 25px;
+}
+h2 {
+	font-size: 20px;
+	text-transform: uppercase;
+}
+h3 {
+	font-size: 18px;
+	text-transform: uppercase;
+}
 h4 {
 	font-family: Georgia;
 	font-style: italic;
 	font-size: 18px;
-	font-weight: 300;
 }
+
+.flat-top {
+	margin-top: 0;
+}
+
 
 
 .btn {
@@ -655,29 +672,10 @@ a:hover,.btn:hover {
 	color: #6C7272;
 	line-height: 30px;
 }
-.std h1,
-.std h2,
-.std h3 {
-	text-transform: uppercase;
-}
-.std h1 {
-	font-family: 'Helvetica Neue', Helvetica;
-	color: #F53797;
-	font-size: 26px;
-	margin-bottom: 25px;
-}
-.std h2 {
-	font-size: 20px;
-}
-.std h3 {
-	font-size: 18px;
-}
+
 .std h5 {
 	font-weight: bold;
 	margin: 20px 0 10px 0;
-}
-.std .flat-top {
-	margin-top: 0;
 }
 
 .std .header-link {
@@ -713,6 +711,12 @@ the extra space looks funny */
 .std .col-xs-4 ul:last-child, .std .col-xs-5 ul:last-child, .std .col-xs-6 ul:last-child,
 .std .col-xs-7 ul:last-child, .std .col-xs-8 ul:last-child, .std .col-xs-9 ul:last-child {
 	margin-bottom: 0;
+}
+
+@media (min-width: 1200px) {
+	.std .embed-responsive-our-story {
+		padding-bottom: 28%;
+	}
 }
 
 /*---------------
