@@ -2,7 +2,7 @@
  Bootstrap and common styles
  ---------------*/
 body {
-	padding: 10px 0 0; 
+	padding: 10px 0 0;
 	font-weight: 300;
 }
 .content-wrapper {
@@ -99,7 +99,7 @@ label {
 	border-radius: 0;
 }
 .panel-footer {
-	background-color: #fff; 
+	background-color: #fff;
 }
 
 .label-minor {
@@ -130,14 +130,31 @@ label {
 
 h1,h2,h3,h4 {
 	color: #F53797;
+	font-weight: 300;
 }
 
+h1 {
+	font-size: 26px;
+	margin-bottom: 25px;
+}
+h2 {
+	font-size: 20px;
+	text-transform: uppercase;
+}
+h3 {
+	font-size: 18px;
+	text-transform: uppercase;
+}
 h4 {
 	font-family: Georgia;
 	font-style: italic;
 	font-size: 18px;
-	font-weight: 300;
 }
+
+.flat-top {
+	margin-top: 0;
+}
+
 
 
 .btn {
@@ -171,7 +188,7 @@ a:hover,.btn:hover {
 }
 
 /*---------------
- Thumb Thumbnail 
+ Thumb Thumbnail
  ---------------*/
 .thumbnail {
 	padding: 0;
@@ -181,7 +198,7 @@ a:hover,.btn:hover {
 	margin-bottom: 0;
 }
 /*---------------
- Header 
+ Header
  ---------------*/
 #header {
 	height: auto;
@@ -277,7 +294,7 @@ a:hover,.btn:hover {
 }
 #header .shopping-cart:hover {
 	background-position: 0 -34px;
-	color: #fff; 
+	color: #fff;
 	-webkit-transition: ease-out 0.3s;
 	 -moz-transition: ease-out 0.3s;
 	 -o-transition: ease-out 0.3s;
@@ -384,7 +401,7 @@ a:hover,.btn:hover {
 }
 
 /*---------------
- Home 
+ Home
  ---------------*/
 .home a.main-banner {
 	display: block;
@@ -432,7 +449,7 @@ a:hover,.btn:hover {
 	text-align: center;
 	font-style: italic;
 	font-family: Georgia;
-	font-size: 16px; 
+	font-size: 16px;
 	font-weight: 300;
 }
 
@@ -461,10 +478,9 @@ a:hover,.btn:hover {
 .home .about h4,
 .home .reviews h4,
 .home .wonderwork h4 {
-	font-family: Arial;
+	font-family: inherit;
 	font-style: normal;
 	text-transform: uppercase;
-	margin-top: 0;
 }
 
 .home .about a {
@@ -473,8 +489,6 @@ a:hover,.btn:hover {
 	font-size: 14px;
 	font-style: italic;
 	text-decoration: underline !important;
-	display: block;
-	margin: 0 0 20px;
 }
 
 /*---------------
@@ -510,7 +524,7 @@ a:hover,.btn:hover {
 }
 .category .mobile-categories a {
 	text-align: center;
-	 color: #fff; 
+	 color: #fff;
 	text-transform: capitalize;
 	display: block;
 }
@@ -611,7 +625,7 @@ a:hover,.btn:hover {
 }
 
 /*---------------
- PDP .pdp 
+ PDP .pdp
  ---------------*/
 .pdp-product-name {
 	margin-bottom: 20px;
@@ -658,29 +672,10 @@ a:hover,.btn:hover {
 	color: #6C7272;
 	line-height: 30px;
 }
-.std h1,
-.std h2,
-.std h3 {
-	text-transform: uppercase;
-}
-.std h1 {
-	font-family: 'Helvetica Neue', Helvetica;
-	color: #F53797;
-	font-size: 26px;
-	margin-bottom: 25px;
-}
-.std h2 {
-	font-size: 20px;
-}
-.std h3 {
-	font-size: 18px;
-}
+
 .std h5 {
 	font-weight: bold;
 	margin: 20px 0 10px 0;
-}
-.std .flat-top {
-	margin-top: 0;
 }
 
 .std .header-link {
@@ -718,8 +713,14 @@ the extra space looks funny */
 	margin-bottom: 0;
 }
 
+@media (min-width: 1200px) {
+	.std .embed-responsive-our-story {
+		padding-bottom: 28%;
+	}
+}
+
 /*---------------
- CMS Buzz Page 
+ CMS Buzz Page
  ---------------*/
 /* clear the floats so we can just have one row */
 .buzz-list .col-sm-6:nth-child(2n+1) {
@@ -764,7 +765,7 @@ the extra space looks funny */
 
 
 /*---------------
- Footer 
+ Footer
  ---------------*/
 #footer {
 	height: auto;
@@ -824,17 +825,23 @@ the extra space looks funny */
 }
 
 #footer .copyrights {
-	margin: 40px 0 50px;
-	padding: 0 15px;
+	color: #6c7372;
+	margin-top: 20px;
+}
+#footer .copy--ottemo,
+#footer .copy--wheels-up {
+	text-align: center;
+}
+@media (min-width: 768px) {
+	#footer .copy--ottemo {
+		text-align: left;
+	}
+	#footer .copy--wheels-up {
+		text-align: right;
+	}
 }
 
-#footer .copyrights a {
-	color: #000;
-	text-transform: capitalize;
-}
-#footer .copyrights a:hover {
-	color: #F53797;
-}
+
 
 @media screen and (max-width: 750px) {
 	.content-wrapper {
@@ -912,7 +919,7 @@ the extra space looks funny */
 	.home .main-banner .promo-text {
 		font-size: 20px !important;
 	}
-	
+
 	.category h3 {
 		margin-bottom: 20px;
 

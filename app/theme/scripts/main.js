@@ -35,10 +35,17 @@ module.exports = function() {
                 $('.modal').modal('hide');
             });
 
+            // mobile collapse the nav
+            $(document).on('click', '.main-menu a:not(.dropdown-toggle)', function(e){
+                var $navToggle = $('.navbar-toggle');
+                if ($navToggle.is(':visible')) {
+                    $navToggle.click();
+                }
+            });
         });
 
     })(jQuery);
 
     require('./common/init')();
     require('./category/init')();
-}
+};
