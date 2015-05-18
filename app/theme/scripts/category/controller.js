@@ -348,15 +348,16 @@ module.exports = function (categoryModule) {
                 $scope.getProducts();
                 $scope.getCountProduct();
 
+                var categoryImages = {
+                    'default': '/theme/images/category/Kari-Gran-Shop-Page-Shop-Organic-Skincare-Desktop.jpg',
+                    '5512f069d4a2560a14000036': '/theme/images/category/Kari-Gran-Shop-Page-Shop-Organic-Skincare-Desktop.jpg',
+                    '5512f195d4a2560a14000074': '/theme/images/category/Kari-Gran-Shop-Page-Organic-Skincare-Cleansing-Oil-Desktop.jpg',
+                    '5512f1cdd4a2560a14000082': '/theme/images/category/lip-treatment.jpg',
+                    '5512f248d4a2560a14000094': '/theme/images/category/makeup.jpg',
+                    '5548fc2188a87b4350000197': '/theme/images/category/Kari-Gran-Shop-Page-Gifts-Organic-Skincare-Desktop.jpg'
+                };
+
                 if ($scope.categoryId !== null) {
-                    var categoryImages = {
-                        'default': '/theme/images/category/shop.jpg',
-                        '5512f069d4a2560a14000036': '/theme/images/category/shop.jpg',
-                        // '5512f195d4a2560a14000074': 'skin-care',
-                        '5512f1cdd4a2560a14000082': '/theme/images/category/lip-treatment.jpg',
-                        '5512f248d4a2560a14000094': '/theme/images/category/makeup.jpg',
-                        // '': 'gifts'
-                    };
 
                     $scope.category.banner = categoryImages[$scope.categoryId] || categoryImages.default;
 
@@ -366,7 +367,7 @@ module.exports = function (categoryModule) {
 
                     });
                 } else {
-                    $scope.category.banner = '/theme/images/category/shop.jpg';
+                    $scope.category.banner = categoryImages.default;
                 }
 
                 initWatchers();
