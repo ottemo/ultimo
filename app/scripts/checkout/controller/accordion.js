@@ -197,7 +197,7 @@ module.exports = function (checkoutModule) {
                         }
                     ];
 
-                    $scope["useAsBilling"] = false;
+                    $scope["useAsBilling"] = true;
                     $scope["states"] = $designStateService;
                     $scope["cart"] = $cartService;
                     $scope["shippingMethods"] = [];

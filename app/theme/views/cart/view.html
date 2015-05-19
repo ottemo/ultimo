@@ -5,122 +5,80 @@
 
 <!-- product row -->
 <div ng-init="init()" class="product">
-    <div class="col-xs-12 vcenter" ng-repeat="item in it.getItems()" ng-show="it.getCountItems()">
+    <div ng-hide="it.getCountItems()">
+        <p>No items are currently in your cart</p>
+    </div>
+    <div class="row" ng-repeat="item in it.getItems()" ng-show="it.getCountItems()">
 
         <!-- image -->
-        <div class="col-sm-2 col-xs-12 text-center vcenter">
+        <div class="col-xs-6 col-sm-3">
             <div class="thumbnail col-xs-12 vcenter">
                 <a href="{{productService.getUrl(item.pid)}}">
                     <img ng-src="{{getImage(item.product)}}" err-src="placeholder.png" alt="{{item.product.name}}"/>
                 </a>
             </div>
         </div>
-        
-        <!-- info desktop -->
-        <div class="col-xs-4 hidden-xs vcenter" style="vertical-align:top">
-
-            <!-- name -->
-            <h3>{{item.product.name}}</h3>
-
-            <!-- or message -->
-            <h3 ng-hide="it.getCountItems()">Cart is empty</h3>
-
-            <!-- price -->
-            <h4>{{item.product.price | number: 2 | currency}}</h4>
-
-            <!-- description -->
-            <p ng-repeat="(key, value) in item.options" ng-if="item.hasOptions">
-                {{key}}: {{productService.getOptStr(value)}}
-            </p>
-        </div>
-
-        <!-- info mobile -->
-        <div class="col-xs-12 text-center visible-xs">
-
-            <!-- name -->
+        <!-- info -->
+        <div class="col-xs-6 col-md-5">
             <h4>{{item.product.name}}</h4>
 
-            <!-- or message -->
-            <h3 ng-hide="it.getCountItems()">Cart is empty</h3>
-
-            <!-- price -->
-            <h4>{{item.product.price | number: 2 | currency}}</h4>
-
-            <!-- description -->
-            <p ng-repeat="(key, value) in item.options" ng-if="item.hasOptions">
-                {{key}}: {{productService.getOptStr(value)}}
-            </p>
+            <ul class="list-unstyled">
+                <li>{{item.product.price | number: 2 | currency}}</li>
+                <li ng-repeat="(key, value) in item.options">
+                    {{key}}: {{productService.getOptStr(value)}}
+                </li>
+                <li class="hidden-xs">
+                    <a class="text-danger" ng-click="remove(item.idx)">Remove</a>
+                </li>
+            </ul>
         </div>
-            
+
+        <div class="clearfix visible-xs"></div>
+        <div class="col-xs-6 visible-xs">
+            <a class="btn btn-default btn-block" ng-click="remove(item.idx)">Remove</a>
+        </div>
+
         <!-- qty -->
-        <div class="col-xs-8 col-xs-offset-2 col-sm-3 col-sm-offset-0 vcenter  text-center">
-            <div class="col-xs-12 col-sm-7">
-                <div class="input-group">
-                    <span class="input-group-btn">
-                        <button class="btn btn-primary" type="button" ng-click="changeQty(item,'up');update(item.idx, item.qty)">
-                            +
-                        </button>
-                    </span>
-                    <input placeholder="Qtl" type="text" class="form-control text-center" value="{{item.qty}}"
-                                           ng-model="item.qty" ng-change="update(item.idx, item.qty)" />
-                    <span class="input-group-btn">
-                        <button class="btn btn-primary" type="button" ng-click="changeQty(item,'down');update(item.idx, item.qty)">
-                            -
-                        </button>
-                    </span>
-                </div>
+        <div class="col-xs-6 col-sm-3 col-md-2 cart-list__product-qty">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" ng-click="changeQty(item,'down');update(item.idx, item.qty)">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </span>
+                <input
+                type="text"
+                class="form-control text-center"
+                value="{{item.qty}}"
+                ng-model="item.qty"
+                ng-change="update(item.idx, item.qty)" />
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" ng-click="changeQty(item,'up');update(item.idx, item.qty)">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </span>
             </div>
         </div>
-        
+
         <!-- price desktop -->
-        <div class="col-xs-1 hidden-xs vcenter text-left">
-            <h3>{{item.product.price * item.qty | currency}}</h3>
+        <div class="hidden-xs hidden-sm col-md-2 cart-list__product-subtotal">
+            {{item.product.price * item.qty | currency}}
         </div>
-
-        <!-- price mobile -->
-        <div class="col-xs-12 visible-xs text-center">
-            <h3>{{item.product.price * item.qty | currency}}</h3>
-        </div>
-        
-        <!-- desktop delete -->
-        <div class="col-xs-1 hidden-xs vcenter text-right">
-            <a class="text-danger" ng-click="remove(item.idx)">
-                <h2 class="glyphicon glyphicon-remove text-danger"></h2>
-            </a>
-        </div>
-
-        <div class="col-xs-12 visible-xs text-center">
-            <a class="btn btn-danger" ng-click="remove(item.idx)">
-                <i class="glyphicon glyphicon-remove"></i>
-            </a>
-        </div>
-
-        <div class="clearfix"></div>
-
-        <hr>
-        <br>
-        
     </div>
 
-    <div class="clearfix"></div>
-
-    <div ng-hide="!it.getCountItems()">
-        <h4 class="col-sm-10 col-xs-12 text-right">
+    <div ng-show="it.getCountItems()">
+        <h4 class="text-right">
             Cart items:&nbsp;&nbsp;&nbsp;<strong>{{it.getTotalQuantity()}}</strong>
         </h4>
 
-        <h4 class="col-sm-10 col-xs-12 text-right">
+        <h4 class="text-right">
             Cart total:&nbsp;&nbsp;&nbsp;<strong>{{getSubtotal() | currency}}</strong>
         </h4>
-        
-        <div class="clearfix"></div>
-        <br>
-        <br>
-        <div class="text-center">
-            <a class="btn btn-lg btn-primary" href="{{checkout.getUrl()}}">&nbsp;&nbsp;Checkout&nbsp;&nbsp;</a>
+        <div class="cart__proceed">
+            <a class="btn btn-lg btn-primary" href="{{checkout.getUrl()}}">
+                Proceed to Checkout
+            </a>
         </div>
-        <br>
-        <br>
     </div>
 </div>
 
