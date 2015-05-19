@@ -427,10 +427,9 @@ module.exports = function (categoryModule) {
 
                                 miniCart.modal('show');
 
-                                //TODO: cleanup
-                                setTimeout(function () {
-                                    miniCart.modal('hide');
-                                }, 2000);
+                                // setTimeout(function () {
+                                //     miniCart.modal('hide');
+                                // }, 2000);
                             }
                         }
                     );
