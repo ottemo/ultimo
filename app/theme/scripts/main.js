@@ -22,4 +22,21 @@ $(document).ready(function () {
         $("#form-login").modal("show");
     });
 
+    $(document).on('click', '#mailchimp .close', function(event) {
+        sessionStorage.setItem("showedModal", "true");
+        $('.modal').modal('hide');
+    });
+
+    $(document).on('click', '#mc-embedded-subscribe', function () {
+        sessionStorage.setItem("showedModal", "true");
+        $('.modal').modal('hide');
+    });
+
+    // mobile collapse the nav
+    $(document).on('click', '.main-menu a:not(.dropdown-toggle)', function(e){
+        var $navToggle = $('.navbar-toggle');
+        if ($navToggle.is(':visible')) {
+            $navToggle.click();
+        }
+    });
 });

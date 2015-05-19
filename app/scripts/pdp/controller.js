@@ -223,9 +223,6 @@ angular.module("pdpModule")
                                 var miniCart;
                                 miniCart = $(".mini-cart");
                                 miniCart.modal('show');
-                                $timeout(function () {
-                                    miniCart.modal('hide');
-                                }, 2000);
                             }
                         }
                     );

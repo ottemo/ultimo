@@ -1,4 +1,5 @@
 angular.module("designModule")
+
     .directive("otPassword", function () {
         return {
             restrict: 'EA',
@@ -6,7 +7,7 @@ angular.module("designModule")
             link: function (scope, elem, attrs, ngModel) {
 
                 var minLen, minCountUppercase, minCountLowercase, minCountNumbers, minCountSymbols, passwordNotValidLength,
-                    passwordNotEnoughLowercases, passwordNotEnoughUppercases, passwordNotEnoughNumbers, passwordNotEnoughSymbols;
+                passwordNotEnoughLowercases, passwordNotEnoughUppercases, passwordNotEnoughNumbers, passwordNotEnoughSymbols;
 
                 minLen = 8;
                 minCountUppercase = 1;
@@ -15,10 +16,10 @@ angular.module("designModule")
                 minCountSymbols = 1;
 
                 passwordNotValidLength = "password should have " + minLen + " char or more";
-                passwordNotEnoughLowercases = "password should have not less " + minCountUppercase + " lowercase";
-                passwordNotEnoughUppercases = "password should have not less " + minCountUppercase + " uppercase";
-                passwordNotEnoughNumbers = "password should have not less " + minCountNumbers + " numbers";
-                passwordNotEnoughSymbols = "password should have not less " + minCountSymbols + " symbols";
+                passwordNotEnoughLowercases = "password should have at least " + minCountUppercase + " lowercase";
+                passwordNotEnoughUppercases = "password should have at least " + minCountUppercase + " uppercase";
+                passwordNotEnoughNumbers = "password should have at least " + minCountNumbers + " numbers";
+                passwordNotEnoughSymbols = "password should have at least " + minCountSymbols + " symbols";
 
                 var checkLowercases = function (value) {
                     var matches = value.match(/([a-z]+)/g);
@@ -36,9 +37,8 @@ angular.module("designModule")
                     var matches = value.match(/([\!\@\#\\$\%\^\&\*\(\)\_\+\-\~]+)/g);
                     return (matches === null || (matches !== null && matches.join("").length < minCountSymbols));
                 };
-                var validate = function (value) {
-                    if (!value) return value;
-                    /*jshint maxcomplexity:6 */
+                var validate = function (value) {                    /*jshint maxcomplexity:7 */
+                    if (!value) { return value; }
                     var valid = true;
                     if (value.length < minLen) {
                         valid = false;
