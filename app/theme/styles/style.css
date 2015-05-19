@@ -20,6 +20,10 @@ p {
 	line-height: 31px;
 }
 
+a {
+	cursor: pointer;
+}
+
 a:focus,
 button:focus,
 a:active,
@@ -991,4 +995,31 @@ the extra space looks funny */
 
 .cart-total__value {
 	text-align: right;
+}
+
+/*_________ Cart _________*/
+
+.cart-list__product-subtotal {
+	text-align: right;
+	font-size: 16px;
+	line-height: 34px;
+}
+.cart-list__product-qty {
+
+}
+.cart__proceed {
+	text-align: right;
+}
+.cart__proceed a {
+	display: block;
+}
+@media (min-width: 768px) {
+	.cart-list__product-qty,
+	.cart-list__product-subtotal {
+		margin-top: 10px;
+	}
+
+	.cart__proceed a {
+		display: inline-block;
+	}
 }
