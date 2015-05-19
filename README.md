@@ -19,16 +19,15 @@ KariGran Store
 Modify the following settings or pass environment variables to *gulp serve*
 
     module.exports = {
-        "general.app.foundation_url": "http://dev.ottemo.io:3000",
-        "general.app.media_path": "media/",
-        "themes.list.active": "blitz",
+        "general.app.foundation_url": "http://foundation.dev.ottemo.io",
+        "general.app.media_path": "//kg.dev.ottemo.io/media/",
         // social networks
-        "general.app.login.facebook.appId" : "728744980537129",
-        "general.app.login.facebook.secretKey" : "58f763bd74fab043aa3b3c0221291c94",
-        "general.app.login.google.clientId" : "1074763412644-qq25glj3tb87bq7bk5m8793da11ddheh.apps.googleusercontent.com",
+        "general.app.login.facebook.appId" : "553891724751037",
+        "general.app.login.facebook.secretKey" : "1b0aed24d291d155cccaf115fc976184",
+        "general.app.login.google.clientId" : "386198944881-iv1hl0ta5n1v7u75jqvjot5sr2egn9uc.apps.googleusercontent.com",
     
         // general
-        "general.app.category.itemsPerPage" : 10,
+        "general.app.category.itemsPerPage" : 30,
         "general.checkout.guest_checkout" : true
     };
 
@@ -40,9 +39,7 @@ Builds project and moves files on the destination folder, dist, which is used fo
 ### Run Client in Development Mode
 Adds watcher on a changes in css, scss, js, html and images. Upon detection of a change the content is update and the browser is reloaded.
 
-    gulp build && gulp dev
-    or
-    gulp build && gulp serve
+    gulp serve
 
 ### Run Unit Tests
 Not configured yet. Will be realized in the near future
@@ -51,7 +48,6 @@ Not configured yet. Will be realized in the near future
 
 ### Also useful are the following commands
     gulp jshint // check js on errors
-    gulp sass   // Makes compilation sass to css
     gulp clean  // Removes the _dist_ folder
 
 ### How start with Vagrantfile
