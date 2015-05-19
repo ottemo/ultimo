@@ -1,6 +1,5 @@
-module.exports = function (pdpModule) {
-
-    pdpModule.directive("guiCustomOptions", ["$designService", function ($designService) {
+angular.module("pdpModule")
+    .directive("guiCustomOptions", ["$designService", function ($designService) {
         return {
             restrict: "E",
             scope: {
@@ -68,5 +67,3 @@ module.exports = function (pdpModule) {
             return ordered;
         };
     });
-
-};

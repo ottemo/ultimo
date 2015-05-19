@@ -1,57 +1,54 @@
-module.exports = function (pdpModule) {
-    pdpModule
-        /*
-         *  $productApiService interaction service
-         */
-        .service('$pdpApiService', ['$resource', 'REST_SERVER_URI', function ($resource, REST_SERVER_URI) {
+angular.module("pdpModule")
+    /*
+     *  $productApiService interaction service
+     */
+    .service('$pdpApiService', ['$resource', 'REST_SERVER_URI', function ($resource, REST_SERVER_URI) {
 
-            return $resource(REST_SERVER_URI, {}, {
-                'getProduct': {
-                    method: 'GET',
-                    url: REST_SERVER_URI + '/product/:productID'
+        return $resource(REST_SERVER_URI, {}, {
+            'getProduct': {
+                method: 'GET',
+                url: REST_SERVER_URI + '/product/:productID'
+            },
+            'getImagePath': {
+                method: 'GET',
+                url: REST_SERVER_URI + '/product/:productID/mediapath/image'
+            },
+            'listImages': {
+                method: 'GET',
+                url: REST_SERVER_URI + '/product/:productID/media/image'
+            },
+            "getProducts": {
+                method: "GET",
+                url: REST_SERVER_URI + "/products"
+            },
+            "getRelated": {
+                method: "GET",
+                url: REST_SERVER_URI + "/product/:productID/related"
+            },
+            "ratingInfo": {
+                method: "GET",
+                url: REST_SERVER_URI + "/product/:productID/rating"
+            },
+            "addReview": {
+                method: "POST",
+                params: {
+                    productID: "@productID",
+                    stars: "@stars"
                 },
-                'getImagePath': {
-                    method: 'GET',
-                    url: REST_SERVER_URI + '/product/:productID/mediapath/image'
-                },
-                'listImages': {
-                    method: 'GET',
-                    url: REST_SERVER_URI + '/product/:productID/media/image'
-                },
-                "getProducts": {
-                    method: "GET",
-                    url: REST_SERVER_URI + "/products"
-                },
-                "getRelated": {
-                    method: "GET",
-                    url: REST_SERVER_URI + "/product/:productID/related"
-                },
-                "ratingInfo": {
-                    method: "GET",
-                    url: REST_SERVER_URI + "/product/:productID/rating"
-                },
-                "addReview": {
-                    method: "POST",
-                    params: {
-                        productID: "@productID",
-                        stars: "@stars"
-                    },
-                    headers: {"Content-Type": "text/plain"},
-                    url: REST_SERVER_URI + "/product/:productID/review"
-                },
-                "reviewList": {
-                    method: "GET",
-                    url: REST_SERVER_URI + "/product/:productID/reviews"
-                },
-                "reviewRemove": {
-                    method: "DELETE",
-                    url: REST_SERVER_URI + "/product/:productID/review/:reviewID"
-                },
-                "getAttributes": {
-                    method: "GET",
-                    url: REST_SERVER_URI + "/products/attributes"
-                }
-            });
-        }]);
-
-};
+                headers: {"Content-Type": "text/plain"},
+                url: REST_SERVER_URI + "/product/:productID/review"
+            },
+            "reviewList": {
+                method: "GET",
+                url: REST_SERVER_URI + "/product/:productID/reviews"
+            },
+            "reviewRemove": {
+                method: "DELETE",
+                url: REST_SERVER_URI + "/product/:productID/review/:reviewID"
+            },
+            "getAttributes": {
+                method: "GET",
+                url: REST_SERVER_URI + "/products/attributes"
+            }
+        });
+    }]);

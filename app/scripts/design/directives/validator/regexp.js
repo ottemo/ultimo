@@ -1,12 +1,12 @@
-module.exports = function (designModule) {
-
-    var notValid = "The field is not valid";
-
-    designModule.directive("otRegexp", function () {
+angular.module("designModule")
+    .directive("otRegexp", function () {
         return {
             restrict: 'A',
             require: 'ngModel',
             link: function (scope, elem, attrs, ngModel) {
+
+                var notValid = "The field is not valid";
+
                 var regexpValue = elem.attr('ot-regexp');
 
 
@@ -37,4 +37,3 @@ module.exports = function (designModule) {
             }
         };
     });
-};

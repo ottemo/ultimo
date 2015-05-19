@@ -1,5 +1,4 @@
-module.exports = function (categoryModule) {
-    categoryModule
+angular.module('categoryModule')
 
     .controller("categoryListControllerTheme", [
         "$scope",
@@ -48,7 +47,10 @@ module.exports = function (categoryModule) {
 
                     for (i = 0; i < list.length; i += 1) {
                         category = list[i];
-                        $scope.$emit("add-breadcrumbs", {"label": category.name, "url": $categoryService.getUrl(category.id)});
+                        $scope.$emit("add-breadcrumbs", {
+                            "label": category.name,
+                            "url": $categoryService.getUrl(category.id)
+                        });
                     }
                 }
             };
@@ -342,7 +344,7 @@ module.exports = function (categoryModule) {
                             return categories;
                         }
                     )
-                        .then( getShopPageProducts );
+                        .then(getShopPageProducts);
                 }
                 $scope.getLayered();
                 $scope.getProducts();
@@ -406,7 +408,7 @@ module.exports = function (categoryModule) {
                 //TODO: we should get away from touching the dom in the
                 // controllers
                 $("#quick-view").modal('hide');
-                $timeout(function() {
+                $timeout(function () {
                     var url = $pdpProductService.getUrl(product._id);
                     $location.path(url);
                 }, 250);
@@ -555,4 +557,3 @@ module.exports = function (categoryModule) {
             };
         }
     ]);
-};

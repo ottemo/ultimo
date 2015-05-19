@@ -1,6 +1,5 @@
-module.exports = function (designModule) {
-
-    designModule.directive("guiMessageManager", ["$designService", "$timeout", function ($designService, $timeout) {
+angular.module("designModule")
+    .directive("guiMessageManager", ["$designService", "$timeout", function ($designService, $timeout) {
         return {
             restrict: "E",
             scope: {
@@ -19,7 +18,7 @@ module.exports = function (designModule) {
                         $scope.isShow = true;
                         timeout = $scope.obj.timeout;
 
-                        if(timeout > 0) {
+                        if (timeout > 0) {
                             $timeout(function () {
                                 $scope.close();
                             }, 2000);
@@ -36,5 +35,3 @@ module.exports = function (designModule) {
             }
         };
     }]);
-
-};

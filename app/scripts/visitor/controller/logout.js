@@ -1,5 +1,5 @@
-module.exports = function (loginModule) {
-    loginModule.controller("visitorLogoutController", [
+angular.module("visitorModule")
+    .controller("visitorLogoutController", [
         "$scope",
         "$visitorLoginService",
         "$location",
@@ -8,7 +8,7 @@ module.exports = function (loginModule) {
         "$commonSidebarService",
         function ($scope, $visitorLoginService, $location, $cartService, $commonHeaderService, $commonSidebarService) {
 
-            $visitorLoginService.isLoggedIn().then(function(isLoggedIn){
+            $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
                 if (!isLoggedIn) {
                     $location.path("/");
                 } else {
@@ -36,5 +36,3 @@ module.exports = function (loginModule) {
             });
         }
     ]);
-
-};

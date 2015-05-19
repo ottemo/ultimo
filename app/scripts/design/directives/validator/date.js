@@ -1,12 +1,11 @@
-module.exports = function (designModule) {
-
-    var dateNotValid = "Please enter a valid date (mm/dd/yyyy)";
-
-    designModule.directive("otDate", ["$commonUtilService", function ($commonUtilService) {
+angular.module("designModule")
+    .directive("otDate", ["$commonUtilService", function ($commonUtilService) {
         return {
             restrict: 'A',
             require: '?ngModel',
             link: function (scope, elem, attrs, ngModel) {
+
+                var dateNotValid = "Please enter a valid date (mm/dd/yyyy)";
 
                 var validate = function (value) {
                     var date = $commonUtilService.getDate(value);
@@ -26,4 +25,3 @@ module.exports = function (designModule) {
             }
         };
     }]);
-};
