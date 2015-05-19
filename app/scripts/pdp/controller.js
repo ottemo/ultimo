@@ -222,9 +222,9 @@ module.exports = function (pdpModule) {
                                     var miniCart;
                                     miniCart = $(".mini-cart");
                                     miniCart.modal('show');
-                                    $timeout(function () {
-                                        miniCart.modal('hide');
-                                    }, 2000);
+                                    // $timeout(function () {
+                                    //     miniCart.modal('hide');
+                                    // }, 2000);
                                 }
                             }
                         );
