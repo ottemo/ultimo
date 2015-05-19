@@ -3,7 +3,7 @@
 
 <div class="row">
     <!-- checkout page -->
-    <div ng-init="init()" class="col-xs-12 col-md-8 col-md-offset-0 col-sm-8 col-sm-offset-2">
+    <div ng-init="init()" class="col-xs-12 col-md-8">
 
         <!-- Shipping Block -->
         <div class="panel panel-default">
@@ -33,7 +33,7 @@
                     <!-- Form to add shipping addresses -->
                     <form name="shippingAddress">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-sm-6">
                                 <!--First name-->
                                 <div class="form-group"
                                      ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.first_name.$invalid) || (shippingAddress.first_name.$invalid && !shippingAddress.first_name.$pristine) }">
@@ -85,7 +85,7 @@
                                            ng-model="checkout.shipping_address.address_line2" ng-disabled="checkout.shipping_address._id">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-sm-6">
                                 <!--Country-->
                                 <div class="form-group"
                                      ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.country.$invalid) || (shippingAddress.country.$invalid && !shippingAddress.country.$pristine) }">
@@ -173,7 +173,6 @@
                             </div>
                         </div>
 
-
                         <div class="text-center">
                             <!-- next step -->
                             <button class="next btn btn-primary" ng-click="next('shippingAddress')">
@@ -212,7 +211,7 @@
                     <!-- Form to add billing addresses -->
                     <form name="billingAddress" novalidate>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-sm-6">
                                 <!--First name-->
                                 <div class="form-group"
                                      ng-class="{ 'has-error' : (subBillingAddress && billingAddress.first_name.$invalid) || (billingAddress.first_name.$invalid && !billingAddress.first_name.$pristine) }">
@@ -265,7 +264,7 @@
                                            ng-model="checkout.billing_address.address_line2" ng-disabled="checkout.billing_address._id || useAsBilling">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-sm-6">
 
                                 <!--Country-->
                                 <div class="form-group"
@@ -534,14 +533,14 @@
                 <div id="discounts" class="accordion" style="display:none">
                     <gui-message-manager item="messageDiscounts"></gui-message-manager>
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-sm-8">
                             <div class="form-group">
                                 <input type="text" class="form-control" id="discount" placeholder="Discount code"
                                        name="discount"
                                        ng-model="discount">
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-sm-4">
                             <a href ng-click="discountApply()" class="btn btn-default btn-block">Apply code</a>
                         </div>
                     </div>
