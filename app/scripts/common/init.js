@@ -4,8 +4,14 @@
 
 angular.REST_SERVER_URI = angular.appConfigValue("general.app.foundation_url");
 
-angular.module("commonModule", ["ngRoute", "ngSanitize", "ngResource", "designModule", "cartModule", "categoryModule"])
-
+angular.module("commonModule", ["ngRoute",
+    "ngSanitize",
+    "ngResource",
+    "designModule",
+    "cartModule",
+    "categoryModule",
+    "cmsModule"
+])
     .value("DEFAULT_TITLE", "Ottemo store")
     .value("DEFAULT_KEYWORDS", "Ottemo store")
     .value("DEFAULT_DESCRIPTION", "Ottemo store")
