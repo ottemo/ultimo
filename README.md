@@ -7,12 +7,11 @@ KariGran Store
 
 ## Install Gulp Globally
 
-    npm install -g gulp bower
+    npm install -g gulp
 
 ## Install Store packages
 
     npm install
-    bower install
 
 ## Workflow with gulp
 
