@@ -1,6 +1,6 @@
-module.exports = function () {
+fb = function () {
 
-    var init, avatarLarge, avatarMedium , avatarSmall, avatarSquare, getAvatar;
+    var init, avatarLarge, avatarMedium, avatarSmall, avatarSquare, getAvatar;
 
     avatarLarge = "graph.facebook.com/##facebookId##/picture?type=large";
     avatarMedium = "graph.facebook.com/##facebookId##/picture?type=normal";
@@ -44,11 +44,11 @@ module.exports = function () {
         return url;
     };
 
-    return{
+    return {
         appId: angular.appConfigValue("general.app.login.facebook.appId"),
         secretKey: angular.appConfigValue("general.app.login.facebook.secretKey"),
         init: init,
         getAvatar: getAvatar
     };
 
-};
+}();

@@ -1,23 +1,20 @@
-module.exports = function (designModule) {
-    designModule
-    /**
-     *  $designService allows to do operations over very top HTML page
-     */
-        .service("$designService", [function () {
+angular.module("designModule")
+/**
+ *  $designService allows to do operations over very top HTML page
+ */
+    .service("$designService", [function () {
 
-            return {
-                getTopPage: function () {
-                    return this.getTemplate("index.html");
-                },
+        return {
+            getTopPage: function () {
+                return this.getTemplate("index.html");
+            },
 
-                getTemplate: function (templateName) {
-                    return "theme/views/" + templateName;
-                },
+            getTemplate: function (templateName) {
+                return "theme/views/" + templateName;
+            },
 
-                getImage: function (img) {
-                    return "theme/images/" + img;
-                }
-            };
-        }]);
-};
-
+            getImage: function (img) {
+                return "theme/images/" + img;
+            }
+        };
+    }]);

@@ -1,18 +1,6 @@
 "use sctict";
 
-window.name = "NG_DEFER_BOOTSTRAP!";
-
-// add node libs
-var $ = window.$ = window.jQuery = require('jquery');
-require('bootstrap');
-var angular = require('angular');
-require('angular-route');
-require('angular-sanitize');
-require('angular-resource');
-require('angular-cookies');
-
 // config
-iniConfig = require('./config');
 angular.appConfig = {};
 angular.appConfigValue = function (valueName) {
     if (typeof angular.appConfig[valueName] !== "undefined") {
@@ -24,20 +12,6 @@ angular.appConfigValue = function (valueName) {
     }
     return "";
 };
-
-// add modules
-require('./cart/module')();
-require('./category/module')();
-require('./checkout/module')();
-require('./cms/module')();
-require('./common/module')();
-require('./design/module')();
-require('./filters/module')();
-require('./pdp/module')();
-require('./visitor/module')();
-
-// add themes
-require('../theme/scripts/main')();
 
 
 // animate
@@ -57,13 +31,6 @@ $('#loader .progress-bar').animate({width: '60%'}, 800, function () {
 
 // ready
 angular.element(document).ready(function () {
-
-    angular.referrer = document.referrer;
-
-    // TODO: Do we still need to hijack the bootstrapping process?
-    var modules = Object.keys(angular.module);
-    angular.resumeBootstrap(modules);
-
     /**
      * increase count of visits
      */

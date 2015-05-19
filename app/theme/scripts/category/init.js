@@ -1,6 +1,4 @@
-module.exports = function() {
-
-    angular.module.categoryModule
+angular.module('categoryModule')
     .config(["$routeProvider", "$locationProvider", "GENERAL_CATEGORY_URI", function ($routeProvider, $locationProvider, GENERAL_CATEGORY_URI) {
         $routeProvider
             .when("/category/:id", {
@@ -13,6 +11,3 @@ module.exports = function() {
             });
         $locationProvider.html5Mode(true);
     }]);
-
-    require('./controller')(angular.module.categoryModule);
-}

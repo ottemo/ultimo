@@ -1,31 +1,28 @@
-module.exports = function (cmsModule) {
-    cmsModule
-        /*
-         *  $productApiService interaction service
-         */
-        .service("$cmsPageService", [
-            "$commonRewriteService",
-            function ($commonRewriteService) {
-                var getUrl, type;
+angular.module("cmsModule")
+    /*
+     *  $productApiService interaction service
+     */
+    .service("$cmsPageService", [
+        "$commonRewriteService",
+        function ($commonRewriteService) {
+            var getUrl, type;
 
-                type = "page";
+            type = "page";
 
-                getUrl = function (id) {
-                    var url;
-                    url = $commonRewriteService.getRewrite(type, id);
+            getUrl = function (id) {
+                var url;
+                url = $commonRewriteService.getRewrite(type, id);
 
-                    if (!url) {
-                        url = type + "/" + id;
-                    }
+                if (!url) {
+                    url = type + "/" + id;
+                }
 
-                    return "/" + url;
-                };
+                return "/" + url;
+            };
 
-                return {
-                    "getUrl": getUrl
-                };
-            }
-        ]
-    );
-
-};
+            return {
+                "getUrl": getUrl
+            };
+        }
+    ]
+);

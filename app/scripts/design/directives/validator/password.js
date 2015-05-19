@@ -1,24 +1,25 @@
-module.exports = function (designModule) {
-    var minLen, minCountUppercase, minCountLowercase, minCountNumbers, minCountSymbols, passwordNotValidLength,
-        passwordNotEnoughLowercases, passwordNotEnoughUppercases, passwordNotEnoughNumbers, passwordNotEnoughSymbols;
-
-    minLen = 8;
-    minCountUppercase = 1;
-    minCountLowercase = 1;
-    minCountNumbers = 1;
-    minCountSymbols = 1;
-
-    passwordNotValidLength = "password should have " + minLen + " char or more";
-    passwordNotEnoughLowercases = "password should have not less " + minCountUppercase + " lowercase";
-    passwordNotEnoughUppercases = "password should have not less " + minCountUppercase + " uppercase";
-    passwordNotEnoughNumbers = "password should have not less " + minCountNumbers + " numbers";
-    passwordNotEnoughSymbols = "password should have not less " + minCountSymbols + " symbols";
-
-    designModule.directive("otPassword", function () {
+angular.module("designModule")
+    .directive("otPassword", function () {
         return {
             restrict: 'EA',
             require: '?ngModel',
             link: function (scope, elem, attrs, ngModel) {
+
+                var minLen, minCountUppercase, minCountLowercase, minCountNumbers, minCountSymbols, passwordNotValidLength,
+                    passwordNotEnoughLowercases, passwordNotEnoughUppercases, passwordNotEnoughNumbers, passwordNotEnoughSymbols;
+
+                minLen = 8;
+                minCountUppercase = 1;
+                minCountLowercase = 1;
+                minCountNumbers = 1;
+                minCountSymbols = 1;
+
+                passwordNotValidLength = "password should have " + minLen + " char or more";
+                passwordNotEnoughLowercases = "password should have not less " + minCountUppercase + " lowercase";
+                passwordNotEnoughUppercases = "password should have not less " + minCountUppercase + " uppercase";
+                passwordNotEnoughNumbers = "password should have not less " + minCountNumbers + " numbers";
+                passwordNotEnoughSymbols = "password should have not less " + minCountSymbols + " symbols";
+
                 var checkLowercases = function (value) {
                     var matches = value.match(/([a-z]+)/g);
                     return (matches === null || (matches !== null && matches.join("").length < minCountLowercase));
@@ -36,7 +37,7 @@ module.exports = function (designModule) {
                     return (matches === null || (matches !== null && matches.join("").length < minCountSymbols));
                 };
                 var validate = function (value) {
-                    if(!value) return value;
+                    if (!value) return value;
                     /*jshint maxcomplexity:6 */
                     var valid = true;
                     if (value.length < minLen) {
@@ -70,4 +71,3 @@ module.exports = function (designModule) {
             }
         };
     });
-};

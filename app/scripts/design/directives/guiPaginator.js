@@ -1,6 +1,5 @@
-module.exports = function (designModule) {
-
-    designModule.directive('guiPaginator', ['$location', '$designService', function ($location, $designService) {
+angular.module("designModule")
+    .directive('guiPaginator', ['$location', '$designService', function ($location, $designService) {
         return {
             restrict: 'E',
             scope: {
@@ -23,7 +22,7 @@ module.exports = function (designModule) {
                 };
 
                 $scope.isShow = function () {
-                    if($scope.parent.pages <= 1 || $scope.parent.clickMore){
+                    if ($scope.parent.pages <= 1 || $scope.parent.clickMore) {
                         return false;
                     }
 
@@ -92,10 +91,7 @@ module.exports = function (designModule) {
                             _page = page;
                     }
                     $location.search("p", _page);
-//                        return $scope.parent.uri.replace(':page', _page);
                 };
             }
         };
     }]);
-
-};

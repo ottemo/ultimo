@@ -1,6 +1,5 @@
-module.exports = function (designModule) {
-
-    designModule.directive("guiListBar", ["$designService", function ($designService) {
+angular.module("designModule")
+    .directive("guiListBar", ["$designService", function ($designService) {
         return {
             restrict: "E",
             scope: {
@@ -23,5 +22,3 @@ module.exports = function (designModule) {
             }
         };
     }]);
-
-};

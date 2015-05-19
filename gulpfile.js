@@ -1,206 +1,214 @@
-(function () {
-    'use strict';
+var gulp = require('gulp');
+var minifyHTML = require('gulp-minify-html');
+var uglify = require('gulp-uglify');
+var jshint = require('gulp-jshint');
+var changed = require('gulp-changed');
+var imagemin = require('gulp-imagemin');
+var autoprefix = require('gulp-autoprefixer');
+var minifyCSS = require('gulp-minify-css');
+var del = require('del');
+var concat = require('gulp-concat');
+var refresh = require('gulp-livereload');
+var modRewrite = require('connect-modrewrite');
+var RevAll = require('gulp-rev-all');
+var runSequence = require('run-sequence');
+var sourcemaps = require('gulp-sourcemaps');
 
-    var gulp = require('gulp');
-    var watchify = require('watchify');
-    var gutil = require('gulp-util');
-    var minifyHTML = require('gulp-minify-html');
-    var uglify = require('gulp-uglify');
-    var jshint = require('gulp-jshint');
-    var changed = require('gulp-changed');
-    var imagemin = require('gulp-imagemin');
-    var autoprefix = require('gulp-autoprefixer');
-    var minifyCSS = require('gulp-minify-css');
-    var browserSync = require('browser-sync');
-    var modRewrite = require('connect-modrewrite');
-    var del = require('del');
-    var browserify = require('browserify');
-    var source = require('vinyl-source-stream');
-    var buffer = require('vinyl-buffer');
-    var assign = require('lodash.assign');
-
-    var paths = {
-        'app': require('./bower.json').appPath || 'app',
-        'dist': 'dist',
-
-        // Core
-        'js': 'app/scripts/**/*.js',
-        'vendor': 'app/lib/**/*.js',
-
-        // Theme Libs
-        'vendorTheme': 'app/theme/**/lib/**/*',
-
-        // Theme
-        'theme': {
-            'css': 'app/theme/styles/**/*.css',
-            'images': 'app/theme/**/*.{png,jpg,jpeg,gif,ico,mp4,ogv,webm,pdf}',
-            'fonts': 'app/theme/fonts/**/*',
-            'js': 'app/theme/scripts/**/*.js',
-            'dest': 'dist/theme',
-            'src': './app/theme'
-        },
-
-        // Static
-        'html': 'app/**/*.html',
-        'misc': 'app/*.{txt,htaccess,ico}'
-    };
-
-    var host = {
-        port: '8080',
-        lrPort: '35729'
-    };
-
-    /*
-     * Set the current environment in use, 'development' is selected by default
-     *
-     *     $ NODE_ENV=production gulp build
-     *
-     * NODE_ENV: options are 'development' & 'production'
-     */
-    var env = process.env.NODE_ENV || 'development';
-
-    // Print a node stack trace upon error
-    gulp.on('err', function(e) {
-        console.log(e.err.stack);
-    });
-
-    // Empties folders to start fresh
-    gulp.task('clean', function (cb) {
-        del(['dist/*', '!dist/media'], cb);
-    });
-
-    // copy vendor js
-    gulp.task('vendor', ['clean'], function () {
-        gulp.src(paths.vendorTheme)
-            .pipe(gulp.dest(paths.theme.dest));
-        return gulp.src(paths.vendor)
-            .pipe(gulp.dest(paths.dist + '/lib'));
-    });
-
-    // copy misc assets
-    gulp.task('misc', ['clean'], function () {
-        return gulp.src(paths.misc)
-            .pipe(gulp.dest(paths.dist));
-    });
-
-    // Run JSHint
-    gulp.task('jshint', function () {
-        gulp.src(paths.js)
-            .pipe(jshint())
-            .pipe(jshint.reporter(require('jshint-stylish')));
-    });
-
-    /* Start Browserify */
-    function bundle() {
-        return b.bundle()
-            .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-            .pipe(source('bundle.js'))
-            .pipe(gulp.dest('./app'));
+var paths = {
+    dist: 'dist',
+    jshint: [
+        'app/scripts/**/*.js',
+        'app/theme/**/*.js'
+    ],
+    html: 'app/**/*.html',
+    misc: 'app/*.{txt,htaccess,ico}',
+    scripts: [
+        'app/scripts/config.js',
+        'app/scripts/main.js',
+        'app/scripts/**/init.js',
+        'app/scripts/**/*.js'
+    ],
+    theme: {
+        dist: 'dist/theme',
+        css: 'app/theme/styles/**/*.css',
+        images: 'app/theme/**/*.{png,gif,jpg,jpec,ico,svg,mp4}',
+        fonts: 'app/theme/fonts/**/*',
+        scripts: [
+            'app/theme/lib/**/*.js',
+            'app/theme/**/*.js'
+        ]
+    },
+    lib: {
+        dist: 'dist/lib',
+        scripts: [
+            'app/lib/jquery.min.js',
+            'app/lib/angular.min.js',
+            'app/lib/*.js' // NOTE: no folder glob, or it would clobber .ie
+        ],
+        ie: 'app/lib/ie/*.js'
     }
-    var customOpts = {
-        entries: ['./app/scripts/main.js'],
-        debug: false
-    };
+};
 
-    var b = watchify(browserify(assign({}, watchify.args, customOpts)));
+var host = {
+    port: '8080',
+    lrPort: '35729'
+};
 
-    if(env === 'development') {
-        gulp.task('browserify', bundle);
-        b.on('update', bundle);
-        b.on('log', gutil.log);
-    } else {
-        // production build
-        gulp.task('browserify', function () {
-            return browserify()
-                .add('./app/scripts/main.js')
-                .bundle()
-                .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-                .pipe(source('bundle.js'))
-                .pipe(buffer())
-                .pipe(uglify({mangle: false}))
-                .pipe(gulp.dest('./dist'));
+var env = process.env.NODE_ENV || 'development';
+
+// Empties folders to start fresh
+gulp.task('clean', function (cb) {
+    return del(['dist/*', '!dist/media'], cb);
+});
+
+gulp.task('jshint', function () {
+    return gulp.src(paths.jshint)
+        .pipe(jshint())
+        .pipe(jshint.reporter(require('jshint-stylish')));
+});
+
+gulp.task('html', function () {
+    return gulp.src(paths.html)
+        .pipe(changed(paths.dist))
+        .pipe(minifyHTML({
+            collapseWhitespace: true,
+            collapseBooleanAttributes: true,
+            removeCommentsFromCDATA: true,
+            removeOptionalTags: true,
+            conditionals: true,
+            quotes: true,
+            empty: true
+        }))
+        .pipe(gulp.dest(paths.dist));
+});
+
+gulp.task('misc', function () {
+    return gulp.src(paths.misc)
+        .pipe(gulp.dest(paths.dist));
+});
+
+gulp.task('scripts', function () {
+    return gulp.src(paths.scripts)
+        .pipe(sourcemaps.init())
+        .pipe(concat('main.js'))
+        .pipe(uglify({
+            mangle: false
+        }))
+        .pipe(sourcemaps.write('./maps'))
+        .pipe(gulp.dest(paths.dist + '/scripts'))
+        .pipe(refresh());
+});
+
+gulp.task('theme.css', function () {
+    return gulp.src(paths.theme.css)
+        .pipe(autoprefix('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+        .pipe(minifyCSS())
+        .pipe(gulp.dest(paths.theme.dist + '/styles'));
+});
+
+gulp.task('theme.fonts', function() {
+    return gulp.src(paths.theme.fonts)
+        .pipe(gulp.dest(paths.theme.dist + '/fonts'));
+});
+
+gulp.task('theme.scripts', function () {
+    return gulp.src(paths.theme.scripts)
+        .pipe(sourcemaps.init())
+        .pipe(concat('main.js'))
+        .pipe(uglify({
+            mangle: false
+        }))
+        .pipe(sourcemaps.write('./maps'))
+        .pipe(gulp.dest(paths.theme.dist))
+        .pipe(refresh());
+});
+
+gulp.task('theme.images', function () {
+    return gulp.src(paths.theme.images)
+        .pipe(changed(paths.theme.dist))
+        .pipe(imagemin())
+        .pipe(gulp.dest(paths.theme.dist));
+});
+
+gulp.task('lib.scripts', function () {
+    return gulp.src(paths.lib.scripts)
+        .pipe(concat('lib.js'))
+        .pipe(gulp.dest(paths.lib.dist));
+});
+
+// IE libs can stick together, but need to be separate from other libs
+gulp.task('lib.ie', function() {
+    return gulp.src(paths.lib.ie)
+        .pipe(concat('ie-libs.js'))
+        .pipe(gulp.dest(paths.lib.dist));
+});
+
+
+
+
+gulp.task('watch',function(){
+    refresh.listen({ basePath: paths.dist });
+
+    gulp.start('livereload');
+
+    gulp.watch(["app/**/*.html"],['html']);
+    gulp.watch(["app/**/*.css"],['theme.css']);
+    gulp.watch(["app/scripts/**/*.js"],['scripts']);
+    gulp.watch(["app/theme/**/*.js"],['theme.scripts']);
+});
+
+gulp.task('livereload', function(){
+    var path = require('path');
+    var express = require('express');
+    var app = express();
+    var staticFolder = path.join(__dirname, 'dist');
+
+    app.use(modRewrite([
+        '!\\. /index.html [L]'
+    ]))
+        .use(express.static(staticFolder));
+
+    app.listen( host.port, function() {
+        console.log('server started, port ' + host.port);
+        return gulp;
+    });
+});
+
+gulp.task('revision', function(){
+    if(env === 'production') {
+        var revAll = new RevAll({
+            dontUpdateReference: [/^((?!.js|.css).)*$/g],
+            dontRenameFile: [/^((?!.js|.css).)*$/g]
         });
+        gulp.src('dist/**')
+            .pipe(revAll.revision())
+            .pipe(gulp.dest('dist'));
     }
-    /* End Browserify */
+});
 
-    // minify new images
-    gulp.task('imagemin', ['clean'], function () {
-        return gulp.src(paths.theme.images)
 
-            .pipe(changed(paths.theme.dest))
-            .pipe(imagemin())
-            .pipe(gulp.dest(paths.theme.dest));
-    });
+gulp.task('lib', ['lib.ie', 'lib.scripts']);
+gulp.task('theme', [
+    'theme.css',
+    'theme.fonts',
+    'theme.scripts',
+    'theme.images'
+]);
 
-    // minify new or changed HTML pages
-    gulp.task('html', ['clean'], function () {
-        return gulp.src(paths.html)
-            .pipe(changed(paths.dist))
-            .pipe(minifyHTML({
-                collapseWhitespace: true,
-                collapseBooleanAttributes: true,
-                removeCommentsFromCDATA: true,
-                removeOptionalTags: true,
-                conditionals: true,
-                quotes: true,
-                empty: true
-            }))
-            .pipe(gulp.dest(paths.dist));
-    });
+// For production
+gulp.task('build', function(){
+    // note: revision has a short circuit for dev
+    runSequence('clean', [
+        'html',
+        'misc',
+        'scripts',
+        'theme',
+        'lib'
+    ], 'revision');
+});
 
-    // CSS auto-prefix and minify
-    gulp.task('css', ['clean'], function () {
-        gulp.src(paths.theme.css)
-            .pipe(autoprefix('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-            .pipe(minifyCSS())
-            .pipe(gulp.dest(paths.theme.dest + '/styles'));
-
-        gulp.src(paths.theme.fonts)
-            .pipe(gulp.dest(paths.theme.dest + '/fonts'));
-    });
-
-    // browser-sync task for starting server
-    gulp.task('browser-sync', function () {
-        if (env === 'development') {
-            browserSync({
-                server: {
-                    baseDir: './app',
-                    middleware: [
-                        modRewrite([
-                            '!\\. /index.html [L]'
-                        ])
-                    ]
-                },
-                port: host.port
-            });
-        } else {
-            browserSync({
-                server: {
-                    baseDir: './dist'
-                },
-                port: host.port
-            });
-        }
-    });
-
-    // run in development mode with easy browser reloading
-    gulp.task('serve', ['build','browser-sync'], function () {
-        gulp.watch(paths.html, [browserSync.reload]);
-        gulp.watch(paths.css, [browserSync.reload]);
-        gulp.watch([paths.js, paths.theme.js], ['browserify', browserSync.reload]);
-    });
-
-    gulp.task('default', ['build']);
-
-    // build task
-    gulp.task('build', function () {
-
-        gulp.start('vendor');
-        gulp.start('misc');
-        gulp.start('html');
-        gulp.start('css');
-        gulp.start('imagemin');
-        gulp.start('browserify');
-    });
-
-})();
+// For development
+gulp.task('serve', ['default']);
+gulp.task('default', ['build'], function(){
+    gulp.start('watch');
+});

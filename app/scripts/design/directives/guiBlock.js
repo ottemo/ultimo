@@ -1,6 +1,5 @@
-module.exports = function (designModule) {
-
-    designModule.directive('guiBlock', [
+angular.module("designModule")
+    .directive('guiBlock', [
         '$location',
         '$designService',
         '$sce',
@@ -30,6 +29,4 @@ module.exports = function (designModule) {
                     };
                 }
             };
-        }]);
-
-};
+        }]);F
