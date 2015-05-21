@@ -970,20 +970,11 @@ the extra space looks funny */
 
 
 /*_________ Mailchimp _________*/
-#mailchimp .modal-dialog {
-	text-align: center;
-	width: 700px;
+#mailchimp .modal-body {
+	margin: 0 0 30px 0;
 }
-#mailchimp .logo{
-	margin: 30px 0;
-}
-#mailchimp .form-group {
-	width: 500px;
-	margin: 0 auto 30px;
-}
-#mailchimp label {
-	text-align: left;
-	width: 100%;
+#mailchimp .logo {
+	margin: 30px auto;
 }
 
 /*_________ Checkout _________*/

@@ -169,7 +169,7 @@ gulp.task('livereload', function(){
         .use(express.static(staticFolder));
 
     app.listen( host.port, function() {
-        console.log('server started, port ' + host.port);
+        console.log('server started: http://localhost:' + host.port);
         return gulp;
     });
 });
