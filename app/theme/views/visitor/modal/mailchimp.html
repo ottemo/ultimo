@@ -1,27 +1,45 @@
 <div class="modal fade" id="mailchimp" tabindex="-1" role="dialog" ng-controller="visitorLoginController">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body" id="mc_embed_signup">
                 <!-- close button -->
                 <button type="button" class="close"><span aria-hidden="true">&times;</span></button>
 
                 <!-- logo -->
-                <img alt="logo" class="logo" ng-src="theme/images/kg-logo.png" src="../../../images/logo.png">
+                <div>
+                    <img alt="logo" class="logo img-responsive" ng-src="theme/images/kg-logo.png">
+                </div>
+
 
                 <!-- error message -->
                 <gui-message-manager item="message" id="infoRegister"></gui-message-manager>
 
-                <form name="register" action="http://karigran.us5.list-manage1.com/subscribe/post?u=6355acb494cba6e3f035232b8&amp;id=9b54ed013d" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                <form
+                id="mc-embedded-subscribe-form"
+                class="validate"
+                action="http://karigran.us5.list-manage1.com/subscribe/post?u=6355acb494cba6e3f035232b8&amp;id=9b54ed013d"
+                method="post"
+                name="mc-embedded-subscribe-form"
+                target="_blank"
+                novalidate>
 
-                    <div class="form-group">
-                        <label for="newsletter">Sign Up for Our Newsletter:</label>
-                        <input type="email" value="" name="EMAIL" class="email form-control" id="mce-EMAIL" placeholder="enter your email address" required>
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-2">
+                            <div class="form-group">
+                                <label for="newsletter">Sign Up for Our Newsletter:</label>
+                                <input type="email" value="" name="EMAIL" class="email form-control" id="mce-EMAIL" placeholder="enter your email address" required>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-                    <div style="position: absolute; left: -15000px;"><input type="text" name="b_b2aef187ba662a963c9edf226_98aeace9b4" tabindex="-1" value=""></div>
-                    <div class="form-group text-center">
-                        <input type="submit" value="Subscribe & Save" name="subscribe" id="mc-embedded-subscribe" class="btn btn-primary">
+                    <div style="display:none;">
+                        <input type="text" name="b_b2aef187ba662a963c9edf226_98aeace9b4" tabindex="-1" value="">
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-2">
+                            <input type="submit" value="Subscribe &amp; Save" name="subscribe" id="mc-embedded-subscribe" class="btn btn-primary btn-block">
+                        </div>
                     </div>
                 </form>
             </div>
