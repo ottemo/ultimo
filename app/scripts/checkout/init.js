@@ -24,6 +24,14 @@ angular.module("checkoutModule", ["ngRoute", "ngResource", "designModule"])
                 .when(ACCORDION_URL, {
                     templateUrl: "theme/views/checkout/view2.html",
                     controller: "checkoutAccordionController"
+                })
+                .when('/checkout/success/:orderId', {
+                    templateUrl: "theme/views/checkout/order-confirmation.html",
+                    controller: "checkoutOrderConfirmationController"
+                })
+                .when('/checkout/success', {
+                    templateUrl: "theme/views/checkout/order-confirmation.html",
+                    controller: "checkoutOrderConfirmationController"
                 });
             $locationProvider.html5Mode(true);
         }
