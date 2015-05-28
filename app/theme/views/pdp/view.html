@@ -33,7 +33,7 @@
         </div>
     </div>
 
-    <!-- info -->      
+    <!-- info -->
     <div class="col-xs-12 col-md-6">
         <h1 class="pdp-product-name">{{product.name}}</h1>
         <div class="pdp-description std" ng-bind-html="product.description"></div>
@@ -60,7 +60,7 @@
                 <gui-message-manager item="messageOptions"></gui-message-manager>
             </div>
         </div>
-        
+
         <div class="form-inline form-spaced pdp-purchase-form-2">
             <!-- Quantity -->
             <div class="form-group">
@@ -114,8 +114,10 @@
     <div class="text-center col-sm-10 col-xs-offset-1 col-md-12 ">
         <span class="col-xs-12 col-sm-6 col-md-2 " ng-repeat="_item in related" ng-show="related.length">
             <a class="thumbnail" href="{{productService.getUrl(_item.ID)}}">
-                <img class="text center" ng-src="
-                    {{getImage('',_item.Image, 'thumb')}}" alt="_item.Name"/>
+                <img
+                class="text center"
+                ng-src="{{getImage('',_item.Image, 'thumb')}}"
+                alt="_item.Name"/>
             </a>
         </span>
         <div class="clear"></div>
@@ -124,19 +126,20 @@
 
 <!-- TODO: move out -->
 <script>
-    $('body').removeClass('modal-open');
-    $('.js-img-zoom').fancybox({
-        helpers: {
-            title : {
-                type : 'outside'
-            },
-            overlay : {
-                speedOut : 0
-            }
-        }
-    });
 
-    $(document).ready(function () {
+    $(function () {
+        $('body').removeClass('modal-open');
+        $('.js-img-zoom').fancybox({
+            helpers: {
+                title : {
+                    type : 'outside'
+                },
+                overlay : {
+                    speedOut : 0
+                }
+            }
+        });
+
         //slider
         $(document).on('click', '.slide-small', function() {
             $('.slide-image')
