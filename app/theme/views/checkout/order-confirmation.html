@@ -1,7 +1,34 @@
-<h4>Thank you for your purchase!</h4>
+<div class="row">
+	<div class="col-sm-6 col-md-8">
+		<h1>Thank you for your purchase!</h1>
+		<p ng-if="orderId">Your order # is: <a ng-href="/account/order/{{orderId}}">{{orderId}}</a>.</p>
 
-<p ng-show="orderId">Your order # is: {{orderId}}.</p>
+		<p>You will receive an order confirmation email with details of your order and a link to track its progress.</p>
 
-<p>You will receive an order confirmation email with details of your order and a link to track its progress.</p>
+		<a class="btn btn-primary" href="/shop">Continue shopping</a>
+		<br><br><br>
+	</div>
+	<div class="col-sm-6 col-md-4">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<h3 class="flat-top">Customers</h3>
+				<p>Please feel free to email us or call our office at the number below.</p>
+				<p>Questions or comments about your order, please email us at <a href="mailto:support@karigran.com">support@karigran.com</a></p>
+				<p>General questions and inquiries, please email us at <a href="mailto:info@karigran.com">info@karigran.com</a></p>
 
-<a class="btn btn-primary" href="/shop">Continue shopping</a>
+				<h3>Phone</h3>
+				<p>
+					206.257.1226 <br>
+					Monday - Friday <br>
+					9:00am - 5:00pm PST
+				</p>
+
+				<h3>Media</h3>
+				<p>Media inquiries, please email <a href="mailto:pr@karigran.com">Kari Gran PR</a>.</p>
+
+				<h3>Wholesale</h3>
+				<p>Wholesale inquiries, please email us at <a href="mailto:wholesaleinquiry@karigran.com">wholesaleinquiry@karigran.com</a>.</p>
+			</div>
+		</div>
+	</div>
+</div>

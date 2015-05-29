@@ -17,7 +17,8 @@ p {
 	font-family: Arial;
 	font-size: 14px;
 	font-weight: 200;
-	line-height: 31px;
+	line-height: 2.2;
+	margin: 0 0 20px 0;
 }
 
 a {
