@@ -128,7 +128,7 @@ angular.module("visitorModule")
 
                             $scope.message = $commonUtilService.getMessage(null, "success", "Thanks for registration. Please check your email and confirm your account");
                             for (var field in $scope.register) {
-                                if ($scope.register.hasOwnProperty(field)) {
+                                if ($scope.register.hasOwnProperty(field) && $scope.register[field]) {
                                     $scope.register[field].$pristine = true;
                                 }
                             }
