@@ -4,7 +4,7 @@
     <h2>Order №{{order.increment_id}}</h2>
 
     <h4>
-        Date: <strong>{{getDateCreated(order.created_at)}}</strong>
+        Date: <strong>{{order.created_at | date:"MM/dd/yyyy h:mma"}}</strong>
     </h4>
 
     <hr>

@@ -57,17 +57,6 @@ angular.module("visitorModule")
                 );
             }
 
-            $scope.getDateCreated = function (str) {
-                var date, month, day;
-
-                date = $commonUtilService.getDate(str);
-                var m = date.getMonth() + 1;
-                month = m.toString().length < 2 ? '0' + m : m;
-                day = date.getDate().toString().length < 2 ? '0' + date.getDate() : date.getDate();
-
-                return date.getFullYear() + '/' + month + '/' + day;
-            };
-
             $scope.$watch('addedOrderId', function () {
                 if (typeof $scope.addedOrderId !== 'undefined') {
                     $scope.message = $commonUtilService.getMessage(null, "success", "THANK YOU FOR YOUR PURCHASE!<br/>" +
