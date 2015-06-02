@@ -20,8 +20,8 @@
 											<table class="twelve columns">
 												<tr>
 													<td>
-														<a href="http://www.karigran.com/">
-															<img src="http://kg.dev.ottemo.io/theme/images/email/kg-logo.jpg">
+														<a href="{{ .Info.base_storefront_url }}">
+															<img src="{{ .Info.base_storefront_url }}/theme/images/email/kg-logo.jpg">
 														</a>
 													</td>
 													<td class="expander"></td>
@@ -107,8 +107,7 @@
 												</tr>
 												<tr>
 													<td class="panel__body">
-														<!-- todo: mapped label -->
-														<div>{{ Order.payment_method }}</div>
+														<div>{{ .Order.payment_method_title }}</div>
 													</td>
 													<td class="expander"></td>
 												</tr>
@@ -153,8 +152,7 @@
 												</tr>
 												<tr>
 													<td class="panel__body">
-														<!-- todo: mapped label -->
-														<div>{{ .Order.shipping_method }}</div>
+														<div>{{ .Order.shipping_method_title }}</div>
 													</td>
 													<td class="expander"></td>
 												</tr>
@@ -176,6 +174,9 @@
 														<td>
 															<h4>{{ $item.name }}</h4>
 															<ul>
+																{{ range $label, $value := $item.options }}
+																	<li>{{ $label }}: {{ $value }}</li>
+																{{ end }}
 																<li>sku: {{ $item.sku }}</li>
 																<li>qty: {{ $item.qty }}</li>
 															</ul>
