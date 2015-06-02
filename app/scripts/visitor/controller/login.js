@@ -152,7 +152,7 @@ angular.module("visitorModule")
                 if (isPopUp) {
                     $route.reload();
                 } else {
-                    var path = angular.angular.module('visitorModule').back.path.trim('/');
+                    var path = angular.module('visitorModule').back.path.trim('/');
                     if (typeof angular.module('visitorModule').back.path !== "undefined" &&
                         "" !== path &&
                         -1 === ['login', 'login.html', 'home', 'home.html', 'logout', 'logout.html'].indexOf(path)) {
