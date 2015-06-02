@@ -33,7 +33,7 @@
                         <br>
 
                         <strong>Date: </strong>
-                        <span>{{getDateCreated(order.Extra.created_at)}}</span>
+                        <span>{{order.Extra.created_at | date:"MM/dd/yyyy h:mma"}}</span>
 
                         <br>
 
@@ -71,7 +71,7 @@
                             <td>
                                 <a href="/account/order/{{order.ID}}">{{order.Name}}</a>
                             </td>
-                            <td>{{getDateCreated(order.Extra.created_at)}}</td>
+                            <td>{{order.Extra.created_at | date:"MM/dd/yyyy h:mma"}}</td>
                             <td>{{order.Desc}}</td>
                             <td>{{order.Extra.grand_total | currency}}</td>
                             <td>{{order.Extra.status}}</td>
