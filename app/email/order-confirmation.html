@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width"/>
+</head>
+<body>
+	<table class="body">
+		<tr>
+			<td class="center" align="center" valign="top">
+				<center>
+
+					<table class="container">
+						<tr>
+							<td>
+								<table class="row">
+									 <tr>
+										<td class="wrapper last">
+
+											<table class="twelve columns">
+												<tr>
+													<td>
+														<a href="{{ .Info.base_storefront_url }}">
+															<img src="{{ .Info.base_storefront_url }}/theme/images/email/kg-logo.jpg">
+														</a>
+													</td>
+													<td class="expander"></td>
+
+												</tr>
+											</table>
+
+										</td>
+									</tr>
+								</table>
+
+								<table class="row">
+									<tr>
+										<td class="wrapper">
+
+											<table class="twelve columns">
+												<tr>
+													<td>
+
+														<h1>Hello,</h1>
+														<p>Thank you for your order from Kari Gran. We use a holistic approach to skin care health, so our products are made from pure ingredients. It's a change from other skin care companies, and you'll be able to feel your skin become more hydrated and nourished</p>
+														<p>Once your package ships we will send an email with a link to track your order.</p>
+														<p>If you have any questions about your order please contact us at <a href="mailto:support@karigran.com">support@karigran.com</a> or call us at (206) 257-1226 Monday - Friday, 8am - 5pm PST.</p>
+														<p>Your order confirmation is below. Thank you again for your business.</p>
+
+													</td>
+													<td class="expander"></td>
+												</tr>
+											</table>
+
+										</td>
+									</tr>
+								</table>
+
+								<table class="row">
+									<tr>
+										<td class="wrapper">
+											<table class="twelve columns">
+												<tr>
+													<td>
+														<h5>Your Order #{{ .Order.increment_id }} (placed on {{ .Order.created_at }})</h5>
+													</td>
+													<td class="expander"></td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+
+								<table class="row">
+									<tr>
+										<td class="wrapper">
+
+											<table class="six columns">
+												<tr>
+													<td class="panel__header">
+														<h4>Billing Information</h4>
+													</td>
+													<td class="expander"></td>
+												</tr>
+												<tr>
+													<td class="panel__body">
+														<div>{{ .Order.billing_address.first_name }} {{ .Order.billing_address.last_name }}</div>
+														<div>{{ .Order.billing_address.address_line1 }}</div>
+														{{ if .Order.billing_address.address_line2 }}
+															<div>{{ .Order.billing_address.address_line2 }}</div>
+														{{ end }}
+														<div>{{ .Order.billing_address.city }}, {{ .Order.billing_address.state }} {{ .Order.billing_address.zip }} {{ .Order.billing_address.country }}</div>
+													</td>
+													<td class="expander"></td>
+												</tr>
+											</table>
+
+										</td>
+										<td class="wrapper last">
+
+											<table class="six columns">
+												<tr>
+													<td class="panel__header">
+														<h4>Payment Method</h4>
+													</td>
+													<td class="expander"></td>
+												</tr>
+												<tr>
+													<td class="panel__body">
+														<div>{{ .Order.payment_method_title }}</div>
+													</td>
+													<td class="expander"></td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+
+								<table class="row">
+									<tr>
+										<td class="wrapper">
+
+											<table class="six columns">
+												<tr>
+													<td class="panel__header">
+														<h4>Shipping Information</h4>
+													</td>
+													<td class="expander"></td>
+												</tr>
+												<tr>
+													<td class="panel__body">
+														<div>{{ .Order.shipping_address.first_name }} {{ .Order.shipping_address.last_name }}</div>
+														<div>{{ .Order.shipping_address.address_line1 }}</div>
+														{{ if .Order.shipping_address.address_line2 }}
+															<div>{{ .Order.shipping_address.address_line2 }}</div>
+														{{ end }}
+														<div>{{ .Order.shipping_address.city }}, {{ .Order.shipping_address.state }} {{ .Order.shipping_address.zip }} {{ .Order.shipping_address.country }}</div>
+													</td>
+													<td class="expander"></td>
+												</tr>
+											</table>
+
+										</td>
+										<td class="wrapper last">
+
+											<table class="six columns">
+												<tr>
+													<td class="panel__header">
+														<h4>Shipping Method</h4>
+													</td>
+													<td class="expander"></td>
+												</tr>
+												<tr>
+													<td class="panel__body">
+														<div>{{ .Order.shipping_method_title }}</div>
+													</td>
+													<td class="expander"></td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+
+								<table class="row">
+									<tr>
+										<td class="wrapper">
+											<table class="twelve columns tt">
+												<tr>
+													<td class="tt__header"><h4>Item</h4></td>
+													<td class="tt__header tt__header--last"><h4>Subtotal</h4></td>
+												</tr>
+												{{ range $item := .Order.items }}
+													<tr class="tt__items">
+														<td>
+															<h4>{{ $item.name }}</h4>
+															<ul>
+																{{ range $label, $value := $item.options }}
+																	<li>{{ $label }}: {{ $value }}</li>
+																{{ end }}
+																<li>sku: {{ $item.sku }}</li>
+																<li>qty: {{ $item.qty }}</li>
+															</ul>
+														</td>
+														<td class="tt__td-total">{{ $item.price }}</td>
+													</tr>
+												{{ end }}
+												<tr>
+													<td class="tt__total-label">Subtotal</td>
+													<td class="tt__td-total">{{ .Order.subtotal }}</td>
+												 </tr>
+												 <tr>
+													<td class="tt__total-label">Shipping &amp; Handling</td>
+													<td class="tt__td-total">{{ .Order.shipping_amount }}</td>
+												 </tr>
+												 <tr>
+													<td class="tt__total-label">Tax</td>
+													<td class="tt__td-total">{{ .Order.tax_amount }}</td>
+												 </tr>
+												 <tr class="tt__totals--grand">
+													<td class="tt__total-label">Grand Total</td>
+													<td class="tt__td-total">{{ .Order.grand_total }}</td>
+												 </tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+
+								<table class="row">
+									<tr>
+										<td class="break">&nbsp;</td>
+									</tr>
+								</table>
+
+								<table class="row footer">
+									<tr>
+										<td class="wrapper last">
+											<table class="twelve columns">
+												<tr>
+													<td align="center">
+														<center>
+															<p style="text-align:center;">Thank you again, <strong>Kari Gran</strong></p>
+														</center>
+													</td>
+													<td class="expander"></td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+
+								<!-- container end below -->
+							</td>
+						</tr>
+					</table>
+
+				</center>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
