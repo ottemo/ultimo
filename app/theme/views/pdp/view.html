@@ -129,15 +129,14 @@
 
     $(function () {
         $('body').removeClass('modal-open');
-        $('.js-img-zoom').fancybox({
-            helpers: {
-                title : {
-                    type : 'outside'
-                },
-                overlay : {
-                    speedOut : 0
-                }
-            }
+
+        // big image preview
+        $(document).on('click', '.js-img-zoom', function(e){
+            e.preventDefault();
+            var $this = $(this);
+            $.fancybox([
+                { href: $this.attr('href') }
+            ]);
         });
 
         //slider
