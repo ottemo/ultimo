@@ -394,6 +394,52 @@
             </div>
         </div>
 
+        <!-- Gift Cards -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Gift Cards</h3>
+            </div>
+            <div class="panel-body">
+                <div id="giftCards" class="accordion" style="display:none;">
+                    <form ng-submit="giftcard.apply()">
+                        <div class="form-group">
+                            <label for="giftcode">Gift Card Code</label>
+                            <div class="input-group">
+                                <input
+                                id="giftcode"
+                                type="text"
+                                class="form-control"
+                                ng-model="giftcard.code">
+                                <div class="input-group-btn">
+                                    <button
+                                    type="submit"
+                                    class="btn btn-primary"
+                                    ng-disabled="giftcard.searching">
+                                    Apply Gift Card
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="help-block" ng-if="giftcard.message">
+                                {{ giftcard.message }}
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="text-center">
+                        <!-- prev step -->
+                        <button class="back btn btn-default" ng-click="back('giftCards')">
+                            Prev step
+                        </button>
+
+                        <!-- next step -->
+                        <button class="next btn btn-primary" ng-click="next('giftCards')">
+                            Next step
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Payment Method -->
         <div class="panel panel-default">
             <div class="panel-heading">

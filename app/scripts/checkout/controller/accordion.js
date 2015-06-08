@@ -12,7 +12,21 @@ angular.module("checkoutModule")
         "$checkoutService",
         "$q",
         "$interval",
-        function ($scope, $location, $checkoutApiService, $designImageService, $visitorLoginService, $cartService, $designStateService, $commonUtilService, $checkoutService, $q, $interval) {
+        "$giftCardsService",
+        function (
+            $scope,
+            $location,
+            $checkoutApiService,
+            $designImageService,
+            $visitorLoginService,
+            $cartService,
+            $designStateService,
+            $commonUtilService,
+            $checkoutService,
+            $q,
+            $interval,
+            $giftCardsService
+        ) {
 
             var init, info, getDefaultAddress, getAddresses, enabledGuestCheckout,
                 getPaymentInfo, creditCartTypes, isValidSteps, initWatchers, defaultChoosePaymentMethod,
@@ -174,6 +188,7 @@ angular.module("checkoutModule")
                     "billingAddress": false,
                     "shippingAddress": false,
                     "shippingMethod": false,
+                    "giftCards": true,
                     "paymentMethod": false,
                     "discounts": true
                 };
@@ -459,7 +474,8 @@ angular.module("checkoutModule")
             $scope.next = function (step) {
                 /*jshint maxcomplexity:6 */
                 var actionBillingAddress, actionShippingAddress, actionPaymentMethod,
-                    actionCustomerAdditionalInfo, actionDiscount, actionDefault;
+                    actionGiftCards, actionCustomerAdditionalInfo, actionDiscount,
+                    actionDefault;
 
                 actionBillingAddress = function () {
                     $scope.subBillingAddress = true;
@@ -537,6 +553,17 @@ angular.module("checkoutModule")
                     }
                 };
 
+                actionGiftCards = function () {
+                    if (isValidSteps[step] && $scope["isGuestCheckout"]) {
+                        $("#" + step).slideUp("slow")
+                        .parents('.panel').next('.panel').find('.accordion').slideDown(500);
+                    }
+                    if (isValidSteps[step] && !$scope["isGuestCheckout"]) {
+                        $("#" + step).slideUp("slow")
+                        .parents('.panel').next('.panel').next('.panel').find('.accordion').slideDown(500);
+                    }
+                };
+
                 actionCustomerAdditionalInfo = function () {
                     $scope.subAdditionalInfo = true;
                     if ($scope.customerInfo.$valid) {
@@ -583,6 +610,9 @@ angular.module("checkoutModule")
                         break;
                     case "discounts":
                         actionDiscount();
+                        break;
+                    case "giftCards":
+                        actionGiftCards();
                         break;
                     default:
                         actionDefault();
@@ -722,6 +752,27 @@ angular.module("checkoutModule")
                     }
                 });
             };
+
+            $scope.giftcard = {};
+            $scope.giftcard.apply = function() {
+                if ($scope.giftcard.code) {
+                    $scope.giftcard.searching = true;
+                    $giftCardsService.apply($scope.giftcard.code)
+                    .then(function(response) {
+                        console.log(response);
+                        $scope.giftcard.searching = false;
+                        if (response.error && response.error.code == "dd7b2130-b5ed-4b26-b1fc-2d36c3bf147f") {
+                            $scope.giftcard.message = "Invalid code, please try again."
+                        } else {
+
+                            $scope.giftcard.message = "Applied!";
+                        }
+
+                    });
+                } else {
+                    $scope.giftcard.message = "Please enter a gift card code before submitting."
+                }
+            }
 
             $scope.discountApply = function () {
                 if ("" === $scope.discount || typeof $scope.discount === "undefined") {
