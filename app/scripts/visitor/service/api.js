@@ -70,10 +70,6 @@ angular.module("visitorModule")
                 "getOrder": {
                     method: "GET",
                     url: REST_SERVER_URI + "/visit/order/:orderID"
-                },
-                "getGiftCardBalance": {
-                    method: "GET",
-                    url: REST_SERVER_URI + "/giftcard/:giftcode"
                 }
             });
     }]);
