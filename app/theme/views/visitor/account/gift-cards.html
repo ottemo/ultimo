@@ -31,11 +31,11 @@
 							<div ng-if="error" class="help-block">
 								{{ error }}
 							</div>
+							<div ng-if="giftcardDetails" class="help-block">
+								Your Balance: {{ giftcardDetails.amount | currency }}
+							</div>
 						</div>
 					</form>
-				</div>
-				<div class="col-md-6" ng-if="giftcardDetails">
-					Your Balance: {{ giftcardDetails.amount | currency }}
 				</div>
 			</div>
 		</div>
