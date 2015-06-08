@@ -211,7 +211,7 @@ angular.module("checkoutModule")
                     }
                 ];
 
-                $scope["useAsBilling"] = true;
+                $scope["useAsBilling"] = false;
                 $scope["states"] = $designStateService;
                 $scope["cart"] = $cartService;
                 $scope["shippingMethods"] = [];
