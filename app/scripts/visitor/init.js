@@ -31,10 +31,13 @@ angular.module("visitorModule", ["ngRoute", "ngResource", "ngCookies", "ngCookie
                 templateUrl: "theme/views/visitor/account/order.html",
                 controller: "visitorOrderController"
             })
-
             .when("/account/order/:id", {
                 templateUrl: "theme/views/visitor/account/order-details.html",
                 controller: "visitorOrderController"
+            })
+            .when("/account/gift-cards", {
+                templateUrl: "theme/views/visitor/account/gift-cards.html",
+                controller: "giftCardsController"
             })
             .when("/login", {
                 templateUrl: "theme/views/visitor/login-page.html",
