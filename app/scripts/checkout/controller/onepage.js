@@ -381,7 +381,7 @@ angular.module("checkoutModule")
                     form = form.replace("$CC_MONTH", method.cc["expire_month"].toString().length < 2 ? "0" + method.cc["expire_month"] : method.cc["expire_month"]);
                     form = form.replace("$CC_YEAR", method.cc["expire_year"]) + "</div>";
 
-                    $(".checkout > div").append(form);
+                    $("body").append(form);
                     $("#auth_net_form").find("form").submit();
                     $("#auth_net_form").remove();
                 };
