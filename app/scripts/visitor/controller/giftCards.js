@@ -16,7 +16,7 @@ angular.module("visitorModule")
 		$scope.checkBalance = function() {
 			$scope.searching = true;
 
-			if ($scope.giftcode) {
+			if ( $scope.giftcode ) {
 				$visitorApiService.getGiftCardBalance({"giftcode": $scope.giftcode}).$promise
 				.then(function(response) {
 					$scope.searching = false;
@@ -27,6 +27,7 @@ angular.module("visitorModule")
 					$scope.giftcardDetails = response.result || false;
 				});
 			} else {
+				$scope.searching = false;
 				$scope.error = "Please enter a gift card code";
 
 			}
