@@ -12,7 +12,21 @@ angular.module("checkoutModule")
         "$checkoutService",
         "$q",
         "$interval",
-        function ($scope, $location, $checkoutApiService, $designImageService, $visitorLoginService, $cartService, $designStateService, $commonUtilService, $checkoutService, $q, $interval) {
+        "$giftCardsService",
+        function (
+            $scope,
+            $location,
+            $checkoutApiService,
+            $designImageService,
+            $visitorLoginService,
+            $cartService,
+            $designStateService,
+            $commonUtilService,
+            $checkoutService,
+            $q,
+            $interval,
+            $giftCardsService
+        ) {
 
             var init, info, getDefaultAddress, getAddresses, enabledGuestCheckout,
                 getPaymentInfo, creditCartTypes, isValidSteps, initWatchers, defaultChoosePaymentMethod,
@@ -553,18 +567,9 @@ angular.module("checkoutModule")
                     }
                 };
 
-                actionDiscount = function () {
-                    if (isValidSteps[step] && $scope["isGuestCheckout"]) {
-                        $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
-                    }
-                    if (isValidSteps[step] && !$scope["isGuestCheckout"]) {
-                        $("#" + step).slideUp("slow").parents('.panel').next('.panel').next('.panel').find('.accordion').slideDown(500);
-                    }
-                };
-
                 actionDefault = function () {
                     if (isValidSteps[step]) {
-                        $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
+                        $("#" + step).slideUp(500).parents('.panel').next('.panel').find('.accordion').slideDown(500);
                     }
                 };
 
@@ -582,7 +587,7 @@ angular.module("checkoutModule")
                         actionCustomerAdditionalInfo();
                         break;
                     case "discounts":
-                        actionDiscount();
+                        actionDefault();
                         break;
                     default:
                         actionDefault();
@@ -723,9 +728,30 @@ angular.module("checkoutModule")
                 });
             };
 
+            $scope.giftcard = {};
+            $scope.giftcard.apply = function() {
+                if ($scope.giftcard.code) {
+                    $scope.giftcard.searching = true;
+                    $giftCardsService.apply($scope.giftcard.code)
+                    .then(function(response) {
+
+                        $scope.giftcard.searching = false;
+                        if (response.error === null) {
+                            info();
+                            // $scope.giftcard.message = $commonUtilService.getMessage(null, "warning", "Please enter a gift card code before submitting.");
+                        } else {
+                            $scope.giftcard.message = $commonUtilService.getMessage(response);
+                        }
+
+                    });
+                } else {
+                    $scope.giftcard.message = $commonUtilService.getMessage(null, "danger", "Gift card code can't be empty");
+                }
+            }
+
             $scope.discountApply = function () {
                 if ("" === $scope.discount || typeof $scope.discount === "undefined") {
-                    $scope.messageDiscounts = $commonUtilService.getMessage(null, "warning", "Discount code can't be empty");
+                    $scope.messageDiscounts = $commonUtilService.getMessage(null, "danger", "Discount code can't be empty");
                 } else {
                     $checkoutService.discountApply({"coupon": $scope.discount}).then(
                         function (response) {
