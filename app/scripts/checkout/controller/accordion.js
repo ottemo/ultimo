@@ -567,16 +567,6 @@ angular.module("checkoutModule")
                     }
                 };
 
-                actionDiscount = function () {
-                    //TODO: consolidate
-                    if (isValidSteps[step] && $scope.isGuestCheckout) {
-                        $("#" + step).slideUp(500).parents('.panel').next('.panel').find('.accordion').slideDown(500);
-                    }
-                    if (isValidSteps[step] && !$scope.isGuestCheckout) {
-                        $("#" + step).slideUp(500).parents('.panel').next('.panel').find('.accordion').slideDown(500);
-                    }
-                };
-
                 actionDefault = function () {
                     if (isValidSteps[step]) {
                         $("#" + step).slideUp(500).parents('.panel').next('.panel').find('.accordion').slideDown(500);
@@ -597,7 +587,7 @@ angular.module("checkoutModule")
                         actionCustomerAdditionalInfo();
                         break;
                     case "discounts":
-                        actionDiscount();
+                        actionDefault();
                         break;
                     default:
                         actionDefault();
@@ -755,13 +745,13 @@ angular.module("checkoutModule")
 
                     });
                 } else {
-                    $scope.giftcard.message = $commonUtilService.getMessage(null, "warning", "Gift card code can't be empty");
+                    $scope.giftcard.message = $commonUtilService.getMessage(null, "danger", "Gift card code can't be empty");
                 }
             }
 
             $scope.discountApply = function () {
                 if ("" === $scope.discount || typeof $scope.discount === "undefined") {
-                    $scope.messageDiscounts = $commonUtilService.getMessage(null, "warning", "Discount code can't be empty");
+                    $scope.messageDiscounts = $commonUtilService.getMessage(null, "danger", "Discount code can't be empty");
                 } else {
                     $checkoutService.discountApply({"coupon": $scope.discount}).then(
                         function (response) {
