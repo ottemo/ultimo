@@ -10,7 +10,7 @@
     <hr>
 
     <h4>Billing & Shipping</h4>
-    
+
     <!-- bill to table -->
     <div class="col-sm-5 col-sm-offset-1">
         <div class="panel panel-default">
@@ -82,7 +82,7 @@
     </div>
 
     <div class="clearfix"></div>
-    
+
     <!-- products in order -->
     <div class="col-sm-6 col-lg-5 col-lg-offset-1">
         <table class="table table-bordered table-condensed">
@@ -99,7 +99,7 @@
             </tr>
         </table>
     </div>
-    
+
     <!-- total table -->
     <div class="col-sm-6 col-lg-5">
         <table class="table table-bordered table-condensed">
@@ -114,6 +114,10 @@
             <tr>
                 <td class="text-left">Tax:</td>
                 <td>{{order.tax_amount | currency}}</td>
+            </tr>
+            <tr ng-if="order.discount">
+                <td class="text-left">Discounts:</td>
+                <td>({{order.discount | currency}})</td>
             </tr>
             <tr>
                 <td class="text-left">Order Total:</td>
