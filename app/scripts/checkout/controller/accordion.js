@@ -188,7 +188,6 @@ angular.module("checkoutModule")
                     "billingAddress": false,
                     "shippingAddress": false,
                     "shippingMethod": false,
-                    "giftCards": true,
                     "paymentMethod": false,
                     "discounts": true
                 };
@@ -474,8 +473,7 @@ angular.module("checkoutModule")
             $scope.next = function (step) {
                 /*jshint maxcomplexity:6 */
                 var actionBillingAddress, actionShippingAddress, actionPaymentMethod,
-                    actionGiftCards, actionCustomerAdditionalInfo, actionDiscount,
-                    actionDefault;
+                    actionCustomerAdditionalInfo, actionDiscount, actionDefault;
 
                 actionBillingAddress = function () {
                     $scope.subBillingAddress = true;
@@ -553,17 +551,6 @@ angular.module("checkoutModule")
                     }
                 };
 
-                actionGiftCards = function () {
-                    if (isValidSteps[step] && $scope["isGuestCheckout"]) {
-                        $("#" + step).slideUp("slow")
-                        .parents('.panel').next('.panel').find('.accordion').slideDown(500);
-                    }
-                    if (isValidSteps[step] && !$scope["isGuestCheckout"]) {
-                        $("#" + step).slideUp("slow")
-                        .parents('.panel').next('.panel').next('.panel').find('.accordion').slideDown(500);
-                    }
-                };
-
                 actionCustomerAdditionalInfo = function () {
                     $scope.subAdditionalInfo = true;
                     if ($scope.customerInfo.$valid) {
@@ -581,17 +568,18 @@ angular.module("checkoutModule")
                 };
 
                 actionDiscount = function () {
-                    if (isValidSteps[step] && $scope["isGuestCheckout"]) {
-                        $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
+                    //TODO: consolidate
+                    if (isValidSteps[step] && $scope.isGuestCheckout) {
+                        $("#" + step).slideUp(500).parents('.panel').next('.panel').find('.accordion').slideDown(500);
                     }
-                    if (isValidSteps[step] && !$scope["isGuestCheckout"]) {
-                        $("#" + step).slideUp("slow").parents('.panel').next('.panel').next('.panel').find('.accordion').slideDown(500);
+                    if (isValidSteps[step] && !$scope.isGuestCheckout) {
+                        $("#" + step).slideUp(500).parents('.panel').next('.panel').find('.accordion').slideDown(500);
                     }
                 };
 
                 actionDefault = function () {
                     if (isValidSteps[step]) {
-                        $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
+                        $("#" + step).slideUp(500).parents('.panel').next('.panel').find('.accordion').slideDown(500);
                     }
                 };
 
@@ -610,9 +598,6 @@ angular.module("checkoutModule")
                         break;
                     case "discounts":
                         actionDiscount();
-                        break;
-                    case "giftCards":
-                        actionGiftCards();
                         break;
                     default:
                         actionDefault();
@@ -759,18 +744,18 @@ angular.module("checkoutModule")
                     $scope.giftcard.searching = true;
                     $giftCardsService.apply($scope.giftcard.code)
                     .then(function(response) {
-                        console.log(response);
-                        $scope.giftcard.searching = false;
-                        if (response.error && response.error.code == "dd7b2130-b5ed-4b26-b1fc-2d36c3bf147f") {
-                            $scope.giftcard.message = "Invalid code, please try again."
-                        } else {
 
-                            $scope.giftcard.message = "Applied!";
+                        $scope.giftcard.searching = false;
+                        if (response.error === null) {
+                            info();
+                            // $scope.giftcard.message = $commonUtilService.getMessage(null, "warning", "Please enter a gift card code before submitting.");
+                        } else {
+                            $scope.giftcard.message = $commonUtilService.getMessage(response);
                         }
 
                     });
                 } else {
-                    $scope.giftcard.message = "Please enter a gift card code before submitting."
+                    $scope.giftcard.message = $commonUtilService.getMessage(null, "warning", "Gift card code can't be empty");
                 }
             }
 
