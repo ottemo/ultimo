@@ -14,8 +14,6 @@ env:
     - secure: CnmESXjnNcVdsNxWqcwujSvlJs4dMDSph/njNI091B1vgl4Nn5H/Zz66tlUyiPgDSNtZdxwHu/rzVt65DBdT++2oy5lU/Np/7QcU3bq2EbNdSp+/W6lxJRiMjjlr/ouw4tHD80JRQtWCrPmhm351Z4ROl/q7pjarZjmt1dTuMrDP6papmQPBvDXHMoYYdjQO8w24G9JiOH/PZtLazC763OMIp8XNzDw/62mS7VdEOkzrWNAY/zbPX00jczFTTtL/ms03DwHtX4kNHy1q8+X+Gi5DaLXEFRcyvERdJNX5BZj3cNT+lxRJ9NoROCnCB8smsMoG0F1+17EUA84mkBiukw==
 before_install:
     # install NodeJS v0.12
-    - source $HOME/.nvm/nvm.sh 
-    - shippable_retry nvm install $SHIPPABLE_NODE_VERSION
     - shippable_retry npm update -g npm 
     - npm version
     - shippable_retry npm install -g gulp
