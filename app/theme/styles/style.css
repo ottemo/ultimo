@@ -175,15 +175,20 @@ h4 {
 	background-color: #999;
 	border-color: #999;
 }
-.btn-primary:hover {
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus {
 	background: #000;
+	border-color: #000;
 }
 
 .btn-danger {
 	background-color: #E28784;
 	border-color: #E77572;
 }
-.btn-danger:hover {
+.btn-danger:hover,
+.btn-danger:active,
+.btn-danger:focus {
 	background-color: #EA7874;
 	border-color: #EA7874;
 }
@@ -304,6 +309,7 @@ ul {
     padding: 4px 0;
 }
 
+/* shopping cart */
 #navbar a.cart-link {
 	font-family: Georgia;
 	text-transform: inherit;
@@ -311,40 +317,13 @@ ul {
 }
 .kg-icon-cart {
 	float: right;
-	width: 22px;
+	width: 24px;
 	height: 36px;
-	background: black;
 	margin-top: -12px;
-}
-
-/* shopping cart */
-#header .shopping-cart {
 	background: url('../images/shopping-bag.png');
-	display: block;
-	width: 20px;
-	text-align: center;
-	height: 34px;
-	line-height: 2.2;
-	text-decoration: none;
-	color: #FF6FAF;
-	font-size: 16px;
-	font-family: Georgia;
-	font-style: italic;
-	cursor: pointer;
-	margin-top: -10px;
-	margin-left: 10px;
-	-webkit-transition: ease-out 0.3s;
-	 -moz-transition: ease-out 0.3s;
-	 -o-transition: ease-out 0.3s;
-	 transition: ease-out 0.3s;
 }
-#header .shopping-cart:hover {
-	background-position: 0 -34px;
-	color: #fff;
-	-webkit-transition: ease-out 0.3s;
-	 -moz-transition: ease-out 0.3s;
-	 -o-transition: ease-out 0.3s;
-	 transition: ease-out 0.3s;
+.cart-link:hover .kg-icon-cart {
+	background-position: 0 -36px;
 }
 
 /* main menu */
