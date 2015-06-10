@@ -1,11 +1,11 @@
 <!-- Navigation bar -->
 <nav id="header" role="navigation" class="navbar-default navbar">
-    <div class="container-fluid">
+    <div class="">
         <div class="navbar-header">
             <!-- Logo -->
             <a class="logo" href="/">
                 <img alt="logo" class="" ng-src="{{getImg('logo.png')}}">
-            </a>  
+            </a>
 
             <!-- toggle button -->
             <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed col-xs-offset-1" type="button">
@@ -18,22 +18,29 @@
 
         <div class="navbar-collapse collapse" id="navbar">
             <!-- Cart icon -->
-            <div class="navbar-form navbar-right">
-                <div class="pull-right subscriber">
-                    <form class="navbar-form" role="search" id="mc-embedded-subscribe-form-top" name="mc-embedded-subscribe-form-top" method="post" action="http://karigran.us5.list-manage1.com/subscribe/post?u=6355acb494cba6e3f035232b8&id=9b54ed013d">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Enter email for hot promotions" id="mce-EMAIL-top" name="EMAIL">
-                            <div class="input-group-btn">
-                                <button class="btn btn-primary" type="submit" onclick="ga('send', 'event', 'Newsletter Signup', 'Signup from top newletter form');" title="Subscribe" value="Subscribe" id="mc-embedded-subscribe-top">
-                                    GO
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+            <div class="">
+
+                <form class="subscriber navbar-form navbar-right" role="search" id="mc-embedded-subscribe-form-top" name="mc-embedded-subscribe-form-top" method="post" action="http://karigran.us5.list-manage1.com/subscribe/post?u=6355acb494cba6e3f035232b8&id=9b54ed013d">
+
+                    <input type="text" class="form-control" placeholder="Enter email for hot promotions" id="mce-EMAIL-top" name="EMAIL">
+
+                    <button class="btn btn-primary" type="submit" onclick="ga('send', 'event', 'Newsletter Signup', 'Signup from top newletter form');" title="Subscribe" value="Subscribe" id="mc-embedded-subscribe-top">
+                        go!
+                    </button>
+                </form>
+
+                <div class="navbar-right shipping-shopping-banner">
+                    <span class="shipping-banner">always free shipping</span>
+                    <i class="banner-divider"></i>
+                    <a ng-click="" class="cart-link">Shopping Bag (0) <i class="kg-icon-cart"></i></a>
                 </div>
+               <!--  <li class="cart-wrapper hidden-xs" target="_self" ng-click="clickToCartDesktop()" ng-controller="visitorLoginController" >
+                    <div class="shopping-cart" ng-controller="commonHeaderController" >
+                        <span ng-controller="cartListController">{{it.getCountItems()}}</span>
+                    </div>
+                </li> -->
             </div>
 
-            <h4 class="pull-right hidden-xs hidden-sm">always free shipping</h4>
 
             <div class="clearfix"></div>
             <!-- main menu -->

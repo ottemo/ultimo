@@ -1,5 +1,5 @@
-<div class="pull-right main-menu">
-	
+<div class="main-menu">
+
 	<ul ng-controller="commonHeaderController" class="nav navbar-nav">
 		<!-- categories controller wrapper -->
 	    <li ng-repeat="item in categories;" class="list-unstyled hidden-xs" >
@@ -10,7 +10,7 @@
 		    <ul class="second-level" ng-if="item.child.length &gt 0">
 		      	<li class="list-unstyled" ng-repeat="item in item.child;" ng-include="getTemplate('common/navigation/categories-items.html')"></li>
 		    </ul>
-		</li> 
+		</li>
 
 		<li ng-repeat="item in categories;" class="visible-xs" >
 			<a href="{{categoryService.getUrl(item.id)}}" target="{{item.id != null ? '' : '_self'}}" class="text-muted dropdown-toggle" aria-expanded="false" role="button" data-toggle="dropdown">
@@ -40,10 +40,10 @@
 		      		<a href="/why-oil-works">Why Oils Work</a>
 		      	</li>
 		    </ul>
-		</li> 
+		</li>
 		<li class="list-unstyled visible-xs">
 			<a aria-expanded="false" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">
-				We're Different 
+				We're Different
 				<span class="caret"></span>
 			</a>
 
@@ -61,8 +61,8 @@
 		      		<a href="/why-oil-works">Why Oils Work</a>
 		      	</li>
 		    </ul>
-		</li> 
-		
+		</li>
+
 		<li class="list-unstyled hidden-xs">
 			<a href="">how to</a>
 
@@ -83,7 +83,7 @@
 		</li>
 		<li class="list-unstyled visible-xs">
 			<a aria-expanded="false" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">
-				how to 
+				how to
 				<span class="caret"></span>
 			</a>
 
@@ -101,12 +101,12 @@
 		      		<a href="/faq">FAQ</a>
 		      	</li>
 		    </ul>
-		</li>  
+		</li>
 
 	    <li class="visible-xs">
 	    	<a href="/cart">Cart</a>
 	    </li>
-	    
+
 	</ul>
 
 	<ul class="nav navbar-nav" ng-controller="commonSidebarController">
@@ -119,15 +119,6 @@
 	    <!-- login/account/logout buttons -->
 	    <li ng-controller="commonHeaderController" >
 	    	<a href="{{item.link}}" ng-repeat="item in rightMenu.getMenuRight()" >{{item.label}}</a>
-	    </li>
-
-	    <!-- cart controller wrapper -->
-	    <li class="cart-wrapper hidden-xs" target="_self" ng-click="clickToCartDesktop()" ng-controller="visitorLoginController" >
-	        <!-- cart button -->
-	        <div class="shopping-cart" ng-controller="commonHeaderController" >
-	            <!-- items counter -->
-	            <span ng-controller="cartListController">{{it.getCountItems()}}</span>
-	        </div>
 	    </li>
 	</ul>
 </div>
