@@ -472,8 +472,7 @@ angular.module("checkoutModule")
 
             $scope.next = function (step) {
                 /*jshint maxcomplexity:6 */
-                var actionBillingAddress, actionShippingAddress, actionPaymentMethod,
-                    actionCustomerAdditionalInfo, actionDiscount, actionDefault;
+                var actionBillingAddress, actionShippingAddress, actionPaymentMethod, actionCustomerAdditionalInfo, actionDiscount, actionDefault;
 
                 actionBillingAddress = function () {
                     $scope.subBillingAddress = true;
@@ -553,7 +552,6 @@ angular.module("checkoutModule")
 
                 actionCustomerAdditionalInfo = function () {
                     $scope.subAdditionalInfo = true;
-                    if ($scope.customerInfo.$valid) {
                         if ($scope["isGuestCheckout"]) {
                             $checkoutService.saveAdditionalInfo({
                                 "customer_email": $scope.checkout.info["customer_email"],
@@ -564,7 +562,6 @@ angular.module("checkoutModule")
                         } else {
                             $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
                         }
-                    }
                 };
 
                 actionDefault = function () {
