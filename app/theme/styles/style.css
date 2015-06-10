@@ -55,7 +55,7 @@ label {
 }
 .form-control {
 	font-size: 12px;
-	font-family: "Gotham Light", "Arial";
+	font-family: "Raleway", "Arial";
 	color: #999;
 	border-radius: 0;
 	border-color: #999;
@@ -135,7 +135,7 @@ label {
 }
 
 h1,h2,h3,h4 {
-	font-family: "Gotham Light", "Arial";
+	font-family: "Raleway", "Arial";
 	color: #999;
 	font-weight: 300;
 }
@@ -297,7 +297,7 @@ ul {
 }
 
 .shipping-shopping-banner .shipping-banner {
-	font-family: "Gotham Light", "Arial";
+	font-family: "Raleway", "Arial";
 	font-size: 13px;
     text-transform: uppercase;
     color: #999;
@@ -314,6 +314,8 @@ ul {
 	font-family: Georgia;
 	text-transform: inherit;
 	font-style: italic;
+	color: #000;
+	padding: 10px 15px;
 }
 .kg-icon-cart {
 	float: right;
@@ -323,72 +325,55 @@ ul {
 	background: url('../images/shopping-bag.png');
 }
 .cart-link:hover .kg-icon-cart {
-	background-position: 0 -36px;
+	background-position: 0 -41px;
 }
 
 /* main menu */
-#navbar {
+.navbar-collapse {
+	padding: 0;
+}
+.main-menu {
 	border: none;
 	padding:0;
-	margin: 0 -2px;
 }
-@media (min-width: 992px) {
-	#navbar {
-		margin: 0;
-	}
-}
-#navbar a {
-	color: #000;
-	text-transform: uppercase;
-	padding: 10px 15px;
-	font-family: "Gotham Light", "Arial";
-}
+
 .main-menu a {
-
+	font-family: "Raleway", "Arial";
+	color: #000;
+}
+.main-menu .navbar-nav {
+	margin: 50px 0 14px 0;
+}
+.main-menu .navbar-nav > li {
+	border-right: 1px solid #000;
+}
+.main-menu .navbar-nav > li.last {
+	border-right: 0;
 }
 
-#navbar a:hover {
+.main-menu .navbar-nav > li > a {
+	text-transform: uppercase;
+	padding: 4px 37px;
+	color: #000;
+}
+.main-menu .navbar-nav > li > a:hover,
+.main-menu .navbar-nav > li > a.active  {
 	color: #999;
 }
 
-#navbar a:first-letter {
-	text-transform: uppercase;
-}
-
-.main-menu ul.navbar-nav {
-	display: block !important;
-	margin: 10px 0;
-}
-
-.main-menu ul > li {
-	margin: 0;
-	width: auto;
-}
-
-/* hide home hape button */
-#navbar a[title="home"] {
-	display: none !important;
-}
 
 /* second level */
-#navbar ul.second-level {
-	opacity: 0;
-	visibility: hidden;
-	position: absolute;
-	top: 100%;
-	text-align: left;
-	left: 0;
-	padding: 10px 15px;
-	width: 230px;
+.main-menu .dropdown-hover:hover .dropdown-menu {
 	display: block;
-	background: #fff;
-	z-index: 20;
+}
+.main-menu .dropdown-menu {
+	width: 100%;
 	border-radius: 0 0 10px 10px;
+	border-top: 0;
 	box-shadow: 1px 2px 5px rgba(50, 50, 50, 0.5);
-	-webkit-transition: ease-out 0.3s;
-	 -moz-transition: ease-out 0.3s;
-	 -o-transition: ease-out 0.3s;
-	 transition: ease-out 0.3s;
+}
+.main-menu .dropdown-menu > li > a {
+	white-space: inherit;
 }
 
 #navbar ul.second-level li {
@@ -396,29 +381,6 @@ ul {
 	display: block;
 }
 
-#navbar ul.second-level li a {
-  color: rgb(108, 114, 114);
-  cursor: auto;
-  display: block;
-  font-family: Arial;
-  font-size: 14px;
-  font-style: normal;
-  font-variant: normal;
-  font-weight: 200;
-  cursor: pointer;
-  padding: 5px 0;
-  text-transform: capitalize;
-  display: block !important;
-}
-
-#navbar ul.second-level li a:hover {
-	color: #999;
-}
-
-.navbar li:hover .second-level {
-	opacity: 1 !important;
-	visibility: visible !important;
-}
 
 /*---------------
  Home
@@ -638,9 +600,6 @@ ul {
  PDP .pdp
  ---------------*/
 .pdp-product-name {
-	margin-bottom: 20px;
-	font-weight: 200;
-	font-size: 21px;
 	text-transform: uppercase;
 	margin-top: 0px;
 }
