@@ -23,7 +23,7 @@ install:
     - shippable_retry npm install
         
 script: 
-    - NODE_ENV=production shippabble_retry gulp build
+    - NODE_ENV=production shippable_retry gulp build
     - bash deploy.sh
 
 after_failure:
