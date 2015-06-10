@@ -552,16 +552,16 @@ angular.module("checkoutModule")
 
                 actionCustomerAdditionalInfo = function () {
                     $scope.subAdditionalInfo = true;
-                        if ($scope["isGuestCheckout"]) {
-                            $checkoutService.saveAdditionalInfo({
-                                "customer_email": $scope.checkout.info["customer_email"],
-                                "customer_name": $scope.checkout.info["customer_name"]
-                            }).then(function () {
-                                $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
-                            });
-                        } else {
+                    if ($scope["isGuestCheckout"]) {
+                        $checkoutService.saveAdditionalInfo({
+                            "customer_email": $scope.checkout.info["customer_email"],
+                            "customer_name": $scope.checkout.info["customer_name"]
+                        }).then(function () {
                             $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
-                        }
+                        });
+                    } else {
+                        $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
+                    }
                 };
 
                 actionDefault = function () {
