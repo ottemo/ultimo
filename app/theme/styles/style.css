@@ -259,14 +259,13 @@ ul {
 /* logo */
 #header .logo {
 	display: block;
-	height: 76px;
+	width: 230px;
 	float: left;
-	margin-top: 32px;
+	margin-top: 36px;
 }
 
 #header .logo img {
-	height: 100%;
-	width: auto;
+	width: 100%;
 }
 
 /* header title */
@@ -350,7 +349,7 @@ ul {
 	color: #000;
 }
 .main-menu .navbar-nav {
-	margin: 50px 0 14px 0;
+	margin: 40px 0 14px 0;
 }
 .main-menu .navbar-nav > li {
 	border-right: 1px solid #000;
@@ -371,7 +370,12 @@ ul {
 .main-menu .navbar-nav > li > a.active  {
 	color: #999;
 }
-
+/*.main-menu .navbar-nav > li.first > a {
+	padding-left: 0;
+}
+.main-menu .navbar-nav > li.last > a {
+	padding-right: 0;
+}*/
 
 /* second level */
 .main-menu .dropdown-hover:hover .dropdown-menu {
