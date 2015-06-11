@@ -121,7 +121,7 @@ angular.module("checkoutModule")
                             function (response) {
                                 if (response.result === "ok") {
                                     var isCreditCard;
-                                    isCreditCard = $scope.paymentType.split("_").indexOf("cc") > 0;
+                                    isCreditCard = $scope.paymentType.split("_").indexOf("cc") >= 0;
                                     if (isCreditCard) {
                                         var payment = getPaymentInfo();
                                         isValidSteps.paymentMethod = false;
@@ -144,7 +144,7 @@ angular.module("checkoutModule")
                 defaultSetPaymentData = $scope.$watch("paymentMethods", function () {
                     var payment = getPaymentInfo();
 
-                    if (payment.method !== null && typeof payment.method.form !== "undefined" && payment.method.Type.split("_").indexOf("cc") > 0) {
+                    if (payment.method !== null && typeof payment.method.form !== "undefined" && payment.method.Type.split("_").indexOf("cc") >= 0) {
 
                         isValidSteps.paymentMethod = payment.method.form.$valid && $scope.validateCcNumber();
                     }
@@ -181,7 +181,9 @@ angular.module("checkoutModule")
 
                 creditCartTypes = {
                     'VI': [new RegExp('^4[0-9]{12}([0-9]{3})?$'), new RegExp('^[0-9]{3}$'), true],
-                    'MC': [new RegExp('^5[1-5][0-9]{14}$'), new RegExp('^[0-9]{3}$'), true]
+                    'MC': [new RegExp('^5[1-5][0-9]{14}$'), new RegExp('^[0-9]{3}$'), true],
+                    'AX': [new RegExp('^3[47][0-9]{13}$'), new RegExp('^[0-9]{3}$'), true],
+                    'DS': [new RegExp('^6(?:011|5[0-9]{2})[0-9]{12}$'), new RegExp('^[0-9]{3}$'), true]
                 };
 
                 isValidSteps = {
@@ -207,7 +209,15 @@ angular.module("checkoutModule")
                     {
                         "Code": "MC",
                         "Name": "Master Card"
-                    }
+                    },
+                    {
+                        "Code": "DS",
+                        "Name": "Discover"
+                    },
+                    {
+                        "Code": "AX",
+                        "Name": "American Express"
+                     }
                 ];
 
                 $scope["useAsBilling"] = false;
@@ -534,8 +544,6 @@ angular.module("checkoutModule")
                 actionPaymentMethod = function () {
                     $scope.subPaymentForm = true;
                     if (isValidSteps[step]) {
-                        $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
-                    } else {
                         var isCreditCard;
                         if (typeof $scope.paymentType !== "undefined") {
                             isCreditCard = $scope.paymentType.split("_").indexOf("cc") > 0;
@@ -543,6 +551,20 @@ angular.module("checkoutModule")
                                 var payment = getPaymentInfo();
                                 payment.method.form.submited = true;
                                 if (payment.method.form.$valid && $scope.validateCcNumber()) {
+                                    $checkoutService.saveAdditionalInfo({"cc": payment["method"]["cc"]});
+                                }
+                            }
+                        }
+                        $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
+                    } else {
+                        var isCreditCard;
+                        if (typeof $scope.paymentType !== "undefined") {
+                            isCreditCard = $scope.paymentType.split("_").indexOf("cc") >= 0;
+                            if (isCreditCard) {
+                                var payment = getPaymentInfo();
+                                payment.method.form.submited = true;
+                                if (payment.method.form.$valid && $scope.validateCcNumber()) {
+                                    $checkoutService.saveAdditionalInfo({"cc": payment["method"]["cc"]});
                                     $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
                                 }
                             }
@@ -598,14 +620,14 @@ angular.module("checkoutModule")
 
             $scope.isCreditCard = function () {
                 if (typeof $scope.paymentType !== "undefined") {
-                    return $scope.paymentType.split("_").indexOf("cc") > 0;
+                    return $scope.paymentType.split("_").indexOf("cc") >= 0;
                 }
                 return false;
             };
 
             $scope.showFormCc = function (method) {
                 if (typeof method !== "undefined") {
-                    return method.Type.split("_").indexOf("cc") > 0;
+                    return method.Type.split("_").indexOf("cc") >= 0;
                 }
                 return false;
             };
@@ -707,6 +729,7 @@ angular.module("checkoutModule")
                                             $scope.purchase = response.result || {};
                                             $('#processing').modal('hide');
                                             $("#purchase-success").modal("show");
+                                            $location.path("/success/"+ response.result["_id"]);
                                         }
                                     );
                                 } else {
