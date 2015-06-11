@@ -386,7 +386,7 @@
 
                 <div class="clearfix"></div>
 
-                <div class="paypal" ng-show="isCreditCard()" ng-if="showFormCc(method)">
+                <div class="paypal" ng-show="checkout.payment_method_code===method.Code" ng-if="showFormCc(method)">
                     <form name="method.form" novalidate>
 
                         <div class="form-group col-md-6 col-xs-12"
@@ -460,12 +460,12 @@
                             <label>Expiration Year</label>
                             <select class="form-control" ng-model="method.cc.expire_year" name="expire_year" required>
                                 <option></option>
-                                <option value="2014">2014</option>
                                 <option value="2015">2015</option>
                                 <option value="2016">2016</option>
                                 <option value="2017">2017</option>
                                 <option value="2018">2018</option>
                                 <option value="2019">2019</option>
+                                <option value="2020">2020</option>
                             </select>
 
                             <p ng-show="method.form.submited && method.form.expire_year.$invalid"
