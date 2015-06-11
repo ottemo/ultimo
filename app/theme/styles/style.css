@@ -908,9 +908,9 @@ the extra space looks funny */
 		font-size: 20px !important;
 	}
 
-	.category h3 {
-		margin-bottom: 20px;
-
+	.category h2 {
+		text-align: center;
+		margin: 10px 0;
 	}
 
 	#footer .copyrights {
