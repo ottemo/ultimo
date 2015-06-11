@@ -66,11 +66,11 @@
 			</ul>
 		</li>
 
-		<li class="last">
+		<li class="last" ng-if="!visitorProps.isLoggedIn">
 			<a ng-href="/login">Login</a>
 		</li>
 
-		<li class="last" style="display:none;">
+		<li class="last" ng-if="visitorProps.isLoggedIn">
 			<a href="/account">My Account</a>
 		</li>
 	</ul>

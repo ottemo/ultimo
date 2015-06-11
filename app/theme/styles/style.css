@@ -338,7 +338,6 @@ ul {
 }
 
 .main-menu a {
-	font-family: "Helvetica", "Arial";
 	color: #000;
 }
 .main-menu .navbar-nav {
@@ -353,8 +352,11 @@ ul {
 
 .main-menu .navbar-nav > li > a {
 	text-transform: uppercase;
-	padding: 4px 37px;
+	padding: 4px 38px;
 	color: #000;
+}
+.is-logged-in .main-menu .navbar-nav > li > a {
+	padding: 4px 36px;
 }
 .main-menu .navbar-nav > li > a:hover,
 .main-menu .navbar-nav > li > a.active  {

@@ -71,10 +71,9 @@ angular.module("commonModule")
         "$designImageService",
         "$commonBreadcrumbsService",
         "$cartService",
-        "$pdpProductService",
-        "$route",
+        "$visitorLoginService",
         function ($scope, $designService, $commonApiService, $designImageService, $commonBreadcrumbsService,
-                  $cartService, $pdpProductService, $route) {
+                  $cartService, $visitorLoginService) {
 
             /**
              * Gets full path to image
@@ -103,6 +102,8 @@ angular.module("commonModule")
              * Cart initialization
              */
             $cartService.init();
+
+            $scope.visitorProps = $visitorLoginService.props;
         }
     ]
 );
