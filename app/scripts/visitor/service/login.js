@@ -2,7 +2,7 @@ angular.module("visitorModule")
 /**
  *  $visitorApiService interaction service
  */
-    .service('$visitorLoginService', [
+    .factory('$visitorLoginService', [
         '$resource',
         '$visitorApiService',
         '$cookieStore',
@@ -14,11 +14,16 @@ angular.module("visitorModule")
 
             /** Variables */
             var login, loginId, isLoggedIn, mapFields, sendingRequest;
+            var props = {
+                isLoggedIn: null
+            };
+
             /** Functions */
             var getLogin, getLoginId, setLogin, cleanLogin, getVisitorProperty,
                 getAvatar, getFullName, fIsLoggedIn, getDefaultLogin, logout, fillFields;
 
             isLoggedIn = null;
+
             sendingRequest = [];
             getDefaultLogin = function () {
                 return {
@@ -66,16 +71,11 @@ angular.module("visitorModule")
             login = getDefaultLogin();
 
             logout = function () {
-                var deferLogOut = $q.defer();
-
-                $cookieStore.remove(LOGIN_COOKIE);
-
-                isLoggedIn = false;
-
-                login = getDefaultLogin();
-                deferLogOut.resolve(false);
-
-                return deferLogOut.promise;
+                return $visitorApiService.logout().$promise.then(function(resp){
+                    props.isLoggedIn = false;
+                    isLoggedIn = false;
+                    return resp;
+                });
             };
 
             fillFields = function (obj) {
@@ -147,12 +147,15 @@ angular.module("visitorModule")
                             loginId = response.result._id || '';
                             if (loginId !== '') {
                                 isLoggedIn = true;
+                                props.isLoggedIn = true;
                                 setLogin(response.result);
                             } else {
                                 isLoggedIn = false;
+                                props.isLoggedIn = false;
                             }
                         } else {
                             isLoggedIn = false;
+                            props.isLoggedIn = false;
                             cleanLogin();
                         }
                         for (var i = 0; i < sendingRequest.length; i += 1) {
@@ -173,7 +176,8 @@ angular.module("visitorModule")
                 getFullName: getFullName,
                 getVisitorId: getLoginId,
                 isLoggedIn: fIsLoggedIn,
-                logout: logout
+                logout: logout,
+                props: props
             };
         }
     ]

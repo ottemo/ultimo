@@ -1,133 +1,80 @@
-<div class="pull-right main-menu">
-	
-	<ul ng-controller="commonHeaderController" class="nav navbar-nav">
-		<!-- categories controller wrapper -->
-	    <li ng-repeat="item in categories;" class="list-unstyled hidden-xs" >
-			<a ng-href="{{categoryService.getUrl(item.id)}}" target="{{item.id != null ? '' : '_self'}}" class="text-muted display">
-				{{item.name}}
-		    </a>
-
-		    <ul class="second-level" ng-if="item.child.length &gt 0">
-		      	<li class="list-unstyled" ng-repeat="item in item.child;" ng-include="getTemplate('common/navigation/categories-items.html')"></li>
-		    </ul>
-		</li> 
-
-		<li ng-repeat="item in categories;" class="visible-xs" >
-			<a href="{{categoryService.getUrl(item.id)}}" target="{{item.id != null ? '' : '_self'}}" class="text-muted dropdown-toggle" aria-expanded="false" role="button" data-toggle="dropdown">
-				{{item.name}}
-				<span class="caret" ng-if="item.child.length &gt; 0"></span>
-		    </a>
-
-		    <ul class="dropdown-menu" role="menu" ng-if="item.child.length &gt 0">
-		      	<li class="list-unstyled" ng-repeat="item in item.child;" ng-include="getTemplate('common/navigation/categories-items.html')"></li>
-		    </ul>
+<div class="main-menu">
+	<ul class="nav navbar-nav">
+		<li class="first visible-xs">
+			<a ng-href="/cart">Shopping Bag</a>
+		</li>
+		<li class="dropdown-hover first">
+			<a ng-href="/organic-skin-care">Organic Skin Care</a>
+			<ul class="dropdown-menu">
+				<li><a ng-href="/organic-skin-care/philosophy">Philosophy</a></li>
+				<li><a ng-href="/organic-skin-care/ingredients">Ingredients</a></li>
+				<li><a ng-href="/organic-skin-care/skin-care-tips">Holistic Skin Care Tips</a></li>
+			</ul>
 		</li>
 
-		<li class="list-unstyled hidden-xs">
-			<a href="">We're Different</a>
-
-		    <ul class="second-level">
-		      	<li class="list-unstyled">
-		      		<a href="/our-story">Our Story</a>
-		      	</li>
-		      	<li class="list-unstyled">
-		      		<a href="/ingredients">Ingredients</a>
-		      	</li>
-		      	<li class="list-unstyled">
-		      		<a href="/philosophy">Philosophy</a>
-		      	</li>
-		      	<li class="list-unstyled">
-		      		<a href="/why-oil-works">Why Oils Work</a>
-		      	</li>
-		    </ul>
-		</li> 
-		<li class="list-unstyled visible-xs">
-			<a aria-expanded="false" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">
-				We're Different 
-				<span class="caret"></span>
-			</a>
-
-		    <ul class="dropdown-menu" role="menu">
-		      	<li class="list-unstyled">
-		      		<a href="/our-story">Our Story</a>
-		      	</li>
-		      	<li class="list-unstyled">
-		      		<a href="/ingredients">Ingredients</a>
-		      	</li>
-		      	<li class="list-unstyled">
-		      		<a href="/ingredients">Philosophy</a>
-		      	</li>
-		      	<li class="list-unstyled">
-		      		<a href="/why-oil-works">Why Oils Work</a>
-		      	</li>
-		    </ul>
-		</li> 
-		
-		<li class="list-unstyled hidden-xs">
-			<a href="">how to</a>
-
-		    <ul class="second-level">
-		      	<li class="list-unstyled">
-		      		<a href="/how-to-skin-care-morning">Skin Care - Morning</a>
-		      	</li>
-		      	<li class="list-unstyled">
-		      		<a href="/how-to-skin-care-evening">Skin Care - Evening</a>
-		      	</li>
-		      	<li class="list-unstyled">
-		      		<a href="/holistic-skin-care-tips">Holistic Skin Care Tips</a>
-		      	</li>
-		      	<li class="list-unstyled">
-		      		<a href="/faq">FAQ</a>
-		      	</li>
-		    </ul>
+		<li class="dropdown-hover">
+			<a ng-href="/facial-oil">Facial Oil</a>
+			<ul class="dropdown-menu">
+				<li><a ng-href="/facial-oil/cleansing-oil">Cleansing Oil</a></li>
+				<li><a ng-href="/facial-oil/essential-serum">Essential Serum</a></li>
+				<li><a ng-href="/facial-oil/hydrating-tonic">Hydrating Tonic</a></li>
+				<li><a ng-href="/facial-oil/starter-kit">Starter Kit</a></li>
+				<li><a ng-href="/facial-oil/the-system">The KG System</a></li>
+			</ul>
 		</li>
-		<li class="list-unstyled visible-xs">
-			<a aria-expanded="false" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">
-				how to 
-				<span class="caret"></span>
-			</a>
 
-		    <ul class="dropdown-menu" role="menu">
-		      	<li class="list-unstyled">
-		      		<a href="/how-to-skin-care-morning">Skin Care - Morning</a>
-		      	</li>
-		      	<li class="list-unstyled">
-		      		<a href="/how-to-skin-care-evening">Skin Care - Evening</a>
-		      	</li>
-		      	<li class="list-unstyled">
-		      		<a href="/holistic-skin-care-tips">Holistic Skin Care Tips</a>
-		      	</li>
-		      	<li class="list-unstyled">
-		      		<a href="/faq">FAQ</a>
-		      	</li>
-		    </ul>
-		</li>  
+		<li class="dropdown-hover">
+			<a ng-href="/natural-lip-balm">Natural Lip Balm</a>
+			<ul class="dropdown-menu">
+				<li><a ng-href="/natural-lip-balm/lip-treatment">Lip Treatment</a></li>
+				<li><a ng-href="/natural-lip-balm/lip-treatment/lip-whip-naked.html">Lip Whip Naked</a></li>
+				<li><a ng-href="/natural-lip-balm/lip-treatment/lip-whip-tinted.html">Lip Whip Tinted</a></li>
+				<li><a ng-href="/natural-lip-balm/lip-gloss">Lip Gloss</a></li>
+				<li><a ng-href="/natural-lip-balm/lip-gloss/lip-whip-radiant.html">Lip Whip Radiant</a></li>
+				<li><a ng-href="/natural-lip-balm/lip-gloss/lip-whip-naughty.html">Lip Whip Naughty</a></li>
+				<li><a ng-href="/natural-lip-balm/lip-gloss/lip-whip-radiant.html">Lip Whip Nice</a></li>
+				<li><a ng-href="/natural-lip-balm/lip-gloss/lip-whip-marsala.html">Lip Whip Marsala</a></li>
+			</ul>
+		</li>
 
-	    <li class="visible-xs">
-	    	<a href="/cart">Cart</a>
-	    </li>
-	    
-	</ul>
+		<li class="dropdown-hover">
+			<a ng-href="/mineral-makeup">Mineral Makeup</a>
+			<ul class="dropdown-menu">
+				<li><a ng-href="/mineral-makeup/foundation">Foundation</a></li>
+				<li><a ng-href="/mineral-makeup/customizable-liquid-foundation">Customizable Liquid Foundation</a></li>
+				<li><a ng-href="/mineral-makeup/concealer">Concealer</a></li>
+				<li><a ng-href="/mineral-makeup/blush">Blush</a></li>
+				<li><a ng-href="/mineral-makeup/eyeshadow">Eyeshadow</a></li>
+				<li><a ng-href="/mineral-makeup/setting-powder">Setting Powder</a></li>
+				<li><a ng-href="/mineral-makeup/makeup-system">Makeup System</a></li>
+				<li><a ng-href="/mineral-makeup/foundation-sample-kit">Foundation Sample Kit</a></li>
+			</ul>
+		</li>
 
-	<ul class="nav navbar-nav" ng-controller="commonSidebarController">
+		<li class="dropdown-hover">
+			<a ng-href="/skin-care-videos">Videos</a>
+			<ul class="dropdown-menu">
+				<li><a href="/skin-care-videos/morning-skin-care-tips">Morning Skin Care Tips</a></li>
+				<li><a href="/skin-care-videos/evening-skin-care-tips">Evening Skin Care Tips</a></li>
+			</ul>
+		</li>
 
-	    <li ng-repeat="item in sidebar.getItems()">
-	        <a href="/{{item.link}}" title="{{item.title}}">{{item.title}}</a>
-	        <span ng-if="!$last"></span>
-	    </li>
+		<li class="dropdown-hover">
+			<a ng-href="/shop">Shop</a>
+			<ul class="dropdown-menu">
+				<li><a ng-href="/shop/organic-skin-care">Skin Care</a></li>
+				<li><a ng-href="/natural-lip-balm">Lip Balm</a></li>
+				<li><a ng-href="/mineral-makeup">Makeup</a></li>
+				<li><a ng-href="/organic-skin-care-gifts">Gifts</a></li>
+			</ul>
+		</li>
 
-	    <!-- login/account/logout buttons -->
-	    <li ng-controller="commonHeaderController" >
-	    	<a href="{{item.link}}" ng-repeat="item in rightMenu.getMenuRight()" >{{item.label}}</a>
-	    </li>
+		<li class="last" ng-if="!visitorProps.isLoggedIn">
+			<a ng-href="/login">Login</a>
+		</li>
 
-	    <!-- cart controller wrapper -->
-	    <li class="cart-wrapper hidden-xs" target="_self" ng-click="clickToCartDesktop()" ng-controller="visitorLoginController" >
-	        <!-- cart button -->
-	        <div class="shopping-cart" ng-controller="commonHeaderController" >
-	            <!-- items counter -->
-	            <span ng-controller="cartListController">{{it.getCountItems()}}</span>
-	        </div>
-	    </li>
+		<li class="last" ng-if="visitorProps.isLoggedIn">
+			<a href="/account">My Account</a>
+		</li>
 	</ul>
 </div>

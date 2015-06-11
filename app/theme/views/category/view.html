@@ -1,5 +1,5 @@
 <div ng-init="init()" class="category">
-    
+
     <!-- category hero image, with a default -->
     <div class="category-image__container">
         <img
@@ -8,20 +8,11 @@
         ng-src="{{category.banner}}">
     </div>
 
-    <div class="menu" ng-controller="commonHeaderController" role="navigation">
-        <ul ng-repeat="item in categories" class="list-inline text-center">
-            <li
-            ng-repeat="item in item.child"
-            ng-include="getTemplate('common/navigation/categories-items.html')">
-            </li>
-        </ul>
-    </div>
-
     <div class="row products-area">
 
         <!-- shop page has products sectioned off into categories -->
         <div class="shop-page-categories" ng-if="isShop" ng-repeat="category in shopCategories">
-            <h3 class="col-xs-12 col-sm-3 col-lg-3">{{category.name}}</h3>
+            <h2 class="col-xs-12 col-sm-3 col-lg-3">{{category.name}}</h2>
 
             <div class="col-xs-12 col-sm-9 col-lg-9">
                 <div class="row">
@@ -35,7 +26,7 @@
                             ng-click="openPopUp(_item)">
                                 <i class="fa fa-search-plus "></i> Quick View
                             </a>
-                                
+
                             <a
                             class="product-list--image"
                             ng-href="{{productService.getUrl(_item._id)}}">
@@ -101,7 +92,7 @@
             </div>
         </div>
 
-        
+
         <div class="clearfix"></div>
 
         <div class="text-center">

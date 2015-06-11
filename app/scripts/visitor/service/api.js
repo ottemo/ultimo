@@ -22,6 +22,10 @@ angular.module("visitorModule")
                     method: "POST",
                     url: REST_SERVER_URI + "/visit/login"
                 },
+                "logout": {
+                    method: "GET",
+                    url: REST_SERVER_URI + "/visit/logout"
+                },
                 "validate": {
                     method: "GET",
                     url: REST_SERVER_URI + "/visitors/validate/:key"
