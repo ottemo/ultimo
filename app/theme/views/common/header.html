@@ -29,16 +29,11 @@
                     </button>
                 </form>
 
-                <div class="navbar-right shipping-shopping-banner">
+                <div class="navbar-right shipping-shopping-banner" ng-controller="visitorLoginController">
                     <span class="shipping-banner">always free shipping</span>
                     <i class="banner-divider"></i>
-                    <a ng-click="" class="cart-link">Shopping Bag (0) <i class="kg-icon-cart"></i></a>
+                    <a ng-click="clickToCartDesktop()" class="cart-link">Shopping Bag ({{getItemsInCart()}}) <i class="kg-icon-cart"></i></a>
                 </div>
-               <!--  <li class="cart-wrapper hidden-xs" target="_self" ng-click="clickToCartDesktop()" ng-controller="visitorLoginController" >
-                    <div class="shopping-cart" ng-controller="commonHeaderController" >
-                        <span ng-controller="cartListController">{{it.getCountItems()}}</span>
-                    </div>
-                </li> -->
             </div>
 
 
