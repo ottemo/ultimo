@@ -136,10 +136,15 @@ angular.module("commonModule", [
                         }
                     };
 
+                    // strip leading slash
+                    var rewriteUrl = REST_SERVER_URI + "/seo/url?url="+ $location.$$path;
+
                     $http({
-                        url: REST_SERVER_URI + "/seo/url/" + $location.$$path,
+                        url: rewriteUrl,
                         method: "GET"
-                    }).success(successFunction).error(errorFunction);
+                    })
+                    .success(successFunction)
+                    .error(errorFunction);
                 }
             };
         }
