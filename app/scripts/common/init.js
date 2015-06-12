@@ -5,19 +5,26 @@
 angular.REST_SERVER_URI = angular.appConfigValue("general.app.foundation_url");
 
 angular.module("commonModule", [
+    // Google
     "ngRoute",
     "ngSanitize",
     "ngResource",
 
+    // Deps
+    "angulartics",
+    "angulartics.google.analytics",
+
+    // Internal
     "designModule",
     "cartModule",
     "categoryModule",
     "cmsModule"
 ])
-    .value("DEFAULT_TITLE", "Kari Gran")
-    .value("DEFAULT_KEYWORDS", "")
-    .value("DEFAULT_DESCRIPTION", "")
-    .value("REST_SERVER_URI", angular.REST_SERVER_URI)
+
+.value("DEFAULT_TITLE", "Kari Gran")
+.value("DEFAULT_KEYWORDS", "")
+.value("DEFAULT_DESCRIPTION", "")
+.value("REST_SERVER_URI", angular.REST_SERVER_URI)
 
     .config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
         $routeProvider
