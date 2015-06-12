@@ -588,6 +588,21 @@ angular.module("checkoutModule")
                     }
                 };
 
+                var discountsAction = function () {
+                    // Discounts step is always valid
+                    // If the grand total is 0 we can set the paymentMethod step to valid and jump over it.
+                    if ($scope.checkout.grandtotal <= 0) {
+                        isValidSteps.paymentMethod = true;
+                        $("#" + step).slideUp(500)
+                        .parents('.panel').next('.panel').next('.panel').find('.accordion')
+                        .slideDown(500);
+
+                    } else {
+                        isValidSteps.paymentMethod = false;
+                        $("#" + step).slideUp(500).parents('.panel').next('.panel').find('.accordion').slideDown(500);
+                    }
+
+                };
                 actionDefault = function () {
                     if (isValidSteps[step]) {
                         $("#" + step).slideUp(500).parents('.panel').next('.panel').find('.accordion').slideDown(500);
@@ -608,7 +623,7 @@ angular.module("checkoutModule")
                         actionCustomerAdditionalInfo();
                         break;
                     case "discounts":
-                        actionDefault();
+                        discountsAction();
                         break;
                     default:
                         actionDefault();
