@@ -3,6 +3,7 @@
         <span class="list-group-item visible-xs">
             <b>My Account Navigation</b>
         </span>
+
         <a href="/account" class="list-group-item" ng-class="{'active': isActive('/account')}">
             Account Settings
         </a>
@@ -10,12 +11,17 @@
         <a href="/account/address" class="list-group-item" ng-class="{'active': isActive('/account/address')}">
             Addresses
         </a>
+
         <a href="/account/orders" class="list-group-item" ng-class="{'active': isActive('/account/orders')}">
             Orders
         </a>
+
         <a href="/account/gift-cards" class="list-group-item" ng-class="{'active': isActive('/account/gift-cards')}">
             Gift Cards
         </a>
 
+        <a ng-href="/logout" class="list-group-item">
+            Log Out
+        </a>
     </div>
 </div>
