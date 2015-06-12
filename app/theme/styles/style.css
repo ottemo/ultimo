@@ -236,6 +236,15 @@ ul {
 	padding-left: 20px;
 }
 
+/*add a little spacing between items in an input group*/
+.input-group-divider {
+	width: 2%;
+	white-space: nowrap;
+	vertical-align: middle;
+	display: table-cell;
+	border-collapse: separate;
+}
+
 #loader .progress {
 	height: 4px;
 }
@@ -293,25 +302,12 @@ ul {
 	margin-top: 32px;
 }
 @media (min-width: 768px) {
-	#header .subscriber input.form-control,
-	#footer .subscriber input.form-control {
-		margin-right: 5px;
-	}
 	#header .subscriber input.form-control {
 		width: 300px;
 	}
 
 }
 
-.subscriber button {
-
-}
-.subscriber button:after {
-
-}
-.subscriber button:hover:after {
-
-}
 .shipping-shopping-banner {
     margin-top: 20px;
     clear: right;
