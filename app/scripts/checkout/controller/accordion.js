@@ -728,8 +728,7 @@ angular.module("checkoutModule")
                                         function () {
                                             $scope.purchase = response.result || {};
                                             $('#processing').modal('hide');
-                                            $("#purchase-success").modal("show");
-                                            $location.path("/success/"+ response.result["_id"]);
+                                            $location.path("/checkout/success/"+ response.result.increment_id);
                                         }
                                     );
                                 } else {
