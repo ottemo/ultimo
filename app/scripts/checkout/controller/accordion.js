@@ -586,7 +586,7 @@ angular.module("checkoutModule")
                     }
                 };
 
-                discountsAction = function () {
+                var discountsAction = function () {
                     // Discounts step is always valid
                     // If the grand total is 0 we can set the paymentMethod step to valid and jump over it.
                     if ($scope.checkout.grandtotal <= 0) {
