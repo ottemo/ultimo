@@ -125,8 +125,10 @@ angular.module("checkoutModule")
                                     if (isCreditCard) {
                                         var payment = getPaymentInfo();
                                         isValidSteps.paymentMethod = false;
-                                        if (payment.method.form.$valid && $scope.validateCcNumber()) {
-                                            isValidSteps.paymentMethod = true;
+                                        if (typeof payment.method != "undefined" && typeof payment.method.form != "undefined"){
+                                            if (payment.method.form.$valid && $scope.validateCcNumber()) {
+                                                isValidSteps.paymentMethod = true;
+                                            }
                                         }
                                     } else {
                                         isValidSteps.paymentMethod = true;
@@ -546,7 +548,7 @@ angular.module("checkoutModule")
                     if (isValidSteps[step]) {
                         var isCreditCard;
                         if (typeof $scope.paymentType !== "undefined") {
-                            isCreditCard = $scope.paymentType.split("_").indexOf("cc") > 0;
+                            isCreditCard = $scope.paymentType.split("_").indexOf("cc") >= 0;
                             if (isCreditCard) {
                                 var payment = getPaymentInfo();
                                 payment.method.form.submited = true;
