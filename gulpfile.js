@@ -103,7 +103,8 @@ gulp.task('scripts', function () {
 gulp.task('theme.sass', function() {
     return gulp.src('app/theme/styles/bootstrap/bootstrap.scss')
     .pipe(sass({
-        outputStyle: 'expanded'
+        outputStyle: 'expanded',
+        precision: 8
     }))
     .pipe(gulp.dest('app/theme/styles'));
 })
