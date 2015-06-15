@@ -3,7 +3,7 @@
  ---------------*/
 body {
 	padding: 10px 0 0;
-	font-weight: 300;
+	color: #000;
 }
 .content-wrapper {
 	padding: 34px 38px;
@@ -13,7 +13,6 @@ body {
 }
 
 p {
-	color: #6c7272;
 	font-size: 14px;
 	font-weight: 200;
 	line-height: 2.2;
@@ -132,8 +131,14 @@ label {
 	background-color: #000;
 }
 
-h1,h2,h3,h4 {
+h1,h2,h3,
+h4,h5,h6 {
 	color: #999;
+}
+h1,h2,h3 {
+	text-transform: uppercase;
+}
+h1,h2,h3,h4 {
 	font-weight: 300;
 }
 
@@ -143,11 +148,9 @@ h1 {
 }
 h2 {
 	font-size: 24px;
-	text-transform: uppercase;
 }
 h3 {
 	font-size: 18px;
-	text-transform: uppercase;
 }
 h4 {
 	font-family: Georgia;
@@ -677,7 +680,6 @@ ul {
  Pages, Descriptions
  ---------------*/
 .std {
-	color: #6C7272;
 	line-height: 30px;
 }
 
@@ -696,6 +698,23 @@ ul {
 .cms-hero {
 	width: 100%;
 }
+
+.cms-img-left,
+.cms-img-right {
+	display: block;
+	margin: 0 auto;
+}
+@media (min-width: 768px) {
+	.cms-img-left {
+		float: left;
+		margin: 10px 20px 0 0;
+	}
+	.cms-img-right {
+		float: right;
+		margin: 10px 0 0 20px;
+	}
+}
+
 .std p {
 	margin-bottom: 30px;
 }
