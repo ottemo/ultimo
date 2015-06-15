@@ -800,6 +800,10 @@ the extra space looks funny */
 
 
 /*_________ Mailchimp _________*/
+/*hack for the way we are currently doing modals*/
+.modal-dialog {
+	z-index: 1050;
+}
 #mailchimp .modal-body {
 	margin: 0 0 30px 0;
 }
