@@ -13,6 +13,7 @@ var modRewrite = require('connect-modrewrite');
 var RevAll = require('gulp-rev-all');
 var runSequence = require('run-sequence');
 var sourcemaps = require('gulp-sourcemaps');
+var sass = require('gulp-sass');
 
 var paths = {
     dist: 'dist',
@@ -99,6 +100,14 @@ gulp.task('scripts', function () {
         .pipe(refresh());
 });
 
+gulp.task('theme.sass', function() {
+    return gulp.src('app/theme/styles/bootstrap/bootstrap.scss')
+    .pipe(sass({
+        outputStyle: 'expanded',
+        precision: 8
+    }))
+    .pipe(gulp.dest('app/theme/styles'));
+})
 gulp.task('theme.css', function () {
     return gulp.src(paths.theme.css)
         .pipe(autoprefix('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
@@ -154,6 +163,7 @@ gulp.task('watch',function(){
 
     gulp.watch(["app/**/*.html"],['html']);
     gulp.watch(["app/**/*.css"],['theme.css']);
+    gulp.watch(["app/**/*.scss"],['theme.sass']);
     gulp.watch(["app/scripts/**/*.js"],['scripts']);
     gulp.watch(["app/theme/**/*.js"],['theme.scripts']);
 });
@@ -199,7 +209,7 @@ gulp.task('theme', [
 // For production
 gulp.task('build', function(){
     // note: revision has a short circuit for dev
-    runSequence('clean', [
+    runSequence('clean', 'theme.sass', [
         'html',
         'misc',
         'scripts',

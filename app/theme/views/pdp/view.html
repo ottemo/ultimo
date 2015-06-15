@@ -10,7 +10,7 @@
         ng-if="img==product.default_image">
             <img
             class="img-responsive center-block"
-            ng-src="{{getImage(imagesPath, img, 'thumb')}}"
+            ng-src="{{getImage(imagesPath, img)}}"
             err-src="placeholder.png"
             alt=""/>
         </a>
@@ -68,7 +68,7 @@
                 <input
                 type="text"
                 id="qty"
-                class="form-control text-center form-control--2char"
+                class="form-control form-control--2char"
                 placeholder="1"
                 value="{{qty}}"
                 ng-model="qty"
@@ -107,10 +107,11 @@
 </div>
 
 <!-- optional additional product description -->
-<div class="std" ng-bind-html="product.ritual"></div>
-<div class="std" ng-bind-html="product.ingredients"></div>
+<div class="std" ng-if="product.ritual" ng-bind-html="product.ritual"></div>
+<hr ng-if="product.ritual && product.ingredients">
+<div class="std" ng-if="product.ingredients" ng-bind-html="product.ingredients"></div>
 
-<div class="row">
+<div class="row" ng-if="related">
     <div class="text-center col-sm-10 col-xs-offset-1 col-md-12 ">
         <span class="col-xs-12 col-sm-6 col-md-2 " ng-repeat="_item in related" ng-show="related.length">
             <a class="thumbnail" href="{{productService.getUrl(_item.ID)}}">
