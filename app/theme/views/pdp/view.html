@@ -10,7 +10,7 @@
         ng-if="img==product.default_image">
             <img
             class="img-responsive center-block"
-            ng-src="{{getImage(imagesPath, img, 'thumb')}}"
+            ng-src="{{getImage(imagesPath, img)}}"
             err-src="placeholder.png"
             alt=""/>
         </a>
@@ -68,7 +68,7 @@
                 <input
                 type="text"
                 id="qty"
-                class="form-control text-center form-control--2char"
+                class="form-control form-control--2char"
                 placeholder="1"
                 value="{{qty}}"
                 ng-model="qty"

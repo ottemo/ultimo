@@ -60,6 +60,13 @@ a {
     @include tab-focus;
   }
 }
+p {
+  a,
+  a:hover,
+  a:focus {
+    text-decoration: underline;
+  }
+}
 
 
 // Figures
