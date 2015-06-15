@@ -14,7 +14,6 @@ body {
 
 p {
 	color: #6c7272;
-	font-family: Arial;
 	font-size: 14px;
 	font-weight: 200;
 	line-height: 2.2;
@@ -55,7 +54,6 @@ label {
 }
 .form-control {
 	font-size: 12px;
-	font-family: "Helvetica", "Arial";
 	color: #999;
 	border-radius: 0;
 	border-color: #999;
@@ -135,7 +133,6 @@ label {
 }
 
 h1,h2,h3,h4 {
-	font-family: "Helvetica", "Arial";
 	color: #999;
 	font-weight: 300;
 }
@@ -314,7 +311,6 @@ ul {
 }
 
 .shipping-shopping-banner .shipping-banner {
-	font-family: "Helvetica", "Arial";
 	font-size: 13px;
     text-transform: uppercase;
     color: #999;
@@ -441,7 +437,6 @@ ul {
 	background: #000;
 	color: #fff;
 	font-size: 25px;
-	font-family: Arial;
 	font-weight: 300;
 }
 
