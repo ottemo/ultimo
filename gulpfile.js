@@ -110,8 +110,10 @@ gulp.task('theme.sass', function() {
 })
 gulp.task('theme.css', function () {
     return gulp.src(paths.theme.css)
+        .pipe(sourcemaps.init())
         .pipe(autoprefix('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
         .pipe(minifyCSS())
+        .pipe(sourcemaps.write('./maps'))
         .pipe(gulp.dest(paths.theme.dist + '/styles'))
         .pipe(refresh());
 });
