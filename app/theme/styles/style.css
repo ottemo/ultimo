@@ -867,3 +867,8 @@ the extra space looks funny */
 	height: auto;
 	width: 100%;
 }
+.modal-backdrop {z-index: 0;}
+
+/*  New Password Directive */
+.ot-new-password li {list-style-image: url("../images/other/icon_yes2.png");}
+.ot-new-password li.fail {list-style-image: url("../images/other/icon_no2.png");}
