@@ -668,12 +668,12 @@ $list-group-bg:                 #fff !default;
 //** `.list-group-item` border color
 $list-group-border:             #ddd !default;
 //** List group border radius
-$list-group-border-radius:      $border-radius-base !default;
+$list-group-border-radius:      0;
 
 //** Background color of single list items on hover
 $list-group-hover-bg:           #f5f5f5 !default;
-$list-group-active-color:       $component-active-color !default;
-$list-group-active-bg:          $component-active-bg !default;
+$list-group-active-color:       #fff;
+$list-group-active-bg:          #999;
 $list-group-active-border:      $list-group-active-bg !default;
 $list-group-active-text-color:  lighten($list-group-active-bg, 40%) !default;
 
