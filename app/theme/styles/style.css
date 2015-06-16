@@ -47,13 +47,6 @@ label {
 	margin-right: 15px;
 }
 
-/*.list-group-item.active,
-.list-group-item.active:hover,
-.list-group-item.active:focus {
-	background-color: #e52888;
-	border-color: #8E1E57;
-}*/
-
 .panel-footer {
 	background-color: #fff;
 }
@@ -243,9 +236,26 @@ ul {
 
 @media (min-width: 768px) {
 	.main-menu .navbar-nav > li > a {
-		padding-left: 6px;
-		padding-right: 6px;
+		padding-left: 9px;
+		padding-right: 9px;
 	}
+	.is-logged-in .main-menu .navbar-nav > li > a {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+}
+@media (min-width: 768px) and (max-width: 991px) {
+	/*remove the padding on the first and last sides*/
+	.main-menu .navbar-nav > li.last > a,
+	.is-logged-in .main-menu .navbar-nav > li.last > a {
+		padding-right: 0;
+	}
+	.main-menu .navbar-nav > li.first > a,
+	.is-logged-in .main-menu .navbar-nav > li.first > a {
+		padding-left: 0;
+	}
+
+
 }
 @media (min-width: 992px) {
 	.main-menu .navbar-nav > li {
@@ -255,8 +265,12 @@ ul {
 		border-right: 0;
 	}
 	.main-menu .navbar-nav > li > a {
-		padding-left: 21px;
-		padding-right: 21px;
+		padding-left: 23px;
+		padding-right: 23px;
+	}
+	.is-logged-in .main-menu .navbar-nav > li > a {
+		padding-left: 20px;
+		padding-right: 20px;
 	}
 }
 @media (min-width: 1200px) {
