@@ -90,5 +90,13 @@
 				<li><a ng-href="/organic-skin-care-gifts">Gifts</a></li>
 			</ul>
 		</li>
+
+		<li class="visible-xs" ng-if="!visitorProps.isLoggedIn">
+			<a ng-href="/login">Login</a>
+		</li>
+
+		<li class="visible-xs" ng-if="visitorProps.isLoggedIn">
+			<a href="/account">My Account</a>
+		</li>
 	</ul>
 </div>
