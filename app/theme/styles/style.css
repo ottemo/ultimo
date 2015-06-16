@@ -816,6 +816,7 @@ the extra space looks funny */
 
 /*_________ Mailchimp _________*/
 /*hack for the way we are currently doing modals*/
+.modal-backdrop {z-index: 0;}
 .modal-dialog {
 	z-index: 1050;
 }
@@ -886,6 +887,11 @@ the extra space looks funny */
 	height: auto;
 	width: 100%;
 }
+
+
+/*  New Password Directive */
+.ot-new-password li {list-style-image: url("../images/other/icon_yes2.png");}
+.ot-new-password li.fail {list-style-image: url("../images/other/icon_no2.png");}
 
 .dropdown-submenu {
 	position:relative;
