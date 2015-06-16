@@ -166,19 +166,25 @@ ul {
 }
 
 /* subscriber */
-#header .subscriber {
+.navbar .subscriber {
 	margin-top: 32px;
 }
-@media (min-width: 768px) {
-	#header .subscriber input.form-control {
-		width: 300px;
-	}
-
+.subscriber {
+	float: right;
+}
+.subscriber__input-wrap {
+	float: left;
+	width: 300px;
+	margin-right: 8px;
+}
+.subscriber__input {
 }
 
+
 .util-nav {
-    margin-top: 20px;
+    margin-top: 30px;
     clear: right;
+    float: right;
 }
 .util-nav-banner,
 .util-nav-item {
