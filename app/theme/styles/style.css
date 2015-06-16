@@ -11,6 +11,9 @@ body {
 	box-shadow: 0px 0px 13px rgba(50, 50, 50, 0.2);
 }
 
+a[ng-click] {
+	cursor: pointer;
+}
 a:focus,
 button:focus,
 a:active,
@@ -45,13 +48,6 @@ label {
 .form-inline.form-spaced .checkbox,
 .form-inline.form-spaced .btn {
 	margin-right: 15px;
-}
-
-.list-group-item.active,
-.list-group-item.active:hover,
-.list-group-item.active:focus {
-	background-color: #e52888;
-	border-color: #8E1E57;
 }
 
 .panel-footer {
@@ -170,42 +166,51 @@ ul {
 }
 
 /* subscriber */
-#header .subscriber {
+.navbar .subscriber {
 	margin-top: 32px;
 }
-@media (min-width: 768px) {
-	#header .subscriber input.form-control {
-		width: 300px;
-	}
-
+.subscriber {
+	float: right;
+}
+.subscriber__input-wrap {
+	float: left;
+	width: 300px;
+	margin-right: 8px;
+}
+.subscriber__input {
 }
 
-.shipping-shopping-banner {
-    margin-top: 20px;
+
+.util-nav {
+    margin-top: 30px;
     clear: right;
+    float: right;
 }
-
-.shipping-shopping-banner .shipping-banner {
+.util-nav-banner,
+.util-nav-item {
+	padding: 10px 17px;
+}
+.is-logged-in .util-nav-banner,
+.is-logged-in .util-nav-item {
+	padding: 10px 11px;
+}
+.util-nav-banner {
 	font-size: 13px;
     text-transform: uppercase;
     color: #999;
-    padding: 10px 15px;
 }
 
-.shipping-shopping-banner .banner-divider {
+.util-nav-divider {
     border-right: 1px solid #999;
     padding: 4px 0;
 }
-
-/* shopping cart */
-.navbar .cart-link {
+.util-nav-item {
 	font-family: Georgia;
 	text-transform: inherit;
 	font-style: italic;
 	color: #000;
-	padding: 10px 15px;
 }
-.navbar .cart-link:hover {
+.util-nav-item:hover {
 	color: #999;
 }
 .kg-icon-cart {
@@ -215,7 +220,7 @@ ul {
 	margin-top: -12px;
 	background: url('../images/shopping-bag.png');
 }
-.cart-link:hover .kg-icon-cart {
+.util-nav-item:hover .kg-icon-cart {
 	background-position: 0 -41px;
 }
 
@@ -243,9 +248,20 @@ ul {
 
 @media (min-width: 768px) {
 	.main-menu .navbar-nav > li > a {
-		padding-left: 6px;
-		padding-right: 6px;
+		padding-left: 14px;
+		padding-right: 14px;
 	}
+}
+@media (min-width: 768px) and (max-width: 991px) {
+	/*remove the padding on the first and last sides*/
+	.main-menu .navbar-nav > li.last > a {
+		padding-right: 0;
+	}
+	.main-menu .navbar-nav > li.first > a {
+		padding-left: 0;
+	}
+
+
 }
 @media (min-width: 992px) {
 	.main-menu .navbar-nav > li {
@@ -255,14 +271,14 @@ ul {
 		border-right: 0;
 	}
 	.main-menu .navbar-nav > li > a {
-		padding-left: 21px;
-		padding-right: 21px;
+		padding-left: 30px;
+		padding-right: 30px;
 	}
 }
 @media (min-width: 1200px) {
 	.main-menu .navbar-nav > li > a {
-		padding-left: 36px;
-		padding-right: 36px;
+		padding-left: 48px;
+		padding-right: 48px;
 	}
 }
 
@@ -278,7 +294,7 @@ ul {
 }*/
 
 /* second level */
-.main-menu .dropdown-hover:hover .dropdown-menu {
+.main-menu .dropdown-hover:hover > .dropdown-menu {
 	display: block;
 }
 .main-menu .dropdown-menu {
@@ -714,7 +730,6 @@ the extra space looks funny */
 	font-size: 14px;
 	font-weight: 200;
 	line-height: 35px;
-	margin-right: 10px;
 	text-transform: uppercase;
 }
 
@@ -800,6 +815,11 @@ the extra space looks funny */
 
 
 /*_________ Mailchimp _________*/
+/*hack for the way we are currently doing modals*/
+.modal-backdrop {z-index: 0;}
+.modal-dialog {
+	z-index: 1050;
+}
 #mailchimp .modal-body {
 	margin: 0 0 30px 0;
 }
@@ -867,8 +887,44 @@ the extra space looks funny */
 	height: auto;
 	width: 100%;
 }
-.modal-backdrop {z-index: 0;}
+
 
 /*  New Password Directive */
 .ot-new-password li {list-style-image: url("../images/other/icon_yes2.png");}
 .ot-new-password li.fail {list-style-image: url("../images/other/icon_no2.png");}
+
+.dropdown-submenu {
+	position:relative;
+}
+.dropdown-submenu > .dropdown-menu {
+	top:0;
+	left:100%;
+	margin-top:-6px;
+	margin-left:-1px;
+	border-radius: 0 10px 10px 10px;
+}
+.dropdown-submenu:hover > .dropdown-menu {
+	display:block;
+}
+.dropdown-submenu>a:after {
+	display:block;
+	content:" ";
+	float:right;
+	width:0;
+	height:0;
+	border-color:transparent;
+	border-style:solid;
+	border-width:5px 0 5px 5px;
+	border-left-color:#cccccc;
+	margin-top:5px;
+	margin-right:-10px;
+}
+
+.dropdown-submenu.pull-left {
+	float:none;
+}
+.dropdown-submenu.pull-left > .dropdown-menu {
+	left:-100%;
+	margin-left:10px;
+	border-radius: 10px 0 10px 10px;
+}

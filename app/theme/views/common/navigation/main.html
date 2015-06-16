@@ -6,6 +6,7 @@
 		<li class="dropdown-hover first">
 			<a ng-href="/organic-skin-care">Organic Skin Care</a>
 			<ul class="dropdown-menu">
+				<li><a ng-href="/organic-skin-care">Why Organic Skin Care</a></li>
 				<li><a ng-href="/organic-skin-care/philosophy">Philosophy</a></li>
 				<li><a ng-href="/organic-skin-care/ingredients">Ingredients</a></li>
 				<li><a ng-href="/organic-skin-care/skin-care-tips">Holistic Skin Care Tips</a></li>
@@ -15,8 +16,15 @@
 		<li class="dropdown-hover">
 			<a ng-href="/facial-oil">Facial Oil</a>
 			<ul class="dropdown-menu">
+				<li><a ng-href="/facial-oil">Why Oils Work</a></li>
 				<li><a ng-href="/facial-oil/cleansing-oil">Cleansing Oil</a></li>
-				<li><a ng-href="/facial-oil/essential-serum">Essential Serum</a></li>
+				<li class="dropdown-submenu">
+					<a>Essential Serum</a>
+					<ul class="dropdown-menu">
+						<li><a ng-href="/facial-oil/essential-serum-30">Essential Serum 30ml</a></li>
+						<li><a ng-href="/facial-oil/essential-serum-50">Essential Serum 50ml</a></li>
+					</ul>
+				</li>
 				<li><a ng-href="/facial-oil/hydrating-tonic">Hydrating Tonic</a></li>
 				<li><a ng-href="/facial-oil/starter-kit">Starter Kit</a></li>
 				<li><a ng-href="/facial-oil/the-system">The KG System</a></li>
@@ -26,20 +34,33 @@
 		<li class="dropdown-hover">
 			<a ng-href="/natural-lip-balm">Natural Lip Balm</a>
 			<ul class="dropdown-menu">
-				<li><a ng-href="/natural-lip-balm/lip-treatment">Lip Treatment</a></li>
-				<li><a ng-href="/natural-lip-balm/lip-treatment/lip-whip-naked">Lip Whip Naked</a></li>
-				<li><a ng-href="/natural-lip-balm/lip-treatment/lip-whip-tinted">Lip Whip Tinted</a></li>
-				<li><a ng-href="/natural-lip-balm/lip-gloss">Lip Gloss</a></li>
-				<li><a ng-href="/natural-lip-balm/lip-gloss/lip-whip-radiant">Lip Whip Radiant</a></li>
-				<li><a ng-href="/natural-lip-balm/lip-gloss/lip-whip-naughty">Lip Whip Naughty</a></li>
-				<li><a ng-href="/natural-lip-balm/lip-gloss/lip-whip-nice">Lip Whip Nice</a></li>
-				<li><a ng-href="/natural-lip-balm/lip-gloss/lip-whip-marsala">Lip Whip Marsala</a></li>
+				<li><a ng-href="/natural-lip-balm">Skin Care For Your Lips</a></li>
+				<li class="dropdown-submenu">
+					<a ng-href="/natural-lip-balm/lip-treatment">Lip Treatment</a>
+					<ul class="dropdown-menu">
+						<li><a ng-href="/natural-lip-balm/lip-treatment/lip-whip-naked-peppermint">Lip Whip Naked Peppermint</a></li>
+						<li><a ng-href="/natural-lip-balm/lip-treatment/lip-whip-naked-cinnamon">Lip Whip Naked Cinnamon</a></li>
+						<li><a ng-href="/natural-lip-balm/lip-treatment/lip-whip-tinted-peppermint">Lip Whip Tinted Peppermint</a></li>
+						<li><a ng-href="/natural-lip-balm/lip-treatment/lip-whip-tinted-cinnamon">Lip Whip Tinted Cinnamon</a></li>
+					</ul>
+				</li>
+				<li class="dropdown-submenu">
+					<a ng-href="/natural-lip-balm/lip-color">Lip Color</a>
+					<ul class="dropdown-menu">
+						<li><a ng-href="/natural-lip-balm/lip-color/lip-whip-radiant">Lip Whip Radiant</a></li>
+						<li><a ng-href="/natural-lip-balm/lip-color/lip-whip-naughty">Lip Whip Naughty</a></li>
+						<li><a ng-href="/natural-lip-balm/lip-color/lip-whip-nice">Lip Whip Nice</a></li>
+						<li><a ng-href="/natural-lip-balm/lip-color/lip-whip-marsala">Lip Whip Marsala</a></li>
+					</ul>
+				</li>
 			</ul>
 		</li>
 
 		<li class="dropdown-hover">
 			<a ng-href="/mineral-makeup">Mineral Makeup</a>
 			<ul class="dropdown-menu">
+				<!-- TODO: update this  -->
+				<li><a ng-href="/mineral-makeup">TODO</a></li>
 				<li><a ng-href="/mineral-makeup/foundation">Foundation</a></li>
 				<li><a ng-href="/mineral-makeup/customizable-liquid-foundation">Customizable Liquid Foundation</a></li>
 				<li><a ng-href="/mineral-makeup/concealer">Concealer</a></li>
@@ -54,12 +75,13 @@
 		<li class="dropdown-hover">
 			<a ng-href="/skin-care-videos">Videos</a>
 			<ul class="dropdown-menu">
+				<li><a href="/skin-care-videos">All Videos</a></li>
 				<li><a href="/skin-care-videos/morning-skin-care-tips">Morning Skin Care Tips</a></li>
 				<li><a href="/skin-care-videos/evening-skin-care-tips">Evening Skin Care Tips</a></li>
 			</ul>
 		</li>
 
-		<li class="dropdown-hover">
+		<li class="dropdown-hover last">
 			<a ng-href="/shop">Shop</a>
 			<ul class="dropdown-menu">
 				<li><a ng-href="/shop/organic-skin-care">Skin Care</a></li>
@@ -69,11 +91,11 @@
 			</ul>
 		</li>
 
-		<li class="last" ng-if="!visitorProps.isLoggedIn">
+		<li class="visible-xs" ng-if="!visitorProps.isLoggedIn">
 			<a ng-href="/login">Login</a>
 		</li>
 
-		<li class="last" ng-if="visitorProps.isLoggedIn">
+		<li class="visible-xs" ng-if="visitorProps.isLoggedIn">
 			<a href="/account">My Account</a>
 		</li>
 	</ul>
