@@ -34,10 +34,19 @@
 
                 </form>
 
-                <div class="hidden-xs navbar-right shipping-shopping-banner" ng-controller="visitorLoginController">
-                    <span class="shipping-banner">always free shipping</span>
-                    <i class="banner-divider"></i>
-                    <a ng-click="clickToCartDesktop()" class="cart-link">Shopping Bag ({{getItemsInCart()}}) <i class="kg-icon-cart"></i></a>
+                <div class="hidden-xs navbar-right util-nav" ng-controller="visitorLoginController">
+                    <span class="util-nav-banner">always free shipping</span>
+
+                    <i class="util-nav-divider"></i>
+
+                    <a ng-if="!visitorProps.isLoggedIn" ng-href="/login" class=" util-nav-item">Login</a>
+                    <a ng-if="visitorProps.isLoggedIn" ng-href="/account" class=" util-nav-item">My Account</a>
+
+                    <i class="util-nav-divider"></i>
+
+                    <a ng-click="clickToCartDesktop()" class=" util-nav-item">
+                        Cart ({{getItemsInCart()}}) <i class="kg-icon-cart"></i>
+                    </a>
                 </div>
             </div>
 
