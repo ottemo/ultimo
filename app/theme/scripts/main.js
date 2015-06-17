@@ -53,7 +53,6 @@ $(document).ready(function () {
             var startsWith = 'data-target-';
             var target = '';
             $.each(targetClasses, function(i, el){
-                console.log(el, el.substr(0, startsWith.length));
                 if(el.substr(0, startsWith.length) == startsWith){
                     target = el.substr(startsWith.length);
 
