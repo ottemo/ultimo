@@ -714,10 +714,6 @@
                                     <td>Subtotal</td>
                                     <td>{{checkout.subtotal | currency}}</td>
                                 </tr>
-                                <tr ng-if="checkout.discount_amount">
-                                    <td>Discounts</td>
-                                    <td>({{checkout.discount_amount | currency}})</td>
-                                </tr>
                                 <tr>
                                     <td>Tax</td>
                                     <td>{{checkout.tax_amount | currency}}</td>
@@ -726,7 +722,10 @@
                                     <td>Shipping</td>
                                     <td>{{checkout.shipping_amount | currency}}</td>
                                 </tr>
-
+                                <tr ng-if="checkout.discount_amount">
+                                    <td>Discounts</td>
+                                    <td>({{checkout.discount_amount | currency}})</td>
+                                </tr>
                                 <tr>
                                     <td>Total</td>
                                     <td>{{checkout.grandtotal | currency}}</td>
@@ -807,13 +806,6 @@
                             <div class="cart-total__value cart-total__value--sub">{{checkout.subtotal | currency}}</div>
                         </div>
 
-                        <div class="col-xs-6" ng-if="checkout.discount_amount">
-                            <div class="cart-total__label cart-total__label--discounts">Discounts:</div>
-                        </div>
-                        <div class="col-xs-6" ng-if="checkout.discount_amount">
-                            <div class="cart-total__value cart-total__value--discounts">({{checkout.discount_amount | currency}})</div>
-                        </div>
-
                         <div class="col-xs-6">
                             <div class="cart-total__label cart-total__label--tax">Tax:</div>
                         </div>
@@ -826,6 +818,13 @@
                         </div>
                         <div class="col-xs-6">
                             <div class="cart-total__value cart-total__value--ship">{{checkout.shipping_amount | currency}}</div>
+                        </div>
+
+                        <div class="col-xs-6" ng-if="checkout.discount_amount">
+                            <div class="cart-total__label cart-total__label--discounts">Discounts:</div>
+                        </div>
+                        <div class="col-xs-6" ng-if="checkout.discount_amount">
+                            <div class="cart-total__value cart-total__value--discounts">({{checkout.discount_amount | currency}})</div>
                         </div>
 
                         <div class="col-xs-6">

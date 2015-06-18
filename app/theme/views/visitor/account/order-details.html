@@ -107,10 +107,6 @@
                 <td class="text-left">Subtotal:</td>
                 <td>{{order.subtotal | currency}}</td>
             </tr>
-            <tr ng-if="order.discount">
-                <td class="text-left">Discounts:</td>
-                <td>({{order.discount | currency}})</td>
-            </tr>
             <tr>
                 <td class="text-left">Shipping:</td>
                 <td>{{order.shipping_amount | currency}}</td>
@@ -118,6 +114,10 @@
             <tr>
                 <td class="text-left">Tax:</td>
                 <td>{{order.tax_amount | currency}}</td>
+            </tr>
+            <tr ng-if="order.discount">
+                <td class="text-left">Discounts:</td>
+                <td>({{order.discount | currency}})</td>
             </tr>
             <tr>
                 <td class="text-left">Order Total:</td>
