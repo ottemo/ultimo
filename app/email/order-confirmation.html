@@ -14,7 +14,7 @@
 						<tr>
 							<td>
 								<table class="row">
-									 <tr>
+									<tr>
 										<td class="wrapper last">
 
 											<table class="twelve columns">
@@ -187,19 +187,25 @@
 												<tr>
 													<td class="tt__total-label">Subtotal</td>
 													<td class="tt__td-total">{{ .Order.subtotal }}</td>
-												 </tr>
-												 <tr>
+												</tr>
+												<tr>
 													<td class="tt__total-label">Shipping &amp; Handling</td>
 													<td class="tt__td-total">{{ .Order.shipping_amount }}</td>
-												 </tr>
-												 <tr>
+												</tr>
+												<tr>
 													<td class="tt__total-label">Tax</td>
 													<td class="tt__td-total">{{ .Order.tax_amount }}</td>
-												 </tr>
-												 <tr class="tt__totals--grand">
+												</tr>
+												{{ if .Order.discount }}
+													<tr>
+														<td class="tt__total-label">Discounts</td>
+														<td class="tt__td-total">({{ .Order.discount }})</td>
+													</tr>
+												{{ end }}
+												<tr class="tt__totals--grand">
 													<td class="tt__total-label">Grand Total</td>
 													<td class="tt__td-total">{{ .Order.grand_total }}</td>
-												 </tr>
+												</tr>
 											</table>
 										</td>
 									</tr>
