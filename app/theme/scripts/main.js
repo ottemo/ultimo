@@ -39,4 +39,30 @@ $(document).ready(function () {
             $navToggle.click();
         }
     });
+
+    $(document)
+        .on('click', '.nav-tabs a.data-toggle-tab', function(e){
+            e.preventDefault();
+
+            // Update the active nav tab
+            $(this).parent().addClass('active')
+            .siblings().removeClass('active');
+
+            // Figure out which tab-pane to target
+            var targetClasses = $(this).attr('class').split(' ');
+            var startsWith = 'data-target-';
+            var target = '';
+            $.each(targetClasses, function(i, el){
+                if(el.substr(0, startsWith.length) == startsWith){
+                    target = el.substr(startsWith.length);
+
+                    return false;
+                }
+            });
+
+            // Add the active class to the tab pane
+            $('.tab-pane-' + target).addClass('active')
+            .siblings().removeClass('active');
+
+        });
 });
