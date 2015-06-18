@@ -1,7 +1,7 @@
 <!-- Orders details page -->
-<div ng-init="init()" class="text-center">
+<div ng-init="init()" class="">
 
-    <h2>Order №{{order.increment_id}}</h2>
+    <h2 class="text-center">Order №{{order.increment_id}}</h2>
 
     <h4>
         Date: <strong>{{order.created_at | date:"MM/dd/yyyy h:mma"}}</strong>
@@ -11,8 +11,9 @@
 
     <h4>Billing & Shipping</h4>
 
+    <div class="row">
     <!-- bill to table -->
-    <div class="col-sm-5 col-sm-offset-1">
+    <div class="col-sm-6">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
@@ -32,11 +33,14 @@
                 </tr>
                 <tr>
                     <td>Address:</td>
-                    <td>{{order.billing_address.address_line1}} {{order.billing_address.address_line2}}, {{order.billing_address.city}}</td>
-                </tr>
-                <tr>
-                    <td>Zip,state,country:</td>
-                    <td>{{order.billing_address.zip_code}}, {{order.billing_address.state}}, {{order.billing_address.country}}</td>
+                    <td>
+                        {{order.billing_address.address_line1}} <br>
+                        {{order.billing_address.address_line2}}
+                        <br ng-if="order.billing_address.address_line2">
+
+                        {{order.billing_address.city}} {{order.billing_address.state}}
+                        {{order.billing_address.zip_code}} {{order.billing_address.country}}
+                    </td>
                 </tr>
                 <tr>
                     <td>Phone:</td>
@@ -47,7 +51,7 @@
     </div>
 
     <!-- ship to table -->
-    <div class="col-sm-5">
+    <div class="col-sm-6">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
@@ -67,11 +71,14 @@
                 </tr>
                 <tr>
                     <td>Address:</td>
-                    <td>{{order.shipping_address.address_line1}} {{order.shipping_address.address_line2}}, {{order.shipping_address.city}},</td>
-                </tr>
-                <tr>
-                    <td>Zip,state,country:</td>
-                    <td>{{order.shipping_address.zip_code}}, {{order.shipping_address.state}}, {{order.shipping_address.country}}</td>
+                    <td>
+                        {{order.shipping_address.address_line1}} <br>
+                        {{order.shipping_address.address_line2}}
+                        <br ng-if="order.shipping_address.address_line2">
+
+                        {{order.shipping_address.city}} {{order.shipping_address.state}}
+                        {{order.shipping_address.zip_code}} {{order.shipping_address.country}}
+                    </td>
                 </tr>
                 <tr>
                     <td>Phone:</td>
@@ -80,28 +87,42 @@
             </table>
         </div>
     </div>
+    </div>
 
-    <div class="clearfix"></div>
-
+    <div class="row">
     <!-- products in order -->
-    <div class="col-sm-6 col-lg-5 col-lg-offset-1">
+    <div class="col-sm-6">
         <table class="table table-bordered table-condensed">
-            <tr ng-repeat="product in order.items">
+            <thead>
+                <tr>
+                    <th>Products</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="product in order.items">
 
-                <!-- product name -->
-                <td class="text-left">{{product.Name}}</td>
+                    <!-- product name -->
+                    <td>
+                        <strong>{{product.Name}}</strong>
+                        <div ng-repeat="option in product.Options">
+                            {{ option.label }}: {{ option.value }}
+                        </div>
+                    </td>
 
-                <!-- product quantity -->
-                <td>{{product.Qty}}</td>
+                    <!-- product quantity -->
+                    <td>{{product.Qty}}</td>
 
-                <!-- product price -->
-                <td>{{product.Price | currency}}</td>
-            </tr>
+                    <!-- product price -->
+                    <td>{{product.Price | currency}}</td>
+                </tr>
+            </tbody>
         </table>
     </div>
 
     <!-- total table -->
-    <div class="col-sm-6 col-lg-5">
+    <div class="col-sm-6">
         <table class="table table-bordered table-condensed">
             <tr>
                 <td class="text-left">Subtotal:</td>
@@ -125,8 +146,7 @@
             </tr>
         </table>
     </div>
-
-    <div class="clearfix"></div>
+    </div>
 
     <a class="btn btn-primary" href="/account/orders">Back to Orders</a>
     <br><br>
