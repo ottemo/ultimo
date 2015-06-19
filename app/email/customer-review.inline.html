@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-	<title>*|MC:SUBJECT|*</title>
+	<!-- <title></title> -->
 	<!--[if gte mso 6]>
         <style>
             table.mcnFollowContent {width:100% !important;}
@@ -395,7 +395,7 @@
 												<table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnImageContentContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" width="100%">
 													<tbody>
 														<tr>
-															<td class="mcnImageContent" style="padding-right: 9px;padding-left: 9px;padding-top: 0;padding-bottom: 0;text-align: center;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" valign="top"><a href="http://www.karigran.com" style="word-wrap: break-word !important;" target="_self" title=""><img align="center" alt="" class="mcnImage" src="https://gallery.mailchimp.com/6355acb494cba6e3f035232b8/images/be681176-d58f-492d-8271-d4ed110eb19a.jpg" style="max-width: 250px; padding-bottom: 0px; display: inline !important; vertical-align: bottom; border: 0px; line-height: 100%; outline: none; text-decoration: none; width: 186px; height: 88px;" /> </a></td>
+															<td class="mcnImageContent" style="padding-right: 9px;padding-left: 9px;padding-top: 0;padding-bottom: 0;text-align: center;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" valign="top"><a href="{{ .Site.url }}" style="word-wrap: break-word !important;" target="_self" title=""><img align="center" alt="" class="mcnImage" src="{{ .Site.url }}/app/theme/images/email/invite_logo.jpg" style="max-width: 250px; padding-bottom: 0px; display: inline !important; vertical-align: bottom; border: 0px; line-height: 100%; outline: none; text-decoration: none; width: 186px; height: 88px;" /> </a></td>
 														</tr>
 													</tbody>
 												</table>
@@ -422,7 +422,7 @@
 												<table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnTextContentContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" width="599">
 													<tbody>
 														<tr>
-															<td class="mcnTextContent" style="padding: 9px 18px;font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;font-size: 14px;font-weight: normal;line-height: 150%;text-align: center;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;color: #505050;" valign="top"><a href="https://karigran.com"><img alt="" src="https://gallery.mailchimp.com/6355acb494cba6e3f035232b8/images/19a02e48-81b8-484a-a355-dadd58a80824.jpg" style="width: 300px; height: 203px;" /></a></td>
+															<td class="mcnTextContent" style="padding: 9px 18px;font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;font-size: 14px;font-weight: normal;line-height: 150%;text-align: center;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;color: #505050;" valign="top"><a href="{{ .Site.url }}"><img alt="" src="{{ .Site.url }}/theme/images/email/invite_kg-and-lisa.jpg" style="width: 300px; height: 203px;" /></a></td>
 														</tr>
 													</tbody>
 												</table>
@@ -450,11 +450,11 @@
 													<tbody>
 														<tr>
 															<td class="mcnTextContent" style="padding: 9px 18px;font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;font-size: 14px;font-weight: normal;line-height: 150%;text-align: center;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;color: #505050;" valign="top">
-															<p style="color: #505050;font-family: Verdana, Geneva, sans-serif;font-size: 13px;line-height: 150%;text-align: Left;">Dear {{ .Visitor.Name }},</p>
+															<p style="color: #505050;font-family: Verdana, Geneva, sans-serif;font-size: 13px;line-height: 150%;text-align: Left;">Dear {{ .Visitor.name }},</p>
 
 															<p style="color: #505050;font-family: Verdana, Geneva, sans-serif;font-size: 13px;line-height: 150%;text-align: left;">Thank you so much for your business. We really do value every single one of our customers and hope that you feel that.</p>
 
-															<p style="color: #505050;font-family: Verdana, Geneva, sans-serif;font-size: 13px;line-height: 150%;text-align: left;">We are a very young brand and are always looking for better ways to talk to our customers. So we are excited to implement an actual product review and rating system on <a href="http://karigran.com"><span style="color:#ff0099;">KariGran.com</span></a> that wil enable us to talk back and forth.</p>
+															<p style="color: #505050;font-family: Verdana, Geneva, sans-serif;font-size: 13px;line-height: 150%;text-align: left;">We are a very young brand and are always looking for better ways to talk to our customers. So we are excited to implement an actual product review and rating system on <a href="{{ .Site.url }}"><span style="color:#ff0099;">KariGran.com</span></a> that wil enable us to talk back and forth.</p>
 
 															<p style="color: #505050;font-family: Verdana, Geneva, sans-serif;font-size: 13px;line-height: 150%;text-align: left;">If you have a minute and could write a quick review on any of our products that you love, or even the shopping or shipping experience, it would be of great help to us.</p>
 
@@ -472,7 +472,7 @@
 
 															<p style="color: #505050;font-family: Verdana, Geneva, sans-serif;font-size: 13px;line-height: 150%;text-align: center;">Thanks again for all your support, positive energy and kind referrals to your friends.</p>
 
-															<p style="color: #505050;font-family: Verdana, Geneva, sans-serif;font-size: 13px;line-height: 150%;text-align: center;"><a href="http://www.karigran.com" style="text-align: center;color: #EB4102;font-weight: normal;text-decoration: underline;word-wrap: break-word !important;"><img align="none" src="http://gallery.mailchimp.com/6355acb494cba6e3f035232b8/images/sig_trace.jpg" style="width: 200px; height: 127px; border: 0px; line-height: 100%; outline: none; text-decoration: none;" /></a></p>
+															<p style="color: #505050;font-family: Verdana, Geneva, sans-serif;font-size: 13px;line-height: 150%;text-align: center;"><a href="{{ .Site.url }}" style="text-align: center;color: #EB4102;font-weight: normal;text-decoration: underline;word-wrap: break-word !important;"><img align="none" src="{{ .Site.url }}/app/theme/images/email/invite_sig.jpg" style="width: 200px; height: 127px; border: 0px; line-height: 100%; outline: none; text-decoration: none;" /></a></p>
 															</td>
 														</tr>
 														<tr>
