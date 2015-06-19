@@ -509,7 +509,7 @@
                         <div class="paypal" ng-show="checkout.payment_method_code===method.Code" ng-if="showFormCc(method)">
                             <form name="method.form" novalidate>
 
-                                <div class="form-group col-md-6 col-xs-12"
+                                <div class="form-group col-xs-12 col-sm-4"
                                      ng-class="{ 'has-error' : (method.form.submited && method.form.type.$invalid) || (method.form.type.$invalid && !method.form.type.$pristine) }">
                                     <label>Credit Card Type</label>
 
@@ -522,7 +522,7 @@
                                        class="help-block">This field is required.</p>
                                 </div>
 
-                                <div class="form-group col-md-6 col-xs-12"
+                                <div class="form-group col-xs-12 col-sm-8"
                                      ng-class="{ 'has-error' : (method.form.submited && method.form.number.$invalid) || ((!method.form.number.$invalidFormat || method.form.number.$invalid) && !method.form.number.$pristine) }">
 
                                     <label for="paymentCardNumber">Number *</label>
@@ -536,27 +536,12 @@
                                        class="help-block">Invalid number format.</p>
                                 </div>
 
-
-                                <div class="form-group col-md-4 col-xs-12"
-                                     ng-class="{ 'has-error' : (method.form.submited && method.form.cvv.$invalid) || (method.form.cvv.$invalid && !method.form.cvv.$pristine) }">
-
-                                    <label for="paymentCvv">CVV *</label>
-                                    <input type="text" class="form-control" id="paymentCvv" name="cvv" ng-model="method.cc.cvv"
-                                           placeholder="CVV" />
-
-                                    <p ng-show="method.form.submited && method.form.cvv.$error.required"
-                                       class="help-block">This field is required.</p>
-                                    <p ng-if="!method.form.cvv.$error.required"
-                                       ng-show="(method.form.submited && method.form.cvv.$invalid) || (method.form.cvv.$invalid && !method.form.cvv.$pristine)"
-                                       class="help-block">{{method.form.cvv.message}}</p>
-                                </div>
-
-                                <div class="form-group col-md-4 col-xs-12"
+                                <div class="form-group col-xs-6 col-md-4"
                                      ng-class="{ 'has-error' : method.form.submited && method.form.expire_month.$invalid }">
-                                    <label>Expiration Date</label>
+                                    <label>Expiration Month</label>
 
                                     <select class="form-control" ng-model="method.cc.expire_month" name="expire_month" required>
-                                        <option></option>
+                                        <option value="">MM</option>
                                         <option value="1">01</option>
                                         <option value="2">02</option>
                                         <option value="3">03</option>
@@ -575,17 +560,17 @@
                                        class="help-block">This field is required.</p>
                                 </div>
 
-                                <div class="form-group col-md-4 col-xs-12"
+                                <div class="form-group col-xs-6 col-md-4"
                                      ng-class="{ 'has-error' : method.form.submited && method.form.expire_year.$invalid }">
-                                    <label>Expiration Year</label>
+                                    <label>Year</label>
                                     <select class="form-control" ng-model="method.cc.expire_year" name="expire_year" required>
-                                        <option></option>
-                                        <option value="2015">2015</option>
-                                        <option value="2016">2016</option>
-                                        <option value="2017">2017</option>
-                                        <option value="2018">2018</option>
-                                        <option value="2019">2019</option>
-                                        <option value="2020">2020</option>
+                                        <option value="">YY</option>
+                                        <option value="2015">15</option>
+                                        <option value="2016">16</option>
+                                        <option value="2017">17</option>
+                                        <option value="2018">18</option>
+                                        <option value="2019">19</option>
+                                        <option value="2020">20</option>
                                     </select>
 
                                     <p ng-show="method.form.submited && method.form.expire_year.$invalid"
