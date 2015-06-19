@@ -747,7 +747,7 @@ angular.module("checkoutModule")
                                         function () {
                                             $scope.purchase = response.result || {};
 
-                                            // [adam] Oh i wish this had a callback
+                                            //TODO: clean this up with angular modals and promises
                                             $('#processing').modal('hide');
                                             $timeout(function(){
                                                 $location.path("/checkout/success/"+ response.result.increment_id);
