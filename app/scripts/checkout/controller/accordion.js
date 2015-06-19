@@ -3,6 +3,9 @@ angular.module("checkoutModule")
     .controller("checkoutAccordionController", [
         "$scope",
         "$location",
+        "$q",
+        "$interval",
+        "$timeout",
         "$checkoutApiService",
         "$designImageService",
         "$visitorLoginService",
@@ -10,12 +13,13 @@ angular.module("checkoutModule")
         "$designStateService",
         "$commonUtilService",
         "$checkoutService",
-        "$q",
-        "$interval",
         "$giftCardsService",
         function (
             $scope,
             $location,
+            $q,
+            $interval,
+            $timeout,
             $checkoutApiService,
             $designImageService,
             $visitorLoginService,
@@ -23,8 +27,6 @@ angular.module("checkoutModule")
             $designStateService,
             $commonUtilService,
             $checkoutService,
-            $q,
-            $interval,
             $giftCardsService
         ) {
 
@@ -744,8 +746,12 @@ angular.module("checkoutModule")
                                     $cartService.reload().then(
                                         function () {
                                             $scope.purchase = response.result || {};
+
+                                            //TODO: clean this up with angular modals and promises
                                             $('#processing').modal('hide');
-                                            $location.path("/checkout/success/"+ response.result.increment_id);
+                                            $timeout(function(){
+                                                $location.path("/checkout/success/"+ response.result.increment_id);
+                                            }, 600);
                                         }
                                     );
                                 } else {
