@@ -5,7 +5,7 @@
         <!-- TODO: We shouldn't have to loop over the images to find the default -->
         <a
         class="pdp-primary-img js-img-zoom"
-        href="{{getImage(imagesPath, img)}}"
+        data-src-big="{{getImage(imagesPath, img)}}"
         ng-repeat="img in productImages"
         ng-if="img==product.default_image">
             <img
@@ -15,10 +15,12 @@
             alt=""/>
         </a>
         <div class="row hidden-xs" ng-if="productImages.length > 1">
-            <div ng-repeat="img in productImages" class="col-xs-4">
-                <a class="thumbnail" href>
+            <div
+            ng-repeat="img in productImages"
+            class="col-xs-3">
+                <a class="thumbnail">
                     <img
-                    class="slide-small text-left img-rounded"
+                    class="js-slide-small text-left img-rounded"
                     ng-src="{{getImage(imagesPath, img, 'thumb')}}"
                     err-src="placeholder.png"
                     alt=""
@@ -136,17 +138,19 @@
             e.preventDefault();
             var $this = $(this);
             $.fancybox([
-                { href: $this.attr('href') }
+                { href: $this.data('src-big') }
             ]);
         });
 
         //slider
-        $(document).on('click', '.slide-small', function() {
-            $('.slide-image')
-            .attr('src',$(this).attr('src'))
+        $(document).on('click', '.js-slide-small', function() {
+            var newSrc = $(this).data('src-big');
+            $('.js-img-zoom')
+            .data('src-big', newSrc)
+            .find('img')
             .hide()
-            .fadeIn(500)
-            .parent().attr('href',$(this).attr('data-src-big'))
+            .attr('src', newSrc)
+            .fadeIn(500);
         });
     });
 
