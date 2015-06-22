@@ -8,6 +8,8 @@
         ng-src="{{category.banner}}">
     </div>
 
+    <div class="category-description std" ng-bind-html="category.description"></div>
+
     <div class="row products-area">
 
         <!-- shop page has products sectioned off into categories -->
@@ -18,9 +20,9 @@
                 <div class="row">
                     <!-- products: clears handled in `.category .products-area .product:nth-child` -->
                     <div
-                    class="col-xs-12 col-sm-4 col-md-3"
+                    class="col-xs-12 col-sm-4 col-md-3 product"
                     ng-repeat="_item in category.productList | filter:searchText">
-                        <div class="product">
+                        <div class="">
                             <a
                             class="btn btn-primary btn-product-list-quick"
                             ng-click="openPopUp(_item)">
@@ -53,43 +55,38 @@
 
         <!-- regular category pages -->
         <div ng-if="!isShop">
-            <!-- TODO: this whole bit could be a directive that we could reuse -->
-            <h2 class="col-xs-12 col-sm-3 col-lg-3">{{category.name}}</h2>
 
-            <div class="col-xs-12 col-sm-9 col-lg-9">
-                <div class="row">
-                    <!-- products: clears handled in `.category .products-area .product:nth-child` -->
-                    <div
-                    class="col-xs-12 col-sm-4 col-md-3"
-                    ng-repeat="_item in productsList | filter:searchText">
-                        <div class="product">
-                            <a
-                            class="btn btn-primary btn-product-list-quick"
-                            ng-click="openPopUp(_item)">
-                                <i class="fa fa-search-plus "></i> Quick View
-                            </a>
+            <!-- products: clears handled in `.category .products-area .product:nth-child` -->
+            <div
+            class="col-xs-12 col-sm-4 col-md-3 product"
+            ng-repeat="_item in productsList | filter:searchText">
+                <div class="">
+                    <a
+                    class="btn btn-primary btn-product-list-quick"
+                    ng-click="openPopUp(_item)">
+                        <i class="fa fa-search-plus"></i> Quick View
+                    </a>
 
-                            <a
-                            class="product-list--image"
-                            ng-href="{{productService.getUrl(_item._id)}}">
-                                <img
-                                alt=""
-                                ng-src="{{getImage(_item)}}"
-                                err-src="placeholder.png">
-                            </a>
+                    <a
+                    class="product-list--image"
+                    ng-href="{{productService.getUrl(_item._id)}}">
+                        <img
+                        alt=""
+                        ng-src="{{getImage(_item)}}"
+                        err-src="placeholder.png">
+                    </a>
 
-                            <a ng-href="{{productService.getUrl(_item._id)}}">
-                                <span class="caption text-center">
-                                    <!-- product name -->
-                                    <h5>{{_item.name}}</h5>
-                                    <!-- product price -->
-                                    <h4>{{_item.price | number : 2 | currency}}</h4>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
+                    <a ng-href="{{productService.getUrl(_item._id)}}">
+                        <span class="caption text-center">
+                            <!-- product name -->
+                            <h5>{{_item.name}}</h5>
+                            <!-- product price -->
+                            <h4>{{_item.price | number : 2 | currency}}</h4>
+                        </span>
+                    </a>
                 </div>
             </div>
+
         </div>
 
 
