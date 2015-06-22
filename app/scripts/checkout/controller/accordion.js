@@ -547,6 +547,18 @@ angular.module("checkoutModule")
 
                 actionPaymentMethod = function () {
                     $scope.subPaymentForm = true;
+
+                    var _proceed = function() {
+                        var $nextPanel = $("#" + step).slideUp("slow").parents('.panel').next('.panel')
+
+                        // We skip the guest checkout data collection step if they aren't guests
+                        if (!$scope.isGuestCheckout) {
+                            $nextPanel = $nextPanel.next('.panel');
+                        }
+
+                        $nextPanel.find('.accordion').slideDown(500);
+                    }
+
                     if (isValidSteps[step]) {
                         var isCreditCard;
                         if (typeof $scope.paymentType !== "undefined") {
@@ -559,7 +571,7 @@ angular.module("checkoutModule")
                                 }
                             }
                         }
-                        $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
+                        _proceed();
                     } else {
                         var isCreditCard;
                         if (typeof $scope.paymentType !== "undefined") {
@@ -569,22 +581,27 @@ angular.module("checkoutModule")
                                 payment.method.form.submited = true;
                                 if (payment.method.form.$valid && $scope.validateCcNumber()) {
                                     $checkoutService.saveAdditionalInfo({"cc": payment["method"]["cc"]});
-                                    $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
+                                    _proceed();
                                 }
                             }
                         }
                     }
+
                 };
 
                 actionCustomerAdditionalInfo = function () {
                     $scope.subAdditionalInfo = true;
-                    if ($scope["isGuestCheckout"]) {
-                        $checkoutService.saveAdditionalInfo({
-                            "customer_email": $scope.checkout.info["customer_email"],
-                            "customer_name": $scope.checkout.info["customer_name"]
-                        }).then(function () {
-                            $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
-                        });
+
+                    if ($scope.isGuestCheckout) {
+                        if ($scope.customerInfo.$valid) {
+                            $checkoutService.saveAdditionalInfo({
+                                "customer_email": $scope.checkout.info.customer_email,
+                                "customer_name": $scope.checkout.info.customer_name
+                            }).then(function () {
+                                // resp.result == 'ok'
+                                $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
+                            });
+                        }
                     } else {
                         $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
                     }
