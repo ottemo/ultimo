@@ -592,9 +592,15 @@ angular.module("checkoutModule")
 
                 var discountsAction = function () {
                     // Discounts step is always valid
-                    // If the grand total is 0 we can set the paymentMethod step to valid and jump over it.
-                    if ($scope.checkout.grandtotal <= 0) {
+                    // If the grand total is 0 we can set the paymentMethod step to valid and jump over it setting PM to default value.
+                    if ($scope.checkout.grandtotal <= 0 && $scope.paymentMethods.length > 0) {
                         isValidSteps.paymentMethod = true;
+
+                        if (typeof $scope.paymentType === "undefined" || $scope.checkout["payment_method_code"] === null) {
+                                $scope.paymentType = $scope.paymentMethods[0].Type;
+                                $scope.checkout["payment_method_code"] = $scope.paymentMethods[0].Code;
+                        }
+
                         $("#" + step).slideUp(500)
                         .parents('.panel').next('.panel').next('.panel').find('.accordion')
                         .slideDown(500);
