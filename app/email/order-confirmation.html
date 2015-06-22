@@ -181,30 +181,30 @@
 																<li>qty: {{ $item.qty }}</li>
 															</ul>
 														</td>
-														<td class="tt__td-total">{{ $item.price }}</td>
+														<td class="tt__td-total">{{ $item.price | printf "%.2f" }}</td>
 													</tr>
 												{{ end }}
 												<tr>
 													<td class="tt__total-label">Subtotal</td>
-													<td class="tt__td-total">{{ .Order.subtotal }}</td>
+													<td class="tt__td-total">{{ .Order.subtotal | printf "%.2f" }}</td>
 												</tr>
 												<tr>
 													<td class="tt__total-label">Shipping &amp; Handling</td>
-													<td class="tt__td-total">{{ .Order.shipping_amount }}</td>
+													<td class="tt__td-total">{{ .Order.shipping_amount | printf "%.2f" }}</td>
 												</tr>
 												<tr>
 													<td class="tt__total-label">Tax</td>
-													<td class="tt__td-total">{{ .Order.tax_amount }}</td>
+													<td class="tt__td-total">{{ .Order.tax_amount | printf "%.2f" }}</td>
 												</tr>
 												{{ if .Order.discount }}
 													<tr>
 														<td class="tt__total-label">Discounts</td>
-														<td class="tt__td-total">({{ .Order.discount }})</td>
+														<td class="tt__td-total">({{ .Order.discount | printf "%.2f" }})</td>
 													</tr>
 												{{ end }}
 												<tr class="tt__totals--grand">
 													<td class="tt__total-label">Grand Total</td>
-													<td class="tt__td-total">{{ .Order.grand_total }}</td>
+													<td class="tt__td-total">{{ .Order.grand_total | printf "%.2f" }}</td>
 												</tr>
 											</table>
 										</td>
