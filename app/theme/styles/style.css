@@ -932,3 +932,7 @@ the extra space looks funny */
 .tab-content {
 	margin-top: 10px;
 }
+
+.panel--contact {
+	margin-top: 20px;
+}
