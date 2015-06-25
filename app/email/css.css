@@ -153,7 +153,7 @@ td.sub-column, td.sub-columns {
 
 table.row td.last,
 table.container td.last {
-  /* padding-right: 0px; */
+   padding-right: 0px;
 }
 
 table.one { width: 30px; }
@@ -222,7 +222,7 @@ table.twelve .panel center { min-width: 560px; }
 
 td.offset-by-one { padding-left: 50px; }
 td.offset-by-two { padding-left: 100px; }
-td.offset-by-three { padding-left: 150px; }
+td.offset-by-three { padding-left: 160px; }
 td.offset-by-four { padding-left: 200px; }
 td.offset-by-five { padding-left: 250px; }
 td.offset-by-six { padding-left: 300px; }
@@ -459,8 +459,8 @@ table.large-button td {
   display: block;
   width: auto !important;
   text-align: center;
-  background: #2ba6cb;
-  border: 1px solid #2284a1;
+  background: #999;
+  border: 1px solid #999;
   color: #ffffff;
   padding: 8px 0;
 }
@@ -486,9 +486,10 @@ table.tiny-button td a,
 table.small-button td a,
 table.medium-button td a,
 table.large-button td a {
-  font-weight: bold;
   text-decoration: none;
-  font-family: Helvetica, Arial, sans-serif;
+  text-transform: lowercase;
+  font-family: Georgia, sans-serif;
+  font-style: italic;
   color: #ffffff;
   font-size: 16px;
 }
@@ -513,7 +514,9 @@ table.large-button td a {
 table.button:hover td,
 table.button:visited td,
 table.button:active td {
-  background: #2795b6 !important;
+  background: #000 !important;
+  border-color: #000 !important;
+  cursor: pointer !important;
 }
 
 table.button:hover td a,
@@ -527,7 +530,7 @@ table.tiny-button:hover td,
 table.small-button:hover td,
 table.medium-button:hover td,
 table.large-button:hover td {
-  background: #2795b6 !important;
+  background: #000 !important;
 }
 
 table.button:hover td a,
