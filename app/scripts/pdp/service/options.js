@@ -71,7 +71,7 @@ angular.module("pdpModule")
 
                 if (typeof key !== "undefined" && key !== "") {
                     switch (data.type) {
-                        case "select" :
+                        case "select", "radio" :
                             info.push(getSelectOptionInfo(data, key));
                             break;
                         case "multi_select" :
