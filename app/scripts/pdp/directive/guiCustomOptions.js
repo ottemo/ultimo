@@ -23,6 +23,10 @@ angular.module("pdpModule")
                     $scope.optionName = option.label;
                 };
 
+                $scope.getClass = function(option){
+                    return option.label.toLowerCase().replace(/ /g,"-").replace(/[^a-z0-9-]/g, "");
+                };
+
                 prepareOptions = function () {
                     var removeEmptyOptions;
 

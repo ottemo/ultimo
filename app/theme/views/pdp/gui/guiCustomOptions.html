@@ -4,7 +4,7 @@
 
             <ng-form name="customOptionsFormIn">
                 <div class="custom-option">
-                    <div ng-switch="option.type">
+                    <div ng-switch="option.type" class="{{getClass(option)}}">
 
                         <!-- Input -->
                         <div ng-switch-when="field" class="form-group">
