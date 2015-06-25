@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width"/>
+	<link rel="stylesheet" href="css.css" />
+	<style>
+	/* paste styles here */
+	</style>
+</head>
+<body>
+	<table class="body">
+		<tr>
+			<td class="center" align="center" valign="top">
+				<center>
+
+					<table class="container">
+						<tr>
+							<td>
+								<table class="row">
+									<tr>
+										<td class="wrapper last">
+
+											<table class="twelve columns">
+												<tr>
+													<td>
+														<a href="{{ .Site.url }}">
+															<img src="{{ .Site.url }}theme/images/email/kg-logo.jpg">
+														</a>
+													</td>
+													<td class="expander"></td>
+
+												</tr>
+											</table>
+
+										</td>
+									</tr>
+								</table>
+
+								<table class="row">
+									<tr>
+										<td class="wrapper">
+
+											<table class="twelve columns">
+												<tr>
+													<td>
+
+														<h1>Hello,</h1>
+														<p>Thank you for ordering a gift card from Kari Gran. This gift card can be applied durring the checkout process. You will also receive an order confirmation outlining all order information.</p>
+														<p>We use a holistic approach to skin care health, so our products are made from pure ingredients. It's a change from other skin care companies, and you'll be able to feel your skin become more hydrated and nourished.</p>
+
+													</td>
+													<td class="expander"></td>
+												</tr>
+											</table>
+
+										</td>
+									</tr>
+								</table>
+
+								<table class="row">
+									<tr>
+										<td class="wrapper">
+											<table class="twelve columns">
+												<tr>
+													<td>
+														<h5>Gift Amount: {{ .GiftCard.Amount | printf "%2.f" }}</h5>
+														<h5>Gift Code: {{ .GiftCard.Code }}</h5>
+
+													</td>
+													<td class="expander"></td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+								<table class="row">
+									<tr>
+										<td class="wrapper offset-by-three">
+											<table class=" six columns">
+												<tr>
+													<td>
+														<table class="button">
+															<tbody>
+																<tr>
+																	<td>
+																		<a href="{{ .Site.url }}">Start Shopping</a>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+
+													</td>
+													<td class="expander"></td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+
+
+
+								<table class="row">
+									<tr>
+										<td class="wrapper">
+
+											<table class="twelve columns">
+												<tr>
+													<td>
+														<p>If you have any questions about your order please contact us at <a href="mailto:support@karigran.com">support@karigran.com</a> or call us at (206) 257-1226 Monday - Friday, 8am - 5pm PST.</p>
+
+													</td>
+													<td class="expander"></td>
+												</tr>
+											</table>
+
+										</td>
+									</tr>
+								</table>
+
+
+								<table class="row footer">
+									<tr>
+										<td class="wrapper last">
+											<table class="twelve columns">
+												<tr>
+													<td align="center">
+														<center>
+															<p style="text-align:center;">Thank you again, <strong>Kari Gran</strong></p>
+														</center>
+													</td>
+													<td class="expander"></td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+
+								<!-- container end below -->
+							</td>
+						</tr>
+					</table>
+
+				</center>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
