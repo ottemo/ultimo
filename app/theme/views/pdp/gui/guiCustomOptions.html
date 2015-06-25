@@ -33,7 +33,7 @@
                         </div>
 
                         <!-- Radio -->
-                        <div ng-switch-when="radio" ng-init="setOptionName(option.label)">
+                        <div ng-switch-when="radio" ng-init="init(option)" class="pdp-radio-group">
                             <label>{{option.label}}<span class="asterisk" ng-if="option.required">*</span></label>
 
                             <div ng-repeat="(key, opt) in option.options">
@@ -41,7 +41,7 @@
                                     <label>
                                         <input type="radio" value="{{key}}" id="{{ option.label }}" name="{{option.label}}"
                                                data-ng-model="parent.options[option.label]"
-                                               ng-required="option.required"/>
+                                               ng-required="option.required" />
                                         {{key}}
                                     </label>
                                 </div>
@@ -52,7 +52,7 @@
                         </div>
 
                         <!-- Multi-select -->
-                        <div ng-switch-when="multi_select" ng-init="setOptionName(option.label)">
+                        <div ng-switch-when="multi_select" ng-init="init(option)">
                             <label>{{option.label}}<span class="asterisk" ng-if="option.required">*</span></label>
 
                             <div ng-repeat="(key, opt) in option.options">

@@ -13,8 +13,11 @@ angular.module("pdpModule")
                 $scope.optionName = "";
                 $scope.options = {};
 
-                $scope.setOptionName = function (name) {
-                    $scope.optionName = name;
+                $scope.init = function (option) {
+                    if(option.type === 'radio'){
+                        setTimeout(function(){$('.pdp-radio-group input[type="radio"]:first').click().click();}, 500);
+                    }
+                    $scope.optionName = option.label;
                 };
 
                 prepareOptions = function () {
