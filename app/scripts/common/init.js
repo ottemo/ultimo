@@ -18,7 +18,8 @@ angular.module("commonModule", [
     "designModule",
     "cartModule",
     "categoryModule",
-    "cmsModule"
+    "cmsModule",
+    "contactModule"
 ])
 
 .value("DEFAULT_TITLE", "Kari Gran")

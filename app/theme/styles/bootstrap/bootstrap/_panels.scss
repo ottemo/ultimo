@@ -251,6 +251,32 @@
 .panel-primary {
   @include panel-variant($panel-primary-border, $panel-primary-text, $panel-primary-heading-bg, $panel-primary-border);
 }
+
+$panel-primary-inverse-bg: #999;
+$panel-primary-inverse-border: $panel-primary-inverse-bg;
+$panel-primary-inverse-text: #fff;
+$panel-primary-inverse-heading-bg: $panel-primary-inverse-bg;
+.panel-primary--inverse {
+  @include panel-variant($panel-primary-inverse-border, $panel-primary-inverse-text, $panel-primary-inverse-heading-bg, $panel-primary-inverse-border);
+  background-color: $panel-primary-inverse-bg;
+  color: $panel-primary-inverse-text;
+
+  a,
+  h1,h2,h3,
+  h4,h5,h6 {
+    color: $panel-primary-inverse-text;
+  }
+
+  .panel-body > h3 {
+    margin-top: 0;
+  }
+
+  p {
+    line-height: 1.6;
+    letter-spacing: .5px;
+  }
+}
+
 .panel-success {
   @include panel-variant($panel-success-border, $panel-success-text, $panel-success-heading-bg, $panel-success-border);
 }

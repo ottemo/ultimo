@@ -6569,6 +6569,46 @@ a.list-group-item-danger.active:focus {
   border-bottom-color: #337ab7;
 }
 
+.panel-primary--inverse {
+  border-color: #999;
+  background-color: #999;
+  color: #fff;
+}
+
+.panel-primary--inverse > .panel-heading {
+  color: #fff;
+  background-color: #999;
+  border-color: #999;
+}
+
+.panel-primary--inverse > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #999;
+}
+
+.panel-primary--inverse > .panel-heading .badge {
+  color: #999;
+  background-color: #fff;
+}
+
+.panel-primary--inverse > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #999;
+}
+
+.panel-primary--inverse a,
+.panel-primary--inverse h1, .panel-primary--inverse h2, .panel-primary--inverse h3,
+.panel-primary--inverse h4, .panel-primary--inverse h5, .panel-primary--inverse h6 {
+  color: #fff;
+}
+
+.panel-primary--inverse .panel-body > h3 {
+  margin-top: 0;
+}
+
+.panel-primary--inverse p {
+  line-height: 1.6;
+  letter-spacing: .5px;
+}
+
 .panel-success {
   border-color: #d6e9c6;
 }
