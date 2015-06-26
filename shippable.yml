@@ -10,7 +10,7 @@ env:
   global:
     - SLACK_ORG=Ottemo PROJECT=KariGran
     - REMOTE_HOST=kg.dev.ottemo.io FOUNDATION_URI=http://foundation.kg.dev.ottemo.io
-    - secure: CnmESXjnNcVdsNxWqcwujSvlJs4dMDSph/njNI091B1vgl4Nn5H/Zz66tlUyiPgDSNtZdxwHu/rzVt65DBdT++2oy5lU/Np/7QcU3bq2EbNdSp+/W6lxJRiMjjlr/ouw4tHD80JRQtWCrPmhm351Z4ROl/q7pjarZjmt1dTuMrDP6papmQPBvDXHMoYYdjQO8w24G9JiOH/PZtLazC763OMIp8XNzDw/62mS7VdEOkzrWNAY/zbPX00jczFTTtL/ms03DwHtX4kNHy1q8+X+Gi5DaLXEFRcyvERdJNX5BZj3cNT+lxRJ9NoROCnCB8smsMoG0F1+17EUA84mkBiukw==
+    - secure: laOeFQrClbBzi+wA5ynMfPar7/eoRCzni5GWs9YaePm2Tizm3LwJ6EOJIdjTTvLzb12RpMjFf0bGirMzDXZoWTElBRHF5wgyHlVwBvTa9GdHAqzODVEdvrjGx6Qo24ZQAxTghQP5nu0hhQQk2SzRIP8a4xJ6/8RxSBiz/J3Fbwxu1k+lhQp3jKwTC+M2ZZOzcorWbUGCXdX/imgKbHiyP6Q0oWAeorriS+Go0RDcrfIgqZCJn6Rs1tbhc2UpSoCHWQEz/JN3wkTtdA8G2VAAh0xyoliZUp1tVTYgHXky/RWFJOw7rdrpBKZY7M47dxvsZ0a5lm4BZ51z8uByEu1Hvw==
 before_install:
     # install NodeJS v0.12
     - source ~/.nvm/nvm.sh && shippable_retry nvm install $SHIPPABLE_NODE_VERSION
