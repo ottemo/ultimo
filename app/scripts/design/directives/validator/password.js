@@ -7,20 +7,20 @@ angular.module("designModule")
             require: '?ngModel',
             link: function (scope, elem, attrs, ngModel) {
 
-                ngModel.rules = {
-                    "length": "Your password may be any combination of 8 to 18 characters.",
-                    "uppercase": "It must contain at least 1 uppercase letter.",
-                    "lowercase": "It must contain at least 1 lowercase letter.",
-                    "number": "It must contain at least 1 number.",
-                    "symbol": "It must contain at least 1 of following special characters: (!, @, #, $, &, *)."
-                };
-
                 var minLen = 8,
-                maxLen = 18,
-                minCountUppercase = 1,
-                minCountLowercase = 1,
-                minCountNumbers = 1,
-                minCountSymbols = 1;
+                    maxLen = 18,
+                    minCountUppercase = 1,
+                    minCountLowercase = 1,
+                    minCountNumbers = 1,
+                    minCountSymbols = 1;
+
+                ngModel.rules = {
+                    "length": "Your password may be any combination of " + minLen + " to " + maxLen + " characters.",
+                    "uppercase": "It must contain at least " + minCountUppercase + " uppercase letter.",
+                    "lowercase": "It must contain at least " + minCountLowercase + " lowercase letter.",
+                    "number": "It must contain at least " + minCountNumbers + " number.",
+                    "symbol": "It must contain at least " + minCountSymbols + " of following special characters: (!, @, #, $, &, *)."
+                };
 
                 var checkLowercases = function (value) {
                     var matches = value.match(/([a-z]+)/g);
