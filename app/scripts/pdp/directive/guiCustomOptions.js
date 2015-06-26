@@ -13,8 +13,18 @@ angular.module("pdpModule")
                 $scope.optionName = "";
                 $scope.options = {};
 
-                $scope.setOptionName = function (name) {
-                    $scope.optionName = name;
+                $scope.init = function (option) {
+                    if(option.type === 'radio'){ // select first option for radio
+                        var firstObj = option.options[Object.keys(option.options)[0]];
+                        if(firstObj){
+                            $scope.parent.options[option.label] = firstObj.label;
+                        }
+                    }
+                    $scope.optionName = option.label;
+                };
+
+                $scope.getClass = function(option){
+                    return option.label.toLowerCase().replace(/ /g,"-").replace(/[^a-z0-9-]/g, "");
                 };
 
                 prepareOptions = function () {
