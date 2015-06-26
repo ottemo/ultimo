@@ -356,7 +356,10 @@ angular.module('categoryModule')
                     '5512f195d4a2560a14000074': '/theme/images/category/Kari-Gran-Shop-Page-Organic-Skincare-Cleansing-Oil-Desktop.jpg',
                     '5512f1cdd4a2560a14000082': '/theme/images/category/lip-treatment.jpg',
                     '5512f248d4a2560a14000094': '/theme/images/category/makeup.jpg',
-                    '5548fc2188a87b4350000197': '/theme/images/category/Kari-Gran-Shop-Page-Gifts-Organic-Skincare-Desktop.jpg'
+                    '5548fc2188a87b4350000197': '/theme/images/category/Kari-Gran-Shop-Page-Gifts-Organic-Skincare-Desktop.jpg',
+
+                    // Lip Color
+                    '5575e50588a87b4255000015': '/theme/images/category/lip-color.jpg',
                 };
 
                 if ($scope.categoryId !== null) {
