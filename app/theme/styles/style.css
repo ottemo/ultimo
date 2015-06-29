@@ -170,16 +170,23 @@ ul {
 	margin-top: 32px;
 }
 .subscriber {
-	float: right;
+	padding: 0 10px;
 }
 .subscriber__input-wrap {
-	float: left;
-	width: 300px;
-	margin-right: 8px;
+	overflow: hidden;
 }
-.subscriber__input {
+.subscriber__input {}
+.subscriber .btn {
+	float: right;
+	margin-left: 10px;
 }
-
+@media (min-width: 768px) {
+	.subscriber {
+		float: right;
+		width: 360px;
+		padding: 0;
+	}
+}
 
 .util-nav {
     margin-top: 30px;
