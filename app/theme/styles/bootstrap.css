@@ -3479,6 +3479,7 @@ select[multiple].input-lg, .input-group-lg > select[multiple].form-control,
   margin-top: 5px;
   margin-bottom: 10px;
   color: #737373;
+  font-style: italic;
 }
 
 @media (min-width: 768px) {
