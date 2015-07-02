@@ -87,6 +87,7 @@ angular.module("checkoutModule")
                     }
                 };
 
+                // TODO: remove customerInfo from js or resolve problem with model
                 initAdditionalInfo = function () {
                     if ($scope.isGuestCheckout && typeof $scope.customerInfo !== "undefined") {
                         isValidSteps.additionalInfo = $scope.customerInfo.$valid;
@@ -593,7 +594,7 @@ angular.module("checkoutModule")
                     $scope.subAdditionalInfo = true;
 
                     if ($scope.isGuestCheckout) {
-                        if ($scope.customerInfo.$valid) {
+                        if (typeof $scope.checkout.info.customer_email != "undefined") {
                             $checkoutService.saveAdditionalInfo({
                                 "customer_email": $scope.checkout.info.customer_email,
                                 "customer_name": $scope.checkout.info.customer_name
