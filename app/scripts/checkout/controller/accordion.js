@@ -549,7 +549,7 @@ angular.module("checkoutModule")
                     $scope.subPaymentForm = true;
 
                     var _proceed = function() {
-                        var $nextPanel = $("#" + step).slideUp("slow").parents('.panel').next('.panel')
+                        var $nextPanel = $("#" + step).slideUp("slow").parents('.panel').next('.panel');
 
                         // We skip the guest checkout data collection step if they aren't guests
                         if (!$scope.isGuestCheckout) {
@@ -607,27 +607,19 @@ angular.module("checkoutModule")
                     }
                 };
 
-                var discountsAction = function () {
+                actionDiscount = function () {
                     // Discounts step is always valid
-                    // If the grand total is 0 we can set the paymentMethod step to valid and jump over it setting PM to default value.
-                    if ($scope.checkout.grandtotal <= 0 && $scope.paymentMethods.length > 0) {
+                    // If the grand total is 0 we can set the paymentMethod step to valid and jump over it.
+                    if ($scope.checkout.grandtotal <= 0)  {
                         isValidSteps.paymentMethod = true;
-
-                        if (typeof $scope.paymentType === "undefined" || $scope.checkout["payment_method_code"] === null) {
-                                $scope.paymentType = $scope.paymentMethods[0].Type;
-                                $scope.checkout["payment_method_code"] = $scope.paymentMethods[0].Code;
-                        }
-
-                        $("#" + step).slideUp(500)
-                        .parents('.panel').next('.panel').next('.panel').find('.accordion')
-                        .slideDown(500);
+                        $("#" + step).slideUp(500).parents('.panel').next('.panel').next('.panel').find('.accordion').slideDown(500);
 
                     } else {
                         isValidSteps.paymentMethod = false;
                         $("#" + step).slideUp(500).parents('.panel').next('.panel').find('.accordion').slideDown(500);
                     }
-
                 };
+
                 actionDefault = function () {
                     if (isValidSteps[step]) {
                         $("#" + step).slideUp(500).parents('.panel').next('.panel').find('.accordion').slideDown(500);
@@ -648,7 +640,7 @@ angular.module("checkoutModule")
                         actionCustomerAdditionalInfo();
                         break;
                     case "discounts":
-                        discountsAction();
+                        actionDiscount();
                         break;
                     default:
                         actionDefault();
