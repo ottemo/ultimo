@@ -572,7 +572,11 @@ ul {
 .option-gift-wrap .option-set-label {
 	display: none;
 }
-
+@media (min-width: 768px) {
+	.pdp-radio-group .radio {
+		margin-right: 15px;
+	}
+}
 /*---------------
  .std any Content that comes from a wysiwyg
  Pages, Descriptions
@@ -950,4 +954,3 @@ the extra space looks funny */
 .panel--contact {
 	margin-top: 20px;
 }
-
