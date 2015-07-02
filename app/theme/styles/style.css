@@ -570,6 +570,7 @@ ul {
 }
 .option-available-in .option-set-label,
 .option-scent .option-set-label,
+.option-denominations .option-set-label,
 .option-gift-wrap .option-set-label {
 	display: none;
 }
