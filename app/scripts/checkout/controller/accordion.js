@@ -128,7 +128,7 @@ angular.module("checkoutModule")
                                     if (isCreditCard) {
                                         var payment = getPaymentInfo();
                                         isValidSteps.paymentMethod = false;
-                                        if (typeof payment.method != "undefined" && typeof payment.method.form != "undefined"){
+                                        if (typeof payment.method !== "undefined" && typeof payment.method.form !== "undefined"){
                                             if (payment.method.form.$valid && $scope.validateCcNumber()) {
                                                 isValidSteps.paymentMethod = true;
                                             }
@@ -383,8 +383,6 @@ angular.module("checkoutModule")
                             if (response.error === null) {
                                 isValidSteps.billingAddress = true;
                             }
-                            // update checkout
-                            info();
                         }
                     );
                 } else if ($scope.checkout["billing_address"] !== null && $scope.checkout["billing_address"]._id !== billingId && typeof billingId === "string" && billingId !== "") {
@@ -394,8 +392,6 @@ angular.module("checkoutModule")
                             if (response.error === null) {
                                 isValidSteps.billingAddress = true;
                             }
-                            // update checkout
-                            info();
                         }
                     );
                 } else {
@@ -405,8 +401,6 @@ angular.module("checkoutModule")
                                 if (response.error === null) {
                                     isValidSteps.billingAddress = true;
                                 }
-                                // update checkout
-                                info();
                             }
                         );
                     }
@@ -798,7 +792,7 @@ angular.module("checkoutModule")
                 } else {
                     $scope.giftcard.message = $commonUtilService.getMessage(null, "danger", "Gift card code can't be empty");
                 }
-            }
+            };
 
             $scope.discountApply = function () {
                 if ("" === $scope.discount || typeof $scope.discount === "undefined") {
