@@ -569,10 +569,16 @@ ul {
 	margin-bottom: 15px;
 }
 .option-available-in .option-set-label,
+.option-scent .option-set-label,
+.option-denominations .option-set-label,
 .option-gift-wrap .option-set-label {
 	display: none;
 }
-
+@media (min-width: 768px) {
+	.pdp-radio-group .radio {
+		margin-right: 15px;
+	}
+}
 /*---------------
  .std any Content that comes from a wysiwyg
  Pages, Descriptions
@@ -950,4 +956,3 @@ the extra space looks funny */
 .panel--contact {
 	margin-top: 20px;
 }
-
