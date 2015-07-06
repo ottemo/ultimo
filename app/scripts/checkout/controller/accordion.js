@@ -391,8 +391,6 @@ angular.module("checkoutModule")
                             if (response.error === null) {
                                 isValidSteps.billingAddress = true;
                             }
-                            // update checkout
-                            // info();
                         }
                     );
                 } else {
@@ -402,8 +400,6 @@ angular.module("checkoutModule")
                                 if (response.error === null) {
                                     isValidSteps.billingAddress = true;
                                 }
-                                // update checkout
-                                // info();
                             }
                         );
                     }
