@@ -382,8 +382,6 @@ angular.module("checkoutModule")
                             if (response.error === null) {
                                 isValidSteps.billingAddress = true;
                             }
-                            // update checkout
-                            info();
                         }
                     );
                 } else if ($scope.checkout["billing_address"] !== null && $scope.checkout["billing_address"]._id !== billingId && typeof billingId === "string" && billingId !== "") {
