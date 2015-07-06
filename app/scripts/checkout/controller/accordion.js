@@ -87,6 +87,7 @@ angular.module("checkoutModule")
                     }
                 };
 
+                // TODO: remove customerInfo from js or resolve problem with model
                 initAdditionalInfo = function () {
                     if ($scope.isGuestCheckout && typeof $scope.customerInfo !== "undefined") {
                         isValidSteps.additionalInfo = $scope.customerInfo.$valid;
@@ -543,15 +544,8 @@ angular.module("checkoutModule")
                     $scope.subPaymentForm = true;
 
                     var _proceed = function() {
-                        var $nextPanel = $("#" + step).slideUp("slow").parents('.panel').next('.panel');
-
-                        // We skip the guest checkout data collection step if they aren't guests
-                        if (!$scope.isGuestCheckout) {
-                            $nextPanel = $nextPanel.next('.panel');
-                        }
-
-                        $nextPanel.find('.accordion').slideDown(500);
-                    };
+                        $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
+                    }
 
                     if (isValidSteps[step]) {
                         var isCreditCard;
@@ -587,7 +581,7 @@ angular.module("checkoutModule")
                     $scope.subAdditionalInfo = true;
 
                     if ($scope.isGuestCheckout) {
-                        if ($scope.customerInfo.$valid) {
+                        if (typeof $scope.checkout.info.customer_email != "undefined") {
                             $checkoutService.saveAdditionalInfo({
                                 "customer_email": $scope.checkout.info.customer_email,
                                 "customer_name": $scope.checkout.info.customer_name
@@ -601,27 +595,19 @@ angular.module("checkoutModule")
                     }
                 };
 
-                var discountsAction = function () {
+                actionDiscount = function () {
                     // Discounts step is always valid
-                    // If the grand total is 0 we can set the paymentMethod step to valid and jump over it setting PM to default value.
-                    if ($scope.checkout.grandtotal <= 0 && $scope.paymentMethods.length > 0) {
+                    // If the grand total is 0 we can set the paymentMethod step to valid and jump over it.
+                    if ($scope.checkout.grandtotal <= 0)  {
                         isValidSteps.paymentMethod = true;
-
-                        if (typeof $scope.paymentType === "undefined" || $scope.checkout["payment_method_code"] === null) {
-                                $scope.paymentType = $scope.paymentMethods[0].Type;
-                                $scope.checkout["payment_method_code"] = $scope.paymentMethods[0].Code;
-                        }
-
-                        $("#" + step).slideUp(500)
-                        .parents('.panel').next('.panel').next('.panel').find('.accordion')
-                        .slideDown(500);
+                        $("#" + step).slideUp(500).parents('.panel').next('.panel').next('.panel').find('.accordion').slideDown(500);
 
                     } else {
                         isValidSteps.paymentMethod = false;
                         $("#" + step).slideUp(500).parents('.panel').next('.panel').find('.accordion').slideDown(500);
                     }
-
                 };
+
                 actionDefault = function () {
                     if (isValidSteps[step]) {
                         $("#" + step).slideUp(500).parents('.panel').next('.panel').find('.accordion').slideDown(500);
@@ -642,7 +628,7 @@ angular.module("checkoutModule")
                         actionCustomerAdditionalInfo();
                         break;
                     case "discounts":
-                        discountsAction();
+                        actionDiscount();
                         break;
                     default:
                         actionDefault();
