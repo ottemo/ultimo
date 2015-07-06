@@ -661,10 +661,12 @@ the extra space looks funny */
 	padding: 10px 0;
 	overflow: hidden;
 	line-height: 1.3;
+    min-height: 142px;
 	border-bottom: 1px solid #ddd;
 }
 .buzz-item > a {
 	display: block;
+    line-height: 142px;
 	margin-bottom: 10px;
 }
 .buzz-item > a > img {
