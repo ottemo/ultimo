@@ -127,7 +127,7 @@ angular.module("checkoutModule")
                                     if (isCreditCard) {
                                         var payment = getPaymentInfo();
                                         isValidSteps.paymentMethod = false;
-                                        if (typeof payment.method != "undefined" && typeof payment.method.form != "undefined"){
+                                        if (typeof payment.method !== "undefined" && typeof payment.method.form !== "undefined"){
                                             if (payment.method.form.$valid && $scope.validateCcNumber()) {
                                                 isValidSteps.paymentMethod = true;
                                             }
@@ -382,8 +382,6 @@ angular.module("checkoutModule")
                             if (response.error === null) {
                                 isValidSteps.billingAddress = true;
                             }
-                            // update checkout
-                            info();
                         }
                     );
                 } else if ($scope.checkout["billing_address"] !== null && $scope.checkout["billing_address"]._id !== billingId && typeof billingId === "string" && billingId !== "") {
@@ -393,8 +391,6 @@ angular.module("checkoutModule")
                             if (response.error === null) {
                                 isValidSteps.billingAddress = true;
                             }
-                            // update checkout
-                            info();
                         }
                     );
                 } else {
@@ -404,8 +400,6 @@ angular.module("checkoutModule")
                                 if (response.error === null) {
                                     isValidSteps.billingAddress = true;
                                 }
-                                // update checkout
-                                info();
                             }
                         );
                     }
@@ -549,7 +543,7 @@ angular.module("checkoutModule")
                     $scope.subPaymentForm = true;
 
                     var _proceed = function() {
-                        var $nextPanel = $("#" + step).slideUp("slow").parents('.panel').next('.panel')
+                        var $nextPanel = $("#" + step).slideUp("slow").parents('.panel').next('.panel');
 
                         // We skip the guest checkout data collection step if they aren't guests
                         if (!$scope.isGuestCheckout) {
@@ -557,7 +551,7 @@ angular.module("checkoutModule")
                         }
 
                         $nextPanel.find('.accordion').slideDown(500);
-                    }
+                    };
 
                     if (isValidSteps[step]) {
                         var isCreditCard;
@@ -812,7 +806,7 @@ angular.module("checkoutModule")
                 } else {
                     $scope.giftcard.message = $commonUtilService.getMessage(null, "danger", "Gift card code can't be empty");
                 }
-            }
+            };
 
             $scope.discountApply = function () {
                 if ("" === $scope.discount || typeof $scope.discount === "undefined") {
