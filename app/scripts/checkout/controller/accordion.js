@@ -550,14 +550,7 @@ angular.module("checkoutModule")
                     $scope.subPaymentForm = true;
 
                     var _proceed = function() {
-                        var $nextPanel = $("#" + step).slideUp("slow").parents('.panel').next('.panel');
-
-                        // We skip the guest checkout data collection step if they aren't guests
-                        if (!$scope.isGuestCheckout) {
-                            $nextPanel = $nextPanel.next('.panel');
-                        }
-
-                        $nextPanel.find('.accordion').slideDown(500);
+                        $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
                     }
 
                     if (isValidSteps[step]) {
