@@ -392,7 +392,7 @@ angular.module("checkoutModule")
                                 isValidSteps.billingAddress = true;
                             }
                             // update checkout
-                            info();
+                            // info();
                         }
                     );
                 } else {
@@ -403,7 +403,7 @@ angular.module("checkoutModule")
                                     isValidSteps.billingAddress = true;
                                 }
                                 // update checkout
-                                info();
+                                // info();
                             }
                         );
                     }
