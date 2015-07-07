@@ -432,9 +432,9 @@ angular.module("checkoutModule")
                     // Sets existing address as shipping
                     $checkoutService.saveShippingAddress({"id": shippingId}).then(
                         function (response) {
-                            // update checkout
-                            info().then(function () {
-                                // if all ok, must update allowed shipping methods list
+                                // update checkout
+                                info().then(function () {
+                                    // if all ok, must update allowed shipping methods list
                                 // and must set billing address if set appropriate checkbox
                                 if (response.error === null) {
                                     isValidSteps.shippingAddress = true;
@@ -506,37 +506,29 @@ angular.module("checkoutModule")
                     $scope.subShippingAddress = true;
                     if ($scope.shippingAddress.$valid) {
                         isValidSteps.shippingAddress = true;
-                        if ((!Boolean($scope.checkout["shipping_address"]._id) && !$scope["isGuestCheckout"]) || $scope["isGuestCheckout"]) {
-                            $checkoutService.saveShippingAddress($scope.checkout["shipping_address"]).then(
-                                function () {
-                                    getAddresses();
-                                    $checkoutService.loadShippingMethods().then(function (methods) {
-                                        $scope.shippingMethods = methods;
-                                    });
-                                    if ($scope.useAsBilling) {
-                                        $checkoutService.saveBillingAddress($scope.checkout["shipping_address"]).then(function (response) {
-                                            if (response.error === null) {
-                                                isValidSteps.billingAddress = true;
-                                            }
-                                            // update checkout
-                                            info();
-                                            $("#" + step).slideUp("slow").parents('.panel').next('.panel').next('.panel').find('.accordion').slideDown(500);
-                                        });
-                                    } else {
+                        //always persist shipping address in case there are shipping notes
+                        $checkoutService.saveShippingAddress($scope.checkout["shipping_address"]).then(
+                            function () {
+                                getAddresses();
+                                $checkoutService.loadShippingMethods().then(function (methods) {
+                                    $scope.shippingMethods = methods;
+                                });
+                                if ($scope.useAsBilling) {
+                                    $checkoutService.saveBillingAddress($scope.checkout["shipping_address"]).then(function (response) {
+                                        if (response.error === null) {
+                                            isValidSteps.billingAddress = true;
+                                        }
                                         // update checkout
                                         info();
-                                        $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
-                                    }
+                                        $("#" + step).slideUp("slow").parents('.panel').next('.panel').next('.panel').find('.accordion').slideDown(500);
+                                    });
+                                } else {
+                                    // update checkout
+                                    info();
+                                    $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
                                 }
-                            );
-                        } else {
-                            if ($scope.useAsBilling) {
-                                isValidSteps.billingAddress = true;
-                                $("#" + step).slideUp("slow").parents('.panel').next('.panel').next('.panel').find('.accordion').slideDown(500);
-                            } else {
-                                $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
                             }
-                        }
+                        );
                     }
                 };
 
