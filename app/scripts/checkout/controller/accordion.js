@@ -537,7 +537,7 @@ angular.module("checkoutModule")
 
                     var _proceed = function() {
                         $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
-                    }
+                    };
 
                     if (isValidSteps[step]) {
                         var isCreditCard;
@@ -573,7 +573,7 @@ angular.module("checkoutModule")
                     $scope.subAdditionalInfo = true;
 
                     if ($scope.isGuestCheckout) {
-                        if (typeof $scope.checkout.info.customer_email != "undefined") {
+                        if (typeof $scope.checkout.info.customer_email !== "undefined") {
                             $checkoutService.saveAdditionalInfo({
                                 "customer_email": $scope.checkout.info.customer_email,
                                 "customer_name": $scope.checkout.info.customer_name
@@ -745,7 +745,7 @@ angular.module("checkoutModule")
                                             //TODO: clean this up with angular modals and promises
                                             $('#processing').modal('hide');
                                             $timeout(function(){
-                                                $location.path("/checkout/success/"+ response.result.increment_id);
+                                                $location.path("/checkout/success/"+ response.result._id);
                                             }, 600);
                                         }
                                     );
