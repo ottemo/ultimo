@@ -42,6 +42,10 @@
 
         <div class="pdp-price">
             <label>Price:</label>
+            <span class="pdp-strikethrough-price-value"
+            ng-show="product.strikethrough_price">
+                {{product.strikethrough_price | currency}}
+            </span>
             <span class="pdp-price-value">{{product.price | currency}}</span>
         </div>
 

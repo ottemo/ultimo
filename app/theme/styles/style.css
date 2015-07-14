@@ -26,7 +26,7 @@ a:hover {
 
 label {
 	font-weight: normal;
-	color: #6C7272;
+	color: #999;
 }
 
 .navbar-default .navbar-nav > .active > a,
@@ -518,6 +518,11 @@ ul {
 	width: 100%;
 }
 
+.category .product-list-price__strikethrough-price {
+	text-decoration: line-through;
+	color: #666;
+}
+
 .category .products-area .product h5 {
 	color: #111;
 	font-family: Georgia;
@@ -546,6 +551,10 @@ ul {
 }
 .pdp-price {
 	margin: 30px 0 0 0;
+}
+.pdp-strikethrough-price-value {
+	color: #999;
+	text-decoration: line-through;
 }
 .pdp-price-value {
 	color: #000;
