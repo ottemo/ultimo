@@ -4,9 +4,7 @@ angular.module("visitorModule")
         "$visitorLoginService",
         "$location",
         "$cartService",
-        "$commonHeaderService",
-        "$commonSidebarService",
-        function ($scope, $visitorLoginService, $location, $cartService, $commonHeaderService, $commonSidebarService) {
+        function ($scope, $visitorLoginService, $location, $cartService) {
 
             $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
                 if (!isLoggedIn) {
@@ -17,14 +15,6 @@ angular.module("visitorModule")
 
                             $cartService.reload().then(
                                 function () {
-
-                                    // Update right menu
-                                    $commonHeaderService.addMenuRightItem("/login", "Login", "/login");
-                                    $commonHeaderService.removeItem("right", "/account");
-                                    $commonHeaderService.removeItem("right", "/logout");
-
-                                    // Update sidebar
-                                    $commonSidebarService.removeItem("account");
 
                                     $location.path("/");
                                 }

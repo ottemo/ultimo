@@ -4,10 +4,10 @@ angular.module("commonModule")
      */
     .controller("commonHeaderController", [
         "$scope",
-        "$commonHeaderService",
+        
         "$commonApiService",
         "$categoryService",
-        function ($scope, $commonHeaderService, $commonApiService, $categoryService) {
+        function ($scope, $commonApiService, $categoryService) {
 
             $scope.hideNav = function () {
                 $("#pageslide").css("display", "none");
@@ -17,8 +17,6 @@ angular.module("commonModule")
                 $(".shadow").css("display", "none");
             };
 
-            $scope.it = $commonHeaderService;
-            $scope.rightMenu = $commonHeaderService;
             $scope.categories = [];
             $scope.categoryService = $categoryService;
 
@@ -45,23 +43,6 @@ angular.module("commonModule")
             $scope.it = $commonBreadcrumbsService;
             $scope.crumbs = $commonBreadcrumbsService.getItems();
         }
-    ])
-
-    .controller("commonSidebarController", [
-        "$scope",
-        "$commonSidebarService",
-        function ($scope, $commonSidebarService) {
-            $scope.sidebar = $commonSidebarService;
-
-
-            $scope.hideNav = function () {
-                $("#pageslide").css("display", "none");
-                $(".mini-cart").css("display", "none");
-                $(".h-block ul li.active").removeClass("active");
-            };
-
-        }
-
     ])
 
     .controller("commonController", [

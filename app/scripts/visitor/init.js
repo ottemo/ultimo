@@ -67,21 +67,13 @@ angular.module("visitorModule", [
         "$rootScope",
         "$location",
         "$anchorScroll",
-        "$commonHeaderService",
         "$visitorLoginService",
-        "$commonSidebarService",
-        function ($rootScope, $location, $anchorScroll, $commonHeaderService, $visitorLoginService, $commonSidebarService) {
+        function ($rootScope, $location, $anchorScroll,  $visitorLoginService) {
             $anchorScroll.yOffset = 150;
-            $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
-                if (isLoggedIn) {
-                    $commonHeaderService.addMenuRightItem("/account", "My Account", "/account");
-                    $commonHeaderService.addMenuRightItem("/logout", "Logout", "/logout");
-                    // $commonSidebarService.addItem("ACCOUNT", "account", "glyphicon glyphicon-user", 90);
-                } else {
-                    $commonHeaderService.addMenuRightItem("/login", "Login", "/login");
-                    $commonSidebarService.removeItem("logout");
-                }
-            });
+            
+            // $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
+
+            // });
 
             $rootScope.$on('$locationChangeStart', function (evt, absNewUrl, absOldUrl) {
                 var prevUri = absOldUrl.substring($location.absUrl().length - $location.url().length);
