@@ -24,10 +24,6 @@ angular.module("pdpModule")
                     getStarsPercents();
                 }, true);
 
-                defaultProductChange = $scope.$watch("product", function () {
-                    $scope.reloadImages();
-                });
-
                 defaultOptionChange = $scope.$watch("options", function () {
                     $scope.messageOptions = {};
                     $pdpProductService.setOptions($scope.options);
@@ -120,6 +116,7 @@ angular.module("pdpModule")
                 $scope.getReviews();
                 $scope.getRatingInfo();
                 initWatchers();
+                loadImages();
             };
 
             $scope.getProduct = function () {
@@ -173,16 +170,18 @@ angular.module("pdpModule")
             //-----------------
             // IMAGE FUNCTIONS
             //-----------------
-            $scope.reloadImages = function () {
-                if ($scope.product !== undefined && $scope.product._id !== undefined) {
+            $scope.productImages = [];
+            var loadImages = function () {
+
+                if ($scope.productId) {
                     // taking media patch for new product
-                    $pdpApiService.getImagePath({"productID": $scope.product._id}).$promise.then(
+                    $pdpApiService.getImagePath({"productID": $scope.productId}).$promise.then(
                         function (response) {
                             $scope.imagesPath = response.result || "";
                         });
 
                     // taking registered images for product
-                    $pdpApiService.listImages({"productID": $scope.product._id}).$promise.then(
+                    $pdpApiService.listImages({"productID": $scope.productId}).$promise.then(
                         function (response) {
                             $scope.productImages = response.result || [];
 
