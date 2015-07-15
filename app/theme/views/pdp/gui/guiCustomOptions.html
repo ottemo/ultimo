@@ -42,15 +42,15 @@
                                 {{option.label}}<span class="asterisk" ng-if="option.required">*</span>
                             </label>
 
-                            <div class="radio" ng-repeat="(key, opt) in option.options">
+                            <div class="radio" ng-repeat="(key, opt) in option.options | getOrdered">
                                 <label>
                                     <input type="radio"
-                                    value="{{key}}"
+                                    value="{{opt.label}}"
                                     id="{{ option.label }}"
                                     name="{{option.label}}"
                                     data-ng-model="parent.options[option.label]"
                                     ng-required="option.required" />
-                                    {{key}}
+                                    {{opt.label}}
                                 </label>
                             </div>
 
@@ -65,14 +65,14 @@
                                 {{option.label}}<span class="asterisk" ng-if="option.required">*</span>
                             </label>
 
-                            <div class="checkbox" ng-repeat="(key, opt) in option.options">
+                            <div class="checkbox" ng-repeat="(key, opt) in option.options | getOrdered">
                                 <label>
                                     <input type="checkbox"
-                                    value="{{key}}"
+                                    value="{{opt.label}}"
                                     id="{{ option.label }}" name="{{option.label}}[]"
                                            data-ng-model="options[opt.label]"
                                            ng-required="option.required"/>
-                                    {{key}}
+                                    {{opt.label}}
                                 </label>
                             </div>
 
