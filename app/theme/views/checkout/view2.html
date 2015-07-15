@@ -5,6 +5,88 @@
     <!-- checkout page -->
     <div ng-init="init()" class="col-xs-12 col-md-8">
 
+        <!-- Guest checkout user credential form -->
+        <div class="panel panel-default" ng-if="isGuestCheckout">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Customer info
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div id="customerInfo" class="accordion">
+
+                    <!-- Form to add shipping addresses -->
+                    <form name="customerInfo">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h3>Register or Log in</h3>
+                                <div>Register with us for easy access to your
+                                order history and status</div>
+                                <ul>
+                                    <li>
+                                        <a href="/registration">Register</a>
+                                    </li>
+                                    <li>
+                                        <a href="/login">Log In</a>
+                                    </li>
+                                </ul>
+
+                                <!-- Register and save time:
+                                <ul>
+                                    <li>Fast and easy checkout</li>
+                                    <li>Easy access to you order history and status</li>
+                                </ul> -->
+                            </div>
+                            <div class="col-sm-6">
+                                <h3>Continue As Guest</h3>
+                                <!-- Name -->
+                                <div class="form-group">
+                                    <label for="customerInputName">Name</label>
+                                    <input type="text"
+                                    class="form-control"
+                                    id="customerInputName"
+                                    placeholder="Name"
+                                    name="name"
+                                    ng-model="checkout.info.customer_name" />
+                                </div>
+                                <!-- Email -->
+                                <div class="form-group"
+                                ng-class="{ 'has-error' : (subAdditionalInfo && customerInfo.email.$invalid) || (customerInfo.email.$invalid && !customerInfo.email.$pristine) }">
+                                    <label for="customerInputEmail">Email*</label>
+                                    <input type="text"
+                                    class="form-control"
+                                    id="customerInputEmail"
+                                    placeholder="Email"
+                                    name="email"
+                                    ot-email="true"
+                                    ng-model="checkout.info.customer_email"
+                                    required />
+
+                                    <!-- error message -->
+                                    <p ng-show="(subAdditionalInfo && customerInfo.email.$error.required)"
+                                       class="help-block">This field is required.</p>
+
+                                    <p ng-if="!customerInfo.email.$error.required"
+                                       ng-show="(subAdditionalInfo && customerInfo.email.$invalid) ||
+                                            (customerInfo.email.$invalid && !customerInfo.email.$pristine)"
+                                       class="help-block">{{customerInfo.email.message}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                    <div class="clearfix"></div>
+
+                    <div class="text-center">
+                        <!-- next step -->
+                        <button class="next btn btn-primary" ng-click="next('customerInfo')">
+                            Next step
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Shipping Block -->
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -28,7 +110,7 @@
             </div>
 
             <div class="panel-body">
-                <div id="shippingAddress" class="accordion">
+                <div id="shippingAddress" class="accordion" style="display:none;">
 
                     <!-- Form to add shipping addresses -->
                     <form name="shippingAddress">
@@ -187,6 +269,11 @@
                         </div>
 
                         <div class="text-center">
+                            <!-- prev step -->
+                            <button class="back btn btn-default" ng-click="back('shippingAddress')"  ng-if="isGuestCheckout">
+                                Prev step
+                            </button>
+
                             <!-- next step -->
                             <button class="next btn btn-primary" ng-click="next('shippingAddress')">
                                 Next step
@@ -607,76 +694,6 @@
                         <button class="next btn btn-primary" ng-click="next('paymentMethod')">
                             Next step
                         </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Guest checkout user credential form -->
-        <div class="panel panel-default" ng-if="isGuestCheckout">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    Additional info
-                </h3>
-            </div>
-            <div class="panel-body">
-                <div id="customerInfo" class="accordion" style="display: none;">
-
-                    <!-- Form to add shipping addresses -->
-                    <form name="customerInfo">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <!-- Name -->
-                                <div class="form-group">
-                                    <label for="customerInputName">Name</label>
-                                    <input type="text" class="form-control" id="customerInputName" placeholder="Name"
-                                           name="name" ng-model="checkout.info.customer_name" />
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <!-- Email -->
-                                <div class="form-group"
-                                     ng-class="{ 'has-error' : (subAdditionalInfo && customerInfo.email.$invalid) || (customerInfo.email.$invalid && !customerInfo.email.$pristine) }">
-                                    <label for="customerInputEmail">Email*</label>
-                                    <input type="text" class="form-control" id="customerInputEmail" placeholder="Email"
-                                           ot-email="true" name="email" ng-model="checkout.info.customer_email" required />
-
-                                    <!-- error message -->
-                                    <p ng-show="(subAdditionalInfo && customerInfo.email.$error.required)"
-                                       class="help-block">This field is required.</p>
-
-                                    <p ng-if="!customerInfo.email.$error.required"
-                                       ng-show="(subAdditionalInfo && customerInfo.email.$invalid) ||
-                                            (customerInfo.email.$invalid && !customerInfo.email.$pristine)"
-                                       class="help-block">{{customerInfo.email.message}}</p>
-                                </div>
-                            </div>
-                        </div>
-
-                    </form>
-                    <div class="clearfix"></div>
-
-                    <div class="text-center">
-                        <!-- prev step -->
-                        <button class="back hidden-xs btn btn-default" ng-click="back('customerInfo')">
-                            Prev step
-                        </button>
-
-                        <!-- next step -->
-                        <button class="next hidden-xs btn btn-primary" ng-click="next('customerInfo')">
-                            Next step
-                        </button>
-                        <div class="btn-group-vertical visible-xs">
-                            <!-- prev step -->
-                            <button class="back btn btn-default" ng-click="back('customerInfo')">
-                                Prev step
-                            </button>
-
-                            <!-- next step -->
-                            <button class="next btn btn-primary" ng-click="next('customerInfo')">
-                                Next step
-                            </button>
-                        </div>
                     </div>
                 </div>
             </div>
