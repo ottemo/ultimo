@@ -66,14 +66,24 @@ angular.module("commonModule")
 
     .controller("commonController", [
         "$scope",
+        "$commonPageService",
         "$designService",
         "$commonApiService",
         "$designImageService",
         "$commonBreadcrumbsService",
         "$cartService",
         "$visitorLoginService",
-        function ($scope, $designService, $commonApiService, $designImageService, $commonBreadcrumbsService,
+        function ($scope, $commonPageService, $designService, $commonApiService, $designImageService, $commonBreadcrumbsService,
                   $cartService, $visitorLoginService) {
+
+            /**
+             * Home, 404 - pages
+             */
+
+            // We need to enforce the default seo options
+            $commonPageService.setTitle();
+            $commonPageService.setMetaDescription();
+            $commonPageService.setMetaKeywords();
 
             /**
              * Gets full path to image
