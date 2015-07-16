@@ -302,7 +302,9 @@ angular.module("checkoutModule")
                                         if (!isLoggedIn) {
                                             $scope.isGuestCheckout = true;
                                         } else {
+                                            // Not guest checkout, flag it and make sure we show the shipping address panel
                                             $scope.isGuestCheckout = false;
+                                            $('#shippingAddress').show();
                                         }
                                         getAddresses();
                                         $checkoutService.init().then(function () {
@@ -583,6 +585,7 @@ angular.module("checkoutModule")
                             });
                         }
                     } else {
+                        // NOTE: we no longer get here
                         $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
                     }
                 };
