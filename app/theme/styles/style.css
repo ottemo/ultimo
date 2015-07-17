@@ -232,12 +232,14 @@ ul {
 }
 
 /* main menu */
+/* navbar */
 .navbar-collapse {
 	padding: 0;
 }
 .main-menu {
 	border: none;
 	padding:0;
+	width: 100%;
 }
 
 .main-menu a {
@@ -245,60 +247,48 @@ ul {
 }
 .main-menu .navbar-nav {
 	margin: 40px 0 14px 0;
+	width: 100%;
 }
-
 .main-menu .navbar-nav > li > a {
 	text-transform: uppercase;
-	padding: 4px 10px;
+	padding: 6px 15px;
 	color: #000;
 }
 
-@media (min-width: 768px) {
-	.main-menu .navbar-nav > li > a {
-		padding-left: 14px;
-		padding-right: 14px;
+
+@media (min-width: 768px) and (max-width: 1200px) {
+	.main-menu .navbar-nav > li > a{
+		padding: 6px 0;
 	}
 }
-@media (min-width: 768px) and (max-width: 991px) {
-	/*remove the padding on the first and last sides*/
-	.main-menu .navbar-nav > li.last > a {
-		padding-right: 0;
-	}
-	.main-menu .navbar-nav > li.first > a {
-		padding-left: 0;
-	}
 
-
-}
 @media (min-width: 992px) {
-	.main-menu .navbar-nav > li {
-		border-right: 1px solid #000;
+	.main-menu .navbar-nav > li,
+	li.active {
+		box-shadow: inset -1px 0px 0px 0px rgba(0,0,0,1);
 	}
-	.main-menu .navbar-nav > li.last {
-		border-right: 0;
-	}
-	.main-menu .navbar-nav > li > a {
-		padding-left: 30px;
-		padding-right: 30px;
+	.main-menu .navbar-nav > li.no-border {
+		box-shadow: none;
 	}
 }
-@media (min-width: 1200px) {
-	.main-menu .navbar-nav > li > a {
-		padding-left: 48px;
-		padding-right: 48px;
-	}
+@media (min-width: 768px) {
+
+.main-menu .navbar-nav > li{
+	vertical-align: middle;
+	width: calc(100%/6);
+	text-align: center;
+}
+
+
+}
+.main-menu .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover{
+	background: transparent;
 }
 
 .main-menu .navbar-nav > li > a:hover,
 .main-menu .navbar-nav > li > a.active  {
 	color: #999;
 }
-/*.main-menu .navbar-nav > li.first > a {
-	padding-left: 0;
-}
-.main-menu .navbar-nav > li.last > a {
-	padding-right: 0;
-}*/
 
 /* second level */
 .main-menu .dropdown-hover:hover > .dropdown-menu {
@@ -308,7 +298,11 @@ ul {
 	width: 100%;
 	border-radius: 0 0 10px 10px;
 	border-top: 0;
-	box-shadow: 1px 2px 5px rgba(50, 50, 50, 0.5);
+	box-shadow: 0px 3px 5px rgba(50, 50, 50, 0.5);
+}
+.main-menu .dropdown-menu {
+	min-width: initial;
+	width: 100%;
 }
 .main-menu .dropdown-menu > li > a {
 	white-space: inherit;

@@ -59,13 +59,12 @@ angular.module("commonModule", [
         "$designService",
         "$route",
         "$http",
-        "$commonSidebarService",
         "$location",
         "$q",
         "$commonPageService",
         "$commonRewriteService",
         "REST_SERVER_URI",
-        function ($rootScope, $designService, $route, $http, $commonSidebarService, $location, $q,
+        function ($rootScope, $designService, $route, $http, $location, $q,
                   $commonPageService, $commonRewriteService, REST_SERVER_URI) {
 
 

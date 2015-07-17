@@ -8,10 +8,8 @@ angular.module("visitorModule")
         '$visitorLoginService',
         '$location',
         '$cartService',
-        '$commonHeaderService',
-        '$commonSidebarService',
         '$commonUtilService',
-        function ($scope, $route, $routeParams, $anchorScroll, $visitorApiService, $visitorLoginService, $location, $cartService, $commonHeaderService, $commonSidebarService, $commonUtilService) {
+        function ($scope, $route, $routeParams, $anchorScroll, $visitorApiService, $visitorLoginService, $location, $cartService, $commonUtilService) {
             $scope.login = $visitorLoginService.getVisitor();
             $scope.loginCredentials = {};
             var verifyCode = $routeParams["validate"];
@@ -176,14 +174,6 @@ angular.module("visitorModule")
                                     $('.modal').modal('hide');
                                     $cartService.reload();
 
-                                    // Update right menu
-                                    $commonHeaderService.removeItem('right', '/login');
-                                    $commonHeaderService.addMenuRightItem('/account', 'My Account', '/account');
-                                    $commonHeaderService.addMenuRightItem('/logout', 'Logout', '/logout');
-
-                                    // Update sidebar
-                                    // $commonSidebarService.addItem('ACCOUNT', 'account', 'glyphicon glyphicon-user', 90);
-
                                     singInSuccess(isPopUp);
                                 }
                             );
@@ -209,14 +199,6 @@ angular.module("visitorModule")
                                             $('.modal').modal('hide');
                                             $cartService.reload();
 
-                                            // Update right menu
-                                            $commonHeaderService.removeItem('right', '/login');
-                                            $commonHeaderService.addMenuRightItem('/account', 'My Account', '/account');
-                                            $commonHeaderService.addMenuRightItem('/logout', 'Logout', '/logout');
-
-                                            // Update sidebar
-                                            // $commonSidebarService.addItem('ACCOUNT', 'account', 'glyphicon glyphicon-user', 90);
-
                                             singInSuccess(isPopUp);
                                         }
                                     );
@@ -240,14 +222,6 @@ angular.module("visitorModule")
                             function () {
                                 $('.modal').modal('hide');
                                 $cartService.reload();
-
-                                // Update right menu
-                                $commonHeaderService.removeItem('right', '/login');
-                                $commonHeaderService.addMenuRightItem('/account', 'My Account', '/account');
-                                $commonHeaderService.addMenuRightItem('/logout', 'Logout', '/logout');
-
-                                // Update sidebar
-                                $commonSidebarService.addItem('ACCOUNT', 'account', 'glyphicon glyphicon-user', 90);
 
                                 singInSuccess();
                             }

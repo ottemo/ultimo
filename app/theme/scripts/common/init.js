@@ -15,17 +15,3 @@ angular.module('commonModule')
         $routeProvider
         // .when("/css-test.html", { templateUrl:  angular.getTheme("common/css-test.html"), "controller":""});
     }])
-    .run([
-        "$rootScope",
-        "$commonSidebarService",
-        function ($rootScope, $commonSidebarService) {
-
-            // Left navigation menu
-
-            $commonSidebarService.addItem("Press", "buzz");
-            $commonSidebarService.addItem("Blog", "blog");
-            $commonSidebarService.addItem("Contact", "contact");
-
-            return angular.module.commonModule;
-        }
-    ]);
