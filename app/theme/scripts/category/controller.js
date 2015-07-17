@@ -13,13 +13,15 @@ angular.module('categoryModule')
         "$cartService",
         "$pdpProductService",
         "$commonUtilService",
+        "$commonPageService",
         "$q",
         "$timeout",
         "GENERAL_CATEGORY_URI",
         "SEARCH_KEY_NAME",
         function ($scope, $location, $route, $routeParams, $categoryApiService, $designService,
                   $designImageService, $categoryService, $visitorLoginService, $cartService,
-                  $pdpProductService, $commonUtilService, $q, $timeout, GENERAL_CATEGORY_URI, SEARCH_KEY_NAME) {
+                  $pdpProductService, $commonUtilService, $commonPageService, $q, $timeout,
+                  GENERAL_CATEGORY_URI, SEARCH_KEY_NAME) {
 
             var init, getPage, addCategoryCrumbs, getFilters, setFilters, getParams, initWatchers,
                 defaultFilterSet, defaultOptionSet, changeLocation, getShopPageProducts;
@@ -111,6 +113,13 @@ angular.module('categoryModule')
                 getSearchText();
 
                 addCategoryCrumbs();
+
+                if ($scope.isShop) {
+                    // We need to enforce the default seo options
+                    $commonPageService.setTitle();
+                    $commonPageService.setMetaDescription();
+                    $commonPageService.setMetaKeywords();
+                };
             };
             init();
 
