@@ -257,33 +257,28 @@ ul {
 
 
 @media (min-width: 768px) and (max-width: 1200px) {
-	.main-menu .navbar-nav > li{
-		/*height: 50px;*/
-		/*vertical-align: middle;*/
-	}
-		.main-menu .navbar-nav > li > a{
-		/*height: 50px;*/
+	.main-menu .navbar-nav > li > a{
 		padding: 6px 0;
-		/*vertical-align: middle;*/
 	}
 }
 
 @media (min-width: 992px) {
-	.main-menu .navbar-nav > li {
-		-webkit-box-shadow: inset -1px 0px 0px 0px rgba(0,0,0,1);
-	  -moz-box-shadow: inset -1px 0px 0px 0px rgba(0,0,0,1);
+	.main-menu .navbar-nav > li,li.active {
 		box-shadow: inset -1px 0px 0px 0px rgba(0,0,0,1);
 	}
 }
 @media (min-width: 768px) {
 	
-	.main-menu .navbar-nav > li{
+.main-menu .navbar-nav > li{
 	vertical-align: middle;
 	width: calc(100%/6);
 	text-align: center;
-	}
+}
 
 
+}
+.main-menu .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover{
+	background: transparent;
 }
 
 .main-menu .navbar-nav > li > a:hover,

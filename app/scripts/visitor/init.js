@@ -71,9 +71,11 @@ angular.module("visitorModule", [
         function ($rootScope, $location, $anchorScroll,  $visitorLoginService) {
             $anchorScroll.yOffset = 150;
             
-            // $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
-
-            // });
+            // save auth data in root var
+            // 
+            $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
+                $rootScope.visitorProps = $visitorLoginService.props;
+            });
 
             $rootScope.$on('$locationChangeStart', function (evt, absNewUrl, absOldUrl) {
                 var prevUri = absOldUrl.substring($location.absUrl().length - $location.url().length);
