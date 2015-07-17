@@ -263,12 +263,16 @@ ul {
 }
 
 @media (min-width: 992px) {
-	.main-menu .navbar-nav > li,li.active {
+	.main-menu .navbar-nav > li,
+	li.active {
 		box-shadow: inset -1px 0px 0px 0px rgba(0,0,0,1);
+	}
+	.main-menu .navbar-nav > li.no-border {
+		box-shadow: none;
 	}
 }
 @media (min-width: 768px) {
-	
+
 .main-menu .navbar-nav > li{
 	vertical-align: middle;
 	width: calc(100%/6);
