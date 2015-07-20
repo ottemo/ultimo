@@ -17,15 +17,15 @@
         <div class="row" ng-show="productImages.length > 1">
             <div
             ng-repeat="img in productImages"
+            ng-if="img!==product.default_image"
             class="col-xs-3">
-                <a class="thumbnail">
+                <div class="thumbnail">
                     <img
-                    class="js-slide-small text-left img-rounded"
+                    class="img-rounded"
                     ng-src="{{getImage(imagesPath, img, 'thumb')}}"
                     err-src="placeholder.png"
-                    alt=""
-                    data-src-big="{{getImage(imagesPath, img)}}"/>
-                </a>
+                    alt="" />
+                </div>
             </div>
         </div>
 
@@ -138,17 +138,6 @@
             $.fancybox([
                 { href: $this.data('src-big') }
             ]);
-        });
-
-        //slider
-        $(document).on('click', '.js-slide-small', function() {
-            var newSrc = $(this).data('src-big');
-            $('.js-img-zoom')
-            .data('src-big', newSrc)
-            .find('img')
-            .hide()
-            .attr('src', newSrc)
-            .fadeIn(500);
         });
     });
 
