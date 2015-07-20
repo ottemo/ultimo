@@ -70,9 +70,9 @@ angular.module("visitorModule", [
         "$visitorLoginService",
         function ($rootScope, $location, $anchorScroll,  $visitorLoginService) {
             $anchorScroll.yOffset = 150;
-            
+
             // save auth data in root var
-            // 
+            //
             $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
                 $rootScope.visitorProps = $visitorLoginService.props;
             });
@@ -85,6 +85,9 @@ angular.module("visitorModule", [
                     angular.module('visitorModule').back.url = absOldUrl;
                     angular.module('visitorModule').back.path = matches[1] || "";
                     angular.module('visitorModule').back.params = matches[2] || "";
+                    console.log('new route', matches, angular.module('visitorModule').back )
+                } else {
+                    console.log('new route, but matches was null', absOldUrl, prevUri)
                 }
             });
         }
