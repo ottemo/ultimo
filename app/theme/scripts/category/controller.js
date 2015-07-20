@@ -117,7 +117,7 @@ angular.module('categoryModule')
                 if ($scope.isShop) {
                     // We need to enforce the default seo options
                     $commonPageService.setTitle("Shop All Kari Gran's Natural & Organic Skin Care Products | Kari Gran");
-                    $commonPageService.setMetaDescription();
+                    $commonPageService.setMetaDescription("Want soft, natural & healthy skin - without the chemicals? Kari Gran creates eco-friendly skincare products safe for any skin or age. Be Kind to your Skin.");
                     $commonPageService.setMetaKeywords();
                 };
             };
