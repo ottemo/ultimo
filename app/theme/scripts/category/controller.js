@@ -116,7 +116,7 @@ angular.module('categoryModule')
 
                 if ($scope.isShop) {
                     // We need to enforce the default seo options
-                    $commonPageService.setTitle();
+                    $commonPageService.setTitle("Shop All Kari Gran's Natural & Organic Skin Care Products | Kari Gran");
                     $commonPageService.setMetaDescription();
                     $commonPageService.setMetaKeywords();
                 };

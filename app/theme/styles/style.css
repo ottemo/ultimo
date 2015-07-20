@@ -582,6 +582,11 @@ ul {
 		margin-right: 15px;
 	}
 }
+
+.product-alt-list__item {
+	margin-bottom: 20px;
+}
+
 /*---------------
  .std any Content that comes from a wysiwyg
  Pages, Descriptions
