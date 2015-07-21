@@ -18,7 +18,7 @@ fb = function () {
         }
         js = d.createElement("script");
         js.id = "facebook-jssdk";
-        js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&appId=" + angular.appConfigValue("general.app.login.facebook.appId") + "&version=v2.0";
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=" + angular.appConfigValue("general.app.login.facebook.appId") + "&version=v2.0";
         fjs.parentNode.insertBefore(js, fjs);
     };
 
