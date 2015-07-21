@@ -132,21 +132,25 @@ angular.module("visitorModule")
                             }
                             $scope.login = {};
                             $scope.register.submitted = false;
+
+                            // After registration, we are expecting the customer
+                            // to be logged in, so we
+                            // 1. verify is logged in
+                            // 1. refresh cart
+                            // 1. fire off success action, redirects
+                            $visitorLoginService.isLoggedIn(true).then(function(){
+                                $cartService.reload();
+                                signInSuccess(false);
+                            });
                         } else {
                             $scope.message = $commonUtilService.getMessage(response);
-
                             $scope.register.submitted = false;
-                        }
-                        if ($location.hash() !== "infoRegister") {
-                            $location.hash('infoRegister');
-                        } else {
-                            $anchorScroll();
                         }
                     });
                 }
             };
 
-            var singInSuccess = function (isPopUp) {
+            var signInSuccess = function (isPopUp) {
                 if (isPopUp) {
                     $route.reload();
                 } else {
@@ -174,7 +178,7 @@ angular.module("visitorModule")
                                     $('.modal').modal('hide');
                                     $cartService.reload();
 
-                                    singInSuccess(isPopUp);
+                                    signInSuccess(isPopUp);
                                 }
                             );
                         } else {
@@ -199,7 +203,7 @@ angular.module("visitorModule")
                                             $('.modal').modal('hide');
                                             $cartService.reload();
 
-                                            singInSuccess(isPopUp);
+                                            signInSuccess(isPopUp);
                                         }
                                     );
                                 }
@@ -223,7 +227,7 @@ angular.module("visitorModule")
                                 $('.modal').modal('hide');
                                 $cartService.reload();
 
-                                singInSuccess();
+                                signInSuccess();
                             }
                         );
                     }
