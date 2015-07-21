@@ -14,18 +14,16 @@
             err-src="placeholder.png"
             alt=""/>
         </a>
-        <div class="row" ng-show="productImages.length > 1">
+        <div class="row product-alt-list" ng-show="productImages.length > 1">
             <div
             ng-repeat="img in productImages"
-            class="col-xs-3">
-                <a class="thumbnail">
-                    <img
-                    class="js-slide-small text-left img-rounded"
-                    ng-src="{{getImage(imagesPath, img, 'thumb')}}"
-                    err-src="placeholder.png"
-                    alt=""
-                    data-src-big="{{getImage(imagesPath, img)}}"/>
-                </a>
+            ng-if="img!==product.default_image"
+            class="col-xs-3 product-alt-list__item">
+                <img
+                class="img-rounded img-responsive"
+                ng-src="{{getImage(imagesPath, img, 'thumb')}}"
+                err-src="placeholder.png"
+                alt="" />
             </div>
         </div>
 
@@ -138,17 +136,6 @@
             $.fancybox([
                 { href: $this.data('src-big') }
             ]);
-        });
-
-        //slider
-        $(document).on('click', '.js-slide-small', function() {
-            var newSrc = $(this).data('src-big');
-            $('.js-img-zoom')
-            .data('src-big', newSrc)
-            .find('img')
-            .hide()
-            .attr('src', newSrc)
-            .fadeIn(500);
         });
     });
 
