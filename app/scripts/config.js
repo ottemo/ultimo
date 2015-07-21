@@ -4,6 +4,10 @@ var iniConfig = {
     "general.app.foundation_url": "http://foundation.kg.dev.ottemo.io",
     "general.app.media_path": "//kg.dev.ottemo.io/media/",
 
+    // for local development w/foundation
+    //"general.app.foundation_url": "http://localhost:3000",
+    //"general.app.media_path": "/kg-media/",
+
     // social networks
     "general.app.login.facebook.appId" : "553891724751037",
     "general.app.login.facebook.secretKey" : "1b0aed24d291d155cccaf115fc976184",
