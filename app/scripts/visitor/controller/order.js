@@ -36,7 +36,7 @@ angular.module("visitorModule")
                         $scope.ordersList = response.result || [];
 
                         for (i = 0; i < $scope.ordersList.length; i += 1) {
-                            if ($scope.orderId === $scope.ordersList[i]["increment_id"]) {
+                            if ($scope.orderId === $scope.ordersList[i]["_id"]) {
                                 isExist = true;
                             }
                         }
@@ -49,7 +49,7 @@ angular.module("visitorModule")
                     function (response) {
                         $scope.order = response.result || [];
                         $scope.$emit('add-breadcrumbs', {
-                            'label': $scope.order["increment_id"],
+                            'label': $scope.order["_id"],
                             'url': '/account/order/' + $scope.orderId
                         });
 
