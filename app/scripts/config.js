@@ -1,9 +1,6 @@
 iniConfig = {
-    //  dev  
-    // "general.app.foundation_url": "http://foundation.kg.dev.ottemo.io",
-    // "general.app.media_path": "//kg.dev.ottemo.io/media/",
-    
-    "general.app.foundation_url": "http://api.karigran.com",
+    // foundation uri
+    "general.app.foundation_url": "http://foundation.kg.dev.ottemo.io",
     "general.app.media_path": "//kg.dev.ottemo.io/media/",
     
     // social networks
