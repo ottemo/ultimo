@@ -3,7 +3,7 @@ var iniConfig = {
     // "general.app.foundation_url": "http://foundation.kg.dev.ottemo.io",
     // "general.app.media_path": "//kg.dev.ottemo.io/media/",
 
-    "general.app.foundation_url": "http://localhost:3000",
+    "general.app.foundation_url": "http://api.karigran.com",
     "general.app.media_path": "//kg.dev.ottemo.io/media/",
 
     // social networks
