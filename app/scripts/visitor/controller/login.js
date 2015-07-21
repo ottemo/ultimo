@@ -132,6 +132,12 @@ angular.module("visitorModule")
                             }
                             $scope.login = {};
                             $scope.register.submitted = false;
+
+                            // After registration, we are expecting the customer
+                            // to be logged in, so we
+                            // 1. verify is logged in
+                            // 1. refresh cart
+                            // 1. fire off success action, redirects
                             $visitorLoginService.isLoggedIn(true).then(function(){
                                 $cartService.reload();
                                 signInSuccess(false);
