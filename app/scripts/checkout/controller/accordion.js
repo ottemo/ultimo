@@ -201,6 +201,7 @@ angular.module("checkoutModule")
                 $scope["checkoutService"] = $checkoutService;
 
                 $scope["countries"] = [
+                    { "Code": "US", "Name": "United States" },
                     { "Code": "AF", "Name": "Afghanistan" },
                     { "Code": "AX", "Name": "Åland Islands" },
                     { "Code": "AL", "Name": "Albania" },
@@ -430,7 +431,6 @@ angular.module("checkoutModule")
                     { "Code": "UA", "Name": "Ukraine" },
                     { "Code": "AE", "Name": "United Arab Emirates" },
                     { "Code": "GB", "Name": "United Kingdom" },
-                    { "Code": "US", "Name": "United States" },
                     { "Code": "UY", "Name": "Uruguay" },
                     { "Code": "UM", "Name": "U.S. Minor Outlying Islands" },
                     { "Code": "VI", "Name": "U.S. Virgin Islands" },
