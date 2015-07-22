@@ -530,8 +530,12 @@ angular.module("checkoutModule")
                                                 init();
                                                 $scope.shippingMethods = $checkoutService.getAllowedShippingMethods();
                                                 var defaultMethod = $checkoutService.getMinimalCostShippingMethods();
-                                                $scope.indexShippingMethod = defaultMethod.index;
-                                                $scope.choiceShippingMethod($scope.indexShippingMethod);
+
+                                                // TODO: We really shouldn't be fetching htis on page load
+                                                if (defaultMethod) {
+                                                    $scope.indexShippingMethod = defaultMethod.index;
+                                                    $scope.choiceShippingMethod($scope.indexShippingMethod);
+                                                };
                                                 initWatchers();
                                             });
                                         }
@@ -550,8 +554,12 @@ angular.module("checkoutModule")
                                             init();
                                             $scope.shippingMethods = $checkoutService.getAllowedShippingMethods();
                                             var defaultMethod = $checkoutService.getMinimalCostShippingMethods();
-                                            $scope.indexShippingMethod = defaultMethod.index;
-                                            $scope.choiceShippingMethod($scope.indexShippingMethod);
+
+                                            // TODO:
+                                            if (defaultMethod) {
+                                                $scope.indexShippingMethod = defaultMethod.index;
+                                                $scope.choiceShippingMethod($scope.indexShippingMethod);
+                                            };
                                             initWatchers();
                                         });
                                     });
