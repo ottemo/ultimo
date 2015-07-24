@@ -24,6 +24,11 @@ angular.module("pdpModule")
                     getStarsPercents();
                 }, true);
 
+                // REFACTOR: ugh, the options are actually built out in the view
+                // by iterating over product.options guiCustomOptions
+                $scope.$watch('options', function(){
+                    $pdpProductService.setOptions($scope.options);
+                })
             };
 
             $scope.init = function () {
