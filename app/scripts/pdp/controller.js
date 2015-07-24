@@ -24,11 +24,6 @@ angular.module("pdpModule")
                     getStarsPercents();
                 }, true);
 
-                defaultOptionChange = $scope.$watch("options", function () {
-                    $scope.messageOptions = {};
-                    $pdpProductService.setOptions($scope.options);
-                    $scope.product = $pdpProductService.getProduct();
-                }, true);
             };
 
             $scope.init = function () {
@@ -108,7 +103,14 @@ angular.module("pdpModule")
                 $scope.product = defaultProduct();
                 $scope.qty = 1;
                 $scope.ratingInfo = getDefaultRatingInfo();
+
+                // REFACTOR: why store options in a service instead of on the
+                // product, idk
+                // BUG: if we don't clean out the options the pdpProductService tries to hold onto those
+                // options on page change
                 $scope.options = {};
+                $pdpProductService.setOptions({});
+
                 $scope.related = [];
 
                 $scope.getProduct();
