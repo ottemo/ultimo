@@ -20,7 +20,7 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                 <div id="customerInfo" class="accordion">
 
                     <!-- Form to add shipping addresses -->
-                    <form name="customerInfo">
+                    <form name="customerInfo" novalidate>
                         <div class="row">
                             <div class="col-sm-6">
                                 <h3>Register or Log in</h3>
@@ -64,6 +64,7 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                                     name="email"
                                     ot-email="true"
                                     ng-model="checkout.info.customer_email"
+                                    ng-model-options="{ updateOn: 'blur' }"
                                     required />
 
                                     <!-- error message -->
@@ -117,7 +118,7 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                 <div id="shippingAddress" class="accordion" style="display:none;">
 
                     <!-- Form to add shipping addresses -->
-                    <form name="shippingAddress">
+                    <form name="shippingAddress" novalidate>
                         <div class="row">
                             <div class="col-sm-6">
                                 <!--First name-->
@@ -126,6 +127,7 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                                     <label for="shippingInputFirstName">First Name*</label>
                                     <input type="text" class="form-control" id="shippingInputFirstName" placeholder="First name"
                                            name="first_name" required
+                                           ng-model-options="{ updateOn: 'blur' }"
                                            ng-model="checkout.shipping_address.first_name" ng-disabled="checkout.shipping_address._id">
 
                                     <p ng-show="(subShippingAddress && shippingAddress.first_name.$invalid) || (shippingAddress.first_name.$invalid && !shippingAddress.first_name.$pristine)"
@@ -138,6 +140,7 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                                     <label for="shippingInputLastName">Last Name*</label>
                                     <input type="text" class="form-control" id="shippingInputLastName" placeholder="Last name"
                                            name="last_name" required
+                                           ng-model-options="{ updateOn: 'blur' }"
                                            ng-model="checkout.shipping_address.last_name" ng-disabled="checkout.shipping_address._id">
 
                                     <p ng-show="(subShippingAddress && shippingAddress.last_name.$invalid) || (shippingAddress.last_name.$invalid && !shippingAddress.last_name.$pristine)"
@@ -149,6 +152,7 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                                     <label for="shippingInputCompany">Company Name</label>
                                     <input type="text" class="form-control" id="shippingInputCompany" placeholder="Company name"
                                            name="company"
+                                           ng-model-options="{ updateOn: 'blur' }"
                                            ng-model="checkout.shipping_address.company" ng-disabled="checkout.shipping_address._id">
                                 </div>
 
@@ -158,6 +162,7 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                                     <label for="shippingInputAddress">Address 1*</label>
                                     <input type="text" class="form-control" id="shippingInputAddress" placeholder="Address 1"
                                            name="address1"
+                                           ng-model-options="{ updateOn: 'blur' }"
                                            ng-model="checkout.shipping_address.address_line1" ng-disabled="checkout.shipping_address._id" required>
 
                                     <p ng-show="(subShippingAddress && shippingAddress.address1.$invalid) || (shippingAddress.address1.$invalid && !shippingAddress.address1.$pristine)"
@@ -168,7 +173,9 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                                 <div class="form-group">
                                     <label for="shippingInputAddress2">Address 2</label>
                                     <input type="text" class="form-control" id="shippingInputAddress2" placeholder="Address 2"
-                                           ng-model="checkout.shipping_address.address_line2" ng-disabled="checkout.shipping_address._id">
+                                           ng-model="checkout.shipping_address.address_line2" 
+                                           ng-model-options="{ updateOn: 'blur' }"
+                                           ng-disabled="checkout.shipping_address._id">
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -190,7 +197,9 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                                      ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.city.$invalid) || (shippingAddress.city.$invalid && !shippingAddress.city.$pristine) }">
                                     <label for="shippingAddressCity">City*</label>
                                     <input type="text" class="form-control" id="shippingAddressCity" placeholder="City" name="city"
-                                           ng-model="checkout.shipping_address.city" ng-disabled="checkout.shipping_address._id" required>
+                                           ng-model="checkout.shipping_address.city" 
+                                           ng-model-options="{ updateOn: 'blur' }"
+                                           ng-disabled="checkout.shipping_address._id" required>
 
                                     <p ng-show="(subShippingAddress && shippingAddress.city.$invalid) || (shippingAddress.city.$invalid && !shippingAddress.city.$pristine)"
                                        class="help-block">This field is required.</p>
@@ -217,6 +226,7 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                                     <label for="shippingAddressZip">Zip / Postal Code*</label>
                                     <input type="text" class="form-control" id="shippingAddressZip" placeholder="Zip / Postal Code"
                                            name="zip_code" ot-regexp="/^\d{5}(?:[-\s]\d{4})?$/"
+                                            ng-model-options="{ updateOn: 'blur' }"
                                            ng-model="checkout.shipping_address.zip_code" ng-disabled="checkout.shipping_address._id" required>
 
                                     <p ng-show="(subShippingAddress && shippingAddress.zip_code.$error.required)"
@@ -235,6 +245,7 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                                     <label for="shippingAddressPhone">Phone*</label>
                                     <input type="text" class="form-control" id="shippingAddressPhone" placeholder="Phone" name="phone"
                                            ot-regexp="/^(\+?\d{1,3})?[- ]?\(?(\d{3})\)?[- ]?((?:\d{3})-?(?:\d{2})-?(?:\d{2}))$/" required
+                                            ng-model-options="{ updateOn: 'blur' }"
                                            ng-model="checkout.shipping_address.phone" ng-disabled="checkout.shipping_address._id">
 
                                     <p ng-show="(subShippingAddress && shippingAddress.phone.$error.required)"
@@ -322,6 +333,7 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                                     <label for="billingInputFirstName">First Name*</label>
                                     <input type="text" class="form-control" id="billingInputFirstName" placeholder="First name"
                                            name="first_name" required
+                                           ng-model-options="{ updateOn: 'blur' }"
                                            ng-model="checkout.billing_address.first_name" ng-disabled="billing_address._id || useAsBilling">
 
                                     <p ng-show="(subBillingAddress && billingAddress.first_name.$invalid) || (billingAddress.first_name.$invalid && !billingAddress.first_name.$pristine)"
@@ -334,6 +346,7 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                                     <label for="billingInputLastName">Last Name*</label>
                                     <input type="text" class="form-control" id="billingInputLastName" placeholder="Last name"
                                            name="last_name" required
+                                           ng-model-options="{ updateOn: 'blur' }"
                                            ng-model="checkout.billing_address.last_name" ng-disabled="billing_address._id || useAsBilling">
 
                                     <p ng-show="(subBillingAddress && billingAddress.last_name.$invalid) || (billingAddress.last_name.$invalid && !billingAddress.last_name.$pristine)"
@@ -345,6 +358,7 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                                     <label for="billingInputCompany">Company Name</label>
                                     <input type="text" class="form-control" id="billingInputCompany" placeholder="Company name"
                                            name="company"
+                                           ng-model-options="{ updateOn: 'blur' }"
                                            ng-model="checkout.billing_address.company" ng-disabled="checkout.billing_address._id || useAsBilling">
                                 </div>
 
@@ -354,6 +368,7 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                                     <label for="billingInputAddress">Address 1*</label>
                                     <input type="text" class="form-control" id="billingInputAddress" placeholder="Address 1"
                                            name="address1"
+                                           ng-model-options="{ updateOn: 'blur' }"
                                            ng-model="checkout.billing_address.address_line1" ng-disabled="checkout.billing_address._id || useAsBilling"
                                            required>
 
@@ -365,7 +380,9 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                                 <div class="form-group">
                                     <label for="billingInputAddress2">Address 2</label>
                                     <input type="text" class="form-control" id="billingInputAddress2" placeholder="Address 2"
-                                           ng-model="checkout.billing_address.address_line2" ng-disabled="checkout.billing_address._id || useAsBilling">
+                                           ng-model="checkout.billing_address.address_line2" 
+                                           ng-model-options="{ updateOn: 'blur' }"
+                                           ng-disabled="checkout.billing_address._id || useAsBilling">
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -389,7 +406,9 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                                      ng-class="{ 'has-error' : (subBillingAddress && billingAddress.city.$invalid) || (billingAddress.city.$invalid && !billingAddress.city.$pristine) }">
                                     <label for="billingAddressCity">City*</label>
                                     <input type="text" class="form-control" id="billingAddressCity" placeholder="City" name="city"
-                                           ng-model="checkout.billing_address.city" ng-disabled="checkout.billing_address._id || useAsBilling" required>
+                                           ng-model="checkout.billing_address.city" 
+                                           ng-model-options="{ updateOn: 'blur' }"
+                                           ng-disabled="checkout.billing_address._id || useAsBilling" required>
 
                                     <p ng-show="(subBillingAddress && billingAddress.city.$invalid) || (billingAddress.city.$invalid && !billingAddress.city.$pristine)"
                                        class="help-block">This field is required.</p>
@@ -416,6 +435,7 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                                     <label for="billingAddressZip">Zip / Postal Code*</label>
                                     <input type="text" class="form-control" id="billingAddressZip" placeholder="Zip / Postal Code"
                                            name="zip_code" ot-regexp="/^\d{5}(?:[-\s]\d{4})?$/"
+                                           ng-model-options="{ updateOn: 'blur' }"
                                            ng-model="checkout.billing_address.zip_code" ng-disabled="billing_address._id || useAsBilling"
                                            required>
 
@@ -434,6 +454,7 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                                     <label for="billingAddressPhone">Phone*</label>
                                     <input type="text" class="form-control" id="billingAddressPhone" placeholder="Phone" name="phone"
                                            ot-regexp="/^(\+?\d{1,3})?[- ]?\(?(\d{3})\)?[- ]?((?:\d{3})-?(?:\d{2})-?(?:\d{2}))$/" required
+                                           ng-model-options="{ updateOn: 'blur' }"
                                            ng-model="checkout.billing_address.phone" ng-disabled="checkout.billing_address._id">
 
                                     <p ng-show="(subBillingAddress && billingAddress.phone.$error.required)"
@@ -472,7 +493,7 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
             </div>
             <div class="panel-body">
                 <div id="shippingMethod" class="accordion" style="display:none">
-                    <form>
+                    <form novalidate>
 
                         <div class="radio" ng-repeat="method in shippingMethods">
                             <label>
@@ -510,7 +531,7 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                     <gui-message-manager item="messageDiscounts"></gui-message-manager>
                     <gui-message-manager item="giftcard.message"></gui-message-manager>
 
-                    <form ng-submit="discountApply()">
+                    <form ng-submit="discountApply()" novalidate>
                         <div class="form-group">
                             <label for="discount">Discount Code</label>
                             <div class="row">
@@ -533,7 +554,7 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                         </div>
                     </form>
 
-                    <form ng-submit="giftcard.apply()">
+                    <form ng-submit="giftcard.apply()" novalidate>
                         <div class="form-group">
                             <label for="giftcode">Gift Card Code</label>
                             <div class="row">
@@ -631,6 +652,7 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
 
                                     <label for="paymentCardNumber">Number *</label>
                                     <input type="text" class="form-control" id="paymentCardNumber" ng-model="method.cc.number"
+                                           ng-model-options="{ updateOn: 'blur' }"
                                            placeholder="Credit Card Number" name="number" ng-change="validateCcNumber()" required>
 
                                     <p ng-show="method.form.submited && method.form.number.$error.required"

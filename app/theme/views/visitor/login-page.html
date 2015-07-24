@@ -26,7 +26,7 @@
             <h4 class="text-center">Already Registered?</h4>
 
             <!-- form -->
-            <form name="loginForm">
+            <form name="loginForm" novalidate>
 
                 <!-- error message -->
                 <gui-message-manager item="message"></gui-message-manager>
@@ -36,7 +36,9 @@
                      ng-class="{ 'has-error' : (loginForm.submitted && loginForm.email.$error.required) || (loginForm.email.$invalid && !loginForm.email.$pristine) }">
                     <label for="email">Email *</label>
                     <input class="form-control" type="text" id="email" placeholder="email"
-                           ng-model="loginCredentials.email" name="email" required />
+                           ng-model="loginCredentials.email" 
+                           ng-model-options="{ updateOn: 'blur' }"
+                           name="email" required />
                     
                     <!-- error message -->
                     <p ng-show="(loginForm.submitted && loginForm.email.$error.required) || (loginForm.email.$invalid && !loginForm.email.$pristine)"
@@ -49,6 +51,7 @@
                     <label for="password">Password *</label>
                     <input class="form-control" type="password" id="password" placeholder="password"
                            ng-model="loginCredentials.password"
+                           ng-model-options="{ updateOn: 'blur' }"
                            name="password" required autocomplete="off" />
                     <!-- error message -->
                     <p ng-show="(loginForm.submitted && loginForm.password.$error.required) || (loginForm.password.$invalid && !loginForm.password.$pristine)"
