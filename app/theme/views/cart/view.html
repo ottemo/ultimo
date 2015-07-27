@@ -8,6 +8,14 @@
     <div ng-hide="it.getCountItems()">
         <p>No items are currently in your cart</p>
     </div>
+
+    <div class="cart__proceed visible-xs" ng-show="it.getCountItems()">
+        <a class="btn btn-lg btn-primary" href="/checkout">
+            Proceed to Checkout
+        </a>
+        <br>
+    </div>
+
     <div class="row cart__item-row" ng-repeat="item in it.getItems()" ng-show="it.getCountItems()" ng-class="{'last': $last}">
 
         <!-- image -->
@@ -18,6 +26,7 @@
                 </a>
             </div>
         </div>
+
         <!-- info -->
         <div class="col-xs-6 col-sm-5">
             <h4>{{item.product.name}}</h4>
@@ -39,7 +48,7 @@
         </div>
 
         <!-- qty -->
-        <div class="col-xs-6 col-sm-4 col-md-3 cart-list__product-qty">
+        <div class="hidden-xs col-sm-4 col-md-3 cart-list__product-qty">
             <div class="input-group">
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="button" ng-click="changeQty(item,'down');update(item.idx, item.qty)">
@@ -60,6 +69,16 @@
             </div>
         </div>
 
+        <!-- qty-xs -->
+        <div class="visible-xs col-xs-6">
+            <input
+            type="text"
+            class="form-control text-center"
+            value="{{item.qty}}"
+            ng-model="item.qty"
+            ng-change="update(item.idx, item.qty)" />
+        </div>
+
         <!-- price desktop -->
         <div class="hidden-xs hidden-sm col-md-1 cart-list__product-subtotal">
             {{item.product.price * item.qty | currency}}
@@ -75,7 +94,7 @@
             Cart total:&nbsp;&nbsp;&nbsp;<strong>{{getSubtotal() | currency}}</strong>
         </h4>
         <div class="cart__proceed">
-            <a class="btn btn-lg btn-primary" href="{{checkout.getUrl()}}">
+            <a class="btn btn-lg btn-primary" href="/checkout">
                 Proceed to Checkout
             </a>
         </div>
