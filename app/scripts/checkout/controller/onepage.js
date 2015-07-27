@@ -856,7 +856,7 @@ angular.module("checkoutModule")
             };
 
             $scope.discountApply = function () {
-                $checkoutService.discountApply({"coupon": $scope.discount}).$promise.then(
+                $checkoutService.discountApply({"coupon": $scope.discount.toUpperCase()}).$promise.then(
                     function (response) {
                         if (response.error === null) {
                             info();
