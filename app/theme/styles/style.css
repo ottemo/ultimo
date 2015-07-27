@@ -145,7 +145,7 @@ ul {
 #header .logo {
 	float: left;
 	width: 160px;
-	margin-top: 26px;
+	margin-top: 4px;
 }
 
 #header .logo img {
@@ -156,6 +156,17 @@ ul {
 		width: 230px;
 		margin-top: 36px;
 	}
+}
+
+.navbar-header .navbar-toggle {
+	border-radius: 0;
+	border-color: #999;
+	margin-right: 0;
+}
+
+.navbar-header .cart-link-xs {
+	float: right;
+	margin: 4px 15px 0 0;
 }
 
 
@@ -221,12 +232,16 @@ ul {
 	color: #999;
 }
 .kg-icon-cart {
-	float: right;
+	display: block;
 	width: 24px;
 	height: 36px;
-	margin-top: -12px;
 	background: url('../images/shopping-bag.png');
 }
+.kg-icon-cart__lg {
+	float: right;
+	margin-top: -12px;
+}
+
 .util-nav-item:hover .kg-icon-cart {
 	background-position: 0 -41px;
 }
@@ -820,11 +835,6 @@ the extra space looks funny */
 		padding: 10px 10px 0 10px;
 		margin: 0;
 		border: none;
-	}
-
-
-	.navbar-default .navbar-toggle {
-		margin-top: 20px;
 	}
 
 	.home .main-banner .promo-text {
