@@ -1040,7 +1040,7 @@ angular.module("checkoutModule")
                 if ("" === $scope.discount || typeof $scope.discount === "undefined") {
                     $scope.messageDiscounts = $commonUtilService.getMessage(null, "danger", "Discount code can't be empty");
                 } else {
-                    $checkoutService.discountApply({"coupon": $scope.discount}).then(
+                    $checkoutService.discountApply({"coupon" : $scope.discount.toUpperCase()}).then(
                         function (response) {
                             if (response.error === null) {
                                 info();
