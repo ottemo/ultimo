@@ -58,8 +58,12 @@
                 <button
                 type="submit"
                 class="btn btn-primary"
+                ng-class="{disabled: isAddingToCart}"
                 ng-click="addToCart(popupProduct)">
                     Add to cart
+                    <i class="fa fa-circle-o-notch fa-spin"
+                    ng-show="isAddingToCart">
+                    </i>
                 </button>
             </div>
         </div>

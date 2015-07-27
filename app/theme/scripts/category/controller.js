@@ -425,34 +425,42 @@ angular.module('categoryModule')
                 }, 250);
             }
 
+            // make sure we only add to cart one at a time
+            $scope.isAddingToCart = false;
+            $scope.isAddToCartSuccessful = false;
             $scope.addToCart = function (product) {
-                var miniCart, addItem;
-                miniCart = $(".mini-cart");
-                addItem = function () {
+
+                var miniCart = $(".mini-cart");
+                var addItem = function () {
+                    // Flag that we are in the process now
+                    $scope.isAddingToCart = true;
+                    $scope.isAddToCartSuccessful = false;
+
                     $cartService.add(product._id, 1, $pdpProductService.getOptions()).then(
                         function (response) {
+                            // Done adding to cart
+                            $scope.isAddingToCart = false;
+
                             if (response.error !== null) {
                                 $scope.openPopUp(product);
                                 $scope.message = $commonUtilService.getMessage(response);
                             } else {
+                                $scope.isAddToCartSuccessful = true;
                                 $pdpProductService.setOptions({});
+
+                                // Hid the quick view, and show the success modal
                                 $("#quick-view").modal('hide');
-
-                                miniCart.modal('show');
-
-                                // setTimeout(function () {
-                                //     miniCart.modal('hide');
-                                // }, 2000);
+                                $("#quick-view-success").modal('show');
                             }
                         }
                     );
                 };
 
-                if (angular.appConfigValue("general.checkout.guest_checkout")) {
+                if (angular.appConfigValue("general.checkout.guest_checkout") && !$scope.isAddingToCart) {
                     addItem();
                 } else {
                     $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
-                        if (isLoggedIn) {
+                        if (isLoggedIn && !$scope.isAddingToCart) {
                             addItem();
                         } else {
                             $("#form-login").modal("show");

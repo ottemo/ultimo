@@ -90,6 +90,7 @@ angular.module("visitorModule")
                 return $cartService.getCountItems();
             };
 
+            // TODO: We stopped using this in KG
             $scope.clickToCartDesktop = function () {
                 var miniCart = $('.mini-cart');
 

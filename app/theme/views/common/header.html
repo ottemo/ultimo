@@ -8,12 +8,22 @@
             </a>
 
             <!-- toggle button -->
-            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed col-xs-offset-1" type="button">
+            <button type="button"
+            class="navbar-toggle collapsed"
+            aria-controls="navbar"
+            aria-expanded="false"
+            data-target="#navbar"
+            data-toggle="collapse">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
+
+            <!-- cart  -->
+            <a href="/cart" class="cart-link-xs visible-xs">
+                <i class="kg-icon-cart"></i>
+            </a>
         </div>
 
         <div class="navbar-collapse collapse" id="navbar">
@@ -47,8 +57,8 @@
 
                     <i class="util-nav-divider"></i>
 
-                    <a ng-click="clickToCartDesktop()" class=" util-nav-item">
-                        Bag ({{getItemsInCart()}}) <i class="kg-icon-cart"></i>
+                    <a href="/cart" class="util-nav-item">
+                        Bag {{getItemsInCart() ? '('+getItemsInCart()+')' : '' }} <i class="kg-icon-cart kg-icon-cart__lg"></i>
                     </a>
                 </div>
 
