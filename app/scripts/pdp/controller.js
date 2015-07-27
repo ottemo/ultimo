@@ -218,27 +218,37 @@ angular.module("pdpModule")
                 return $designImageService.getFullImagePath(path, image, size);
             };
 
-            $scope.addToCart = function () {
+            $scope.isAddingToCart = false;
+            $scope.isAddToCartSuccessful = false;
+            $scope.addToCart = function ($event) {
+                // I think because we don't an href in the link
+                // we get an odd bug where the link retains focus
+                $event.target.blur();
+
                 var addItem = function () {
-                    $scope.submitted = true;
+                    // In the process of adding to cart, prevent double clicks
+                    $scope.isAddingToCart = true;
+                    $scope.submitted = true; //TODO: not sure what this does
+
                     $cartService.add($scope.productId, $scope.qty, $pdpProductService.getOptions()).then(
                         function (response) {
+                            // Let them keep adding to cart now
+                            $scope.isAddingToCart = false;
                             if (response.error !== null) {
                                 $scope.messageOptions = $commonUtilService.getMessage(response);
                             } else {
-                                var miniCart;
-                                miniCart = $(".mini-cart");
-                                miniCart.modal('show');
+                                // Show a success message
+                                $scope.isAddToCartSuccessful = true;
                             }
                         }
                     );
                 };
 
-                if (angular.appConfigValue("general.checkout.guest_checkout")) {
+                if (angular.appConfigValue("general.checkout.guest_checkout") && !$scope.isAddingToCart) {
                     addItem();
                 } else {
                     $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
-                        if (isLoggedIn) {
+                        if (isLoggedIn && !$scope.isAddingToCart) {
                             addItem();
                         } else {
                             $("#form-login").modal("show");

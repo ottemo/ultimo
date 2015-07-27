@@ -52,13 +52,6 @@
         <!-- options -->
         <gui-custom-options item="product" object="this"></gui-custom-options>
 
-        <!-- error message -->
-        <div class="row">
-            <div class="col-xs-12 col-md-8">
-                <gui-message-manager item="messageOptions"></gui-message-manager>
-            </div>
-        </div>
-
         <div class="form-inline form-spaced pdp-purchase-form-2">
             <!-- Quantity -->
             <div class="form-group">
@@ -76,13 +69,26 @@
             <!-- add to cart button -->
             <a
             href=""
-            target="_self"
             class="btn btn-primary"
-            ng-click="addToCart()">
+            ng-class="{disabled: isAddingToCart}"
+            ng-click="addToCart($event)">
                 Add to bag
+                <i class="fa fa-circle-o-notch fa-spin"
+                ng-show="isAddingToCart">
+                </i>
             </a>
 
         </div>
+
+        <!-- error message -->
+        <gui-message-manager item="messageOptions"></gui-message-manager>
+
+        <!-- add to bag success message -->
+        <div class="alert alert-success" ng-show="isAddToCartSuccessful">
+            {{product.name}} was added to your bag
+            <a href="/cart" class="btn btn-default">view my bag</a>
+        </div>
+
 
         <p class="pdp-purchase-form-details">Have questions? Check out the <a href="/faq">FAQ's</a></p>
 
