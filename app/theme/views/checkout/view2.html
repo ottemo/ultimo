@@ -275,9 +275,11 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                         <div class="form-group">
                             <div class="checkbox">
                                 <label class="myCheckbox" for="shippingUseAsBilling">
-                                    <input type="checkbox" name="test" id="shippingUseAsBilling"
-                                           ng-model="useAsBilling"
-                                           ng-checked="useAsBilling">
+                                    <input type="checkbox"
+                                    name="shippingUseAsBilling"
+                                    id="shippingUseAsBilling"
+                                    ng-model="useAsBilling"
+                                    ng-checked="useAsBilling">
                                     Use same for billing address
                                 </label>
                             </div>
@@ -497,8 +499,10 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
 
                         <div class="radio" ng-repeat="method in shippingMethods">
                             <label>
-                                <input type="radio" ng-click="choiceShippingMethod($index)" value="{{$index}}"
-                                       name="shipping_method" ng-model="indexShippingMethod">
+                                <input type="radio"
+                                value="{{$index}}"
+                                name="shipping_method"
+                                ng-model="shippingMethodIndex">
                                 {{method.Name}}
                             </label>
                         </div>

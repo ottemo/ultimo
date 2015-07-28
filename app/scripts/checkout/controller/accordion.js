@@ -53,20 +53,6 @@ angular.module("checkoutModule")
                     }
                 };
 
-                initCurrentShippingMethod = function () {
-                    var item, i;
-                    for (i = 0; i < $scope.shippingMethods.length; i += 1) {
-                        item = $scope.shippingMethods[i];
-
-                        if ($scope.checkout["shipping_method_code"] === item.Method &&
-                            $scope.checkout["shipping_rate"].Code === item.Rate) {
-
-                            $scope.indexShippingMethod = i;
-                            isValidSteps.shippingMethod = true;
-                        }
-                    }
-                };
-
                 initCurrentPaymentType = function () {
                     var item, i;
 
@@ -97,7 +83,6 @@ angular.module("checkoutModule")
                 $checkoutService.update().then(
                     function (checkout) {
                         $scope.checkout = checkout;
-                        initCurrentShippingMethod();
                         initCurrentPaymentType();
                         initAddressesData();
                         initAdditionalInfo();
@@ -464,14 +449,18 @@ angular.module("checkoutModule")
                      }
                 ];
 
-                $scope["useAsBilling"] = false;
-                $scope["states"] = $designStateService;
-                $scope["cart"] = $cartService;
-                $scope["shippingMethods"] = [];
-                $scope["checkout"] = {};
-                $scope["shipping_address"] = getDefaultAddress();
-                $scope["billing_address"] = getDefaultAddress();
-                $scope["totals"] = 0;
+                $scope.useAsBilling = false;
+                $scope.states = $designStateService;
+                $scope.cart = $cartService;
+
+                $scope.shippingMethodIndex = 0;
+                $scope.shippingMethods = [];
+
+                $scope.checkout = {};
+
+                $scope.shipping_address = getDefaultAddress();
+                $scope.billing_address = getDefaultAddress();
+                $scope.totals = 0;
 
                 info();
             };
@@ -526,18 +515,8 @@ angular.module("checkoutModule")
                                             $location.path("/");
                                         } else {
                                             getAddresses();
-                                            $checkoutService.init().then(function () {
-                                                init();
-                                                $scope.shippingMethods = $checkoutService.getAllowedShippingMethods();
-                                                var defaultMethod = $checkoutService.getMinimalCostShippingMethods();
-
-                                                // TODO: We really shouldn't be fetching htis on page load
-                                                if (defaultMethod) {
-                                                    $scope.indexShippingMethod = defaultMethod.index;
-                                                    $scope.choiceShippingMethod($scope.indexShippingMethod);
-                                                };
-                                                initWatchers();
-                                            });
+                                            init();
+                                            initWatchers();
                                         }
                                     });
                                 } else {
@@ -550,18 +529,8 @@ angular.module("checkoutModule")
                                             $('#shippingAddress').show();
                                         }
                                         getAddresses();
-                                        $checkoutService.init().then(function () {
-                                            init();
-                                            $scope.shippingMethods = $checkoutService.getAllowedShippingMethods();
-                                            var defaultMethod = $checkoutService.getMinimalCostShippingMethods();
-
-                                            // TODO:
-                                            if (defaultMethod) {
-                                                $scope.indexShippingMethod = defaultMethod.index;
-                                                $scope.choiceShippingMethod($scope.indexShippingMethod);
-                                            };
-                                            initWatchers();
-                                        });
+                                        init();
+                                        initWatchers();
                                     });
                                 }
                             }
@@ -703,23 +672,6 @@ angular.module("checkoutModule")
                 }
             };
 
-            $scope.choiceShippingMethod = function (index) {
-
-                if (typeof index !== "undefined" && index !== "") {
-                    $checkoutService.saveShippingMethod({
-                        "method": $scope.shippingMethods[index].Method,
-                        "rate": $scope.shippingMethods[index].Rate
-                    }).then(
-                        function (response) {
-                            if (response.result === "ok") {
-                                // update checkout
-                                info();
-                            }
-                        }
-                    );
-                }
-            };
-
             $scope.back = function (step) {
                 if (step === "review" && !$scope["isGuestCheckout"]) {
                     $("#" + step).slideUp("slow").parents('.panel').prev('.panel').prev('.panel').find('.accordion').slideDown(500);
@@ -780,6 +732,20 @@ angular.module("checkoutModule")
                         );
                     }
                 };
+
+                var actionShippingMethod = function() {
+                    $checkoutService.saveShippingMethod({
+                        "method": $scope.shippingMethods[$scope.shippingMethodIndex].Method,
+                        "rate": $scope.shippingMethods[$scope.shippingMethodIndex].Rate
+                    }).then(function (response) {
+                        if (response.result === "ok") {
+                            // update checkout
+                            info();
+                            isValidSteps.shippingMethod = true;
+                            actionDefault();
+                        }
+                    });
+                }
 
                 actionPaymentMethod = function () {
                     $scope.subPaymentForm = true;
@@ -862,6 +828,9 @@ angular.module("checkoutModule")
                         break;
                     case "shippingAddress":
                         actionShippingAddress();
+                        break;
+                    case "shippingMethod":
+                        actionShippingMethod();
                         break;
                     case "paymentMethod":
                         actionPaymentMethod();

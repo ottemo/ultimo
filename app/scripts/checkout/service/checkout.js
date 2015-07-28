@@ -31,14 +31,12 @@ angular.module("checkoutModule")
                     for (i = 0; i < method.Rates.length; i += 1) {
                         rate = method.Rates[i];
 
-                        allowedShippingMethods.push(
-                            {
-                                "Name": method.Name + " - " + rate.Name + " ($" + rate.Price + ")",
-                                "Price": rate.Price,
-                                "Method": method.Code,
-                                "Rate": rate.Code
-                            }
-                        );
+                        allowedShippingMethods.push({
+                            "Name": method.Name + " - " + rate.Name + " ($" + rate.Price + ")",
+                            "Price": rate.Price,
+                            "Method": method.Code,
+                            "Rate": rate.Code
+                        });
                     }
                 };
 
@@ -71,6 +69,7 @@ angular.module("checkoutModule")
                 return defer.promise;
             };
 
+            // TODO: I THINK THIS CAN BE DELETED
             init = function () {
                 var defer, statuses;
                 statuses = {
