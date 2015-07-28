@@ -25,7 +25,6 @@ angular.module("checkoutModule")
             loadShippingMethods = function () {
                 var defer = $q.defer();
 
-
                 var splitMethodToRates = function (method) {
                     var i, rate;
                     for (i = 0; i < method.Rates.length; i += 1) {
