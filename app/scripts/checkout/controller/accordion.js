@@ -39,11 +39,9 @@ angular.module("checkoutModule")
              * @return {promise}
              */
             info = function () {
-                var defer, initAddressesData, initCurrentShippingMethod, initCurrentPaymentType, initAdditionalInfo;
+                var defer = $q.defer();
 
-                defer = $q.defer();
-
-                initAddressesData = function () {
+                var initAddressesData = function () {
                     if ($scope.checkout["shipping_address"] === null) {
                         $scope.checkout["shipping_address"] = getDefaultAddress();
                     }
@@ -53,7 +51,7 @@ angular.module("checkoutModule")
                     }
                 };
 
-                initCurrentPaymentType = function () {
+                var initCurrentPaymentType = function () {
                     var item, i;
 
                     if (typeof $scope.paymentMethods !== "undefined") {
@@ -73,19 +71,11 @@ angular.module("checkoutModule")
                     }
                 };
 
-                // TODO: remove customerInfo from js or resolve problem with model
-                initAdditionalInfo = function () {
-                    if ($scope.isGuestCheckout && typeof $scope.customerInfo !== "undefined") {
-                        isValidSteps.additionalInfo = $scope.customerInfo.$valid;
-                    }
-                };
-
                 $checkoutService.update().then(
                     function (checkout) {
                         $scope.checkout = checkout;
                         initCurrentPaymentType();
                         initAddressesData();
-                        initAdditionalInfo();
                         defer.resolve(true);
                     }
                 );
@@ -792,21 +782,17 @@ angular.module("checkoutModule")
                 };
 
                 actionCustomerAdditionalInfo = function () {
-                    $scope.subAdditionalInfo = true;
+                    $scope.subAdditionalInfo = true; // not sure what purpose this serves
+                    // isValidSteps isn't used for this step
 
-                    if ($scope.isGuestCheckout) {
-                        if (typeof $scope.checkout.info.customer_email !== "undefined") {
-                            $checkoutService.saveAdditionalInfo({
-                                "customer_email": $scope.checkout.info.customer_email,
-                                "customer_name": $scope.checkout.info.customer_name
-                            }).then(function () {
-                                // resp.result == 'ok'
-                                $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
-                            });
-                        }
-                    } else {
-                        // NOTE: we no longer get here
-                        $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
+                    if ($scope.isGuestCheckout && $scope.customerInfo.$valid) {
+                        $checkoutService.saveAdditionalInfo({
+                            "customer_email": $scope.checkout.info.customer_email,
+                            "customer_name": $scope.checkout.info.customer_name
+                        }).then(function () {
+                            // resp.result == 'ok'
+                            $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
+                        });
                     }
                 };
 
