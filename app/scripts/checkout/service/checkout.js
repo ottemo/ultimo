@@ -31,8 +31,13 @@ angular.module("checkoutModule")
                     for (i = 0; i < method.Rates.length; i += 1) {
                         rate = method.Rates[i];
 
+                        var methodLabel = method.Name + " - " + rate.Name + " ($" + rate.Price + ")";
+                        if (method.Name == 'Flat Rate') {
+                            methodLabel = rate.Name + " ($" + rate.Price + ")";
+                        }
+
                         allowedShippingMethods.push({
-                            "Name": method.Name + " - " + rate.Name + " ($" + rate.Price + ")",
+                            "Name": methodLabel,
                             "Price": rate.Price,
                             "Method": method.Code,
                             "Rate": rate.Code
@@ -275,6 +280,7 @@ angular.module("checkoutModule")
                 "getAllowedPaymentMethods": getAllowedPaymentMethods,
                 "getAllowedShippingMethods": getAllowedShippingMethods,
                 "loadShippingMethods": loadShippingMethods,
+                "loadPaymentMethods": loadPaymentMethods,
                 "getCheckout": getCheckout,
                 "saveShippingAddress": saveShippingAddress,
                 "saveBillingAddress": saveBillingAddress,
