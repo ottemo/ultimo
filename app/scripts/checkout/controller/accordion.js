@@ -153,28 +153,12 @@ angular.module("checkoutModule")
             };
 
             init = function () {
-                getDefaultAddress = function () {
-                    return {
-                        "street": "",
-                        "city": "",
-                        "state": "",
-                        "phone": "",
-                        "zip_code": "",
-                        "company": "",
-                        "first_name": "",
-                        "last_name": "",
-                        "address_line1": "",
-                        "address_line2": "",
-                        "country": ""
-                    };
-                };
 
-                creditCartTypes = {
-                    'VI': [new RegExp('^4[0-9]{12}([0-9]{3})?$'), new RegExp('^[0-9]{3}$'), true],
-                    'MC': [new RegExp('^5[1-5][0-9]{14}$'), new RegExp('^[0-9]{3}$'), true],
-                    'AX': [new RegExp('^3[47][0-9]{13}$'), new RegExp('^[0-9]{3}$'), true],
-                    'DS': [new RegExp('^6(?:011|5[0-9]{2})[0-9]{12}$'), new RegExp('^[0-9]{3}$'), true]
-                };
+                // General
+                $scope.checkoutService = $checkoutService;
+                $scope.cart = $cartService;
+                $scope.checkout = {};
+                $scope.totals = 0;
 
                 isValidSteps = {
                     "billingAddress": false,
@@ -183,9 +167,9 @@ angular.module("checkoutModule")
                     "paymentMethod": false,
                     "discounts": true
                 };
-                $scope["checkoutService"] = $checkoutService;
 
-                $scope["countries"] = [
+                // Addresses
+                $scope.countries = [
                     { "Code": "US", "Name": "United States" },
                     { "Code": "AF", "Name": "Afghanistan" },
                     { "Code": "AX", "Name": "Åland Islands" },
@@ -430,7 +414,34 @@ angular.module("checkoutModule")
                     { "Code": "ZM", "Name": "Zambia" },
                     { "Code": "ZW", "Name": "Zimbabwe" }
                 ];
-                $scope["creditTypes"] = [
+                $scope.states = $designStateService;
+
+                getDefaultAddress = function () {
+                    return {
+                        "street": "",
+                        "city": "",
+                        "state": "",
+                        "phone": "",
+                        "zip_code": "",
+                        "company": "",
+                        "first_name": "",
+                        "last_name": "",
+                        "address_line1": "",
+                        "address_line2": "",
+                        "country": ""
+                    };
+                };
+
+                $scope.useAsBilling = false;
+                $scope.shipping_address = getDefaultAddress();
+                $scope.billing_address = getDefaultAddress();
+
+                // Shipping method
+                $scope.shippingMethodIndex = 0;
+                $scope.shippingMethods = [];
+
+                // Billing Method
+                $scope.creditTypes = [
                     {
                         "Code": "VI",
                         "Name": "Visa"
@@ -449,18 +460,12 @@ angular.module("checkoutModule")
                      }
                 ];
 
-                $scope.useAsBilling = false;
-                $scope.states = $designStateService;
-                $scope.cart = $cartService;
-
-                $scope.shippingMethodIndex = 0;
-                $scope.shippingMethods = [];
-
-                $scope.checkout = {};
-
-                $scope.shipping_address = getDefaultAddress();
-                $scope.billing_address = getDefaultAddress();
-                $scope.totals = 0;
+                creditCartTypes = {
+                    'VI': [new RegExp('^4[0-9]{12}([0-9]{3})?$'), new RegExp('^[0-9]{3}$'), true],
+                    'MC': [new RegExp('^5[1-5][0-9]{14}$'), new RegExp('^[0-9]{3}$'), true],
+                    'AX': [new RegExp('^3[47][0-9]{13}$'), new RegExp('^[0-9]{3}$'), true],
+                    'DS': [new RegExp('^6(?:011|5[0-9]{2})[0-9]{12}$'), new RegExp('^[0-9]{3}$'), true]
+                };
 
                 info();
             };
