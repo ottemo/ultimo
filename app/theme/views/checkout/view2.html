@@ -10,7 +10,7 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
     <div ng-init="init()" class="col-xs-12 col-md-8">
 
         <!-- Guest checkout user credential form -->
-        <div class="panel panel-default" ng-if="isGuestCheckout">
+        <div class="panel panel-default" ng-show="isGuestCheckout">
             <div class="panel-heading">
                 <h3 class="panel-title">
                     Customer info
@@ -502,7 +502,7 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                                 <input type="radio"
                                 value="{{$index}}"
                                 name="shipping_method"
-                                ng-model="shippingMethodIndex">
+                                ng-model="shippingMethod.selectedIndex">
                                 {{method.Name}}
                             </label>
                         </div>

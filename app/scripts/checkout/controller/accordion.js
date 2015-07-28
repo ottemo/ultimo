@@ -437,7 +437,9 @@ angular.module("checkoutModule")
                 $scope.billing_address = getDefaultAddress();
 
                 // Shipping method
-                $scope.shippingMethodIndex = 0;
+                $scope.shippingMethod = {
+                    selectedIndex: 0
+                };
                 $scope.shippingMethods = [];
 
                 // Billing Method
@@ -740,8 +742,8 @@ angular.module("checkoutModule")
 
                 var actionShippingMethod = function() {
                     $checkoutService.saveShippingMethod({
-                        "method": $scope.shippingMethods[$scope.shippingMethodIndex].Method,
-                        "rate": $scope.shippingMethods[$scope.shippingMethodIndex].Rate
+                        "method": $scope.shippingMethods[$scope.shippingMethod.selectedIndex].Method,
+                        "rate": $scope.shippingMethods[$scope.shippingMethod.selectedIndex].Rate
                     }).then(function (response) {
                         if (response.result === "ok") {
                             // update checkout
