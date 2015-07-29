@@ -51,30 +51,9 @@ angular.module("checkoutModule")
                     }
                 };
 
-                var initCurrentPaymentType = function () {
-                    var item, i;
-
-                    if (typeof $scope.paymentMethods !== "undefined") {
-                        return true;
-                    }
-
-                    $scope.paymentMethods = $checkoutService.getAllowedPaymentMethods();
-                    for (i = 0; i < $scope.paymentMethods.length; i += 1) {
-                        item = $scope.paymentMethods[i];
-                        if ($scope.checkout["payment_method_code"] === item.Code) {
-                            $scope.paymentType = item.Type;
-                            $scope.paymentMethods[i].cc = {};
-                            $scope.paymentMethods[i].cc.type = "VI";
-                            $scope.paymentMethods[i].cc["expire_month"] = "12";
-                            $scope.paymentMethods[i].cc["expire_year"] = "2017";
-                        }
-                    }
-                };
-
                 $checkoutService.update().then(
                     function (checkout) {
                         $scope.checkout = checkout;
-                        initCurrentPaymentType();
                         initAddressesData();
                         defer.resolve(true);
                     }
@@ -433,6 +412,12 @@ angular.module("checkoutModule")
                 $scope.shippingMethods = [];
 
                 // Billing Method
+                $scope.paymentMethods = [];
+                $checkoutService.loadPaymentMethods()
+                .then(function(methods){
+                    $scope.paymentMethods = methods;
+                });
+
                 $scope.creditTypes = [
                     {
                         "Code": "VI",
@@ -546,12 +531,14 @@ angular.module("checkoutModule")
                     "method": null,
                     "form": null
                 };
-                if (typeof $scope.paymentMethods !== "undefined") {
-                    for (i = 0; i < $scope.paymentMethods.length; i += 1) {
-                        if ($scope.paymentMethods[i].Code === $scope.checkout["payment_method_code"]) {
-                            info.method = $scope.paymentMethods[i];
-                            info.form = info.method.form;
-                        }
+
+                // [aknox] not sure why we do this
+                // If the checkout object's stored payment method info is found in our
+                // set of available methods return the info object for it.
+                for (i = 0; i < $scope.paymentMethods.length; i += 1) {
+                    if ($scope.paymentMethods[i].Code === $scope.checkout["payment_method_code"]) {
+                        info.method = $scope.paymentMethods[i];
+                        info.form = info.method.form;
                     }
                 }
 
