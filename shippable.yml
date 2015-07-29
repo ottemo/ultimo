@@ -15,6 +15,7 @@ before_install:
     # install NodeJS v0.12
     - source ~/.nvm/nvm.sh && shippable_retry nvm install $SHIPPABLE_NODE_VERSION
     - shippable_retry npm update -g npm 
+    - npm cache clean
     - npm version
     - shippable_retry npm install -g gulp
 
