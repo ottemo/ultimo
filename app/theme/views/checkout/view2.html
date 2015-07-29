@@ -631,8 +631,11 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                     <div class="form-group" ng-repeat="method in paymentMethods">
                         <div class="radio">
                             <label class="myCheckbox">
-                                <input type="radio" name="test" value="{{method.Code}}" ng-model="checkout.payment_method_code"
-                                       ng-change=setPaymentType(method.Type)>
+                                <input type="radio"
+                                name="test"
+                                value="{{method.Code}}"
+                                ng-model="checkout.payment_method_code"
+                                ng-change="setPaymentType(method.Type)">
                                 {{method.Name}}
                             </label>
                         </div>

@@ -66,6 +66,8 @@ angular.module("checkoutModule")
                 /**
                  * Sets payment method
                  */
+                // REFACTOR: discover the purpose of this and remove the $watch
+                // if you have saved billing info, and refresh the page this fires a PUT unnecessarily
                 defaultChoosePaymentMethod = $scope.$watch("checkout.payment_method_code", function () {
                     if (typeof $scope.checkout !== "undefined" &&
                         typeof $scope.checkout["payment_method_code"] !== "undefined" &&
@@ -77,8 +79,12 @@ angular.module("checkoutModule")
                         }).then(
                             function (response) {
                                 if (response.result === "ok") {
-                                    var isCreditCard;
-                                    isCreditCard = $scope.paymentType.split("_").indexOf("cc") >= 0;
+                                    var isCreditCard = false;
+
+                                    if (typeof $scope.paymentType !== "undefined") {
+                                        isCreditCard = $scope.paymentType.split("_").indexOf("cc") >= 0;
+                                    }
+
                                     if (isCreditCard) {
                                         var payment = getPaymentInfo();
                                         isValidSteps.paymentMethod = false;
