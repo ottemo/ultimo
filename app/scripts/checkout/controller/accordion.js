@@ -39,11 +39,9 @@ angular.module("checkoutModule")
              * @return {promise}
              */
             info = function () {
-                var defer, initAddressesData, initCurrentShippingMethod, initCurrentPaymentType, initAdditionalInfo;
+                var defer = $q.defer();
 
-                defer = $q.defer();
-
-                initAddressesData = function () {
+                var initAddressesData = function () {
                     if ($scope.checkout["shipping_address"] === null) {
                         $scope.checkout["shipping_address"] = getDefaultAddress();
                     }
@@ -53,54 +51,10 @@ angular.module("checkoutModule")
                     }
                 };
 
-                initCurrentShippingMethod = function () {
-                    var item, i;
-                    for (i = 0; i < $scope.shippingMethods.length; i += 1) {
-                        item = $scope.shippingMethods[i];
-
-                        if ($scope.checkout["shipping_method_code"] === item.Method &&
-                            $scope.checkout["shipping_rate"].Code === item.Rate) {
-
-                            $scope.indexShippingMethod = i;
-                            isValidSteps.shippingMethod = true;
-                        }
-                    }
-                };
-
-                initCurrentPaymentType = function () {
-                    var item, i;
-
-                    if (typeof $scope.paymentMethods !== "undefined") {
-                        return true;
-                    }
-
-                    $scope.paymentMethods = $checkoutService.getAllowedPaymentMethods();
-                    for (i = 0; i < $scope.paymentMethods.length; i += 1) {
-                        item = $scope.paymentMethods[i];
-                        if ($scope.checkout["payment_method_code"] === item.Code) {
-                            $scope.paymentType = item.Type;
-                            $scope.paymentMethods[i].cc = {};
-                            $scope.paymentMethods[i].cc.type = "VI";
-                            $scope.paymentMethods[i].cc["expire_month"] = "12";
-                            $scope.paymentMethods[i].cc["expire_year"] = "2017";
-                        }
-                    }
-                };
-
-                // TODO: remove customerInfo from js or resolve problem with model
-                initAdditionalInfo = function () {
-                    if ($scope.isGuestCheckout && typeof $scope.customerInfo !== "undefined") {
-                        isValidSteps.additionalInfo = $scope.customerInfo.$valid;
-                    }
-                };
-
                 $checkoutService.update().then(
                     function (checkout) {
                         $scope.checkout = checkout;
-                        initCurrentShippingMethod();
-                        initCurrentPaymentType();
                         initAddressesData();
-                        initAdditionalInfo();
                         defer.resolve(true);
                     }
                 );
@@ -112,6 +66,8 @@ angular.module("checkoutModule")
                 /**
                  * Sets payment method
                  */
+                // REFACTOR: discover the purpose of this and remove the $watch
+                // if you have saved billing info, and refresh the page this fires a PUT unnecessarily
                 defaultChoosePaymentMethod = $scope.$watch("checkout.payment_method_code", function () {
                     if (typeof $scope.checkout !== "undefined" &&
                         typeof $scope.checkout["payment_method_code"] !== "undefined" &&
@@ -123,8 +79,12 @@ angular.module("checkoutModule")
                         }).then(
                             function (response) {
                                 if (response.result === "ok") {
-                                    var isCreditCard;
-                                    isCreditCard = $scope.paymentType.split("_").indexOf("cc") >= 0;
+                                    var isCreditCard = false;
+
+                                    if (typeof $scope.paymentType !== "undefined") {
+                                        isCreditCard = $scope.paymentType.split("_").indexOf("cc") >= 0;
+                                    }
+
                                     if (isCreditCard) {
                                         var payment = getPaymentInfo();
                                         isValidSteps.paymentMethod = false;
@@ -168,28 +128,12 @@ angular.module("checkoutModule")
             };
 
             init = function () {
-                getDefaultAddress = function () {
-                    return {
-                        "street": "",
-                        "city": "",
-                        "state": "",
-                        "phone": "",
-                        "zip_code": "",
-                        "company": "",
-                        "first_name": "",
-                        "last_name": "",
-                        "address_line1": "",
-                        "address_line2": "",
-                        "country": ""
-                    };
-                };
 
-                creditCartTypes = {
-                    'VI': [new RegExp('^4[0-9]{12}([0-9]{3})?$'), new RegExp('^[0-9]{3}$'), true],
-                    'MC': [new RegExp('^5[1-5][0-9]{14}$'), new RegExp('^[0-9]{3}$'), true],
-                    'AX': [new RegExp('^3[47][0-9]{13}$'), new RegExp('^[0-9]{3}$'), true],
-                    'DS': [new RegExp('^6(?:011|5[0-9]{2})[0-9]{12}$'), new RegExp('^[0-9]{3}$'), true]
-                };
+                // General
+                $scope.checkoutService = $checkoutService;
+                $scope.cart = $cartService;
+                $scope.checkout = {};
+                $scope.totals = 0;
 
                 isValidSteps = {
                     "billingAddress": false,
@@ -198,9 +142,9 @@ angular.module("checkoutModule")
                     "paymentMethod": false,
                     "discounts": true
                 };
-                $scope["checkoutService"] = $checkoutService;
 
-                $scope["countries"] = [
+                // Addresses
+                $scope.countries = [
                     { "Code": "US", "Name": "United States" },
                     { "Code": "AF", "Name": "Afghanistan" },
                     { "Code": "AX", "Name": "Åland Islands" },
@@ -445,7 +389,42 @@ angular.module("checkoutModule")
                     { "Code": "ZM", "Name": "Zambia" },
                     { "Code": "ZW", "Name": "Zimbabwe" }
                 ];
-                $scope["creditTypes"] = [
+                $scope.states = $designStateService;
+
+                getDefaultAddress = function () {
+                    return {
+                        "street": "",
+                        "city": "",
+                        "state": "",
+                        "phone": "",
+                        "zip_code": "",
+                        "company": "",
+                        "first_name": "",
+                        "last_name": "",
+                        "address_line1": "",
+                        "address_line2": "",
+                        "country": ""
+                    };
+                };
+
+                $scope.useAsBilling = false;
+                $scope.shipping_address = getDefaultAddress();
+                $scope.billing_address = getDefaultAddress();
+
+                // Shipping method
+                $scope.shippingMethod = {
+                    selectedIndex: 0
+                };
+                $scope.shippingMethods = [];
+
+                // Billing Method
+                $scope.paymentMethods = [];
+                $checkoutService.loadPaymentMethods()
+                .then(function(methods){
+                    $scope.paymentMethods = methods;
+                });
+
+                $scope.creditTypes = [
                     {
                         "Code": "VI",
                         "Name": "Visa"
@@ -464,14 +443,12 @@ angular.module("checkoutModule")
                      }
                 ];
 
-                $scope["useAsBilling"] = false;
-                $scope["states"] = $designStateService;
-                $scope["cart"] = $cartService;
-                $scope["shippingMethods"] = [];
-                $scope["checkout"] = {};
-                $scope["shipping_address"] = getDefaultAddress();
-                $scope["billing_address"] = getDefaultAddress();
-                $scope["totals"] = 0;
+                creditCartTypes = {
+                    'VI': [new RegExp('^4[0-9]{12}([0-9]{3})?$'), new RegExp('^[0-9]{3}$'), true],
+                    'MC': [new RegExp('^5[1-5][0-9]{14}$'), new RegExp('^[0-9]{3}$'), true],
+                    'AX': [new RegExp('^3[47][0-9]{13}$'), new RegExp('^[0-9]{3}$'), true],
+                    'DS': [new RegExp('^6(?:011|5[0-9]{2})[0-9]{12}$'), new RegExp('^[0-9]{3}$'), true]
+                };
 
                 info();
             };
@@ -526,18 +503,8 @@ angular.module("checkoutModule")
                                             $location.path("/");
                                         } else {
                                             getAddresses();
-                                            $checkoutService.init().then(function () {
-                                                init();
-                                                $scope.shippingMethods = $checkoutService.getAllowedShippingMethods();
-                                                var defaultMethod = $checkoutService.getMinimalCostShippingMethods();
-
-                                                // TODO: We really shouldn't be fetching htis on page load
-                                                if (defaultMethod) {
-                                                    $scope.indexShippingMethod = defaultMethod.index;
-                                                    $scope.choiceShippingMethod($scope.indexShippingMethod);
-                                                };
-                                                initWatchers();
-                                            });
+                                            init();
+                                            initWatchers();
                                         }
                                     });
                                 } else {
@@ -550,18 +517,8 @@ angular.module("checkoutModule")
                                             $('#shippingAddress').show();
                                         }
                                         getAddresses();
-                                        $checkoutService.init().then(function () {
-                                            init();
-                                            $scope.shippingMethods = $checkoutService.getAllowedShippingMethods();
-                                            var defaultMethod = $checkoutService.getMinimalCostShippingMethods();
-
-                                            // TODO:
-                                            if (defaultMethod) {
-                                                $scope.indexShippingMethod = defaultMethod.index;
-                                                $scope.choiceShippingMethod($scope.indexShippingMethod);
-                                            };
-                                            initWatchers();
-                                        });
+                                        init();
+                                        initWatchers();
                                     });
                                 }
                             }
@@ -580,12 +537,14 @@ angular.module("checkoutModule")
                     "method": null,
                     "form": null
                 };
-                if (typeof $scope.paymentMethods !== "undefined") {
-                    for (i = 0; i < $scope.paymentMethods.length; i += 1) {
-                        if ($scope.paymentMethods[i].Code === $scope.checkout["payment_method_code"]) {
-                            info.method = $scope.paymentMethods[i];
-                            info.form = info.method.form;
-                        }
+
+                // [aknox] not sure why we do this
+                // If the checkout object's stored payment method info is found in our
+                // set of available methods return the info object for it.
+                for (i = 0; i < $scope.paymentMethods.length; i += 1) {
+                    if ($scope.paymentMethods[i].Code === $scope.checkout["payment_method_code"]) {
+                        info.method = $scope.paymentMethods[i];
+                        info.form = info.method.form;
                     }
                 }
 
@@ -703,23 +662,6 @@ angular.module("checkoutModule")
                 }
             };
 
-            $scope.choiceShippingMethod = function (index) {
-
-                if (typeof index !== "undefined" && index !== "") {
-                    $checkoutService.saveShippingMethod({
-                        "method": $scope.shippingMethods[index].Method,
-                        "rate": $scope.shippingMethods[index].Rate
-                    }).then(
-                        function (response) {
-                            if (response.result === "ok") {
-                                // update checkout
-                                info();
-                            }
-                        }
-                    );
-                }
-            };
-
             $scope.back = function (step) {
                 if (step === "review" && !$scope["isGuestCheckout"]) {
                     $("#" + step).slideUp("slow").parents('.panel').prev('.panel').prev('.panel').find('.accordion').slideDown(500);
@@ -781,6 +723,20 @@ angular.module("checkoutModule")
                     }
                 };
 
+                var actionShippingMethod = function() {
+                    $checkoutService.saveShippingMethod({
+                        "method": $scope.shippingMethods[$scope.shippingMethod.selectedIndex].Method,
+                        "rate": $scope.shippingMethods[$scope.shippingMethod.selectedIndex].Rate
+                    }).then(function (response) {
+                        if (response.result === "ok") {
+                            // update checkout
+                            info();
+                            isValidSteps.shippingMethod = true;
+                            actionDefault();
+                        }
+                    });
+                }
+
                 actionPaymentMethod = function () {
                     $scope.subPaymentForm = true;
 
@@ -819,21 +775,17 @@ angular.module("checkoutModule")
                 };
 
                 actionCustomerAdditionalInfo = function () {
-                    $scope.subAdditionalInfo = true;
+                    $scope.subAdditionalInfo = true; // not sure what purpose this serves
+                    // isValidSteps isn't used for this step
 
-                    if ($scope.isGuestCheckout) {
-                        if (typeof $scope.checkout.info.customer_email !== "undefined") {
-                            $checkoutService.saveAdditionalInfo({
-                                "customer_email": $scope.checkout.info.customer_email,
-                                "customer_name": $scope.checkout.info.customer_name
-                            }).then(function () {
-                                // resp.result == 'ok'
-                                $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
-                            });
-                        }
-                    } else {
-                        // NOTE: we no longer get here
-                        $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
+                    if ($scope.isGuestCheckout && $scope.customerInfo.$valid) {
+                        $checkoutService.saveAdditionalInfo({
+                            "customer_email": $scope.checkout.info.customer_email,
+                            "customer_name": $scope.checkout.info.customer_name
+                        }).then(function () {
+                            // resp.result == 'ok'
+                            $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
+                        });
                     }
                 };
 
@@ -862,6 +814,9 @@ angular.module("checkoutModule")
                         break;
                     case "shippingAddress":
                         actionShippingAddress();
+                        break;
+                    case "shippingMethod":
+                        actionShippingMethod();
                         break;
                     case "paymentMethod":
                         actionPaymentMethod();

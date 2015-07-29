@@ -25,20 +25,22 @@ angular.module("checkoutModule")
             loadShippingMethods = function () {
                 var defer = $q.defer();
 
-
                 var splitMethodToRates = function (method) {
                     var i, rate;
                     for (i = 0; i < method.Rates.length; i += 1) {
                         rate = method.Rates[i];
 
-                        allowedShippingMethods.push(
-                            {
-                                "Name": method.Name + " - " + rate.Name + " ($" + rate.Price + ")",
-                                "Price": rate.Price,
-                                "Method": method.Code,
-                                "Rate": rate.Code
-                            }
-                        );
+                        var methodLabel = method.Name + " - " + rate.Name + " ($" + rate.Price + ")";
+                        if (method.Name == 'Flat Rate') {
+                            methodLabel = rate.Name + " ($" + rate.Price + ")";
+                        }
+
+                        allowedShippingMethods.push({
+                            "Name": methodLabel,
+                            "Price": rate.Price,
+                            "Method": method.Code,
+                            "Rate": rate.Code
+                        });
                     }
                 };
 
@@ -71,6 +73,7 @@ angular.module("checkoutModule")
                 return defer.promise;
             };
 
+            // TODO: I THINK THIS CAN BE DELETED
             init = function () {
                 var defer, statuses;
                 statuses = {
@@ -276,6 +279,7 @@ angular.module("checkoutModule")
                 "getAllowedPaymentMethods": getAllowedPaymentMethods,
                 "getAllowedShippingMethods": getAllowedShippingMethods,
                 "loadShippingMethods": loadShippingMethods,
+                "loadPaymentMethods": loadPaymentMethods,
                 "getCheckout": getCheckout,
                 "saveShippingAddress": saveShippingAddress,
                 "saveBillingAddress": saveBillingAddress,
