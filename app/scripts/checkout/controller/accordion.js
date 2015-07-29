@@ -32,7 +32,7 @@ angular.module("checkoutModule")
 
             var init, info, getDefaultAddress, getAddresses, enabledGuestCheckout,
                 getPaymentInfo, creditCartTypes, isValidSteps, initWatchers, defaultChoosePaymentMethod,
-                defaultSetPaymentData, defaultSetUseAsBilling;
+                defaultSetPaymentData;
 
             /**
              * Gets checkout information
@@ -114,16 +114,6 @@ angular.module("checkoutModule")
                         isValidSteps.paymentMethod = payment.method.form.$valid && $scope.validateCcNumber();
                     }
 
-                }, true);
-
-                defaultSetUseAsBilling = $scope.$watch("useAsBilling", function () {
-                    if ($scope.useAsBilling && !$scope.isGuestCheckout && $scope.checkout["shipping_address"] !== null) {
-                        $scope.choiceBilling($scope.checkout["shipping_address"]._id || false);
-                    }
-
-                    if ($scope.useAsBilling && $scope.isGuestCheckout) {
-                        $scope.choiceShipping(false);
-                    }
                 }, true);
             };
 
@@ -407,9 +397,7 @@ angular.module("checkoutModule")
                     };
                 };
 
-                $scope.useAsBilling = false;
-                $scope.shipping_address = getDefaultAddress();
-                $scope.billing_address = getDefaultAddress();
+                $scope.useAsBilling = true;
 
                 // Shipping method
                 $scope.shippingMethod = {
