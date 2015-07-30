@@ -32,7 +32,7 @@ var paths = {
     theme: {
         dist: 'dist/theme',
         css: 'app/theme/styles/**/*.css',
-        images: 'app/theme/**/*.{png,jpg,jpec,ico,svg,mp4}',
+        images: 'app/theme/**/*.{png,gif,jpg,jpec,ico,svg,mp4}',
         fonts: 'app/theme/fonts/**/*',
         scripts: [
             'app/theme/lib/**/*.js',
