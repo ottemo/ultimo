@@ -32,7 +32,7 @@ angular.module("checkoutModule")
 
             var init, info, getDefaultAddress, getAddresses, enabledGuestCheckout,
                 getPaymentInfo, creditCartTypes, isValidSteps, initWatchers, defaultChoosePaymentMethod,
-                defaultSetPaymentData, defaultSetUseAsBilling;
+                defaultSetPaymentData;
 
             /**
              * Gets checkout information
@@ -114,16 +114,6 @@ angular.module("checkoutModule")
                         isValidSteps.paymentMethod = payment.method.form.$valid && $scope.validateCcNumber();
                     }
 
-                }, true);
-
-                defaultSetUseAsBilling = $scope.$watch("useAsBilling", function () {
-                    if ($scope.useAsBilling && !$scope.isGuestCheckout && $scope.checkout["shipping_address"] !== null) {
-                        $scope.choiceBilling($scope.checkout["shipping_address"]._id || false);
-                    }
-
-                    if ($scope.useAsBilling && $scope.isGuestCheckout) {
-                        $scope.choiceShipping(false);
-                    }
                 }, true);
             };
 
@@ -407,9 +397,7 @@ angular.module("checkoutModule")
                     };
                 };
 
-                $scope.useAsBilling = false;
-                $scope.shipping_address = getDefaultAddress();
-                $scope.billing_address = getDefaultAddress();
+                $scope.useAsBilling = true;
 
                 // Shipping method
                 $scope.shippingMethod = {
@@ -584,7 +572,10 @@ angular.module("checkoutModule")
                 }
             };
 
+            // REFACTOR: This is currently only used for saved addresses, and probably isn't needed
             $scope.choiceBilling = function (billingId) {
+                // TODO: [aknox] these top level conditions can't be right,
+                // why would we look at the shippingAddress form validity
                 if ($scope.isGuestCheckout && $scope.shippingAddress.$valid) {
                     $checkoutService.saveBillingAddress($scope.checkout["shipping_address"]).then(
                         function (response) {
@@ -615,6 +606,7 @@ angular.module("checkoutModule")
                 }
             };
 
+            // REFACTOR: This is currently only used for saved addresses, and probably isn't needed
             $scope.choiceShipping = function (shippingId) {
                 if ($scope.isGuestCheckout) {
                     $checkoutService.saveShippingAddress($scope.checkout["shipping_address"]).then(
@@ -694,32 +686,38 @@ angular.module("checkoutModule")
                 };
 
                 actionShippingAddress = function () {
+
                     $scope.subShippingAddress = true;
+
                     if ($scope.shippingAddress.$valid) {
                         isValidSteps.shippingAddress = true;
+
                         //always persist shipping address in case there are shipping notes
-                        $checkoutService.saveShippingAddress($scope.checkout["shipping_address"]).then(
-                            function () {
-                                getAddresses();
-                                $checkoutService.loadShippingMethods().then(function (methods) {
-                                    $scope.shippingMethods = methods;
-                                });
-                                if ($scope.useAsBilling) {
-                                    $checkoutService.saveBillingAddress($scope.checkout["shipping_address"]).then(function (response) {
-                                        if (response.error === null) {
-                                            isValidSteps.billingAddress = true;
-                                        }
-                                        // update checkout
-                                        info();
-                                        $("#" + step).slideUp("slow").parents('.panel').next('.panel').next('.panel').find('.accordion').slideDown(500);
-                                    });
-                                } else {
+                        $checkoutService.saveShippingAddress($scope.checkout.shipping_address)
+                        .then(function () {
+                            getAddresses();
+                            $checkoutService.loadShippingMethods().then(function (methods) {
+                                $scope.shippingMethods = methods;
+                            });
+
+                            if ($scope.useAsBilling) {
+                                $checkoutService.saveBillingAddress($scope.checkout.shipping_address)
+                                .then(function (response) {
+                                    if (response.error === null) {
+                                        isValidSteps.billingAddress = true;
+                                    }
                                     // update checkout
                                     info();
-                                    $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
-                                }
+                                    // skip billing address step
+                                    $("#" + step).slideUp("slow").parents('.panel').next('.panel').next('.panel').find('.accordion').slideDown(500);
+                                });
+                            } else {
+                                // update checkout
+                                info();
+                                // open billing address
+                                $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
                             }
-                        );
+                        });
                     }
                 };
 
