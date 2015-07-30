@@ -905,7 +905,7 @@ the extra space looks funny */
 .cart__proceed a {
 	display: block;
 }
-.btn.btn-block.btn-link .fa.fa-close {
+.cart-list__product-remove .btn {
 	color: red;
 }
 @media (min-width: 768px) {
