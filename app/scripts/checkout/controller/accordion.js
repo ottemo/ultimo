@@ -403,7 +403,7 @@ angular.module("checkoutModule")
                         "last_name": "",
                         "address_line1": "",
                         "address_line2": "",
-                        "country": ""
+                        "country": "US"
                     };
                 };
 
