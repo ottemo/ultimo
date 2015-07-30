@@ -5,7 +5,7 @@ node_js:
 
 # build image
 build_image: shippableimages/ubuntu1404_nodejs
-cache: true
+cache: false
 env: 
   global:
     - SLACK_ORG=Ottemo PROJECT=KariGran
