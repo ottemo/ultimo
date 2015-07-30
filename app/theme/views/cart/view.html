@@ -28,16 +28,13 @@
         </div>
 
         <!-- info -->
-        <div class="col-xs-6 col-sm-5">
+        <div class="col-xs-6 col-sm-4">
             <h4>{{item.product.name}}</h4>
 
             <ul class="list-unstyled">
                 <li>{{item.product.price | number: 2 | currency}}</li>
                 <li ng-repeat="(key, value) in item.options">
                     {{key}}: {{productService.getOptStr(value)}}
-                </li>
-                <li class="hidden-xs">
-                    <a class="text-danger" ng-click="remove(item.idx)">Remove</a>
                 </li>
             </ul>
         </div>
@@ -82,6 +79,13 @@
         <!-- price desktop -->
         <div class="hidden-xs hidden-sm col-md-1 cart-list__product-subtotal">
             {{item.product.price * item.qty | currency}}
+        </div>
+
+        <!-- product removal -->
+        <div class="hidden-xs col-sm-1 cart-list__product-remove">
+            <a class="btn btn-block btn-link" ng-click="remove(item.idx)">
+                <i class="fa fa-close"></i>
+            </a>
         </div>
     </div>
 

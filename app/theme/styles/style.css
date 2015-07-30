@@ -905,7 +905,11 @@ the extra space looks funny */
 .cart__proceed a {
 	display: block;
 }
+.cart-list__product-remove .btn {
+	color: red;
+}
 @media (min-width: 768px) {
+	.cart-list__product-remove,
 	.cart-list__product-qty,
 	.cart-list__product-subtotal {
 		margin-top: 10px;
