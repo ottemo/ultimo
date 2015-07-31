@@ -698,22 +698,32 @@ angular.module("checkoutModule")
                         $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
                     };
 
-                    var isMethodSelected = $scope.paymentMethod.selected;
-                    if ( isMethodSelected ) {
-                        $checkoutService.savePaymentMethod({
-                            method: $scope.paymentMethod.selected.Code
-                        })
+                    if ( $scope.paymentMethod.selected ) {
+
 
                         if ($scope.paymentMethod.selected.isCreditCard) {
+
+
                             var payment = getPaymentInfo();
                             payment.method.form.submited = true;
                             if (payment.method.form.$valid && $scope.validateCcNumber()) {
+                                //TODO: Ccan these be grouped?
+                                $checkoutService.savePaymentMethod({
+                                    method: $scope.paymentMethod.selected.Code
+                                });
+
                                 $checkoutService.saveAdditionalInfo({"cc": payment.method.cc});
                                 _proceed();
+                                //TODO: Do i want to fetch info() here?
                             }
                         } else {
+                            $checkoutService.savePaymentMethod({
+                                method: $scope.paymentMethod.selected.Code
+                            });
+
                             // not a cc, no form to validate
                             _proceed();
+                            //TODO: Do i want to fetch info() here?
                         }
 
                     }
