@@ -50,7 +50,7 @@ angular.module("cartModule")
             };
 
             $scope.update = function (itemIdx, qty) {
-                // TODO: not sure why we are tracking number of requests
+                // TODO: not sure why we are tracking number of requests 
                 $cartService.increaseCountRequest();
                 $cartService.update(itemIdx, qty);
             };
