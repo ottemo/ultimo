@@ -31,8 +31,7 @@ angular.module("checkoutModule")
         ) {
 
             var init, info, getDefaultAddress, getAddresses, enabledGuestCheckout,
-                getPaymentInfo, creditCartTypes, isValidSteps, initWatchers, defaultChoosePaymentMethod,
-                defaultSetPaymentData;
+                getPaymentInfo, creditCartTypes, isValidSteps, initWatchers, defaultSetPaymentData;
 
             /**
              * Gets checkout information
@@ -63,45 +62,6 @@ angular.module("checkoutModule")
             };
 
             initWatchers = function () {
-                /**
-                 * Sets payment method
-                 */
-                // REFACTOR: discover the purpose of this and remove the $watch
-                // if you have saved billing info, and refresh the page this fires a PUT unnecessarily
-                defaultChoosePaymentMethod = $scope.$watch("checkout.payment_method_code", function () {
-                    if (typeof $scope.checkout !== "undefined" &&
-                        typeof $scope.checkout["payment_method_code"] !== "undefined" &&
-                        $scope.checkout["payment_method_code"] !== "" &&
-                        $scope.checkout["payment_method_code"] !== null) {
-
-                        $checkoutService.savePaymentMethod({
-                            "method": $scope.checkout["payment_method_code"]
-                        }).then(
-                            function (response) {
-                                if (response.result === "ok") {
-                                    var isCreditCard = false;
-
-                                    if (typeof $scope.paymentType !== "undefined") {
-                                        isCreditCard = $scope.paymentType.split("_").indexOf("cc") >= 0;
-                                    }
-
-                                    if (isCreditCard) {
-                                        var payment = getPaymentInfo();
-                                        isValidSteps.paymentMethod = false;
-                                        if (typeof payment.method !== "undefined" && typeof payment.method.form !== "undefined"){
-                                            if (payment.method.form.$valid && $scope.validateCcNumber()) {
-                                                isValidSteps.paymentMethod = true;
-                                            }
-                                        }
-                                    } else {
-                                        isValidSteps.paymentMethod = true;
-                                    }
-                                    info();
-                                }
-                            }
-                        );
-                    }
-                });
 
                 /**
                  * Sets payment method
