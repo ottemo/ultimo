@@ -345,7 +345,7 @@ angular.module("checkoutModule")
 
                 // Shipping method
                 $scope.shippingMethod = {
-                    selectedIndex: 0
+                    selected: false
                 };
                 $scope.shippingMethods = []; // REFACTOR: nest under shippingMethod as options
 
@@ -571,6 +571,7 @@ angular.module("checkoutModule")
                                 if (response.error === null) {
                                     $checkoutService.loadShippingMethods().then(function (methods) {
                                         $scope.shippingMethods = methods;
+                                        $scope.shippingMethod.selected = $scope.shippingMethods[0]; // select first option
                                     });
                                     // sets billing address
                                     if ($scope.useAsBilling) {
@@ -593,6 +594,7 @@ angular.module("checkoutModule")
                                     isValidSteps.shippingAddress = true;
                                     $checkoutService.loadShippingMethods().then(function (methods) {
                                         $scope.shippingMethods = methods;
+                                        $scope.shippingMethod.selected = $scope.shippingMethods[0]; // select first option
                                     });
                                     // sets billing address
                                     if ($scope.useAsBilling) {
@@ -651,6 +653,7 @@ angular.module("checkoutModule")
                             getAddresses();
                             $checkoutService.loadShippingMethods().then(function (methods) {
                                 $scope.shippingMethods = methods;
+                                $scope.shippingMethod.selected = $scope.shippingMethods[0]; // select first option
                             });
 
                             if ($scope.useAsBilling) {
@@ -676,8 +679,8 @@ angular.module("checkoutModule")
 
                 var actionShippingMethod = function() {
                     $checkoutService.saveShippingMethod({
-                        "method": $scope.shippingMethods[$scope.shippingMethod.selectedIndex].Method,
-                        "rate": $scope.shippingMethods[$scope.shippingMethod.selectedIndex].Rate
+                        "method": $scope.shippingMethod.selected.Method,
+                        "rate": $scope.shippingMethod.selected.Rate
                     }).then(function (response) {
                         if (response.result === "ok") {
                             // update checkout

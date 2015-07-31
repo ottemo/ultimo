@@ -536,9 +536,9 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                         <div class="radio" ng-repeat="method in shippingMethods">
                             <label>
                                 <input type="radio"
-                                value="{{$index}}"
                                 name="shipping_method"
-                                ng-model="shippingMethod.selectedIndex">
+                                ng-value="method"
+                                ng-model="shippingMethod.selected">
                                 {{method.Name}}
                             </label>
                         </div>
