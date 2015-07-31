@@ -664,9 +664,9 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
             <div class="panel-body">
                 <div id="paymentMethod" class="accordion" style="display:none">
 
-                    <div class="form-group" ng-repeat="method in paymentMethods">
+                    <div ng-repeat="method in paymentMethods">
                         <div class="radio">
-                            <label class="myCheckbox">
+                            <label>
                                 <input type="radio"
                                 name="test"
                                 value="{{method.Code}}"
@@ -675,8 +675,6 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                                 {{method.Name}}
                             </label>
                         </div>
-
-                        <div class="clearfix"></div>
 
                         <div class="paypal" ng-show="checkout.payment_method_code===method.Code" ng-if="showFormCc(method)">
                             <form name="method.form" novalidate>
@@ -754,8 +752,6 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                         </div>
 
                     </div>
-
-                    <div class="clearfix"></div>
 
                     <div class="text-center">
                         <!-- prev step -->
