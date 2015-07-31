@@ -669,14 +669,13 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                             <label>
                                 <input type="radio"
                                 name="test"
-                                value="{{method.Code}}"
-                                ng-model="checkout.payment_method_code"
-                                ng-change="setPaymentType(method.Type)">
+                                ng-value="method"
+                                ng-model="paymentMethod.selected">
                                 {{method.Name}}
                             </label>
                         </div>
 
-                        <div class="paypal" ng-show="checkout.payment_method_code===method.Code" ng-if="showFormCc(method)">
+                        <div class="paypal" ng-show="paymentMethod.selected.Code === method.Code" ng-if="method.isCreditCard">
                             <form name="method.form" novalidate>
 
                                 <div class="form-group col-xs-12 col-sm-4"
