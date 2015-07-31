@@ -49,42 +49,10 @@ angular.module("cartModule")
                 $cartService.remove(itemIdx);
             };
 
-            // REFACTOR: is this just a hand coded debounce?
-            var stop = {}, dateLastClick;
-            $scope.update = function (itemIdx) {
-                var stopCurrentInterval, delay, callback, getStartTime;
-                delay = 500;
-
-                dateLastClick = new Date();
-
-                stopCurrentInterval = function () {
-                    if (angular.isDefined(stop[itemIdx])) {
-                        $interval.cancel(stop[itemIdx]);
-                        stop[itemIdx] = undefined;
-                    }
-                };
-
-                getStartTime = function () {
-                    return dateLastClick.getTime();
-                };
-
-                callback = function () {
-                    var duration, d, qty;
-                    d = new Date();
-                    duration = d.getTime() - getStartTime();
-
-                    if (duration >= delay) {
-                        var item = $cartService.getItem(itemIdx);
-                        qty = item.qty;
-                        stopCurrentInterval();
-                        $cartService.update(itemIdx, qty);
-                    }
-                };
-
-                if (typeof stop[itemIdx] === "undefined") {
-                    $cartService.increaseCountRequest();
-                    stop[itemIdx] = $interval(callback, 100);
-                }
+            $scope.update = function (itemIdx, qty) {
+                // TODO: not sure why we are tracking number of requests
+                $cartService.increaseCountRequest();
+                $cartService.update(itemIdx, qty);
             };
 
             /**
