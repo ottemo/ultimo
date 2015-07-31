@@ -151,7 +151,7 @@ angular.module("cartModule")
 
                 if (typeof items !== 'undefined') {
                     for (var i = 0; i < items.length; i += 1) {
-                        count += items[i].qty;
+                        count += parseInt(items[i].qty, 10);
                     }
                 }
 
