@@ -151,7 +151,7 @@ angular.module("cartModule")
 
                 if (typeof items !== 'undefined') {
                     for (var i = 0; i < items.length; i += 1) {
-                        count += items[i].qty;
+                        count += parseInt(items[i].qty, 10);
                     }
                 }
 
@@ -221,21 +221,19 @@ angular.module("cartModule")
             };
 
             remove = function (itemIdx) {
-                if (window.confirm('You really want remove this item from shopping cart?')) {
-                    var deferRemoveItem = $q.defer();
-                    $cartApiService.remove({'itemIdx': itemIdx}).$promise.then(
-                        function () {
-                            activeRequests -= 1;
-                            loadCartInfo().then(
-                                function () {
-                                    deferRemoveItem.resolve(true);
-                                }
-                            );
-                        }
-                    );
+                var deferRemoveItem = $q.defer();
+                $cartApiService.remove({'itemIdx': itemIdx}).$promise.then(
+                    function () {
+                        activeRequests -= 1;
+                        loadCartInfo().then(
+                            function () {
+                                deferRemoveItem.resolve(true);
+                            }
+                        );
+                    }
+                );
 
-                    return deferRemoveItem.promise;
-                }
+                return deferRemoveItem.promise;
             };
 
             update = function (itemIdx, qty) {
