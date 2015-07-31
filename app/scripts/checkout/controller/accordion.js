@@ -31,7 +31,7 @@ angular.module("checkoutModule")
         ) {
 
             var init, info, getDefaultAddress, getAddresses, enabledGuestCheckout,
-                getPaymentInfo, creditCartTypes, isValidSteps;
+                getPaymentInfo, creditCardTypes, isValidSteps;
 
             /**
              * Gets checkout information
@@ -382,7 +382,7 @@ angular.module("checkoutModule")
                      }
                 ];
 
-                creditCartTypes = {
+                creditCardTypes = {
                     'VI': [new RegExp('^4[0-9]{12}([0-9]{3})?$'), new RegExp('^[0-9]{3}$'), true],
                     'MC': [new RegExp('^5[1-5][0-9]{14}$'), new RegExp('^[0-9]{3}$'), true],
                     'AX': [new RegExp('^3[47][0-9]{13}$'), new RegExp('^[0-9]{3}$'), true],
@@ -986,7 +986,7 @@ angular.module("checkoutModule")
                     return false;
                 }
 
-                if (creditCartTypes[payment.method.cc.type][0].test(payment.method.cc.number) === true) {
+                if (creditCardTypes[payment.method.cc.type][0].test(payment.method.cc.number) === true) {
                     result = validateCreditCard(payment.method.cc.number);
                 }
 
