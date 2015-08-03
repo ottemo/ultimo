@@ -11,7 +11,7 @@ angular.module("checkoutModule")
         "ACCORDION_URL",
         function ($q, $timeout, $interval, $checkoutApiService, ONEPAGE_URL, ACCORDION_URL) {
             // Variables
-            var checkout, allowedShippingMethods, allowedPaymentMethods, defaultType, activeType;
+            var checkout, allowedShippingMethods, allowedPaymentMethods, defaultType;
 
             // Functions
             var init, getUrl, getType, update, loadShippingMethods, loadPaymentMethods,
