@@ -468,7 +468,7 @@ angular.module("checkoutModule")
                 $scope.$emit("add-breadcrumbs", {"label": "Checkout", "url": "/checkout"});
             };
 
-            // REFACTOR: get rid of this
+            // REFACTOR: we should just be able to use the $scope.paymentMethod.selected object
             getPaymentInfo = function () {
                 var i, info;
                 info = {
@@ -476,18 +476,8 @@ angular.module("checkoutModule")
                     "form": null
                 };
 
-                // [aknox] not sure why we do this
-                // If the checkout object's stored payment method info is found in our
-                // set of available methods return the info object for it.
-                // info.method = $scope.paymentMethod.selected;
-                // info.form = $scope.paymentMethod.form;
-
-                for (i = 0; i < $scope.paymentMethods.length; i += 1) {
-                    if ($scope.paymentMethods[i].Code === $scope.checkout["payment_method_code"]) {
-                        info.method = $scope.paymentMethods[i];
-                        info.form = info.method.form;
-                    }
-                }
+                info.method = $scope.paymentMethod.selected;
+                info.form = $scope.paymentMethod.selected.form;
 
                 return info;
             };
@@ -700,6 +690,10 @@ angular.module("checkoutModule")
                         if ($scope.paymentMethod.selected.isCreditCard) {
 
                             var payment = getPaymentInfo();
+
+                            // REFACTOR: we are using our own proprietary "submited" instead
+                            // of angular's form.$submitted https://docs.angularjs.org/guide/forms
+                            // also I'm not entirely convinced we use this properly in the view
                             payment.method.form.submited = true;
 
                             if (payment.method.form.$valid && $scope.validateCcNumber()) {
