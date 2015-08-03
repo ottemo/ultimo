@@ -693,39 +693,46 @@ angular.module("checkoutModule")
 
                 actionPaymentMethod = function () {
                     $scope.subPaymentForm = true;
+                    isValidSteps.paymentMethod = false;
 
-                    var _proceed = function() {
-                        $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
-                    };
-
-                    if ( $scope.paymentMethod.selected ) {
-
+                    if ($scope.paymentMethod.selected) {
 
                         if ($scope.paymentMethod.selected.isCreditCard) {
 
-
                             var payment = getPaymentInfo();
                             payment.method.form.submited = true;
+
                             if (payment.method.form.$valid && $scope.validateCcNumber()) {
-                                //TODO: Ccan these be grouped?
+                                // Save off the method name
                                 $checkoutService.savePaymentMethod({
                                     method: $scope.paymentMethod.selected.Code
                                 });
 
-                                $checkoutService.saveAdditionalInfo({"cc": payment.method.cc});
-                                _proceed();
-                                //TODO: Do i want to fetch info() here?
+                                // Save off the cc form
+                                $checkoutService.saveAdditionalInfo({"cc": payment.method.cc})
+                                .then(function(resp){
+                                    if (resp.result === 'ok') {
+                                        // Update the checkout object and proceed
+                                        isValidSteps.paymentMethod = true;
+                                        info();
+                                        actionDefault();
+                                    };
+                                });
                             }
                         } else {
+                            // not a cc just continue
                             $checkoutService.savePaymentMethod({
                                 method: $scope.paymentMethod.selected.Code
+                            })
+                            .then(function(resp){
+                                // update the checkout object and proceed
+                                if (resp.result === 'ok') {
+                                    isValidSteps.paymentMethod = true;
+                                    info();
+                                    actionDefault();
+                                };
                             });
-
-                            // not a cc, no form to validate
-                            _proceed();
-                            //TODO: Do i want to fetch info() here?
                         }
-
                     }
                 };
 
@@ -962,6 +969,7 @@ angular.module("checkoutModule")
                 );
             };
 
+            // REFACTOR: this should be a directive
             $scope.validateCcNumber = function () {
                 var i, payment, result;
                 result = false;
