@@ -609,9 +609,8 @@ angular.module("checkoutModule")
 
             $scope.next = function (step) {
                 /*jshint maxcomplexity:6 */
-                var actionBillingAddress, actionShippingAddress, actionPaymentMethod, actionCustomerAdditionalInfo, actionDiscount, actionDefault;
 
-                actionBillingAddress = function () {
+                var actionBillingAddress = function () {
                     $scope.subBillingAddress = true;
                     if ($scope.billingAddress.$valid) {
                         isValidSteps.billingAddress = true;
@@ -630,7 +629,7 @@ angular.module("checkoutModule")
                     }
                 };
 
-                actionShippingAddress = function () {
+                var actionShippingAddress = function () {
 
                     $scope.subShippingAddress = true;
 
@@ -681,7 +680,7 @@ angular.module("checkoutModule")
                     });
                 }
 
-                actionPaymentMethod = function () {
+                var actionPaymentMethod = function () {
                     $scope.subPaymentForm = true;
                     isValidSteps.paymentMethod = false;
 
@@ -730,7 +729,7 @@ angular.module("checkoutModule")
                     }
                 };
 
-                actionCustomerAdditionalInfo = function () {
+                var actionCustomerAdditionalInfo = function () {
                     $scope.subAdditionalInfo = true; // not sure what purpose this serves
                     // isValidSteps isn't used for this step
 
@@ -745,7 +744,7 @@ angular.module("checkoutModule")
                     }
                 };
 
-                actionDiscount = function () {
+                var actionDiscount = function () {
                     // Discounts step is always valid
                     // If the grand total is 0 we can set the paymentMethod step to valid and jump over it.
                     if ($scope.checkout.grandtotal <= 0)  {
@@ -758,7 +757,7 @@ angular.module("checkoutModule")
                     }
                 };
 
-                actionDefault = function () {
+                var actionDefault = function () {
                     if (isValidSteps[step]) {
                         $("#" + step).slideUp(500).parents('.panel').next('.panel').find('.accordion').slideDown(500);
                     }
@@ -788,13 +787,6 @@ angular.module("checkoutModule")
                 }
 
             };// jshint ignore:line
-
-            $scope.showFormCc = function (method) {
-                if (typeof method !== "undefined") {
-                    return method.Type.split("_").indexOf("cc") >= 0;
-                }
-                return false;
-            };
 
             $scope.closeSuccessPopup = function () {
                 $(".modal").modal("hide");
