@@ -39,6 +39,7 @@ angular.module("checkoutModule", [
     }
 ])
 
+// REFACTOR: We shouldn't be fetching this from the server, we have it in our config
 .run([
     "$http",
     "REST_SERVER_URI",

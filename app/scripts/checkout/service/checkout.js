@@ -218,6 +218,7 @@ angular.module("checkoutModule")
                 return url;
             };
 
+            // REFACTOR: rm
             setType = function (type) {
                 var types = ["onepage", "accordion"];
 

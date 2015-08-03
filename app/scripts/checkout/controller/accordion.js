@@ -424,7 +424,10 @@ angular.module("checkoutModule")
                         stop = undefined;
                     }
                 };
+                // REFACTOR: We shouldn't be using an interval
                 stop = $interval(function () {
+
+                    // REFACTOR: We shouldn't be fetching this from the server
                     if (typeof $checkoutService.getType() !== "undefined") {
                         stopWaiting();
                         if ("accordion" !== $checkoutService.getType()) {
@@ -576,9 +579,9 @@ angular.module("checkoutModule")
                     // Sets existing address as shipping
                     $checkoutService.saveShippingAddress({"id": shippingId}).then(
                         function (response) {
-                                // update checkout
-                                info().then(function () {
-                                    // if all ok, must update allowed shipping methods list
+                            // update checkout
+                            info().then(function () {
+                                // if all ok, must update allowed shipping methods list
                                 // and must set billing address if set appropriate checkbox
                                 if (response.error === null) {
                                     isValidSteps.shippingAddress = true;
