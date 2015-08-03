@@ -687,7 +687,6 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                                     class="form-control"
                                     ng-model="method.cc.type"
                                     required
-                                    ng-selected="c.Code == 'Visa' "
                                     ng-init="method.cc.type = creditTypes[0].Code"
                                     ng-options="c.Code as c.Name for c in creditTypes">
                                     </select>
