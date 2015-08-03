@@ -31,8 +31,7 @@ angular.module("checkoutModule")
         ) {
 
             var init, info, getDefaultAddress, getAddresses, enabledGuestCheckout,
-                getPaymentInfo, creditCartTypes, isValidSteps, initWatchers, defaultChoosePaymentMethod,
-                defaultSetPaymentData;
+                getPaymentInfo, creditCardTypes, isValidSteps;
 
             /**
              * Gets checkout information
@@ -60,61 +59,6 @@ angular.module("checkoutModule")
                 );
 
                 return defer.promise;
-            };
-
-            initWatchers = function () {
-                /**
-                 * Sets payment method
-                 */
-                // REFACTOR: discover the purpose of this and remove the $watch
-                // if you have saved billing info, and refresh the page this fires a PUT unnecessarily
-                defaultChoosePaymentMethod = $scope.$watch("checkout.payment_method_code", function () {
-                    if (typeof $scope.checkout !== "undefined" &&
-                        typeof $scope.checkout["payment_method_code"] !== "undefined" &&
-                        $scope.checkout["payment_method_code"] !== "" &&
-                        $scope.checkout["payment_method_code"] !== null) {
-
-                        $checkoutService.savePaymentMethod({
-                            "method": $scope.checkout["payment_method_code"]
-                        }).then(
-                            function (response) {
-                                if (response.result === "ok") {
-                                    var isCreditCard = false;
-
-                                    if (typeof $scope.paymentType !== "undefined") {
-                                        isCreditCard = $scope.paymentType.split("_").indexOf("cc") >= 0;
-                                    }
-
-                                    if (isCreditCard) {
-                                        var payment = getPaymentInfo();
-                                        isValidSteps.paymentMethod = false;
-                                        if (typeof payment.method !== "undefined" && typeof payment.method.form !== "undefined"){
-                                            if (payment.method.form.$valid && $scope.validateCcNumber()) {
-                                                isValidSteps.paymentMethod = true;
-                                            }
-                                        }
-                                    } else {
-                                        isValidSteps.paymentMethod = true;
-                                    }
-                                    info();
-                                }
-                            }
-                        );
-                    }
-                });
-
-                /**
-                 * Sets payment method
-                 */
-                defaultSetPaymentData = $scope.$watch("paymentMethods", function () {
-                    var payment = getPaymentInfo();
-
-                    if (payment.method !== null && typeof payment.method.form !== "undefined" && payment.method.Type.split("_").indexOf("cc") >= 0) {
-
-                        isValidSteps.paymentMethod = payment.method.form.$valid && $scope.validateCcNumber();
-                    }
-
-                }, true);
             };
 
             init = function () {
@@ -401,14 +345,21 @@ angular.module("checkoutModule")
 
                 // Shipping method
                 $scope.shippingMethod = {
-                    selectedIndex: 0
+                    selected: false
                 };
-                $scope.shippingMethods = [];
+                $scope.shippingMethods = []; // REFACTOR: nest under shippingMethod as options
 
                 // Billing Method
-                $scope.paymentMethods = [];
+                $scope.paymentMethod = {
+                    selected: false
+                };
+                $scope.paymentMethods = []; // REFACTOR: nest under paymentMethod as options
                 $checkoutService.loadPaymentMethods()
                 .then(function(methods){
+                    // Flag methods that have a credit card form
+                    angular.forEach(methods, function(method){
+                        method.isCreditCard = method.Type.split("_").indexOf("cc") >= 0;
+                    });
                     $scope.paymentMethods = methods;
                 });
 
@@ -431,7 +382,7 @@ angular.module("checkoutModule")
                      }
                 ];
 
-                creditCartTypes = {
+                creditCardTypes = {
                     'VI': [new RegExp('^4[0-9]{12}([0-9]{3})?$'), new RegExp('^[0-9]{3}$'), true],
                     'MC': [new RegExp('^5[1-5][0-9]{14}$'), new RegExp('^[0-9]{3}$'), true],
                     'AX': [new RegExp('^3[47][0-9]{13}$'), new RegExp('^[0-9]{3}$'), true],
@@ -473,7 +424,10 @@ angular.module("checkoutModule")
                         stop = undefined;
                     }
                 };
+                // REFACTOR: We shouldn't be using an interval
                 stop = $interval(function () {
+
+                    // REFACTOR: We shouldn't be fetching this from the server
                     if (typeof $checkoutService.getType() !== "undefined") {
                         stopWaiting();
                         if ("accordion" !== $checkoutService.getType()) {
@@ -492,7 +446,6 @@ angular.module("checkoutModule")
                                         } else {
                                             getAddresses();
                                             init();
-                                            initWatchers();
                                         }
                                     });
                                 } else {
@@ -506,7 +459,6 @@ angular.module("checkoutModule")
                                         }
                                         getAddresses();
                                         init();
-                                        initWatchers();
                                     });
                                 }
                             }
@@ -519,6 +471,7 @@ angular.module("checkoutModule")
                 $scope.$emit("add-breadcrumbs", {"label": "Checkout", "url": "/checkout"});
             };
 
+            // REFACTOR: we should just be able to use the $scope.paymentMethod.selected object
             getPaymentInfo = function () {
                 var i, info;
                 info = {
@@ -526,15 +479,8 @@ angular.module("checkoutModule")
                     "form": null
                 };
 
-                // [aknox] not sure why we do this
-                // If the checkout object's stored payment method info is found in our
-                // set of available methods return the info object for it.
-                for (i = 0; i < $scope.paymentMethods.length; i += 1) {
-                    if ($scope.paymentMethods[i].Code === $scope.checkout["payment_method_code"]) {
-                        info.method = $scope.paymentMethods[i];
-                        info.form = info.method.form;
-                    }
-                }
+                info.method = $scope.paymentMethod.selected;
+                info.form = $scope.paymentMethod.selected.form;
 
                 return info;
             };
@@ -618,6 +564,7 @@ angular.module("checkoutModule")
                                 if (response.error === null) {
                                     $checkoutService.loadShippingMethods().then(function (methods) {
                                         $scope.shippingMethods = methods;
+                                        $scope.shippingMethod.selected = $scope.shippingMethods[0]; // select first option
                                     });
                                     // sets billing address
                                     if ($scope.useAsBilling) {
@@ -632,14 +579,15 @@ angular.module("checkoutModule")
                     // Sets existing address as shipping
                     $checkoutService.saveShippingAddress({"id": shippingId}).then(
                         function (response) {
-                                // update checkout
-                                info().then(function () {
-                                    // if all ok, must update allowed shipping methods list
+                            // update checkout
+                            info().then(function () {
+                                // if all ok, must update allowed shipping methods list
                                 // and must set billing address if set appropriate checkbox
                                 if (response.error === null) {
                                     isValidSteps.shippingAddress = true;
                                     $checkoutService.loadShippingMethods().then(function (methods) {
                                         $scope.shippingMethods = methods;
+                                        $scope.shippingMethod.selected = $scope.shippingMethods[0]; // select first option
                                     });
                                     // sets billing address
                                     if ($scope.useAsBilling) {
@@ -664,9 +612,8 @@ angular.module("checkoutModule")
 
             $scope.next = function (step) {
                 /*jshint maxcomplexity:6 */
-                var actionBillingAddress, actionShippingAddress, actionPaymentMethod, actionCustomerAdditionalInfo, actionDiscount, actionDefault;
 
-                actionBillingAddress = function () {
+                var actionBillingAddress = function () {
                     $scope.subBillingAddress = true;
                     if ($scope.billingAddress.$valid) {
                         isValidSteps.billingAddress = true;
@@ -685,7 +632,7 @@ angular.module("checkoutModule")
                     }
                 };
 
-                actionShippingAddress = function () {
+                var actionShippingAddress = function () {
 
                     $scope.subShippingAddress = true;
 
@@ -698,6 +645,7 @@ angular.module("checkoutModule")
                             getAddresses();
                             $checkoutService.loadShippingMethods().then(function (methods) {
                                 $scope.shippingMethods = methods;
+                                $scope.shippingMethod.selected = $scope.shippingMethods[0]; // select first option
                             });
 
                             if ($scope.useAsBilling) {
@@ -723,8 +671,8 @@ angular.module("checkoutModule")
 
                 var actionShippingMethod = function() {
                     $checkoutService.saveShippingMethod({
-                        "method": $scope.shippingMethods[$scope.shippingMethod.selectedIndex].Method,
-                        "rate": $scope.shippingMethods[$scope.shippingMethod.selectedIndex].Rate
+                        "method": $scope.shippingMethod.selected.Method,
+                        "rate": $scope.shippingMethod.selected.Rate
                     }).then(function (response) {
                         if (response.result === "ok") {
                             // update checkout
@@ -735,44 +683,56 @@ angular.module("checkoutModule")
                     });
                 }
 
-                actionPaymentMethod = function () {
+                var actionPaymentMethod = function () {
                     $scope.subPaymentForm = true;
+                    isValidSteps.paymentMethod = false;
 
-                    var _proceed = function() {
-                        $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
-                    };
+                    if ($scope.paymentMethod.selected) {
 
-                    if (isValidSteps[step]) {
-                        var isCreditCard;
-                        if (typeof $scope.paymentType !== "undefined") {
-                            isCreditCard = $scope.paymentType.split("_").indexOf("cc") >= 0;
-                            if (isCreditCard) {
-                                var payment = getPaymentInfo();
-                                payment.method.form.submited = true;
-                                if (payment.method.form.$valid && $scope.validateCcNumber()) {
-                                    $checkoutService.saveAdditionalInfo({"cc": payment["method"]["cc"]});
-                                }
+                        if ($scope.paymentMethod.selected.isCreditCard) {
+
+                            var payment = getPaymentInfo();
+
+                            // REFACTOR: we are using our own proprietary "submited" instead
+                            // of angular's form.$submitted https://docs.angularjs.org/guide/forms
+                            // also I'm not entirely convinced we use this properly in the view
+                            payment.method.form.submited = true;
+
+                            if (payment.method.form.$valid && $scope.validateCcNumber()) {
+                                // Save off the method name
+                                $checkoutService.savePaymentMethod({
+                                    method: $scope.paymentMethod.selected.Code
+                                });
+
+                                // Save off the cc form
+                                $checkoutService.saveAdditionalInfo({"cc": payment.method.cc})
+                                .then(function(resp){
+                                    if (resp.result === 'ok') {
+                                        // Update the checkout object and proceed
+                                        isValidSteps.paymentMethod = true;
+                                        info();
+                                        actionDefault();
+                                    };
+                                });
                             }
-                        }
-                        _proceed();
-                    } else {
-                        var isCreditCard;
-                        if (typeof $scope.paymentType !== "undefined") {
-                            isCreditCard = $scope.paymentType.split("_").indexOf("cc") >= 0;
-                            if (isCreditCard) {
-                                var payment = getPaymentInfo();
-                                payment.method.form.submited = true;
-                                if (payment.method.form.$valid && $scope.validateCcNumber()) {
-                                    $checkoutService.saveAdditionalInfo({"cc": payment["method"]["cc"]});
-                                    _proceed();
-                                }
-                            }
+                        } else {
+                            // not a cc just continue
+                            $checkoutService.savePaymentMethod({
+                                method: $scope.paymentMethod.selected.Code
+                            })
+                            .then(function(resp){
+                                // update the checkout object and proceed
+                                if (resp.result === 'ok') {
+                                    isValidSteps.paymentMethod = true;
+                                    info();
+                                    actionDefault();
+                                };
+                            });
                         }
                     }
-
                 };
 
-                actionCustomerAdditionalInfo = function () {
+                var actionCustomerAdditionalInfo = function () {
                     $scope.subAdditionalInfo = true; // not sure what purpose this serves
                     // isValidSteps isn't used for this step
 
@@ -787,7 +747,7 @@ angular.module("checkoutModule")
                     }
                 };
 
-                actionDiscount = function () {
+                var actionDiscount = function () {
                     // Discounts step is always valid
                     // If the grand total is 0 we can set the paymentMethod step to valid and jump over it.
                     if ($scope.checkout.grandtotal <= 0)  {
@@ -800,7 +760,7 @@ angular.module("checkoutModule")
                     }
                 };
 
-                actionDefault = function () {
+                var actionDefault = function () {
                     if (isValidSteps[step]) {
                         $("#" + step).slideUp(500).parents('.panel').next('.panel').find('.accordion').slideDown(500);
                     }
@@ -830,24 +790,6 @@ angular.module("checkoutModule")
                 }
 
             };// jshint ignore:line
-
-            $scope.setPaymentType = function (type) {
-                $scope.paymentType = type;
-            };
-
-            $scope.isCreditCard = function () {
-                if (typeof $scope.paymentType !== "undefined") {
-                    return $scope.paymentType.split("_").indexOf("cc") >= 0;
-                }
-                return false;
-            };
-
-            $scope.showFormCc = function (method) {
-                if (typeof method !== "undefined") {
-                    return method.Type.split("_").indexOf("cc") >= 0;
-                }
-                return false;
-            };
 
             $scope.closeSuccessPopup = function () {
                 $(".modal").modal("hide");
@@ -1016,6 +958,7 @@ angular.module("checkoutModule")
                 );
             };
 
+            // REFACTOR: this should be a directive
             $scope.validateCcNumber = function () {
                 var i, payment, result;
                 result = false;
@@ -1053,7 +996,7 @@ angular.module("checkoutModule")
                     return false;
                 }
 
-                if (creditCartTypes[payment.method.cc.type][0].test(payment.method.cc.number) === true) {
+                if (creditCardTypes[payment.method.cc.type][0].test(payment.method.cc.number) === true) {
                     result = validateCreditCard(payment.method.cc.number);
                 }
 
