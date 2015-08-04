@@ -30,6 +30,9 @@ angular.module("contactModule", ["ngRoute"])
 		$scope.contactFormSuccessMessage = false;
 
 		$scope.submit = function() {
+			$scope.contactFormSuccessMessage = true;
+			$scope.contactFormErrorMessage = false;
+
 			var data = {
 				formLocation: 'contact',
 				name: $scope.contactForm.name,
@@ -38,8 +41,14 @@ angular.module("contactModule", ["ngRoute"])
 				comment: $scope.contactForm.comment,
 			};
 
-			emailService.post(data);
-			$scope.contactFormSuccessMessage = true;
+			emailService.post(data)
+			.then(function(response){
+				if (response.result == 'ok') {
+					$scope.contactFormSuccessMessage = true;
+				} else {
+					$scope.contactFormErrorMessage = true;
+				}
+			})
 		}
 	}
 ]);

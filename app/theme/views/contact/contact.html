@@ -5,8 +5,11 @@
 	<div class="col-md-8">
 		<h1>We would love to hear from you</h1>
 
-		<div class="alert alert-success" ng-if="contactFormSuccess">
+		<div class="alert alert-success" ng-show="contactFormSuccessMessage">
 			Thanks for reaching out to us, we'll get back in touch with you shortly.
+		</div>
+		<div class="alert alert-warn" ng-show="contactFormErrorMessage">
+			Oops! Something went wrong, try again later or give us a call.
 		</div>
 
 		<form name="contactForm" class="form-horizontal" ng-submit="contactForm.$valid && submit()">
