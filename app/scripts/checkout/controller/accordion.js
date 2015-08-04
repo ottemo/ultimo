@@ -417,55 +417,42 @@ angular.module("checkoutModule")
              * Gets checkout information
              */
             $scope.init = function () {
-                var stopWaiting, stop;
-                stopWaiting = function () {
-                    if (typeof $checkoutService.getType() !== "undefined") {
-                        $interval.cancel(stop);
-                        stop = undefined;
-                    }
-                };
-                // REFACTOR: We shouldn't be using an interval
-                stop = $interval(function () {
 
-                    // REFACTOR: We shouldn't be fetching this from the server
-                    if (typeof $checkoutService.getType() !== "undefined") {
-                        stopWaiting();
-                        if ("accordion" !== $checkoutService.getType()) {
-                            $location.path($checkoutService.getUrl().replace("#/", ""));
-                        }
+                // TODO: what is this for
+                if ("onepage" == $checkoutService.getType()) {
+                    $location.path($checkoutService.getUrl().replace("#/", ""));
+                }
 
-                        $cartService.init().then(function () {
-                            if ($cartService.getCountItems() === 0) {
-                                $location.path("/");
-                            } else {
-                                if (!enabledGuestCheckout()) {
-                                    $scope.isGuestCheckout = false;
-                                    $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
-                                        if (!isLoggedIn) {
-                                            $location.path("/");
-                                        } else {
-                                            getAddresses();
-                                            init();
-                                        }
-                                    });
+                $cartService.init().then(function () {
+                    if ($cartService.getCountItems() === 0) {
+                        $location.path("/");
+                    } else {
+
+                        if (!enabledGuestCheckout()) {
+                            $scope.isGuestCheckout = false;
+                            $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
+                                if (!isLoggedIn) {
+                                    $location.path("/");
                                 } else {
-                                    $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
-                                        if (!isLoggedIn) {
-                                            $scope.isGuestCheckout = true;
-                                        } else {
-                                            // Not guest checkout, flag it and make sure we show the shipping address panel
-                                            $scope.isGuestCheckout = false;
-                                            $('#shippingAddress').show();
-                                        }
-                                        getAddresses();
-                                        init();
-                                    });
+                                    getAddresses();
+                                    init();
                                 }
-                            }
-                        });
+                            });
+                        } else {
+                            $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
+                                if (!isLoggedIn) {
+                                    $scope.isGuestCheckout = true;
+                                } else {
+                                    // Not guest checkout, flag it and make sure we show the shipping address panel
+                                    $scope.isGuestCheckout = false;
+                                    $('#shippingAddress').show();
+                                }
+                                getAddresses();
+                                init();
+                            });
+                        }
                     }
-                }, 100);
-
+                });
 
                 $scope.$emit("add-breadcrumbs", {"label": "My Account", "url": "/account"});
                 $scope.$emit("add-breadcrumbs", {"label": "Checkout", "url": "/checkout"});

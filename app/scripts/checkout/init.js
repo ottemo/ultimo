@@ -8,7 +8,6 @@ angular.module("checkoutModule", [
     "giftCardsModule"
 ])
 
-.constant("CHECKOUT_TYPE", "general.checkout.checkout_type")
 .constant("ONEPAGE_URL", "/spcheckout")
 .constant("ACCORDION_URL", "/checkout")
 
@@ -37,21 +36,4 @@ angular.module("checkoutModule", [
             });
         $locationProvider.html5Mode(true);
     }
-])
-
-// REFACTOR: We shouldn't be fetching this from the server, we have it in our config
-.run([
-    "$http",
-    "REST_SERVER_URI",
-    "CHECKOUT_TYPE",
-    "$checkoutService",
-    function ($http, REST_SERVER_URI, CHECKOUT_TYPE, $checkoutService) {
-        $http({
-            url: REST_SERVER_URI + "/config/value/" + CHECKOUT_TYPE,
-            method: "GET"
-        }).success(function (response) {
-            $checkoutService.setType(response.result);
-        });
-    }
 ]);
-

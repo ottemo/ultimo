@@ -11,10 +11,10 @@ angular.module("checkoutModule")
         "ACCORDION_URL",
         function ($q, $timeout, $interval, $checkoutApiService, ONEPAGE_URL, ACCORDION_URL) {
             // Variables
-            var checkout, allowedShippingMethods, allowedPaymentMethods, defaultType, activeType;
+            var checkout, allowedShippingMethods, allowedPaymentMethods, defaultType;
 
             // Functions
-            var init, getUrl, getType, setType, update, loadShippingMethods, loadPaymentMethods,
+            var init, getUrl, getType, update, loadShippingMethods, loadPaymentMethods,
                 saveBillingAddress, saveShippingAddress, saveShippingMethod, savePaymentMethod, discountApply, discountNeglect,
                 getCheckout, getAllowedPaymentMethods, getAllowedShippingMethods, saveAdditionalInfo, getAllowedGuestCheckout,
                 getMinimalCostShippingMethods;
@@ -206,33 +206,11 @@ angular.module("checkoutModule")
             };
 
             getUrl = function () {
-                var url;
-
-                if ("onepage" === activeType) {
-                    url = ONEPAGE_URL;
-                } else {
-                    url = ACCORDION_URL;
-                }
-
-
-                return url;
-            };
-
-            // REFACTOR: rm
-            setType = function (type) {
-                var types = ["onepage", "accordion"];
-
-                if (-1 !== types.indexOf(type)) {
-                    activeType = type;
-                } else {
-                    activeType = defaultType;
-                }
-
-                return activeType;
+                return ("onepage" == getType()) ? ONEPAGE_URL : ACCORDION_URL;
             };
 
             getType = function () {
-                return activeType;
+                return angular.appConfigValue('general.checkout.checkout_type');
             };
 
             getCheckout = function () {
@@ -276,7 +254,6 @@ angular.module("checkoutModule")
                 "update": update,
                 "getUrl": getUrl,
                 "getType": getType,
-                "setType": setType,
                 "getAllowedPaymentMethods": getAllowedPaymentMethods,
                 "getAllowedShippingMethods": getAllowedShippingMethods,
                 "loadShippingMethods": loadShippingMethods,
