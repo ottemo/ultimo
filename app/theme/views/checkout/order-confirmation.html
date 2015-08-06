@@ -5,7 +5,7 @@
 			Your order number is: {{orderId}}.
 		</p>
 
-		<p>You will receive an order confirmation email with details of your order and a link to track its progress. You can also view past orders from the <a ng-href="/account/orders">my account page</a></p>
+		<p>You will receive an order confirmation email with details of your order and a link to track its progress. <span ng-if="visitorProps.isLoggedIn">You can also view past orders from the <a ng-href="/account/orders">my account page</a></span></p>
 
 		<a class="btn btn-primary" href="/shop">Continue shopping</a>
 		<br><br><br>
