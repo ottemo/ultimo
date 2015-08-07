@@ -55,18 +55,19 @@ angular.module("designModule")
         };
     })
 
-    .directive("homeInit", ["$timeout", function($timeout) {
+    .directive('homeInit', ['$timeout', function($timeout) {
         return {
-            restrict: "A",
+            restrict: 'A',
             link: function(scope) {
                 $timeout(function() {
 
-                    var showedModal = localStorage.getItem("showedModal");
+                    var showedModal = localStorage.getItem('showedModal');
                     var isMobile = window.innerWidth < 768;
                     var isLoggedIn = scope.visitorProps.isLoggedIn;
 
                     if (!showedModal && !isMobile && !isLoggedIn) {
                         $('#mailchimp').modal('show');
+                        localStorage.setItem('showedModal', 'true');
                     }
 
                     $('.carousel').carousel({

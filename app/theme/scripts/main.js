@@ -30,10 +30,6 @@ $(document).ready(function () {
         $('.modal').modal('hide');
     });
 
-    $(document).on('hide.bs.modal', '#mailchimp', function() {
-        localStorage.setItem('showedModal', 'true');
-    })
-
     // mobile collapse the nav
     $(document).on('click', '.main-menu a:not(.dropdown-toggle)', function(e){
         var $navToggle = $('.navbar-toggle');
