@@ -14,6 +14,8 @@ var RevAll = require('gulp-rev-all');
 var runSequence = require('run-sequence');
 var sourcemaps = require('gulp-sourcemaps');
 var sass = require('gulp-sass');
+var gutil = require('gulp-util');
+var plumber = require('gulp-plumber');
 
 var paths = {
     dist: 'dist',
@@ -49,6 +51,14 @@ var paths = {
         ie: 'app/lib/ie/*.js'
     }
 };
+
+var handleError = function(err) {
+    gutil.log(gutil.colors.red('# Error in ' + err.plugin));
+    gutil.log('fileName : %s', err.fileName);
+    gutil.log('lineNumber : %s', err.lineNumber);
+    gutil.log('message : %s', err.message);
+    gutil.beep();
+}
 
 var host = {
     port: '8080',
@@ -91,10 +101,12 @@ gulp.task('misc', function () {
 gulp.task('scripts', function () {
     return gulp.src(paths.scripts)
         .pipe(sourcemaps.init())
-        .pipe(concat('main.js'))
+        .pipe(plumber(handleError))
         .pipe(uglify({
             mangle: false
         }))
+        .pipe(plumber.stop())
+        .pipe(concat('main.js'))
         .pipe(sourcemaps.write('./maps'))
         .pipe(gulp.dest(paths.dist + '/scripts'))
         .pipe(refresh());
@@ -126,10 +138,12 @@ gulp.task('theme.fonts', function() {
 gulp.task('theme.scripts', function () {
     return gulp.src(paths.theme.scripts)
         .pipe(sourcemaps.init())
-        .pipe(concat('main.js'))
+        .pipe(plumber(handleError))
         .pipe(uglify({
             mangle: false
         }))
+        .pipe(plumber.stop())
+        .pipe(concat('main.js'))
         .pipe(sourcemaps.write('./maps'))
         .pipe(gulp.dest(paths.theme.dist))
         .pipe(refresh());
