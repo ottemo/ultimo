@@ -1,4 +1,4 @@
-<div class="home">
+<div class="home" home-init>
     <a href="/shop" class="main-banner">
         <img
         alt="Mad for Marsala, Introducing the lip whip inspired by Pantone's 2015 color of the year"
@@ -81,17 +81,5 @@
     </div>
 </div>
 
-<script>
-    setTimeout(function(){
-        var mailChimpModal = sessionStorage.getItem("showedModal");
-        if (mailChimpModal !== "true") {
-            $('#mailchimp').modal('show');
-        }
-
-        $('.carousel').carousel({
-            interval: 5000
-        });
-    },3000)
-</script>
 <!-- needs to exist on this page so that it fires whenever the page boots up -->
 <script src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js"></script>

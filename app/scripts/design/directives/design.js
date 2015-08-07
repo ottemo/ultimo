@@ -53,4 +53,27 @@ angular.module("designModule")
                 }
             });
         };
-    });
+    })
+
+    .directive("homeInit", ["$timeout", function($timeout) {
+        return {
+            restrict: "A",
+            link: function(scope) {
+                $timeout(function() {
+
+                    var showedModal = localStorage.getItem("showedModal");
+                    var isMobile = window.innerWidth < 768;
+                    var isLoggedIn = scope.visitorProps.isLoggedIn;
+
+                    if (!showedModal && !isMobile && !isLoggedIn) {
+                        $('#mailchimp').modal('show');
+                    }
+
+                    $('.carousel').carousel({
+                        interval: 5000
+                    });
+
+                }, 3000);
+            }
+        }
+    }]);

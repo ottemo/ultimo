@@ -23,14 +23,16 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '#mailchimp .close', function(event) {
-        sessionStorage.setItem("showedModal", "true");
         $('.modal').modal('hide');
     });
 
     $(document).on('click', '#mc-embedded-subscribe', function () {
-        sessionStorage.setItem("showedModal", "true");
         $('.modal').modal('hide');
     });
+
+    $(document).on('hide.bs.modal', '#mailchimp', function() {
+        localStorage.setItem('showedModal', 'true');
+    })
 
     // mobile collapse the nav
     $(document).on('click', '.main-menu a:not(.dropdown-toggle)', function(e){
