@@ -22,10 +22,7 @@ $(document).ready(function () {
         $("#form-login").modal("show");
     });
 
-    $(document).on('click', '#mailchimp .close', function(event) {
-        $('.modal').modal('hide');
-    });
-
+    // Mail chimp modal, close on submit btn click
     $(document).on('click', '#mc-embedded-subscribe', function () {
         $('.modal').modal('hide');
     });
