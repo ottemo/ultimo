@@ -1,9 +1,15 @@
-<div class="modal fade" id="mailchimp" tabindex="-1" role="dialog" ng-controller="visitorLoginController">
+<div class="modal fade"
+id="mailchimp"
+tabindex="-1"
+role="dialog"
+ng-controller="visitorLoginController">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body" id="mc_embed_signup">
                 <!-- close button -->
-                <button type="button" class="close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
 
                 <!-- logo -->
                 <div>
@@ -37,7 +43,11 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-8 col-sm-offset-2">
-                            <input type="submit" value="Subscribe &amp; Save" name="subscribe" id="mc-embedded-subscribe" class="btn btn-primary btn-block">
+                            <input type="submit"
+                            value="Subscribe &amp; Save"
+                            name="subscribe"
+                            id="mc-embedded-subscribe"
+                            class="btn btn-primary btn-block">
                         </div>
                     </div>
                 </form>
