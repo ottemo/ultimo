@@ -59,22 +59,31 @@ angular.module("designModule")
         return {
             restrict: 'A',
             link: function(scope) {
-                $timeout(function() {
 
-                    var showedModal = localStorage.getItem('showedModal');
-                    var isMobile = window.innerWidth < 768;
-                    var isLoggedIn = scope.visitorProps.isLoggedIn;
+                // Only show the modal if
+                // * the user is not on a phone
+                // * they have not seen the modal before (on this device)
+                // * they are not logged in
 
-                    if (!showedModal && !isMobile && !isLoggedIn) {
-                        $('#mailchimp').modal('show');
-                        localStorage.setItem('showedModal', 'true');
-                    }
+                // We can check these variables immediately
+                var showedModal = localStorage.getItem('showedModal');
+                var isMobile = window.innerWidth < 768;
 
-                    $('.carousel').carousel({
-                        interval: 5000
-                    });
+                if (!showedModal && !isMobile) {
 
-                }, 3000);
+                    // Wait for requests to finish to let us know if the user
+                    // is logged in
+                    $timeout(function() {
+
+                        var isLoggedIn = scope.visitorProps.isLoggedIn;
+
+                        if (!isLoggedIn) {
+                            $('#mailchimp').modal('show');
+                            localStorage.setItem('showedModal', 'true'); // string
+                        }
+
+                    }, 3000);
+                }
             }
         }
     }]);
