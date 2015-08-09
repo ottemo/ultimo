@@ -142,7 +142,6 @@ angular.module('categoryModule')
 
                 defaultOptionSet = $scope.$watch("options", function () {
                     $pdpProductService.setOptions($scope.options);
-                    $scope.popupProduct = $pdpProductService.getProduct();
                 }, true);
             };
 
