@@ -248,7 +248,9 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                                             ng-model-options="{ updateOn: 'blur' }"
                                            ng-model="checkout.shipping_address.zip_code" ng-disabled="checkout.shipping_address._id" required>
 
-                                    <p ng-show="(subShippingAddress && shippingAddress.zip_code.$error.required)"
+                                    <p ng-if="shippingAddress.zip_code.$error.required"
+                                       ng-show="(subShippingAddress && shippingAddress.zip_code.$invalid) ||
+                                            (shippingAddress.zip_code.$invalid && !shippingAddress.zip_code.$pristine)"
                                        class="help-block">This field is required.</p>
 
                                     <p ng-if="!shippingAddress.zip_code.$error.required"
@@ -267,7 +269,9 @@ We have a beautiful new site, but it’s not quite perfect yet. If you experienc
                                             ng-model-options="{ updateOn: 'blur' }"
                                            ng-model="checkout.shipping_address.phone" ng-disabled="checkout.shipping_address._id">
 
-                                    <p ng-show="(subShippingAddress && shippingAddress.phone.$error.required)"
+                                    <p ng-if="shippingAddress.phone.$error.required"
+                                       ng-show="(subShippingAddress && shippingAddress.phone.$invalid) ||
+                                         (shippingAddress.phone.$invalid && !shippingAddress.phone.$pristine)"
                                        class="help-block">This field is required.</p>
 
                                     <p ng-if="!shippingAddress.phone.$error.required"
