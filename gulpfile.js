@@ -54,9 +54,8 @@ var paths = {
 
 var handleError = function(err) {
     gutil.log(gutil.colors.red('# Error in ' + err.plugin));
-    gutil.log('fileName : %s', err.fileName);
-    gutil.log('lineNumber : %s', err.lineNumber);
-    gutil.log('message : %s', err.message);
+    gutil.log('File: %s:%s', err.fileName, err.lineNumber);
+    gutil.log('Error Message: %s', err.message);
     gutil.beep();
 }
 
