@@ -59,6 +59,12 @@ angular.module("designModule")
         return {
             restrict: 'A',
             link: function(scope) {
+                // Trust pilot widget
+                // needs to be instantiated on the homepage whenever it starts
+                $timeout(function(){
+                    // jquery is a lot easier for this
+                    $.getScript('//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js');
+                }, 1000);
 
                 // Only show the modal if
                 // * the user is not on a phone
