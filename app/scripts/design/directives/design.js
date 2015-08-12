@@ -53,7 +53,7 @@ angular.module("designModule")
                 }
             });
         };
-    })
+    });
 
 // Blocked, due to Mailchimp pages
 // 
