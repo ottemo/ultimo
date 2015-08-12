@@ -31,16 +31,15 @@ angular.module("commonModule", [
         $routeProvider
             .when("/", {
                 templateUrl: "theme/views/common/home.html",
-                controller: "commonController"
             })
             .when("/not-found", {
                 templateUrl: "theme/views/common/not-found.html",
-                controller: "commonController"
             })
-            .when("/help", {templateUrl: "views/help.html"})
+            .when("/help", {
+                templateUrl: "views/help.html"
+            })
             .when("/about.html", {
                 templateUrl: "theme/views/common/about.html",
-                controller: ""
             })
             .otherwise({
                 template: function () {
