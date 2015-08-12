@@ -53,12 +53,14 @@ angular.module("designModule")
                 }
             });
         };
-    })
+    });
 
-    .directive('homeInit', ['$timeout', function($timeout) {
-        return {
-            restrict: 'A',
-            link: function(scope) {
+// Blocked, due to Mailchimp pages
+// 
+//    .directive('homeInit', ['$timeout', function($timeout) {
+//        return {
+//           restrict: 'A',
+//            link: function(scope) {
 
                 // Only show the modal if
                 // * the user is not on a phone
@@ -66,24 +68,24 @@ angular.module("designModule")
                 // * they are not logged in
 
                 // We can check these variables immediately
-                var showedModal = localStorage.getItem('showedModal');
-                var isMobile = window.innerWidth < 768;
+//              var showedModal = localStorage.getItem('showedModal');
+//                var isMobile = window.innerWidth < 768;
 
-                if (!showedModal && !isMobile) {
+//                if (!showedModal && !isMobile) {
 
                     // Wait for requests to finish to let us know if the user
                     // is logged in
-                    $timeout(function() {
+//                    $timeout(function() {
 
-                        var isLoggedIn = scope.visitorProps.isLoggedIn;
+//                        var isLoggedIn = scope.visitorProps.isLoggedIn;
 
-                        if (!isLoggedIn) {
-                            $('#mailchimp').modal('show');
-                            localStorage.setItem('showedModal', 'true'); // string
-                        }
+//                        if (!isLoggedIn) {
+//                            $('#mailchimp').modal('show');
+//                            localStorage.setItem('showedModal', 'true'); // string
+//                        }
 
-                    }, 3000);
-                }
-            }
-        }
-    }]);
+//                    }, 3000);
+//                }
+//            }
+//        }
+//    }]);
