@@ -1,5 +1,5 @@
 <div ng-init="init()" class="" ng-controller="visitorLoginController">
-    
+
     <!-- page title -->
     <h2 class="text-center row">Login page</h2>
     <hr>
@@ -36,10 +36,10 @@
                      ng-class="{ 'has-error' : (loginForm.submitted && loginForm.email.$error.required) || (loginForm.email.$invalid && !loginForm.email.$pristine) }">
                     <label for="email">Email *</label>
                     <input class="form-control" type="text" id="email" placeholder="email"
-                           ng-model="loginCredentials.email" 
+                           ng-model="loginCredentials.email"
                            ng-model-options="{ updateOn: 'blur' }"
                            name="email" required />
-                    
+
                     <!-- error message -->
                     <p ng-show="(loginForm.submitted && loginForm.email.$error.required) || (loginForm.email.$invalid && !loginForm.email.$pristine)"
                        class="help-block">This field is required.</p>
@@ -60,7 +60,7 @@
 
                 <!-- submit button -->
                 <button type="submit" class="btn btn-primary col-xs-6 col-xs-offset-3" ng-click="signIn()">Login</button>
-                <div class="clearfix"></div>  
+                <div class="clearfix"></div>
             </form>
         </div>
 
@@ -89,9 +89,7 @@
             <a href="/registration" class="btn btn-primary">Create Account</a>
             <br><br>
             <a href="/forgot-password" class="">Forgot your password?</a>
-            <br>
-            <a href="/resend-activation" class="text-primary">Lost activation email?</a>
         </div>
-        <div class="clearfix"></div>  
+        <div class="clearfix"></div>
     </div>
 </div>
