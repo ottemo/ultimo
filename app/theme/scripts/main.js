@@ -1,16 +1,13 @@
 $(document).ready(function () {
 
-    $(document).on('click', '#navbar li:not(.cart-wrapper)', function (event) {
-        event.preventDefault();
-        $('#navbar ul li').removeClass('active');
-        $(this).addClass('active');
-    });
 
-    //button click and hide popup
+    /**
+     * Modals
+     */
+
     $(document).on('click', '.modal-footer a', function (event) {
         $('.modal').modal('hide');
     });
-
 
     $(document).on('click', '#modal-registration', function (event) {
         $("#form-login").modal("hide");
@@ -27,14 +24,47 @@ $(document).ready(function () {
         $('.modal').modal('hide');
     });
 
-    // mobile collapse the nav
-    $(document).on('click', '.main-menu a:not(.dropdown-toggle)', function(e){
+    /**
+     * Menu
+     */
+
+    // Let our menu drop downs fire on hover
+    // this takes advantage of the bootstrap css, and gets
+    // the mobile menu playing nice
+    $(document).on('mouseenter', '.main-menu .dropdown', function() {
+        $(this).addClass('open')
+    });
+    $(document).on('mouseleave', '.main-menu .dropdown', function() {
+        $(this).removeClass('open')
+    });
+
+    // Don't follow top level dropdown links on mobile
+    // this seems to work for ios, but chrome simulator still fetches the page
+    if (window.innerWidth < 767) {
+        $(document).on('click', '.main-menu .dropdown > a', function(e){
+            e.preventDefault();
+            e.stopPropagation();
+        });
+    };
+
+    // Collapse the mobile menu if you click on any link that isn't a dropdown toggle
+    $(document).on('click', '.main-menu li:not(.dropdown) > a', function(e){
         var $navToggle = $('.navbar-toggle');
         if ($navToggle.is(':visible')) {
             $navToggle.click();
         }
     });
 
+    // Following the active class
+    $(document).on('click', '#navbar li:not(.cart-wrapper)', function (event) {
+        event.preventDefault();
+        $('#navbar ul li').removeClass('active');
+        $(this).addClass('active');
+    });
+
+    /**
+     * tabs on cms pages
+     */
     $(document)
         .on('click', '.nav-tabs a.data-toggle-tab', function(e){
             e.preventDefault();
