@@ -681,7 +681,7 @@ We have a beautiful new site, but it’s not quite perfect yet.  Due to issues w
                         </div>
 
                         <div class="paypal" ng-show="paymentMethod.selected.Code === method.Code" ng-if="method.isCreditCard">
-                            <form name="method.form" novalidate>
+                            <form name="method.form" novalidate class="row">
 
                                 <!-- REFACTOR: I don't believe we are using method.form.submited properly, and we might not even need it -->
                                 <div class="form-group col-xs-12 col-sm-4"
@@ -726,7 +726,7 @@ We have a beautiful new site, but it’s not quite perfect yet.  Due to issues w
 
                                 <div class="form-group col-xs-6 col-md-4"
                                      ng-class="{ 'has-error' : method.form.submited && method.form.expire_month.$invalid }">
-                                    <label>Expiration Month</label>
+                                    <label>Expiration <span class="hidden-xs">Month</span></label>
 
                                     <select class="form-control" ng-model="method.cc.expire_month" name="expire_month" required>
                                         <option value="">MM</option>
@@ -750,7 +750,7 @@ We have a beautiful new site, but it’s not quite perfect yet.  Due to issues w
 
                                 <div class="form-group col-xs-6 col-md-4"
                                      ng-class="{ 'has-error' : method.form.submited && method.form.expire_year.$invalid }">
-                                    <label>Year</label>
+                                    <label>&nbsp; <span class="hidden-xs">Year</span></label>
                                     <select class="form-control" ng-model="method.cc.expire_year" name="expire_year" required>
                                         <option value="">YY</option>
                                         <option value="2015">15</option>
@@ -841,12 +841,12 @@ We have a beautiful new site, but it’s not quite perfect yet.  Due to issues w
 
                     <div class="text-center">
                         <!-- prev step -->
-                        <button class="back btn btn-default" ng-click="back('review')">
+                        <button class="back btn btn-default btn-block-xs" ng-click="back('review')">
                             Prev step
                         </button>
 
                         <!-- next step -->
-                        <button class="next btn btn-primary" ng-click="save()">
+                        <button class="next btn btn-primary btn-block-xs" ng-click="save()">
                             Confirm purchase
                         </button>
                     </div>
