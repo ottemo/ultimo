@@ -996,3 +996,13 @@ the extra space looks funny */
 .panel--contact {
 	margin-top: 20px;
 }
+
+@media (max-width: 767px) {
+	.btn-block-xs {
+		display: block;
+		width: 100%;
+	}
+	.btn-block-xs + .btn-block-xs {
+		margin-top: 5px;
+	}
+}
