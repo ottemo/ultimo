@@ -87,7 +87,7 @@ angular.module("visitorModule")
             };
 
             $scope.getItemsInCart = function () {
-                return $cartService.getCountItems();
+                return $cartService.getTotalQuantity();
             };
 
             // TODO: We stopped using this in KG
