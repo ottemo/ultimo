@@ -21,6 +21,7 @@ before_install:
 
 install:
     # install the required dependencies
+    # do not build on shippable for now
     # - shippable_retry npm install
 
 script:
