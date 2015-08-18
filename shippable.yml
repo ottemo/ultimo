@@ -21,7 +21,7 @@ before_install:
 
 install:
     # install the required dependencies
-    - shippable_retry npm install
+    # - shippable_retry npm install
 
 script:
     - NODE_ENV=production shippable_retry gulp build
