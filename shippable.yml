@@ -13,7 +13,6 @@ env:
     - secure: laOeFQrClbBzi+wA5ynMfPar7/eoRCzni5GWs9YaePm2Tizm3LwJ6EOJIdjTTvLzb12RpMjFf0bGirMzDXZoWTElBRHF5wgyHlVwBvTa9GdHAqzODVEdvrjGx6Qo24ZQAxTghQP5nu0hhQQk2SzRIP8a4xJ6/8RxSBiz/J3Fbwxu1k+lhQp3jKwTC+M2ZZOzcorWbUGCXdX/imgKbHiyP6Q0oWAeorriS+Go0RDcrfIgqZCJn6Rs1tbhc2UpSoCHWQEz/JN3wkTtdA8G2VAAh0xyoliZUp1tVTYgHXky/RWFJOw7rdrpBKZY7M47dxvsZ0a5lm4BZ51z8uByEu1Hvw==
 before_install:
     # install NodeJS v0.12
-    - source ~/.nvm/nvm.sh && shippable_retry nvm install $SHIPPABLE_NODE_VERSION
     - shippable_retry npm update -g npm@2.13.1
     - shippable_retry npm cache clean
     - npm version
@@ -21,7 +20,7 @@ before_install:
 
 install:
     # install the required dependencies
-    - shippable_retry npm@2.13.1 install
+    - shippable_retry npm install
 
 script:
     - NODE_ENV=production shippable_retry gulp build
