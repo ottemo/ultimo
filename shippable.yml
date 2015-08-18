@@ -14,7 +14,6 @@ env:
 before_install:
     # install NodeJS v0.12
     - source ~/.nvm/nvm.sh && shippable_retry nvm install $SHIPPABLE_NODE_VERSION
-    - sudo npm install -g npm@2.13.1
     - shippable_retry npm update -g npm
     - shippable_retry npm cache clean
     - npm version
