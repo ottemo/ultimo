@@ -472,6 +472,44 @@ angular.module("checkoutModule")
                 return info;
             };
 
+            var getScrollTop = function()
+            {
+                var scrollTop;
+                if(typeof(window.pageYOffset) == 'number')
+                {
+                    // DOM compliant, IE9+
+                    scrollTop = window.pageYOffset;
+                }
+                else
+                {
+                    // IE6-8 workaround
+                    if(document.body && document.body.scrollTop)
+                    {
+                        // IE quirks mode
+                        scrollTop = document.body.scrollTop;
+                    }
+                    else if(document.documentElement && document.documentElement.scrollTop)
+                    {
+                        // IE6+ standards compliant mode
+                        scrollTop = document.documentElement.scrollTop;
+                    }
+                }
+                return scrollTop;
+            }
+
+            // Animated scrollTo method
+            var scrollToId = function(id,detect){
+                if (!detect){
+                    $('html, body').animate({
+                        scrollTop: getScrollTop() + 70
+                    }, 1000);
+                }
+                else
+                    $('html, body').animate({
+                        scrollTop: $("#"+id).offset().top
+                    }, 1000);
+                }
+
             $scope.newBilling = function () {
                 // Sets submitted billing form in false
                 $scope.subBillingAddress = false;
@@ -595,6 +633,11 @@ angular.module("checkoutModule")
                 } else {
                     $("#" + step).slideUp("slow").parents('.panel').prev('.panel').find('.accordion').slideDown(500);
                 }
+                if (["billingAddress","shippingAddress","shippingMethod","customerInfo"].indexOf(step) < 0)
+                    scrollToId(step,true)
+                else 
+                    scrollToId(step,false)
+
             };
 
             $scope.next = function (step) {
@@ -747,6 +790,8 @@ angular.module("checkoutModule")
                     }
                 };
 
+                
+
                 var actionDefault = function () {
                     if (isValidSteps[step]) {
                         $("#" + step).slideUp(500).parents('.panel').next('.panel').find('.accordion').slideDown(500);
@@ -756,25 +801,34 @@ angular.module("checkoutModule")
                 switch (step) {
                     case "billingAddress":
                         actionBillingAddress();
+                        scrollToId(step);
                         break;
                     case "shippingAddress":
                         actionShippingAddress();
+                        scrollToId(step);
                         break;
                     case "shippingMethod":
                         actionShippingMethod();
+                        scrollToId(step);
                         break;
                     case "paymentMethod":
                         actionPaymentMethod();
+                        scrollToId(step);
                         break;
                     case "customerInfo":
                         actionCustomerAdditionalInfo();
+                        scrollToId(step,true);
                         break;
                     case "discounts":
                         actionDiscount();
+                        scrollToId(step);
                         break;
                     default:
                         actionDefault();
                 }
+                
+                // scrolling to step
+
 
             };// jshint ignore:line
 
