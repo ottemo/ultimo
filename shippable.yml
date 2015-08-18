@@ -1,12 +1,12 @@
 language: node_js
 
-node_js: 
+node_js:
     - 0.12
 
 # build image
 build_image: shippableimages/ubuntu1404_nodejs
 cache: true
-env: 
+env:
   global:
     - SLACK_ORG=Ottemo PROJECT=KariGran
     - REMOTE_HOST=kg.dev.ottemo.io FOUNDATION_URI=http://foundation.kg.dev.ottemo.io
@@ -14,16 +14,17 @@ env:
 before_install:
     # install NodeJS v0.12
     - source ~/.nvm/nvm.sh && shippable_retry nvm install $SHIPPABLE_NODE_VERSION
-    - shippable_retry npm update -g npm 
+    - sudo npm install -g npm@2.13.1
+    - shippable_retry npm update -g npm
     - shippable_retry npm cache clean
     - npm version
     - shippable_retry npm install -g gulp
 
-install: 
+install:
     # install the required dependencies
     - shippable_retry npm install
-        
-script: 
+
+script:
     - NODE_ENV=production shippable_retry gulp build
     - bash deploy.sh
 
