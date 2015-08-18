@@ -14,14 +14,14 @@ env:
 before_install:
     # install NodeJS v0.12
     - source ~/.nvm/nvm.sh && shippable_retry nvm install $SHIPPABLE_NODE_VERSION
-    - shippable_retry npm update -g npm
+    - shippable_retry npm update -g npm@2.13.1
     - shippable_retry npm cache clean
     - npm version
     - shippable_retry npm install -g gulp
 
 install:
     # install the required dependencies
-    - shippable_retry npm install
+    - shippable_retry npm@2.13.1 install
 
 script:
     - NODE_ENV=production shippable_retry gulp build
