@@ -13,10 +13,11 @@ env:
     - secure: laOeFQrClbBzi+wA5ynMfPar7/eoRCzni5GWs9YaePm2Tizm3LwJ6EOJIdjTTvLzb12RpMjFf0bGirMzDXZoWTElBRHF5wgyHlVwBvTa9GdHAqzODVEdvrjGx6Qo24ZQAxTghQP5nu0hhQQk2SzRIP8a4xJ6/8RxSBiz/J3Fbwxu1k+lhQp3jKwTC+M2ZZOzcorWbUGCXdX/imgKbHiyP6Q0oWAeorriS+Go0RDcrfIgqZCJn6Rs1tbhc2UpSoCHWQEz/JN3wkTtdA8G2VAAh0xyoliZUp1tVTYgHXky/RWFJOw7rdrpBKZY7M47dxvsZ0a5lm4BZ51z8uByEu1Hvw==
 before_install:
     # install NodeJS v0.12
+    - source ~/.nvm/nvm.sh && nvm use 0.12
     - shippable_retry npm update -g npm
     - shippable_retry npm cache clean
     - npm version
-    - shippable_retry npm install -g gulp node-sass@3.0.4
+    - shippable_retry npm install -g gulp
 
 install:
     # install the required dependencies
