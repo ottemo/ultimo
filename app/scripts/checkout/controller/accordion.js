@@ -476,7 +476,6 @@ angular.module("checkoutModule")
 
 
             var _scrollTo = function($step){
-                console.log('_scrollTo', $step)
                 $('html, body').animate({
                     scrollTop: $step.offset().top
                 }, 100);
