@@ -445,7 +445,9 @@ angular.module("checkoutModule")
                                 } else {
                                     // Not guest checkout, flag it and make sure we show the shipping address panel
                                     $scope.isGuestCheckout = false;
-                                    $('#shippingAddress').show();
+
+                                    // REFACTOR: an unexpected jquery appears
+                                    $('#shippingAddress .panel-body').show();
                                 }
                                 getAddresses();
                                 init();
@@ -472,43 +474,13 @@ angular.module("checkoutModule")
                 return info;
             };
 
-            var getScrollTop = function()
-            {
-                var scrollTop;
-                if(typeof(window.pageYOffset) == 'number')
-                {
-                    // DOM compliant, IE9+
-                    scrollTop = window.pageYOffset;
-                }
-                else
-                {
-                    // IE6-8 workaround
-                    if(document.body && document.body.scrollTop)
-                    {
-                        // IE quirks mode
-                        scrollTop = document.body.scrollTop;
-                    }
-                    else if(document.documentElement && document.documentElement.scrollTop)
-                    {
-                        // IE6+ standards compliant mode
-                        scrollTop = document.documentElement.scrollTop;
-                    }
-                }
-                return scrollTop;
-            }
 
-            // Animated scrollTo method
-            var scrollToId = function(id,detect){
-                if (!detect){
-                    $('html, body').animate({
-                        scrollTop: getScrollTop() + 70
-                    }, 1000);
-                }
-                else
-                    $('html, body').animate({
-                        scrollTop: $("#"+id).offset().top
-                    }, 1000);
-                }
+            var _scrollTo = function($step){
+                console.log('_scrollTo', $step)
+                $('html, body').animate({
+                    scrollTop: $step.offset().top
+                }, 100);
+            }
 
             $scope.newBilling = function () {
                 // Sets submitted billing form in false
@@ -628,42 +600,61 @@ angular.module("checkoutModule")
             };
 
             $scope.back = function (step) {
-                if (step === "review" && !$scope["isGuestCheckout"]) {
-                    $("#" + step).slideUp("slow").parents('.panel').prev('.panel').prev('.panel').find('.accordion').slideDown(500);
-                } else {
-                    $("#" + step).slideUp("slow").parents('.panel').prev('.panel').find('.accordion').slideDown(500);
-                }
-                if (["billingAddress","shippingAddress","shippingMethod","customerInfo"].indexOf(step) < 0)
-                    scrollToId(step,true)
-                else 
-                    scrollToId(step,false)
+                var $thisStep = $("#" + step);
+                var $lastStep = $thisStep.prev('.panel');
 
+                // We can start scrolling to the panel before animations finish because the
+                // distance from the top won't change
+                _scrollTo($lastStep);
+                $thisStep.find('.panel-body').slideUp(500);
+                $lastStep.find('.panel-body').slideDown(500);
             };
 
             $scope.next = function (step) {
                 /*jshint maxcomplexity:6 */
 
+                var _accordionAnimation = function(step, skipOneStep) {
+                    var $thisStep = $("#" + step);
+                    var $nextStep = $thisStep.next('.panel');
+                    if (skipOneStep) {
+                        $nextStep = $thisStep.next('.panel').next('.panel');
+                    }
+                    $thisStep.find('.panel-body').slideUp(600, function(){
+                        _scrollTo($nextStep);
+                    });
+                    $nextStep.find('.panel-body').slideDown(500);
+                }
+
                 var actionBillingAddress = function () {
                     $scope.subBillingAddress = true;
                     if ($scope.billingAddress.$valid) {
                         isValidSteps.billingAddress = true;
-                        if ((!Boolean($scope.checkout["billing_address"]._id) && !$scope["isGuestCheckout"]) || $scope["isGuestCheckout"]) {
-                            $checkoutService.saveBillingAddress($scope.checkout["billing_address"]).then(
-                                function () {
-                                    getAddresses();
-                                    // update checkout
-                                    info();
-                                    $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
-                                }
-                            );
+
+                        // REFACTOR: this condition could be worded better
+                        if (
+                            (
+                                !Boolean($scope.checkout["billing_address"]._id)
+                                && !$scope["isGuestCheckout"]
+                            )
+                            || $scope["isGuestCheckout"]
+                        ) {
+                            $checkoutService.saveBillingAddress($scope.checkout["billing_address"])
+                            .then(function () {
+                                getAddresses();
+                                // update checkout
+                                info();
+                                _accordionAnimation(step);
+                            });
                         } else {
-                            $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
+                            //TODO: Confirm that this is expected
+                            _accordionAnimation(step);
                         }
                     }
                 };
 
                 var actionShippingAddress = function () {
 
+                    // REFACTOR: document / investigate what this is for
                     $scope.subShippingAddress = true;
 
                     if ($scope.shippingAddress.$valid) {
@@ -675,7 +666,9 @@ angular.module("checkoutModule")
                             getAddresses();
                             $checkoutService.loadShippingMethods().then(function (methods) {
                                 $scope.shippingMethods = methods;
-                                $scope.shippingMethod.selected = $scope.shippingMethods[0]; // select first option
+
+                                // select first option
+                                $scope.shippingMethod.selected = $scope.shippingMethods[0];
                             });
 
                             if ($scope.useAsBilling) {
@@ -686,14 +679,17 @@ angular.module("checkoutModule")
                                     }
                                     // update checkout
                                     info();
+
                                     // skip billing address step
-                                    $("#" + step).slideUp("slow").parents('.panel').next('.panel').next('.panel').find('.accordion').slideDown(500);
+                                    var skipOneStep = true;
+                                    _accordionAnimation(step, skipOneStep);
                                 });
                             } else {
                                 // update checkout
                                 info();
+
                                 // open billing address
-                                $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
+                                _accordionAnimation(step);
                             }
                         });
                     }
@@ -708,7 +704,7 @@ angular.module("checkoutModule")
                             // update checkout
                             info();
                             isValidSteps.shippingMethod = true;
-                            actionDefault();
+                            _accordionAnimation(step);
                         }
                     });
                 }
@@ -741,7 +737,7 @@ angular.module("checkoutModule")
                                         // Update the checkout object and proceed
                                         isValidSteps.paymentMethod = true;
                                         info();
-                                        actionDefault();
+                                        _accordionAnimation(step);
                                     };
                                 });
                             }
@@ -755,7 +751,7 @@ angular.module("checkoutModule")
                                 if (resp.result === 'ok') {
                                     isValidSteps.paymentMethod = true;
                                     info();
-                                    actionDefault();
+                                    _accordionAnimation(step);
                                 };
                             });
                         }
@@ -763,16 +759,16 @@ angular.module("checkoutModule")
                 };
 
                 var actionCustomerAdditionalInfo = function () {
-                    $scope.subAdditionalInfo = true; // not sure what purpose this serves
                     // isValidSteps isn't used for this step
+                    // REFACTOR: investigate / document what this is for
+                    $scope.subAdditionalInfo = true;
 
                     if ($scope.isGuestCheckout && $scope.customerInfo.$valid) {
                         $checkoutService.saveAdditionalInfo({
                             "customer_email": $scope.checkout.info.customer_email,
                             "customer_name": $scope.checkout.info.customer_name
                         }).then(function () {
-                            // resp.result == 'ok'
-                            $("#" + step).slideUp("slow").parents('.panel').next('.panel').find('.accordion').slideDown(500);
+                            _accordionAnimation(step);
                         });
                     }
                 };
@@ -782,51 +778,44 @@ angular.module("checkoutModule")
                     // If the grand total is 0 we can set the paymentMethod step to valid and jump over it.
                     if ($scope.checkout.grandtotal <= 0)  {
                         isValidSteps.paymentMethod = true;
-                        $("#" + step).slideUp(500).parents('.panel').next('.panel').next('.panel').find('.accordion').slideDown(500);
+                        var skipOneStep = true;
+                        _accordionAnimation(step, skipOneStep);
 
                     } else {
                         isValidSteps.paymentMethod = false;
-                        $("#" + step).slideUp(500).parents('.panel').next('.panel').find('.accordion').slideDown(500);
+                        _accordionAnimation(step);
                     }
                 };
 
-                
-
                 var actionDefault = function () {
                     if (isValidSteps[step]) {
-                        $("#" + step).slideUp(500).parents('.panel').next('.panel').find('.accordion').slideDown(500);
+                        _accordionAnimation(step);
                     }
                 };
 
                 switch (step) {
                     case "billingAddress":
                         actionBillingAddress();
-                        scrollToId(step);
                         break;
                     case "shippingAddress":
                         actionShippingAddress();
-                        scrollToId(step);
                         break;
                     case "shippingMethod":
                         actionShippingMethod();
-                        scrollToId(step);
                         break;
                     case "paymentMethod":
                         actionPaymentMethod();
-                        scrollToId(step);
                         break;
                     case "customerInfo":
                         actionCustomerAdditionalInfo();
-                        scrollToId(step,true);
                         break;
                     case "discounts":
                         actionDiscount();
-                        scrollToId(step);
                         break;
                     default:
                         actionDefault();
                 }
-                
+
                 // scrolling to step
 
 
