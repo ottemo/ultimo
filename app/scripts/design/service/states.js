@@ -40,6 +40,11 @@ angular.module("designModule")
                 "Capital": "Hartford"
             },
             {
+                "Code": "DC",
+                "Name": "District of Columbia",
+                "Capital": ""
+            },
+            {
                 "Code": "DE",
                 "Name": "Delaware",
                 "Capital": "Dover"
