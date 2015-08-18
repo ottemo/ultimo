@@ -245,7 +245,7 @@ We have a beautiful new site, but it’s not quite perfect yet.  Due to issues w
                                      ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.zip_code.$invalid) || (shippingAddress.zip_code.$invalid && !shippingAddress.zip_code.$pristine) }">
                                     <label for="shippingAddressZip">Zip / Postal Code*</label>
                                     <input type="text" class="form-control" id="shippingAddressZip"
-                                           name="zip_code" ot-regexp="(^\d{5}(-\d{4})?$)|(^[ABCEGHJKLMNPRSTVXYabceghjklmnprstvxy]{1}\d{1}[A-Z]{1} *\d{1}[A-Z]{1}\d{1}$)"
+                                           name="zip_code" ot-regexp="(^\d{5}(-\d{4})?$)|(^[ABCEGHJKLMNPRSTVXYabceghjklmnprstvxy]{1}\d{1}[ABCEGHJKLMNPRSTVWXYZabceghjklmnprstvwxyz]{1} *\d{1}[ABCEGHJKLMNPRSTVWXYZabceghjklmnprstvwxyz]{1}\d{1}$)"
                                             ng-model-options="{ updateOn: 'blur' }"
                                            ng-model="checkout.shipping_address.zip_code" ng-disabled="checkout.shipping_address._id" required>
 
@@ -477,7 +477,7 @@ We have a beautiful new site, but it’s not quite perfect yet.  Due to issues w
                                      ng-class="{ 'has-error' : (subBillingAddress && billingAddress.zip_code.$invalid) || (billingAddress.zip_code.$invalid && !billingAddress.zip_code.$pristine) }">
                                     <label for="billingAddressZip">Zip / Postal Code*</label>
                                     <input type="text" class="form-control" id="billingAddressZip"
-                                           name="zip_code" ot-regexp="(^\d{5}(-\d{4})?$)|(^[ABCEGHJKLMNPRSTVXYabceghjklmnprstvxy]{1}\d{1}[A-Z]{1} *\d{1}[A-Z]{1}\d{1}$)"
+                                           name="zip_code" ot-regexp="(^\d{5}(-\d{4})?$)|(^[ABCEGHJKLMNPRSTVXYabceghjklmnprstvxy]{1}\d{1}[ABCEGHJKLMNPRSTVWXYZabceghjklmnprstvwxyz]{1} *\d{1}[ABCEGHJKLMNPRSTVWXYZabceghjklmnprstvwxyz]{1}\d{1}$)"
                                            ng-model-options="{ updateOn: 'blur' }"
                                            ng-model="checkout.billing_address.zip_code" ng-disabled="billing_address._id || useAsBilling"
                                            required>
