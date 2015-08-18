@@ -46,9 +46,12 @@ var paths = {
         scripts: [
             'app/lib/jquery.min.js',
             'app/lib/angular.min.js',
-            'app/lib/*.js' // NOTE: no folder glob, or it would clobber .ie
+            // NOTES:
+            // no folder glob, or it would clobber .ie
+            // also we are only moving minified files, so feel free to toss unminified reference files in the lib dir
+            'app/lib/*.min.js'
         ],
-        ie: 'app/lib/ie/*.js'
+        ie: 'app/lib/ie/*.min.js'
     }
 };
 
