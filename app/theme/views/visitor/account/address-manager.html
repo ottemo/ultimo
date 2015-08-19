@@ -29,10 +29,10 @@
                                 {{getAddressName(address)}}
                             </td>
                             <td class="text-right">
-                                <button class="btn btn-primary" ng-click="popUpOpen(address.ID)">
+                                <button class="btn btn-primary btn-block-xs" ng-click="popUpOpen(address.ID)">
                                     <i class="fa fa-pencil fa-fw"></i>
                                 </button>
-                                <button class="btn btn-danger" ng-click="remove(address.ID)">
+                                <button class="btn btn-danger btn-block-xs" ng-click="remove(address.ID)">
                                     <i class="fa fa-remove fa-fw"></i>
                                 </button>
                             </td>
@@ -175,7 +175,7 @@
                         <!--Company-->
                         <div class="form-group">
                             <label for="billingInputCompany">Company Name</label>
-                            <input type="text" class="form-control" id="billingInputCompany" 
+                            <input type="text" class="form-control" id="billingInputCompany"
                                    name="company"
                                    ng-model="address.company" >
                         </div>
