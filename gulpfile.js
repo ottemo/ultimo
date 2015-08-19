@@ -24,7 +24,7 @@ var paths = {
         'app/theme/**/*.js'
     ],
     html: 'app/**/*.html',
-    misc: 'app/*.{txt,htaccess,ico}',
+    misc: 'app/*.{txt,htaccess,ico,xml}',
     scripts: [
         'app/scripts/config.js',
         'app/scripts/main.js',
