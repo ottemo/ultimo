@@ -21,7 +21,11 @@ if [ "$BRANCH" == 'develop' ]; then
     echo ""
     echo "RUNNING PRODUCTION GULP BUILD AND RESTORING SYMLINK TO MEDIA FOLDER."
     echo ""
-    ssh ottemo@$REMOTE_HOST "cd $SRCDIR && NODE_ENV=production gulp build && cd dist && ln -s $MEDIADIR media"
+    ssh ottemo@$REMOTE_HOST "cd $SRCDIR && NODE_ENV=production gulp build"
+    echo ""
+    echo "RESTORING DIST DIRECTORY."
+    echo ""
+    ssh ottemo@$REMOTE_HOST "cd $SRCDIR/dist && ln -s $MEDIADIR media"
     # restart nginx
     echo ""
     echo "RESTARTING NGINX."
