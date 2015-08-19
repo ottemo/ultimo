@@ -1006,3 +1006,8 @@ the extra space looks funny */
 		margin-top: 5px;
 	}
 }
+
+:-moz-submit-invalid,
+:-moz-ui-invalid {
+	box-shadow: none;
+}
