@@ -1,3 +1,5 @@
 # robotstxt.org
 
 User-agent: *
+Disallow: /
+Sitemap: https://karigran.com/sitemap.xml
