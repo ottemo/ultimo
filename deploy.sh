@@ -5,25 +5,41 @@ SRCDIR=/home/ottemo/storefront
 MEDIADIR=/home/ottemo/media
 
 if [ "$BRANCH" == 'develop' ]; then
-		echo "\nUpdating remote git reposistory with develop branch."
+		echo ""
+		echo "UPDATING REMOTE GIT REPOSITORY WITH DEVELOP BRANCH."
+    echo ""
     ssh ottemo@$REMOTE_HOST "cd $SRCDIR && git fetch --prune && git pull"
-    echo "\nRemoving symlink to media folder and installing gulp and npm."
+    echo ""
+    echo "REMOVING SYMLINK TO MEDIA FOLDER AND INSTALLING GULP AND NPM."
+    echo ""
     ssh ottemo@$REMOTE_HOST "cd $SRCDIR/dist && rm -rf media && npm install -g gulp && npm install"
     # build locally after successful merge to develop
-    echo "\nRunning gulp build and restoring symlink to media folder."
+    echo ""
+    echo "RUNNING GULP BUILD AND RESTORING SYMLINK TO MEDIA FOLDER."
+    echo ""
     ssh ottemo@$REMOTE_HOST "cd $SRCDIR && NODE_ENV=production gulp build && cd dist && ln -s $MEDIADIR media"
     # restart nginx
-    echo "\nRestarting nginx."
+    echo ""
+    echo "RESTARTING NGINX."
+    echo ""
     ssh ottemo@$REMOTE_HOST "cd $SRCDIR && sudo /etc/init.d/nginx restart"
   elif [[ "$BRANCH" != "develop" ]]; then
-		echo "\nUpdating remote git reposistory with ${BRANCH} branch."
+  	echo ""
+		echo "UPDATING REMOTE GIT REPOSISTORY WITH ${BRANCH} BRANCH."
+    echo ""
     ssh ottemo@$REMOTE_HOST "cd $SRCDIR && git fetch --prune && git checkout -f ${BRANCH} && git pull -u origin ${BRANCH}"
-    echo "\nRemoving symlink to media folder and installing gulp and npm."
+    echo ""
+    echo "REMOVING SYMLINK TO MEDIA FOLDER AND INSTALLING GULP AND NPM."
+    echo ""
     ssh ottemo@$REMOTE_HOST "cd $SRCDIR/dist && rm -rf media && npm install -g gulp && npm install"
     # build locally after successful merge to develop
-    echo "\nRunning gulp build and restoring symlink to media folder."
+    echo ""
+    echo "RUNNING GULP BUILD AND RESTORING SYMLINK TO MEDIA FOLDER."
+    echo ""
     ssh ottemo@$REMOTE_HOST "cd $SRCDIR && gulp build && cd dist && ln -s $MEDIADIR media"
     # restore develop branch on dev server
-    echo "\nRestoring git repository on dev server."
+    echo ""
+    echo "RESTORING GIT REPOSITORY ON DEV SERVER."
+    echo ""
     ssh ottemo@$REMOTE_HOST "cd $SRCDIR && git checkout -f develop"
 fi
