@@ -10,14 +10,14 @@ We have a beautiful new site, but it’s not quite perfect yet.  Due to issues w
     <div ng-init="init()" class="col-xs-12 col-md-8">
 
         <!-- Guest checkout user credential form -->
-        <div class="panel panel-default" ng-show="isGuestCheckout">
+        <div id="customerInfo" class="panel panel-default" ng-show="isGuestCheckout">
             <div class="panel-heading">
                 <h3 class="panel-title">
                     Customer info
                 </h3>
             </div>
             <div class="panel-body">
-                <div id="customerInfo" class="accordion">
+                <div class="accordion">
 
                     <!-- Form to add shipping addresses -->
                     <form name="customerInfo" novalidate>
@@ -92,7 +92,7 @@ We have a beautiful new site, but it’s not quite perfect yet.  Due to issues w
         </div>
 
         <!-- Shipping Block -->
-        <div class="panel panel-default">
+        <div id="shippingAddress" class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
                     Ship to
@@ -113,8 +113,8 @@ We have a beautiful new site, but it’s not quite perfect yet.  Due to issues w
                 </h3>
             </div>
 
-            <div class="panel-body">
-                <div id="shippingAddress" class="accordion" style="display:none;">
+            <div class="panel-body" style="display:none;">
+                <div class="accordion">
 
                     <!-- Form to add shipping addresses -->
                     <form name="shippingAddress" novalidate>
@@ -325,7 +325,7 @@ We have a beautiful new site, but it’s not quite perfect yet.  Due to issues w
         </div>
 
         <!-- Billing Block -->
-        <div class="panel panel-default">
+        <div id="billingAddress" class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
                     Bill to
@@ -346,8 +346,8 @@ We have a beautiful new site, but it’s not quite perfect yet.  Due to issues w
                 </h3>
             </div>
 
-            <div class="panel-body">
-                <div id="billingAddress" class="accordion" style="display:none">
+            <div class="panel-body" style="display:none">
+                <div class="accordion">
                     <!-- Form to add billing addresses -->
                     <form name="billingAddress" novalidate>
                         <div class="row">
@@ -528,14 +528,14 @@ We have a beautiful new site, but it’s not quite perfect yet.  Due to issues w
         </div>
 
         <!-- Shipping Method -->
-        <div class="panel panel-default">
+        <div id="shippingMethod" class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
                     Shipping Method
                 </h3>
             </div>
-            <div class="panel-body">
-                <div id="shippingMethod" class="accordion" style="display:none">
+            <div class="panel-body" style="display:none">
+                <div class="accordion">
                     <form novalidate>
 
                         <div class="radio" ng-repeat="method in shippingMethods">
@@ -567,14 +567,14 @@ We have a beautiful new site, but it’s not quite perfect yet.  Due to issues w
         </div>
 
         <!-- Discounts -->
-        <div class="panel panel-default">
+        <div id="discounts" class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
                     Discounts
                 </h3>
             </div>
-            <div class="panel-body">
-                <div id="discounts" class="accordion" style="display:none">
+            <div class="panel-body" style="display:none">
+                <div class="accordion">
                     <gui-message-manager item="messageDiscounts"></gui-message-manager>
                     <gui-message-manager item="giftcard.message"></gui-message-manager>
 
@@ -660,14 +660,14 @@ We have a beautiful new site, but it’s not quite perfect yet.  Due to issues w
         </div>
 
         <!-- Payment Method -->
-        <div class="panel panel-default">
+        <div id="paymentMethod" class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
                     Payment Method
                 </h3>
             </div>
-            <div class="panel-body">
-                <div id="paymentMethod" class="accordion" style="display:none">
+            <div class="panel-body" style="display:none">
+                <div class="accordion">
 
                     <div ng-repeat="method in paymentMethods">
                         <div class="radio">
@@ -785,15 +785,15 @@ We have a beautiful new site, but it’s not quite perfect yet.  Due to issues w
             </div>
         </div>
 
-        <!-- preview -->
-        <div class="panel panel-default">
+        <!-- review -->
+        <div id="review" class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
                     Order Review
                 </h3>
             </div>
-            <div class="panel-body">
-                <div id="review" class="accordion" style="display:none">
+            <div class="panel-body" style="display:none">
+                <div class="accordion">
                     <div class="row">
                         <div class="col-sm-6">
                             <table class="table table-bordered" ng-show="cart.getCountItems()" ng-class="{'last':$last}">
