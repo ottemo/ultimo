@@ -34,8 +34,8 @@ var paths = {
     theme: {
         dist: 'dist/theme',
         css: 'app/theme/styles/**/*.css',
-        images: 'app/theme/**/*.{png,jpg,jpec,ico,svg,mp4}',
-        fonts: 'app/theme/fonts/**/*',
+        // images, videos, fonts
+        media: 'app/theme/**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf,eot,ttf,woff}',
         scripts: [
             'app/theme/lib/**/*.js',
             'app/theme/**/*.js'
@@ -129,11 +129,6 @@ gulp.task('theme.css', function () {
         .pipe(refresh());
 });
 
-gulp.task('theme.fonts', function() {
-    return gulp.src(paths.theme.fonts)
-        .pipe(gulp.dest(paths.theme.dist + '/fonts'));
-});
-
 gulp.task('theme.scripts', function () {
     return gulp.src(paths.theme.scripts)
         .pipe(sourcemaps.init())
@@ -148,8 +143,8 @@ gulp.task('theme.scripts', function () {
         .pipe(refresh());
 });
 
-gulp.task('theme.images', function () {
-    return gulp.src(paths.theme.images)
+gulp.task('theme.media', function () {
+    return gulp.src(paths.theme.media)
         .pipe(changed(paths.theme.dist))
         .pipe(imagemin())
         .pipe(gulp.dest(paths.theme.dist));
@@ -216,9 +211,8 @@ gulp.task('revision', function(){
 gulp.task('lib', ['lib.ie', 'lib.scripts']);
 gulp.task('theme', [
     'theme.css',
-    'theme.fonts',
     'theme.scripts',
-    'theme.images'
+    'theme.media'
 ]);
 
 // For production
