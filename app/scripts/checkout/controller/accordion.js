@@ -447,6 +447,7 @@ angular.module("checkoutModule")
                                     $scope.isGuestCheckout = false;
 
                                     // REFACTOR: an unexpected jquery appears
+                                    // tags: .accordion step animate
                                     $('#shippingAddress .panel-body').show();
                                 }
                                 getAddresses();
@@ -473,13 +474,6 @@ angular.module("checkoutModule")
 
                 return info;
             };
-
-
-            var _scrollTo = function($step){
-                $('html, body').animate({
-                    scrollTop: $step.offset().top
-                }, 100);
-            }
 
             $scope.newBilling = function () {
                 // Sets submitted billing form in false
@@ -597,6 +591,12 @@ angular.module("checkoutModule")
                     );
                 }
             };
+
+            var _scrollTo = function($step){
+                $('html, body').animate({
+                    scrollTop: $step.offset().top
+                }, 100);
+            }
 
             $scope.back = function (step) {
                 var $thisStep = $("#" + step);
@@ -814,9 +814,6 @@ angular.module("checkoutModule")
                     default:
                         actionDefault();
                 }
-
-                // scrolling to step
-
 
             };// jshint ignore:line
 
