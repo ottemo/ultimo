@@ -25,8 +25,6 @@ angular.module("cartModule")
                     });
                 }
 
-                $cartService.reload();
-
                 $scope.$emit("add-breadcrumbs", {"label": "My Account", "url": "/account"});
                 $scope.$emit("add-breadcrumbs", {"label": "Shopping Cart", "url": "/cart"});
             };
