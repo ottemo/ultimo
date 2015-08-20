@@ -54,8 +54,9 @@ angular.module("commonModule")
         "$commonBreadcrumbsService",
         "$cartService",
         "$visitorLoginService",
+        "cfpLoadingBar",
         function ($scope, $commonPageService, $designService, $commonApiService, $designImageService, $commonBreadcrumbsService,
-                  $cartService, $visitorLoginService) {
+                  $cartService, $visitorLoginService, cfpLoadingBar) {
 
             /**
              * Home, 404 - pages
@@ -85,6 +86,15 @@ angular.module("commonModule")
 
             $scope.$on("add-breadcrumbs", function (event, param) {
                 $commonBreadcrumbsService.addItem(param.label, param.url);
+            });
+
+            $scope.load_completed = false;
+
+            $scope.$on('cfpLoadingBar:completed', function(e,param) {
+                var status = cfpLoadingBar.status();
+                console.log(status);
+                // if (status <= 0.1)
+                $scope.load_completed = true;
             });
             //
             // HANDLERS FOR BREADCRUMBS (STOP)

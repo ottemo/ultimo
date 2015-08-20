@@ -6,9 +6,10 @@ angular.REST_SERVER_URI = angular.appConfigValue("general.app.foundation_url");
 
 angular.module("commonModule", [
     // Google
+    "ngResource",
     "ngRoute",
     "ngSanitize",
-    "ngResource",
+    "ngAnimate",
 
     // Deps
     "angulartics",
@@ -19,7 +20,9 @@ angular.module("commonModule", [
     "cartModule",
     "categoryModule",
     "cmsModule",
-    "contactModule"
+    "contactModule",
+
+    'angular-loading-bar'
 ])
 
 .value("DEFAULT_TITLE", "Kari Gran")
