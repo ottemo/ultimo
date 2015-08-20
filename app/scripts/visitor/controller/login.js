@@ -157,7 +157,6 @@ angular.module("visitorModule")
                 } else {
                     var path = angular.module('visitorModule').back.path || '/account';
                     $location.path( path );
-                    console.log('sign in success ----', path);
                 }
             };
 

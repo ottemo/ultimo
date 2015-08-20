@@ -80,7 +80,6 @@ angular.module("visitorModule", [
             });
 
             $rootScope.$on('$locationChangeStart', function (evt, absNewUrl, absOldUrl) {
-                console.log('routechange',evt, absOldUrl, prevUri)
 
                 var prevUri = absOldUrl.substring($location.absUrl().length - $location.url().length);
                 var matches = /^([^?]+)\?*(.*)$/g.exec(prevUri);
@@ -101,11 +100,7 @@ angular.module("visitorModule", [
                     // Only record redirect urls if they are ones we want someone ever
                     // redireting to
                     if (!isPathInBlacklist) {
-
                         angular.module('visitorModule').back.path = path;
-                        console.log('route recorded', path);
-                    } else {
-                        console.log('route ignored: ', path)
                     }
                 }
             });
