@@ -114,12 +114,6 @@ ul {
 	border-collapse: separate;
 }
 
-#loader .progress {
-	height: 4px;
-}
-#loader .progress-bar {
-	background: #999;
-}
 /*---------------
  Thumb Thumbnail
  ---------------*/
