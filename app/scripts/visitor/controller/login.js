@@ -155,17 +155,8 @@ angular.module("visitorModule")
                 if (isPopUp) {
                     $route.reload();
                 } else {
-                    var path = angular.module('visitorModule').back.path.trim('/');
-                    if (typeof angular.module('visitorModule').back.path !== "undefined" &&
-                        "" !== path &&
-                        -1 === ['login', 'login.html', 'home', 'home.html', 'logout', 'logout.html'].indexOf(path)) {
-
-                        $location.$$path = angular.module('visitorModule').back.path;
-                        $location.$$url = angular.module('visitorModule').back.path;
-                        $location.search(angular.module('visitorModule').back.params);
-                    } else {
-                        $location.path('/account');
-                    }
+                    var path = angular.module('visitorModule').back.path || '/account';
+                    $location.path( path );
                 }
             };
 
