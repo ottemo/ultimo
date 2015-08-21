@@ -88,12 +88,10 @@ angular.module("commonModule")
                 $commonBreadcrumbsService.addItem(param.label, param.url);
             });
 
+            // Page loading event handler 
             $scope.load_completed = false;
 
             $scope.$on('cfpLoadingBar:completed', function(e,param) {
-                var status = cfpLoadingBar.status();
-                console.log(status);
-                // if (status <= 0.1)
                 $scope.load_completed = true;
             });
             //
