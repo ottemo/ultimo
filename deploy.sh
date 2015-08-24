@@ -30,7 +30,7 @@ if [ "$BRANCH" == 'develop' ]; then
     echo RESTARTING NGINX.
     ssh ottemo@$REMOTE_HOST "cd $SRCDIR && sudo /etc/init.d/nginx restart"
 else
-    # echo ""
+    echo BRANCH IS NOT DEVELOP, DO NOTHING
     # echo "UPDATING REMOTE GIT REPOSISTORY WITH ${BRANCH} BRANCH."
     # echo ""
     # ssh ottemo@$REMOTE_HOST "cd $SRCDIR && git checkout -f develop && git branch -D ${BRANCH}"
