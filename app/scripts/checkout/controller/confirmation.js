@@ -27,18 +27,20 @@ angular.module("checkoutModule")
                     });
 
                     // Add items to the transaction
-                    order.items.forEach(function(item) {
-                        var gaItem = {
-                          'id': order._id,                  // Transaction ID. Required.
-                          'name': item.Name,                // Product name. Required.
-                          'sku': item.Sku,                  // SKU/code.
-                          // 'category': 'Party Toys',      // Category or variation.
-                          'price': item.Price,              // Unit price.
-                          'quantity': item.Qty              // Quantity.
-                        };
+                    if (order.items) {
+                        order.items.forEach(function(item) {
+                            var gaItem = {
+                              'id': order._id,                  // Transaction ID. Required.
+                              'name': item.Name,                // Product name. Required.
+                              'sku': item.Sku,                  // SKU/code.
+                              // 'category': 'Party Toys',      // Category or variation.
+                              'price': item.Price,              // Unit price.
+                              'quantity': item.Qty              // Quantity.
+                            };
 
-                        ga('ecommerce:addItem', gaItem);
-                    });
+                            ga('ecommerce:addItem', gaItem);
+                        });
+                    }
 
                     // Send all data
                     ga('ecommerce:send');
