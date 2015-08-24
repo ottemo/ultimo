@@ -1,8 +1,8 @@
 <div class="row">
 	<div class="col-sm-6 col-md-8">
 		<h1>Thank you for your purchase!</h1>
-		<p ng-if="orderId">
-			Your order number is: {{orderId}}.
+		<p ng-if="order._id">
+			Your order number is: {{order._id}}.
 		</p>
 
 		<p>You will receive an order confirmation email with details of your order and a link to track its progress. <span ng-if="visitorProps.isLoggedIn">You can also view past orders from the <a ng-href="/account/orders">my account page</a></span></p>
@@ -36,6 +36,7 @@
 </div>
 
 <!-- KG SPECIFIC -->
+<!-- NOTE: Additional tracking exists in the controller -->
 <!-- Google Code for Transaction Conversion Page -->
 <script type="text/javascript">
 	/* <![CDATA[ */
@@ -56,6 +57,7 @@
 	</div>
 </noscript>
 
+<!-- Bing Code for Conversion Tracking -->
 <script>
 	(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"4030236"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");
 </script>
