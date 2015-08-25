@@ -33,7 +33,7 @@ var paths = {
     ],
     theme: {
         dist: 'dist/theme',
-        css: 'app/theme/styles/**/*.css',
+        styles: 'app/theme/styles/*.scss',
         // images, videos, fonts
         media: 'app/theme/**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf,eot,ttf,woff}',
         scripts: [
@@ -111,23 +111,19 @@ gulp.task('scripts', function () {
         .pipe(refresh());
 });
 
-gulp.task('theme.sass', function() {
-    return gulp.src('app/theme/styles/bootstrap/bootstrap.scss')
+gulp.task('theme.styles', function() {
+    return gulp.src(paths.theme.styles)
     .pipe(sass({
         outputStyle: 'expanded',
         precision: 8
     }))
-    .pipe(gulp.dest('app/theme/styles'));
+    .pipe(sourcemaps.init())
+    .pipe(autoprefix('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+    .pipe(minifyCSS())
+    .pipe(sourcemaps.write('./maps'))
+    .pipe(gulp.dest(paths.theme.dist + '/styles'))
+    .pipe(refresh());
 })
-gulp.task('theme.css', function () {
-    return gulp.src(paths.theme.css)
-        .pipe(sourcemaps.init())
-        .pipe(autoprefix('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-        .pipe(minifyCSS())
-        .pipe(sourcemaps.write('./maps'))
-        .pipe(gulp.dest(paths.theme.dist + '/styles'))
-        .pipe(refresh());
-});
 
 gulp.task('theme.scripts', function () {
     return gulp.src(paths.theme.scripts)
@@ -172,8 +168,7 @@ gulp.task('watch',function(){
     gulp.start('livereload');
 
     gulp.watch(["app/**/*.html"],['html']);
-    gulp.watch(["app/**/*.css"],['theme.css']);
-    gulp.watch(["app/**/*.scss"],['theme.sass']);
+    gulp.watch(["app/**/*.scss","app/**/*.css"],['theme.styles']);
     gulp.watch(["app/scripts/**/*.js"],['scripts']);
     gulp.watch(["app/theme/**/*.js"],['theme.scripts']);
 });
@@ -210,7 +205,7 @@ gulp.task('revision', function(){
 
 gulp.task('lib', ['lib.ie', 'lib.scripts']);
 gulp.task('theme', [
-    'theme.css',
+    'theme.styles',
     'theme.scripts',
     'theme.media'
 ]);
@@ -218,7 +213,7 @@ gulp.task('theme', [
 // For production
 gulp.task('build', function(){
     // note: revision has a short circuit for dev
-    runSequence('clean', 'theme.sass', [
+    runSequence('clean', [
         'html',
         'misc',
         'scripts',
