@@ -628,6 +628,7 @@ ul {
 	font-style: italic;
 }
 .pdp-primary-img {
+	cursor: zoom-in;
 	display: block;
 	border: 1px solid #ddd;
 	margin-bottom: 10px;
