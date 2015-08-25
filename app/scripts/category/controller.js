@@ -391,19 +391,6 @@ angular.module("categoryModule")
             };
 
             /**
-             * Gets full path to image
-             *
-             * @param {object} product
-             * @returns {string}
-             */
-            $scope.getImage = function (product, size) {
-                if (typeof product === "undefined") {
-                    return $designImageService.getFullImagePath("", null, size);
-                }
-                return $designImageService.getFullImagePath("", product["default_image"], size);
-            };
-
-            /**
              * Set category image and images attributes value as a path
              * $scope.category.image - default image path
              * $scope.category.images - list of all images in this category
