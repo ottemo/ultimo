@@ -179,14 +179,15 @@ ul {
 /* subscriber */
 .navbar .subscriber {
 	margin-top: 32px;
-}
-.subscriber {
 	padding: 0 10px;
 }
+.subscriber {}
 .subscriber__input-wrap {
 	overflow: hidden;
 }
-.subscriber__input {}
+.subscriber__input {
+	padding: 5px;
+}
 .subscriber .btn {
 	float: right;
 	margin-left: 10px;
@@ -196,6 +197,9 @@ ul {
 		float: right;
 		width: 360px;
 		padding: 0;
+	}
+	.subscriber__input {
+		padding: 5px 20px;
 	}
 }
 
@@ -794,15 +798,21 @@ the extra space looks funny */
 	margin-bottom: 20px;
 }
 
+#footer .links li {
+	padding: 3px 0;
+}
+@media (max-width: 767px) {
+	#footer .links li {
+		text-align: center;
+	}
+}
 #footer .links a {
 	color: #999;
 	font-family: "Helvetica Neue",Helvetica;
 	font-size: 14px;
 	font-weight: 200;
-	padding: 3px 0;
 	text-decoration: none;
 	text-transform: uppercase;
-	display: block;
 }
 
 #footer .links a:hover {
