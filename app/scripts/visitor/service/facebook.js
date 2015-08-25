@@ -46,7 +46,6 @@ fb = function () {
 
     return {
         appId: angular.appConfigValue("general.app.login.facebook.appId"),
-        secretKey: angular.appConfigValue("general.app.login.facebook.secretKey"),
         init: init,
         getAvatar: getAvatar
     };
