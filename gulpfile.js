@@ -14,6 +14,7 @@ var RevAll = require('gulp-rev-all');
 var runSequence = require('run-sequence');
 var sourcemaps = require('gulp-sourcemaps');
 var sass = require('gulp-sass');
+var rename = require('gulp-rename');
 var gutil = require('gulp-util');
 var plumber = require('gulp-plumber');
 
@@ -24,7 +25,7 @@ var paths = {
         'app/theme/**/*.js'
     ],
     html: 'app/**/*.html',
-    misc: 'app/*.{txt,htaccess,ico,xml}',
+    misc: 'app/*.{htaccess,ico,xml}',
     scripts: [
         'app/scripts/config.js',
         'app/scripts/main.js',
@@ -64,6 +65,7 @@ var host = {
     lrPort: '35729'
 };
 
+// REFACTOR: don't rely on env
 var env = process.env.NODE_ENV || 'development';
 
 // Empties folders to start fresh
@@ -93,8 +95,14 @@ gulp.task('html', function () {
 });
 
 gulp.task('misc', function () {
-    return gulp.src(paths.misc)
+    // REFACTOR: don't rely on env version
+    var robotPath = (env === 'production') ? 'app/robots.prod.txt' : 'app/robots.dev.txt';
+    gulp.src(robotPath)
+        .pipe(rename('robots.txt'))
         .pipe(gulp.dest(paths.dist));
+
+    return gulp.src(paths.misc)
+            .pipe(gulp.dest(paths.dist));
 });
 
 gulp.task('scripts', function () {
@@ -196,6 +204,7 @@ gulp.task('livereload', function(){
 });
 
 gulp.task('revision', function(){
+    // REFACTOR: don't rely on env
     if(env === 'production') {
         var revAll = new RevAll({
             dontUpdateReference: [/^((?!.js|.css).)*$/g],
