@@ -1,0 +1,9 @@
+# robotstxt.org
+
+User-agent: *
+Disallow: /checkout
+Disallow: /cart
+Disallow: /not-found
+Disallow: /account
+
+Sitemap: https://karigran.com/sitemap.xml

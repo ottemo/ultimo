@@ -14,8 +14,11 @@ var RevAll = require('gulp-rev-all');
 var runSequence = require('run-sequence');
 var sourcemaps = require('gulp-sourcemaps');
 var sass = require('gulp-sass');
+var rename = require('gulp-rename');
+var gulpIf = require('gulp-if');
 var gutil = require('gulp-util');
 var plumber = require('gulp-plumber');
+
 
 var paths = {
     dist: 'dist',
@@ -24,7 +27,7 @@ var paths = {
         'app/theme/**/*.js'
     ],
     html: 'app/**/*.html',
-    misc: 'app/*.{txt,htaccess,ico,xml}',
+    misc: 'app/*.{htaccess,ico,xml}',
     scripts: [
         'app/scripts/config.js',
         'app/scripts/main.js',
@@ -64,7 +67,9 @@ var host = {
     lrPort: '35729'
 };
 
+// REFACTOR: don't rely on env
 var env = process.env.NODE_ENV || 'development';
+var isProduction = (env == 'production');
 
 // Empties folders to start fresh
 gulp.task('clean', function (cb) {
@@ -93,8 +98,14 @@ gulp.task('html', function () {
 });
 
 gulp.task('misc', function () {
-    return gulp.src(paths.misc)
+
+    var robotPath = isProduction ? 'app/robots.prod.txt' : 'app/robots.dev.txt';
+    gulp.src(robotPath)
+        .pipe(rename('robots.txt'))
         .pipe(gulp.dest(paths.dist));
+
+    return gulp.src(paths.misc)
+            .pipe(gulp.dest(paths.dist));
 });
 
 gulp.task('scripts', function () {
@@ -146,7 +157,7 @@ gulp.task('theme.scripts', function () {
 gulp.task('theme.media', function () {
     return gulp.src(paths.theme.media)
         .pipe(changed(paths.theme.dist))
-        .pipe(imagemin())
+        .pipe(gulpIf(isProduction, imagemin()))
         .pipe(gulp.dest(paths.theme.dist));
 });
 
@@ -162,8 +173,6 @@ gulp.task('lib.ie', function() {
         .pipe(concat('ie-libs.js'))
         .pipe(gulp.dest(paths.lib.dist));
 });
-
-
 
 
 gulp.task('watch',function(){
@@ -196,11 +205,12 @@ gulp.task('livereload', function(){
 });
 
 gulp.task('revision', function(){
-    if(env === 'production') {
+    if(isProduction) {
         var revAll = new RevAll({
             dontUpdateReference: [/^((?!.js|.css).)*$/g],
             dontRenameFile: [/^((?!.js|.css).)*$/g]
         });
+
         gulp.src('dist/**')
             .pipe(revAll.revision())
             .pipe(gulp.dest('dist'));
