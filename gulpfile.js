@@ -98,7 +98,7 @@ gulp.task('html', function () {
 });
 
 gulp.task('misc', function () {
-    // REFACTOR: don't rely on env version
+
     var robotPath = isProduction ? 'app/robots.prod.txt' : 'app/robots.dev.txt';
     gulp.src(robotPath)
         .pipe(rename('robots.txt'))
@@ -205,7 +205,6 @@ gulp.task('livereload', function(){
 });
 
 gulp.task('revision', function(){
-    // REFACTOR: don't rely on env
     if(isProduction) {
         var revAll = new RevAll({
             dontUpdateReference: [/^((?!.js|.css).)*$/g],
