@@ -50,11 +50,10 @@ angular.module("commonModule")
         "$commonPageService",
         "$designService",
         "$commonApiService",
-        "$designImageService",
         "$commonBreadcrumbsService",
         "$cartService",
         "$visitorLoginService",
-        function ($scope, $commonPageService, $designService, $commonApiService, $designImageService, $commonBreadcrumbsService,
+        function ($scope, $commonPageService, $designService, $commonApiService, $commonBreadcrumbsService,
                   $cartService, $visitorLoginService) {
 
             /**

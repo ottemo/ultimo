@@ -9,12 +9,11 @@ angular.module("pdpModule")
         "$timeout",
         "$pdpApiService",
         "$pdpProductService",
-        "$designImageService",
         "$cartService",
         "$visitorLoginService",
         "$commonUtilService",
         function ($scope, $routeParams, $location, $timeout, $pdpApiService, $pdpProductService,
-                  $designImageService, $cartService, $visitorLoginService, $commonUtilService) {
+                  $cartService, $visitorLoginService, $commonUtilService) {
             var defaultProduct, reinitializeStars, getAverageValue, getStarsPercents, getDefaultRatingInfo, initWatchers;
 
             initWatchers = function () {

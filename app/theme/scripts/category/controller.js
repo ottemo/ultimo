@@ -7,7 +7,6 @@ angular.module('categoryModule')
         "$routeParams",
         "$categoryApiService",
         "$designService",
-        "$designImageService",
         "$categoryService",
         "$visitorLoginService",
         "$cartService",
@@ -19,7 +18,7 @@ angular.module('categoryModule')
         "GENERAL_CATEGORY_URI",
         "SEARCH_KEY_NAME",
         function ($scope, $location, $route, $routeParams, $categoryApiService, $designService,
-                  $designImageService, $categoryService, $visitorLoginService, $cartService,
+                  $categoryService, $visitorLoginService, $cartService,
                   $pdpProductService, $commonUtilService, $commonPageService, $q, $timeout,
                   GENERAL_CATEGORY_URI, SEARCH_KEY_NAME) {
 

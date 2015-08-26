@@ -5,12 +5,11 @@ angular.module("cartModule")
         "$interval",
         "$cartApiService",
         "$cartService",
-        "$designImageService",
         "$visitorLoginService",
         "$pdpProductService",
         "$checkoutService",
         "$location",
-        function ($scope, $interval, $cartApiService, $cartService, $designImageService, $visitorLoginService, $pdpProductService, $checkoutService, $location) {
+        function ($scope, $interval, $cartApiService, $cartService, $visitorLoginService, $pdpProductService, $checkoutService, $location) {
             $scope.it = $cartService;
             $scope.checkout = $checkoutService;
             $scope.productService = $pdpProductService;
