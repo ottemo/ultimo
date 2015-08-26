@@ -308,7 +308,6 @@ angular.module("categoryModule")
                     $categoryApiService.load({"id": $scope.categoryId}).$promise.then(function (response) {
                         var result = response.result || [];
                         $scope.category = result;
-                        $scope.initCategoryImages();
                     });
                 }
 
@@ -388,33 +387,6 @@ angular.module("categoryModule")
                     });
                 }
 
-            };
-
-            /**
-             * Set category image and images attributes value as a path
-             * $scope.category.image - default image path
-             * $scope.category.images - list of all images in this category
-             */
-            $scope.initCategoryImages = function () {
-                var categoryImageBasePath;
-
-                $categoryApiService.getImagePath({"categoryID": $scope.categoryId}).$promise.then(function (response) {
-                    categoryImageBasePath = response.result || [];
-                });
-
-                $categoryApiService.listImages({"categoryID": $scope.categoryId}).$promise.then(function (response) {
-                    $scope.category.images = response.result || [];
-                    var categoryImagesPath = {};
-                    for (var i = 0, imageName, imagePath; i < $scope.category.images.length; i += 1) {
-                        imageName = $scope.category.images[i];
-                        imagePath = $designImageService.getFullImagePath("", categoryImageBasePath + imageName);
-                        categoryImagesPath[imageName] = imagePath;
-                    }
-                    $scope.category.images = categoryImagesPath;
-                    if (typeof $scope.category.image !== "undefined") {
-                        $scope.category.image = $designImageService.getFullImagePath("", categoryImageBasePath + $scope.category.image);
-                    }
-                });
             };
 
             $scope.sortByPrice = function (order) {
