@@ -686,16 +686,6 @@ angular.module("checkoutModule")
 
             };
 
-            /**
-             * Gets full path to image
-             *
-             * @param {object} product
-             * @returns {string}
-             */
-            $scope.getImage = function (product, size) {
-                return $designImageService.getFullImagePath("", product.image, size);
-            };
-
             $scope.newBilling = function () {
                 // Sets submitted billing form in false
                 $scope.subBillingAddress = false;
