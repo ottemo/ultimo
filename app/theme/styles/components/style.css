@@ -384,13 +384,6 @@ ul {
  Home
  ---------------*/
 .home a.main-banner {
-	display: block;
-	position: relative;
-	padding-bottom: 56.25%;
-
-	overflow: hidden;
-	height: auto;
-	width: 100%;
 	margin-bottom: 40px;
 }
 
@@ -407,18 +400,6 @@ ul {
 .home a.main-banner .promo-text strong {
 	font-style: italic;
 	font-family: Georgia;
-}
-
-.home .main-banner img {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	display: block;	
-    max-width: 100%;
-    max-height: 100%;
-
 }
 
 .home .categories .inner {
