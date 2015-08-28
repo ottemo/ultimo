@@ -20,7 +20,7 @@
                 <div class="row">
                     <!-- products: clears handled in `.category .products-area .product:nth-child` -->
                     <div
-                    class="col-xs-12 col-sm-4 col-md-3 product"
+                    class="col-xs-6 col-sm-4 col-md-3 product"
                     ng-repeat="_item in category.productList | filter:searchText">
                         <div class="">
                             <a
@@ -34,7 +34,7 @@
                             ng-href="{{productService.getUrl(_item._id)}}">
                                 <img
                                 alt=""
-                                ng-src="{{getImage(_item)}}"
+                                ng-src="{{ _item.image.small }}"
                                 err-src="placeholder.png">
                             </a>
 
@@ -64,7 +64,7 @@
 
             <!-- products: clears handled in `.category .products-area .product:nth-child` -->
             <div
-            class="col-xs-12 col-sm-4 col-md-3 product"
+            class="col-xs-6 col-sm-4 col-md-3 product"
             ng-repeat="_item in productsList | filter:searchText">
                 <div class="">
                     <a
@@ -78,7 +78,7 @@
                     ng-href="{{productService.getUrl(_item._id)}}">
                         <img
                         alt=""
-                        ng-src="{{getImage(_item)}}"
+                        ng-src="{{ _item.image.small }}"
                         err-src="placeholder.png">
                     </a>
 
