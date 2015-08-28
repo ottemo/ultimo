@@ -31,11 +31,11 @@ angular.module("checkoutModule")
                         order.items.forEach(function(item) {
                             var gaItem = {
                               'id': order._id,                  // Transaction ID. Required.
-                              'name': item.Name,                // Product name. Required.
-                              'sku': item.Sku,                  // SKU/code.
+                              'name': item.name,                // Product name. Required.
+                              'sku': item.sku,                  // SKU/code.
                               // 'category': 'Party Toys',      // Category or variation.
-                              'price': item.Price,              // Unit price.
-                              'quantity': item.Qty              // Quantity.
+                              'price': item.price,              // Unit price.
+                              'quantity': item.qty              // Quantity.
                             };
 
                             ga('ecommerce:addItem', gaItem);
