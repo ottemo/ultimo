@@ -9,14 +9,6 @@ angular.module("pdpModule")
                 method: 'GET',
                 url: REST_SERVER_URI + '/product/:productID'
             },
-            'getImagePath': {
-                method: 'GET',
-                url: REST_SERVER_URI + '/product/:productID/mediapath/image'
-            },
-            'listImages': {
-                method: 'GET',
-                url: REST_SERVER_URI + '/product/:productID/media/image'
-            },
             "getProducts": {
                 method: "GET",
                 url: REST_SERVER_URI + "/products"

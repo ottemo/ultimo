@@ -9,12 +9,11 @@ angular.module("pdpModule")
         "$timeout",
         "$pdpApiService",
         "$pdpProductService",
-        "$designImageService",
         "$cartService",
         "$visitorLoginService",
         "$commonUtilService",
         function ($scope, $routeParams, $location, $timeout, $pdpApiService, $pdpProductService,
-                  $designImageService, $cartService, $visitorLoginService, $commonUtilService) {
+                  $cartService, $visitorLoginService, $commonUtilService) {
             var defaultProduct, reinitializeStars, getAverageValue, getStarsPercents, getDefaultRatingInfo, initWatchers;
 
             initWatchers = function () {
@@ -123,7 +122,6 @@ angular.module("pdpModule")
                 $scope.getReviews();
                 $scope.getRatingInfo();
                 initWatchers();
-                loadImages();
             };
 
             $scope.getProduct = function () {
@@ -174,54 +172,10 @@ angular.module("pdpModule")
                 return $scope.qty * $scope.product.price;
             };
 
-            //-----------------
-            // IMAGE FUNCTIONS
-            //-----------------
-            $scope.productImages = [];
-            var loadImages = function () {
-
-                if ($scope.productId) {
-                    // taking media patch for new product
-                    $pdpApiService.getImagePath({"productID": $scope.productId}).$promise.then(
-                        function (response) {
-                            $scope.imagesPath = response.result || "";
-                        });
-
-                    // taking registered images for product
-                    $pdpApiService.listImages({"productID": $scope.productId}).$promise.then(
-                        function (response) {
-                            $scope.productImages = response.result || [];
-
-                            // Makes default_image first in array
-                            $scope.productImages.sort(function (a, b) {
-                                if (a.toString() < b.toString() && a === $scope.product["default_image"]) {
-                                    return -1;
-                                }
-                                if (a.toString() > b.toString() && a !== $scope.product["default_image"]) {
-                                    return 1;
-                                }
-
-                                return 0;
-                            });
-                        });
-                }
-            };
-
-            /**
-             * Returns full path to image
-             *
-             * @param {string} path     - the destination path to product folder
-             * @param {string} image    - image name
-             * @returns {string}        - full path to image
-             */
-            $scope.getImage = function (path, image, size) {
-                return $designImageService.getFullImagePath(path, image, size);
-            };
-
             $scope.isAddingToCart = false;
             $scope.isAddToCartSuccessful = false;
             $scope.addToCart = function ($event) {
-                // I think because we don't an href in the link
+                // I think because we don't have an href in the link
                 // we get an odd bug where the link retains focus
                 $event.target.blur();
 

@@ -4,7 +4,6 @@ angular.module("checkoutModule")
         "$scope",
         "$location",
         "$checkoutApiService",
-        "$designImageService",
         "$visitorLoginService",
         "$cartService",
         "$designStateService",
@@ -12,7 +11,7 @@ angular.module("checkoutModule")
         "$checkoutService",
         "$q",
         "$interval",
-        function ($scope, $location, $checkoutApiService, $designImageService, $visitorLoginService, $cartService, $designStateService, $commonUtilService, $checkoutService, $q, $interval) {
+        function ($scope, $location, $checkoutApiService, $visitorLoginService, $cartService, $designStateService, $commonUtilService, $checkoutService, $q, $interval) {
 
             var init, info, getDefaultAddress, getAddresses, enabledGuestCheckout,
                 getPaymentInfo, creditCartTypes, isValidSteps, initWatchers, defaultChoosePaymentMethod,
@@ -684,16 +683,6 @@ angular.module("checkoutModule")
                     }
                 });
 
-            };
-
-            /**
-             * Gets full path to image
-             *
-             * @param {object} product
-             * @returns {string}
-             */
-            $scope.getImage = function (product, size) {
-                return $designImageService.getFullImagePath("", product.image, size);
             };
 
             $scope.newBilling = function () {

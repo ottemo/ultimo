@@ -5,12 +5,11 @@ angular.module("cartModule")
         "$interval",
         "$cartApiService",
         "$cartService",
-        "$designImageService",
         "$visitorLoginService",
         "$pdpProductService",
         "$checkoutService",
         "$location",
-        function ($scope, $interval, $cartApiService, $cartService, $designImageService, $visitorLoginService, $pdpProductService, $checkoutService, $location) {
+        function ($scope, $interval, $cartApiService, $cartService, $visitorLoginService, $pdpProductService, $checkoutService, $location) {
             $scope.it = $cartService;
             $scope.checkout = $checkoutService;
             $scope.productService = $pdpProductService;
@@ -48,19 +47,9 @@ angular.module("cartModule")
             };
 
             $scope.update = function (itemIdx, qty) {
-                // TODO: not sure why we are tracking number of requests 
+                // TODO: not sure why we are tracking number of requests
                 $cartService.increaseCountRequest();
                 $cartService.update(itemIdx, qty);
-            };
-
-            /**
-             * Gets full path to image
-             *
-             * @param {object} product
-             * @returns {string}
-             */
-            $scope.getImage = function (product, size) {
-                return $designImageService.getFullImagePath("", product.image, size);
             };
 
             $scope.getSubtotal = function () {

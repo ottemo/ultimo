@@ -32,7 +32,7 @@
                     <!-- image -->
                     <td class="hidden-xs text-center" style="width: 140px">
                         <a href="{{productService.getUrl(item.pid)}}">
-                            <img ng-src="{{getImage(item.product)}}" err-src="placeholder.png" alt="{{item.product.name}}" class="img-responsive">
+                            <img ng-src="{{ item.product.image.small }}" err-src="placeholder.png" alt="{{item.product.name}}" class="img-responsive">
                         </a>
                     </td>
 

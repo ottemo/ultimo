@@ -882,7 +882,12 @@ We have a beautiful new site, but it’s not quite perfect yet.  Due to issues w
                             <!-- image -->
                             <div class="col-md-4">
                                 <div class="thumbnail">
-                                    <a href="{{productService.getUrl(item.pid)}}"><img err-src="placeholder.png" ng-src="{{getImage(item.product)}}" alt="{{item.product.name}}"/></a>
+                                    <a href="{{productService.getUrl(item.pid)}}">
+                                        <img
+                                        ng-src="{{ item.product.image.thumb }}"
+                                        err-src="placeholder.png"
+                                        alt="{{item.product.name}}"/>
+                                    </a>
                                 </div>
                             </div>
 

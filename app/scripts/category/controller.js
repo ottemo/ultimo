@@ -7,7 +7,6 @@ angular.module("categoryModule")
         "$routeParams",
         "$categoryApiService",
         "$designService",
-        "$designImageService",
         "$categoryService",
         "$visitorLoginService",
         "$cartService",
@@ -17,7 +16,7 @@ angular.module("categoryModule")
         "GENERAL_CATEGORY_URI",
         "SEARCH_KEY_NAME",
         function ($scope, $location, $route, $routeParams, $categoryApiService, $designService,
-                  $designImageService, $categoryService, $visitorLoginService, $cartService,
+                  $categoryService, $visitorLoginService, $cartService,
                   $pdpProductService, $commonUtilService, $timeout, GENERAL_CATEGORY_URI, SEARCH_KEY_NAME) {
 
             var init, getPage, addCategoryCrumbs, getFilters, setFilters, getParams, initWatchers,
@@ -308,7 +307,6 @@ angular.module("categoryModule")
                     $categoryApiService.load({"id": $scope.categoryId}).$promise.then(function (response) {
                         var result = response.result || [];
                         $scope.category = result;
-                        $scope.initCategoryImages();
                     });
                 }
 
@@ -388,46 +386,6 @@ angular.module("categoryModule")
                     });
                 }
 
-            };
-
-            /**
-             * Gets full path to image
-             *
-             * @param {object} product
-             * @returns {string}
-             */
-            $scope.getImage = function (product, size) {
-                if (typeof product === "undefined") {
-                    return $designImageService.getFullImagePath("", null, size);
-                }
-                return $designImageService.getFullImagePath("", product["default_image"], size);
-            };
-
-            /**
-             * Set category image and images attributes value as a path
-             * $scope.category.image - default image path
-             * $scope.category.images - list of all images in this category
-             */
-            $scope.initCategoryImages = function () {
-                var categoryImageBasePath;
-
-                $categoryApiService.getImagePath({"categoryID": $scope.categoryId}).$promise.then(function (response) {
-                    categoryImageBasePath = response.result || [];
-                });
-
-                $categoryApiService.listImages({"categoryID": $scope.categoryId}).$promise.then(function (response) {
-                    $scope.category.images = response.result || [];
-                    var categoryImagesPath = {};
-                    for (var i = 0, imageName, imagePath; i < $scope.category.images.length; i += 1) {
-                        imageName = $scope.category.images[i];
-                        imagePath = $designImageService.getFullImagePath("", categoryImageBasePath + imageName);
-                        categoryImagesPath[imageName] = imagePath;
-                    }
-                    $scope.category.images = categoryImagesPath;
-                    if (typeof $scope.category.image !== "undefined") {
-                        $scope.category.image = $designImageService.getFullImagePath("", categoryImageBasePath + $scope.category.image);
-                    }
-                });
             };
 
             $scope.sortByPrice = function (order) {
