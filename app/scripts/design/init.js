@@ -8,8 +8,6 @@
  *
  */
 angular.module("designModule", ["ngSanitize"])
-    .constant("MEDIA_BASE_PATH", angular.appConfigValue("general.app.media_path"))
-    .constant("PRODUCT_DEFAULT_IMG", "placeholder.png")
     .run(["$designService", "$rootScope", function ($designService, $rootScope) {
 
         /**

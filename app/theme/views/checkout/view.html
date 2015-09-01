@@ -493,10 +493,10 @@
         <div id="discounts" class="accordion">
             <gui-message-manager item="messageDiscounts"></gui-message-manager>
             <div class="form-group col-md-8 col-md-offset-1">
-                <input 
-                type="text" 
-                class="form-control" 
-                id="discount" 
+                <input
+                type="text"
+                class="form-control"
+                id="discount"
                 placeholder="Discount code"
                 name="discount"
                 ng-model="discount">
@@ -640,7 +640,12 @@
 
                         <!-- image -->
                         <div class="thumbnail col-md-4">
-                            <a href="{{productService.getUrl(item.pid)}}"><img err-src="placeholder.png" ng-src="{{getImage(item.product)}}" alt="{{item.product.name}}"/></a>
+                            <a href="{{productService.getUrl(item.pid)}}">
+                              <img
+                              ng-src="{{ item.product.image.small }}"
+                              err-src="placeholder.png"
+                              alt="{{item.product.name}}"/>
+                            </a>
                         </div>
 
                         <div class="col-md-8">

@@ -7,7 +7,6 @@ angular.module("checkoutModule")
         "$interval",
         "$timeout",
         "$checkoutApiService",
-        "$designImageService",
         "$visitorLoginService",
         "$cartService",
         "$designStateService",
@@ -21,7 +20,6 @@ angular.module("checkoutModule")
             $interval,
             $timeout,
             $checkoutApiService,
-            $designImageService,
             $visitorLoginService,
             $cartService,
             $designStateService,
@@ -913,10 +911,14 @@ angular.module("checkoutModule")
                                         function () {
                                             $scope.purchase = response.result || {};
 
+                                            // Stash the order in a service so we can access it on the
+                                            // success page
+                                            $checkoutService.lastOrder = response.result || false;
+
                                             //TODO: clean this up with angular modals and promises
                                             $('#processing').modal('hide');
                                             $timeout(function(){
-                                                $location.path("/checkout/success/"+ response.result._id);
+                                                $location.path("/checkout/success/"+ $checkoutService.lastOrder._id);
                                             }, 600);
                                         }
                                     );

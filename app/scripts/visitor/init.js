@@ -71,6 +71,8 @@ angular.module("visitorModule", [
         function ($rootScope, $location, $anchorScroll,  $visitorLoginService) {
             $anchorScroll.yOffset = 150;
 
+            angular.module('visitorModule').back = {};
+
             // save auth data in root var
             //
             $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
@@ -78,16 +80,28 @@ angular.module("visitorModule", [
             });
 
             $rootScope.$on('$locationChangeStart', function (evt, absNewUrl, absOldUrl) {
+
                 var prevUri = absOldUrl.substring($location.absUrl().length - $location.url().length);
                 var matches = /^([^?]+)\?*(.*)$/g.exec(prevUri);
+
                 if (matches !== null) {
-                    angular.module('visitorModule').back = {};
-                    angular.module('visitorModule').back.url = absOldUrl;
-                    angular.module('visitorModule').back.path = matches[1] || "";
-                    angular.module('visitorModule').back.params = matches[2] || "";
-                    //console.log('new route', matches, angular.module('visitorModule').back )
-                } else {
-                    //console.log('new route, but matches was null', absOldUrl, prevUri)
+                    var path = matches[1] || "";
+
+                    var pathBlacklist = [
+                        '/forgot-password',
+                        '/login',
+                        '/logout',
+                        '/resend-activation',
+                        '/registration',
+                    ];
+
+                    var isPathInBlacklist = (-1 !== pathBlacklist.indexOf(path));
+
+                    // Only record redirect urls if they are ones we want someone ever
+                    // redireting to
+                    if (!isPathInBlacklist) {
+                        angular.module('visitorModule').back.path = path;
+                    }
                 }
             });
         }

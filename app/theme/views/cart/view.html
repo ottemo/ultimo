@@ -22,7 +22,7 @@
         <div class="col-xs-6 col-sm-3">
             <div class="thumbnail col-xs-12 vcenter">
                 <a href="{{productService.getUrl(item.pid)}}">
-                    <img ng-src="{{getImage(item.product)}}" err-src="placeholder.png" alt="{{item.product.name}}"/>
+                    <img ng-src="{{ item.product.image.small }}" err-src="placeholder.png" alt="{{item.product.name}}"/>
                 </a>
             </div>
         </div>

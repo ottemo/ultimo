@@ -4,7 +4,7 @@ angular.module("commonModule")
      */
     .controller("commonHeaderController", [
         "$scope",
-        
+
         "$commonApiService",
         "$categoryService",
         function ($scope, $commonApiService, $categoryService) {
@@ -50,13 +50,19 @@ angular.module("commonModule")
         "$commonPageService",
         "$designService",
         "$commonApiService",
-        "$designImageService",
         "$commonBreadcrumbsService",
         "$cartService",
         "$visitorLoginService",
         "cfpLoadingBar",
-        function ($scope, $commonPageService, $designService, $commonApiService, $designImageService, $commonBreadcrumbsService,
-                  $cartService, $visitorLoginService, cfpLoadingBar) {
+        function (
+            $scope, 
+            $commonPageService, 
+            $designService, 
+            $commonApiService,
+            $commonBreadcrumbsService,
+            $cartService, 
+            $visitorLoginService, 
+            cfpLoadingBar) {
 
             /**
              * Home, 404 - pages
@@ -66,16 +72,6 @@ angular.module("commonModule")
             $commonPageService.setTitle();
             $commonPageService.setMetaDescription();
             $commonPageService.setMetaKeywords();
-
-            /**
-             * Gets full path to image
-             *
-             * @param {object} product
-             * @returns {string}
-             */
-            $scope.getImage = function (img, size) {
-                return $designImageService.getFullImagePath("", img, size);
-            };
 
             // HANDLERS FOR BREADCRUMBS (START)
             //
