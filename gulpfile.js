@@ -60,7 +60,9 @@ var paths = {
 
 var handleError = function(err) {
     gutil.log(gutil.colors.red('# Error in ' + err.plugin));
-    gutil.log('File: %s:%s', err.fileName, err.lineNumber);
+    if (err.fileName) {
+        gutil.log('File: %s:%s', err.fileName, err.lineNumber);
+    }
     gutil.log('Error Message: %s', err.message);
     gutil.beep();
 }
@@ -127,17 +129,18 @@ gulp.task('scripts', function () {
 
 gulp.task('theme.styles', function() {
     return gulp.src(paths.theme.styles)
-    .pipe(sass({
-        outputStyle: 'expanded',
-        precision: 8
-    }))
-    .pipe(sourcemaps.init())
-    .pipe(autoprefix('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-    .pipe(minifyCSS())
-    .pipe(sourcemaps.write('./maps'))
-    .pipe(gulp.dest(paths.theme.dist + '/styles'))
-    .pipe(refresh());
-})
+        .pipe(sourcemaps.init())
+        .pipe(plumber(handleError))
+        .pipe(sass.sync({
+            outputStyle: 'compressed',
+            precision: 8,
+        }))
+        .pipe(autoprefix('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+        .pipe(plumber.stop())
+        .pipe(sourcemaps.write('./maps'))
+        .pipe(gulp.dest(paths.theme.dist + '/styles'))
+        .pipe(refresh());
+});
 
 gulp.task('theme.scripts', function () {
     return gulp.src(paths.theme.scripts)
