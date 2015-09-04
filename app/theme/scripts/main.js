@@ -9,16 +9,6 @@ $(document).ready(function () {
         $('.modal').modal('hide');
     });
 
-    $(document).on('click', '#modal-registration', function (event) {
-        $("#form-login").modal("hide");
-        $("#form-registration").modal("show");
-    });
-
-    $(document).on('click', '#modal-login', function (event) {
-        $("#form-registration").modal("hide");
-        $("#form-login").modal("show");
-    });
-
     // Mail chimp modal, close on submit btn click
     $(document).on('click', '#mc-embedded-subscribe', function () {
         $('.modal').modal('hide');

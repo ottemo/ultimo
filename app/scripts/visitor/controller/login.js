@@ -100,8 +100,6 @@ angular.module("visitorModule")
                     $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
                         if (isLoggedIn) {
                             miniCart.modal('toggle');
-                        } else {
-                            $('#form-login').modal('show');
                         }
                     });
                 }

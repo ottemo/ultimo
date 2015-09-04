@@ -380,8 +380,6 @@ angular.module("categoryModule")
                     $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
                         if (isLoggedIn) {
                             addItem();
-                        } else {
-                            $("#form-login").modal("show");
                         }
                     });
                 }

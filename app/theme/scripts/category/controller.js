@@ -460,8 +460,6 @@ angular.module('categoryModule')
                     $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
                         if (isLoggedIn && !$scope.isAddingToCart) {
                             addItem();
-                        } else {
-                            $("#form-login").modal("show");
                         }
                     });
                 }
