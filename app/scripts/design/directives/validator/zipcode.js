@@ -31,7 +31,7 @@ angular.module('designModule')
             // Default validation error message
             var invalidMsg = 'This field is not valid';
 
-            ngModel.$validators.validateAZipCode = function (modelValue, viewValue) {
+            ngModel.$validators.validateZipCode = function (modelValue, viewValue) {
 
                 var value = viewValue || modelValue;
                 var validator = validators[scope.country];
