@@ -6,7 +6,8 @@ angular.module('analyticsBingModule', ['angulartics'])
         window.uetq = window.uetq || [];
         window.uetq.push({
             'ec': 'page visit',
-            'ea': window.location
+            'ea': window.location.href
         });
     });
+    console.log(window.location.href);
 }]);
