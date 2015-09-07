@@ -12,7 +12,7 @@ angular.module("commonModule", [
     "ngAnimate",
 
     // Deps
-    "angulartics",
+    // "angulartics",
     "angulartics.google.analytics",
 
     // Internal
@@ -22,7 +22,8 @@ angular.module("commonModule", [
     "cmsModule",
     "contactModule",
 
-    'angular-loading-bar'
+    'angular-loading-bar',
+    'analyticsBingModule',
 ])
 
 .value("DEFAULT_TITLE", "Kari Gran")
