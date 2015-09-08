@@ -9,5 +9,5 @@ angular.module('analyticsBingModule', ['angulartics'])
             'ea': window.location.href
         });
     });
-    console.log(window.location.href);
+    // console.log(window.location.href);
 }]);
