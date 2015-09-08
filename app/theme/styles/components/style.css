@@ -389,6 +389,7 @@ ul {
  ---------------*/
 .home a.main-banner {
 	margin-bottom: 40px;
+	display: block;
 }
 
 .home a.main-banner .promo-text {
