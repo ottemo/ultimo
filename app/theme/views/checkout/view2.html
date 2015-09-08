@@ -254,6 +254,9 @@ We have a beautiful new site, but it’s not quite perfect yet.  Due to issues w
                                     ng-model-options="{ updateOn: 'blur' }"
                                     ng-model="checkout.shipping_address.zip_code"
                                     ng-disabled="checkout.shipping_address._id"
+                                    ot-zip-code
+                                    ot-zip-code-linked-country="checkout.shipping_address.country"
+                                    ot-nine-num
                                     required>
 
                                     <p ng-if="shippingAddress.zip_code.$error.required"

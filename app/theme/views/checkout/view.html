@@ -98,9 +98,18 @@
                 <div class="form-group col-md-6"
                      ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.zip_code.$invalid) || (shippingAddress.zip_code.$invalid && !shippingAddress.zip_code.$pristine) }">
                     <label for="shippingAddressZip">Zip / Postal Code*</label>
-                    <input type="text" class="form-control" id="shippingAddressZip" placeholder="Zip / Postal Code"
-                           name="zip_code" ot-regexp="/^\d{5}(?:[-\s]\d{4})?$/" ng-blur="saveByBlur('shippingAddress')"
-                           ng-model="checkout.shipping_address.zip_code" ng-disabled="checkout.shipping_address._id" required>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="shippingAddressZip"
+                      placeholder="Zip / Postal Code"
+                      name="zip_code"
+                      ng-blur="saveByBlur('shippingAddress')"
+                      ng-model="checkout.shipping_address.zip_code"
+                      ng-disabled="checkout.shipping_address._id"
+                      ot-zip-code
+                      ot-zip-code-linked-country="checkout.shipping_address.country"
+                      required>
 
                     <p ng-show="(subShippingAddress && shippingAddress.zip_code.$error.required)"
                        class="help-block">This field is required.</p>
