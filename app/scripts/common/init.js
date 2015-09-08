@@ -12,7 +12,7 @@ angular.module("commonModule", [
     "ngAnimate",
 
     // Deps
-    // "angulartics",
+    "angulartics",
     "angulartics.google.analytics",
 
     // Internal
@@ -23,7 +23,6 @@ angular.module("commonModule", [
     "contactModule",
 
     'angular-loading-bar',
-    'analyticsBingModule',
 ])
 
 .value("DEFAULT_TITLE", "Kari Gran")
@@ -58,7 +57,7 @@ angular.module("commonModule", [
         $locationProvider.html5Mode(true);
 
         // loading bar configuration
-        // 
+        //
         cfpLoadingBarProvider.includeSpinner = false;
 
     }])
