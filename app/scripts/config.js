@@ -1,6 +1,6 @@
 var iniConfig = {
     // foundation url
-    'general.app.foundation_url': 'http://foundation.kg.dev.ottemo.io',
+    'general.app.foundation_url': 'http://api.kg.dev.ottemo.io',
     //'general.app.foundation_url': 'http://localhost:3000',
 
     // social networks
