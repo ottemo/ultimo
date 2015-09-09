@@ -14,7 +14,6 @@ angular.module("designModule", ["ngSanitize"])
          *  Global functions you can use in any angular template
          */
         $rootScope.getTemplate = $designService.getTemplate;
-        $rootScope.getTopPage = $designService.getTopPage;
         $rootScope.getImg = $designService.getImage;
 
     }]);
