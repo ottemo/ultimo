@@ -5,7 +5,6 @@ var jshint = require('gulp-jshint');
 var changed = require('gulp-changed');
 var imagemin = require('gulp-imagemin');
 var autoprefix = require('gulp-autoprefixer');
-var minifyCSS = require('gulp-minify-css');
 var del = require('del');
 var concat = require('gulp-concat');
 var refresh = require('gulp-livereload');
@@ -72,9 +71,7 @@ var host = {
     lrPort: '35729'
 };
 
-// REFACTOR: don't rely on env
-var env = process.env.NODE_ENV || 'development';
-var isProduction = (env == 'production');
+var isProduction = false;
 
 // Empties folders to start fresh
 gulp.task('clean', function (cb) {
@@ -102,15 +99,26 @@ gulp.task('html', function () {
         .pipe(gulp.dest(paths.dist));
 });
 
-gulp.task('misc', function () {
-
-    var robotPath = isProduction ? 'app/robots.prod.txt' : 'app/robots.dev.txt';
+gulp.task('robots-dev', function () {
+    var robotPath = 'app/robots.dev.txt';
     gulp.src(robotPath)
         .pipe(rename('robots.txt'))
         .pipe(gulp.dest(paths.dist));
-
+     
     return gulp.src(paths.misc)
-            .pipe(gulp.dest(paths.dist));
+        .pipe(gulp.dest(paths.dist));
+    
+});
+
+gulp.task('robots-prod', function () {
+    var robotPath = 'app/robots.prod.txt';
+    gulp.src(robotPath)
+        .pipe(rename('robots.txt'))
+        .pipe(gulp.dest(paths.dist));
+     
+    return gulp.src(paths.misc)
+        .pipe(gulp.dest(paths.dist));
+    
 });
 
 gulp.task('scripts', function () {
@@ -227,11 +235,23 @@ gulp.task('theme', [
 ]);
 
 // For production
+gulp.task('build-prod', function(){
+    isProduction=true;
+    runSequence('clean', [
+        'html',
+        'robots-prod',
+        'scripts',
+        'theme',
+        'lib'
+    ], 'revision');
+});
+
+// For development
 gulp.task('build', function(){
     // note: revision has a short circuit for dev
     runSequence('clean', [
         'html',
-        'misc',
+        'robots-dev',
         'scripts',
         'theme',
         'lib'
@@ -241,5 +261,6 @@ gulp.task('build', function(){
 // For development
 gulp.task('serve', ['default']);
 gulp.task('default', ['build'], function(){
+    isProduction = false;
     gulp.start('watch');
 });
