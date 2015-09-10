@@ -1,12 +1,12 @@
 angular.module('designModule')
 
-// Zip code validation directive
-.directive('otZipCode', function() {
+// Telephone validation directive
+.directive('otTelephone', function() {
     return {
         restrict: 'A',
         require: 'ngModel',
         scope: {
-            country: '=otZipCodeLinkedCountry'
+            country: '=otTelephoneLinkedCountry'
         },
         link: function(scope, elem, attrs, ngModel) {
 
@@ -19,20 +19,17 @@ angular.module('designModule')
             // and optional validation error message
             var validators = {
                 'US': {
-                    // 5 digits (an options slash or white space then 4 digits)
-                    re: /^\d{5}([-\s]\d{4})?$/,
-                    msg: 'The code must be in format XXXXX-XXXX'
-                },
-                'CA': {
-                    re: /^[ABCEGHJKLMNPRSTVXYabceghjklmnprstvxy]\d[A-Za-z]\s\d[A-Za-z]\d$/,
-                    msg: 'The code must be in format X1X 1X1'
+                    //TODO: EXPLAIN PARTS
+                    re: /^(\+?\d{1,3})?[- ]?\(?(\d{3})\)?[- ]?((?:\d{3})-?(?:\d{2})-?(?:\d{2}))$/,
+                    msg: 'Phone numbers should be in the format (###) ###-####'
                 }
+                // Other countries can be added here
             }
 
             // Default validation error message
             var invalidMsg = 'This field is not valid';
 
-            ngModel.$validators.validateZipCode = function (modelValue, viewValue) {
+            ngModel.$validators.validateTelephone = function (modelValue, viewValue) {
 
                 var value = viewValue || modelValue;
                 var validator = validators[scope.country];
