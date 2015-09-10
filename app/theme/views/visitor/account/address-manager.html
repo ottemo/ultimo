@@ -157,9 +157,14 @@
                                 class="form-group"
                                 ng-class="{ 'has-error' : (submitted && addressForm.zip_code.$invalid) || (addressForm.zip_code.$invalid && !addressForm.zip_code.$pristine) }">
                                     <label for="addressFormZip">Zip / Postal Code*</label>
-                                    <input type="text" class="form-control" id="addressFormZip"
-                                           name="zip_code" ot-regexp="/^\d{5}(?:[-\s]\d{4})?$/"
-                                           ng-model="address.zip_code" required>
+                                    <input class="form-control"
+                                    id="addressFormZip"
+                                    name="zip_code"
+                                    type="text"
+                                    ng-model="address.zip_code"
+                                    ot-zip-code
+                                    ot-zip-code-linked-country="address.country"
+                                    required>
 
                                     <p ng-show="(submitted && addressForm.zip_code.$error.required)"
                                        class="help-block">This field is required.</p>
