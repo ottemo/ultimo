@@ -99,8 +99,8 @@ gulp.task('html', function () {
         .pipe(gulp.dest(paths.dist));
 });
 
-gulp.task('robots-dev', function () {
-    var robotPath = 'app/robots.dev.txt';
+gulp.task('robots', function () {
+    var robotPath = isProduction ? 'app/robots.prod.txt' : 'app/robots.dev.txt';
     gulp.src(robotPath)
         .pipe(rename('robots.txt'))
         .pipe(gulp.dest(paths.dist));
@@ -110,16 +110,6 @@ gulp.task('robots-dev', function () {
     
 });
 
-gulp.task('robots-prod', function () {
-    var robotPath = 'app/robots.prod.txt';
-    gulp.src(robotPath)
-        .pipe(rename('robots.txt'))
-        .pipe(gulp.dest(paths.dist));
-     
-    return gulp.src(paths.misc)
-        .pipe(gulp.dest(paths.dist));
-    
-});
 
 gulp.task('scripts', function () {
     return gulp.src(paths.scripts)
@@ -239,7 +229,7 @@ gulp.task('build-prod', function(){
     isProduction=true;
     runSequence('clean', [
         'html',
-        'robots-prod',
+        'robots',
         'scripts',
         'theme',
         'lib'
@@ -251,7 +241,7 @@ gulp.task('build', function(){
     // note: revision has a short circuit for dev
     runSequence('clean', [
         'html',
-        'robots-dev',
+        'robots',
         'scripts',
         'theme',
         'lib'
