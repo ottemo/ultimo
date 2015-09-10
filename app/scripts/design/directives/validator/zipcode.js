@@ -19,6 +19,7 @@ angular.module('designModule')
             // and optional validation error message
             var validators = {
                 'US': {
+                    // 5 digits (an options slash or white space then 4 digits)
                     re: /^\d{5}([-\s]\d{4})?$/,
                     msg: 'The code must be in format XXXXX-XXXX'
                 },
