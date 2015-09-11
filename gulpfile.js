@@ -104,10 +104,10 @@ gulp.task('robots', function () {
     gulp.src(robotPath)
         .pipe(rename('robots.txt'))
         .pipe(gulp.dest(paths.dist));
-     
+
     return gulp.src(paths.misc)
         .pipe(gulp.dest(paths.dist));
-    
+
 });
 
 
@@ -133,6 +133,7 @@ gulp.task('theme.styles', function() {
             outputStyle: 'compressed',
             precision: 8,
         }))
+        .pipe(rename({suffix: '.min'}))
         .pipe(autoprefix('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
         .pipe(plumber.stop())
         .pipe(sourcemaps.write('./maps'))
