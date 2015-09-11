@@ -17,7 +17,6 @@ var rename = require('gulp-rename');
 var gulpIf = require('gulp-if');
 var gutil = require('gulp-util');
 var plumber = require('gulp-plumber');
-var strip = require('gulp-strip-comments');
 
 
 var paths = {
@@ -105,10 +104,10 @@ gulp.task('robots', function () {
     gulp.src(robotPath)
         .pipe(rename('robots.txt'))
         .pipe(gulp.dest(paths.dist));
-     
+
     return gulp.src(paths.misc)
         .pipe(gulp.dest(paths.dist));
-    
+
 });
 
 
@@ -166,9 +165,6 @@ gulp.task('theme.media', function () {
 gulp.task('lib.scripts', function () {
     return gulp.src(paths.lib.scripts)
         .pipe(concat('lib.js'))
-        .pipe(strip({
-            safe: false
-        }))
         .pipe(gulp.dest(paths.lib.dist));
 });
 
@@ -176,9 +172,6 @@ gulp.task('lib.scripts', function () {
 gulp.task('lib.ie', function() {
     return gulp.src(paths.lib.ie)
         .pipe(concat('ie-libs.js'))
-        .pipe(strip({
-            safe: false
-        }))
         .pipe(gulp.dest(paths.lib.dist));
 });
 
