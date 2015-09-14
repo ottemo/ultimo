@@ -358,8 +358,8 @@ angular.module('categoryModule')
                 $scope.getCountProduct();
 
                 var categoryImages = {
-                    'default': '/theme/images/category/Kari-Gran-Shop-Page-Shop-Organic-Skincare-Desktop.jpg',
-                    '5512f069d4a2560a14000036': '/theme/images/category/Kari-Gran-Shop-Page-Shop-Organic-Skincare-Desktop.jpg',
+                    'default': '/theme/images/category/KG-Sale-Shop-Page.jpg',
+                    '5512f069d4a2560a14000036': '/theme/images/category/KG-Sale-Shop-Page.jpg',
                     '5512f195d4a2560a14000074': '/theme/images/category/Kari-Gran-Shop-Page-Organic-Skincare-Cleansing-Oil-Desktop.jpg',
                     '5512f1cdd4a2560a14000082': '/theme/images/category/lip-treatment.jpg',
                     '5512f248d4a2560a14000094': '/theme/images/category/makeup.jpg',
