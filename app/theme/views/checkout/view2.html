@@ -23,24 +23,19 @@ We have a beautiful new site, but it’s not quite perfect yet.  Due to issues w
                     <form name="customerInfo" novalidate>
                         <div class="row">
                             <div class="col-sm-6">
-                                <!--<h3>Register or Log in</h3>-->
-                                <h3>Register</h3>
+                                <h3>Register or Log in</h3>
                                 <div>Register with us for easy access to your
-                                order history and status</div>
+                                order history and status:</div>
+                                <p>
                                 <ul>
                                     <li>
                                         <a href="/registration">Register</a>
                                     </li>
-                                    <!--<li>-->
-                                        <!--<a href="/login">Log In</a>-->
-                                    <!--</li>-->
+                                    <li>
+                                        <a href="/login">Log In</a>
+                                    </li>
                                 </ul>
-
-                                <!-- Register and save time:
-                                <ul>
-                                    <li>Fast and easy checkout</li>
-                                    <li>Easy access to you order history and status</li>
-                                </ul> -->
+                                </p>
                             </div>
                             <div class="col-sm-6">
                                 <h3>Continue As Guest</h3>
@@ -83,7 +78,7 @@ We have a beautiful new site, but it’s not quite perfect yet.  Due to issues w
 
                     <div class="text-center">
                         <!-- next step -->
-                        <button class="next btn btn-primary" ng-click="next('customerInfo')">
+                        <button class="next btn btn-primary btn-block-xs" ng-click="next('customerInfo')">
                             Next step
                         </button>
                     </div>
@@ -254,6 +249,8 @@ We have a beautiful new site, but it’s not quite perfect yet.  Due to issues w
                                     ng-model-options="{ updateOn: 'blur' }"
                                     ng-model="checkout.shipping_address.zip_code"
                                     ng-disabled="checkout.shipping_address._id"
+                                    ot-zip-code
+                                    ot-zip-code-linked-country="checkout.shipping_address.country"
                                     required>
 
                                     <p ng-if="shippingAddress.zip_code.$error.required"
@@ -272,10 +269,16 @@ We have a beautiful new site, but it’s not quite perfect yet.  Due to issues w
                                 <div class="form-group"
                                      ng-class="{ 'has-error' : (subShippingAddress && shippingAddress.phone.$invalid) || (shippingAddress.phone.$invalid && !shippingAddress.phone.$pristine) }">
                                     <label for="shippingAddressPhone">Phone*</label>
-                                    <input type="text" class="form-control" id="shippingAddressPhone" name="phone"
-                                           ot-regexp="/^(\+?\d{1,3})?[- ]?\(?(\d{3})\)?[- ]?((?:\d{3})-?(?:\d{2})-?(?:\d{2}))$/" required
-                                            ng-model-options="{ updateOn: 'blur' }"
-                                           ng-model="checkout.shipping_address.phone" ng-disabled="checkout.shipping_address._id">
+                                    <input class="form-control"
+                                    type="text"
+                                    id="shippingAddressPhone"
+                                    name="phone"
+                                    ng-model-options="{ updateOn: 'blur' }"
+                                    ng-model="checkout.shipping_address.phone"
+                                    ng-disabled="checkout.shipping_address._id"
+                                    ot-telephone
+                                    ot-telephone-linked-country="checkout.shipping_address.country"
+                                    required>
 
                                     <p ng-if="shippingAddress.phone.$error.required"
                                        ng-show="(subShippingAddress && shippingAddress.phone.$invalid) ||
@@ -317,12 +320,12 @@ We have a beautiful new site, but it’s not quite perfect yet.  Due to issues w
 
                         <div class="text-center">
                             <!-- prev step -->
-                            <button class="back btn btn-default" ng-click="back('shippingAddress')"  ng-if="isGuestCheckout">
+                            <button class="back btn btn-default btn-block-xs" ng-click="back('shippingAddress')"  ng-if="isGuestCheckout">
                                 Prev step
                             </button>
 
                             <!-- next step -->
-                            <button class="next btn btn-primary" ng-click="next('shippingAddress')">
+                            <button class="next btn btn-primary btn-block-xs" ng-click="next('shippingAddress')">
                                 Next step
                             </button>
                         </div>
@@ -490,6 +493,8 @@ We have a beautiful new site, but it’s not quite perfect yet.  Due to issues w
                                     ng-model-options="{ updateOn: 'blur' }"
                                     ng-model="checkout.billing_address.zip_code"
                                     ng-disabled="billing_address._id || useAsBilling"
+                                    ot-zip-code
+                                    ot-zip-code-linked-country="checkout.billing_address.country"
                                     required>
 
                                     <p ng-show="(subBillingAddress && billingAddress.zip_code.$error.required)"
@@ -505,10 +510,16 @@ We have a beautiful new site, but it’s not quite perfect yet.  Due to issues w
                                 <div class="form-group"
                                      ng-class="{ 'has-error' : (subBillingAddress && billingAddress.phone.$invalid) || (billingAddress.phone.$invalid && !billingAddress.phone.$pristine) }">
                                     <label for="billingAddressPhone">Phone*</label>
-                                    <input type="text" class="form-control" id="billingAddressPhone" name="phone"
-                                           ot-regexp="/^(\+?\d{1,3})?[- ]?\(?(\d{3})\)?[- ]?((?:\d{3})-?(?:\d{2})-?(?:\d{2}))$/" required
-                                           ng-model-options="{ updateOn: 'blur' }"
-                                           ng-model="checkout.billing_address.phone" ng-disabled="checkout.billing_address._id">
+                                    <input type="text"
+                                    class="form-control"
+                                    id="billingAddressPhone"
+                                    name="phone"
+                                    ng-model-options="{ updateOn: 'blur' }"
+                                    ng-model="checkout.billing_address.phone"
+                                    ng-disabled="checkout.billing_address._id"
+                                    ot-telephone
+                                    ot-telephone-linked-country="checkout.billing_address.country"
+                                    required>
 
                                     <p ng-show="(subBillingAddress && billingAddress.phone.$error.required)"
                                        class="help-block">This field is required.</p>
@@ -523,12 +534,12 @@ We have a beautiful new site, but it’s not quite perfect yet.  Due to issues w
 
                         <div class="text-center">
                             <!-- prev step -->
-                            <button class="back btn btn-default" ng-click="back('billingAddress')">
+                            <button class="back btn btn-default btn-block-xs" ng-click="back('billingAddress')">
                                 Prev step
                             </button>
 
                             <!-- next step -->
-                            <button class="next btn btn-primary" ng-click="next('billingAddress')">
+                            <button class="next btn btn-primary btn-block-xs" ng-click="next('billingAddress')">
                                 Next step
                             </button>
                         </div>
@@ -562,12 +573,12 @@ We have a beautiful new site, but it’s not quite perfect yet.  Due to issues w
 
                         <div class="text-center">
                             <!-- prev step -->
-                            <button class="back btn btn-default" ng-click="back('shippingMethod')">
+                            <button class="back btn btn-default btn-block-xs" ng-click="back('shippingMethod')">
                                 Prev step
                             </button>
 
                             <!-- next step -->
-                            <button class="next btn btn-primary" ng-click="next('shippingMethod')">
+                            <button class="next btn btn-primary btn-block-xs" ng-click="next('shippingMethod')">
                                 Next step
                             </button>
                         </div>
@@ -656,12 +667,12 @@ We have a beautiful new site, but it’s not quite perfect yet.  Due to issues w
 
                     <div class="text-center">
                         <!-- prev step -->
-                        <button class="back btn btn-default" ng-click="back('discounts')">
+                        <button class="back btn btn-default btn-block-xs" ng-click="back('discounts')">
                             Prev step
                         </button>
 
                         <!-- next step -->
-                        <button class="next btn btn-primary" ng-click="next('discounts')">
+                        <button class="next btn btn-primary btn-block-xs" ng-click="next('discounts')">
                             Next step
                         </button>
                     </div>
@@ -782,12 +793,12 @@ We have a beautiful new site, but it’s not quite perfect yet.  Due to issues w
 
                     <div class="text-center">
                         <!-- prev step -->
-                        <button class="back btn btn-default" ng-click="back('paymentMethod')">
+                        <button class="back btn btn-default btn-block-xs" ng-click="back('paymentMethod')">
                             Prev step
                         </button>
 
                         <!-- next step -->
-                        <button class="next btn btn-primary" ng-click="next('paymentMethod')">
+                        <button class="next btn btn-primary btn-block-xs" ng-click="next('paymentMethod')">
                             Next step
                         </button>
                     </div>

@@ -100,8 +100,6 @@ angular.module("visitorModule")
                     $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
                         if (isLoggedIn) {
                             miniCart.modal('toggle');
-                        } else {
-                            $('#form-login').modal('show');
                         }
                     });
                 }
@@ -115,8 +113,10 @@ angular.module("visitorModule")
                     delete $scope.login["shipping_address_id"];
 
                     var data = {};
+                    var blackListedFields = ['confirm_password', 'billing_address', 'shipping_address'];
                     for (var field in $scope.login) {
-                        if ($scope.login.hasOwnProperty(field) && field !== "confirm_password") {
+                        var isFieldBlackListed = blackListedFields.indexOf(field) !== -1;
+                        if ($scope.login.hasOwnProperty(field) && false == isFieldBlackListed) {
                             data[field] = $scope.login[field];
                         }
                     }

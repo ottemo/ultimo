@@ -18,25 +18,38 @@
     <link rel="shortcut icon" href="theme/images/favicon_1.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/theme/styles/bootstrap.css">
-    <link rel="stylesheet" href="/theme/styles/jquery.fancybox.css">
-    <link rel="stylesheet" href="/theme/styles/style.css">
+    <link rel="stylesheet" href="/theme/styles/style.min.css">
 </head>
 <body ng-controller="commonController" ng-class="{'is-logged-in': visitorProps.isLoggedIn}">
-<div id="loader" style="position:absolute; top:0; left:0;z-index:100;width:100%;">
-    <div class="progress">
-        <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="100"
-             style="width: 12%;"></div>
-    </div>
-</div>
 
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
 
-<div id="content" ng-hide="true" class="container">
-    <ng-include src="getTopPage()"></ng-include>
+<div id="content" class="container" ng-show="load_completed">
+
+    <!-- header layout -->
+    <ng-include src="getTemplate('common/header.html')"></ng-include>
+
+    <div class="clearfix"></div>
+
+    <div class="content-wrapper">
+        <!-- main content layout -->
+        <ng-view autoscroll></ng-view>
+
+        <div class="clearfix"></div>
+
+        <!-- footer layout -->
+        <ng-include src="getTemplate('common/footer.html')"></ng-include>
+    </div>
+
+    <!-- mailchimp modal -->
+    <ng-include src="getTemplate('visitor/modal/mailchimp.html')"></ng-include>
+
+    <!-- minicart modal -->
+    <ng-include src="getTemplate('cart/quick-cart.html')" ng-controller="cartListController"></ng-include>
+
 </div>
 
 <!--[if lt IE 9]>
@@ -59,6 +72,24 @@ ga('create', 'UA-32937763-1', 'auto');
 
 <!-- Tracking: Google AdWords -->
 <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion_async.js" charset="utf-8"></script>
+
+<!-- Tracking: Bing Universal Event Tracking -->
+<script>
+(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"4030236"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");
+</script>
+
+<!-- Tracking: Facebook  -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','//connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '840710135979042');
+// Page tracking handled with facebookAnalytics
+</script>
+
 
 </body>
 </html>

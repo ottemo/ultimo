@@ -114,12 +114,6 @@ ul {
 	border-collapse: separate;
 }
 
-#loader .progress {
-	height: 4px;
-}
-#loader .progress-bar {
-	background: #999;
-}
 /*---------------
  Thumb Thumbnail
  ---------------*/
@@ -394,8 +388,8 @@ ul {
  Home
  ---------------*/
 .home a.main-banner {
-	display: block;
 	margin-bottom: 40px;
+	display: block;
 }
 
 .home a.main-banner .promo-text {
@@ -411,10 +405,6 @@ ul {
 .home a.main-banner .promo-text strong {
 	font-style: italic;
 	font-family: Georgia;
-}
-
-.home .main-banner img {
-	width: 100%;
 }
 
 .home .categories .inner {
@@ -983,8 +973,8 @@ the extra space looks funny */
 }
 
 #wrapper {
-	height: 100%
-	width: 100%
+	height: 100%;
+	width: 100%;
 	position: absolute;
 	top: 0;
 	left: 0;

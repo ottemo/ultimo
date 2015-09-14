@@ -6,20 +6,22 @@ angular.REST_SERVER_URI = angular.appConfigValue("general.app.foundation_url");
 
 angular.module("commonModule", [
     // Google
+    "ngResource",
     "ngRoute",
     "ngSanitize",
-    "ngResource",
+    "ngAnimate",
 
     // Deps
-    "angulartics",
     "angulartics.google.analytics",
 
     // Internal
-    "designModule",
+    "angular-loading-bar",
     "cartModule",
     "categoryModule",
     "cmsModule",
-    "contactModule"
+    "contactModule",
+    "designModule",
+    "facebookAnalytics"
 ])
 
 .value("DEFAULT_TITLE", "Kari Gran")
@@ -27,7 +29,7 @@ angular.module("commonModule", [
 .value("DEFAULT_DESCRIPTION", "")
 .value("REST_SERVER_URI", angular.REST_SERVER_URI)
 
-    .config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
+    .config(["$routeProvider", "$locationProvider","cfpLoadingBarProvider", function ($routeProvider, $locationProvider,cfpLoadingBarProvider) {
         $routeProvider
             .when("/", {
                 templateUrl: "theme/views/common/home.html",
@@ -52,6 +54,11 @@ angular.module("commonModule", [
                 }
             });
         $locationProvider.html5Mode(true);
+
+        // loading bar configuration
+        //
+        cfpLoadingBarProvider.includeSpinner = false;
+
     }])
     .run([
         "$rootScope",

@@ -5,10 +5,6 @@ angular.module("designModule")
     .service("$designService", [function () {
 
         return {
-            getTopPage: function () {
-                return this.getTemplate("index.html");
-            },
-
             getTemplate: function (templateName) {
                 return "theme/views/" + templateName;
             },
