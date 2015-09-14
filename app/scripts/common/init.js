@@ -12,17 +12,16 @@ angular.module("commonModule", [
     "ngAnimate",
 
     // Deps
-    "angulartics",
     "angulartics.google.analytics",
 
     // Internal
-    "designModule",
+    "angular-loading-bar",
     "cartModule",
     "categoryModule",
     "cmsModule",
     "contactModule",
-
-    'angular-loading-bar',
+    "designModule",
+    "facebookAnalytics"
 ])
 
 .value("DEFAULT_TITLE", "Kari Gran")
