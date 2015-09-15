@@ -127,6 +127,7 @@
                                     <p ng-show="(submitted && addressForm.country.$error.required) || (addressForm.country.$invalid && !addressForm.country.$pristine)"
                                        class="help-block">This field is required.</p>
                                 </div>
+
                                 <!--City-->
                                 <div class="form-group"
                                      ng-class="{ 'has-error' : (submitted && addressForm.city.$error.required) || (addressForm.city.$invalid && !addressForm.city.$pristine) }">
@@ -141,17 +142,32 @@
                                 <!--State-->
                                 <div class="form-group"
                                      ng-class="{ 'has-error' : (submitted && addressForm.state.$error.required) || (addressForm.state.$invalid && !addressForm.state.$pristine) }">
-                                    <label for="addressFormCity">State / Province / Region*</label>
 
-                                    <div class="select">
-                                        <select class="form-control" name="state" ng-model="address.state" required
-                                                ng-options="c.Code as c.Name for c in states">
-                                        </select>
-                                    </div>
+                                    <label for="addressFormCity">
+                                        {{ checkout.shipping_address.country === 'US' ? 'State*' : 'State / Province / Region *'}}
+                                    </label>
+
+                                    <!-- US: States -->
+                                    <select name="state"
+                                    class="form-control"
+                                    required
+                                    ng-model="address.state"
+                                    ng-options="c.Code as c.Name for c in states"
+                                    ng-show="address.country === 'US'">
+                                    </select>
+
+                                    <!-- NON US: States / Regions -->
+                                    <input type="text"
+                                    name="state"
+                                    class="form-control"
+                                    required
+                                    ng-model="address.state"
+                                    ng-show="address.country !== 'US'">
 
                                     <p ng-show="(submitted && addressForm.state.$error.required) || (addressForm.state.$invalid && !addressForm.state.$pristine)"
                                        class="help-block">This field is required.</p>
                                 </div>
+
                                 <!--Zip code-->
                                 <div
                                 class="form-group"

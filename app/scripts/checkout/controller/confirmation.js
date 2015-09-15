@@ -12,6 +12,7 @@ angular.module("checkoutModule")
 
             $scope.order = $checkoutService.lastOrder;
 
+            // Google Analytics eCommerce Tracking
             function trackGAEcommerce(order) {
                 if(window.ga) {
                     // Gather the ecommerce module
