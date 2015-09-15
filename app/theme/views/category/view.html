@@ -87,7 +87,13 @@
                             <!-- product name -->
                             <h5>{{_item.name}}</h5>
                             <!-- product price -->
-                            <h4>{{_item.price | number : 2 | currency}}</h4>
+                            <h4>
+                                <span class="product-list-price__strikethrough-price"
+                                ng-show="_item.strikethrough_price">
+                                    {{_item.strikethrough_price | currency}}
+                                </span>
+                                {{_item.price | number : 2 | currency}}
+                            </h4>
                         </span>
                     </a>
                 </div>

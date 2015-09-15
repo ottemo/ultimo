@@ -24,7 +24,11 @@
                     <form class="col-sm-6" name="visitorForm" novalidate>
 
                         <h3 class="text-center"><strong>{{popupProduct.name}}</strong></h3>
-                        <h3 class="text-center"><strong>{{popupProduct.price | currency}}</strong></h3>
+
+                        <h3 class="text-center">
+                            <s>{{popupProduct.strikethrough_price | currency}}</s>
+                            <strong>{{popupProduct.price | currency}}</strong>
+                        </h3>
 
                         <br>
 
