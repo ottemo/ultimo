@@ -39,7 +39,8 @@ angular.module("designModule")
                     return (matches === null || (matches !== null && matches.join("").length < minCountSymbols));
                 };
 
-                var validate = function (value) {                    /*jshint maxcomplexity:7 */
+                /*jshint maxcomplexity:6 */
+                var validate = function (value) {
                     if (!value) { return value; }
                     ngModel.invalids = [];
                     var valid = true;
