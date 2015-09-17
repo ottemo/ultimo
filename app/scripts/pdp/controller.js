@@ -198,10 +198,13 @@ angular.module("pdpModule")
                     );
                 };
 
-                if (angular.appConfigValue("general.checkout.guest_checkout") && !$scope.isAddingToCart) {
-                    addItem();
+                if (angular.appConfigValue("general.checkout.guest_checkout")) {
+                    if (!$scope.isAddingToCart) {
+                        addItem();
+                    }
                 } else {
                     $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
+                        //TODO: if we don't have guest checkout enabled and they are not logged in we just drop them
                         if (isLoggedIn && !$scope.isAddingToCart) {
                             addItem();
                         }
