@@ -17,19 +17,6 @@ branch:
     only:
         - develop
 
-before_install:
-    # install NodeJS v0.12
-    # - source ~/.nvm/nvm.sh && nvm use 0.12
-    # - shippable_retry npm update -g npm
-    # - shippable_retry npm cache clean
-    # - npm version
-    # - shippable_retry npm install -g gulp
-
-install:
-    # install the required dependencies
-    # do not build on shippable for now
-    # - shippable_retry npm install
-
 script:
     # - NODE_ENV=production shippable_retry gulp build
     - bash deploy.sh
