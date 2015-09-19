@@ -1,22 +1,24 @@
-var gulp = require('gulp');
-var minifyHTML = require('gulp-minify-html');
-var uglify = require('gulp-uglify');
-var jshint = require('gulp-jshint');
-var changed = require('gulp-changed');
-var imagemin = require('gulp-imagemin');
-var autoprefix = require('gulp-autoprefixer');
-var del = require('del');
-var concat = require('gulp-concat');
-var refresh = require('gulp-livereload');
-var modRewrite = require('connect-modrewrite');
-var RevAll = require('gulp-rev-all');
+var gulp        = require('gulp');
+var fs          = require('fs');
+var minifyHTML  = require('gulp-minify-html');
+var uglify      = require('gulp-uglify');
+var jshint      = require('gulp-jshint');
+var changed     = require('gulp-changed');
+var imagemin    = require('gulp-imagemin');
+var autoprefix  = require('gulp-autoprefixer');
+var del         = require('del');
+var concat      = require('gulp-concat');
+var refresh     = require('gulp-livereload');
+var modRewrite  = require('connect-modrewrite');
+var RevAll      = require('gulp-rev-all');
 var runSequence = require('run-sequence');
-var sourcemaps = require('gulp-sourcemaps');
-var sass = require('gulp-sass');
-var rename = require('gulp-rename');
-var gulpIf = require('gulp-if');
-var gutil = require('gulp-util');
-var plumber = require('gulp-plumber');
+var sourcemaps  = require('gulp-sourcemaps');
+var sass        = require('gulp-sass');
+var rename      = require('gulp-rename');
+var replace     = require('gulp-replace-task');
+var gulpIf      = require('gulp-if');
+var gutil       = require('gulp-util');
+var plumber     = require('gulp-plumber');
 
 
 var paths = {
@@ -72,10 +74,45 @@ var host = {
 };
 
 var isProduction = false;
+var envOttemo = process.env.OTTEMO_ENV || 'localhost';
+
+gulp.task('replace', ['clean'], function () {  
+    // Read the settings from the right file
+    var filename = envOttemo + '.json';
+    var settings = JSON.parse(fs.readFileSync('./config/' + filename, 'utf8'));
+
+    // Replace each placeholder with the correct value for the variable.  
+    return gulp.src('config/config.js')  
+    .pipe(replace({
+        patterns: [
+            {
+                match       : 'apiUrl',
+                replacement : settings.apiUrl
+            },
+            {
+                match       : 'idFacebook',
+                replacement : settings.idFacebook
+            },
+            {
+                match       : 'idGoogle',
+                replacement : settings.idGoogle
+            },
+            {
+                match       : 'itemsPerPage',
+                replacement : settings.itemsPerPage
+            },
+            {
+                match       : 'guestCheckout',
+                replacement : settings.guestCheckout
+            }
+        ]
+    }))
+    .pipe(gulp.dest('app/scripts'));
+});
 
 // Empties folders to start fresh
-gulp.task('clean', function (cb) {
-    return del(['dist/*', '!dist/media'], cb);
+gulp.task('clean', function () {
+    return del(['dist']);
 });
 
 gulp.task('jshint', function () {
@@ -228,25 +265,19 @@ gulp.task('theme', [
 // For production
 gulp.task('build-prod', function(){
     isProduction=true;
-    runSequence('clean', [
-        'html',
-        'robots',
-        'scripts',
-        'theme',
-        'lib'
-    ], 'revision');
+    runSequence('clean', 
+                'replace',
+                [ 'html', 'robots', 'scripts', 'theme', 'lib' ], 
+                'revision');
 });
 
 // For development
 gulp.task('build', function(){
     // note: revision has a short circuit for dev
-    runSequence('clean', [
-        'html',
-        'robots',
-        'scripts',
-        'theme',
-        'lib'
-    ], 'revision');
+    runSequence('clean', 
+                'replace',
+                [ 'html', 'robots', 'scripts', 'theme', 'lib' ], 
+                'revision');
 });
 
 // For development
