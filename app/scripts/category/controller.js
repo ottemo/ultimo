@@ -352,33 +352,34 @@ angular.module("categoryModule")
                 }, 250);
             }
 
+            $scope.isAddingToCart = false;
+            $scope.isAddToCartSuccess = false;
             $scope.addToCart = function (product) {
-                var miniCart, addItem;
-                miniCart = $(".mini-cart");
-                addItem = function () {
+
+                var addItem = function () {
                     $cartService.add(product._id, 1, $pdpProductService.getOptions()).then(
                         function (response) {
+                            $scope.isAddingToCart = true;
+
                             if (response.error !== null) {
-                                $scope.openPopUp(product);
                                 $scope.message = $commonUtilService.getMessage(response);
                             } else {
                                 $pdpProductService.setOptions({});
+                                $scope.isAddToCartSuccess = true;
                                 $("#quick-view").modal('hide');
-
-                                miniCart.modal('show');
-                                setTimeout(function () {
-                                    miniCart.modal('hide');
-                                }, 2000);
+                                $("#quick-view-success").modal('show');
                             }
                         }
                     );
                 };
 
                 if (angular.appConfigValue("general.checkout.guest_checkout")) {
-                    addItem();
+                    if(!$scope.isAddingToCart) {
+                        addItem();
+                    }
                 } else {
                     $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
-                        if (isLoggedIn) {
+                        if (isLoggedIn && !$scope.isAddingToCart) {
                             addItem();
                         }
                     });
