@@ -24,3 +24,6 @@ after_failure:
 
 after_success:
     - python slack_notifier.py --org $SLACK_ORG --project $PROJECT --token $SLACK_TOKEN -s
+
+notifications:
+    email: false
