@@ -4,10 +4,12 @@ angular.module("checkoutModule")
         "$scope",
         "$routeParams",
         "$checkoutService",
+        "$analytics",
         function(
             $scope,
             $routeParams,
-            $checkoutService
+            $checkoutService,
+            $analytics
         ){
 
             $scope.order = $checkoutService.lastOrder;
@@ -49,9 +51,19 @@ angular.module("checkoutModule")
                 }
             }
 
+            // Facebook conversion tracking
+            function trackFBConversion(order) {
+                if (order) {
+                    $analytics.eventTrack('order.confirmation', {
+                        grandTotal: order.grand_total
+                    });
+                }
+            }
+
             function init() {
                 // NOTE: Additional tracking exists in the view
                 trackGAEcommerce($scope.order);
+                trackFBConversion($scope.order);
             }
 
             init();
