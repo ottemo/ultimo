@@ -4,10 +4,12 @@ angular.module("checkoutModule")
         "$scope",
         "$routeParams",
         "$checkoutService",
+        "$analytics",
         function(
             $scope,
             $routeParams,
-            $checkoutService
+            $checkoutService,
+            $analytics
         ){
 
             $scope.order = $checkoutService.lastOrder;
@@ -49,9 +51,22 @@ angular.module("checkoutModule")
                 }
             }
 
+            // Facebook conversion tracking
+            function trackFBConversion(order) {
+                if (window._fbq) {
+
+                    // KG Specific
+                    _fbq.push(['track', '6013027258578', {
+                        'value': order.grand_total,
+                        'currency': 'USD'
+                    }]);
+                }
+            }
+
             function init() {
                 // NOTE: Additional tracking exists in the view
                 trackGAEcommerce($scope.order);
+                trackFBConversion($scope.order);
             }
 
             init();
