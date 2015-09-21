@@ -74,15 +74,15 @@ var host = {
 };
 
 var isProduction = false;
-var envOttemo = process.env.OTTEMO_ENV || 'localhost';
+var envOttemo = process.env.OTTEMO_ENV || 'staging';
 
-gulp.task('replace', ['clean'], function () {  
+gulp.task('replace', ['clean'], function () {
     // Read the settings from the right file
     var filename = envOttemo + '.json';
     var settings = JSON.parse(fs.readFileSync('./config/' + filename, 'utf8'));
 
-    // Replace each placeholder with the correct value for the variable.  
-    return gulp.src('config/config.js')  
+    // Replace each placeholder with the correct value for the variable.
+    return gulp.src('config/config.js')
     .pipe(replace({
         patterns: [
             {
@@ -265,18 +265,18 @@ gulp.task('theme', [
 // For production
 gulp.task('build-prod', function(){
     isProduction=true;
-    runSequence('clean', 
+    runSequence('clean',
                 'replace',
-                [ 'html', 'robots', 'scripts', 'theme', 'lib' ], 
+                [ 'html', 'robots', 'scripts', 'theme', 'lib' ],
                 'revision');
 });
 
 // For development
 gulp.task('build', function(){
     // note: revision has a short circuit for dev
-    runSequence('clean', 
+    runSequence('clean',
                 'replace',
-                [ 'html', 'robots', 'scripts', 'theme', 'lib' ], 
+                [ 'html', 'robots', 'scripts', 'theme', 'lib' ],
                 'revision');
 });
 
