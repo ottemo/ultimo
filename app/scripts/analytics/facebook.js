@@ -13,13 +13,4 @@ angular.module('facebookAnalytics', [
 		}
 	});
 
-	// Track order confirmation
-	$analyticsProvider.registerEventTrack(function(action, properties) {
-		if (action == 'order.confirmation' && window._fbq) {
-			_fbq.push(['track', '6013027258578', {
-				'value': properties.grandTotal,
-				'currency': 'USD'
-			}]);
-		}
-	});
 }]);

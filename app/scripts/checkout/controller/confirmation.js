@@ -53,10 +53,13 @@ angular.module("checkoutModule")
 
             // Facebook conversion tracking
             function trackFBConversion(order) {
-                if (order) {
-                    $analytics.eventTrack('order.confirmation', {
-                        grandTotal: order.grand_total
-                    });
+                if (window._fbq) {
+
+                    // KG Specific
+                    _fbq.push(['track', '6013027258578', {
+                        'value': order.grand_total,
+                        'currency': 'USD'
+                    }]);
                 }
             }
 
