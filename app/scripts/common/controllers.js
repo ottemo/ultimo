@@ -55,13 +55,13 @@ angular.module("commonModule")
         "$visitorLoginService",
         "cfpLoadingBar",
         function (
-            $scope, 
-            $commonPageService, 
-            $designService, 
+            $scope,
+            $commonPageService,
+            $designService,
             $commonApiService,
             $commonBreadcrumbsService,
-            $cartService, 
-            $visitorLoginService, 
+            $cartService,
+            $visitorLoginService,
             cfpLoadingBar) {
 
             /**
@@ -73,8 +73,7 @@ angular.module("commonModule")
             $commonPageService.setMetaDescription();
             $commonPageService.setMetaKeywords();
 
-            // HANDLERS FOR BREADCRUMBS (START)
-            //
+            // Handlers for breadcrumbs
             $scope.$on("$locationChangeSuccess", function () {
                 $commonBreadcrumbsService.clear();
                 $commonBreadcrumbsService.addItem("Home", "/");
@@ -84,20 +83,18 @@ angular.module("commonModule")
                 $commonBreadcrumbsService.addItem(param.label, param.url);
             });
 
-            // Page loading event handler 
+            // Page loading event handler
             $scope.load_completed = false;
 
             $scope.$on('cfpLoadingBar:completed', function(e,param) {
                 $scope.load_completed = true;
             });
-            //
-            // HANDLERS FOR BREADCRUMBS (STOP)
 
-            /**
-             * Cart initialization
-             */
+
+            // Cart initialization
             $cartService.init();
 
+            // Visitor init
             $scope.visitorProps = $visitorLoginService.props;
         }
     ]
