@@ -17,3 +17,6 @@ tags
 # Files
 *.iml
 .DS_Store
+
+# Ottemo Specific
+app/scripts/config.js
