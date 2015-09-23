@@ -7,62 +7,33 @@ angular.module("designModule")
             require: '?ngModel',
             link: function (scope, elem, attrs, ngModel) {
 
-                var minLen = 8,
-                    maxLen = 18,
-                    minCountUppercase = 1,
-                    minCountLowercase = 1,
-                    minCountNumbers = 1,
-                    minCountSymbols = 1;
+                var minLength = 6;
+                var commonPasswords = ['123456','password','12345678','thunder','dragon','696969','mustang','letmein',
+                    'baseball','master','michael','football','shadow','monkey','abc123','fuckme','jordan','harley',
+                    'ranger','iwantu','jennifer','hunter','batman','trustno1','thomas','tigger','robert','access',
+                    'buster','1234567','soccer','hockey','killer','george','andrew','charlie','superman','asshole',
+                    'fuckyou','dallas','jessica','panties','pepper','austin','william','cowboy','silver','richard',
+                    'fucker','orange','merlin','michelle','corvette','bigdog','cheese','matthew','121212','patrick',
+                    'martin','freedom','ginger','blowjob','nicole','sparky','yellow','camaro','secret','falcon',
+                    'taylor','111111','131313','123123'
+                ];
 
                 ngModel.rules = {
-                    "length": "Your password may be any combination of " + minLen + " to " + maxLen + " characters.",
-                    "uppercase": "It must contain at least " + minCountUppercase + " uppercase letter.",
-                    "lowercase": "It must contain at least " + minCountLowercase + " lowercase letter.",
-                    "number": "It must contain at least " + minCountNumbers + " number.",
-                    "symbol": "It must contain at least " + minCountSymbols + " of following special characters: (!, @, #, $, &, *)."
+                    "length": 'The password should have ' + minLength + ' characters or more.',
+                    "common": "The password shouldn't be in a list of 50 most common."
                 };
-
-                var checkLowercases = function (value) {
-                    var matches = value.match(/([a-z]+)/g);
-                    return (matches === null || (matches !== null && matches.join("").length < minCountLowercase));
-                };
-                var checkUppercases = function (value) {
-                    var matches = value.match(/([A-Z]+)/g);
-                    return (matches === null || (matches !== null && matches.join("").length < minCountUppercase));
-                };
-                var checkNumbers = function (value) {
-                    var matches = value.match(/([\d]+)/g);
-                    return (matches === null || (matches !== null && matches.join("").length < minCountNumbers));
-                };
-                var checkSymbols = function (value) {
-                    var matches = value.match(/([\!\@\#\\$\%\^\&\*\(\)\_\+\-\~]+)/g);
-                    return (matches === null || (matches !== null && matches.join("").length < minCountSymbols));
-                };
-
                 /*jshint maxcomplexity:6 */
                 var validate = function (value) {
                     if (!value) { return value; }
                     ngModel.invalids = [];
                     var valid = true;
-                    if (!(value.length >= minLen && value.length < maxLen)) {
+                    if (value.length < minLength) {
                         valid = false;
                         ngModel.invalids['length'] = true;
                     }
-                    if (checkLowercases(value)) {
+                    if (commonPasswords.indexOf(value) >= 0) {
                         valid = false;
-                        ngModel.invalids['lowercase'] = true;
-                    }
-                    if (checkUppercases(value)) {
-                        valid = false;
-                        ngModel.invalids['uppercase'] = true;
-                    }
-                    if (checkNumbers(value)) {
-                        valid = false;
-                        ngModel.invalids['number'] = true;
-                    }
-                    if (checkSymbols(value)) {
-                        valid = false;
-                        ngModel.invalids['symbol'] = true;
+                        ngModel.invalids['common'] = true;
                     }
                     ngModel.$setValidity('ot-password2', valid);
                     return value;
