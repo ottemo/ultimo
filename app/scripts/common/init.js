@@ -70,8 +70,18 @@ angular.module("commonModule", [
         "$commonPageService",
         "$commonRewriteService",
         "REST_SERVER_URI",
-        function ($rootScope, $designService, $route, $http, $location, $q,
-                  $commonPageService, $commonRewriteService, REST_SERVER_URI) {
+        "DEFAULT_TITLE",
+        function (
+            $rootScope,
+            $designService,
+            $route,
+            $http,
+            $location,
+            $q,
+            $commonPageService,
+            $commonRewriteService,
+            REST_SERVER_URI,
+            DEFAULT_TITLE) {
 
 
             /**
@@ -92,6 +102,16 @@ angular.module("commonModule", [
             $commonPageService.setTitle();
             $commonPageService.setMetaDescription();
             $commonPageService.setMetaKeywords();
+
+            //TODO: comment
+            $rootScope.$on('$routeChangeSuccess', function(event, current, previous) {
+                console.log(current);
+                var newTitle = current.title ? current.title : '';
+                newTitle += DEFAULT_TITLE;
+                $commonPageService.setTitle(newTitle);
+                $commonPageService.setMetaDescription();
+                $commonPageService.setMetaKeywords();
+            });
 
             angular.module("commonModule").otherwiseResolveFunc = function () {
                 if (angular.module("commonModule").otherwiseResolveFunc.inProgress === undefined) {
@@ -119,9 +139,7 @@ angular.module("commonModule", [
                     };
 
                     var successFunction = function (data, status, headers, config) {
-                        $commonPageService.setTitle();
-                        $commonPageService.setMetaDescription();
-                        $commonPageService.setMetaKeywords();
+
                         if (data.error === null &&
                             data.result instanceof Array &&
                             data.result.length > 0) {
@@ -130,12 +148,12 @@ angular.module("commonModule", [
                                 $location.$$path = "/" + rewrite.type + "/" + rewrite.rewrite;
                                 $location.$$url = $location.$$path;
 
-                                $commonPageService.setTitle(rewrite.title);
-                                $commonPageService.setMetaDescription(rewrite["meta_description"]);
-                                $commonPageService.setMetaKeywords(rewrite["meta_keywords"]);
 
                                 var route = $route.routes["/" + rewrite.type + "/:id"];
 
+                                route.title = rewrite.title;
+                                route.description = rewrite.meta_description;
+                                route.keywords = rewrite.meta_keywords;
                                 angular.module("commonModule").deferTemplateValue.resolve(route.templateUrl);
                                 angular.module("commonModule").deferControllerValue.resolve(route.controller);
                             } else {
