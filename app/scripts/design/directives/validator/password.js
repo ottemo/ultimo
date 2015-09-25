@@ -18,24 +18,25 @@ angular.module("designModule")
                     'taylor','111111','131313','123123'
                 ];
 
-                ngModel.rules = {
-                    "length": 'The password should have ' + minLength + ' characters or more.',
-                    "common": "The password shouldn't be in a list of 50 most common."
+                var messages = {
+                    minLength: 'The password should have ' + minLength + ' characters or more.',
+                    common: 'You entered one of the fifty most common passwords, please try something stronger.'
                 };
-                /*jshint maxcomplexity:6 */
+
                 var validate = function (value) {
-                    if (!value) { return value; }
-                    ngModel.invalids = [];
+
+                    if (!value) return value;
+
                     var valid = true;
                     if (value.length < minLength) {
                         valid = false;
-                        ngModel.invalids['length'] = true;
+                        ngModel.message = messages.minLength;
                     }
                     if (commonPasswords.indexOf(value) >= 0) {
                         valid = false;
-                        ngModel.invalids['common'] = true;
+                        ngModel.message = messages.common;
                     }
-                    ngModel.$setValidity('ot-password2', valid);
+                    ngModel.$setValidity('ot-password', valid);
                     return value;
                 };
 

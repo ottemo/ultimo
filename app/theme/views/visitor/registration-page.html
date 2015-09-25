@@ -17,8 +17,8 @@
                 <div class="form-group"
                      ng-class="{ 'has-error' : (register.submitted && register.fname.$error.required) || (register.fname.$invalid && !register.fname.$pristine) }">
                     <label for="FirstName">First Name *</label>
-                    <input type="text" class="form-control" id="FirstName" placeholder="First name" 
-                        ng-model="login.fname" 
+                    <input type="text" class="form-control" id="FirstName" placeholder="First name"
+                        ng-model="login.fname"
                         ng-model-options="{ updateOn: 'blur' }"
                         name="fname" required  />
 
@@ -31,8 +31,8 @@
                 <div class="form-group"
                      ng-class="{ 'has-error' : (register.submitted && register.lname.$error.required) || (register.lname.$invalid && !register.lname.$pristine) }">
                     <label for="LastName">Last Name *</label>
-                    <input type="text" class="form-control" id="LastName" 
-                        placeholder="Last name" 
+                    <input type="text" class="form-control" id="LastName"
+                        placeholder="Last name"
                         ng-model-options="{ updateOn: 'blur' }"
                         ng-model="login.lname" name="lname" required />
 
@@ -45,9 +45,9 @@
                 <div class="form-group"
                      ng-class="{ 'has-error' : (register.submitted && register.email.$invalid) || (register.email.$invalid && !register.email.$pristine) }">
                     <label for="email">Email Address *</label>
-                    <input id="email" type="text" class="form-control" 
-                        name="email" 
-                        ot-email="true" 
+                    <input id="email" type="text" class="form-control"
+                        name="email"
+                        ot-email="true"
                         ng-model-options="{ updateOn: 'blur' }"
                         ng-model="login.email" required placeholder="Email" />
 
@@ -66,9 +66,9 @@
                 <div class="form-group"
                      ng-class="{ 'has-error' : (register.password.$invalid && !register.password.$pristine) }">
                     <label for="password">Password *</label>
-                    <input id="password" type="password" ot-password2 class="form-control" 
+                    <input id="password" type="password" ot-password class="form-control"
                         name="password"
-                        placeholder="Password" 
+                        placeholder="Password"
                         ng-model-options="{ updateOn: 'blur' }"
                         ng-model="login.password" required autocomplete="off" />
                     <ul class="ot-new-password" ng-show="!register.password.$pristine">
@@ -81,9 +81,9 @@
                 <div class="form-group"
                      ng-class="{ 'has-error' : (register.submitted && register.confirm_password.$error.required) || (register.confirm_password.$invalid && !register.confirm_password.$pristine) }">
                     <label for="confirm_password">Password confirm *</label>
-                    <input id="confirm_password" type="password" class="form-control" 
+                    <input id="confirm_password" type="password" class="form-control"
                     name="confirm_password" placeholder="Confirm Password"
-                    ng-model-options="{ updateOn: 'blur' }" 
+                    ng-model-options="{ updateOn: 'blur' }"
                     ng-model="login.confirm_password" required autocomplete="off" />
 
                     <!-- error message -->
