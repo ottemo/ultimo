@@ -93,10 +93,10 @@ angular.module("cartModule")
             };
 
             /**
-             * Hides mini-cart after change url and changes
+             * Hides mini-cart after change url
              */
             $scope.$on("$locationChangeSuccess", function () {
-                $(".mini-cart").modal('hide')
+                $(".mini-cart").modal('hide');
             });
 
 
