@@ -103,14 +103,16 @@ angular.module("commonModule", [
             $commonPageService.setMetaDescription();
             $commonPageService.setMetaKeywords();
 
-            //TODO: comment
+            // Apply page title and meta data that is declared on the route
             $rootScope.$on('$routeChangeSuccess', function(event, current, previous) {
+                //TODO: CLEANUP
                 console.log(current);
-                var newTitle = current.title ? current.title : '';
+
+                var newTitle = current.title ? current.title + ' | ' : '';
                 newTitle += DEFAULT_TITLE;
                 $commonPageService.setTitle(newTitle);
-                $commonPageService.setMetaDescription();
-                $commonPageService.setMetaKeywords();
+                $commonPageService.setMetaDescription(current.description);
+                $commonPageService.setMetaKeywords(current.keywords);
             });
 
             angular.module("commonModule").otherwiseResolveFunc = function () {
@@ -151,9 +153,11 @@ angular.module("commonModule", [
 
                                 var route = $route.routes["/" + rewrite.type + "/:id"];
 
+                                // Assign meta information to the route
                                 route.title = rewrite.title;
                                 route.description = rewrite.meta_description;
                                 route.keywords = rewrite.meta_keywords;
+
                                 angular.module("commonModule").deferTemplateValue.resolve(route.templateUrl);
                                 angular.module("commonModule").deferControllerValue.resolve(route.controller);
                             } else {
