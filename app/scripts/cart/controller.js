@@ -9,7 +9,18 @@ angular.module("cartModule")
         "$pdpProductService",
         "$checkoutService",
         "$location",
-        function ($scope, $interval, $cartApiService, $cartService, $visitorLoginService, $pdpProductService, $checkoutService, $location) {
+        "$commonPageService",
+        function ($scope, $interval, $cartApiService, $cartService, $visitorLoginService, $pdpProductService, $checkoutService, $location, $commonPageService) {
+
+            /**
+             * Changes page title after cart load
+             */
+            var currentLocation = $location.path();
+            if (currentLocation.indexOf('/cart') >= 0) {
+                $commonPageService.setTitle("Cart");
+                $commonPageService.setMetaDescription();
+                $commonPageService.setMetaKeywords();
+            }
             $scope.it = $cartService;
             $scope.checkout = $checkoutService;
             $scope.productService = $pdpProductService;
@@ -82,11 +93,12 @@ angular.module("cartModule")
             };
 
             /**
-             * Hides mini-cart after change url
+             * Hides mini-cart after change url and changes
              */
             $scope.$on("$locationChangeSuccess", function () {
-                $(".mini-cart").modal('hide');
+                $(".mini-cart").modal('hide')
             });
+
 
         }
     ]);

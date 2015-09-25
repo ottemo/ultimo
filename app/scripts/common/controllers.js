@@ -69,39 +69,22 @@ angular.module("commonModule")
              * Home, 404 - pages
              */
 
-
+                // We need to enforce the default seo options
+            $commonPageService.setTitle();
+            $commonPageService.setMetaDescription();
+            $commonPageService.setMetaKeywords();
 
                 // Handlers for breadcrumbs and SEO
             $scope.$on("$locationChangeSuccess", function () {
                 $commonBreadcrumbsService.clear();
                 $commonBreadcrumbsService.addItem("Home", "/");
-                // We need to enforce the default seo options
-                //TODO: fill in meta
+
                 var currentLocation = $location.path();
-                var seoTitle = "";
-                var seoMetaD = "";
-                var seoMetaK = "";
                 if (currentLocation == '/') {
-                    seoTitle = "";seoMetaD = "";seoMetaK = "";
+                    $commonPageService.setTitle();
+                    $commonPageService.setMetaDescription();
+                    $commonPageService.setMetaKeywords();
                 }
-                if (currentLocation == '/cart') {
-                    seoTitle = "cart";
-                    seoMetaD = "cart";
-                    seoMetaK = "cart";
-                }
-                if (currentLocation == '/checkout') {
-                    seoTitle = "checkout";
-                    seoMetaD = "checkout";
-                    seoMetaK = "checkout";
-                }
-                if (currentLocation.indexOf('/checkout/success') >= 0) {
-                    seoTitle = "checkout success";
-                    seoMetaD = "checkout success";
-                    seoMetaK = "checkout success";
-                }
-                $commonPageService.setTitle(seoTitle);
-                $commonPageService.setMetaDescription(seoMetaD);
-                $commonPageService.setMetaKeywords(seoMetaK);
             });
 
             $scope.$on("add-breadcrumbs", function (event, param) {
