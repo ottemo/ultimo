@@ -92,7 +92,8 @@
 														{{ if .Order.billing_address.address_line2 }}
 															<div>{{ .Order.billing_address.address_line2 }}</div>
 														{{ end }}
-														<div>{{ .Order.billing_address.city }}, {{ .Order.billing_address.state }} {{ .Order.billing_address.zip }} {{ .Order.billing_address.country }}</div>
+														<div>{{ .Order.billing_address.city }}, {{ .Order.billing_address.state }} {{ .Order.billing_address.zip_code }} {{ .Order.billing_address.country }}</div>
+														<div>{{ .Order.billing_address.phone }}</div>
 													</td>
 													<td class="expander"></td>
 												</tr>
@@ -137,7 +138,8 @@
 														{{ if .Order.shipping_address.address_line2 }}
 															<div>{{ .Order.shipping_address.address_line2 }}</div>
 														{{ end }}
-														<div>{{ .Order.shipping_address.city }}, {{ .Order.shipping_address.state }} {{ .Order.shipping_address.zip }} {{ .Order.shipping_address.country }}</div>
+														<div>{{ .Order.shipping_address.city }}, {{ .Order.shipping_address.state }} {{ .Order.shipping_address.zip_code }} {{ .Order.shipping_address.country }}</div>
+														<div>{{ .Order.billing_address.phone }}</div>
 													</td>
 													<td class="expander"></td>
 												</tr>
