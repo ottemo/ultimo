@@ -8,8 +8,8 @@ angular.module("cartModule")
         "$visitorLoginService",
         "$pdpProductService",
         "$checkoutService",
-        "$location",
-        function ($scope, $interval, $cartApiService, $cartService, $visitorLoginService, $pdpProductService, $checkoutService, $location) {
+        function ($scope, $interval, $cartApiService, $cartService, $visitorLoginService, $pdpProductService, $checkoutService, $location, $commonPageService) {
+
             $scope.it = $cartService;
             $scope.checkout = $checkoutService;
             $scope.productService = $pdpProductService;
@@ -87,6 +87,7 @@ angular.module("cartModule")
             $scope.$on("$locationChangeSuccess", function () {
                 $(".mini-cart").modal('hide');
             });
+
 
         }
     ]);

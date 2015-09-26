@@ -13,7 +13,7 @@ angular.module("checkoutModule")
         "$commonUtilService",
         "$checkoutService",
         "$giftCardsService",
-        "$designCountryService",
+        "$commonPageService",
         function (
             $scope,
             $location,
@@ -27,12 +27,30 @@ angular.module("checkoutModule")
             $commonUtilService,
             $checkoutService,
             $giftCardsService,
-            $designCountryService
+            $commonPageService
         ) {
 
             var init, info, getDefaultAddress, getAddresses, enabledGuestCheckout,
                 getPaymentInfo, creditCardTypes, isValidSteps;
-
+            /**
+             * Changes page title after checkout load
+             */
+            $commonPageService.setTitle("Checkout");
+            $commonPageService.setMetaDescription();
+            $commonPageService.setMetaKeywords();
+            $scope.$on("$locationChangeSuccess", function () {
+                var currentLocation = $location.path();
+                if (currentLocation == '/checkout') {
+                    $commonPageService.setTitle("Checkout");
+                    $commonPageService.setMetaDescription();
+                    $commonPageService.setMetaKeywords();
+                }
+                if (currentLocation.indexOf('/checkout/success') >= 0) {
+                    $commonPageService.setTitle("Checkout Success");
+                    $commonPageService.setMetaDescription();
+                    $commonPageService.setMetaKeywords();
+                }
+            });
             /**
              * Gets checkout information
              * @return {promise}
@@ -792,6 +810,7 @@ angular.module("checkoutModule")
 
                 return result;
             };
+
         }
     ]
 );

@@ -44,7 +44,6 @@ angular.module("commonModule")
             $scope.crumbs = $commonBreadcrumbsService.getItems();
         }
     ])
-
     .controller("commonController", [
         "$scope",
         "$commonPageService",
@@ -54,6 +53,7 @@ angular.module("commonModule")
         "$cartService",
         "$visitorLoginService",
         "cfpLoadingBar",
+        "$location",
         function (
             $scope,
             $commonPageService,
@@ -62,21 +62,29 @@ angular.module("commonModule")
             $commonBreadcrumbsService,
             $cartService,
             $visitorLoginService,
-            cfpLoadingBar) {
+            cfpLoadingBar,
+            $location ) {
 
             /**
              * Home, 404 - pages
              */
 
-            // We need to enforce the default seo options
+                // We need to enforce the default seo options
             $commonPageService.setTitle();
             $commonPageService.setMetaDescription();
             $commonPageService.setMetaKeywords();
 
-            // Handlers for breadcrumbs
+                // Handlers for breadcrumbs and SEO
             $scope.$on("$locationChangeSuccess", function () {
                 $commonBreadcrumbsService.clear();
                 $commonBreadcrumbsService.addItem("Home", "/");
+
+                var currentLocation = $location.path();
+                if (currentLocation == '/') {
+                    $commonPageService.setTitle();
+                    $commonPageService.setMetaDescription();
+                    $commonPageService.setMetaKeywords();
+                }
             });
 
             $scope.$on("add-breadcrumbs", function (event, param) {
