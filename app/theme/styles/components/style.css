@@ -1012,3 +1012,10 @@ the extra space looks funny */
 :-moz-ui-invalid {
 	box-shadow: none;
 }
+/*_________ Login _________*/
+.btn-facebook {
+	margin-top: 25px;
+}
+.btn-google {
+	margin-top: 40px;
+}
