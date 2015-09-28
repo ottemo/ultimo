@@ -60,6 +60,7 @@ angular.module("commonModule", [
         cfpLoadingBarProvider.includeSpinner = false;
 
     }])
+
     .run([
         "$rootScope",
         "$designService",
@@ -81,7 +82,8 @@ angular.module("commonModule", [
             $commonPageService,
             $commonRewriteService,
             REST_SERVER_URI,
-            DEFAULT_TITLE) {
+            DEFAULT_TITLE
+        ) {
 
 
             /**
@@ -108,9 +110,10 @@ angular.module("commonModule", [
                 //TODO: CLEANUP
                 console.log(current);
 
-                var newTitle = current.title ? current.title + ' | ' : '';
-                newTitle += DEFAULT_TITLE;
-                $commonPageService.setTitle(newTitle);
+                // Page title suffix
+                var pageTitle = current.title ? current.title + ' | ' : '';
+                pageTitle += DEFAULT_TITLE;
+                $commonPageService.setTitle(pageTitle);
                 $commonPageService.setMetaDescription(current.description);
                 $commonPageService.setMetaKeywords(current.keywords);
             });
