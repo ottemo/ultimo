@@ -8,7 +8,7 @@ angular.module("cartModule", ["ngRoute", "ngResource", "ngCookies", "designModul
     .config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
         $routeProvider
             .when("/cart", {
-                title: 'Cart',
+                title: "Cart",
                 templateUrl: "theme/views/cart/view.html",
                 controller: "cartListController"
             });
