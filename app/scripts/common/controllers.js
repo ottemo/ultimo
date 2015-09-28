@@ -69,12 +69,12 @@ angular.module("commonModule")
              * Home, 404 - pages
              */
 
-                // We need to enforce the default seo options
+            // We need to enforce the default seo options
             $commonPageService.setTitle();
             $commonPageService.setMetaDescription();
             $commonPageService.setMetaKeywords();
 
-                // Handlers for breadcrumbs and SEO
+            // Handlers for breadcrumbs and SEO
             $scope.$on("$locationChangeSuccess", function () {
                 $commonBreadcrumbsService.clear();
                 $commonBreadcrumbsService.addItem("Home", "/");
