@@ -9,6 +9,7 @@ angular.module("checkoutModule")
         "$checkoutApiService",
         "$visitorLoginService",
         "$cartService",
+        "$designCountryService",
         "$designStateService",
         "$commonUtilService",
         "$checkoutService",
@@ -23,6 +24,7 @@ angular.module("checkoutModule")
             $visitorLoginService,
             $cartService,
             $designStateService,
+            $designCountryService,
             $commonUtilService,
             $checkoutService,
             $giftCardsService

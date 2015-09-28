@@ -7,6 +7,7 @@ angular.module("checkoutModule")
         "$visitorLoginService",
         "$cartService",
         "$designStateService",
+        "$designCountryService",
         "$commonUtilService",
         "$checkoutService",
         "$q",
@@ -18,10 +19,12 @@ angular.module("checkoutModule")
             $visitorLoginService,
             $cartService,
             $designStateService,
+            $designCountryService,
             $commonUtilService,
             $checkoutService,
             $q,
-            $interval) {
+            $interval
+        ) {
 
             var init, info, getDefaultAddress, getAddresses, enabledGuestCheckout,
                 getPaymentInfo, creditCartTypes, isValidSteps, initWatchers, defaultChoosePaymentMethod,
