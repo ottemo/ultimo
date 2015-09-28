@@ -21,7 +21,8 @@ angular.module("commonModule", [
     "cmsModule",
     "contactModule",
     "designModule",
-    "facebookAnalytics"
+    "facebookAnalytics",
+    "referModule"
 ])
 
 .value("DEFAULT_TITLE", "Kari Gran")

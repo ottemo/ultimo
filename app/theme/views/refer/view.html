@@ -1,0 +1,82 @@
+<div class="row">
+    <div class="col-sm-6">
+        <img src="/theme/images/refer/kari-gran-april-newsletter-square.jpg"
+            alt="Share Kari Gran with a friend"
+            class="img-fill">
+        <br />
+    </div>
+    <div class="col-sm-6">
+        <h1 class="flat-top">Share Kari Gran With A Friend</h1>
+        <p>Share your love of Kari Gran and your friend will receive a free <a href="">Starter Kit</a>.</p>
+
+        <form name="refer_form"
+            ng-submit="refer_form.$valid && submit()"
+            novalidate>
+
+            <!-- field: your_name -->
+            <div class="form-group"
+                ng-class="{ 'has-error': refer_form.your_name.$invalid && (refer_form.$submitted || refer_form.your_name.$touched)}">
+                <label for="your_name">Your name:</label>
+                <input class="form-control"
+                    id="your_name"
+                    name="your_name"
+                    type="text"
+                    ng-model="data.referer_name"
+                    required />
+
+                <!-- error messages -->
+                <div class="help-block"
+                    ng-show="refer_form.$submitted || refer_form.your_name.$touched">
+                    <span ng-show="refer_form.your_name.$error.required">This field is required</span>
+                </div>
+            </div>
+
+            <!-- field: friend_name -->
+            <div class="form-group"
+                ng-class="{ 'has-error': refer_form.friend_name.$invalid && (refer_form.$submitted || refer_form.friend_name.$touched)}">
+                <label for="friend_name">Friend's name:</label>
+                <input class="form-control"
+                    id="friend_name"
+                    name="friend_name"
+                    type="text"
+                    ng-model="data.friend_name"
+                    required />
+
+                <!-- error messages -->
+                <div class="help-block"
+                    ng-show="refer_form.$submitted || refer_form.friend_name.$touched">
+                    <span ng-show="refer_form.friend_name.$error.required">This field is required</span>
+                </div>
+            </div>
+
+            <!-- field: friend_email -->
+            <div class="form-group"
+                ng-class="{ 'has-error': refer_form.friend_email.$invalid && (refer_form.$submitted || refer_form.friend_email.$touched)}">
+                <label for="friend_email">Friend's email address:</label>
+                <input class="form-control"
+                    id="friend_email"
+                    name="friend_email"
+                    type="email"
+                    ng-model="data.friend_email"
+                    required />
+
+                <!-- error messages -->
+                <div class="help-block"
+                    ng-show="refer_form.$submitted || refer_form.friend_email.$touched">
+                    <span ng-show="refer_form.friend_email.$error.required">This field is required</span>
+                    <span ng-show="refer_form.friend_email.$error.email">This email is not formatted properly</span>
+                </div>
+            </div>
+
+            <button type="submit"
+                class="btn btn-primary">Share</button>
+
+        </form>
+
+        <br />
+        <p>
+            <strong>Next:</strong> We'll send your friend the Kari Gran Starter Kit along with a wonderful hand written note and a healthy dose of good karma.
+        </p>
+    </div>
+</div>
+
