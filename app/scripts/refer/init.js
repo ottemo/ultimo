@@ -13,9 +13,39 @@ angular.module("referModule", [
     }
 ])
 
+.service('referService', [
+    '$http',
+    function($http) {
+
+        this.post = function(data) {
+            var url = angular.REST_SERVER_URI + '/friend/email';
+            return $http.post(url, data)
+                .then(function(response) {
+                    console.log(response);
+                    return response.data;
+                });
+        }
+
+        this.getCaptcha = function() {
+            var url = angular.REST_SERVER_URI + '/friend/captcha';
+            return $http.get(url)
+                .then(function(response) {
+                    return response.data;
+                });
+        }
+    }
+])
+
 .controller("referController", [
     "$scope",
-    function($scope) {
+    "referService",
+    function($scope, referService) {
+
+        // Fetch the captcha for the page
+        referService.getCaptcha().then(function(imgData) {
+            $scope.captcha = imgData;
+        });
+
 
         $scope.isSubmitting = false;
 
@@ -24,8 +54,8 @@ angular.module("referModule", [
             $scope.isSubmitting = true;
 
             if (!$scope.isSubmitting) {
-                var url = '';
-                $http.post(url, $scope.data)
+
+                referService.post($scope.data)
                     .then(function(response) {
                         $scope.isSubmitting = false;
 

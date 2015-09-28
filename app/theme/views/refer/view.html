@@ -68,6 +68,28 @@
                 </div>
             </div>
 
+            <div class="form-group"
+                ng-class="{ 'has-error': refer_form.captcha.$invalid && (refer_form.$submitted || refer_form.captcha.$touched)}">
+                <label for="captcha">Please enter the following text in the box below:</label>
+                <img class="refer__captcha"
+                    ng-src="{{captcha}}"
+                    alt="captcha"
+                    width="240"
+                    height="80" />
+                <input class="form-control"
+                    id="captcha"
+                    name="captcha"
+                    type="text"
+                    ng-model="data.captcha"
+                    required />
+
+                <!-- error messages -->
+                <div class="help-block"
+                    ng-show="refer_form.$submitted || refer_form.captcha.$touched">
+                    <span ng-show="refer_form.captcha.$error.required">This field is required</span>
+                </div>
+            </div>
+
             <button type="submit"
                 class="btn btn-primary">Share</button>
 
