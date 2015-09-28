@@ -27,10 +27,10 @@ angular.module("referModule", [
         }
 
         this.getCaptcha = function() {
-            var url = angular.REST_SERVER_URI + '/friend/captcha';
+            var url = angular.REST_SERVER_URI + '/friend/captcha?json=1';
             return $http.get(url)
                 .then(function(response) {
-                    return response.data;
+                    return response.data.result.captcha;
                 });
         }
     }
@@ -42,10 +42,10 @@ angular.module("referModule", [
     function($scope, referService) {
 
         // Fetch the captcha for the page
-        referService.getCaptcha().then(function(imgData) {
-            $scope.captcha = imgData;
-        });
-
+        referService.getCaptcha()
+            .then(function(imgData) {
+                $scope.captcha = imgData;
+            });
 
         $scope.isSubmitting = false;
 
