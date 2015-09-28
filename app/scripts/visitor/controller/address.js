@@ -8,7 +8,15 @@ angular.module("visitorModule")
         '$designStateService',
         '$commonUtilService',
         '$designCountryService',
-        function ($scope, $location, $visitorLoginService, $visitorApiService, $designStateService, $commonUtilService, $designCountryService) {
+        function (
+            $scope,
+            $location,
+            $visitorLoginService,
+            $visitorApiService,
+            $designStateService,
+            $commonUtilService,
+            $designCountryService
+        ) {
             var getFullName;
 
             $scope.countries = $designCountryService;
