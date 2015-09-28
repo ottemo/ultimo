@@ -25,38 +25,47 @@ angular.module("visitorModule", [
                 controller: "visitorLogoutController"
             })
             .when("/account", {
+                title: "My Account",
                 templateUrl: "theme/views/visitor/account.html",
                 controller: "visitorAccountController"
             })
             .when("/account/address", {
+                title: "Addresses",
                 templateUrl: "theme/views/visitor/account/address-manager.html",
                 controller: "visitorAddressController"
             })
             .when("/account/orders", {
+                title: "Orders",
                 templateUrl: "theme/views/visitor/account/order.html",
                 controller: "visitorOrderController"
             })
             .when("/account/order/:id", {
+                title: "Order Details",
                 templateUrl: "theme/views/visitor/account/order-details.html",
                 controller: "visitorOrderController"
             })
             .when("/account/gift-cards", {
+                title: "Gift Cards",
                 templateUrl: "theme/views/visitor/account/gift-cards.html",
                 controller: "giftCardsController"
             })
             .when("/login", {
+                title: "Login",
                 templateUrl: "theme/views/visitor/login-page.html",
                 controller: "visitorLoginController"
             })
             .when("/forgot-password", {
+                title: "Forgot Password",
                 templateUrl: "theme/views/visitor/forgot-password.html",
                 controller: "visitorLoginController"
             })
             .when("/resend-activation", {
+                title: "Resend Activation",
                 templateUrl: "theme/views/visitor/resend-activation.html",
                 controller: "visitorLoginController"
             })
             .when("/registration", {
+                title: "Register",
                 templateUrl: "theme/views/visitor/registration-page.html",
                 controller: "visitorLoginController"
             });

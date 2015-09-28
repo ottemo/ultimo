@@ -7,9 +7,9 @@ angular.module("commonModule")
 
         "$commonApiService",
         "$categoryService",
-        function ($scope, $commonApiService, $categoryService) {
+        function($scope, $commonApiService, $categoryService) {
 
-            $scope.hideNav = function () {
+            $scope.hideNav = function() {
                 $("#pageslide").css("display", "none");
                 $(".mini-cart").css("display", "none");
                 $(".h-block ul li.active").removeClass("active");
@@ -24,7 +24,7 @@ angular.module("commonModule")
             tree = $categoryService.getTree();
             if (typeof tree === "undefined") {
                 $commonApiService.getCategories().$promise.then(
-                    function (response) {
+                    function(response) {
                         var categories = response.result || [];
                         $scope.categories = categories;
                         $categoryService.setTree(categories);
@@ -36,10 +36,10 @@ angular.module("commonModule")
         }
     ])
 
-    .controller("commonBreadcrumbsController", [
+.controller("commonBreadcrumbsController", [
         "$scope",
         "$commonBreadcrumbsService",
-        function ($scope, $commonBreadcrumbsService) {
+        function($scope, $commonBreadcrumbsService) {
             $scope.it = $commonBreadcrumbsService;
             $scope.crumbs = $commonBreadcrumbsService.getItems();
         }
@@ -53,8 +53,7 @@ angular.module("commonModule")
         "$cartService",
         "$visitorLoginService",
         "cfpLoadingBar",
-        "$location",
-        function (
+        function(
             $scope,
             $commonPageService,
             $designService,
@@ -62,42 +61,24 @@ angular.module("commonModule")
             $commonBreadcrumbsService,
             $cartService,
             $visitorLoginService,
-            cfpLoadingBar,
-            $location ) {
+            cfpLoadingBar) {
 
-            /**
-             * Home, 404 - pages
-             */
-
-                // We need to enforce the default seo options
-            $commonPageService.setTitle();
-            $commonPageService.setMetaDescription();
-            $commonPageService.setMetaKeywords();
-
-                // Handlers for breadcrumbs and SEO
-            $scope.$on("$locationChangeSuccess", function () {
+            // Handlers for breadcrumbs and SEO
+            $scope.$on("$locationChangeSuccess", function() {
                 $commonBreadcrumbsService.clear();
                 $commonBreadcrumbsService.addItem("Home", "/");
-
-                var currentLocation = $location.path();
-                if (currentLocation == '/') {
-                    $commonPageService.setTitle();
-                    $commonPageService.setMetaDescription();
-                    $commonPageService.setMetaKeywords();
-                }
             });
 
-            $scope.$on("add-breadcrumbs", function (event, param) {
+            $scope.$on("add-breadcrumbs", function(event, param) {
                 $commonBreadcrumbsService.addItem(param.label, param.url);
             });
 
             // Page loading event handler
             $scope.load_completed = false;
 
-            $scope.$on('cfpLoadingBar:completed', function(e,param) {
+            $scope.$on('cfpLoadingBar:completed', function(e, param) {
                 $scope.load_completed = true;
             });
-
 
             // Cart initialization
             $cartService.init();
@@ -105,5 +86,4 @@ angular.module("commonModule")
             // Visitor init
             $scope.visitorProps = $visitorLoginService.props;
         }
-    ]
-);
+    ]);
