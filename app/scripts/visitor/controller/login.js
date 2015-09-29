@@ -16,31 +16,13 @@ angular.module("visitorModule")
 
             var VALIDATION_SUCCESS = "<b>Congratulations!</b><br /> You have finished registration and can now enter the site.";
             var INVALIDATE_SUCCESS = "We sent you new activation code. Please check your email and click on the verification link.";
-            var FORGOT_SUCCESS = "A new password has been created and forwarded to you. Please check your email.";
+            var FORGOT_SUCCESS = "If this email address exists in our system we'll send you instructions on resetting your password.";
 
             $scope.needBirthdayCheck = true;
             $scope.birthday = {
                 "day": 0,
                 "month": 0,
                 "year": 0
-            };
-
-            var checkPassword = function () {
-                var status;
-                if (typeof $scope.login.password === "undefined" ||
-                    $scope.login.password.trim() === "") {
-                    $scope.message = $commonUtilService.getMessage(null, "warning", "Password can not be blank");
-                    $scope.isCoincide = false;
-                    status = false;
-                } else if ($scope.login.password === $scope.login["confirm_password"]) {
-                    $scope.isCoincide = true;
-                    status = true;
-                } else {
-                    $scope.message = $commonUtilService.getMessage(null, "warning", "Passwords don't match");
-                    $scope.isCoincide = false;
-                    status = false;
-                }
-                return status;
             };
 
             $scope.init = function () {
@@ -57,6 +39,7 @@ angular.module("visitorModule")
             };
 
             $scope.sendForgotEmail = function () {
+                // REFACTOR: use $submitted
                 $scope.forgotForm.submitted = true;
                 if ($scope.forgotForm.$valid) {
                     $visitorApiService.forgotPassword({"email": $scope.forgotCredentials.email}).$promise.then(function (response) {
@@ -72,6 +55,7 @@ angular.module("visitorModule")
             };
 
             $scope.sendInvalidateEmail = function () {
+                // REFACTOR: use $submitted
                 $scope.invalidateForm.submitted = true;
                 if ($scope.invalidateForm.$valid) {
                     $visitorApiService.invalidate({"email": $scope.invalidateCredentials.email}).$promise.then(function (response) {
@@ -107,8 +91,9 @@ angular.module("visitorModule")
             };
 
             $scope.save = function () {
+                // REFACTOR: use $submitted
                 $scope.register.submitted = true;
-                if ($scope.register.$valid && checkPassword()) {
+                if ($scope.register.$valid) {
                     delete $scope.login["billing_address_id"];
                     delete $scope.login["shipping_address_id"];
 
@@ -157,6 +142,7 @@ angular.module("visitorModule")
             };
 
             $scope.signIn = function (isPopUp) {
+                // REFACTOR: use $submitted
                 $scope.loginForm.submitted = true;
                 if ($scope.loginForm.$valid) {
                     $visitorApiService.login($scope.loginCredentials).$promise.then(function (response) {

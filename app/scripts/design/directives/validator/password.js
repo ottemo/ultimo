@@ -1,7 +1,7 @@
 angular.module("designModule")
 
     // New Password Directive
-    .directive("otPassword2", function () {
+    .directive("otPassword", function () {
         return {
             restrict: 'EA',
             require: '?ngModel',

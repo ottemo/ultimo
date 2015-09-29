@@ -34,6 +34,10 @@ angular.module("visitorModule")
                     method: "GET",
                     url: REST_SERVER_URI + "/visitors/forgot-password/:email"
                 },
+                "resetPassword": {
+                    method: "POST",
+                    url: REST_SERVER_URI + "/visitors/reset-password"
+                },
                 "invalidate": {
                     method: "GET",
                     url: REST_SERVER_URI + "/visitors/invalidate/:email"
@@ -50,9 +54,9 @@ angular.module("visitorModule")
                     method: "GET",
                     url: REST_SERVER_URI + "/visit/addresses"
                 },
-                "addressUpdate": {
+                "addressUpdate":{
                     method: "PUT",
-                    params: {addressID: "@id"},
+                    params: { addressID: "@id" },
                     url: REST_SERVER_URI + "/visit/address/:addressID"
                 },
                 "saveAddress": {
