@@ -5,12 +5,10 @@ angular.module("visitorModule")
     .factory('$visitorLoginService', [
         '$resource',
         '$visitorApiService',
-        '$cookieStore',
         '$q',
         '$designService',
         'VISITOR_DEFAULT_AVATAR',
-        'LOGIN_COOKIE',
-        function ($resource, $visitorApiService, $cookieStore, $q, $designService, VISITOR_DEFAULT_AVATAR, LOGIN_COOKIE) {
+        function ($resource, $visitorApiService, $q, $designService, VISITOR_DEFAULT_AVATAR) {
 
             /** Variables */
             var login, loginId, isLoggedIn, mapFields, sendingRequest;

@@ -8,7 +8,6 @@ angular.module("visitorModule", [
     "giftCardsModule"
 ])
 
-    .constant("LOGIN_COOKIE", "OTTEMOSESSION")
     .constant("VISITOR_DEFAULT_AVATAR", "avatar-placeholder.png")
 
 /**

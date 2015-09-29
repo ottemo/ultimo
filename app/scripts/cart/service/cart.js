@@ -5,11 +5,9 @@ angular.module("cartModule")
     .service('$cartService', [
         '$resource',
         '$cartApiService',
-        '$cookieStore',
         '$pdpProductOptionsService',
-        'LOGIN_COOKIE',
         '$q',
-        function ($resource, $cartApiService, $cookieStore, $pdpProductOptionsService, LOGIN_COOKIE, $q) {
+        function ($resource, $cartApiService, $pdpProductOptionsService, $q) {
 
             var isInit, items, visitorId, subtotal, saleTax, shipping, total, activeRequests, initScope,
                 addItem, init, reload, loadCartInfo, getItems, remove, update,
