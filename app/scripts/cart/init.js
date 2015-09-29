@@ -1,7 +1,7 @@
 /*
  *  Angular "cartModule" declaration
  */
-angular.module("cartModule", ["ngRoute", "ngResource", "ngCookies", "designModule", "pdpModule", "visitorModule", "checkoutModule"])
+angular.module("cartModule", ["ngRoute", "ngResource", "designModule", "pdpModule", "visitorModule", "checkoutModule"])
     /*
      *  Basic routing configuration
      */

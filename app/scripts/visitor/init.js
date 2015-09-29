@@ -4,7 +4,6 @@
 angular.module("visitorModule", [
     "ngRoute",
     "ngResource",
-    "ngCookies",
     "giftCardsModule"
 ])
 
