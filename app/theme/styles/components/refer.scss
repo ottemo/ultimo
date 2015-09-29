@@ -1,4 +1,28 @@
+// /refer-a-friend page
+
+// Variables
+$refer-accent-color: #8bccb8;
+$refer-accent-hover: darken($refer-accent-color, 10%);
+
+// Styles
+.page--refer a {
+	color: $refer-accent-color;
+	&:hover {
+		color: $refer-accent-hover;
+	}
+}
+.refer__primary-img {
+	border: 1px solid #aaa;
+}
+.refer__title {
+	color: $refer-accent-color;
+}
 .refer__captcha {
 	display: block;
 	margin-bottom: 10px;
+}
+
+.btn-refer {
+	//$color, $background, $background-hover, $border, $border-hover
+	@include button-variant(#fff, $refer-accent-color, $refer-accent-hover, $refer-accent-hover, $refer-accent-hover);
 }
