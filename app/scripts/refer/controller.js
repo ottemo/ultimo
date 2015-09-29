@@ -22,25 +22,25 @@ angular.module('referModule')
         $scope.submit = function() {
 
             // Prevent multiple submits from stacking
-            if (!$scope.isSubmitting) {
-                $scope.isSubmitting = true;
-                hideMessages();
+            if ($scope.isSubmitting) { return; }
 
-                referService.post($scope.data)
-                    .then(function(response) {
-                        // Unblock the button
-                        $scope.isSubmitting = false;
+            $scope.isSubmitting = true;
+            hideMessages();
 
-                        // Messages
-                        if (response.result === 'ok') {
-                            $scope.showSuccessMessage = true;
-                        } else if(response.error.code == '8bd3ad79-e464-4355-8a13-27ff55980fbb') {
-                            $scope.showCaptchaMismatchMessage = true;
-                        }else {
-                            $scope.showErrorMessage = true;
-                        }
-                    });
-            }
+            referService.post($scope.data)
+                .then(function(response) {
+                    // Unblock the button
+                    $scope.isSubmitting = false;
+
+                    // Messages
+                    if (response.result === 'ok') {
+                        $scope.showSuccessMessage = true;
+                    } else if(response.error.code == '8bd3ad79-e464-4355-8a13-27ff55980fbb') {
+                        $scope.showCaptchaMismatchMessage = true;
+                    }else {
+                        $scope.showErrorMessage = true;
+                    }
+                });
         }
     }
 ]);
