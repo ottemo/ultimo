@@ -90,8 +90,23 @@
                 </div>
             </div>
 
+            <div class="alert alert-success"
+                ng-show="showSuccessMessage">Sent! We've let your friend know how to get their free Starter Kit</div>
+            <div class="alert alert-danger"
+                ng-show="showCaptchaMismatchMessage">It looks like the captcha graphic doesn't match what
+                you entered. Please try typing it again, or refresh the page to receive a new graphic.</div>
+            <div class="alert alert-danger"
+                ng-show="showErrorMessage">We encountered a problem while trying to send the email, please refresh
+                the page and try again</div>
+
             <button class="btn btn-refer"
-                type="submit">Share</button>
+                type="submit"
+                ng-disabled="isSubmitting">
+                Share
+                <i class="fa fa-circle-o-notch fa-spin"
+                    ng-show="isSubmitting">
+                </i>
+            </button>
 
         </form>
 
