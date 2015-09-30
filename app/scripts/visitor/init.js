@@ -4,11 +4,9 @@
 angular.module("visitorModule", [
     "ngRoute",
     "ngResource",
-    "ngCookies",
     "giftCardsModule"
 ])
 
-    .constant("LOGIN_COOKIE", "OTTEMOSESSION")
     .constant("VISITOR_DEFAULT_AVATAR", "avatar-placeholder.png")
 
 /**
