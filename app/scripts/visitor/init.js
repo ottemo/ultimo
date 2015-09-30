@@ -59,6 +59,10 @@ angular.module("visitorModule", [
                 templateUrl: "theme/views/visitor/forgot-password.html",
                 controller: "visitorLoginController"
             })
+            .when("/reset-password", {
+                templateUrl: "theme/views/visitor/reset-password.html",
+                controller: "resetPasswordController"
+            })
             .when("/resend-activation", {
                 title: "Resend Activation",
                 templateUrl: "theme/views/visitor/resend-activation.html",
@@ -98,6 +102,7 @@ angular.module("visitorModule", [
 
                     var pathBlacklist = [
                         '/forgot-password',
+                        '/reset-password',
                         '/login',
                         '/logout',
                         '/resend-activation',

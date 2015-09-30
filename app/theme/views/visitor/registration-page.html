@@ -64,31 +64,46 @@
             <div class="col-md-6">
                 <!-- password field + label-->
                 <div class="form-group"
-                     ng-class="{ 'has-error' : (register.password.$invalid && !register.password.$pristine) }">
+                    ng-class="{ 'has-error' : register.password.$invalid && (register.$submitted || register.password.$touched) }">
                     <label for="password">Password *</label>
-                    <input id="password" type="password" ot-password class="form-control"
+                    <input id="password"
+                        type="password"
+                        class="form-control input-lg"
                         name="password"
-                        placeholder="Password"
+                        ng-model="login.password"
                         ng-model-options="{ updateOn: 'blur' }"
-                        ng-model="login.password" required autocomplete="off" />
-                    <ul class="ot-new-password" ng-show="!register.password.$pristine">
-                        <li ng-repeat="(key, val) in register.password.rules" ng-class="{fail: register.password.invalids['{{key}}']}">{{val}}</li>
-                    </ul>
+                        ot-password
+                        required
+                        autocomplete="off" />
 
+                    <!-- error message -->
+                    <div class="help-block"
+                        ng-show="register.$submitted || register.password.$touched">
+                        <span ng-show="register.password.$error.required">This field is required.</span>
+                        <span ng-show="register.password.$error['ot-password']">{{register.password.message}}</span>
+                    </div>
                 </div>
 
                 <!-- password confirm field + label-->
                 <div class="form-group"
-                     ng-class="{ 'has-error' : (register.submitted && register.confirm_password.$error.required) || (register.confirm_password.$invalid && !register.confirm_password.$pristine) }">
+                    ng-class="{ 'has-error' : register.confirm_password.$invalid && (register.$submitted || register.confirm_password.$touched) }">
                     <label for="confirm_password">Password confirm *</label>
-                    <input id="confirm_password" type="password" class="form-control"
-                    name="confirm_password" placeholder="Confirm Password"
-                    ng-model-options="{ updateOn: 'blur' }"
-                    ng-model="login.confirm_password" required autocomplete="off" />
+                    <input id="confirm_password"
+                        type="password"
+                        class="form-control input-lg"
+                        name="confirm_password"
+                        ng-model="login.confirm_password"
+                        ng-model-options="{ updateOn: 'blur' }"
+                        ot-match="login.password"
+                        required
+                        autocomplete="off" />
 
                     <!-- error message -->
-                    <p ng-show="(register.submitted && register.confirm_password.$error.required) || (register.confirm_password.$invalid && !register.confirm_password.$pristine)"
-                       class="help-block">This field is required.</p>
+                    <div class="help-block"
+                        ng-show="register.$submitted || register.confirm_password.$touched">
+                        <span ng-show="register.confirm_password.$error.required">This field is required.</span>
+                        <span ng-show="register.confirm_password.$error.match">The two passwords don't match</span>
+                    </div>
                 </div>
             </div>
         </div>
