@@ -49,6 +49,18 @@ var paths = {
     }
 };
 
+var config = {
+    htmlMinify: {
+        collapseWhitespace: true,
+        collapseBooleanAttributes: true,
+        removeCommentsFromCDATA: true,
+        removeOptionalTags: true,
+        conditionals: true,
+        quotes: true,
+        empty: true
+    }
+}
+
 var host = {
     port: '8080',
     lrPort: '35729'
@@ -125,17 +137,9 @@ gulp.task('jshint', function () {
 
 gulp.task('html', function () {
     return gulp.src(paths.html)
-        .pipe(changed(paths.dist))
-        .pipe(minifyHTML({
-            collapseWhitespace: true,
-            collapseBooleanAttributes: true,
-            removeCommentsFromCDATA: true,
-            removeOptionalTags: true,
-            conditionals: true,
-            quotes: true,
-            empty: true
-        }))
-        .pipe(gulp.dest(paths.dist));
+        .pipe(changed(paths.build))
+        .pipe(minifyHTML(config.htmlMinify))
+        .pipe(gulp.dest(paths.build));
 });
 
 gulp.task('robots', function () {
@@ -146,7 +150,6 @@ gulp.task('robots', function () {
 
     return gulp.src(paths.misc)
         .pipe(gulp.dest(paths.dist));
-
 });
 
 gulp.task('theme.styles', function() {
