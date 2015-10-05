@@ -57,7 +57,7 @@ var host = {
 var isProduction = false;
 var envOttemo = process.env.OTTEMO_ENV || 'staging';
 
-gulp.task('replace', ['clean'], function () {
+gulp.task('config', ['clean'], function () {
     // Read the settings from the right file
     var filename = envOttemo + '.json';
     var settings = JSON.parse(fs.readFileSync('./config/' + filename, 'utf8'));
@@ -113,8 +113,8 @@ gulp.task('scripts-ie', function() {
 });
 
 // Empties folders to start fresh
-gulp.task('clean', function () {
-    return del(['dist']);
+gulp.task('clean', function (done) {
+    del([paths.build], done);
 });
 
 gulp.task('jshint', function () {
@@ -225,7 +225,7 @@ gulp.task('theme', [
 gulp.task('build-prod', function(){
     isProduction=true;
     runSequence('clean',
-                'replace',
+                'config',
                 [ 'html', 'robots', 'scripts', 'theme', 'lib' ],
                 'revision');
 });
@@ -234,7 +234,7 @@ gulp.task('build-prod', function(){
 gulp.task('build', function(){
     // note: revision has a short circuit for dev
     runSequence('clean',
-                'replace',
+                'config',
                 [ 'html', 'robots', 'scripts', 'theme', 'lib' ],
                 'revision');
 });
