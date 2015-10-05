@@ -62,6 +62,10 @@ var config = {
         conditionals: true,
         quotes: true,
         empty: true
+    },
+    sassSettings: {
+        outputStyle: 'compressed',
+        precision: 8,
     }
 }
 
@@ -121,14 +125,12 @@ gulp.task('scripts-lib', function () {
         .pipe(gulp.dest(paths.build + 'scripts'));
 });
 
-// IE libs can stick together, but need to be separate from other libs
 gulp.task('scripts-ie', function() {
     return gulp.src(paths.scripts.ie)
         .pipe(concat('ie-libs.js'))
         .pipe(gulp.dest(paths.build + 'scripts'));
 });
 
-// Empties folders to start fresh
 gulp.task('clean', function (done) {
     del([paths.build], done);
 });
@@ -158,23 +160,20 @@ gulp.task('misc', function(){
         .pipe(gulp.dest(paths.build));
 });
 
-gulp.task('theme.styles', function() {
-    return gulp.src(paths.theme.styles)
+gulp.task('styles', function() {
+    return gulp.src(paths.styles)
         .pipe(sourcemaps.init())
         .pipe(plumber(handleError))
-        .pipe(sass.sync({
-            outputStyle: 'compressed',
-            precision: 8,
-        }))
+        .pipe(sass.sync(sassSettings))
         .pipe(rename({suffix: '.min'}))
         .pipe(autoprefix('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
         .pipe(plumber.stop())
         .pipe(sourcemaps.write('./maps'))
-        .pipe(gulp.dest(paths.theme.dist + '/styles'))
+        .pipe(gulp.dest(paths.build + 'styles/'))
         .pipe(refresh());
 });
 
-gulp.task('theme.media', function () {
+gulp.task('media', function () {
     return gulp.src(paths.theme.media)
         .pipe(changed(paths.theme.dist))
         .pipe(gulpIf(isProduction, imagemin()))
@@ -222,20 +221,12 @@ gulp.task('revision', function(){
     }
 });
 
-
-gulp.task('lib', ['lib.ie', 'lib.scripts']);
-gulp.task('theme', [
-    'theme.styles',
-    'theme.scripts',
-    'theme.media'
-]);
-
 // For production
 gulp.task('build-prod', function(){
     isProduction=true;
     runSequence('clean',
                 'config',
-                [ 'html', 'misc', 'robots', 'scripts', 'theme', 'lib' ],
+                [ 'html', 'misc', 'robots', 'scripts', 'styles' ],
                 'revision');
 });
 
@@ -244,7 +235,7 @@ gulp.task('build', function(){
     // note: revision has a short circuit for dev
     runSequence('clean',
                 'config',
-                [ 'html', 'misc', 'robots', 'scripts', 'theme', 'lib' ],
+                [ 'html', 'misc', 'robots', 'scripts', 'styles' ],
                 'revision');
 });
 

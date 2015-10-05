@@ -1,9 +1,12 @@
 // Bootstrap
-@import "bootstrap/bootstrap";
+@import "_styles/bootstrap/bootstrap";
 
-@import "components/animation";
-@import "components/jquery.fancybox";
-@import "components/loading-bar";
-@import "components/images";
-@import "components/refer";
-@import "components/style";
+// Components
+@import "_styles/components/animation";
+@import "_styles/components/jquery.fancybox";
+@import "_styles/components/loading-bar";
+@import "_styles/components/images";
+@import "_styles/components/shame";
+
+// Modules
+@import "refer/refer";
