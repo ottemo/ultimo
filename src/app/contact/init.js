@@ -5,7 +5,7 @@ angular.module("contactModule", ["ngRoute"])
         $routeProvider
         .when('/contact', {
             title: "Contact Us",
-            templateUrl: "theme/views/contact/contact.html",
+            templateUrl: "/views/contact/contact.html",
             controller: "contactController"
         });
     }

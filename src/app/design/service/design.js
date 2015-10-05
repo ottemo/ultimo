@@ -6,11 +6,11 @@ angular.module("designModule")
 
         return {
             getTemplate: function (templateName) {
-                return "theme/views/" + templateName;
+                return "/views/" + templateName;
             },
 
             getImage: function (img) {
-                return "theme/images/" + img;
+                return "/images/" + img;
             }
         };
     }]);

@@ -10,7 +10,7 @@ angular.module("cmsModule", ["ngRoute", "ngResource", "ngSanitize"])
     .config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
         $routeProvider
             .when("/page/:id", {
-                templateUrl: "theme/views/cms/page.html",
+                templateUrl: "/views/cms/page.html",
                 controller: "cmsPageController"
             });
         $locationProvider.html5Mode(true);

@@ -20,22 +20,22 @@ angular.module("checkoutModule", [
         $routeProvider
             .when(ONEPAGE_URL, {
                 title: "Checkout",
-                templateUrl: "theme/views/checkout/view.html",
+                templateUrl: "/views/checkout/view.html",
                 controller: "checkoutOnepageController"
             })
             .when(ACCORDION_URL, {
                 title: "Checkout",
-                templateUrl: "theme/views/checkout/view2.html",
+                templateUrl: "/views/checkout/view2.html",
                 controller: "checkoutAccordionController"
             })
             .when('/checkout/success/:orderId', {
                 title: "Checkout Success",
-                templateUrl: "theme/views/checkout/order-confirmation.html",
+                templateUrl: "/views/checkout/order-confirmation.html",
                 controller: "checkoutOrderConfirmationController"
             })
             .when('/checkout/success', {
                 title: "Checkout Success",
-                templateUrl: "theme/views/checkout/order-confirmation.html",
+                templateUrl: "/views/checkout/order-confirmation.html",
                 controller: "checkoutOrderConfirmationController"
             });
 

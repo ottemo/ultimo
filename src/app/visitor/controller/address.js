@@ -269,6 +269,7 @@ angular.module("visitorModule")
                 return name;
             };
 
+            //TODO: whats this about
             $scope.isActive = function (path) {
                 if (activePath === path) {
                     $('.account-menu ul li:first-child').find('span')

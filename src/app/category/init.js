@@ -11,11 +11,11 @@ angular.module("categoryModule", ["ngRoute", "ngResource", "designModule"])
     function($routeProvider, $locationProvider, GENERAL_CATEGORY_URI) {
         $routeProvider
             .when("/category/:id", {
-                "templateUrl": "theme/views/category/view.html",
+                "templateUrl": "/views/category/view.html",
                 "controller": "categoryListController"
             })
             .when(GENERAL_CATEGORY_URI, {
-                "templateUrl": "theme/views/category/view.html",
+                "templateUrl": "/views/category/view.html",
                 "controller": "categoryListController"
             });
 

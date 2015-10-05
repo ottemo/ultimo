@@ -7,7 +7,7 @@ angular.module('referModule', [
         $routeProvider
             .when('/refer-a-friend', {
                 title: 'Refer a Friend',
-                templateUrl: 'theme/views/refer/view.html',
+                templateUrl: '/views/refer/view.html',
                 controller: 'referController'
             });
     }

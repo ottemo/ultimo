@@ -36,11 +36,11 @@ angular.module("commonModule", [
         $routeProvider
             .when("/", {
                 // Uses default seo
-                templateUrl: "theme/views/common/home.html",
+                templateUrl: "/views/common/home.html",
             })
             .when("/not-found", {
                 title: 'Page Not Found',
-                templateUrl: "theme/views/common/not-found.html",
+                templateUrl: "/views/common/not-found.html",
             })
             .otherwise({
                 template: function() {
