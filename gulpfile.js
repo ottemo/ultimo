@@ -21,41 +21,31 @@ var gutil       = require('gulp-util');
 var plumber     = require('gulp-plumber');
 
 
+var app = './src/app/';
+
 var paths = {
-    dist: 'dist',
-    jshint: [
-        'app/scripts/**/*.js',
-        'app/theme/**/*.js'
-    ],
-    html: 'app/**/*.html',
-    misc: 'app/*.{htaccess,ico,xml}',
-    scripts: [
-        'app/scripts/config.js',
-        'app/scripts/main.js',
-        'app/scripts/**/init.js',
-        'app/scripts/**/*.js'
-    ],
-    theme: {
-        dist: 'dist/theme',
-        styles: 'app/theme/styles/*.scss',
-        // images, videos, fonts
-        media: 'app/theme/**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf,eot,ttf,woff}',
-        scripts: [
-            'app/theme/lib/**/*.js',
-            'app/theme/**/*.js'
-        ]
-    },
-    lib: {
-        dist: 'dist/lib',
-        scripts: [
-            'app/lib/jquery.min.js',
-            'app/lib/angular.min.js',
+    build: 'dist',
+    html: app + '**/*.html',
+    misc: app + '*.{htaccess,ico,xml}',
+    styles: app + 'app.scss',
+    media: app + '**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf,eot,ttf,woff}',
+    scripts: {
+        app: [
+            '!./src/app/_lib', // not lib
+            app + 'config.js',
+            app + 'main.js',
+            app + '**/init.js',
+            app + '**/*.js'
+        ],
+        lib: [
+            app + '_lib/jquery.min.js',
+            app + '_lib/angular.min.js',
             // NOTES:
             // no folder glob, or it would clobber .ie
             // also we are only moving minified files, so feel free to toss unminified reference files in the lib dir
-            'app/lib/*.min.js'
+            app + '_lib/*.min.js'
         ],
-        ie: 'app/lib/ie/*.min.js'
+        ie: app + '_lib/ie/*.min.js'
     }
 };
 
@@ -146,7 +136,6 @@ gulp.task('robots', function () {
         .pipe(gulp.dest(paths.dist));
 
 });
-
 
 gulp.task('scripts', function () {
     return gulp.src(paths.scripts)
