@@ -118,7 +118,7 @@ gulp.task('clean', function (done) {
 });
 
 gulp.task('jshint', function () {
-    return gulp.src(paths.jshint)
+    return gulp.src(paths.scripts.app)
         .pipe(jshint())
         .pipe(jshint.reporter(require('jshint-stylish')));
 });
