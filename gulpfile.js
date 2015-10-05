@@ -77,18 +77,10 @@ gulp.task('replace', ['clean'], function () {
             {
                 match       : 'idGoogle',
                 replacement : settings.idGoogle
-            },
-            {
-                match       : 'itemsPerPage',
-                replacement : settings.itemsPerPage
-            },
-            {
-                match       : 'guestCheckout',
-                replacement : settings.guestCheckout
             }
         ]
     }))
-    .pipe(gulp.dest('app/scripts'));
+    .pipe(gulp.dest('./src/app/'));
 });
 
 gulp.task('scripts', ['scripts-app', 'scripts-lib', 'scripts-ie']);
