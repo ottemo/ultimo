@@ -24,7 +24,7 @@ var plumber     = require('gulp-plumber');
 var app = './src/app/';
 
 var paths = {
-    build: 'dist',
+    build: './dist/',
     html: app + '**/*.html',
     misc: app + '*.{htaccess,ico,xml}',
     styles: app + 'app.scss',
@@ -48,15 +48,6 @@ var paths = {
         ie: app + '_lib/ie/*.min.js'
     }
 };
-
-var handleError = function(err) {
-    gutil.log(gutil.colors.red('# Error in ' + err.plugin));
-    if (err.fileName) {
-        gutil.log('File: %s:%s', err.fileName, err.lineNumber);
-    }
-    gutil.log('Error Message: %s', err.message);
-    gutil.beep();
-}
 
 var host = {
     port: '8080',
@@ -100,6 +91,35 @@ gulp.task('replace', ['clean'], function () {
     .pipe(gulp.dest('app/scripts'));
 });
 
+gulp.task('scripts', ['scripts-app', 'scripts-lib', 'scripts-ie']);
+
+gulp.task('scripts-app', function () {
+    return gulp.src(paths.scripts.app)
+        .pipe(sourcemaps.init())
+        .pipe(plumber(handleError))
+        .pipe(uglify({
+            mangle: false
+        }))
+        .pipe(plumber.stop())
+        .pipe(concat('main.js'))
+        .pipe(sourcemaps.write('./maps'))
+        .pipe(gulp.dest(paths.build + 'scripts'))
+        .pipe(refresh());
+});
+
+gulp.task('scripts-lib', function () {
+    return gulp.src(paths.scripts.lib)
+        .pipe(concat('lib.js'))
+        .pipe(gulp.dest(paths.build + 'scripts'));
+});
+
+// IE libs can stick together, but need to be separate from other libs
+gulp.task('scripts-ie', function() {
+    return gulp.src(paths.scripts.ie)
+        .pipe(concat('ie-libs.js'))
+        .pipe(gulp.dest(paths.build + 'scripts'));
+});
+
 // Empties folders to start fresh
 gulp.task('clean', function () {
     return del(['dist']);
@@ -137,20 +157,6 @@ gulp.task('robots', function () {
 
 });
 
-gulp.task('scripts', function () {
-    return gulp.src(paths.scripts)
-        .pipe(sourcemaps.init())
-        .pipe(plumber(handleError))
-        .pipe(uglify({
-            mangle: false
-        }))
-        .pipe(plumber.stop())
-        .pipe(concat('main.js'))
-        .pipe(sourcemaps.write('./maps'))
-        .pipe(gulp.dest(paths.dist + '/scripts'))
-        .pipe(refresh());
-});
-
 gulp.task('theme.styles', function() {
     return gulp.src(paths.theme.styles)
         .pipe(sourcemaps.init())
@@ -167,40 +173,12 @@ gulp.task('theme.styles', function() {
         .pipe(refresh());
 });
 
-gulp.task('theme.scripts', function () {
-    return gulp.src(paths.theme.scripts)
-        .pipe(sourcemaps.init())
-        .pipe(plumber(handleError))
-        .pipe(uglify({
-            mangle: false
-        }))
-        .pipe(plumber.stop())
-        .pipe(concat('main.js'))
-        .pipe(sourcemaps.write('./maps'))
-        .pipe(gulp.dest(paths.theme.dist))
-        .pipe(refresh());
-});
-
 gulp.task('theme.media', function () {
     return gulp.src(paths.theme.media)
         .pipe(changed(paths.theme.dist))
         .pipe(gulpIf(isProduction, imagemin()))
         .pipe(gulp.dest(paths.theme.dist));
 });
-
-gulp.task('lib.scripts', function () {
-    return gulp.src(paths.lib.scripts)
-        .pipe(concat('lib.js'))
-        .pipe(gulp.dest(paths.lib.dist));
-});
-
-// IE libs can stick together, but need to be separate from other libs
-gulp.task('lib.ie', function() {
-    return gulp.src(paths.lib.ie)
-        .pipe(concat('ie-libs.js'))
-        .pipe(gulp.dest(paths.lib.dist));
-});
-
 
 gulp.task('watch',function(){
     refresh.listen({ basePath: paths.dist });
@@ -275,3 +253,13 @@ gulp.task('default', ['build'], function(){
     isProduction = false;
     gulp.start('watch');
 });
+
+////////////////////////////////
+var handleError = function(err) {
+    gutil.log(gutil.colors.red('# Error in ' + err.plugin));
+    if (err.fileName) {
+        gutil.log('File: %s:%s', err.fileName, err.lineNumber);
+    }
+    gutil.log('Error Message: %s', err.message);
+    gutil.beep();
+}
