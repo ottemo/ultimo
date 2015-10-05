@@ -1,5 +1,7 @@
 var gulp        = require('gulp');
 var fs          = require('fs');
+var $ = require('gulp-load-plugins')({lazy: true});
+
 var minifyHTML  = require('gulp-minify-html');
 var uglify      = require('gulp-uglify');
 var jshint      = require('gulp-jshint');
@@ -25,17 +27,25 @@ var app = './src/app/';
 
 var paths = {
     build: './dist/',
-    html: app + '**/*.html',
+    html: {
+        all: app + '**/*.html',
+        root: app + '*.html'
+    },
     misc: app + '*.{htaccess,ico,xml}',
     robots: {
         default: app + 'robots.dev.txt',
         prod: app + 'robots.prod.txt'
     },
     styles: app + 'app.scss',
-    media: app + '**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf,eot,ttf,woff}',
+    media: [
+        '!' + app + '_fonts/**/*',
+        app + '_images/**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf}',
+        app + '**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf}',
+    ],
+    fonts: app + '_fonts/**/*.{svg,eot,ttf,woff,woff2}',
     scripts: {
         app: [
-            '!./src/app/_lib', // not lib
+            '!./src/app/_lib/**/*', // not lib
             app + 'config.js',
             app + 'main.js',
             app + '**/init.js',
@@ -54,15 +64,6 @@ var paths = {
 };
 
 var config = {
-    htmlMinify: {
-        collapseWhitespace: true,
-        collapseBooleanAttributes: true,
-        removeCommentsFromCDATA: true,
-        removeOptionalTags: true,
-        conditionals: true,
-        quotes: true,
-        empty: true
-    },
     sassSettings: {
         outputStyle: 'compressed',
         precision: 8,
@@ -76,6 +77,11 @@ var host = {
 
 var isProduction = false;
 var envOttemo = process.env.OTTEMO_ENV || 'staging';
+
+
+gulp.task('help', $.taskListing);
+gulp.task('default', ['help']);
+
 
 gulp.task('config', ['clean'], function () {
     // Read the settings from the right file
@@ -127,7 +133,7 @@ gulp.task('scripts-lib', function () {
 
 gulp.task('scripts-ie', function() {
     return gulp.src(paths.scripts.ie)
-        .pipe(concat('ie-libs.js'))
+        .pipe(concat('lib-ie.js'))
         .pipe(gulp.dest(paths.build + 'scripts'));
 });
 
@@ -141,12 +147,18 @@ gulp.task('jshint', function () {
         .pipe(jshint.reporter(require('jshint-stylish')));
 });
 
-gulp.task('html', function () {
-    return gulp.src(paths.html)
+gulp.task('html', ['html-root', 'html-nonroot']);
+
+gulp.task('html-root', function() {
+    return gulp.src(paths.html.root)
         .pipe(changed(paths.build))
-        .pipe(minifyHTML(config.htmlMinify))
         .pipe(gulp.dest(paths.build));
 });
+gulp.task('html-nonroot', function() {
+    return gulp.src(['!' + paths.html.root, paths.html.all])
+        .pipe(changed(paths.build + 'views/'))
+        .pipe(gulp.dest(paths.build + 'views/'));
+})
 
 gulp.task('robots', function () {
     var robotPath = isProduction ? paths.robots.prod : paths.robots.default;
@@ -164,7 +176,7 @@ gulp.task('styles', function() {
     return gulp.src(paths.styles)
         .pipe(sourcemaps.init())
         .pipe(plumber(handleError))
-        .pipe(sass.sync(sassSettings))
+        .pipe(sass.sync(config.sassSettings))
         .pipe(rename({suffix: '.min'}))
         .pipe(autoprefix('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
         .pipe(plumber.stop())
@@ -174,21 +186,31 @@ gulp.task('styles', function() {
 });
 
 gulp.task('media', function () {
-    return gulp.src(paths.theme.media)
-        .pipe(changed(paths.theme.dist))
+    //TODO: do we want to have like a local-media folder?
+    var mediaBuild = paths.build + 'images/';
+
+    return gulp.src(paths.media)
+        .pipe(changed(mediaBuild))
         .pipe(gulpIf(isProduction, imagemin()))
-        .pipe(gulp.dest(paths.theme.dist));
+        .pipe(gulp.dest(mediaBuild));
 });
 
+gulp.task('fonts', function(){
+    return gulp.src(paths.fonts)
+        .pipe(gulp.dest(paths.build + 'fonts/'));
+})
+
 gulp.task('watch',function(){
-    refresh.listen({ basePath: paths.dist });
+    refresh.listen({ basePath: paths.build });
 
     gulp.start('livereload');
 
-    gulp.watch(["app/**/*.html"],['html']);
-    gulp.watch(["app/**/*.scss","app/**/*.css"],['theme.styles']);
-    gulp.watch(["app/scripts/**/*.js"],['scripts']);
-    gulp.watch(["app/theme/**/*.js"],['theme.scripts']);
+    gulp.watch([paths.html.all],['html']);
+    gulp.watch(['./src/app/**/*.scss','./src/app/**/*.css'],['styles']);
+
+    var libScripts = [].concat(paths.scripts.lib, paths.scripts.ie);
+    gulp.watch(libScripts,['scripts-lib', 'scripts-ie']);
+    gulp.watch(paths.scripts.app,['scripts-app']);
 });
 
 gulp.task('livereload', function(){
@@ -197,9 +219,7 @@ gulp.task('livereload', function(){
     var app = express();
     var staticFolder = path.join(__dirname, 'dist');
 
-    app.use(modRewrite([
-        '!\\. /index.html [L]'
-    ]))
+    app.use(modRewrite(['!\\. /index.html [L]']))
         .use(express.static(staticFolder));
 
     app.listen( host.port, function() {
@@ -209,42 +229,38 @@ gulp.task('livereload', function(){
 });
 
 gulp.task('revision', function(){
-    if(isProduction) {
-        var revAll = new RevAll({
-            dontUpdateReference: [/^((?!.js|.css).)*$/g],
-            dontRenameFile: [/^((?!.js|.css).)*$/g]
-        });
+    var revAll = new RevAll({
+        dontUpdateReference: [/^((?!.js|.css).)*$/g],
+        dontRenameFile: [/^((?!.js|.css).)*$/g]
+    });
 
-        gulp.src('dist/**')
-            .pipe(revAll.revision())
-            .pipe(gulp.dest('dist'));
-    }
+    return gulp.src(paths.build + '**')
+        .pipe(revAll.revision())
+        .pipe(gulp.dest(paths.build));
 });
+
+gulp.task('compile', [
+    'html',
+    'misc',
+    'robots',
+    'scripts',
+    'styles',
+    'media',
+    'fonts'
+]);
 
 // For production
 gulp.task('build-prod', function(){
-    isProduction=true;
-    runSequence('clean',
-                'config',
-                [ 'html', 'misc', 'robots', 'scripts', 'styles' ],
-                'revision');
+    isProduction = true;
+    runSequence('clean','config','compile','revision');
 });
 
 // For development
-gulp.task('build', function(){
-    // note: revision has a short circuit for dev
-    runSequence('clean',
-                'config',
-                [ 'html', 'misc', 'robots', 'scripts', 'styles' ],
-                'revision');
-});
-
-// For development
-gulp.task('serve', ['default']);
-gulp.task('default', ['build'], function(){
-    isProduction = false;
+gulp.task('serve', function(){
+    runSequence('clean','config','compile');
     gulp.start('watch');
 });
+
 
 ////////////////////////////////
 var handleError = function(err) {
