@@ -27,6 +27,10 @@ var paths = {
     build: './dist/',
     html: app + '**/*.html',
     misc: app + '*.{htaccess,ico,xml}',
+    robots: {
+        default: app + 'robots.dev.txt',
+        prod: app + 'robots.prod.txt'
+    },
     styles: app + 'app.scss',
     media: app + '**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf,eot,ttf,woff}',
     scripts: {
@@ -143,13 +147,15 @@ gulp.task('html', function () {
 });
 
 gulp.task('robots', function () {
-    var robotPath = isProduction ? 'app/robots.prod.txt' : 'app/robots.dev.txt';
-    gulp.src(robotPath)
+    var robotPath = isProduction ? paths.robots.prod : paths.robots.default;
+    return gulp.src(robotPath)
         .pipe(rename('robots.txt'))
-        .pipe(gulp.dest(paths.dist));
+        .pipe(gulp.dest(paths.build));
+});
 
+gulp.task('misc', function(){
     return gulp.src(paths.misc)
-        .pipe(gulp.dest(paths.dist));
+        .pipe(gulp.dest(paths.build));
 });
 
 gulp.task('theme.styles', function() {
@@ -229,7 +235,7 @@ gulp.task('build-prod', function(){
     isProduction=true;
     runSequence('clean',
                 'config',
-                [ 'html', 'robots', 'scripts', 'theme', 'lib' ],
+                [ 'html', 'misc', 'robots', 'scripts', 'theme', 'lib' ],
                 'revision');
 });
 
@@ -238,7 +244,7 @@ gulp.task('build', function(){
     // note: revision has a short circuit for dev
     runSequence('clean',
                 'config',
-                [ 'html', 'robots', 'scripts', 'theme', 'lib' ],
+                [ 'html', 'misc', 'robots', 'scripts', 'theme', 'lib' ],
                 'revision');
 });
 
