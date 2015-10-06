@@ -91,7 +91,7 @@ gulp.task('config', ['clean'], function() {
                 }
             }]
         }))
-        .pipe(gulp.dest('./src/app/'));
+        .pipe(gulp.dest(config.temp));
 });
 
 /**

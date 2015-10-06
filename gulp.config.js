@@ -7,10 +7,18 @@ module.exports = function() {
     var config = {
         // Paths
         build: 'dist/',
+        fonts: app + '_fonts/**/*.{svg,eot,ttf,woff,woff2}',
         html: {
             all: app + '**/*.html',
             root: app + '*.html'
         },
+        media: [
+            // Ignore media, declaring the _images folder directly moves all of its contents
+            // without the container folder getting in the way
+            '!' + app + '_fonts/*',
+            app + '_images/**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf}',
+            app + '**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf}',
+        ],
         misc: app + '*.{htaccess,ico,xml}',
         robots: {
             default: app + 'robots.dev.txt',
@@ -23,18 +31,10 @@ module.exports = function() {
                 app + '**/*.css'
             ]
         },
-        media: [
-            // Ignore media, declaring the _images folder directly moves all of its contents
-            // without the container folder getting in the way
-            '!' + app + '_fonts/*',
-            app + '_images/**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf}',
-            app + '**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf}',
-        ],
-        fonts: app + '_fonts/**/*.{svg,eot,ttf,woff,woff2}',
         scripts: {
             app: [
                 '!' + app + '_lib/**/*', // don't clobber lib
-                app + 'config.js',
+                temp + 'config.js', // this is a built file
                 app + 'main.js',
                 app + '**/init.js',
                 app + '**/*.js'
@@ -47,6 +47,7 @@ module.exports = function() {
             ],
             ie: app + '_lib/ie/*.min.js'
         },
+        temp: temp,
 
         // Settings
         sassSettings: {
