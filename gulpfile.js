@@ -115,7 +115,7 @@ gulp.task('misc', function() {
 });
 
 gulp.task('styles', function() {
-    return gulp.src(config.styles)
+    return gulp.src(config.styles.root)
         .pipe($.sourcemaps.init())
         .pipe($.plumber(handleError))
         .pipe($.sass.sync(config.sassSettings))
@@ -151,11 +151,10 @@ gulp.task('watch', function() {
 
     gulp.start('livereload');
 
-    gulp.watch([config.html.all], ['html']);
-    gulp.watch(['./src/app/**/*.scss', './src/app/**/*.css'], ['styles']);
-
-    var libScripts = [].concat(config.scripts.lib, config.scripts.ie);
-    gulp.watch(libScripts, ['scripts-lib', 'scripts-ie']);
+    gulp.watch(config.html.all, ['html']);
+    gulp.watch(config.styles.all, ['styles']);
+    gulp.watch(config.scripts.lib, ['scripts-lib']);
+    gulp.watch(config.scripts.ie, ['scripts-ie']);
     gulp.watch(config.scripts.app, ['scripts-app']);
 });
 

@@ -16,7 +16,13 @@ module.exports = function() {
             default: app + 'robots.dev.txt',
             prod: app + 'robots.prod.txt'
         },
-        styles: app + 'app.scss',
+        styles: {
+            root: app + 'app.scss',
+            all: [
+                app + '**/*.scss',
+                app + '**/*.css'
+            ]
+        },
         media: [
             '!' + app + '_fonts/*',
             app + '_images/**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf}',
