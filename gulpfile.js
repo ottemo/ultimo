@@ -15,7 +15,11 @@ var $ = require('gulp-load-plugins')({
  * Example: gulp build
  *
  * --env=(production|*)
+ * Applies revision thumbprints, minifies media, uses relavent robots...
+ *
  * --api=(production|staging|localhost)
+ * Sets the config.js variables, primarilly the api to connect to,
+ * defaults to `staging`
  */
 
 config.isProduction = (args.env == 'production');
@@ -26,9 +30,16 @@ if (config.isProduction) {
     config.apiConfig = 'production';
 };
 
+/**
+ * List the tasks available
+ */
 gulp.task('help', $.taskListing);
 gulp.task('default', ['help']);
 
+/**
+ * Configure the application
+ * --api=(production|staging|localhost)
+ */
 gulp.task('config', ['clean'], function() {
     // Read the settings from the right file
     var filename = config.apiConfig + '.json';
@@ -51,9 +62,12 @@ gulp.task('config', ['clean'], function() {
         .pipe(gulp.dest('./src/app/'));
 });
 
-gulp.task('scripts', ['scripts-app', 'scripts-lib', 'scripts-ie']);
+/**
+ * Compile all javascript
+ */
+gulp.task('scripts', ['scripts:app', 'scripts:lib', 'scripts:ie']);
 
-gulp.task('scripts-app', function() {
+gulp.task('scripts:app', function() {
     return gulp.src(config.scripts.app)
         .pipe($.sourcemaps.init())
         .pipe($.plumber(handleError))
@@ -67,41 +81,55 @@ gulp.task('scripts-app', function() {
         .pipe($.livereload());
 });
 
-gulp.task('scripts-lib', function() {
+gulp.task('scripts:lib', function() {
     return gulp.src(config.scripts.lib)
         .pipe($.concat('lib.js'))
         .pipe(gulp.dest(config.build + 'scripts'));
 });
 
-gulp.task('scripts-ie', function() {
+gulp.task('scripts:ie', function() {
     return gulp.src(config.scripts.ie)
         .pipe($.concat('lib-ie.js'))
         .pipe(gulp.dest(config.build + 'scripts'));
 });
 
+/**
+ * Remove all build / temp files
+ */
 gulp.task('clean', function(done) {
     del([config.build], done);
 });
 
+/**
+ * Vet the code
+ */
 gulp.task('jshint', function() {
     return gulp.src(config.scripts.app)
         .pipe($.jshint())
         .pipe($.jshint.reporter(require('jshint-stylish')));
 });
 
-gulp.task('html', ['html-root', 'html-nonroot']);
+/**
+ * Compile all of the html files
+ */
+gulp.task('html', ['html:root', 'html:nonroot']);
 
-gulp.task('html-root', function() {
+gulp.task('html:root', function() {
     return gulp.src(config.html.root)
         .pipe($.changed(config.build))
         .pipe(gulp.dest(config.build));
 });
-gulp.task('html-nonroot', function() {
+
+gulp.task('html:nonroot', function() {
     return gulp.src(['!' + config.html.root, config.html.all])
         .pipe($.changed(config.build + 'views/'))
         .pipe(gulp.dest(config.build + 'views/'));
 })
 
+/**
+ * Compile the robots.txt file
+ * --env=(production|*)
+ */
 gulp.task('robots', function() {
     var robotPath = config.isProduction ? config.robots.prod : config.robots.default;
     return gulp.src(robotPath)
@@ -109,11 +137,18 @@ gulp.task('robots', function() {
         .pipe(gulp.dest(config.build));
 });
 
+/**
+ * Compile oddball files
+ */
 gulp.task('misc', function() {
     return gulp.src(config.misc)
         .pipe(gulp.dest(config.build));
 });
 
+/**
+ * Compile styles
+ * SASS -> CSS -> app.min.css
+ */
 gulp.task('styles', function() {
     return gulp.src(config.styles.root)
         .pipe($.sourcemaps.init())
@@ -129,6 +164,9 @@ gulp.task('styles', function() {
         .pipe($.livereload());
 });
 
+/**
+ * Move and minify images / mixed-media
+ */
 gulp.task('media', function() {
     //TODO: do we want to have like a local-media folder?
     var mediaBuild = config.build + 'images/';
@@ -139,17 +177,23 @@ gulp.task('media', function() {
         .pipe(gulp.dest(mediaBuild));
 });
 
+/**
+ * Move fonts
+ */
 gulp.task('fonts', function() {
     return gulp.src(config.fonts)
         .pipe(gulp.dest(config.build + 'fonts/'));
 })
 
-gulp.task('watch', function() {
+/**
+ * Watch files for changes and compile
+ */
+gulp.task('serve:watch', function() {
     $.livereload.listen({
         basePath: config.build
     });
 
-    gulp.start('livereload');
+    gulp.start('serve:server');
 
     gulp.watch(config.html.all, ['html']);
     gulp.watch(config.styles.all, ['styles']);
@@ -158,21 +202,31 @@ gulp.task('watch', function() {
     gulp.watch(config.scripts.app, ['scripts-app']);
 });
 
-gulp.task('livereload', function() {
-    var path = require('path');
+/**
+ * Starts a server in the build directory
+ */
+gulp.task('serve:server', function() {
     var express = require('express');
+    var path = require('path');
     var app = express();
-    var staticFolder = path.join(__dirname, 'dist');
+    var staticFolder = path.join(__dirname, config.build);
 
     app.use(modRewrite(['!\\. /index.html [L]']))
         .use(express.static(staticFolder));
 
     app.listen(config.node.port, function() {
-        console.log('server started: http://localhost:' + config.node.port);
+        log('-------------------------------------');
+        log('server started: http://localhost:' + config.node.port);
+        log('-------------------------------------');
         return gulp;
     });
 });
 
+/**
+ * Thumbprint js, css
+ * Only fires for production
+ * --env=(production|*)
+ */
 gulp.task('revision', function() {
     if (config.isProduction) {
         var revAll = new $.revAll({
@@ -186,6 +240,9 @@ gulp.task('revision', function() {
     }
 });
 
+/**
+ * Run all compiling tasks
+ */
 gulp.task('compile', [
     'html',
     'misc',
@@ -196,23 +253,31 @@ gulp.task('compile', [
     'fonts'
 ]);
 
+/**
+ * Build the app
+ */
 gulp.task('build', function() {
     runSequence('clean', 'config', 'compile', 'revision');
 });
 
-// For development
-gulp.task('serve', function() {
-    runSequence('clean', 'config', 'compile');
+/**
+ * Build and start a server
+ */
+gulp.task('serve', ['build'], function() {
     gulp.start('watch');
 });
 
 ////////////////////////////////
-var handleError = function(err) {
-    $.util.log($.util.colors.red('# Error in ' + err.plugin));
+
+function handleError(err) {
+    log('# Error in ' + err.plugin);
     if (err.fileName) {
-        $.util.log('File: %s:%s', err.fileName, err.lineNumber);
+        log('File: %s:%s', err.fileName, err.lineNumber);
     }
-    $.util.log('Error Message: %s', err.message);
+    log('Error Message: %s', err.message);
     $.util.beep();
 }
 
+function log(msg) {
+    $.util.log($.util.colors.magenta(msg));
+}
