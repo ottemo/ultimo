@@ -23,7 +23,7 @@ angular.module("checkoutModule")
                     // Add the transaction
                     ga('ecommerce:addTransaction', {
                         'id': order._id,                    // Transaction ID. Required.
-                        'affiliation': 'Kari Gran',         // Affiliation or store name.
+                        'affiliation': 'Urbanity',         // Affiliation or store name.
                         'revenue': order.grand_total,       // Grand Total.
                         'shipping': order.shipping_amount,  // Shipping.
                         'tax': order.tax_amount             // Tax.
@@ -56,7 +56,7 @@ angular.module("checkoutModule")
                 if (window._fbq) {
 
                     // KG Specific
-                    _fbq.push(['track', '6013027258578', {
+                    _fbq.push(['track', 'XXXXX', {
                         'value': order.grand_total,
                         'currency': 'USD'
                     }]);
@@ -64,9 +64,8 @@ angular.module("checkoutModule")
             }
 
             function init() {
-                // NOTE: Additional tracking exists in the view
                 trackGAEcommerce($scope.order);
-                trackFBConversion($scope.order);
+                // trackFBConversion($scope.order);
             }
 
             init();

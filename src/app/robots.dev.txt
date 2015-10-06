@@ -2,4 +2,4 @@
 
 User-agent: *
 Disallow: /
-Sitemap: https://karigran.com/sitemap.xml
+Sitemap: https://urbanity.com/sitemap.xml

@@ -1,3 +1,5 @@
+"use strict";
+
 var iniConfig = {
     'general.app.foundation_url': 'http://api.kg.dev.ottemo.io',
 

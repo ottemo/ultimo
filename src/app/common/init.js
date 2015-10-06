@@ -26,9 +26,9 @@ angular.module("commonModule", [
 ])
 
 // SEO Meta Data
-.value("DEFAULT_TITLE", "Kari Gran")
-    .value("DEFAULT_KEYWORDS", "Natural & Organic Skin Care & Makeup")
-    .value("DEFAULT_DESCRIPTION", "Natural & Organic Skin Care & Makeup")
+.value("DEFAULT_TITLE", "Urbanity")
+    .value("DEFAULT_KEYWORDS", "")
+    .value("DEFAULT_DESCRIPTION", "")
     .value("REST_SERVER_URI", angular.REST_SERVER_URI) // REFACTOR: why is this declared twice
 
 .config(["$routeProvider", "$locationProvider", "cfpLoadingBarProvider",
