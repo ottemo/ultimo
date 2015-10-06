@@ -24,6 +24,8 @@ module.exports = function() {
             ]
         },
         media: [
+            // Ignore media, declaring the _images folder directly moves all of its contents
+            // without the container folder getting in the way
             '!' + app + '_fonts/*',
             app + '_images/**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf}',
             app + '**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf}',
