@@ -1,90 +1,30 @@
 var args = require('yargs').argv;
-var gulp = require('gulp');
+var config = require('./gulp.config')();
+var del = require('del');
 var fs = require('fs');
-var $ = require('gulp-load-plugins')({lazy: true});
-
-var minifyHTML  = require('gulp-minify-html');
-var uglify      = require('gulp-uglify');
-var jshint      = require('gulp-jshint');
-var changed     = require('gulp-changed');
-var imagemin    = require('gulp-imagemin');
-var autoprefix  = require('gulp-autoprefixer');
-var del         = require('del');
-var concat      = require('gulp-concat');
-var refresh     = require('gulp-livereload');
+var gulp = require('gulp');
 var modRewrite  = require('connect-modrewrite');
-var RevAll      = require('gulp-rev-all');
 var runSequence = require('run-sequence');
-var sourcemaps  = require('gulp-sourcemaps');
-var sass        = require('gulp-sass');
-var rename      = require('gulp-rename');
-var replace     = require('gulp-replace-task');
-var gulpIf      = require('gulp-if');
-var gutil       = require('gulp-util');
-var plumber     = require('gulp-plumber');
+var $ = require('gulp-load-plugins')({lazy: true});
 
 /**
  * yargs variables can be passed in to alter the behavior
+ * Note: We will only use the production api when env=production
  * Example: gulp build
  *
  * --env=(production|*)
  * --api=(production|staging|localhost)
  */
 
-var app = './src/app/';
 
-var paths = {
-    build: './dist/',
-    html: {
-        all: app + '**/*.html',
-        root: app + '*.html'
-    },
-    misc: app + '*.{htaccess,ico,xml}',
-    robots: {
-        default: app + 'robots.dev.txt',
-        prod: app + 'robots.prod.txt'
-    },
-    styles: app + 'app.scss',
-    media: [
-        '!' + app + '_fonts/**/*',
-        app + '_images/**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf}',
-        app + '**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf}',
-    ],
-    fonts: app + '_fonts/**/*.{svg,eot,ttf,woff,woff2}',
-    scripts: {
-        app: [
-            '!./src/app/_lib/**/*', // not lib
-            app + 'config.js',
-            app + 'main.js',
-            app + '**/init.js',
-            app + '**/*.js'
-        ],
-        lib: [
-            app + '_lib/jquery.min.js',
-            app + '_lib/angular.min.js',
-            // NOTES:
-            // no folder glob, or it would clobber .ie
-            // also we are only moving minified files, so feel free to toss unminified reference files in the lib dir
-            app + '_lib/*.min.js'
-        ],
-        ie: app + '_lib/ie/*.min.js'
-    }
+config.isProduction = (args.env == 'production');
+config.apiConfig = args.api || 'staging';
+
+// If the env is production override any api configurations
+if (config.isProduction) {
+    config.apiConfig = 'production';
 };
 
-var config = {
-    sassSettings: {
-        outputStyle: 'compressed',
-        precision: 8,
-    }
-}
-
-var host = {
-    port: '8080',
-    lrPort: '35729'
-};
-
-var isProduction = (args.env == 'production');
-var apiConfig = args.api || 'staging';
 
 gulp.task('help', $.taskListing);
 gulp.task('default', ['help']);
@@ -92,12 +32,12 @@ gulp.task('default', ['help']);
 
 gulp.task('config', ['clean'], function () {
     // Read the settings from the right file
-    var filename = apiConfig + '.json';
+    var filename = config.apiConfig + '.json';
     var settings = JSON.parse(fs.readFileSync('./config/' + filename, 'utf8'));
 
     // Replace each placeholder with the correct value for the variable.
     return gulp.src('config/config.js')
-    .pipe(replace({
+    .pipe($.replaceTask({
         patterns: [
             {
                 match       : 'apiUrl',
@@ -119,105 +59,105 @@ gulp.task('config', ['clean'], function () {
 gulp.task('scripts', ['scripts-app', 'scripts-lib', 'scripts-ie']);
 
 gulp.task('scripts-app', function () {
-    return gulp.src(paths.scripts.app)
-        .pipe(sourcemaps.init())
-        .pipe(plumber(handleError))
-        .pipe(uglify({
+    return gulp.src(config.scripts.app)
+        .pipe($.sourcemaps.init())
+        .pipe($.plumber(handleError))
+        .pipe($.uglify({
             mangle: false
         }))
-        .pipe(plumber.stop())
-        .pipe(concat('main.js'))
-        .pipe(sourcemaps.write('./maps'))
-        .pipe(gulp.dest(paths.build + 'scripts'))
-        .pipe(refresh());
+        .pipe($.plumber.stop())
+        .pipe($.concat('main.js'))
+        .pipe($.sourcemaps.write('./maps'))
+        .pipe(gulp.dest(config.build + 'scripts'))
+        .pipe($.livereload());
 });
 
 gulp.task('scripts-lib', function () {
-    return gulp.src(paths.scripts.lib)
-        .pipe(concat('lib.js'))
-        .pipe(gulp.dest(paths.build + 'scripts'));
+    return gulp.src(config.scripts.lib)
+        .pipe($.concat('lib.js'))
+        .pipe(gulp.dest(config.build + 'scripts'));
 });
 
 gulp.task('scripts-ie', function() {
-    return gulp.src(paths.scripts.ie)
-        .pipe(concat('lib-ie.js'))
-        .pipe(gulp.dest(paths.build + 'scripts'));
+    return gulp.src(config.scripts.ie)
+        .pipe($.concat('lib-ie.js'))
+        .pipe(gulp.dest(config.build + 'scripts'));
 });
 
 gulp.task('clean', function (done) {
-    del([paths.build], done);
+    del([config.build], done);
 });
 
 gulp.task('jshint', function () {
-    return gulp.src(paths.scripts.app)
-        .pipe(jshint())
-        .pipe(jshint.reporter(require('jshint-stylish')));
+    return gulp.src(config.scripts.app)
+        .pipe($.jshint())
+        .pipe($.jshint.reporter(require('jshint-stylish')));
 });
 
 gulp.task('html', ['html-root', 'html-nonroot']);
 
 gulp.task('html-root', function() {
-    return gulp.src(paths.html.root)
-        .pipe(changed(paths.build))
-        .pipe(gulp.dest(paths.build));
+    return gulp.src(config.html.root)
+        .pipe($.changed(config.build))
+        .pipe(gulp.dest(config.build));
 });
 gulp.task('html-nonroot', function() {
-    return gulp.src(['!' + paths.html.root, paths.html.all])
-        .pipe(changed(paths.build + 'views/'))
-        .pipe(gulp.dest(paths.build + 'views/'));
+    return gulp.src(['!' + config.html.root, config.html.all])
+        .pipe($.changed(config.build + 'views/'))
+        .pipe(gulp.dest(config.build + 'views/'));
 })
 
 gulp.task('robots', function () {
-    var robotPath = isProduction ? paths.robots.prod : paths.robots.default;
+    var robotPath = config.isProduction ? config.robots.prod : config.robots.default;
     return gulp.src(robotPath)
-        .pipe(rename('robots.txt'))
-        .pipe(gulp.dest(paths.build));
+        .pipe($.rename('robots.txt'))
+        .pipe(gulp.dest(config.build));
 });
 
 gulp.task('misc', function(){
-    return gulp.src(paths.misc)
-        .pipe(gulp.dest(paths.build));
+    return gulp.src(config.misc)
+        .pipe(gulp.dest(config.build));
 });
 
 gulp.task('styles', function() {
-    return gulp.src(paths.styles)
-        .pipe(sourcemaps.init())
-        .pipe(plumber(handleError))
-        .pipe(sass.sync(config.sassSettings))
-        .pipe(rename({suffix: '.min'}))
-        .pipe(autoprefix('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-        .pipe(plumber.stop())
-        .pipe(sourcemaps.write('./maps'))
-        .pipe(gulp.dest(paths.build + 'styles/'))
-        .pipe(refresh());
+    return gulp.src(config.styles)
+        .pipe($.sourcemaps.init())
+        .pipe($.plumber(handleError))
+        .pipe($.sass.sync(config.sassSettings))
+        .pipe($.rename({suffix: '.min'}))
+        .pipe($.autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+        .pipe($.plumber.stop())
+        .pipe($.sourcemaps.write('./maps'))
+        .pipe(gulp.dest(config.build + 'styles/'))
+        .pipe($.livereload());
 });
 
 gulp.task('media', function () {
     //TODO: do we want to have like a local-media folder?
-    var mediaBuild = paths.build + 'images/';
+    var mediaBuild = config.build + 'images/';
 
-    return gulp.src(paths.media)
-        .pipe(changed(mediaBuild))
-        .pipe(gulpIf(isProduction, imagemin()))
+    return gulp.src(config.media)
+        .pipe($.changed(mediaBuild))
+        .pipe($.if(config.isProduction, $.imagemin()))
         .pipe(gulp.dest(mediaBuild));
 });
 
 gulp.task('fonts', function(){
-    return gulp.src(paths.fonts)
-        .pipe(gulp.dest(paths.build + 'fonts/'));
+    return gulp.src(config.fonts)
+        .pipe(gulp.dest(config.build + 'fonts/'));
 })
 
 gulp.task('watch',function(){
-    refresh.listen({ basePath: paths.build });
+    $.livereload.listen({ basePath: config.build });
 
     gulp.start('livereload');
 
-    gulp.watch([paths.html.all],['html']);
+    gulp.watch([config.html.all],['html']);
     gulp.watch(['./src/app/**/*.scss','./src/app/**/*.css'],['styles']);
 
-    var libScripts = [].concat(paths.scripts.lib, paths.scripts.ie);
+    var libScripts = [].concat(config.scripts.lib, config.scripts.ie);
     gulp.watch(libScripts,['scripts-lib', 'scripts-ie']);
-    gulp.watch(paths.scripts.app,['scripts-app']);
+    gulp.watch(config.scripts.app,['scripts-app']);
 });
 
 gulp.task('livereload', function(){
@@ -236,15 +176,15 @@ gulp.task('livereload', function(){
 });
 
 gulp.task('revision', function(){
-    if (isProduction) {
-        var revAll = new RevAll({
+    if (config.isProduction) {
+        var revAll = new $.revAll({
             dontUpdateReference: [/^((?!.js|.css).)*$/g],
             dontRenameFile: [/^((?!.js|.css).)*$/g]
         });
 
-        return gulp.src(paths.build + '**')
+        return gulp.src(config.build + '**')
             .pipe(revAll.revision())
-            .pipe(gulp.dest(paths.build));
+            .pipe(gulp.dest(config.build));
     }
 });
 
@@ -271,10 +211,10 @@ gulp.task('serve', function(){
 
 ////////////////////////////////
 var handleError = function(err) {
-    gutil.log(gutil.colors.red('# Error in ' + err.plugin));
+    $.util.log($.util.colors.red('# Error in ' + err.plugin));
     if (err.fileName) {
-        gutil.log('File: %s:%s', err.fileName, err.lineNumber);
+        $.util.log('File: %s:%s', err.fileName, err.lineNumber);
     }
-    gutil.log('Error Message: %s', err.message);
-    gutil.beep();
+    $.util.log('Error Message: %s', err.message);
+    $.util.beep();
 }
