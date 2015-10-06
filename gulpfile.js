@@ -25,8 +25,10 @@ var $ = require('gulp-load-plugins')({
 config.isProduction = (args.env == 'production');
 config.apiConfig = args.api || 'staging';
 
-// If the env is production override any api configurations
 if (config.isProduction) {
+    if (config.apiConfig !== 'production') {
+        log('When env is production the api will be automatically forced to production');
+    }
     config.apiConfig = 'production';
 };
 
@@ -35,6 +37,40 @@ if (config.isProduction) {
  */
 gulp.task('help', $.taskListing.withFilters(null, 'default'));
 gulp.task('default', ['help']);
+
+/**
+ * Build the app
+ * This is typically used when getting ready to deploy the app
+ * `gulp build --env=production`
+ */
+gulp.task('build', function() {
+    runSequence('clean', 'config', 'compile', 'revision');
+});
+
+/**
+ * Build and start a server
+ * This is typically used for local development work
+ * `gulp serve` or `gulp serve --api=localhost`
+ */
+gulp.task('serve', ['build'], function() {
+    gulp.start('serve_watch');
+});
+
+/**
+ * Remove all build / temp files
+ */
+gulp.task('clean', function(done) {
+    del([config.build], done);
+});
+
+/**
+ * Vet the code
+ */
+gulp.task('vet', function() {
+    return gulp.src(config.scripts.app)
+        .pipe($.jshint())
+        .pipe($.jshint.reporter(require('jshint-stylish')));
+});
 
 /**
  * Configure the application
@@ -61,6 +97,19 @@ gulp.task('config', ['clean'], function() {
         }))
         .pipe(gulp.dest('./src/app/'));
 });
+
+/**
+ * Run all compiling tasks
+ */
+gulp.task('compile', [
+    'compile_html',
+    'compile_misc',
+    'compile_robots',
+    'compile_scripts',
+    'compile_styles',
+    'compile_media',
+    'compile_fonts'
+]);
 
 /**
  * Compile all javascript
@@ -91,22 +140,6 @@ gulp.task('compile_scripts_ie', function() {
     return gulp.src(config.scripts.ie)
         .pipe($.concat('lib-ie.js'))
         .pipe(gulp.dest(config.build + 'scripts'));
-});
-
-/**
- * Remove all build / temp files
- */
-gulp.task('clean', function(done) {
-    del([config.build], done);
-});
-
-/**
- * Vet the code
- */
-gulp.task('vet', function() {
-    return gulp.src(config.scripts.app)
-        .pipe($.jshint())
-        .pipe($.jshint.reporter(require('jshint-stylish')));
 });
 
 /**
@@ -195,11 +228,11 @@ gulp.task('serve_watch', function() {
 
     gulp.start('serve_server');
 
-    gulp.watch(config.html.all, ['html']);
-    gulp.watch(config.styles.all, ['styles']);
-    gulp.watch(config.scripts.lib, ['scripts-lib']);
-    gulp.watch(config.scripts.ie, ['scripts-ie']);
-    gulp.watch(config.scripts.app, ['scripts-app']);
+    gulp.watch(config.html.all, ['compile_html']);
+    gulp.watch(config.styles.all, ['compile_styles']);
+    gulp.watch(config.scripts.lib, ['compile_scripts_lib']);
+    gulp.watch(config.scripts.ie, ['compile_scripts_ie']);
+    gulp.watch(config.scripts.app, ['compile_scripts_app']);
 });
 
 /**
@@ -238,33 +271,6 @@ gulp.task('revision', function() {
             .pipe(revAll.revision())
             .pipe(gulp.dest(config.build));
     }
-});
-
-/**
- * Run all compiling tasks
- */
-gulp.task('compile', [
-    'compile_html',
-    'compile_misc',
-    'compile_robots',
-    'compile_scripts',
-    'compile_styles',
-    'compile_media',
-    'compile_fonts'
-]);
-
-/**
- * Build the app
- */
-gulp.task('build', function() {
-    runSequence('clean', 'config', 'compile', 'revision');
-});
-
-/**
- * Build and start a server
- */
-gulp.task('serve', ['build'], function() {
-    gulp.start('watch');
 });
 
 ////////////////////////////////
