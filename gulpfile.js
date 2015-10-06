@@ -27,9 +27,8 @@ var plumber     = require('gulp-plumber');
  * yargs variables can be passed in to alter the behavior
  * Example: gulp build
  *
- * --api=production
- * --api=staging
- * --env=production
+ * --env=(production|*)
+ * --api=(production|staging|localhost)
  */
 
 var app = './src/app/';
@@ -259,10 +258,6 @@ gulp.task('compile', [
     'fonts'
 ]);
 
-/**
- * [description]
- * --production
- */
 gulp.task('build', function(){
     runSequence('clean','config','compile','revision');
 });
