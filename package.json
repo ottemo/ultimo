@@ -1,10 +1,10 @@
 {
-  "name": "KariGran",
+  "name": "Urbanity",
   "version": "0.9.8",
-  "description": "Storefront for Kari Gran eCommerce",
+  "description": "Storefront for Urbanity eCommerce",
   "repository": {
     "type": "git",
-    "url": "git://github.com/ottemo/karigran.git"
+    "url": "git://github.com/ottemo/urbanity.git"
   },
   "devDependencies": {
     "connect-modrewrite": "^0.8.1",
