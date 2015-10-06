@@ -1,5 +1,3 @@
-"use strict";
-
 // config
 angular.appConfig = {};
 angular.appConfigValue = function (valueName) {
