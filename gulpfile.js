@@ -1,5 +1,6 @@
-var gulp        = require('gulp');
-var fs          = require('fs');
+var args = require('yargs').argv;
+var gulp = require('gulp');
+var fs = require('fs');
 var $ = require('gulp-load-plugins')({lazy: true});
 
 var minifyHTML  = require('gulp-minify-html');
@@ -22,6 +23,14 @@ var gulpIf      = require('gulp-if');
 var gutil       = require('gulp-util');
 var plumber     = require('gulp-plumber');
 
+/**
+ * yargs variables can be passed in to alter the behavior
+ * Example: gulp build
+ *
+ * --api=production
+ * --api=staging
+ * --env=production
+ */
 
 var app = './src/app/';
 
@@ -75,9 +84,8 @@ var host = {
     lrPort: '35729'
 };
 
-var isProduction = false;
-var envOttemo = process.env.OTTEMO_ENV || 'staging';
-
+var isProduction = (args.env == 'production');
+var apiConfig = args.api || 'staging';
 
 gulp.task('help', $.taskListing);
 gulp.task('default', ['help']);
@@ -85,7 +93,7 @@ gulp.task('default', ['help']);
 
 gulp.task('config', ['clean'], function () {
     // Read the settings from the right file
-    var filename = envOttemo + '.json';
+    var filename = apiConfig + '.json';
     var settings = JSON.parse(fs.readFileSync('./config/' + filename, 'utf8'));
 
     // Replace each placeholder with the correct value for the variable.
@@ -229,14 +237,16 @@ gulp.task('livereload', function(){
 });
 
 gulp.task('revision', function(){
-    var revAll = new RevAll({
-        dontUpdateReference: [/^((?!.js|.css).)*$/g],
-        dontRenameFile: [/^((?!.js|.css).)*$/g]
-    });
+    if (isProduction) {
+        var revAll = new RevAll({
+            dontUpdateReference: [/^((?!.js|.css).)*$/g],
+            dontRenameFile: [/^((?!.js|.css).)*$/g]
+        });
 
-    return gulp.src(paths.build + '**')
-        .pipe(revAll.revision())
-        .pipe(gulp.dest(paths.build));
+        return gulp.src(paths.build + '**')
+            .pipe(revAll.revision())
+            .pipe(gulp.dest(paths.build));
+    }
 });
 
 gulp.task('compile', [
@@ -249,9 +259,11 @@ gulp.task('compile', [
     'fonts'
 ]);
 
-// For production
-gulp.task('build-prod', function(){
-    isProduction = true;
+/**
+ * [description]
+ * --production
+ */
+gulp.task('build', function(){
     runSequence('clean','config','compile','revision');
 });
 
