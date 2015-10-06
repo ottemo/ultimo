@@ -74,22 +74,6 @@ angular.module("visitorModule")
                 return $cartService.getTotalQuantity();
             };
 
-            // TODO: We stopped using this in KG
-            $scope.clickToCartDesktop = function () {
-                var miniCart = $('.mini-cart');
-
-                if (angular.appConfigValue("general.checkout.guest_checkout")) {
-                    miniCart.modal('toggle');
-                } else {
-                    $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
-                        if (isLoggedIn) {
-                            miniCart.modal('toggle');
-                        }
-                    });
-                }
-
-            };
-
             $scope.save = function () {
                 // REFACTOR: use $submitted
                 $scope.register.submitted = true;

@@ -55,7 +55,7 @@ angular.module("checkoutModule")
             function trackFBConversion(order) {
                 if (window._fbq) {
 
-                    // KG Specific
+                    // Urbanity Specific
                     _fbq.push(['track', 'XXXXX', {
                         'value': order.grand_total,
                         'currency': 'USD'
