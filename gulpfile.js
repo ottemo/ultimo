@@ -281,9 +281,9 @@ gulp.task('revision', function() {
 function handleError(err) {
     log('# Error in ' + err.plugin);
     if (err.fileName) {
-        log('File: %s:%s', err.fileName, err.lineNumber);
+        log('File: '+ err.fileName +':'+ err.lineNumber);
     }
-    log('Error Message: %s', err.message);
+    log('Error Message: ' + err.message);
     $.util.beep();
 }
 
