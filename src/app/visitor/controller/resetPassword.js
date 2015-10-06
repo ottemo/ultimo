@@ -3,7 +3,6 @@ angular.module("visitorModule")
         '$scope',
         '$routeParams',
         '$visitorApiService',
-        '$visitorApiService',
         '$visitorLoginService',
         '$cartService',
         '$commonUtilService',
@@ -12,7 +11,6 @@ angular.module("visitorModule")
         function(
             $scope,
             $routeParams,
-            $visitorApiService,
             $visitorApiService,
             $visitorLoginService,
             $cartService,

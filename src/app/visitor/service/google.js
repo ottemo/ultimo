@@ -1,4 +1,4 @@
-gl = function () {
+var gl = function () {
 
     var init, requestData, login, loginCallback, userData, avatar, getAvatar;
     userData = {'access_token': ''};

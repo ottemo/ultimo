@@ -1,3 +1,5 @@
+"@@useStrict";
+
 var iniConfig = {
     'general.app.foundation_url': '@@apiUrl',
 

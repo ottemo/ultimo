@@ -1,4 +1,4 @@
-fb = function () {
+var fb = function () {
 
     var init, avatarLarge, avatarMedium, avatarSmall, avatarSquare, getAvatar;
 
@@ -11,7 +11,7 @@ fb = function () {
      *
      */
     init = function () {
-        d = window.document;
+        var d = window.document;
         var js, fjs = d.getElementsByTagName("script")[0];
         if (d.getElementById("facebook-jssdk")) {
             return;

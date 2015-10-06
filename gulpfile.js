@@ -83,14 +83,12 @@ gulp.task('config', ['clean'], function() {
     return gulp.src('config/config.js')
         .pipe($.replaceTask({
             patterns: [{
-                match: 'apiUrl',
-                replacement: settings.apiUrl
-            }, {
-                match: 'idFacebook',
-                replacement: settings.idFacebook
-            }, {
-                match: 'idGoogle',
-                replacement: settings.idGoogle
+                json: {
+                    'useStrict' : settings.useStrict,
+                    'apiUrl' : settings.apiUrl,
+                    'idFacebook' : settings.idFacebook,
+                    'idGoogle' : settings.idGoogle
+                }
             }]
         }))
         .pipe(gulp.dest('./src/app/'));
@@ -115,17 +113,24 @@ gulp.task('compile', [
 gulp.task('compile_scripts', ['compile_scripts_app', 'compile_scripts_lib', 'compile_scripts_ie']);
 
 gulp.task('compile_scripts_app', function() {
-    return gulp.src(config.scripts.app)
-        .pipe($.sourcemaps.init())
-        .pipe($.plumber(handleError))
-        .pipe($.uglify({
-            mangle: false
-        }))
-        .pipe($.plumber.stop())
-        .pipe($.concat('main.js'))
-        .pipe($.sourcemaps.write('./maps'))
-        .pipe(gulp.dest(config.build + 'scripts'))
-        .pipe($.livereload());
+
+    // uglify + concat breaks sourcemaps so
+    // https://github.com/terinjokes/gulp-uglify/issues/105
+    if (config.isProduction) {
+        return gulp.src(config.scripts.app)
+            .pipe($.plumber(handleError))
+            .pipe($.uglify({
+                    mangle: false
+                }))
+            .pipe($.plumber.stop())
+            .pipe($.concat('main.js'))
+            .pipe(gulp.dest(config.build + 'scripts'));
+    } else {
+        return gulp.src(config.scripts.app)
+            .pipe($.concat('main.js'))
+            .pipe(gulp.dest(config.build + 'scripts'))
+            .pipe($.livereload());
+    }
 });
 
 gulp.task('compile_scripts_lib', function() {
