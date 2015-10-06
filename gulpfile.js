@@ -10,16 +10,14 @@ var $ = require('gulp-load-plugins')({
 });
 
 /**
- * yargs variables can be passed in to alter the behavior
- * Note: We will only use the production api when env=production
- * Example: gulp build
+ * yargs variables can be passed in to alter the behavior of tasks
  *
  * --env=(production|*)
  * Applies revision thumbprints, minifies media, uses relavent robots...
+ * Forces the api to production
  *
  * --api=(production|staging|localhost)
- * Sets the config.js variables, primarilly the api to connect to,
- * defaults to `staging`
+ * Sets the config.js variables, primarily the api to connect to
  */
 
 config.isProduction = (args.env == 'production');
@@ -57,19 +55,19 @@ gulp.task('serve', ['build'], function() {
 });
 
 /**
- * Remove all build / temp files
- */
-gulp.task('clean', function(done) {
-    del([config.build], done);
-});
-
-/**
  * Vet the code
  */
 gulp.task('vet', function() {
     return gulp.src(config.scripts.app)
         .pipe($.jshint())
         .pipe($.jshint.reporter(require('jshint-stylish')));
+});
+
+/**
+ * Remove all build / temp files
+ */
+gulp.task('clean', function(done) {
+    del([config.build], done);
 });
 
 /**
@@ -287,3 +285,4 @@ function handleError(err) {
 function log(msg) {
     $.util.log($.util.colors.magenta(msg));
 }
+
