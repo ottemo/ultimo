@@ -33,7 +33,7 @@ if (config.isProduction) {
 /**
  * List the tasks available
  */
-gulp.task('help', $.taskListing);
+gulp.task('help', $.taskListing.withFilters(null, 'default'));
 gulp.task('default', ['help']);
 
 /**
@@ -65,9 +65,9 @@ gulp.task('config', ['clean'], function() {
 /**
  * Compile all javascript
  */
-gulp.task('scripts', ['scripts:app', 'scripts:lib', 'scripts:ie']);
+gulp.task('compile_scripts', ['compile_scripts_app', 'compile_scripts_lib', 'compile_scripts_ie']);
 
-gulp.task('scripts:app', function() {
+gulp.task('compile_scripts_app', function() {
     return gulp.src(config.scripts.app)
         .pipe($.sourcemaps.init())
         .pipe($.plumber(handleError))
@@ -81,13 +81,13 @@ gulp.task('scripts:app', function() {
         .pipe($.livereload());
 });
 
-gulp.task('scripts:lib', function() {
+gulp.task('compile_scripts_lib', function() {
     return gulp.src(config.scripts.lib)
         .pipe($.concat('lib.js'))
         .pipe(gulp.dest(config.build + 'scripts'));
 });
 
-gulp.task('scripts:ie', function() {
+gulp.task('compile_scripts_ie', function() {
     return gulp.src(config.scripts.ie)
         .pipe($.concat('lib-ie.js'))
         .pipe(gulp.dest(config.build + 'scripts'));
@@ -103,7 +103,7 @@ gulp.task('clean', function(done) {
 /**
  * Vet the code
  */
-gulp.task('jshint', function() {
+gulp.task('vet', function() {
     return gulp.src(config.scripts.app)
         .pipe($.jshint())
         .pipe($.jshint.reporter(require('jshint-stylish')));
@@ -112,15 +112,15 @@ gulp.task('jshint', function() {
 /**
  * Compile all of the html files
  */
-gulp.task('html', ['html:root', 'html:nonroot']);
+gulp.task('compile_html', ['compile_html_root', 'compile_html_nonroot']);
 
-gulp.task('html:root', function() {
+gulp.task('compile_html_root', function() {
     return gulp.src(config.html.root)
         .pipe($.changed(config.build))
         .pipe(gulp.dest(config.build));
 });
 
-gulp.task('html:nonroot', function() {
+gulp.task('compile_html_nonroot', function() {
     return gulp.src(['!' + config.html.root, config.html.all])
         .pipe($.changed(config.build + 'views/'))
         .pipe(gulp.dest(config.build + 'views/'));
@@ -130,7 +130,7 @@ gulp.task('html:nonroot', function() {
  * Compile the robots.txt file
  * --env=(production|*)
  */
-gulp.task('robots', function() {
+gulp.task('compile_robots', function() {
     var robotPath = config.isProduction ? config.robots.prod : config.robots.default;
     return gulp.src(robotPath)
         .pipe($.rename('robots.txt'))
@@ -140,7 +140,7 @@ gulp.task('robots', function() {
 /**
  * Compile oddball files
  */
-gulp.task('misc', function() {
+gulp.task('compile_misc', function() {
     return gulp.src(config.misc)
         .pipe(gulp.dest(config.build));
 });
@@ -149,7 +149,7 @@ gulp.task('misc', function() {
  * Compile styles
  * SASS -> CSS -> app.min.css
  */
-gulp.task('styles', function() {
+gulp.task('compile_styles', function() {
     return gulp.src(config.styles.root)
         .pipe($.sourcemaps.init())
         .pipe($.plumber(handleError))
@@ -167,7 +167,7 @@ gulp.task('styles', function() {
 /**
  * Move and minify images / mixed-media
  */
-gulp.task('media', function() {
+gulp.task('compile_media', function() {
     //TODO: do we want to have like a local-media folder?
     var mediaBuild = config.build + 'images/';
 
@@ -180,7 +180,7 @@ gulp.task('media', function() {
 /**
  * Move fonts
  */
-gulp.task('fonts', function() {
+gulp.task('compile_fonts', function() {
     return gulp.src(config.fonts)
         .pipe(gulp.dest(config.build + 'fonts/'));
 })
@@ -188,12 +188,12 @@ gulp.task('fonts', function() {
 /**
  * Watch files for changes and compile
  */
-gulp.task('serve:watch', function() {
+gulp.task('serve_watch', function() {
     $.livereload.listen({
         basePath: config.build
     });
 
-    gulp.start('serve:server');
+    gulp.start('serve_server');
 
     gulp.watch(config.html.all, ['html']);
     gulp.watch(config.styles.all, ['styles']);
@@ -205,7 +205,7 @@ gulp.task('serve:watch', function() {
 /**
  * Starts a server in the build directory
  */
-gulp.task('serve:server', function() {
+gulp.task('serve_server', function() {
     var express = require('express');
     var path = require('path');
     var app = express();
@@ -244,13 +244,13 @@ gulp.task('revision', function() {
  * Run all compiling tasks
  */
 gulp.task('compile', [
-    'html',
-    'misc',
-    'robots',
-    'scripts',
-    'styles',
-    'media',
-    'fonts'
+    'compile_html',
+    'compile_misc',
+    'compile_robots',
+    'compile_scripts',
+    'compile_styles',
+    'compile_media',
+    'compile_fonts'
 ]);
 
 /**
