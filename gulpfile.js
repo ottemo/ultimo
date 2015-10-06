@@ -168,8 +168,8 @@ gulp.task('livereload', function() {
     app.use(modRewrite(['!\\. /index.html [L]']))
         .use(express.static(staticFolder));
 
-    app.listen(host.port, function() {
-        console.log('server started: http://localhost:' + host.port);
+    app.listen(config.node.port, function() {
+        console.log('server started: http://localhost:' + config.node.port);
         return gulp;
     });
 });

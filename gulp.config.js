@@ -25,19 +25,17 @@ module.exports = function() {
         fonts: app + '_fonts/**/*.{svg,eot,ttf,woff,woff2}',
         scripts: {
             app: [
-                '!./src/app/_lib', // not lib
+                '!' + app + '_lib/**/*', // don't clobber lib
                 app + 'config.js',
                 app + 'main.js',
                 app + '**/init.js',
                 app + '**/*.js'
             ],
             lib: [
+                '!' + app + '_lib/ie/**/*', // be careful not to clobber ie
                 app + '_lib/jquery.min.js',
                 app + '_lib/angular.min.js',
-                // NOTES:
-                // no folder glob, or it would clobber .ie
-                // also we are only moving minified files, so feel free to toss unminified reference files in the lib dir
-                app + '_lib/*.min.js'
+                app + '_lib/**/*.min.js'
             ],
             ie: app + '_lib/ie/*.min.js'
         },
@@ -50,7 +48,7 @@ module.exports = function() {
 
         node: {
             port: '8080',
-            lrPort: '35729'
+            lrPort: '35729' // not used?
         }
     };
 
