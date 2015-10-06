@@ -38,6 +38,9 @@ angular.module("commonModule", [
                 // Uses default seo
                 templateUrl: "/views/common/home.html",
             })
+            .when("/css-test", {
+                templateUrl: "/views/common/css-test.html",
+            })
             .when("/not-found", {
                 title: 'Page Not Found',
                 templateUrl: "/views/common/not-found.html",
