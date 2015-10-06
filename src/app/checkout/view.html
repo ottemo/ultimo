@@ -519,7 +519,7 @@
                 <ul>
                     <li class="form-group col-md-6" ng-repeat="discount in checkout.discounts">
                         <div>{{discount.Code}} - {{discount.Amount | currency}}</div>
-                        <div class="glyphicon glyphicon-remove right" ng-click="discountNeglect(discount.Code)"></div>
+                        <div class="fa fa-remove right" ng-click="discountNeglect(discount.Code)"></div>
                     </li>
                 </ul>
             </div>
@@ -623,7 +623,7 @@
 
                 <!-- next step -->
                 <button class="next btn-lg btn btn-danger" ng-click="save()">
-                    <span class="glyphicon glyphicon-ok"></span>
+                    <span class="fa fa-check"></span>
                     Confirm purchase
                 </button>
             </div>
