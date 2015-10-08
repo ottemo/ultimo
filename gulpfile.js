@@ -1,288 +1,293 @@
-var gulp        = require('gulp');
-var fs          = require('fs');
-var minifyHTML  = require('gulp-minify-html');
-var uglify      = require('gulp-uglify');
-var jshint      = require('gulp-jshint');
-var changed     = require('gulp-changed');
-var imagemin    = require('gulp-imagemin');
-var autoprefix  = require('gulp-autoprefixer');
-var del         = require('del');
-var concat      = require('gulp-concat');
-var refresh     = require('gulp-livereload');
-var modRewrite  = require('connect-modrewrite');
-var RevAll      = require('gulp-rev-all');
+var args = require('yargs').argv;
+var config = require('./gulp.config')();
+var del = require('del');
+var fs = require('fs');
+var gulp = require('gulp');
+var modRewrite = require('connect-modrewrite');
 var runSequence = require('run-sequence');
-var sourcemaps  = require('gulp-sourcemaps');
-var sass        = require('gulp-sass');
-var rename      = require('gulp-rename');
-var replace     = require('gulp-replace-task');
-var gulpIf      = require('gulp-if');
-var gutil       = require('gulp-util');
-var plumber     = require('gulp-plumber');
+var $ = require('gulp-load-plugins')({
+    lazy: true
+});
 
+/**
+ * yargs variables can be passed in to alter the behavior of tasks
+ *
+ * --env=(production|*)
+ * Applies revision thumbprints, minifies media, uses relavent robots...
+ * Forces the api to production
+ *
+ * --api=(production|staging|localhost)
+ * Sets the config.js variables, primarily the api to connect to
+ */
 
-var paths = {
-    dist: 'dist',
-    jshint: [
-        'app/scripts/**/*.js',
-        'app/theme/**/*.js'
-    ],
-    html: 'app/**/*.html',
-    misc: 'app/*.{htaccess,ico,xml}',
-    scripts: [
-        'app/scripts/config.js',
-        'app/scripts/main.js',
-        'app/scripts/**/init.js',
-        'app/scripts/**/*.js'
-    ],
-    theme: {
-        dist: 'dist/theme',
-        styles: 'app/theme/styles/*.scss',
-        // images, videos, fonts
-        media: 'app/theme/**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf,eot,ttf,woff}',
-        scripts: [
-            'app/theme/lib/**/*.js',
-            'app/theme/**/*.js'
-        ]
-    },
-    lib: {
-        dist: 'dist/lib',
-        scripts: [
-            'app/lib/jquery.min.js',
-            'app/lib/angular.min.js',
-            // NOTES:
-            // no folder glob, or it would clobber .ie
-            // also we are only moving minified files, so feel free to toss unminified reference files in the lib dir
-            'app/lib/*.min.js'
-        ],
-        ie: 'app/lib/ie/*.min.js'
+config.isProduction = (args.env == 'production');
+config.apiConfig = args.api || 'staging';
+
+if (config.isProduction) {
+    if (config.apiConfig !== 'production') {
+        log('When env is production the api will be automatically forced to production');
     }
+    config.apiConfig = 'production';
 };
 
-var handleError = function(err) {
-    gutil.log(gutil.colors.red('# Error in ' + err.plugin));
-    if (err.fileName) {
-        gutil.log('File: %s:%s', err.fileName, err.lineNumber);
-    }
-    gutil.log('Error Message: %s', err.message);
-    gutil.beep();
-}
+/**
+ * List the tasks available
+ */
+gulp.task('help', $.taskListing.withFilters(null, 'default'));
+gulp.task('default', ['help']);
 
-var host = {
-    port: '8080',
-    lrPort: '35729'
-};
+/**
+ * Build the app
+ * This is typically used when getting ready to deploy the app
+ * `gulp build --env=production`
+ */
+gulp.task('build', function() {
+    runSequence('clean', 'config', 'compile', 'revision');
+});
 
-var isProduction = false;
-var envOttemo = process.env.OTTEMO_ENV || 'staging';
+/**
+ * Build and start a server
+ * This is typically used for local development work
+ * `gulp serve` or `gulp serve --api=localhost`
+ */
+gulp.task('serve', ['build'], function() {
+    gulp.start('serve_watch');
+});
 
-gulp.task('replace', ['clean'], function () {
+/**
+ * Vet the code
+ */
+gulp.task('vet', function() {
+    return gulp.src(config.scripts.app)
+        .pipe($.jshint())
+        .pipe($.jshint.reporter(require('jshint-stylish')));
+});
+
+/**
+ * Remove all build / temp files
+ */
+gulp.task('clean', function(done) {
+    del([config.build], done);
+});
+
+/**
+ * Configure the application
+ * --api=(production|staging|localhost)
+ */
+gulp.task('config', ['clean'], function() {
     // Read the settings from the right file
-    var filename = envOttemo + '.json';
+    var filename = config.apiConfig + '.json';
     var settings = JSON.parse(fs.readFileSync('./config/' + filename, 'utf8'));
 
     // Replace each placeholder with the correct value for the variable.
     return gulp.src('config/config.js')
-    .pipe(replace({
-        patterns: [
-            {
-                match       : 'apiUrl',
-                replacement : settings.apiUrl
-            },
-            {
-                match       : 'idFacebook',
-                replacement : settings.idFacebook
-            },
-            {
-                match       : 'idGoogle',
-                replacement : settings.idGoogle
-            },
-            {
-                match       : 'itemsPerPage',
-                replacement : settings.itemsPerPage
-            },
-            {
-                match       : 'guestCheckout',
-                replacement : settings.guestCheckout
-            }
-        ]
-    }))
-    .pipe(gulp.dest('app/scripts'));
-});
-
-// Empties folders to start fresh
-gulp.task('clean', function () {
-    return del(['dist']);
-});
-
-gulp.task('jshint', function () {
-    return gulp.src(paths.jshint)
-        .pipe(jshint())
-        .pipe(jshint.reporter(require('jshint-stylish')));
-});
-
-gulp.task('html', function () {
-    return gulp.src(paths.html)
-        .pipe(changed(paths.dist))
-        .pipe(minifyHTML({
-            collapseWhitespace: true,
-            collapseBooleanAttributes: true,
-            removeCommentsFromCDATA: true,
-            removeOptionalTags: true,
-            conditionals: true,
-            quotes: true,
-            empty: true
+        .pipe($.replaceTask({
+            patterns: [{
+                json: {
+                    'useStrict' : settings.useStrict,
+                    'apiUrl' : settings.apiUrl,
+                    'idFacebook' : settings.idFacebook,
+                    'idGoogle' : settings.idGoogle
+                }
+            }]
         }))
-        .pipe(gulp.dest(paths.dist));
+        .pipe(gulp.dest(config.temp));
 });
 
-gulp.task('robots', function () {
-    var robotPath = isProduction ? 'app/robots.prod.txt' : 'app/robots.dev.txt';
-    gulp.src(robotPath)
-        .pipe(rename('robots.txt'))
-        .pipe(gulp.dest(paths.dist));
+/**
+ * Run all compiling tasks
+ */
+gulp.task('compile', [
+    'compile_html',
+    'compile_misc',
+    'compile_robots',
+    'compile_scripts',
+    'compile_styles',
+    'compile_media',
+    'compile_fonts'
+]);
 
-    return gulp.src(paths.misc)
-        .pipe(gulp.dest(paths.dist));
+/**
+ * Compile all javascript
+ */
+gulp.task('compile_scripts', ['compile_scripts_app', 'compile_scripts_lib', 'compile_scripts_ie']);
 
+gulp.task('compile_scripts_app', function() {
+
+    // uglify + concat breaks sourcemaps so
+    // https://github.com/terinjokes/gulp-uglify/issues/105
+    if (config.isProduction) {
+        return gulp.src(config.scripts.app)
+            .pipe($.plumber(handleError))
+            .pipe($.uglify({
+                    mangle: false
+                }))
+            .pipe($.plumber.stop())
+            .pipe($.concat('main.js'))
+            .pipe(gulp.dest(config.build + 'scripts'));
+    } else {
+        return gulp.src(config.scripts.app)
+            .pipe($.concat('main.js'))
+            .pipe(gulp.dest(config.build + 'scripts'))
+            .pipe($.livereload());
+    }
 });
 
+gulp.task('compile_scripts_lib', function() {
+    return gulp.src(config.scripts.lib)
+        .pipe($.concat('lib.js'))
+        .pipe(gulp.dest(config.build + 'scripts'));
+});
 
-gulp.task('scripts', function () {
-    return gulp.src(paths.scripts)
-        .pipe(sourcemaps.init())
-        .pipe(plumber(handleError))
-        .pipe(uglify({
-            mangle: false
+gulp.task('compile_scripts_ie', function() {
+    return gulp.src(config.scripts.ie)
+        .pipe($.concat('lib-ie.js'))
+        .pipe(gulp.dest(config.build + 'scripts'));
+});
+
+/**
+ * Compile all of the html files
+ */
+gulp.task('compile_html', ['compile_html_root', 'compile_html_nonroot']);
+
+gulp.task('compile_html_root', function() {
+    return gulp.src(config.html.root)
+        .pipe($.changed(config.build))
+        .pipe(gulp.dest(config.build));
+});
+
+gulp.task('compile_html_nonroot', function() {
+    return gulp.src(['!' + config.html.root, config.html.all])
+        .pipe($.changed(config.build + 'views/'))
+        .pipe(gulp.dest(config.build + 'views/'));
+})
+
+/**
+ * Compile the robots.txt file
+ * --env=(production|*)
+ */
+gulp.task('compile_robots', function() {
+    var robotPath = config.isProduction ? config.robots.prod : config.robots.default;
+    return gulp.src(robotPath)
+        .pipe($.rename('robots.txt'))
+        .pipe(gulp.dest(config.build));
+});
+
+/**
+ * Compile oddball files
+ */
+gulp.task('compile_misc', function() {
+    return gulp.src(config.misc)
+        .pipe(gulp.dest(config.build));
+});
+
+/**
+ * Compile styles
+ * SASS -> CSS -> app.min.css
+ */
+gulp.task('compile_styles', function() {
+    return gulp.src(config.styles.root)
+        .pipe($.sourcemaps.init())
+        .pipe($.plumber(handleError))
+        .pipe($.sass.sync(config.sassSettings))
+        .pipe($.rename({
+            suffix: '.min'
         }))
-        .pipe(plumber.stop())
-        .pipe(concat('main.js'))
-        .pipe(sourcemaps.write('./maps'))
-        .pipe(gulp.dest(paths.dist + '/scripts'))
-        .pipe(refresh());
+        .pipe($.autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+        .pipe($.plumber.stop())
+        .pipe($.sourcemaps.write('./maps'))
+        .pipe(gulp.dest(config.build + 'styles/'))
+        .pipe($.livereload());
 });
 
-gulp.task('theme.styles', function() {
-    return gulp.src(paths.theme.styles)
-        .pipe(sourcemaps.init())
-        .pipe(plumber(handleError))
-        .pipe(sass.sync({
-            outputStyle: 'compressed',
-            precision: 8,
-        }))
-        .pipe(rename({suffix: '.min'}))
-        .pipe(autoprefix('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-        .pipe(plumber.stop())
-        .pipe(sourcemaps.write('./maps'))
-        .pipe(gulp.dest(paths.theme.dist + '/styles'))
-        .pipe(refresh());
+/**
+ * Move and minify images / mixed-media
+ */
+gulp.task('compile_media', function() {
+    //TODO: do we want to have like a local-media folder?
+    var mediaBuild = config.build + 'images/';
+
+    return gulp.src(config.media)
+        .pipe($.changed(mediaBuild))
+        .pipe($.if(config.isProduction, $.imagemin()))
+        .pipe(gulp.dest(mediaBuild));
 });
 
-gulp.task('theme.scripts', function () {
-    return gulp.src(paths.theme.scripts)
-        .pipe(sourcemaps.init())
-        .pipe(plumber(handleError))
-        .pipe(uglify({
-            mangle: false
-        }))
-        .pipe(plumber.stop())
-        .pipe(concat('main.js'))
-        .pipe(sourcemaps.write('./maps'))
-        .pipe(gulp.dest(paths.theme.dist))
-        .pipe(refresh());
+/**
+ * Move fonts
+ */
+gulp.task('compile_fonts', function() {
+    return gulp.src(config.fonts)
+        .pipe(gulp.dest(config.build + 'fonts/'));
+})
+
+/**
+ * Watch files for changes and compile
+ */
+gulp.task('serve_watch', function() {
+    $.livereload.listen({
+        basePath: config.build
+    });
+
+    gulp.start('serve_server');
+
+    gulp.watch(config.html.all, ['compile_html']);
+    gulp.watch(config.styles.all, ['compile_styles']);
+    gulp.watch(config.scripts.lib, ['compile_scripts_lib']);
+    gulp.watch(config.scripts.ie, ['compile_scripts_ie']);
+    gulp.watch(config.scripts.app, ['compile_scripts_app']);
 });
 
-gulp.task('theme.media', function () {
-    return gulp.src(paths.theme.media)
-        .pipe(changed(paths.theme.dist))
-        .pipe(gulpIf(isProduction, imagemin()))
-        .pipe(gulp.dest(paths.theme.dist));
-});
-
-gulp.task('lib.scripts', function () {
-    return gulp.src(paths.lib.scripts)
-        .pipe(concat('lib.js'))
-        .pipe(gulp.dest(paths.lib.dist));
-});
-
-// IE libs can stick together, but need to be separate from other libs
-gulp.task('lib.ie', function() {
-    return gulp.src(paths.lib.ie)
-        .pipe(concat('ie-libs.js'))
-        .pipe(gulp.dest(paths.lib.dist));
-});
-
-
-gulp.task('watch',function(){
-    refresh.listen({ basePath: paths.dist });
-
-    gulp.start('livereload');
-
-    gulp.watch(["app/**/*.html"],['html']);
-    gulp.watch(["app/**/*.scss","app/**/*.css"],['theme.styles']);
-    gulp.watch(["app/scripts/**/*.js"],['scripts']);
-    gulp.watch(["app/theme/**/*.js"],['theme.scripts']);
-});
-
-gulp.task('livereload', function(){
-    var path = require('path');
+/**
+ * Starts a server in the build directory
+ */
+gulp.task('serve_server', function() {
     var express = require('express');
+    var path = require('path');
     var app = express();
-    var staticFolder = path.join(__dirname, 'dist');
+    var staticFolder = path.join(__dirname, config.build);
 
-    app.use(modRewrite([
-        '!\\. /index.html [L]'
-    ]))
+    app.use(modRewrite(['!\\. /index.html [L]']))
         .use(express.static(staticFolder));
 
-    app.listen( host.port, function() {
-        console.log('server started: http://localhost:' + host.port);
+    app.listen(config.node.port, function() {
+        log('-------------------------------------');
+        log('server started: http://localhost:' + config.node.port);
+        log('-------------------------------------');
         return gulp;
     });
 });
 
-gulp.task('revision', function(){
-    if(isProduction) {
-        var revAll = new RevAll({
+/**
+ * Thumbprint js, css
+ * Only fires for production
+ * --env=(production|*)
+ */
+gulp.task('revision', function() {
+    if (config.isProduction) {
+        var revAll = new $.revAll({
             dontUpdateReference: [/^((?!.js|.css).)*$/g],
             dontRenameFile: [/^((?!.js|.css).)*$/g]
         });
 
-        gulp.src('dist/**')
+        return gulp.src(config.build + '**')
             .pipe(revAll.revision())
-            .pipe(gulp.dest('dist'));
+            .pipe(gulp.dest(config.build));
     }
 });
 
+////////////////////////////////
 
-gulp.task('lib', ['lib.ie', 'lib.scripts']);
-gulp.task('theme', [
-    'theme.styles',
-    'theme.scripts',
-    'theme.media'
-]);
+function handleError(err) {
+    log('# Error in ' + err.plugin);
+    if (err.fileName) {
+        log('File: '+ err.fileName +':'+ err.lineNumber);
+    }
+    log('Error Message: ' + err.message);
+    $.util.beep();
+}
 
-// For production
-gulp.task('build-prod', function(){
-    isProduction=true;
-    runSequence('clean',
-                'replace',
-                [ 'html', 'robots', 'scripts', 'theme', 'lib' ],
-                'revision');
-});
+function log(msg) {
+    $.util.log($.util.colors.magenta(msg));
+}
 
-// For development
-gulp.task('build', function(){
-    // note: revision has a short circuit for dev
-    runSequence('clean',
-                'replace',
-                [ 'html', 'robots', 'scripts', 'theme', 'lib' ],
-                'revision');
-});
-
-// For development
-gulp.task('serve', ['default']);
-gulp.task('default', ['build'], function(){
-    isProduction = false;
-    gulp.start('watch');
-});

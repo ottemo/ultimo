@@ -1,0 +1,5 @@
+# robotstxt.org
+
+User-agent: *
+Disallow: /
+Sitemap: https://urbanity.com/sitemap.xml

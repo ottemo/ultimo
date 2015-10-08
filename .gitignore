@@ -19,4 +19,4 @@ tags
 .DS_Store
 
 # Ottemo Specific
-app/scripts/config.js
+tmp/*
