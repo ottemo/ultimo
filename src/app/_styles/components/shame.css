@@ -1,0 +1,409 @@
+a[ng-click] {
+	cursor: pointer;
+}
+
+a:focus,
+button:focus,
+a:active,
+button:active {
+	outline: none !important;
+}
+:-moz-submit-invalid,
+:-moz-ui-invalid {
+	box-shadow: none;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+
+
+
+.form-inline .form-control--2char {
+	width: 40px;
+	text-align: center;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.form-inline.form-spaced .form-group,
+.form-inline.form-spaced .checkbox,
+.form-inline.form-spaced .btn {
+	margin-right: 15px;
+}
+
+.panel-footer {
+	background-color: #fff;
+}
+
+.label-minor {
+	color: #6C7272;
+	font-style: italic;
+}
+
+.list-social {
+	padding: 0;
+	margin: 0 0 0 -2px;
+}
+.list-social li {
+	display: inline-block;
+	padding: 0 2px;
+}
+.list-social a {
+	width: 25px;
+	height: 25px;
+	border-radius: 20px;
+	background: #999;
+	color: #fff;
+	font-size: 17px;
+	line-height: 25px;
+}
+.list-social a:hover {
+	background-color: #000;
+}
+
+.flat-top {
+	margin-top: 0;
+}
+
+/*---------------
+ Thumb Thumbnail
+ ---------------*/
+
+.thumbnail-quick-view {
+	margin-bottom: 0;
+}
+
+
+/*---------------
+ Category
+ ---------------*/
+.category .category-image__container {
+	position: relative;
+	height: 0;
+	padding-bottom: 56.25%;
+	overflow: hidden;
+	margin-bottom: 40px;
+}
+.category .category-image {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.category .menu {
+	background: rgb(255, 126, 191);
+	padding: 5px 0;
+	margin-bottom: 20px;
+}
+@media (min-width: 768px) {
+	.category .menu {
+		margin-bottom: 50px;
+	}
+}
+
+.category .mobile-categories {
+	margin: 0 0 20px;
+	font-size: 20px;
+}
+.category .mobile-categories a {
+	text-align: center;
+	 color: #fff;
+	text-transform: capitalize;
+	display: block;
+}
+.category .menu ul {
+	margin: 0;
+}
+.category .menu ul li {
+	padding: 0;
+}
+.category .menu a {
+	color: #fff;
+	font-family: Georgia;
+	font-size: 14px;
+	font-style: italic;
+	font-weight: normal;
+	margin: 0;
+	text-decoration: none;
+	text-transform: capitalize;
+}
+
+.category .menu a:after {
+	content: "/";
+	margin: 0 10px;
+}
+.category .menu li:last-child a:after {
+	content: "";
+	margin: 0;
+}
+
+.category h2 {
+	text-align: right;
+}
+.category .shop-page-categories + .shop-page-categories{
+	border-top: 1px solid #ddd;
+	padding-top: 30px;
+}
+
+.category .products-area .product{
+	margin-bottom: 50px;
+	position: relative;
+}
+@media (min-width: 768px) and (max-width: 991px) {
+	/*col-sm-4*/
+	.category .products-area .product:nth-child(3n+1) {
+		clear: left;
+	}
+}
+@media (min-width: 992px) {
+	/*col-md-3*/
+	.category .products-area .product:nth-child(4n+1) {
+		clear: left;
+	}
+}
+
+.category .product-list--image {
+	display: block;
+}
+.category .btn-product-list-quick {
+	position: absolute;
+	width: 80%;
+	bottom: 30%;
+	left: 10%;
+	text-align: center;
+	display: none;
+}
+
+@media (min-width: 992px) {
+	.category .product:hover .btn-product-list-quick{
+		display: block;
+	}
+}
+
+.category .product-list--image img {
+	width: 100%;
+}
+
+.category .product-list-price__strikethrough-price {
+	text-decoration: line-through;
+	color: #666;
+}
+
+.category .products-area .product h5 {
+	color: #111;
+	font-family: Georgia;
+	font-size: 14px;
+	font-style: italic;
+	text-decoration: none;
+}
+
+.category .products-area .product h4{
+	color: #4e4e4e;
+	font-family: Georgia;
+	font-size: 14px;
+	font-weight: normal;
+}
+
+/*---------------
+ PDP .pdp
+ ---------------*/
+@media (min-width: 992px) {
+	.pdp-product-name {
+		margin-top: 0px;
+	}
+}
+.pdp-description {
+
+}
+.pdp-price {
+	margin: 30px 0 0 0;
+}
+.pdp-strikethrough-price-value {
+	color: #999;
+	text-decoration: line-through;
+}
+.pdp-price-value {
+	color: #000;
+	font-size: 18px;
+	font-style: italic;
+}
+.pdp-primary-img {
+	cursor: zoom-in;
+	display: block;
+	border: 1px solid #ddd;
+	margin-bottom: 10px;
+}
+.pdp-purchase-form-details {
+	margin-bottom: 0;
+}
+.pdp-purchase-form-details a {
+	font-style: italic;
+	text-decoration: underline;
+	font-family: Georgia;
+}
+.pdp-purchase-form-2 {
+	margin-bottom: 15px;
+}
+.option-available-in .option-set-label,
+.option-scent .option-set-label,
+.option-denominations .option-set-label,
+.option-gift-wrap .option-set-label {
+	display: none;
+}
+@media (min-width: 768px) {
+	.pdp-radio-group .radio {
+		margin-right: 15px;
+	}
+}
+
+.product-alt-list__item {
+	margin-bottom: 20px;
+}
+
+/*---------------
+ .std any Content that comes from a wysiwyg
+ Pages, Descriptions
+ ---------------*/
+.std {
+	line-height: 30px;
+}
+
+.std h5 {
+	font-weight: bold;
+	margin: 20px 0 10px 0;
+}
+
+.std .header-link {
+	float: right;
+	margin-left: 20px;
+	font-size: 14px;
+	line-height: 26px;
+	text-decoration: underline;
+}
+.cms-hero {
+	width: 100%;
+}
+
+.cms-img-left,
+.cms-img-right {
+	display: block;
+	margin: 0 auto;
+}
+@media (min-width: 768px) {
+	.cms-img-left {
+		float: left;
+		margin: 8px 20px 0 0;
+	}
+	.cms-img-right {
+		float: right;
+		margin: 8px 0 0 20px;
+	}
+}
+
+.std p {
+	margin-bottom: 30px;
+}
+
+/* we have a lot of columns that are just separating uls, and when they collapse in small views
+the extra space looks funny */
+.std .col-lg-1 ul:last-child, .std .col-lg-10 ul:last-child, .std .col-lg-11 ul:last-child,
+.std .col-lg-12 ul:last-child, .std .col-lg-2 ul:last-child, .std .col-lg-3 ul:last-child,
+.std .col-lg-4 ul:last-child, .std .col-lg-5 ul:last-child, .std .col-lg-6 ul:last-child,
+.std .col-lg-7 ul:last-child, .std .col-lg-8 ul:last-child, .std .col-lg-9 ul:last-child,
+.std .col-md-1 ul:last-child, .std .col-md-10 ul:last-child, .std .col-md-11 ul:last-child,
+.std .col-md-12 ul:last-child, .std .col-md-2 ul:last-child, .std .col-md-3 ul:last-child,
+.std .col-md-4 ul:last-child, .std .col-md-5 ul:last-child, .std .col-md-6 ul:last-child,
+.std .col-md-7 ul:last-child, .std .col-md-8 ul:last-child, .std .col-md-9 ul:last-child,
+.std .col-sm-1 ul:last-child, .std .col-sm-10 ul:last-child, .std .col-sm-11 ul:last-child,
+.std .col-sm-12 ul:last-child, .std .col-sm-2 ul:last-child, .std .col-sm-3 ul:last-child,
+.std .col-sm-4 ul:last-child, .std .col-sm-5 ul:last-child, .std .col-sm-6 ul:last-child,
+.std .col-sm-7 ul:last-child, .std .col-sm-8 ul:last-child, .std .col-sm-9 ul:last-child,
+.std .col-xs-1 ul:last-child, .std .col-xs-10 ul:last-child, .std .col-xs-11 ul:last-child,
+.std .col-xs-12 ul:last-child, .std .col-xs-2 ul:last-child, .std .col-xs-3 ul:last-child,
+.std .col-xs-4 ul:last-child, .std .col-xs-5 ul:last-child, .std .col-xs-6 ul:last-child,
+.std .col-xs-7 ul:last-child, .std .col-xs-8 ul:last-child, .std .col-xs-9 ul:last-child {
+	margin-bottom: 0;
+}
+
+
+/*---------------
+ Footer
+ ---------------*/
+
+
+
+/*_________ Mailchimp _________*/
+/*hack for the way we are currently doing modals*/
+.modal-backdrop {z-index: 0;}
+.modal-dialog {
+	z-index: 1050;
+}
+#mailchimp .modal-body {
+	margin: 0 0 30px 0;
+}
+#mailchimp .logo {
+	margin: 30px auto;
+}
+
+/*_________ Checkout _________*/
+.cart-total__label,
+.cart-total__value {
+	margin-bottom: 4px;
+	font-size: 16px;
+}
+
+.cart-total__value {
+	text-align: right;
+}
+
+/*_________ Cart _________*/
+.cart__item-row {
+	border-bottom: 1px solid #eee;
+	padding-bottom: 20px;
+	margin-bottom: 10px;
+}
+.cart__item-row.last {
+	border-bottom: 0;
+}
+.cart__item-row .thumbnail {
+	margin-bottom: 0;
+}
+.cart-list__product-subtotal {
+	text-align: right;
+	font-size: 16px;
+	line-height: 34px;
+}
+.cart-list__product-qty {
+
+}
+.cart__proceed {
+	text-align: right;
+}
+.cart__proceed a {
+	display: block;
+}
+.cart-list__product-remove .btn {
+	color: red;
+}
+@media (min-width: 768px) {
+	.cart-list__product-remove,
+	.cart-list__product-qty,
+	.cart-list__product-subtotal {
+		margin-top: 10px;
+	}
+
+	.cart__proceed a {
+		display: inline-block;
+	}
+}
+
+/*_________ Login _________*/
+.btn-facebook {
+	margin-top: 25px;
+}
+.btn-google {
+	margin-top: 40px;
+}

@@ -1,0 +1,57 @@
+<!-- Navigation bar -->
+<nav id="header" role="navigation" class="navbar-default navbar">
+    <div class="container">
+        <div class="navbar-header">
+            <!-- Logo -->
+            <a class="logo" href="/">
+                <img alt="logo" class="" ng-src="{{getImg('logo.png')}}">
+            </a>
+
+            <!-- toggle button -->
+            <button type="button"
+            class="navbar-toggle collapsed"
+            aria-controls="navbar"
+            aria-expanded="false"
+            data-target="#navbar"
+            data-toggle="collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- cart  -->
+            <a href="/cart" class="cart-link-xs visible-xs">
+                <i class="kg-icon-cart"></i>
+            </a>
+        </div>
+
+        <div class="navbar-collapse collapse" id="navbar">
+            <!-- Cart icon -->
+            <div class="">
+
+                <div class="hidden-xs util-nav" ng-controller="visitorLoginController">
+                    <span class="util-nav-banner">always free shipping</span>
+
+                    <i class="util-nav-divider"></i>
+
+                    <a ng-if="!visitorProps.isLoggedIn" ng-href="/login" class=" util-nav-item">Login</a>
+                    <a ng-if="visitorProps.isLoggedIn" ng-href="/account" class=" util-nav-item">My Account</a>
+
+                    <i class="util-nav-divider"></i>
+
+                    <a href="/cart" class="util-nav-item">
+                        Bag {{getItemsInCart() ? '('+getItemsInCart()+')' : '' }} <i class="kg-icon-cart kg-icon-cart__lg"></i>
+                    </a>
+                </div>
+
+            <div class="clearfix"></div>
+            </div>
+
+            <!-- main menu -->
+            <div class="main-menu" ng-include="getTemplate('common/navigation/main.html')">
+            </div>
+
+        </div>
+    </div>
+</nav>
