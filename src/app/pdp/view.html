@@ -1,3 +1,16 @@
+<div class="container-fluid">
+<div ng-if="!product.enabled" >
+    <div class="alert alert-warning alert-dismissible fade in" role="alert" >
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+
+        <h4>Disabled Product!</h4>
+        <p>
+            This product is currently disabled. Customers trying to reach this product will be redirected back to the homepage.
+        </p>
+    </div>
+</div>
 
 <div class="row">
     <!-- product image  -->
@@ -128,6 +141,7 @@
         </span>
         <div class="clear"></div>
     </div>
+</div>
 </div>
 
 <!-- TODO: move out -->
