@@ -12,16 +12,17 @@
     <meta name="keywords" content="{{page.getMetaKeywords()}}">
     <meta name="robots" content="INDEX,FOLLOW">
     <meta name="fragment" content="!">
+
     <!-- TODO -->
     <meta name="google-site-verification" content="XXXXX">
 
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/styles/app.min.css">
 </head>
-<body ng-controller="commonController" ng-class="{'is-logged-in': visitorProps.isLoggedIn}">
+<body ng-controller="appController" ng-class="{'is-logged-in': visitorProps.isLoggedIn}">
 
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
@@ -33,20 +34,15 @@
     <!-- header layout -->
     <ng-include src="getTemplate('common/header.html')"></ng-include>
 
-    <div class="clearfix"></div>
-
     <div class="content-wrapper">
-        <!-- main content layout -->
+
         <ng-view autoscroll></ng-view>
 
-        <div class="clearfix"></div>
-
-        <!-- footer layout -->
         <ng-include src="getTemplate('common/footer.html')"></ng-include>
     </div>
 
     <!-- mailchimp modal -->
-    <ng-include src="getTemplate('visitor/modal/mailchimp.html')"></ng-include>
+    <!-- <ng-include src="getTemplate('visitor/modal/mailchimp.html')"></ng-include> -->
 
     <!-- minicart modal -->
     <ng-include src="getTemplate('cart/quick-cart.html')" ng-controller="cartListController"></ng-include>

@@ -1,57 +1,84 @@
-<!-- Navigation bar -->
-<nav id="header" role="navigation" class="navbar-default navbar">
-    <div class="container">
+<div class="navbar navbar-default navbar-fixed-top"
+    role="navigation"
+    bs-navbar>
+    <div class="container-fluid">
         <div class="navbar-header">
-            <!-- Logo -->
-            <a class="logo" href="/">
-                <img alt="logo" class="" ng-src="{{getImg('logo.png')}}">
+            <a class="navbar-toggle collapsed"
+                ng-click="nav.open = !nav.open"
+                ng-class="{active: nav.open}">
+                <i class="fa fa-fw fa-bars"></i>
+            </a>
+            <a href="/cart" class="navbar-toggle">
+                <i class="fa fa-fw fa-shopping-cart"></i>
             </a>
 
-            <!-- toggle button -->
-            <button type="button"
-            class="navbar-toggle collapsed"
-            aria-controls="navbar"
-            aria-expanded="false"
-            data-target="#navbar"
-            data-toggle="collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-
-            <!-- cart  -->
-            <a href="/cart" class="cart-link-xs visible-xs">
-                <i class="kg-icon-cart"></i>
+            <a class="navbar-brand"
+                href="/">
+                <img alt="Urbanity Logo"
+                    ng-src="{{getImg('logo.png')}}">
+                <span class="sr-only">Urbanity</span>
             </a>
         </div>
 
-        <div class="navbar-collapse collapse" id="navbar">
-            <!-- Cart icon -->
-            <div class="">
+        <div class="navbar-collapse collapse"
+            ng-class="{in: nav.open}">
 
-                <div class="hidden-xs util-nav" ng-controller="visitorLoginController">
-                    <span class="util-nav-banner">always free shipping</span>
-
-                    <i class="util-nav-divider"></i>
-
-                    <a ng-if="!visitorProps.isLoggedIn" ng-href="/login" class=" util-nav-item">Login</a>
-                    <a ng-if="visitorProps.isLoggedIn" ng-href="/account" class=" util-nav-item">My Account</a>
-
-                    <i class="util-nav-divider"></i>
-
-                    <a href="/cart" class="util-nav-item">
-                        Bag {{getItemsInCart() ? '('+getItemsInCart()+')' : '' }} <i class="kg-icon-cart kg-icon-cart__lg"></i>
+            <ul class="nav navbar-nav navbar-util hidden-xs">
+                <li>
+                    <a href=""><i class="fa fa-facebook"></i></a>
+                </li>
+                <li>
+                    <a href=""><i class="fa fa-twitter"></i></a>
+                </li>
+                <li>
+                    <a href=""><i class="fa fa-google-plus"></i></a>
+                </li>
+                <li ng-if="!visitorProps.isLoggedIn"
+                    data-match-route="/login">
+                    <a href="/login">Login / Register</a>
+                </li>
+                <li ng-if="visitorProps.isLoggedIn"
+                    data-match-route="/account">
+                    <a href="/account">My Account</a>
+                </li>
+                <li data-match-route="/cart">
+                    <a href="/cart">
+                        Shopping Bag ({{getItemsInCart()}})
                     </a>
-                </div>
+                </li>
+            </ul>
 
-            <div class="clearfix"></div>
-            </div>
+            <ul class="nav navbar-nav navbar-main">
+                <li data-match-route="/$">
+                    <a href="/">Home</a>
+                </li>
+                <li data-match-route="/c/mens">
+                    <a href="/c/mens">Men's</a>
+                </li>
+                <li data-match-route="/c/womens">
+                    <a href="/c/womens">Women's</a>
+                </li>
+                <li data-match-route="/c/accessories">
+                    <a href="/c/accessories">Accessories</a>
+                </li>
+                <li data-match-route="/contact">
+                    <a href="/contact">Contact</a>
+                </li>
 
-            <!-- main menu -->
-            <div class="main-menu" ng-include="getTemplate('common/navigation/main.html')">
-            </div>
+                <li class="visible-xs"
+                    ng-if="!visitorProps.isLoggedIn"
+                    data-match-route="/login">
+                    <a href="/login">Login</a>
+                </li>
+
+                <li class="visible-xs"
+                    ng-if="visitorProps.isLoggedIn"
+                    data-match-route="/account">
+                    <a href="/account">My Account</a>
+                </li>
+            </ul>
 
         </div>
+
     </div>
-</nav>
+</div>

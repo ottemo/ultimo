@@ -13,6 +13,7 @@ angular.module("commonModule", [
 
     // Deps
     "angulartics.google.analytics",
+    "mgcrea.ngStrap.navbar",
 
     // Internal
     "angular-loading-bar",
@@ -37,6 +38,7 @@ angular.module("commonModule", [
             .when("/", {
                 // Uses default seo
                 templateUrl: "/views/common/home.html",
+                controller: "HomeController"
             })
             .when("/css-test", {
                 templateUrl: "/views/common/css-test.html",

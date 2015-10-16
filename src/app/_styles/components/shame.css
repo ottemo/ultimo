@@ -1,25 +1,3 @@
-a[ng-click] {
-	cursor: pointer;
-}
-
-a:focus,
-button:focus,
-a:active,
-button:active {
-	outline: none !important;
-}
-:-moz-submit-invalid,
-:-moz-ui-invalid {
-	box-shadow: none;
-}
-
-a:hover {
-	text-decoration: none;
-}
-
-
-
-
 .form-inline .form-control--2char {
 	width: 40px;
 	text-align: center;
