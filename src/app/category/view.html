@@ -1,70 +1,54 @@
-<div ng-init="init()" class="category">
+<div class="category container-fluid">
+    <div class="row">
 
-    <!-- category hero image, with a default -->
-    <div class="category-image__container">
-        <img
-        class="category-image"
-        alt="{{category.name}}"
-        ng-src="{{category.banner}}">
-    </div>
+        <div class="hidden-xs hidden-sm col-md-3 col-lg-2">
+            <ng-include src="getTemplate('common/navigation/filters.html')"></ng-include>
+        </div>
+        <div class="col-md-9 col-lg-10">
+            <div class="page-header">
+                <h1>{{ category.name }}</h1>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-sm-4 col-lg-3 product-box"
+                    ng-repeat="product in productsList track by product._id">
 
-    <div class="category-description std" ng-bind-html="category.description"></div>
-
-    <div class="row products-area">
-
-        <!-- regular category pages -->
-        <div >
-
-            <!-- products: clears handled in `.category .products-area .product:nth-child` -->
-            <div
-            class="col-xs-6 col-sm-4 col-md-3 product"
-            ng-repeat="_item in productsList | filter:searchText">
-                <div class="">
-                    <a
-                    class="btn btn-primary btn-product-list-quick"
-                    ng-click="openPopUp(_item)">
+                    <a class="btn btn-default btn-quick-view"
+                        ng-click="openPopUp(product)">
                         <i class="fa fa-search-plus"></i> Quick View
                     </a>
 
-                    <a
-                    class="product-list--image"
-                    ng-href="{{productService.getUrl(_item._id)}}">
-                        <img
-                        alt=""
-                        ng-src="{{ _item.image.small }}"
-                        err-src="placeholder.png">
+                    <a class="product-box-img r-container r-container-tall" ng-href="{{::productService.getUrl(product._id)}}">
+                        <img class="r-target"
+                            ng-src="{{::product.image.small}}"
+                            err-src="placeholder.png"
+                            alt="">
                     </a>
 
-                    <a ng-href="{{productService.getUrl(_item._id)}}">
-                        <span class="caption text-center">
-                            <!-- product name -->
-                            <h5>{{_item.name}}</h5>
-                            <!-- product price -->
-                            <h4>
-                                <span class="product-list-price__strikethrough-price"
-                                ng-show="_item.strikethrough_price">
-                                    {{_item.strikethrough_price | currency}}
-                                </span>
-                                {{_item.price | number : 2 | currency}}
-                            </h4>
-                        </span>
-                    </a>
+                    <div class="product-box-description">
+                        <h2 class="product-box-name">
+                            <a ng-href="{{::productService.getUrl(product._id)}}">
+                                {{::product.name}}
+                            </a>
+                        </h2>
+                        <a class="product-box-price"
+                            ng-href="{{::productService.getUrl(product._id)}}">
+                            {{::product.price | number : 2 | currency}}
+                        </a>
+                    </div>
                 </div>
+            </div>
+
+            <div class="text-center">
+                <gui-paginator object="this"
+                    ng-if="pages > 1"></gui-paginator>
             </div>
 
         </div>
 
-
-        <div class="clearfix"></div>
-
-        <div class="text-center">
-            <gui-paginator object="this" ng-if="pages > 1"></gui-paginator>
-        </div>
     </div>
-
-    <div class="clearfix"></div>
 </div>
 
 <!-- quick view modal -->
 <ng-include src="getTemplate('category/modal/quick-view.html')"></ng-include>
 <ng-include src="getTemplate('category/modal/quick-view-success.html')"></ng-include>
+

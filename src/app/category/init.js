@@ -1,6 +1,3 @@
-/**
- *  Angular "categoryModule" declaration
- */
 angular.module("categoryModule", ["ngRoute", "ngResource", "designModule"])
 
 .constant("SEARCH_KEY_NAME", "search")
@@ -12,11 +9,11 @@ angular.module("categoryModule", ["ngRoute", "ngResource", "designModule"])
         $routeProvider
             .when("/category/:id", {
                 "templateUrl": "/views/category/view.html",
-                "controller": "categoryListController"
+                "controller": "categoryViewController"
             })
             .when(GENERAL_CATEGORY_URI, {
                 "templateUrl": "/views/category/view.html",
-                "controller": "categoryListController"
+                "controller": "categoryViewController"
             });
 
         $locationProvider.html5Mode(true);
@@ -28,3 +25,4 @@ angular.module("categoryModule", ["ngRoute", "ngResource", "designModule"])
         $rootScope.searchProducts = $categoryService.searchProducts;
     }
 ]);
+

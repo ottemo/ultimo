@@ -3,7 +3,7 @@
     <div class="hidden-xs">
         <div ot-slider>
             <div ng-repeat="slide in sliderContent track by $index">
-                <a href="slide.link">
+                <a ng-href="{{slide.link}}">
                     <img ng-src="{{getImg(slide.img)}}" class="img-fill" />
                 </a>
             </div>
@@ -14,9 +14,8 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="m-b">
-                    <a class="r-container r-container-wide" href="">
-                        <div class="r-target "
-                            style="background-image:url('{{getImg('common/home/suit.jpeg')}}');"></div>
+                    <a class="r-container r-container-wide" href="/c/mens">
+                        <img class="r-target" ng-src="{{getImg('common/home/suit.jpg')}}" />
                         <div class="home-tile-overlay">
                             Men's Apparel
                         </div>
@@ -26,18 +25,16 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="m-b">
-                            <a class="r-container r-container-wide" href="">
-                                <div class="r-target "
-                                    style="background-image:url('{{getImg('common/home/woman_in_jeans.jpeg')}}');"></div>
+                            <a class="r-container r-container-wide" href="/c/womens">
+                                <img class="r-target" ng-src="{{getImg('common/home/woman_in_jeans.jpg')}}" />
                                 <div class="home-tile-overlay">
                                     Women's Apparel
                                 </div>
                             </a>
                         </div>
                         <div class="m-b">
-                            <a class="r-container r-container-square" href="">
-                                <div class="r-target "
-                                    style="background-image:url('{{getImg('common/home/shirts_on_rack.jpeg')}}');"></div>
+                            <a class="r-container r-container-square" href="/c/sale">
+                                <img class="r-target" ng-src="{{getImg('common/home/shirts_on_rack.jpg')}}" />
                                 <div class="home-tile-overlay">
                                     On Sale
                                 </div>
@@ -46,9 +43,8 @@
                     </div>
                     <div class="col-md-6">
                         <div class="m-b">
-                            <a class="r-container r-container-tall" href="">
-                                <div class="r-target "
-                                    style="background-image:url('{{getImg('common/home/purse.jpeg')}}');"></div>
+                            <a class="r-container r-container-tall" href="/c/accessories">
+                                <img class="r-target" ng-src="{{getImg('common/home/purse.jpg')}}" />
                                 <div class="home-tile-overlay">
                                     Accessories
                                 </div>
@@ -59,22 +55,20 @@
             </div>
             <div class="col-md-4">
                 <div class="m-b">
-                    <a class="r-container r-container-taller" href="">
-                        <div class="r-target "
-                            style="background-image:url('{{getImg('common/home/woman_in_jacket.jpeg')}}');"></div>
+                    <a class="r-container r-container-taller" href="/c/winter-looks-2015">
+                        <img class="r-target" ng-src="{{getImg('common/home/woman_in_jacket.jpg')}}" />
                         <div class="home-tile-overlay">
                             Winter Looks
                         </div>
                     </a>
                 </div>
                 <div class="m-b">
-                    <div class="r-container r-container-square">
-                        <div class="r-target "
-                            style="background-image:url('{{getImg('common/home/bathing_suits.jpeg')}}');"></div>
+                    <a class="r-container r-container-square" href="/c/summer-looks-2015">
+                        <img class="r-target" ng-src="{{getImg('common/home/bathing_suits.jpg')}}" />
                         <div class="home-tile-overlay">
                             Summer Favorites
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
