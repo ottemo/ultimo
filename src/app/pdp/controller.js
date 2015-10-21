@@ -104,7 +104,7 @@ angular.module("pdpModule")
                 };
 
                 $scope.productId = $routeParams.id;
-                $scope.product = defaultProduct();
+                $scope.product;
                 $scope.qty = 1;
                 $scope.ratingInfo = getDefaultRatingInfo();
 
