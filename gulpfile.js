@@ -74,7 +74,7 @@ gulp.task('clean', function(done) {
  * Configure the application
  * --api=(production|staging|localhost)
  */
-gulp.task('config', ['clean'], function() {
+gulp.task('config', function() {
     // Read the settings from the right file
     var filename = config.apiConfig + '.json';
     var settings = JSON.parse(fs.readFileSync('./config/' + filename, 'utf8'));
@@ -83,12 +83,7 @@ gulp.task('config', ['clean'], function() {
     return gulp.src('config/config.js')
         .pipe($.replaceTask({
             patterns: [{
-                json: {
-                    'useStrict' : settings.useStrict,
-                    'apiUrl' : settings.apiUrl,
-                    'idFacebook' : settings.idFacebook,
-                    'idGoogle' : settings.idGoogle
-                }
+                json: settings
             }]
         }))
         .pipe(gulp.dest(config.temp));
