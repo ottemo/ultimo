@@ -656,38 +656,44 @@ angular.module("checkoutModule")
                     if (checkoutValid.status) {
                         $(this).parents('.confirm').css('display', 'none');
                         $('#processing').modal('show');
-                        $checkoutApiService.save().$promise.then(
-                            function (response) {
-                                if (response.error === null && null !== payment.method && payment.method.Type === "remote" && response.result === "redirect") {
-                                    window.location.replace(response.redirect);
-                                } else if (response.error === null && null !== payment.method && payment.method.Type === "post_cc") {
-                                    // Handler for direct post form for Authorize.net
-                                    sendPostForm(payment.method, response);
-                                } else if (response.error === null) {
-                                    info();
-                                    $cartService.reload().then(
-                                        function () {
-                                            $scope.purchase = response.result || {};
 
-                                            // Stash the order in a service so we can access it on the
-                                            // success page
-                                            $checkoutService.lastOrder = response.result || false;
+                        $checkoutApiService.save()
+                            .$promise.then(function (response) {
+                               if (response.error === null) {
+
+                                var isRemote = (null !== payment.method && payment.method.Type === "remote" && response.result === "redirect")
+                                var isPostCC = (null !== payment.method && payment.method.Type === "post_cc");
+
+                                if (isRemote) {
+                                    // Paypal Express
+                                    window.location.replace(response.redirect);
+                                } else if (isPostCC) {
+                                    // Auth.net
+                                    sendPostForm(payment.method, response);
+                                } else {
+                                    // All Others; Zero Dollar, PayFlow Pro
+                                    info();
+                                    $cartService.reload()
+                                        .then(function() {
+                                            $scope.purchase = response.result || {};
 
                                             //TODO: clean this up with angular modals and promises
                                             $('#processing').modal('hide');
-                                            $timeout(function(){
-                                                $location.path("/checkout/success/"+ $checkoutService.lastOrder._id);
+                                            $timeout(function() {
+                                                $location.path("/checkout/success/" + $scope.purchase._id);
                                             }, 600);
-                                        }
-                                    );
+                                        });
+                                    }
                                 } else {
+                                    // Errors from server
                                     $(this).parents('.confirm').css('display', 'block');
                                     $('#processing').modal('hide');
-                                    // Errors from server
                                     $scope.message = $commonUtilService.getMessage(response);
                                 }
-                            }
-                        );
+                            });
+
+
+
                     } else {
                         $(this).parents('.confirm').css('display', 'block');
                         $('#processing').modal('hide');
