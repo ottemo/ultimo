@@ -4,11 +4,9 @@ angular.module("visitorModule", [
     "giftCardsModule"
 ])
 
-.constant("VISITOR_DEFAULT_AVATAR", "avatar-placeholder.png")
-
 .config(["$routeProvider", "$locationProvider", function($routeProvider, $locationProvider) {
 
-    fb.init();
+    //REFACTOR:
     gl.init();
 
     $routeProvider
@@ -72,18 +70,40 @@ angular.module("visitorModule", [
 .run([
     "$rootScope",
     "$location",
+    "$window",
     "$anchorScroll",
     "$visitorLoginService",
-    function($rootScope, $location, $anchorScroll, $visitorLoginService) {
+    function($rootScope, $location, $window, $anchorScroll, $visitorLoginService) {
         $anchorScroll.yOffset = 150;
 
-        angular.module('visitorModule').back = {};
+        // Facebook Login callback
+        $window.fbAsyncInit = function() {
+            FB.init({
+              appId: angular.appConfigValue("general.app.login.facebook.appId"),
+              status: true,
+              cookie: true,
+              xfbml: false,   // parse facebook html tags <fb:like>
+              version: 'v2.4'
+            });
+        };
 
-        // save auth data in root var
-        //
+        // Load the SDK asynchronously
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+
+        // Check if they are logged in and save auth info to root
         $visitorLoginService.isLoggedIn().then(function(isLoggedIn) {
             $rootScope.visitorProps = $visitorLoginService.props;
         });
+
+        // After login redirect recording
+        angular.module('visitorModule').back = {};
 
         $rootScope.$on('$locationChangeStart', function(evt, absNewUrl, absOldUrl) {
 

@@ -7,8 +7,7 @@ angular.module("visitorModule")
         '$visitorApiService',
         '$q',
         '$designService',
-        'VISITOR_DEFAULT_AVATAR',
-        function ($resource, $visitorApiService, $q, $designService, VISITOR_DEFAULT_AVATAR) {
+        function ($resource, $visitorApiService, $q, $designService) {
 
             /** Variables */
             var login, loginId, isLoggedIn, mapFields, sendingRequest;
@@ -18,7 +17,7 @@ angular.module("visitorModule")
 
             /** Functions */
             var getLogin, getLoginId, setLogin, cleanLogin, getVisitorProperty,
-                getAvatar, getFullName, fIsLoggedIn, getDefaultLogin, logout, fillFields;
+                getFullName, fIsLoggedIn, getDefaultLogin, logout, fillFields;
 
             isLoggedIn = null;
 
@@ -104,18 +103,6 @@ angular.module("visitorModule")
                 login = getDefaultLogin();
             };
 
-            getAvatar = function () {
-                var avatar;
-                avatar = $designService.getImage(VISITOR_DEFAULT_AVATAR);
-
-                if ('' !== login["facebook_id"]) {
-                    avatar = 'http://' + fb.getAvatar(login["facebook_id"], 'large');
-                } else if (login["google_id"] !== '') {
-                    avatar = gl.getAvatar(login["google_id"]);
-                }
-                return avatar;
-            };
-
             getFullName = function () {
                 return login.fname + ' ' + login.lname;
             };
@@ -170,7 +157,6 @@ angular.module("visitorModule")
                 cleanLogin: cleanLogin,
                 setLogin: setLogin,
                 getVisitor: getLogin,
-                getAvatar: getAvatar,
                 getFullName: getFullName,
                 getVisitorId: getLoginId,
                 isLoggedIn: fIsLoggedIn,
