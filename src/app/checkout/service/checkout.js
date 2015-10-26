@@ -267,8 +267,7 @@ angular.module("checkoutModule")
                 "discountNeglect": discountNeglect,
                 "discountApply": discountApply,
                 "getAllowedGuestCheckout": getAllowedGuestCheckout,
-                "getMinimalCostShippingMethods": getMinimalCostShippingMethods,
-                "lastOrder": false
+                "getMinimalCostShippingMethods": getMinimalCostShippingMethods
             };
         }
     ]
