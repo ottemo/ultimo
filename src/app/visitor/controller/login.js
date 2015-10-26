@@ -25,6 +25,19 @@ angular.module("visitorModule")
                 "year": 0
             };
 
+            activate();
+
+            //////////////////////////////////////////////
+
+            function activate() {
+                // Redirect if you are already logged in
+                $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
+                    if (isLoggedIn) {
+                        $location.path("/");
+                    }
+                });
+            }
+
             $scope.init = function () {
                 if (typeof verifyCode !== "undefined") {
                     $visitorApiService.validate({"key": verifyCode}).$promise.then(function (response) {
