@@ -4,6 +4,7 @@
 angular.module("checkoutModule", [
     "ngRoute",
     "ngResource",
+    "ngStorage",
     "designModule",
     "giftCardsModule"
 ])
