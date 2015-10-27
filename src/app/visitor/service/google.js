@@ -1,9 +1,7 @@
 var gl = function () {
 
-    var init, requestData, login, loginCallback, userData, avatar, getAvatar;
+    var init, requestData, login, loginCallback, userData;
     userData = {'access_token': ''};
-
-    avatar = 'https://plus.google.com/s2/photos/profile/##googleId##?sz=150';
 
     requestData = {
         'clientid': angular.appConfigValue("general.app.login.google.clientId"),
@@ -41,20 +39,12 @@ var gl = function () {
         return userData;
     };
 
-    getAvatar = function (userId) {
-        var url, regexp;
-        regexp = /##googleId##/;
-        url = avatar.replace(regexp, userId);
-        return url;
-    };
-
     return {
         clientId: angular.appConfigValue("general.app.login.google.clientId"),
         requestData: requestData,
         userData: userData,
         login: login,
         loginCallback: loginCallback,
-        getAvatar: getAvatar,
         init: init
     };
 

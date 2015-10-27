@@ -15,7 +15,6 @@ angular.module("commonModule")
     ) {
         $scope.nav = {}
         $scope.load_completed = false; // Page loading event handler
-        $scope.visitorProps = $visitorLoginService.props;
         $scope.getItemsInCart = getItemsInCart;
 
         ///////////////////////////////
