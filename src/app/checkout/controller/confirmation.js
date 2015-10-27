@@ -3,13 +3,17 @@ angular.module("checkoutModule")
 .controller("checkoutOrderConfirmationController", [
     "$scope",
     "$routeParams",
+    "$localStorage",
     "$visitorApiService",
     function(
         $scope,
         $routeParams,
+        $localStorage,
         $visitorApiService
     ) {
+        // NOTE: Additional tracking exists in the view
         var orderId = $routeParams.orderId;
+        var storagePrefix = 'checkout/success-tracked-';
 
         $scope.order = {};
 
@@ -17,9 +21,42 @@ angular.module("checkoutModule")
 
         //////////////////////
 
+        function activate() {
+            // Fetch this order from the server
+            $visitorApiService.getOrder({
+                    orderID: orderId
+                })
+                .$promise.then(function(response) {
+                    $scope.order = response.error == null ? response.result : false;
+
+                    // Tracking
+                    if ($scope.order && !hasBeenTracked(orderId)) {
+                        trackGAEcommerce($scope.order);
+                        // trackFBConversion($scope.order);
+
+                        // We perform this flagging so that if the user
+                        // refreshes the page we don't track them twice
+                        // this isn't infallible
+                        flagAsTracked(orderId);
+                    }
+                });
+        }
+
+        /**
+         * @param  {string} orderId
+         * @return {Boolean}
+         */
+        function hasBeenTracked(orderId) {
+            return !!$localStorage[storagePrefix + orderId];
+        }
+
+        function flagAsTracked(orderId) {
+            return $localStorage[storagePrefix + orderId] = true;
+        }
+
         // Google Analytics eCommerce Tracking
         function trackGAEcommerce(order) {
-            if(window.ga) {
+            if (window.ga) {
                 // Gather the ecommerce module
                 ga('require', 'ecommerce');
 
@@ -45,7 +82,7 @@ angular.module("checkoutModule")
                         };
 
                         ga('ecommerce:addItem', gaItem);
-                   });
+                    });
                 }
 
                 // Send all data
@@ -64,24 +101,6 @@ angular.module("checkoutModule")
                     'currency': 'USD'
                 }]);
             }
-        }
-
-        // NOTE: Additional tracking exists in the view
-        function activate() {
-
-            // Fetch this order from the server
-            $visitorApiService.getOrder({
-                orderID: orderId
-            })
-            .$promise.then(function(response) {
-                $scope.order = response.error == null ? response.result : false;
-
-                // Tracking
-                if ($scope.order) {
-                    trackGAEcommerce($scope.order);
-                    // trackFBConversion($scope.order);
-                }
-            });
         }
     }
 ]);
