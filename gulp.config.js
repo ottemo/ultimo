@@ -51,8 +51,8 @@ module.exports = function() {
 
         // Settings
         sassSettings: {
-            outputStyle: 'compressed',
-            precision: 8,
+            // outputStyle: 'compressed',
+            // precision: 8,
         },
 
         node: {
