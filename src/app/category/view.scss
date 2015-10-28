@@ -59,11 +59,12 @@
     }
 
     .btn-quick-view {
+        display: none;
+        z-index: 1;
         position: absolute;
         width: 80%;
         left: 10%;
         bottom: 30%;
-        display: none;
     }
 
     // only show the quick view button if you are on lg
