@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="/styles/app.min.css">
 </head>
 <body class=""
-ng-controller="appController" 
+ng-controller="appController"
 ng-class="{'is-logged-in': visitorProps.isLoggedIn}"
 ot-route-class>
 
@@ -66,8 +66,7 @@ ot-route-class>
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-// TODO
-ga('create', 'UA-XXXXXXXX-1', 'auto');
+ga('create', iniConfig.GA, 'auto');
 </script>
 
 </body>
