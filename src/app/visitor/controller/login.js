@@ -1,3 +1,4 @@
+//REFACTOR: This controller is bound to multiple routes and components, be careful
 angular.module("visitorModule")
     .controller('visitorLoginController', [
         '$scope',
@@ -31,11 +32,11 @@ angular.module("visitorModule")
 
             function activate() {
                 // Redirect if you are already logged in
-                $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
-                    if (isLoggedIn) {
-                        $location.path("/");
-                    }
-                });
+                // $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
+                //     if (isLoggedIn) {
+                //         $location.path("/");
+                //     }
+                // });
             }
 
             $scope.init = function () {
