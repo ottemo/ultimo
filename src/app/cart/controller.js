@@ -1,3 +1,4 @@
+// This controller is reused in cart, mini-cart, and checkout
 angular.module("cartModule")
 
     .controller("cartListController", [
