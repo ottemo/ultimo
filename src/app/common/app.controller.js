@@ -5,16 +5,13 @@ angular.module("commonModule")
     "$commonBreadcrumbsService",
     "$cartService",
     "$visitorLoginService",
-    "cfpLoadingBar",
     function(
         $scope,
         $commonBreadcrumbsService,
         $cartService,
-        $visitorLoginService,
-        cfpLoadingBar
+        $visitorLoginService
     ) {
         $scope.nav = {}
-        $scope.load_completed = false; // Page loading event handler
         $scope.getItemsInCart = getItemsInCart;
 
         ///////////////////////////////
@@ -30,11 +27,6 @@ angular.module("commonModule")
 
         $scope.$on("add-breadcrumbs", function(event, param) {
             $commonBreadcrumbsService.addItem(param.label, param.url);
-        });
-
-        // Watch our initial loading bar
-        $scope.$on('cfpLoadingBar:completed', function(e, param) {
-            $scope.load_completed = true;
         });
 
         // Cart initialization
