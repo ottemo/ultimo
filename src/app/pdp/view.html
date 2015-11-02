@@ -1,163 +1,237 @@
 <div class="container-fluid">
-<div ng-if="product && !product.enabled" class="ng-cloak">
-    <div class="alert alert-warning alert-dismissible fade in" role="alert" >
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">×</span>
-        </button>
 
-        <h4>Disabled Product!</h4>
-        <p>
-            This product is currently disabled. Customers trying to reach this product will be redirected back to the homepage.
-        </p>
+    <!-- disabled message -->
+    <div ng-if="product && !product.enabled"
+        class="ng-cloak">
+        <div class="alert alert-warning alert-dismissible"
+            role="alert">
+            <button type="button"
+                class="close"
+                data-dismiss="alert"
+                aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+
+            <h4>Disabled Product!</h4>
+            <p>
+                This product is currently disabled. Customers trying to reach this product will be redirected back to the homepage.
+            </p>
+        </div>
     </div>
-</div>
 
-<div class="row">
-    <!-- product image  -->
-    <div class="text-center col-xs-12 col-md-6" ng-init="init()">
-        <a
-        class="pdp-primary-img js-img-zoom"
-        data-src-big="{{ product.images[0].large }}">
-            <img
-            class="img-responsive center-block"
-            ng-src="{{ product.images[0].medium }}"
-            err-src="placeholder.png"
-            alt=""/>
-        </a>
+    <!-- product -->
+    <div class="row pdp-flex-container">
 
-        <div class="row product-alt-list" ng-show="product.images.length > 1">
-            <div
-            ng-repeat="img in product.images"
-            ng-if="$index !== 0"
-            class="col-xs-3 product-alt-list__item">
-                <img
-                class="img-rounded img-responsive"
-                ng-src="{{ img.thumb }}"
-                err-src="placeholder.png"
-                alt="" />
+        <!-- details -->
+        <div class="col-md-3 pdp-left">
+            <div class="page-header">
+                <h1>{{product.name}}</h1>
+            </div>
+            <div class="visible-md visible-lg">
+                <!-- description 1/2 -->
+                <p>{{product.description}}</p>
+
+                <!-- social links -->
+                <!-- TODO: fill in social hrefs -->
+                <ul class="list-social">
+                    <li>share:</li>
+                    <li>
+                        <a href="">
+                            <i class="fa fa-facebook fa-fw"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="fa fa-twitter fa-fw"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="fa fa-pinterest-p fa-fw"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/contact">
+                            <i class="fa fa-envelope fa-fw"></i>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
 
-        <!-- optional video field -->
-        <div class="embed-responsive embed-responsive-16by9" ng-if="product.video_url">
-            <iframe class="embed-responsive-item" ng-src="{{product.video_url | trustedUrl}}" ></iframe>
+        <!-- images -->
+        <div class="col-sm-7 col-md-6 pdp-img-list">
+            <div ot-slider
+                config="{dots:true}">
+                <div ng-repeat="img in product.images">
+                    <a class="pdp-img-container js-pdp-img"
+                        href="{{img.large}}">
+                        <img ng-src="{{img.large}}"
+                            class="img-fill" />
+                    </a>
+                </div>
+
+                <!-- test code -->
+                <!-- <div ng-repeat="img in [1,2,3,4]">
+                    <a class="pdp-img-container js-pdp-img"
+                        href="http://placehold.it/1000x1430">
+                        <img ng-src="//placehold.it/1000x1430"
+                            class="img-fill" />
+                    </a>
+                </div> -->
+            </div>
         </div>
-    </div>
 
-    <!-- info -->
-    <div class="col-xs-12 col-md-6">
-        <h1 class="pdp-product-name">{{product.name}}</h1>
-        <div class="pdp-description std" ng-bind-html="product.description"></div>
+        <!-- right column -->
+        <div class="col-sm-5 col-md-3">
+            <!-- description 2/2 -->
+            <p class="hidden-md hidden-lg std">{{product.description}}</p>
 
-        <div class="pdp-price">
-            <label>Price:</label>
-            <span class="pdp-strikethrough-price-value"
-            ng-show="product.strikethrough_price">
-                {{product.strikethrough_price | currency}}
-            </span>
-            <span class="pdp-price-value">{{product.price | currency}}</span>
-        </div>
-
-        <hr/>
-
-        <!-- options -->
-        <gui-custom-options item="product" object="this"></gui-custom-options>
-
-        <div class="form-inline form-spaced pdp-purchase-form-2">
-            <!-- Quantity -->
-            <div class="form-group">
-                <label for="qty">Qty:</label>
-                <input
-                type="text"
-                id="qty"
-                class="form-control form-control--2char"
-                placeholder="1"
-                value="{{qty}}"
-                ng-model="qty"
-                ng-change="update(idx, qty)">
+            <div ng-if="product.isInStoreOnly">
+                <div class="alert alert-info">
+                    <p><strong>Only Available In-Store</strong></p>
+                    <p>Stop by our store in Downtown Seattle to shop for this product, and discover our other in-store only specials.</p>
+                </div>
+                <a href="/contact" class="btn btn-block btn-primary">Visit Us Today</a>
             </div>
 
-            <!-- add to cart button -->
-            <a
-            href=""
-            class="btn btn-primary btn-block-xs"
-            ng-class="{disabled: isAddingToCart}"
-            ng-click="addToCart($event)">
-                Add to bag
-                <i class="fa fa-circle-o-notch fa-spin ng-hide"
-                ng-show="isAddingToCart">
-                </i>
-            </a>
+            <div ng-if="!product.isInStoreOnly">
+                <!-- price -->
+                <div class="form-group">
+                    <label class="control-label">Price:</label>
+                    <span class="form-control-static">{{product.price | currency}}</span>
+                </div>
 
+                <!-- custom options -->
+                <gui-custom-options item="product"
+                    object="this"></gui-custom-options>
+
+                <!-- Quantity -->
+                <div class="form-group">
+                    <label for="qty"
+                        class="control-label">Qty:</label>
+                    <input type="text"
+                        id="qty"
+                        class="form-control"
+                        placeholder="1"
+                        value="{{qty}}"
+                        ng-model="qty"
+                        ng-change="update(idx, qty)">
+                </div>
+
+                <!-- add to cart button -->
+                <div class="form-group">
+                    <a class="btn btn-primary btn-block"
+                        ng-class="{disabled: isAddingToCart}"
+                        ng-click="addToCart($event)">
+                        Add to bag
+                        <i class="fa fa-circle-o-notch fa-spin"
+                        ng-show="isAddingToCart"></i>
+                    </a>
+                </div>
+
+                <!-- error message -->
+                <gui-message-manager item="messageOptions"></gui-message-manager>
+
+                <!-- add to bag success message -->
+                <div class="alert alert-success text-center"
+                    ng-show="isAddToCartSuccessful">
+                    <p>{{product.name}} was added to your bag</p>
+                    <p><a href="/cart"
+                            class="btn btn-default">view my bag</a></p>
+                </div>
+            </div>
+
+            <!-- social links -->
+            <!-- TODO: fill in social hrefs -->
+            <ul class="hidden-md hidden-lg text-center list-social">
+                <li>share:</li>
+                <li>
+                    <a href="">
+                        <i class="fa fa-facebook fa-fw"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="fa fa-twitter fa-fw"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="fa fa-pinterest-p fa-fw"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="/contact">
+                        <i class="fa fa-envelope fa-fw"></i>
+                    </a>
+                </li>
+            </ul>
         </div>
-
-        <!-- error message -->
-        <gui-message-manager item="messageOptions"></gui-message-manager>
-
-        <!-- add to bag success message -->
-        <div class="alert alert-success" ng-show="isAddToCartSuccessful">
-            {{product.name}} was added to your bag
-            <a href="/cart" class="btn btn-default">view my bag</a>
-        </div>
-
-
-        <p class="pdp-purchase-form-details">Have questions? Check out the <a href="/faq">FAQ's</a></p>
-
-        <!-- social links -->
-        <ul class="list-social">
-            <li>
-                <!-- TODO: FB url -->
-                <a href="" class="fa fa-facebook fa-fw"></a>
-            </li>
-            <li>
-                <!-- TODO: TWITTER URL -->
-                <a href="" class="fa fa-twitter fa-fw"></a>
-            </li>
-            <li>
-                <!-- TODO: PINTEREST URL -->
-                <a href="" class="fa fa-pinterest-p fa-fw"></a>
-            </li>
-            <li>
-                <a href="/contact" class="fa fa-envelope fa-fw"></a>
-            </li>
-        </ul>
     </div>
-</div>
 
-<!-- optional additional product description -->
-<div class="std" ng-if="product.ritual" ng-bind-html="product.ritual"></div>
-<hr ng-if="product.ritual && product.ingredients">
-<div class="std" ng-if="product.ingredients" ng-bind-html="product.ingredients"></div>
-
-<div class="row" ng-if="related">
-    <div class="text-center col-sm-10 col-xs-offset-1 col-md-12 ">
-        <span class="col-xs-12 col-sm-6 col-md-2 " ng-repeat="_item in related" ng-show="related.length">
-            <a class="thumbnail" href="{{productService.getUrl(_item.ID)}}">
-                <img
-                class="text center"
-                ng-src="{{getImage('',_item.Image, 'thumb')}}"
-                alt="_item.Name"/>
+    <!-- related -->
+    <!-- <div class="row"
+        ng-if="related && related.length">
+        <div class="col-xs-6 col-sm-4"
+            ng-repeat="_item in related">
+            <a href="{{productService.getUrl(_item.ID)}}">
+                <img ng-src="{{ _item.images.thumb }}" />
             </a>
-        </span>
-        <div class="clear"></div>
-    </div>
-</div>
+        </div>
+    </div> -->
 </div>
 
 <!-- TODO: move out -->
 <script>
+$(function() {
 
-    $(function () {
-        $('body').removeClass('modal-open');
+    // click to zoom on images
+    monitorZoomImage();
 
-        // big image preview
-        $(document).on('click', '.js-img-zoom', function(e){
-            e.preventDefault();
-            var $this = $(this);
-            $.fancybox([
-                { href: $this.data('src-big') }
-            ]);
+    // Scale images so they don't extend too far vertically
+    scaleImages();
+    scaleImagesOnResize();
+
+    ////////////////////////
+
+    function monitorZoomImage() {
+        $(document).on('click', '.js-pdp-img', function(e) {
+
+            // Don't follow the link if we are on something larger than a tablet
+            if ($(window).width() > 767) {
+                e.preventDefault();
+
+                // There is some weird bug with fancybox and context,
+                // so just pass in the source for it
+                var src = $(this).attr('href');
+
+                $.fancybox({
+                    href: src
+                });
+            };
         });
-    });
+    }
 
+    function scaleImagesOnResize() {
+        $(window).resize(function() {
+            if (typeof _ === "undefined") {
+                scaleImages();
+            } else {
+                _.debounce(scaleImages, 200);
+            }
+        });
+    }
+
+    function scaleImages() {
+        // product image ratio 143%;
+        var maxHeight = ($(window).height() - 200) * (100 / 143);
+        maxHeight = Math.round(maxHeight);
+        $('.js-pdp-img').css({
+            'max-width': maxHeight
+        });
+    }
+
+});
 </script>
+

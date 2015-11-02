@@ -17,11 +17,11 @@ angular.module("designModule")
             if (current.$$route) {
 
                 // PDP
-                if (current.$$route.controller == 'pdpController') {
+                if (current.$$route.controller == 'pdpViewController') {
                     elem.addClass('route--pdp-' + current.params.id);
                 }
             }
         });
     }
   };
-}]); 
+}]);
