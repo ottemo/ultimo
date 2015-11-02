@@ -1,7 +1,5 @@
 angular.module("pdpModule")
-/**
- *  HTML top page header manipulator (direct service mapping)
- */
+
     .controller("pdpController", [
         "$scope",
         "$routeParams",
@@ -179,25 +177,6 @@ angular.module("pdpModule")
                 // we get an odd bug where the link retains focus
                 $event.target.blur();
 
-                var addItem = function () {
-                    // In the process of adding to cart, prevent double clicks
-                    $scope.isAddingToCart = true;
-                    $scope.submitted = true; //TODO: not sure what this does
-
-                    $cartService.add($scope.productId, $scope.qty, $pdpProductService.getOptions()).then(
-                        function (response) {
-                            // Let them keep adding to cart now
-                            $scope.isAddingToCart = false;
-                            if (response.error !== null) {
-                                $scope.messageOptions = $commonUtilService.getMessage(response);
-                            } else {
-                                // Show a success message
-                                $scope.isAddToCartSuccessful = true;
-                            }
-                        }
-                    );
-                };
-
                 if (angular.appConfigValue("general.checkout.guest_checkout")) {
                     if (!$scope.isAddingToCart) {
                         addItem();
@@ -210,6 +189,30 @@ angular.module("pdpModule")
                         }
                     });
                 }
+
+                function addItem() {
+                    // Flag that we attempted to submit form
+                    // gets picked up by form error flags in guiCustomOptions.html
+                    $scope.submitted = true; //REFACTOR
+                    $scope.isAddToCartSuccessful = false;
+
+                    if ($scope.customOptionsForm && $scope.customOptionsForm.$valid) {
+                        // Flag that we are in the process of adding to cart, prevent double clicks
+                        $scope.isAddingToCart = true;
+
+                        $cartService.add($scope.productId, $scope.qty, $pdpProductService.getOptions())
+                            .then(function (response) {
+                                // Let them keep adding to cart now
+                                $scope.isAddingToCart = false;
+                                if (response.error !== null) {
+                                    $scope.messageOptions = $commonUtilService.getMessage(response);
+                                } else {
+                                    // Show a success message
+                                    $scope.isAddToCartSuccessful = true;
+                                }
+                            });
+                    }
+                };
             };
 
 

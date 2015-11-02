@@ -32,8 +32,8 @@ angular.module("commonModule", [
     .value("DEFAULT_DESCRIPTION", "")
     .value("REST_SERVER_URI", angular.REST_SERVER_URI) // REFACTOR: why is this declared twice
 
-.config(["$routeProvider", "$locationProvider", "cfpLoadingBarProvider",
-    function($routeProvider, $locationProvider, cfpLoadingBarProvider) {
+.config(["$routeProvider", "$locationProvider", "$animateProvider", "cfpLoadingBarProvider",
+    function($routeProvider, $locationProvider, $animateProvider, cfpLoadingBarProvider) {
         $routeProvider
             .when("/", {
                 // Uses default seo
@@ -62,6 +62,9 @@ angular.module("commonModule", [
 
         // loading bar configuration
         cfpLoadingBarProvider.includeSpinner = false;
+
+        // Don't monitor font awesome animation .fa-spin
+        $animateProvider.classNameFilter(/^((?!(fa-spin)).)*$/);
     }
 ])
 

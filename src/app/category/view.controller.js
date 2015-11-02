@@ -52,6 +52,7 @@ angular.module("categoryModule")
         $scope.loadMore = loadMore;
 
         // Pop Up Product
+        // REFACTOR: Form validation is broken in popup
         $scope.popupProduct = {};
         $scope.options = {};
         $scope.message = {};

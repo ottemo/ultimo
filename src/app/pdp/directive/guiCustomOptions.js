@@ -1,5 +1,5 @@
 angular.module("pdpModule")
-    .directive("guiCustomOptions", ["$designService", function ($designService) {
+    .directive("guiCustomOptions", ["$designService", function($designService) {
         return {
             restrict: "E",
             scope: {
@@ -7,73 +7,66 @@ angular.module("pdpModule")
                 "product": "=item"
             },
             templateUrl: $designService.getTemplate("pdp/gui/guiCustomOptions.html"),
-            controller: function ($scope) {
-                var prepareOptions;
+            controller: function($scope) {
 
-                $scope.optionName = "";
-                $scope.options = {};
+                $scope.selectFirstRadio = selectFirstRadio;
+                $scope.toggleCheckbox = toggleCheckbox;
+                $scope.tomorrowsDate = getTomorrowsDate();
 
-                $scope.init = function (option) {
-                    if(option.type === 'radio'){ // select first option for radio
-                        var firstObj = option.options[Object.keys(option.options)[0]];
-                        if(firstObj){
-                            $scope.parent.options[option.label] = firstObj.label;
-                        }
-                    }
-                    $scope.optionName = option.label;
-                };
-
-                $scope.getClass = function(option){
-                    return 'option-' + option.label.toLowerCase().replace(/ /g,"-").replace(/[^a-z0-9-]/g, "");
-                };
-
-                prepareOptions = function () {
-                    var removeEmptyOptions;
-
-                    removeEmptyOptions = function () {
-                        if (typeof $scope.parent.options[$scope.optionName] !== "undefined" &&
-                            $scope.parent.options[$scope.optionName].length <= 0) {
-                            delete $scope.parent.options[$scope.optionName];
-                        }
-                    };
-
-                    for (var field in $scope.options) {
-                        if ($scope.options.hasOwnProperty(field) && $scope.options[field]) {
-                            if (typeof $scope.parent.options[$scope.optionName] === "undefined") {
-                                $scope.parent.options[$scope.optionName] = [];
-                            }
-                            $scope.parent.options[$scope.optionName].push(field);
-                        }
-                    }
-
-                    removeEmptyOptions();
-                };
-
-                $scope.$watch("options", function () {
-                    if (typeof $scope.parent.options[$scope.optionName] !== "undefined") {
-                        $scope.parent.options[$scope.optionName] = [];
-                    }
-
-                    prepareOptions();
-                }, true);
-
-                $scope.$watch("customOptionsForm", function () {
+                $scope.$watch("customOptionsForm", function() {
                     $scope.parent.customOptionsForm = $scope.customOptionsForm;
-
                 }, true);
-            }
-        };
-    }])
-    .filter('getOrdered', function () {
-        return function (input) {
-            var ordered = {};
-            for (var key in input) {
-                if (input.hasOwnProperty(key)) {
 
-                    ordered[input[key].order] = input[key];
+                ///////////////////////////
+
+                function getTomorrowsDate() {
+                    var today = new Date();
+                    var tomorrow = new Date( today.getTime() + 24*60*60*1000 );
+                    var dd = tomorrow.getDate();
+                    var mm = tomorrow.getMonth()+1; //January is 0!
+                    var yyyy = tomorrow.getFullYear();
+
+                    if(dd<10) {
+                        dd='0'+dd
+                    }
+
+                    if(mm<10) {
+                        mm='0'+mm
+                    }
+
+                    return [yyyy,mm,dd].join('-');
+                }
+
+                // select first option for radio
+                function selectFirstRadio(option) {
+                    if (option.type === 'radio' && option.options[0]) {
+                        $scope.parent.options[option.label] = option.options[0].label;
+                    }
+                }
+
+                /**
+                 * checkbox options want to be in the format
+                 * {"Gift Card":["Gift Card"]}
+                 */
+                function toggleCheckbox(option) {
+
+                    // See if we have any selected option Items
+                    var selectedCheckboxes = []
+                    angular.forEach(option.options, function(optionItem) {
+                        if (optionItem.selected) {
+                            selectedCheckboxes.push(optionItem.label);
+                        }
+                    });
+
+                    // If we have any selected boxes save them out
+                    if (selectedCheckboxes.length) {
+                        $scope.parent.options[option.label] = selectedCheckboxes;
+                    } else {
+                        // Otherwise remove the whole option
+                        delete $scope.parent.options[option.label];
+                    }
                 }
             }
-
-            return ordered;
         };
-    });
+    }]);
+

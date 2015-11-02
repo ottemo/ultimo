@@ -1,84 +1,149 @@
-<div data-ng-app>
-    <form name="customOptionsForm" role="form">
-        <div data-ng-repeat="(key, option) in product.options | getOrdered">
+<div>
+    <form name="customOptionsForm"
+        role="form">
+        <div ng-repeat="option in product.options">
 
             <ng-form name="customOptionsFormIn">
                 <div class="custom-option">
-                    <div ng-switch="option.type" class="{{getClass(option)}}">
+                    <div ng-switch="option.type"
+                        class="{{option.cssClass}}">
 
                         <!-- Input -->
-                        <div ng-switch-when="field" class="form-group">
-                            <label class="option-set-label">
-                                {{option.label}}<span class="asterisk" ng-if="option.required">*</span>
-                            </label>
-                            <input type="text" class="form-control" data-ng-model="parent.options[option.label]"
-                                   id="{{ option.label }}" name="{{option.label}}" ng-required="option.required"/>
+                        <div ng-switch-when="field"
+                            class="form-group"
+                            ng-class="{'has-error': parent.submitted && customOptionsFormIn[option.label].$error.required}">
 
-                            <span data-ng-show="parent.submitted && customOptionsFormIn['\{\{field.name\}\}'].$error.required"
-                               class="help-block">This field is required.</span>
+                            <label class="option-set-label">
+                                {{option.label}}<span class="asterisk"
+                                    ng-if="option.required">*</span>
+                            </label>
+                            <input type="text"
+                                class="form-control"
+                                ng-model="parent.options[option.label]"
+                                id="{{ option.label }}"
+                                name="{{option.label}}"
+                                ng-required="option.required" />
+
+                            <div ng-show="parent.submitted && customOptionsFormIn[option.label].$error.required"
+                                class="help-block">
+                                This field is required.
+                            </div>
+                        </div>
+
+                        <!-- Date Picker -->
+                        <!--
+                        NOTE:
+                            1. the placeholder here is for browser that don't offer calendars
+                            1. the value is stored as yyyy-mm-dd, but is displayed based on your locale
+                            1. `min` is enforced by angular
+                        -->
+                        <div ng-switch-when="date"
+                            class="form-group"
+                            ng-class="{'has-error': parent.submitted && customOptionsFormIn[option.label].$error}">
+
+                            <label class="option-set-label">
+                                {{option.label}}<span class="asterisk"
+                                    ng-if="option.required">*</span>
+                            </label>
+                            <input type="date"
+                                class="form-control"
+                                ng-model="parent.options[option.label]"
+                                id="{{option.label}}"
+                                name="{{option.label}}"
+                                min="{{tomorrowsDate}}"
+                                placeholder="yyyy-mm-dd"
+                                ng-required="option.required" />
+
+                            <div ng-show="parent.submitted"
+                                class="help-block">
+                                <div ng-show="customOptionsFormIn[option.label].$error.required">
+                                    This field is required.
+                                </div>
+                                <div ng-show="customOptionsFormIn[option.label].$error.min">
+                                    The earliest date this can be sent is tomorrow.
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Select -->
-                        <div ng-switch-when="select" class="form-group">
+                        <div ng-switch-when="select"
+                            class="form-group"
+                            ng-class="{'has-error': parent.submitted && customOptionsFormIn[option.label].$error.required}">
+
                             <label class="option-set-label">
-                                {{option.label}}<span class="asterisk" ng-if="option.required">*</span>
+                                {{option.label}}<span class="asterisk"
+                                    ng-if="option.required">*</span>
                             </label>
                             <select class="form-control"
-                            id="{{ option.label }}"
-                            name="{{option.label}}"
-                            data-ng-model="parent.options[option.label]"
-                            data-ng-options="opt.label as opt.label for (key, opt) in option.options | getOrdered"
-                            ng-required="option.required">
+                                id="{{ option.label }}"
+                                name="{{option.label}}"
+                                ng-model="parent.options[option.label]"
+                                ng-options="optionItem.label as optionItem.label for optionItem in option.options"
+                                ng-required="option.required">
                                 <option value="">-- Please Select --</option>
                             </select>
 
-                            <span data-ng-show="parent.submitted && customOptionsFormIn['\{\{field.name\}\}'].$error.required"
-                            class="help-block">This field is required.</span>
+                            <div ng-show="parent.submitted && customOptionsFormIn[option.label].$error.required"
+                                class="help-block">
+                                This field is required.
+                            </div>
                         </div>
 
                         <!-- Radio -->
-                        <div ng-switch-when="radio" ng-init="init(option)" class="form-group form-inline pdp-radio-group">
+                        <div ng-switch-when="radio"
+                            ng-init="selectFirstRadio(option)"
+                            class="form-group form-inline pdp-radio-group"
+                            ng-class="{'has-error':parent.submitted && customOptionsFormIn[option.label].$error.required}">
+
                             <label class="option-set-label">
-                                {{option.label}}<span class="asterisk" ng-if="option.required">*</span>
+                                {{option.label}}<span class="asterisk"
+                                    ng-if="option.required">*</span>
                             </label>
 
-                            <div class="radio" ng-repeat="(key, opt) in option.options | getOrdered">
+                            <div class="radio"
+                                ng-repeat="optionItem in option.options">
                                 <label>
                                     <input type="radio"
-                                    value="{{opt.label}}"
-                                    id="{{ option.label }}"
-                                    name="{{option.label}}"
-                                    data-ng-model="parent.options[option.label]"
-                                    ng-required="option.required" />
-                                    {{opt.label}}
+                                        value="{{optionItem.label}}"
+                                        name="{{option.label}}"
+                                        ng-model="parent.options[option.label]"
+                                        ng-required="option.required" /> {{optionItem.label}}
                                 </label>
                             </div>
 
-                            <span data-ng-show="parent.submitted && customOptionsFormIn['\{\{field.name\}\}'].$error.required"
-                                  class="help-block">This field is required.</span>
-                            <div class="clear"></div>
+                            <div ng-show="parent.submitted && customOptionsFormIn[option.label].$error.required"
+                                class="help-block">
+                                This field is required.
+                            </div>
                         </div>
 
                         <!-- Multi-select -->
-                        <div ng-switch-when="multi_select" ng-init="init(option)" class="form-group">
+                        <div ng-switch-when="multi_select"
+                            class="form-group"
+                            ng-class="{'has-error': parent.submitted && customOptionsFormIn[option.label].$error.required}">
+
                             <label class="option-set-label">
-                                {{option.label}}<span class="asterisk" ng-if="option.required">*</span>
+                                {{option.label}}
+                                <span class="asterisk"
+                                    ng-if="option.required">*</span>
                             </label>
 
-                            <div class="checkbox" ng-repeat="(key, opt) in option.options | getOrdered">
+                            <div class="checkbox"
+                                ng-repeat="optionItem in option.options">
                                 <label>
                                     <input type="checkbox"
-                                    value="{{opt.label}}"
-                                    id="{{ option.label }}" name="{{option.label}}[]"
-                                           data-ng-model="options[opt.label]"
-                                           ng-required="option.required"/>
-                                    {{opt.label}}
+                                        name="{{option.label}}[]"
+                                        value="{{optionItem.label}}"
+                                        ng-change="toggleCheckbox(option)"
+                                        ng-model="optionItem.selected"
+                                        ng-required="option.required" /> {{optionItem.label}}
                                 </label>
                             </div>
 
-                            <span data-ng-show="parent.submitted && customOptionsFormIn['\{\{field.name\}\}'].$error.required"
-                               class="help-block">This field is required.</span>
-                            <div class="clear"></div>
+                            <div ng-show="parent.submitted && customOptionsFormIn[option.label].$error.required"
+                                class="help-block">
+                                This field is required.
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -86,3 +151,4 @@
         </div>
     </form>
 </div>
+
