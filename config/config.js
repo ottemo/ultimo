@@ -9,5 +9,6 @@ var iniConfig = {
 
     // general
     'general.app.category.itemsPerPage' : 30,
-    'general.checkout.guest_checkout' : true
+    'general.checkout.guest_checkout' : true,
+    "GA" : "@@GA"
 };

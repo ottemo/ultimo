@@ -2,5 +2,6 @@
     "useStrict"     : "use strict",
     "apiUrl"        : "http://api.ub.staging.ottemo.io",
     "idFacebook"    : "TBD",
-    "idGoogle"      : "TBD"
+    "idGoogle"      : "TBD",
+    "GA"            : "UA-XXXXXXXX-1"
 }
