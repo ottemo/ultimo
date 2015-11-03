@@ -9,7 +9,6 @@ angular.module("commonModule", [
     "ngResource",
     "ngRoute",
     "ngSanitize",
-    "ngAnimate",
 
     // Deps
     "angulartics.google.analytics",
