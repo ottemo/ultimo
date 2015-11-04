@@ -11,7 +11,7 @@
                         <!-- Input -->
                         <div ng-switch-when="field"
                             class="form-group"
-                            ng-class="{'has-error': parent.submitted && customOptionsFormIn[option.label].$error.required}">
+                            ng-class="{'has-error': parent.submitted && customOptionsFormIn[option.label].$invalid}">
 
                             <label class="option-set-label">
                                 {{option.label}}<span class="asterisk"
@@ -39,7 +39,7 @@
                         -->
                         <div ng-switch-when="date"
                             class="form-group"
-                            ng-class="{'has-error': parent.submitted && customOptionsFormIn[option.label].$error}">
+                            ng-class="{'has-error': parent.submitted && customOptionsFormIn[option.label].$invalid}">
 
                             <label class="option-set-label">
                                 {{option.label}}<span class="asterisk"
@@ -68,7 +68,7 @@
                         <!-- Select -->
                         <div ng-switch-when="select"
                             class="form-group"
-                            ng-class="{'has-error': parent.submitted && customOptionsFormIn[option.label].$error.required}">
+                            ng-class="{'has-error': parent.submitted && customOptionsFormIn[option.label].$invalid}">
 
                             <label class="option-set-label">
                                 {{option.label}}<span class="asterisk"
@@ -93,7 +93,7 @@
                         <div ng-switch-when="radio"
                             ng-init="selectFirstRadio(option)"
                             class="form-group form-inline pdp-radio-group"
-                            ng-class="{'has-error':parent.submitted && customOptionsFormIn[option.label].$error.required}">
+                            ng-class="{'has-error': parent.submitted && customOptionsFormIn[option.label].$invalid}">
 
                             <label class="option-set-label">
                                 {{option.label}}<span class="asterisk"
@@ -120,7 +120,7 @@
                         <!-- Multi-select -->
                         <div ng-switch-when="multi_select"
                             class="form-group"
-                            ng-class="{'has-error': parent.submitted && customOptionsFormIn[option.label].$error.required}">
+                            ng-class="{'has-error': parent.submitted && customOptionsFormIn[option.label].$invalid}">
 
                             <label class="option-set-label">
                                 {{option.label}}
