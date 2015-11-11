@@ -81,14 +81,5 @@ angular.module("cartModule")
                     }
                 }
             };
-
-            /**
-             * Hides mini-cart after change url
-             */
-            $scope.$on("$locationChangeSuccess", function () {
-                $(".mini-cart").modal('hide');
-            });
-
-
         }
     ]);

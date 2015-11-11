@@ -90,9 +90,10 @@ angular.module("commonModule", [
         REST_SERVER_URI,
         DEFAULT_TITLE
     ) {
-        // Hides mini-cart after change url
+        // Ensures we hide modals after change url
         $rootScope.$on("$locationChangeSuccess", function() {
-            $(".modal").modal('hide');
+            $('.modal').modal('hide');
+            $('body').removeClass('modal-open');
         });
 
         // ajax cookies support fix
