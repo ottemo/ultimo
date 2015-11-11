@@ -17,6 +17,7 @@ angular.module("pdpModule")
             $scope.productId = $routeParams.id;
             $scope.product;
             $scope.options = {};
+            $scope.customOptionsForm;
             $scope.qty = 1;
             $scope.getTotal = getTotal;
 

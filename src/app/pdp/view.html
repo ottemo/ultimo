@@ -87,7 +87,7 @@
             <!-- description 2/2 -->
             <p class="hidden-md hidden-lg std">{{product.description}}</p>
 
-            <div ng-if="product.isInStoreOnly">
+            <div ng-show="product.isInStoreOnly">
                 <div class="alert alert-info">
                     <p><strong>Only Available In-Store</strong></p>
                     <p>Stop by our store in Downtown Seattle to shop for this product, and discover our other in-store only specials.</p>
@@ -95,7 +95,7 @@
                 <a href="/contact" class="btn btn-block btn-primary">Visit Us Today</a>
             </div>
 
-            <div ng-if="!product.isInStoreOnly">
+            <div ng-show="!product.isInStoreOnly">
                 <!-- price -->
                 <div class="form-group">
                     <label class="control-label">Price:</label>
