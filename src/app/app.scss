@@ -3,17 +3,7 @@
 // @import "_styles/"
 
 // Components
-@import "_styles/components/reboot";
-@import "_styles/components/utilities-spacing.scss";
-@import "_styles/components/animation";
-@import "_styles/components/buttons";
-@import "_styles/components/images";
-@import "_styles/components/jquery.fancybox";
-@import "_styles/components/list-social";
-@import "_styles/components/loading-bar";
-@import "_styles/components/slider";
-
-@import "_styles/components/shame";
+@import "_styles/components";
 
 // Modules
 @import "cart/cart";

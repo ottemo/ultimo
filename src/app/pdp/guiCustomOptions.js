@@ -6,7 +6,7 @@ angular.module("pdpModule")
                 "parent": "=object",
                 "product": "=item"
             },
-            templateUrl: $designService.getTemplate("pdp/gui/guiCustomOptions.html"),
+            templateUrl: $designService.getTemplate("pdp/guiCustomOptions.html"),
             controller: function($scope) {
 
                 $scope.selectFirstRadio = selectFirstRadio;
