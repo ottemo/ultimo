@@ -39,7 +39,7 @@
                             <label class="option-set-label">
                                 {{option.label}}
                                 <span class="asterisk" ng-if="option.required">*</span>
-                                <i>(select today’s date to send immediately)</i>
+                                <div class="small">(Select today’s date to send immediately)</div>
                             </label>
                             <div class="datepicker-wrap">
                                 <uib-datepicker ng-model="parent.options[option.label]"
