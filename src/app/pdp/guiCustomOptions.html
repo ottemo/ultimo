@@ -31,36 +31,30 @@
                         </div>
 
                         <!-- Date Picker -->
-                        <!--
-                        NOTE:
-                            1. the placeholder here is for browser that don't offer calendars
-                            1. the value is stored as yyyy-mm-dd, but is displayed based on your locale
-                            1. `min` is enforced by angular
-                        -->
                         <div ng-switch-when="date"
+                            ng-init="parent.options[option.label] = todaysDate"
                             class="form-group"
                             ng-class="{'has-error': parent.submitted && customOptionsFormIn[option.label].$invalid}">
 
                             <label class="option-set-label">
-                                {{option.label}}<span class="asterisk"
-                                    ng-if="option.required">*</span>
+                                {{option.label}}
+                                <span class="asterisk" ng-if="option.required">*</span>
+                                <i>(select today’s date to send immediately)</i>
                             </label>
-                            <input type="date"
-                                class="form-control"
-                                ng-model="parent.options[option.label]"
-                                id="{{option.label}}"
-                                name="{{option.label}}"
-                                min="{{tomorrowsDate}}"
-                                placeholder="yyyy-mm-dd"
-                                ng-required="option.required" />
+                            <div class="datepicker-wrap">
+                                <uib-datepicker ng-model="parent.options[option.label]"
+                                    show-weeks="false"
+                                    max-mode="day"
+                                    min-date="todaysDate"
+                                    ng-required="option.required"
+                                    name="{{option.label}}">
+                                </uib-datepicker>
+                            </div>
 
                             <div ng-show="parent.submitted"
                                 class="help-block">
                                 <div ng-show="customOptionsFormIn[option.label].$error.required">
                                     This field is required.
-                                </div>
-                                <div ng-show="customOptionsFormIn[option.label].$error.min">
-                                    The earliest date this can be sent is tomorrow.
                                 </div>
                             </div>
                         </div>
@@ -93,7 +87,7 @@
                         <div ng-switch-when="radio"
                             ng-init="selectFirstRadio(option)"
                             class="form-group form-inline pdp-radio-group"
-                            ng-class="{'has-error': parent.submitted && customOptionsFormIn[option.label].$invalid}">
+                            ng-class="{'has-error':parent.submitted && customOptionsFormIn[option.label].$invalid}">
 
                             <label class="option-set-label">
                                 {{option.label}}<span class="asterisk"

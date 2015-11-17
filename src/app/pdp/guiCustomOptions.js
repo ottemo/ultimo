@@ -11,31 +11,13 @@ angular.module("pdpModule")
 
                 $scope.selectFirstRadio = selectFirstRadio;
                 $scope.toggleCheckbox = toggleCheckbox;
-                $scope.tomorrowsDate = getTomorrowsDate();
+                $scope.todaysDate = new Date();
 
                 $scope.$watch("customOptionsForm", function() {
                     $scope.parent.customOptionsForm = $scope.customOptionsForm;
                 }, true);
 
                 ///////////////////////////
-
-                function getTomorrowsDate() {
-                    var today = new Date();
-                    var tomorrow = new Date( today.getTime() + 24*60*60*1000 );
-                    var dd = tomorrow.getDate();
-                    var mm = tomorrow.getMonth()+1; //January is 0!
-                    var yyyy = tomorrow.getFullYear();
-
-                    if(dd<10) {
-                        dd='0'+dd
-                    }
-
-                    if(mm<10) {
-                        mm='0'+mm
-                    }
-
-                    return [yyyy,mm,dd].join('-');
-                }
 
                 // select first option for radio
                 function selectFirstRadio(option) {
