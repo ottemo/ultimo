@@ -13,6 +13,7 @@ angular.module("commonModule", [
     // Deps
     "angulartics.google.analytics",
     "mgcrea.ngStrap.navbar",
+    "ui.bootstrap.datepicker",
 
     // Internal
     "angular-loading-bar",
