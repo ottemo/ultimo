@@ -12,7 +12,7 @@ var $ = require('gulp-load-plugins')({
 /**
  * yargs variables can be passed in to alter the behavior of tasks
  *
- * --env=(production|*)
+ * --env=(production|staging|localhost)
  * Applies revision thumbprints, minifies media, uses relavent robots...
  * Forces the api to production
  *
@@ -20,15 +20,34 @@ var $ = require('gulp-load-plugins')({
  * Sets the config.js variables, primarily the api to connect to
  */
 
-config.isProduction = (args.env == 'production');
-config.apiConfig = args.api || 'staging';
+activate();
 
-if (config.isProduction) {
-    if (config.apiConfig !== 'production') {
-        log('When env is production the api will be automatically forced to production');
-    }
-    config.apiConfig = 'production';
-};
+//////////////////////////////
+
+function activate() {
+    // Read the args, and set defaults
+    config.env = args.env || 'localhost'
+    config.api = args.api || 'staging';
+
+    // The `env` arg drives whether or not this is production
+    config.isProduction = (config.env == 'production');
+    if (config.isProduction) {
+        if (config.api !== 'production') {
+            log('When `env` is set to production the `api` will be automatically set to production as well');
+        }
+        config.api = 'production';
+    };
+
+    // Assign the application settings from the config folder
+    config.appSettings = readConfig(config.api);
+}
+
+/**
+ * Read the settings from the right file
+ */
+function readConfig(api) {
+    return JSON.parse(fs.readFileSync('./config/' + api + '.json', 'utf8'));
+}
 
 /**
  * List the tasks available
@@ -71,19 +90,16 @@ gulp.task('clean', function(done) {
 });
 
 /**
- * Configure the application
- * --api=(production|staging|localhost)
+ * Replace the config placeholders with the correct value for the variable
+ * from the config files in /config. Then move the file to a tmp folder
+ *
+ * `gulp build --api=(production|staging|localhost)`
  */
 gulp.task('config', function() {
-    // Read the settings from the right file
-    var filename = config.apiConfig + '.json';
-    var settings = JSON.parse(fs.readFileSync('./config/' + filename, 'utf8'));
-
-    // Replace each placeholder with the correct value for the variable.
     return gulp.src('config/config.js')
         .pipe($.replaceTask({
             patterns: [{
-                json: settings
+                json: config.appSettings
             }]
         }))
         .pipe(gulp.dest(config.temp));
@@ -105,18 +121,17 @@ gulp.task('compile', [
 /**
  * Compile all javascript
  */
-gulp.task('compile_scripts', ['compile_scripts_app', 'compile_scripts_lib', 'compile_scripts_ie']);
+gulp.task('compile_scripts', ['compile_scripts_app', 'compile_scripts_lib']);
 
 gulp.task('compile_scripts_app', function() {
 
-    // uglify + concat breaks sourcemaps so
+    // REFACTOR: This makes dev/staging/production different... :-1:
+    // uglify + concat breaks sourcemaps so don't use it unless we are on production
     // https://github.com/terinjokes/gulp-uglify/issues/105
     if (config.isProduction) {
         return gulp.src(config.scripts.app)
             .pipe($.plumber(handleError))
-            .pipe($.uglify({
-                    mangle: false
-                }))
+            .pipe($.uglify(config.uglifySettings))
             .pipe($.plumber.stop())
             .pipe($.concat('main.js'))
             .pipe(gulp.dest(config.build + 'scripts'));
@@ -131,12 +146,6 @@ gulp.task('compile_scripts_app', function() {
 gulp.task('compile_scripts_lib', function() {
     return gulp.src(config.scripts.lib)
         .pipe($.concat('lib.js'))
-        .pipe(gulp.dest(config.build + 'scripts'));
-});
-
-gulp.task('compile_scripts_ie', function() {
-    return gulp.src(config.scripts.ie)
-        .pipe($.concat('lib-ie.js'))
         .pipe(gulp.dest(config.build + 'scripts'));
 });
 
@@ -181,6 +190,8 @@ gulp.task('compile_misc', function() {
  * SASS -> CSS -> app.min.css
  */
 gulp.task('compile_styles', function() {
+
+    // REFACTOR: autoprefixer seems to not play well with sass + sourcemaps
     return gulp.src(config.styles.root)
         .pipe($.sourcemaps.init())
         .pipe($.plumber(handleError))
@@ -199,7 +210,7 @@ gulp.task('compile_styles', function() {
  * Move and minify images / mixed-media
  */
 gulp.task('compile_media', function() {
-    //TODO: do we want to have like a local-media folder?
+
     var mediaBuild = config.build + 'images/';
 
     return gulp.src(config.media)
@@ -246,9 +257,12 @@ gulp.task('serve_server', function() {
         .use(express.static(staticFolder));
 
     app.listen(config.node.port, function() {
-        log('-------------------------------------');
-        log('server started: http://localhost:' + config.node.port);
-        log('-------------------------------------');
+        var bar = '+-----------------------------------+'
+        log(bar);
+        log('Server Started')
+        log('Storefront: http://localhost:' + config.node.port);
+        log('Foundation: ' + config.appSettings['apiUrl']);
+        log(bar);
         return gulp;
     });
 });
@@ -285,4 +299,3 @@ function handleError(err) {
 function log(msg) {
     $.util.log($.util.colors.magenta(msg));
 }
-

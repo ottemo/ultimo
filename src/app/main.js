@@ -1,14 +1,6 @@
-// config
-angular.appConfig = {};
+
 angular.appConfigValue = function (valueName) {
-    if (typeof angular.appConfig[valueName] !== "undefined") {
-        return angular.appConfig[valueName];
-    } else {
-        if (typeof iniConfig[valueName] !== "undefined") {
-            return iniConfig[valueName];
-        }
-    }
-    return "";
+    return appConfig[valueName];
 };
 
 // ready

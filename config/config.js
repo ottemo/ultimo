@@ -1,6 +1,6 @@
 "@@useStrict";
 
-var iniConfig = {
+var appConfig = {
     'general.app.foundation_url': '@@apiUrl',
 
     // social networks

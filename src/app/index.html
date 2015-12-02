@@ -1,13 +1,13 @@
 <!doctype html>
-<html class="no-js lt-ie9 lt-ie8" id="ng-app" ng-app="commonModule">
+<html id="ng-app" ng-app="commonModule">
 <head>
-    <base href="/">
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <base href="/">
 
     <title ng-bind="page.getTitle()"></title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta name="description" content="{{page.getMetaDescription()}}">
     <meta name="keywords" content="{{page.getMetaKeywords()}}">
     <meta name="robots" content="INDEX,FOLLOW">
@@ -48,13 +48,9 @@ ot-route-class>
     <!-- <ng-include src="getTemplate('visitor/modal/mailchimp.html')"></ng-include> -->
 
     <!-- minicart modal -->
-    <ng-include src="getTemplate('cart/quick-cart.html')" ng-controller="cartListController"></ng-include>
+    <!-- <ng-include src="getTemplate('cart/quick-cart.html')" ng-controller="cartListController"></ng-include> -->
 
 </div>
-
-<!--[if lt IE 9]>
-<script src="/scripts/libs-ie.js"></script>
-<![endif]-->
 
 <script src="/scripts/lib.js"></script>
 <script src="/scripts/main.js"></script>
@@ -66,7 +62,7 @@ ot-route-class>
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-ga('create', iniConfig.GA, 'auto');
+ga('create', appConfig.GA, 'auto');
 </script>
 
 </body>

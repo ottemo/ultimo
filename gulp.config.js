@@ -5,7 +5,8 @@ module.exports = function() {
     var temp = './tmp/';
 
     var config = {
-        // Paths
+
+        /************** Paths ****************/
         build: 'dist/',
         fonts: app + '_fonts/**/*.{svg,eot,ttf,woff,woff2}',
         html: {
@@ -40,24 +41,24 @@ module.exports = function() {
                 app + '**/*.js'
             ],
             lib: [
-                '!' + app + '_lib/ie/**/*', // be careful not to clobber ie
                 app + '_lib/jquery.min.js',
                 app + '_lib/angular.min.js',
                 app + '_lib/**/*.min.js'
-            ],
-            ie: app + '_lib/ie/*.min.js'
+            ]
         },
         temp: temp,
 
-        // Settings
+        /************** Settings ****************/
+        node: {
+            port: '8080',
+            lrPort: '35729' // not used?
+        },
         sassSettings: {
             // outputStyle: 'compressed',
             // precision: 8,
         },
-
-        node: {
-            port: '8080',
-            lrPort: '35729' // not used?
+        uglifySettings: {
+            mangle: false
         }
     };
 
