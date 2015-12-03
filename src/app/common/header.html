@@ -23,6 +23,7 @@
         <div class="navbar-collapse collapse"
             ng-class="{in: mobileNav.isOpen}">
 
+            <!-- Utility Navigation -->
             <ul class="nav navbar-nav navbar-util hidden-xs">
                 <li class="social-link">
                     <a href="https://www.instagram.com/urbanityshop/"><i class="fa fa-instagram"></i></a>
@@ -34,20 +35,21 @@
                     <a href="https://www.facebook.com/urbanityclothingstore/"><i class="fa fa-facebook"></i></a>
                 </li>
                 <li ng-if="!visitorProps.isLoggedIn"
-                    data-match-route="/login">
+                    data-match-route="^/login">
                     <a href="/login">Login / Register</a>
                 </li>
                 <li ng-if="visitorProps.isLoggedIn"
-                    data-match-route="/account">
+                    data-match-route="^/account">
                     <a href="/account">My Account</a>
                 </li>
-                <li data-match-route="/cart">
+                <li data-match-route="^/cart">
                     <a href="/cart">
                         Shopping Bag ({{getItemsInCart()}})
                     </a>
                 </li>
             </ul>
 
+            <!-- Main Navigation -->
             <ul class="nav navbar-nav navbar-main">
                 <li uib-dropdown
                     data-match-route="^/mens">
@@ -98,25 +100,24 @@
                         <li><a href="/accessories/socks">Socks</a></li>
                     </ul>
                 </li>
-                <li data-match-route="/contact">
+                <li data-match-route="^/contact">
                     <a href="/contact">Contact</a>
                 </li>
-                <li data-match-route="/about">
+                <li data-match-route="^/about">
                     <a href="/about">About</a>
                 </li>
                 <li>
                     <a href="http://blog.urbanityshop.com">Blog</a>
                 </li>
 
+                <!-- Additional mobile menu items, since the util nav is hidden -->
                 <li class="visible-xs"
-                    ng-show="!visitorProps.isLoggedIn"
-                    data-match-route="/login">
+                    ng-show="!visitorProps.isLoggedIn">
                     <a href="/login">Login</a>
                 </li>
 
                 <li class="visible-xs"
-                    ng-show="visitorProps.isLoggedIn"
-                    data-match-route="/account">
+                    ng-show="visitorProps.isLoggedIn">
                     <a href="/account">My Account</a>
                 </li>
             </ul>
