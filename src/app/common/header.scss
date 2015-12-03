@@ -1,31 +1,43 @@
-$navbar-height-xs: 57px;
-$navbar-height-sm: 100px;
-
-// navigation is fixed so we have to pad the body
+// Navigation is fixed so we have to pad the body
 body {
-    padding-top: $navbar-height-xs + 1;
-}
-@media (min-width: $screen-sm-min) {
-    body {
-        padding-top: $navbar-height-sm + 2;
+    padding-top: $navbar-height;
+    @media (min-width: $screen-sm-min) {
+        padding-top: 114px;
+    }
+    @media (min-width: $screen-md-min) {
+        padding-top: 102px;
     }
 }
 
+// Adjustments for our specific branding image
 .navbar-brand {
-    padding: ceil($navbar-padding-vertical /2) 0 0 $navbar-padding-horizontal;
+    height: auto;
+    padding-top: 0;
+    padding-bottom: 0;
+
     img {
-        height: 100%;
-        width: auto;
+        // Urbanity Specific
+        margin-top: 10px;
+        height: 38px;
+        width: 104px;
+
+        @media (min-width: $screen-sm-min) {
+            margin-top: 8px;
+            width: 150px;
+            height: 55px;
+        }
+        @media (min-width: $screen-md-min) {
+            // We want the anchor to be nice and big and clickable
+            margin-top: 18px;
+            margin-bottom:14px;
+            width: 190px;
+            height: 69px;
+        }
     }
 }
 
-@media (min-width: $screen-sm-min) {
-    .navbar-brand {
-        padding: $navbar-padding-vertical $navbar-padding-horizontal;
-        height: $navbar-height-sm;
-    }
-}
 
+// Util nav bar; social, login, shopping bag
 .navbar-default .navbar-util {
     float: right;
     text-transform: uppercase;
@@ -68,21 +80,28 @@ body {
     }
 }
 
-
+// Main Navigation
 .navbar-main {
     text-transform: uppercase;
-}
-@media (min-width: $screen-sm-min) {
-    .navbar-main {
+
+    a {
+        cursor: pointer;
+    }
+
+    // >= sm - add link active states
+    @media (min-width: $screen-sm-min) {
+         > li {
+            border-bottom: 1px solid transparent;
+
+            &.active {
+                border-bottom-color: $navbar-default-link-hover-color;
+            }
+        }
+    }
+
+    // >= md - push the menu to the right
+    @media (min-width: $screen-md-min) {
         float: right;
         clear: right;
-
-        li {
-            border-bottom: 1px solid transparent;
-        }
-        li:hover,
-        li.active {
-            border-bottom-color: $navbar-default-link-hover-color;
-        }
     }
 }

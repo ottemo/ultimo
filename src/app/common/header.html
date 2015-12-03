@@ -1,14 +1,14 @@
 <div class="navbar navbar-default navbar-fixed-top"
     role="navigation"
     bs-navbar>
-    <div class="container-fluid">
+    <div class="container">
         <div class="navbar-header">
-            <a class="navbar-toggle collapsed"
-                ng-click="nav.open = !nav.open"
-                ng-class="{active: nav.open}">
+            <a class="navbar-toggle"
+                ng-click="mobileNav.isOpen = !mobileNav.isOpen">
                 <i class="fa fa-fw fa-bars"></i>
             </a>
-            <a href="/cart" class="navbar-toggle">
+            <a href="/cart"
+                class="navbar-toggle">
                 <i class="fa fa-fw fa-shopping-cart"></i>
             </a>
 
@@ -21,7 +21,7 @@
         </div>
 
         <div class="navbar-collapse collapse"
-            ng-class="{in: nav.open}">
+            ng-class="{in: mobileNav.isOpen}">
 
             <ul class="nav navbar-nav navbar-util hidden-xs">
                 <li class="social-link">
@@ -49,30 +49,73 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-main">
-                <li data-match-route="/$">
-                    <a href="/">Home</a>
+                <li uib-dropdown
+                    data-match-route="^/mens">
+                    <a uib-dropdown-toggle>
+                        Men's <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/mens">All Men's</a></li>
+                        <li><a href="/mens/tops">Tops</a></li>
+                        <li><a href="/mens/bottoms">Bottoms</a></li>
+                        <li><a href="/mens/shoes">Shoes</a></li>
+                    </ul>
                 </li>
-                <li data-match-route="/c/mens">
-                    <a href="/c/mens">Men's</a>
+                <li uib-dropdown
+                    data-match-route="^/womens">
+                    <a uib-dropdown-toggle>
+                        Women's <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/womens">All Women's</a></li>
+                        <li><a href="/womens/tops">Tops</a></li>
+                        <li><a href="/womens/bottoms">Bottoms</a></li>
+                        <li><a href="/womens/shoes">Shoes</a></li>
+                    </ul>
                 </li>
-                <li data-match-route="/c/womens">
-                    <a href="/c/womens">Women's</a>
+                <li uib-dropdown
+                    data-match-route="^/footwear">
+                    <a uib-dropdown-toggle>
+                        Footwear <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/footwear">All Footwear</a></li>
+                        <li><a href="/footwear/youth">Youth</a></li>
+                        <li><a href="/footwear/womens">Women's</a></li>
+                        <li><a href="/footwear/mens">Men's</a></li>
+                    </ul>
                 </li>
-                <li data-match-route="/c/accessories">
-                    <a href="/c/accessories">Accessories</a>
+                <li uib-dropdown
+                    data-match-route="^/accessories">
+                    <a uib-dropdown-toggle>
+                        Accessories <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/accessories">All Accessories</a></li>
+                        <li><a href="/accessories/headwear">Headwear</a></li>
+                        <li><a href="/accessories/jewelry">Jewelry</a></li>
+                        <li><a href="/accessories/bangs-wallets">Bags / Wallets</a></li>
+                        <li><a href="/accessories/socks">Socks</a></li>
+                    </ul>
                 </li>
                 <li data-match-route="/contact">
                     <a href="/contact">Contact</a>
                 </li>
+                <li data-match-route="/about">
+                    <a href="/about">About</a>
+                </li>
+                <li>
+                    <a href="http://blog.urbanityshop.com">Blog</a>
+                </li>
 
                 <li class="visible-xs"
-                    ng-if="!visitorProps.isLoggedIn"
+                    ng-show="!visitorProps.isLoggedIn"
                     data-match-route="/login">
                     <a href="/login">Login</a>
                 </li>
 
                 <li class="visible-xs"
-                    ng-if="visitorProps.isLoggedIn"
+                    ng-show="visitorProps.isLoggedIn"
                     data-match-route="/account">
                     <a href="/account">My Account</a>
                 </li>
@@ -82,3 +125,4 @@
 
     </div>
 </div>
+

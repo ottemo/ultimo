@@ -9,6 +9,7 @@
  *
  * Version: 0.14.3 - 2015-10-23
  * License: MIT
+ * @preserve
  */
 angular.module("ui.bootstrap.datepicker.tpls", ["template/datepicker/datepicker.html","template/datepicker/day.html","template/datepicker/month.html","template/datepicker/popup.html","template/datepicker/year.html"]);
 angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.dateparser', 'ui.bootstrap.position','ui.bootstrap.datepicker.tpls'])

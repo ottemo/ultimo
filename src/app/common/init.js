@@ -14,6 +14,7 @@ angular.module("commonModule", [
     "angulartics.google.analytics",
     "mgcrea.ngStrap.navbar",
     "ui.bootstrap.datepicker",
+    "ui.bootstrap.dropdown",
 
     // Internal
     "angular-loading-bar",

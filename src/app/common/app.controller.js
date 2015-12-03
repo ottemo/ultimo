@@ -11,7 +11,9 @@ angular.module("commonModule")
         $cartService,
         $visitorLoginService
     ) {
-        $scope.nav = {}
+        // Mobile menu toggle
+        $scope.mobileNav = {isOpen: false};
+
         $scope.getItemsInCart = getItemsInCart;
 
         ///////////////////////////////
@@ -21,8 +23,8 @@ angular.module("commonModule")
             $commonBreadcrumbsService.clear();
             $commonBreadcrumbsService.addItem("Home", "/");
 
-            // Make sure our mobile navigation is closed
-            $scope.nav.open = false;
+            // Make sure we close the mobile menu whenever the route changes
+            $scope.mobileNav.isOpen = false;
         });
 
         $scope.$on("add-breadcrumbs", function(event, param) {

@@ -1,0 +1,9 @@
+/**
+ * Usage is primarily for navs
+ * li.dropdown.dropdown-hover > a + ul.dropdown-menu
+ */
+@media (min-width: $screen-sm-min) {
+    .dropdown-hover:hover .dropdown-menu {
+        display: block;
+    }
+}

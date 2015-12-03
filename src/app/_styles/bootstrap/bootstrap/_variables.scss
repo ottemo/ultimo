@@ -285,40 +285,14 @@ $zindex-modal:             1050 !default;
 //== Media queries breakpoints
 //
 //## Define the breakpoints at which your layout will change, adapting to different screen sizes.
-
-// Extra small screen / phone
-//** Deprecated `$screen-xs` as of v3.0.1
-$screen-xs:                  480px !default;
-//** Deprecated `$screen-xs-min` as of v3.2.0
-$screen-xs-min:              $screen-xs !default;
-//** Deprecated `$screen-phone` as of v3.0.1
-$screen-phone:               $screen-xs-min !default;
-
-// Small screen / tablet
-//** Deprecated `$screen-sm` as of v3.0.1
-$screen-sm:                  768px !default;
-$screen-sm-min:              $screen-sm !default;
-//** Deprecated `$screen-tablet` as of v3.0.1
-$screen-tablet:              $screen-sm-min !default;
-
-// Medium screen / desktop
-//** Deprecated `$screen-md` as of v3.0.1
-$screen-md:                  992px !default;
-$screen-md-min:              $screen-md !default;
-//** Deprecated `$screen-desktop` as of v3.0.1
-$screen-desktop:             $screen-md-min !default;
-
-// Large screen / wide desktop
-//** Deprecated `$screen-lg` as of v3.0.1
-$screen-lg:                  1200px !default;
-$screen-lg-min:              $screen-lg !default;
-//** Deprecated `$screen-lg-desktop` as of v3.0.1
-$screen-lg-desktop:          $screen-lg-min !default;
+$screen-sm-min:  768px !default;                //  >= sm : @media (min-width: $screen-sm-min)
+$screen-md-min:  992px !default;                //  >= md : @media (min-width: $screen-md-min)
+$screen-lg-min:  1200px !default;               //  >= lg : @media (min-width: $screen-lg-min)
 
 // So media queries don't overlap when required, provide a maximum
-$screen-xs-max:              ($screen-sm-min - 1) !default;
-$screen-sm-max:              ($screen-md-min - 1) !default;
-$screen-md-max:              ($screen-lg-min - 1) !default;
+$screen-xs-max:  ($screen-sm-min - 1) !default; //  = xs : @media (max-width: $screen-xs-max)
+$screen-sm-max:  ($screen-md-min - 1) !default; // <= sm : @media (max-width: $screen-sm-max)
+$screen-md-max:  ($screen-lg-min - 1) !default; // <= xs : @media (max-width: $screen-md-max)
 
 
 //== Grid system
@@ -366,7 +340,7 @@ $navbar-margin-bottom:             $line-height-computed !default;
 $navbar-border-radius:             $border-radius-base !default;
 $navbar-padding-horizontal:        floor(($grid-gutter-width / 2)) !default;
 $navbar-padding-vertical:          (($navbar-height - $line-height-computed) / 2) !default;
-$navbar-collapse-max-height:       340px !default;
+$navbar-collapse-max-height:       344px !default;
 
 $navbar-default-color:             #777 !default;
 $navbar-default-bg:                #fff;
@@ -375,7 +349,7 @@ $navbar-default-border:            transparent;
 // Navbar links
 $navbar-default-link-color:                #222;
 $navbar-default-link-hover-color:          #000;
-$navbar-default-link-hover-bg:             transparent;
+$navbar-default-link-hover-bg:             #f5f5f5;
 $navbar-default-link-active-color:         $navbar-default-link-hover-color;
 $navbar-default-link-active-bg:            transparent;
 $navbar-default-link-disabled-color:       #ccc;
