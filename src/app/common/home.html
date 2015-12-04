@@ -1,6 +1,6 @@
 <div class="home">
 
-    <div class="hidden-xs">
+    <div class="">
         <div ot-slider>
             <div ng-repeat="slide in sliderContent track by $index">
                 <a ng-href="{{slide.link}}">
@@ -10,68 +10,88 @@
         </div>
     </div>
 
+    <div class="home-tagline">
+        <div class="container">
+            <h2>Seattle's Premiere Streetwear Boutique</h2>
+            <p>Exclusive finds for men and women</p>
+        </div>
+    </div>
     <div class="container">
         <div class="row">
-            <div class="col-md-8">
-                <div class="m-b">
-                    <a class="r-container r-container-wide" href="/c/mens">
-                        <img class="r-target" ng-src="{{getImg('common/home/suit.jpg')}}" />
-                        <div class="home-tile-overlay">
-                            Men's Apparel
-                        </div>
-                    </a>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="m-b">
-                            <a class="r-container r-container-wide" href="/c/womens">
-                                <img class="r-target" ng-src="{{getImg('common/home/woman_in_jeans.jpg')}}" />
-                                <div class="home-tile-overlay">
-                                    Women's Apparel
-                                </div>
-                            </a>
-                        </div>
-                        <div class="m-b">
-                            <a class="r-container r-container-square" href="/c/sale">
-                                <img class="r-target" ng-src="{{getImg('common/home/shirts_on_rack.jpg')}}" />
-                                <div class="home-tile-overlay">
-                                    On Sale
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="m-b">
-                            <a class="r-container r-container-tall" href="/c/accessories">
-                                <img class="r-target" ng-src="{{getImg('common/home/purse.jpg')}}" />
-                                <div class="home-tile-overlay">
-                                    Accessories
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-sm-4">
+                <a class="r-container r-container-square home-tile" href="/men">
+                    <span class="home-tile__overlay">For Men</span>
+                    <img class="r-target" src="/images/common/home/suit.jpg" alt="" />
+                </a>
             </div>
-            <div class="col-md-4">
-                <div class="m-b">
-                    <a class="r-container r-container-taller" href="/c/winter-looks-2015">
-                        <img class="r-target" ng-src="{{getImg('common/home/woman_in_jacket.jpg')}}" />
-                        <div class="home-tile-overlay">
-                            Winter Looks
-                        </div>
-                    </a>
-                </div>
-                <div class="m-b">
-                    <a class="r-container r-container-square" href="/c/summer-looks-2015">
-                        <img class="r-target" ng-src="{{getImg('common/home/bathing_suits.jpg')}}" />
-                        <div class="home-tile-overlay">
-                            Summer Favorites
-                        </div>
-                    </a>
-                </div>
+            <div class="col-sm-4">
+                <a class="r-container r-container-square home-tile" href="/sale">
+                    <span class="home-tile__overlay">On Sale</span>
+                    <img class="r-target" src="/images/common/home/shirts_on_rack.jpg" alt="" />
+                </a>
+            </div>
+            <div class="col-sm-4">
+                <a class="r-container r-container-square home-tile" href="/new-arrivals">
+                    <span class="home-tile__overlay">New Arrivals</span>
+                    <img class="r-target" src="/images/common/home/bathing_suits.jpg" alt="" />
+                </a>
             </div>
         </div>
     </div>
+    <!-- <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-md-8">
+
+                <a class="r-container r-container-wide home-tile" href="/mens">
+                    <img class="r-target" ng-src="{{getImg('common/home/suit.jpg')}}" />
+                    <div class="home-tile__overlay">
+                        Men's Apparel
+                    </div>
+                </a>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <a class="r-container r-container-wide home-tile" href="/womens">
+                            <img class="r-target" ng-src="{{getImg('common/home/woman_in_jeans.jpg')}}" />
+                            <div class="home-tile__overlay">
+                                Women's Apparel
+                            </div>
+                        </a>
+                        <a class="r-container r-container-square home-tile" href="/sale">
+                            <img class="r-target" ng-src="{{getImg('common/home/shirts_on_rack.jpg')}}" />
+                            <div class="home-tile__overlay">
+                                On Sale
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a class="r-container r-container-tall home-tile" href="/accessories">
+                            <img class="r-target" ng-src="{{getImg('common/home/purse.jpg')}}" />
+                            <div class="home-tile__overlay">
+                                Accessories
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+
+                <a class="r-container r-container-taller home-tile" href="/winter-looks-2015">
+                    <img class="r-target" ng-src="{{getImg('common/home/woman_in_jacket.jpg')}}" />
+                    <div class="home-tile__overlay">
+                        Winter Looks
+                    </div>
+                </a>
+
+                <a class="r-container r-container-square home-tile" href="/summer-looks-2015">
+                    <img class="r-target" ng-src="{{getImg('common/home/bathing_suits.jpg')}}" />
+                    <div class="home-tile__overlay">
+                        Summer Favorites
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </div> -->
 </div>
 

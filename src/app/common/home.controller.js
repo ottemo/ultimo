@@ -7,13 +7,13 @@
 
         $scope.sliderContent = [{
             img: 'common/home/slide1.jpg',
-            link: ''
+            link: '/mens'
         }, {
             img: 'common/home/slide2.jpg',
-            link: ''
+            link: '/womens'
         }, {
             img: 'common/home/slide3.jpg',
-            link: ''
+            link: '/sale'
         }];
     }
 
