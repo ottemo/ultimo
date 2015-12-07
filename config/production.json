@@ -1,6 +1,6 @@
 {
     "useStrict"     : "",
-    "apiUrl"        : "https://api.urbanityshop.com",
+    "apiUrl"        : "http://api.ub.production.ottemo.io",
     "idFacebook"    : "TBD",
     "idGoogle"      : "TBD",
     "GA"            : "UA-68512923-1"
