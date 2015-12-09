@@ -1,0 +1,21 @@
+// Variables
+$panel-checkout-step-border: $panel-default-border;
+$panel-checkout-step-text: $panel-default-text;
+$panel-checkout-step-heading-bg: $panel-default-heading-bg;
+
+// Styles
+.panel--checkout-step {
+    @include panel-variant($panel-checkout-step-border, $panel-checkout-step-text, $panel-checkout-step-heading-bg, $panel-checkout-step-border);
+
+    // We want these step panels to sit right on top of each other
+    margin-bottom: -1px;
+
+    // We don't have a "collapsed" class to key off of, so to avoid a double border
+    // when collapsed we'll move the border to the body
+    > .panel-heading {
+        border-bottom: 0;
+    }
+    .panel-body {
+        border-top: 1px solid $panel-checkout-step-border;
+    }
+}

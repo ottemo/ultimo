@@ -349,8 +349,10 @@ angular.module("checkoutModule")
             };
 
             var _scrollTo = function($step){
+                // = distance to step top - any fixed nav - a little padding
+                var offset = $step.offset().top - $('.navbar-fixed-top').height() - 4;
                 $('html, body').animate({
-                    scrollTop: $step.offset().top
+                    scrollTop: offset
                 }, 100);
             }
 
@@ -374,7 +376,7 @@ angular.module("checkoutModule")
                     if (skipOneStep) {
                         $nextStep = $thisStep.next('.panel').next('.panel');
                     }
-                    $thisStep.find('.panel-body').slideUp(600, function(){
+                    $thisStep.find('.panel-body').slideUp(500, function(){
                         _scrollTo($nextStep);
                     });
                     $nextStep.find('.panel-body').slideDown(500);

@@ -1,8 +1,16 @@
-<h1>Thank you for your purchase!</h1>
-<p ng-if="order._id">
-	Your order number is: {{order._id}}.
-</p>
+<div class="container">
+    <div class="page-header">
+        <h1>Thank you for your purchase!</h1>
+    </div>
 
-<p>You will receive an order confirmation email with details of your order and a link to track its progress. <span ng-if="visitorProps.isLoggedIn">You can also view past orders from the <a ng-href="/account/orders">my account page</a></span></p>
+    <p ng-if="order._id">
+        Your order number is: {{order._id}}.
+    </p>
 
-<a class="btn btn-primary" href="/">Continue shopping</a>
+    <p>You will receive an order confirmation email with details of your order. <span ng-if="visitorProps.isLoggedIn">You can also view past orders from the <a ng-href="/account/orders">my account page</a></span></p>
+
+    <a class="btn btn-primary"
+        href="/">Continue shopping</a>
+
+</div>
+
