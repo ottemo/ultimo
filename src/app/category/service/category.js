@@ -8,15 +8,24 @@ angular.module("categoryModule")
     "$location",
     "$commonRewriteService",
     "SEARCH_KEY_NAME",
-    "GENERAL_CATEGORY_URI",
-    function($location, $commonRewriteService, SEARCH_KEY_NAME, GENERAL_CATEGORY_URI) {
-        // Variables
-        var tree, type;
-        // Functions
-        var getTree, setTree, getChainCategories, getSubMenuItem, getUrl, setFiltersInLocation, searchProducts;
-        type = "category";
+    function($location, $commonRewriteService, SEARCH_KEY_NAME) {
 
-        getUrl = function(id) {
+        var tree = [];
+        var type = "category";
+
+        return {
+            getUrl: getUrl,
+            setTree: setTree,
+            getTree: getTree,
+            getChainCategories: getChainCategories,
+            setFiltersInLocation: setFiltersInLocation,
+            searchProducts: searchProducts,
+            getSubMenuItem: getSubMenuItem
+        };
+
+        //////////////////////////////////////////
+
+        function getUrl(id) {
             var url;
             url = $commonRewriteService.getRewrite(type, id);
 
@@ -27,26 +36,26 @@ angular.module("categoryModule")
             return "/" + url;
         };
 
-        /**
-         * Sets tree
-         *
-         * @param {string} label
-         * @param {string} url
-         */
-        setTree = function(arr) {
-            tree = arr;
+        function setTree(categories) {
+            // Attach urls to the item, and its children
+            tree = _.map(categories, function(item){
+                item = _applyUrl(item);
+                item.child = _.map(item.child, _applyUrl);
+                return item;
+            });
+            return tree;
+
+            function _applyUrl(item) {
+                item.url = getUrl(item.id);
+                return item
+            }
         };
 
-        /**
-         * Gets tree
-         *
-         * @return {array} tree
-         */
-        getTree = function() {
+        function getTree() {
             return tree;
         };
 
-        getSubMenuItem = function(subMenuItems, id, list) {
+        function getSubMenuItem(subMenuItems, id, list) {
             var found, i, tmpList;
 
             if (subMenuItems) {
@@ -77,7 +86,7 @@ angular.module("categoryModule")
          * @param {string} id
          * @returns {Array}
          */
-        getChainCategories = function(id) {
+        function getChainCategories(id) {
             var list = [];
 
             list = getSubMenuItem(tree, id, list);
@@ -85,7 +94,7 @@ angular.module("categoryModule")
             return list.reverse();
         };
 
-        setFiltersInLocation = function(path, filter) {
+        function setFiltersInLocation(path, filter) {
             // removes the  "#" in the begin string
             var pathClear = path.trim('#');
 
@@ -95,18 +104,9 @@ angular.module("categoryModule")
             $location.search(filter);
         };
 
-        searchProducts = function(searchText) {
+        function searchProducts(searchText) {
             var params = SEARCH_KEY_NAME + "=~" + searchText.replace(/\s/g, ',');
-            setFiltersInLocation(GENERAL_CATEGORY_URI, params);
-        };
-
-        return {
-            getUrl: getUrl,
-            setTree: setTree,
-            getTree: getTree,
-            getChainCategories: getChainCategories,
-            setFiltersInLocation: setFiltersInLocation,
-            searchProducts: searchProducts
+            setFiltersInLocation($location.path(), params);
         };
     }
 ]);

@@ -15,28 +15,6 @@ angular.module("categoryModule")
                 transformResponse: transformProductList
             },
 
-            //TODO: DEPRECATE
-            "getShopProducts": {
-                method: "GET",
-                url: REST_SERVER_URI + "/products/shop",
-                transformResponse: transformProductList
-            },
-
-            //TODO: deprecate
-            "getShopLayered": {
-                method: "GET",
-                url: REST_SERVER_URI + "/products/shop/layers"
-            },
-
-            //TODO: deprecate
-            "getShopCountProducts": {
-                method: "GET",
-                params: {
-                    action: "count"
-                },
-                url: REST_SERVER_URI + "/products"
-            },
-
             //REFACTOR: the resp.result.products here are never used!
             "load": {
                 method: "GET",

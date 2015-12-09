@@ -13,43 +13,34 @@ angular.module("categoryModule")
     "$pdpProductService",
     "$commonUtilService",
     "$timeout",
-    "GENERAL_CATEGORY_URI",
     "SEARCH_KEY_NAME",
     function($scope, $location, $route, $routeParams, $categoryApiService, $designService,
         $categoryService, $visitorLoginService, $cartService,
-        $pdpProductService, $commonUtilService, $timeout, GENERAL_CATEGORY_URI, SEARCH_KEY_NAME) {
+        $pdpProductService, $commonUtilService, $timeout, SEARCH_KEY_NAME) {
 
         // Utilities
         $scope.productService = $pdpProductService;
+
+        // Category Details
+        $scope.categoryId = $routeParams.id || null;
+        $scope.category = {};
+        $scope.productsList = [];
 
         // Pagination
         $scope.currentPage = getPage();
         $scope.itemsPerPage = angular.appConfigValue("general.app.category.itemsPerPage");
         $scope.pages = 0;
         $scope.totalItems = 0;
+        $scope.showMoreBtn = showMoreBtn;
+        $scope.loadMore = loadMore;
 
         // Filtering
         $scope.searchField = SEARCH_KEY_NAME;
         $scope.searchText = "";
         $scope.search = search;
         $scope.filters = {};
-        $scope.blocks = {
-            "sort": false,
-            "search": false,
-            "filter": false
-        };
-        $scope.toggleBlock = toggleBlock;
-        $scope.closeBlock = closeBlock;
         $scope.sortByPrice = sortByPrice;
         $scope.sortByName = sortByName;
-
-        // Category Details
-        $scope.isShop = (GENERAL_CATEGORY_URI === $location.path());
-        $scope.categoryId = $routeParams.id || null;
-        $scope.category = {};
-        $scope.productsList = [];
-        $scope.showMoreBtn = showMoreBtn;
-        $scope.loadMore = loadMore;
 
         // Pop Up Product
         // REFACTOR: Form validation is broken in popup
@@ -62,11 +53,11 @@ angular.module("categoryModule")
         $scope.addToCart = addToCart;
         $scope.openPopUp = openPopUp;
 
-        init();
+        activate();
 
         ///////////////////////////////////////
 
-        function init() {
+        function activate() {
             //REFACTOR: if you move this it breaks your url
             // and we setFilters in getLayered as well
             setFilters();
@@ -97,71 +88,42 @@ angular.module("categoryModule")
          * Gets layers for category
          */
         function getLayered() {
-            if ($scope.isShop) {
-                $categoryApiService.getShopLayered($location.search(), {}).$promise.then(function(response) {
+            $categoryApiService.getLayered({
+                categoryID: $scope.categoryId
+            }).$promise
+                .then(function(response) {
                     var result = response.result || [];
                     $scope.layered = result;
-                    for (var filter in $scope.layered) {
-                        if ($scope.layered.hasOwnProperty(filter)) {
-                            $scope.filters[filter] = {};
-                        }
-                    }
+                    angular.forEach(result, function(filterName){
+                        $scope.filters[filterName] = {};
+                    });
                     setFilters();
                 });
-            } else {
-                var params = $location.search();
-                params["categoryID"] = $scope.categoryId;
-                $categoryApiService.getLayered(params).$promise.then(function(response) {
-                    var result = response.result || [];
-                    $scope.layered = result;
-                    for (var filter in $scope.layered) {
-                        if ($scope.layered.hasOwnProperty(filter)) {
-                            $scope.filters[filter] = {};
-                        }
-                    }
-                    setFilters();
-                });
-            }
         };
 
         /**
          * Gets list of products
          */
         function getProducts() {
-            if ($scope.isShop) {
-                $categoryApiService.getShopProducts(getParams(), {}).$promise.then(function(response) {
-                    var result = response.result || [];
-                    $scope.productsList = result;
-                });
-            } else {
-                var params = getParams();
-                params["categoryID"] = $scope.categoryId;
-                $categoryApiService.getProductsByCategoryId(params).$promise.then(function(response) {
-                    var result = response.result || [];
-                    $scope.productsList = result;
-                });
-            }
+            var params = getParams();
+            params["categoryID"] = $scope.categoryId;
+            $categoryApiService.getProductsByCategoryId(params).$promise.then(function(response) {
+                var result = response.result || [];
+                $scope.productsList = result;
+            });
         };
 
         /**
          * Gets number items into collection
          */
         function getCountProduct() {
-            if ($scope.isShop) {
-                $categoryApiService.getShopCountProducts(getParams(true)).$promise.then(function(response) {
-                    var result = response.result || [];
-                    $scope.totalItems = result;
-                    $scope.pages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
-                });
-            } else {
-                var params = getParams(true);
-                params["categoryID"] = $scope.categoryId;
-                $categoryApiService.getCountProducts(params).$promise.then(function(response) {
-                    var result = response.result || [];
-                    $scope.totalItems = result;
-                    $scope.pages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
-                });
-            }
+            var params = getParams(true);
+            params["categoryID"] = $scope.categoryId;
+            $categoryApiService.getCountProducts(params).$promise.then(function(response) {
+                var result = response.result || [];
+                $scope.totalItems = result;
+                $scope.pages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
+            });
         };
 
         function getPage() {
@@ -176,22 +138,15 @@ angular.module("categoryModule")
         };
 
         function addCategoryCrumbs() {
-            if ($scope.isShop) {
-                $scope.$emit("add-breadcrumbs", {
-                    "label": "Shop",
-                    "url": $location.path()
-                });
-            } else {
-                var list, i, category;
-                list = $categoryService.getChainCategories($scope.categoryId);
+            var list, i, category;
+            list = $categoryService.getChainCategories($scope.categoryId);
 
-                for (i = 0; i < list.length; i += 1) {
-                    category = list[i];
-                    $scope.$emit("add-breadcrumbs", {
-                        "label": category.name,
-                        "url": $categoryService.getUrl(category.id)
-                    });
-                }
+            for (i = 0; i < list.length; i += 1) {
+                category = list[i];
+                $scope.$emit("add-breadcrumbs", {
+                    "label": category.name,
+                    "url": $categoryService.getUrl(category.id)
+                });
             }
         };
 
@@ -220,17 +175,24 @@ angular.module("categoryModule")
         };
 
         function updateTree() {
-            var tree = $categoryService.getTree();
-            if (typeof tree === "undefined") {
-                $categoryApiService.getCategories().$promise.then(
-                    function(response) {
+            var categories = $categoryService.getTree();
+
+            if (!categories.length) {
+                $categoryApiService.getCategories().$promise
+                    .then(function(response) {
                         var categories = response.result || [];
-                        $categoryService.setTree(categories);
+                        var tree = $categoryService.setTree(categories);
+                        setSubcategories(tree);
                         addCategoryCrumbs();
-                    }
-                );
+                    });
             } else {
+                setSubcategories(categories);
                 addCategoryCrumbs();
+            }
+
+            function setSubcategories(categories) {
+                var category = $categoryService.getSubMenuItem(categories, $scope.categoryId, [])
+                $scope.categories = category[0] && category[0].child;
             }
         }
 
@@ -244,12 +206,7 @@ angular.module("categoryModule")
             var filterStr, url;
             filterStr = getFilters();
             if (typeof filterStr !== "undefined") {
-                if ($scope.categoryId === null && $scope.isShop) {
-                    url = GENERAL_CATEGORY_URI;
-                } else {
-                    url = $categoryService.getUrl($scope.categoryId);
-                }
-
+                url = $categoryService.getUrl($scope.categoryId);
                 $categoryService.setFiltersInLocation(url, filterStr);
             }
         };
@@ -332,34 +289,6 @@ angular.module("categoryModule")
             }
 
             return filters.join("&");
-        };
-
-        function toggleBlock(activeBlock) {
-            var block;
-
-            for (block in $scope.blocks) {
-
-                if ($scope.blocks.hasOwnProperty(block)) {
-                    if (block === activeBlock) {
-                        if ($scope.blocks[block]) {
-                            $scope.blocks[block] = false;
-                        } else {
-                            $scope.blocks[block] = true;
-                        }
-                    } else {
-                        $scope.blocks[block] = false;
-                    }
-                }
-
-            }
-
-            return true;
-        };
-
-        function closeBlock(nameBlock) {
-            $scope.blocks[nameBlock] = false;
-            jQuery('.list-bar span').removeClass('active');
-            jQuery('.shadow').css('display', 'none');
         };
 
         //TODO: we should get away from touching the dom in the
@@ -471,19 +400,12 @@ angular.module("categoryModule")
                     $scope.productsList = $scope.productsList.concat(result);
                 }
             );
-            if ($scope.isShop) {
-                $categoryApiService.getShopProducts(params).$promise.then(function(response) {
+            $categoryApiService.getProductsByCategoryId(params).$promise.then(
+                function(response) {
                     var result = response.result || [];
                     $scope.productsList = $scope.productsList.concat(result);
-                });
-            } else {
-                $categoryApiService.getProductsByCategoryId(params).$promise.then(
-                    function(response) {
-                        var result = response.result || [];
-                        $scope.productsList = $scope.productsList.concat(result);
-                    }
-                );
-            }
+                }
+            );
         };
 
         function search() {

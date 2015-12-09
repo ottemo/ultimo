@@ -1,13 +1,17 @@
-<div class="category container-fluid">
+<div class="category container">
     <div class="row">
 
         <div class="hidden-xs hidden-sm col-md-3 col-lg-2">
-            <ng-include src="getTemplate('common/navigation/filters.html')"></ng-include>
+            <ng-include src="getTemplate('category/sidebar.html')"></ng-include>
         </div>
+
         <div class="col-md-9 col-lg-10">
             <div class="page-header">
                 <h1>{{ category.name }}</h1>
             </div>
+
+            <ot-breadcrumbs></ot-breadcrumbs>
+
             <div class="row">
                 <div class="col-xs-6 col-sm-4 col-lg-3 product-box"
                     ng-repeat="product in productsList track by product._id">
@@ -17,9 +21,9 @@
                         <i class="fa fa-search-plus"></i> Quick View
                     </a>
 
-                    <a class="product-box-img r-container r-container-tall" ng-href="{{::productService.getUrl(product._id)}}">
+                    <a class="product-box-img r-container r-container-square" ng-href="{{::productService.getUrl(product._id)}}">
                         <img class="r-target"
-                            ng-src="{{::product.image.small}}"
+                            ng-src="{{::product.image.medium}}"
                             err-src="placeholder.png"
                             alt="">
                     </a>
