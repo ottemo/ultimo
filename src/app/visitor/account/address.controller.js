@@ -1,6 +1,6 @@
 angular.module("visitorModule")
 
-    .controller('visitorAddressController', [
+    .controller('visitorAccountAddressController', [
         '$scope',
         '$location',
         '$visitorLoginService',
@@ -25,28 +25,39 @@ angular.module("visitorModule")
             $scope.address = {};
             $scope.visitor = $visitorLoginService.getVisitor();
             $scope.visitorService = $visitorLoginService;
-            var activePath;
 
-            getFullName = function (obj) {
-                return obj["zip_code"] +
-                    ' ' + obj["state"] +
-                    ', ' + obj["city"] +
-                    ', ' + obj["address_line1"] +
-                    (obj["address_line2"] ? ', ' + obj["address_line2"] : '');
-            };
+            var activePath = $location.path();
 
-            $scope.init = function () {
+            activate();
+
+            //////////////////////////
+
+            function activate() {
                 // BREADCRUMBS
                 $scope.$emit('add-breadcrumbs', {'label': 'myAccount', 'url': '/account'});
                 $scope.$emit('add-breadcrumbs', {'label': 'Addresses', 'url': '/account/address'});
 
-                activePath = $location.path();
-
+                // Redirect
                 $scope.visitorService.isLoggedIn().then(function (isLoggedIn) {
                     if (!isLoggedIn) {
                         $location.path("/");
                     }
                 });
+
+                // Fetch addresses
+                $visitorApiService.getAddresses().$promise
+                    .then(function (response) {
+                        var result = response.result || [];
+                        $scope.addresses = result;
+                    });
+            }
+
+            getFullName = function (address) {
+                return address.zip_code +
+                    ' ' + address.state +
+                    ', ' + address.city +
+                    ', ' + address.address_line1 +
+                    (address.address_line2 ? ', ' + address.address_line2 : '');
             };
 
             /**
@@ -58,13 +69,6 @@ angular.module("visitorModule")
             };
 
             $scope.clearForm();
-
-            $visitorApiService.getAddresses().$promise.then(
-                function (response) {
-                    var result = response.result || [];
-                    $scope.addresses = result;
-                }
-            );
 
 
             /**
@@ -247,36 +251,10 @@ angular.module("visitorModule")
                 );
             };
 
-            $scope.getAddressName = function (addr) {
-                var _default, name;
-                name = addr.Name;
-                _default = [];
-                if (typeof $scope.visitor["billing_address"] !== 'undefined' &&
-                    $scope.visitor["billing_address"] !== null &&
-                    addr.ID === $scope.visitor["billing_address"]._id) {
-                    _default.push('default billing');
-                }
-                if (typeof $scope.visitor["shipping_address"] !== 'undefined' &&
-                    $scope.visitor["shipping_address"] !== null &&
-                    addr.ID === $scope.visitor["shipping_address"]._id) {
-                    _default.push('default shipping');
-                }
-
-                if (_default.length > 0) {
-                    name += '( ' + _default.join(', ') + ')';
-                }
-
-                return name;
-            };
-
-            //TODO: whats this about
+            // REFACTOR
+            // Sidebar
             $scope.isActive = function (path) {
-                if (activePath === path) {
-                    $('.account-menu ul li:first-child').find('span')
-                        .css('background', 'url("themes/default/images/tablet/tabL.jpg") no-repeat top left');
-                    return true;
-                }
-                return false;
+                return (activePath === path);
             };
         }
     ]);

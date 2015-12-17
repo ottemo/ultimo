@@ -1,0 +1,92 @@
+<div ng-init="init()"
+    class="container">
+
+    <div class="page-header">
+        <h1>Login</h1>
+    </div>
+
+    <gui-message-manager item="messageValidation"></gui-message-manager>
+    <gui-message-manager item="message"></gui-message-manager>
+
+    <div class="row">
+
+        <!-- login form -->
+        <div class="col-sm-6 col-md-5 col-md-offset-1 col-lg-4 col-lg-offset-2">
+
+            <form name="loginForm"
+                ng-submit="loginForm.$valid && signIn()"
+                novalidate>
+
+                <!-- email field -->
+                <div class="form-group"
+                    ng-class="{ 'has-error' : loginForm.email.$invalid && (loginForm.$submitted || loginForm.email.$touched) }">
+                    <label for="email">Email *</label>
+                    <input class="form-control"
+                        type="email"
+                        id="email"
+                        ng-model="loginCredentials.email"
+                        name="email"
+                        required />
+
+                    <!-- error message -->
+                    <div class="help-block"
+                        ng-show="loginForm.email.$invalid && (loginForm.$submitted || loginForm.email.$touched)">
+                        <div ng-show="loginForm.email.$error.required">This field is required.</div>
+                        <div ng-show="loginForm.email.$error.email">This email address doesn't have a valid format</div>
+                    </div>
+                </div>
+
+                <!-- password field -->
+                <div class="form-group"
+                    ng-class="{ 'has-error' : loginForm.password.$invalid && (loginForm.$submitted || loginForm.password.$touched) }">
+                    <label for="password">Password *</label>
+                    <input class="form-control"
+                        type="password"
+                        id="password"
+                        ng-model="loginCredentials.password"
+                        name="password"
+                        required
+                        autocomplete="off" />
+
+                    <div class="help-block"
+                        ng-show="loginForm.password.$invalid && (loginForm.$submitted || loginForm.password.$touched)">
+                        <!-- loginForm.email.$error.required -->
+                        <div>This field is required.</div>
+                    </div>
+
+                    <div class="help-block">
+                        <a href="/forgot-password">Forgot your password?</a>
+                    </div>
+                </div>
+
+                <button type="submit"
+                    class="btn btn-primary btn-block-xs">Login</button>
+
+            </form>
+        </div>
+
+        <!-- social login  -->
+        <div class="col-sm-6 col-md-5 col-lg-4 social-login">
+            <div class="text-center visible-xs">
+                <br>- or -</div>
+
+            <a class="btn btn-default btn-block"
+                ng-click="facebookLogin()">
+                <i class="fa fa-btn-icon fa-facebook"></i> Login with Facebook
+            </a>
+            <a class="btn btn-default btn-block"
+                ng-click="googleLogin()">
+                <i class="fa fa-btn-icon fa-google-plus"></i> Login with Google+
+            </a>
+        </div>
+
+    </div>
+
+    <br>
+
+    <!-- registration link -->
+    <div class="text-center">
+        Not a member? <a href="/registration">Create an account</a>
+    </div>
+</div>
+

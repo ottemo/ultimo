@@ -4,6 +4,7 @@
     <div class="row">
       <div class="col-lg-3 col-md-3 col-sm-4">
         <div class="list-group table-of-contents">
+          <span class="list-group-item">TOC</span>
           <a class="list-group-item" href="#navbar">Navbar</a>
           <a class="list-group-item" href="#buttons">Buttons</a>
           <a class="list-group-item" href="#typography">Typography</a>
@@ -133,33 +134,33 @@
     </div>
 
     <div class="row">
-      <div class="col-lg-7">
+      <div class="col-lg-8">
 
         <p class="bs-component">
-          <a href="#" class="btn btn-default">Default</a>
-          <a href="#" class="btn btn-primary">Primary</a>
-          <a href="#" class="btn btn-success">Success</a>
-          <a href="#" class="btn btn-info">Info</a>
-          <a href="#" class="btn btn-warning">Warning</a>
-          <a href="#" class="btn btn-danger">Danger</a>
-          <a href="#" class="btn btn-link">Link</a>
+          <a href="#" class="btn btn-default">.btn-default</a>
+          <a href="#" class="btn btn-primary">.btn-primary</a>
+          <a href="#" class="btn btn-success">.btn-success</a>
+          <a href="#" class="btn btn-info">.btn-info</a>
+          <a href="#" class="btn btn-warning">.btn-warning</a>
+          <a href="#" class="btn btn-danger">.btn-danger</a>
+          <a href="#" class="btn btn-link">.btn-link</a>
         </p>
 
         <p class="bs-component">
-          <a href="#" class="btn btn-default disabled">Default</a>
-          <a href="#" class="btn btn-primary disabled">Primary</a>
-          <a href="#" class="btn btn-success disabled">Success</a>
-          <a href="#" class="btn btn-info disabled">Info</a>
-          <a href="#" class="btn btn-warning disabled">Warning</a>
-          <a href="#" class="btn btn-danger disabled">Danger</a>
-          <a href="#" class="btn btn-link disabled">Link</a>
+          <a href="#" class="btn btn-default disabled">.btn-default</a>
+          <a href="#" class="btn btn-primary disabled">.btn-primary</a>
+          <a href="#" class="btn btn-success disabled">.btn-success</a>
+          <a href="#" class="btn btn-info disabled">.btn-info</a>
+          <a href="#" class="btn btn-warning disabled">.btn-warning</a>
+          <a href="#" class="btn btn-danger disabled">.btn-danger</a>
+          <a href="#" class="btn btn-link disabled">.btn-link</a>
         </p>
 
 
         <div style="margin-bottom: 15px;">
           <div class="btn-toolbar bs-component" style="margin: 0;">
-            <div class="btn-group">
-              <a href="#" class="btn btn-default">Default</a>
+            <div class="btn-group" style="margin-left: 0;">
+              <a href="#" class="btn btn-default">.btn-default</a>
               <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#">Action</a></li>
@@ -171,7 +172,7 @@
             </div>
 
             <div class="btn-group">
-              <a href="#" class="btn btn-primary">Primary</a>
+              <a href="#" class="btn btn-primary">.btn-primary</a>
               <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#">Action</a></li>
@@ -183,7 +184,7 @@
             </div>
 
             <div class="btn-group">
-              <a href="#" class="btn btn-success">Success</a>
+              <a href="#" class="btn btn-success">.btn-success</a>
               <a href="#" class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#">Action</a></li>
@@ -195,7 +196,7 @@
             </div>
 
             <div class="btn-group">
-              <a href="#" class="btn btn-info">Info</a>
+              <a href="#" class="btn btn-info">.btn-info</a>
               <a href="#" class="btn btn-info dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#">Action</a></li>
@@ -207,7 +208,7 @@
             </div>
 
             <div class="btn-group">
-              <a href="#" class="btn btn-warning">Warning</a>
+              <a href="#" class="btn btn-warning">.btn-warning</a>
               <a href="#" class="btn btn-warning dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#">Action</a></li>
@@ -221,14 +222,14 @@
         </div>
 
         <p class="bs-component">
-          <a href="#" class="btn btn-primary btn-lg">Large button</a>
-          <a href="#" class="btn btn-primary">Default button</a>
-          <a href="#" class="btn btn-primary btn-sm">Small button</a>
-          <a href="#" class="btn btn-primary btn-xs">Mini button</a>
+          <a href="#" class="btn btn-primary btn-lg">.btn-lg</a>
+          <a href="#" class="btn btn-primary">default</a>
+          <a href="#" class="btn btn-primary btn-sm">.btn-sm</a>
+          <a href="#" class="btn btn-primary btn-xs">.btn-xs</a>
         </p>
 
       </div>
-      <div class="col-lg-5">
+      <div class="col-lg-4">
 
         <p class="bs-component">
           <a href="#" class="btn btn-default btn-lg btn-block">Block level button</a>
@@ -449,24 +450,13 @@
     <div class="row">
       <div class="col-lg-6">
         <div class="well bs-component">
-          <form class="form-horizontal" autocomplete="false">
+          <form class="form-horizontal" autocomplete="off">
             <fieldset>
-              <legend>Legend</legend>
+              <legend>Legend: form using rows &amp; cols</legend>
               <div class="form-group">
                 <label for="inputEmail" class="col-lg-2 control-label">Email</label>
                 <div class="col-lg-10">
-                  <input type="text" class="form-control" id="inputEmail" placeholder="Email" autocomplete="false">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="inputPassword" class="col-lg-2 control-label">Password</label>
-                <div class="col-lg-10">
-                  <input type="password" class="form-control" id="inputPassword" placeholder="Password" autocomplete="false">
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox"> Checkbox
-                    </label>
-                  </div>
+                  <input type="text" class="form-control" id="inputEmail" placeholder="Email" autocomplete="false" />
                 </div>
               </div>
               <div class="form-group">
@@ -980,30 +970,30 @@
         <div class="bs-component">
           <div class="panel panel-default">
             <div class="panel-body">
-              Basic panel
-            </div>
-          </div>
-
-          <div class="panel panel-default">
-            <div class="panel-heading">Panel heading</div>
-            <div class="panel-body">
               Panel content
             </div>
           </div>
-
           <div class="panel panel-default">
             <div class="panel-body">
               Panel content
             </div>
             <div class="panel-footer">Panel footer</div>
           </div>
+
         </div>
       </div>
       <div class="col-lg-4">
         <div class="bs-component">
+          <div class="panel panel-default">
+            <div class="panel-heading">.panel-default</div>
+            <div class="panel-body">
+              Panel content
+            </div>
+          </div>
+
           <div class="panel panel-primary">
             <div class="panel-heading">
-              <h3 class="panel-title">Panel primary</h3>
+              <h3 class="panel-title">.panel-primary</h3>
             </div>
             <div class="panel-body">
               Panel content
@@ -1012,28 +1002,29 @@
 
           <div class="panel panel-success">
             <div class="panel-heading">
-              <h3 class="panel-title">Panel success</h3>
+              <h3 class="panel-title">.panel-success</h3>
             </div>
             <div class="panel-body">
               Panel content
             </div>
           </div>
 
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="bs-component">
           <div class="panel panel-warning">
             <div class="panel-heading">
-              <h3 class="panel-title">Panel warning</h3>
+              <h3 class="panel-title">.panel-warning</h3>
             </div>
             <div class="panel-body">
               Panel content
             </div>
           </div>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="bs-component">
+
           <div class="panel panel-danger">
             <div class="panel-heading">
-              <h3 class="panel-title">Panel danger</h3>
+              <h3 class="panel-title">.panel-danger</h3>
             </div>
             <div class="panel-body">
               Panel content
@@ -1042,7 +1033,7 @@
 
           <div class="panel panel-info">
             <div class="panel-heading">
-              <h3 class="panel-title">Panel info</h3>
+              <h3 class="panel-title">.panel-info</h3>
             </div>
             <div class="panel-body">
               Panel content

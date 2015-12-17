@@ -100,11 +100,3 @@ the extra space looks funny */
 .cart-total__value {
 	text-align: right;
 }
-
-/*_________ Login _________*/
-.btn-facebook {
-	margin-top: 25px;
-}
-.btn-google {
-	margin-top: 40px;
-}

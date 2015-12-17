@@ -1,0 +1,283 @@
+<div class="container">
+    <div class="page-header">
+        <h1>Addresses</h1>
+    </div>
+
+    <div class="row">
+        <!-- left-side menu -->
+        <ng-include src="getTemplate('visitor/account/sidebar.html')"></ng-include>
+
+        <!-- adresses info -->
+        <div class="col-xs-12 col-sm-9">
+
+            <!-- error message -->
+            <gui-message-manager item="message"></gui-message-manager>
+
+            <!-- adresses info table -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Adresses info
+                    </h3>
+                </div>
+                <table class="table table-hover">
+                    <tbody>
+                        <tr ng-repeat="address in addresses">
+                            <td>{{address.Name}}</td>
+                            <td class="text-right">
+                                <button class="btn btn-primary btn-block-xs"
+                                    ng-click="popUpOpen(address.ID)">
+                                    <i class="fa fa-pencil fa-fw"></i>
+                                </button>
+                                <button class="btn btn-danger btn-block-xs"
+                                    ng-click="remove(address.ID)">
+                                    <i class="fa fa-remove fa-fw"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="panel-footer">
+                    <button class="btn btn-primary"
+                        ng-click="popUpOpen(address.ID)">
+                        Add Address
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- change info modal -->
+    <div class="modal fade"
+        id="parent_popup_address"
+        tabindex="-1"
+        role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button data-dismiss="modal"
+                        class="close"
+                        type="button">
+                        <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title">Add Address</h4>
+                </div>
+                <div class="modal-body">
+
+                    <!-- error message -->
+                    <gui-message-manager item="message"></gui-message-manager>
+
+                    <!-- Form to add billing addresses -->
+                    <form name="addressForm"
+                        novalidate>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <!--First name-->
+                                <div class="form-group"
+                                    ng-class="{ 'has-error' : (submitted && addressForm.first_name.$invalid) || (addressForm.first_name.$invalid && !addressForm.first_name.$pristine) }">
+                                    <label for="billingInputFirstName">First Name*</label>
+                                    <input type="text"
+                                        class="form-control"
+                                        id="billingInputFirstName"
+                                        ng-model="address.first_name"
+                                        name="first_name"
+                                        required />
+
+                                    <p ng-show="(submitted && addressForm.first_name.$invalid) || (addressForm.first_name.$invalid && !addressForm.first_name.$pristine)"
+                                        class="help-block">This field is required.</p>
+                                </div>
+                                <!--Last name-->
+                                <div class="form-group"
+                                    ng-class="{ 'has-error' : (submitted && addressForm.last_name.$invalid) || (addressForm.last_name.$invalid && !addressForm.last_name.$pristine) }">
+                                    <label for="billingInputLastName">Last Name*</label>
+                                    <input type="text"
+                                        class="form-control"
+                                        id="billingInputLastName"
+                                        ng-model="address.last_name"
+                                        name="last_name"
+                                        required />
+
+                                    <p ng-show="(submitted && addressForm.last_name.$invalid) || (addressForm.last_name.$invalid && !addressForm.last_name.$pristine)"
+                                        class="help-block">This field is required.</p>
+                                </div>
+                                <!--Address 1-->
+                                <div class="form-group"
+                                    ng-class="{ 'has-error' : (submitted && addressForm.address_line1.$error.required) || (addressForm.address1.$invalid && !addressForm.address_line1.$pristine) }">
+                                    <label for="billingInputAddress">Address 1*</label>
+                                    <input type="text"
+                                        class="form-control"
+                                        id="billingInputAddress"
+                                        name="address_line1"
+                                        ng-model="address.address_line1"
+                                        required>
+
+                                    <p ng-show="(submitted && addressForm.address_line1.$error.required) || (addressForm.address1.$invalid && !addressForm.address_line1.$pristine)"
+                                        class="help-block">This field is required.</p>
+                                </div>
+                                <!--Address 2-->
+                                <div class="form-group">
+                                    <label for="billingInputAddress2">Address 2</label>
+                                    <input type="text"
+                                        class="form-control"
+                                        id="billingInputAddress2"
+                                        ng-model="address.address_line2">
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <!--Country-->
+                                <div class="form-group"
+                                    ng-class="{ 'has-error' : (submitted && addressForm.country.$error.required) || (addressForm.country.$invalid && !addressForm.country.$pristine) }">
+                                    <label for="addressFormCountry">Country*</label>
+
+                                    <div>
+                                        <select class="form-control"
+                                            id="addressFormCountry"
+                                            name="country"
+                                            ng-model="address.country"
+                                            required
+                                            ng-options="c.Code as c.Name for c in countries">
+                                        </select>
+                                    </div>
+
+                                    <p ng-show="(submitted && addressForm.country.$error.required) || (addressForm.country.$invalid && !addressForm.country.$pristine)"
+                                        class="help-block">This field is required.</p>
+                                </div>
+
+                                <!--City-->
+                                <div class="form-group"
+                                    ng-class="{ 'has-error' : (submitted && addressForm.city.$error.required) || (addressForm.city.$invalid && !addressForm.city.$pristine) }">
+                                    <label for="addressFormCity">City*</label>
+                                    <input type="text"
+                                        class="form-control"
+                                        id="addressFormCity"
+                                        name="city"
+                                        ng-model="address.city"
+                                        required>
+
+                                    <p ng-show="(submitted && addressForm.city.$error.required) || (addressForm.city.$invalid && !addressForm.city.$pristine)"
+                                        class="help-block">This field is required.</p>
+                                </div>
+
+                                <!--State-->
+                                <div class="form-group"
+                                    ng-class="{ 'has-error' : (submitted && addressForm.state.$error.required) || (addressForm.state.$invalid && !addressForm.state.$pristine) }">
+
+                                    <label for="addressFormCity">
+                                        {{ checkout.shipping_address.country === 'US' ? 'State*' : 'State / Province / Region *'}}
+                                    </label>
+
+                                    <!-- US: States -->
+                                    <select name="state"
+                                        class="form-control"
+                                        required
+                                        ng-model="address.state"
+                                        ng-options="c.Code as c.Name for c in states"
+                                        ng-show="address.country === 'US'">
+                                    </select>
+
+                                    <!-- NON US: States / Regions -->
+                                    <input type="text"
+                                        name="state"
+                                        class="form-control"
+                                        required
+                                        ng-model="address.state"
+                                        ng-show="address.country !== 'US'">
+
+                                    <p ng-show="(submitted && addressForm.state.$error.required) || (addressForm.state.$invalid && !addressForm.state.$pristine)"
+                                        class="help-block">This field is required.</p>
+                                </div>
+
+                                <!--Zip code-->
+                                <div class="form-group"
+                                    ng-class="{ 'has-error' : (submitted && addressForm.zip_code.$invalid) || (addressForm.zip_code.$invalid && !addressForm.zip_code.$pristine) }">
+                                    <label for="addressFormZip">Zip / Postal Code*</label>
+                                    <input class="form-control"
+                                        id="addressFormZip"
+                                        name="zip_code"
+                                        type="text"
+                                        ng-model="address.zip_code"
+                                        ot-zip-code
+                                        ot-zip-code-linked-country="address.country"
+                                        required>
+
+                                    <p ng-show="(submitted && addressForm.zip_code.$error.required)"
+                                        class="help-block">This field is required.</p>
+
+                                    <p ng-if="!addressForm.zip_code.$error.required"
+                                        ng-show="(submitted && addressForm.zip_code.$invalid) ||
+                                           (addressForm.zip_code.$invalid && !addressForm.zip_code.$pristine)"
+                                        class="help-block">{{addressForm.zip_code.message}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Company-->
+                        <div class="form-group">
+                            <label for="billingInputCompany">Company Name</label>
+                            <input type="text"
+                                class="form-control"
+                                id="billingInputCompany"
+                                name="company"
+                                ng-model="address.company">
+                        </div>
+
+                        <!--Phone-->
+                        <div class="form-group"
+                            ng-class="{ 'has-error' : (submitted && addressForm.phone.$invalid) || (addressForm.phone.$invalid && !addressForm.phone.$pristine) }">
+                            <label for="addressFormPhone">Phone*</label>
+                            <input type="text"
+                                class="form-control"
+                                id="addressFormPhone"
+                                ng-model="address.phone"
+                                name="phone"
+                                ot-telephone
+                                ot-telephone-linked-country="address.country"
+                                required />
+
+                            <p ng-show="(submitted && addressForm.phone.$error.required)"
+                                class="help-block">This field is required.</p>
+
+                            <p ng-if="!addressForm.phone.$error.required"
+                                ng-show="(submitted && addressForm.phone.$invalid) ||
+                                   (addressForm.phone.$invalid && !addressForm.phone.$pristine)"
+                                class="help-block">{{addressForm.phone.message}}</p>
+                        </div>
+
+                        <!-- default billing address -->
+                        <div class="checkbox">
+                            <label for="billingUseAsBilling">
+                                <input type="checkbox"
+                                    name="billingAddressId"
+                                    id="billingUseAsBilling"
+                                    ng-model="useAsDefaultBilling"
+                                    ng-change="changeBillingAsDefault(address._id)"> use as default billing address
+                            </label>
+                        </div>
+
+                        <!-- default shipping address -->
+                        <div class="checkbox">
+                            <label for="shippingUseAsBilling">
+                                <input type="checkbox"
+                                    name="shippingAddressId"
+                                    id="shippingUseAsBilling"
+                                    ng-model="useAsDefaultShipping"
+                                    ng-change="changeShippingAsDefault(address._id)"> use as default shipping address
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit"
+                        data-dismiss="modal"
+                        class="btn btn-default">Close</button>
+                    <button type="submit"
+                        class="btn btn-primary"
+                        ng-click="save()"
+                        target="_self">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

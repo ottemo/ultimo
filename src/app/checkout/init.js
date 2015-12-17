@@ -39,7 +39,5 @@ angular.module("checkoutModule", [
                 templateUrl: "/views/checkout/order-confirmation.html",
                 controller: "checkoutOrderConfirmationController"
             });
-
-        $locationProvider.html5Mode(true);
     }
 ]);

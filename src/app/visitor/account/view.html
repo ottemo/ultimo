@@ -1,0 +1,55 @@
+<div class="container">
+
+    <div class="page-header">
+        <h1>My Account</h1>
+    </div>
+
+    <div class="row">
+        <!-- left-side menu -->
+        <ng-include src="getTemplate('visitor/account/sidebar.html')"></ng-include>
+
+        <!-- account info -->
+        <div class="col-xs-12 col-sm-9">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Account info</h3>
+                </div>
+                <table class="table">
+                    <tr>
+                        <td>First name</td>
+                        <td><strong ng-bind="visitor.fname"></strong></td>
+                    </tr>
+                    <tr>
+                        <td>Last name</td>
+                        <td><strong ng-bind="visitor.lname"></strong></td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td><strong ng-bind="visitor.email"></strong></td>
+                    </tr>
+                </table>
+                <div class="panel-footer">
+                    <button class="btn btn-default btn-block-xs"
+                        data-toggle="modal"
+                        data-target="#parent_popup_profile">
+                        Edit info
+                    </button>
+
+                    <button class="btn btn-default btn-block-xs"
+                        data-toggle="modal"
+                        data-target="#form-change-password">
+                        Change Password
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- change password modal -->
+    <ng-include src="getTemplate('visitor/account/modal/change-password.html')"></ng-include>
+
+    <!-- change info modal -->
+    <ng-include src="getTemplate('visitor/account/modal/change-info.html')"></ng-include>
+</div>
+

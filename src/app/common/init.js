@@ -59,6 +59,7 @@ angular.module("commonModule", [
                 }
             });
 
+        // Use html5 instead of #! urls
         $locationProvider.html5Mode(true);
 
         // loading bar configuration

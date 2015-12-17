@@ -11,8 +11,6 @@ angular.module("pdpModule", [
                 templateUrl: "/views/pdp/view.html",
                 controller: "pdpViewController"
             });
-
-        $locationProvider.html5Mode(true);
     }
 ]);
 

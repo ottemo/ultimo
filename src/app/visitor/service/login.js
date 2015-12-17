@@ -69,6 +69,10 @@ angular.module("visitorModule")
 
             logout = function () {
                 return $visitorApiService.logout().$promise.then(function(resp){
+                    // Set to default
+                    cleanLogin();
+
+                    // Clean some additional props
                     props.isLoggedIn = false;
                     isLoggedIn = false;
                     return resp;

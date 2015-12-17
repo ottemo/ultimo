@@ -10,61 +10,60 @@ angular.module("visitorModule", [
     gl.init();
 
     $routeProvider
-        .when("/logout", {
-            template: "",
-            controller: "visitorLogoutController"
-        })
         .when("/account", {
             title: "My Account",
-            templateUrl: "/views/visitor/account.html",
+            templateUrl: "/views/visitor/account/view.html",
             controller: "visitorAccountController"
         })
         .when("/account/address", {
             title: "Addresses",
-            templateUrl: "/views/visitor/account/address-manager.html",
-            controller: "visitorAddressController"
-        })
-        .when("/account/orders", {
-            title: "Orders",
-            templateUrl: "/views/visitor/account/order.html",
-            controller: "visitorOrderController"
-        })
-        .when("/account/order/:id", {
-            title: "Order Details",
-            templateUrl: "/views/visitor/account/order-details.html",
-            controller: "visitorOrderController"
+            templateUrl: "/views/visitor/account/address.html",
+            controller: "visitorAccountAddressController"
         })
         .when("/account/gift-cards", {
             title: "Gift Cards",
             templateUrl: "/views/visitor/account/gift-cards.html",
-            controller: "giftCardsController"
+            controller: "visitorAccountGiftCardsController"
         })
-        .when("/login", {
-            title: "Login",
-            templateUrl: "/views/visitor/login-page.html",
-            controller: "visitorLoginController"
+        .when("/account/orders", {
+            title: "Orders",
+            templateUrl: "/views/visitor/account/order-list.html",
+            controller: "visitorAccountOrderController"
+        })
+        .when("/account/order/:id", {
+            title: "Order Details",
+            templateUrl: "/views/visitor/account/order-details.html",
+            controller: "visitorAccountOrderController"
         })
         .when("/forgot-password", {
             title: "Forgot Password",
             templateUrl: "/views/visitor/forgot-password.html",
             controller: "visitorLoginController"
         })
-        .when("/reset-password", {
-            templateUrl: "/views/visitor/reset-password.html",
-            controller: "resetPasswordController"
+        .when("/login", {
+            title: "Login",
+            templateUrl: "/views/visitor/login.html",
+            controller: "visitorLoginController"
+        })
+        .when("/logout", {
+            template: "",
+            controller: "visitorLogoutController"
+        })
+        .when("/registration", {
+            title: "Register",
+            templateUrl: "/views/visitor/registration.html",
+            controller: "visitorLoginController"
         })
         .when("/resend-activation", {
             title: "Resend Activation",
             templateUrl: "/views/visitor/resend-activation.html",
             controller: "visitorLoginController"
         })
-        .when("/registration", {
-            title: "Register",
-            templateUrl: "/views/visitor/registration-page.html",
-            controller: "visitorLoginController"
+        .when("/reset-password", {
+            title: "Reset Password",
+            templateUrl: "/views/visitor/reset-password.html",
+            controller: "visitorResetPasswordController"
         });
-
-    $locationProvider.html5Mode(true);
 }])
 
 .run([

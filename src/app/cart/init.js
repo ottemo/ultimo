@@ -19,8 +19,6 @@ angular.module("cartModule", [
                 templateUrl: "/views/cart/view.html",
                 controller: "cartListController"
             });
-
-        $locationProvider.html5Mode(true);
     }
 ]);
 

@@ -13,5 +13,4 @@ angular.module("cmsModule", ["ngRoute", "ngResource", "ngSanitize"])
                 templateUrl: "/views/cms/page.html",
                 controller: "cmsPageController"
             });
-        $locationProvider.html5Mode(true);
     }]);

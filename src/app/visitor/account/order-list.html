@@ -1,14 +1,14 @@
-<!-- Orders page -->
-<div ng-init="init()" >
-    <h2 class="text-center">My Account</h2>
-    <br>
+<div class="container">
+    <div class="page-header">
+        <h1>My Account</h1>
+    </div>
 
     <div class="row">
         <!-- left-side menu -->
-        <ng-include src="getTemplate('visitor/account/menu.html')"></ng-include>
+        <ng-include src="getTemplate('visitor/account/sidebar.html')"></ng-include>
 
         <!-- orders layout -->
-        <div class="col-xs-12 col-sm-9" ng-controller="visitorAccountController">
+        <div class="col-xs-12 col-sm-9">
 
             <!-- error message -->
             <gui-message-manager item="message"></gui-message-manager>
@@ -20,15 +20,17 @@
                     </h3>
                 </div>
 
-                <div class="panel-body" ng-hide="ordersList.length">
+                <div class="panel-body"
+                    ng-hide="ordersList.length">
                     No orders yet
                 </div>
 
                 <!-- orders table mobile -->
-                <div class="panel-body visible-xs" ng-show="ordersList.length">
+                <div class="panel-body visible-xs"
+                    ng-show="ordersList.length">
                     <div ng-repeat="order in ordersList">
                         <strong class="">Order number: </strong>
-                        <a href="/account/order/{{order.ID}}">{{order.Name}}</a>
+                        <a href="/account/order/{{order.ID}}">{{order.ID}}</a>
 
                         <br>
 
@@ -55,7 +57,7 @@
 
                 <!-- orders table desktop tablet -->
                 <table class="table table-bordered table-hover table-striped hidden-xs"
-                ng-show="ordersList.length">
+                    ng-show="ordersList.length">
                     <thead>
                         <tr>
                             <th>Order number</th>
@@ -69,7 +71,7 @@
                     <tbody>
                         <tr ng-repeat="order in ordersList">
                             <td>
-                                <a href="/account/order/{{order.ID}}">{{order.Name}}</a>
+                                <a href="/account/order/{{order.ID}}">{{order.ID}}</a>
                             </td>
                             <td>{{order.Extra.created_at | date:"MM/dd/yyyy h:mma"}}</td>
                             <td>{{order.Desc}}</td>
@@ -82,3 +84,4 @@
         </div>
     </div>
 </div>
+

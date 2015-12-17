@@ -9,8 +9,6 @@ angular.module("categoryModule", ["ngRoute", "ngResource", "designModule"])
                 "templateUrl": "/views/category/view.html",
                 "controller": "categoryViewController"
             });
-
-        $locationProvider.html5Mode(true);
     }
 ])
 
