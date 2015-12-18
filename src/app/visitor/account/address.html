@@ -10,6 +10,7 @@
         <!-- adresses info -->
         <div class="col-xs-12 col-sm-9">
 
+            <!-- note: this is also inside the modal -->
             <!-- error message -->
             <gui-message-manager item="message"></gui-message-manager>
 
@@ -39,7 +40,7 @@
                 </table>
                 <div class="panel-footer">
                     <button class="btn btn-primary"
-                        ng-click="popUpOpen(address.ID)">
+                        ng-click="popUpOpen()">
                         Add Address
                     </button>
                 </div>
@@ -47,7 +48,7 @@
         </div>
     </div>
 
-    <!-- change info modal -->
+    <!-- change address modal -->
     <div class="modal fade"
         id="parent_popup_address"
         tabindex="-1"
@@ -60,79 +61,91 @@
                         type="button">
                         <span aria-hidden="true">×</span><span class="sr-only">Close</span>
                     </button>
-                    <h4 class="modal-title">Add Address</h4>
+                    <h4 class="modal-title">{{address._id ? 'Edit' : 'Add'}} Address</h4>
                 </div>
                 <div class="modal-body">
 
+                    <!-- note: this is also outside the modal -->
                     <!-- error message -->
                     <gui-message-manager item="message"></gui-message-manager>
 
-                    <!-- Form to add billing addresses -->
+                    <!-- Form to add/edit an addresses -->
                     <form name="addressForm"
+                        ng-submit="addressForm.$valid && save()"
                         novalidate>
                         <div class="row">
                             <div class="col-md-6">
+
                                 <!--First name-->
                                 <div class="form-group"
-                                    ng-class="{ 'has-error' : (submitted && addressForm.first_name.$invalid) || (addressForm.first_name.$invalid && !addressForm.first_name.$pristine) }">
-                                    <label for="billingInputFirstName">First Name*</label>
+                                    ng-class="{ 'has-error' : addressForm.first_name.$invalid && (addressForm.$submitted || addressForm.first_name.$touched) }">
+                                    <label for="addressFirstName">First Name*</label>
                                     <input type="text"
                                         class="form-control"
-                                        id="billingInputFirstName"
+                                        id="addressFirstName"
                                         ng-model="address.first_name"
                                         name="first_name"
                                         required />
 
-                                    <p ng-show="(submitted && addressForm.first_name.$invalid) || (addressForm.first_name.$invalid && !addressForm.first_name.$pristine)"
-                                        class="help-block">This field is required.</p>
+                                    <div class="help-block"
+                                        ng-show="addressForm.first_name.$invalid && (addressForm.$submitted || addressForm.first_name.$touched)">
+                                        This field is required.
+                                    </div>
                                 </div>
+
                                 <!--Last name-->
                                 <div class="form-group"
-                                    ng-class="{ 'has-error' : (submitted && addressForm.last_name.$invalid) || (addressForm.last_name.$invalid && !addressForm.last_name.$pristine) }">
-                                    <label for="billingInputLastName">Last Name*</label>
+                                    ng-class="{ 'has-error' : addressForm.last_name.$invalid && (addressForm.$submitted || addressForm.last_name.$touched) }">
+                                    <label for="addressLastName">Last Name*</label>
                                     <input type="text"
                                         class="form-control"
-                                        id="billingInputLastName"
+                                        id="addressLastName"
                                         ng-model="address.last_name"
                                         name="last_name"
                                         required />
 
-                                    <p ng-show="(submitted && addressForm.last_name.$invalid) || (addressForm.last_name.$invalid && !addressForm.last_name.$pristine)"
-                                        class="help-block">This field is required.</p>
+                                    <div ng-show="addressForm.last_name.$invalid && (addressForm.$submitted || addressForm.last_name.$touched)"
+                                        class="help-block">
+                                        This field is required.
+                                    </div>
                                 </div>
+
                                 <!--Address 1-->
                                 <div class="form-group"
-                                    ng-class="{ 'has-error' : (submitted && addressForm.address_line1.$error.required) || (addressForm.address1.$invalid && !addressForm.address_line1.$pristine) }">
-                                    <label for="billingInputAddress">Address 1*</label>
+                                    ng-class="{ 'has-error' : addressForm.address_line1.$invalid && (addressForm.$submitted || addressForm.address_line1.$touched) }">
+                                    <label for="addressLine1">Address 1*</label>
                                     <input type="text"
                                         class="form-control"
-                                        id="billingInputAddress"
+                                        id="addressLine1"
                                         name="address_line1"
                                         ng-model="address.address_line1"
                                         required>
 
-                                    <p ng-show="(submitted && addressForm.address_line1.$error.required) || (addressForm.address1.$invalid && !addressForm.address_line1.$pristine)"
-                                        class="help-block">This field is required.</p>
+                                    <div class="help-block"
+                                        ng-show="addressForm.address_line1.$invalid && (addressForm.$submitted || addressForm.address_line1.$touched)">
+                                        This field is required.
+                                    </div>
                                 </div>
                                 <!--Address 2-->
                                 <div class="form-group">
-                                    <label for="billingInputAddress2">Address 2</label>
+                                    <label for="addressLine2">Address 2</label>
                                     <input type="text"
                                         class="form-control"
-                                        id="billingInputAddress2"
+                                        id="addressLine2"
                                         ng-model="address.address_line2">
                                 </div>
 
                             </div>
                             <div class="col-md-6">
+
                                 <!--Country-->
                                 <div class="form-group"
-                                    ng-class="{ 'has-error' : (submitted && addressForm.country.$error.required) || (addressForm.country.$invalid && !addressForm.country.$pristine) }">
-                                    <label for="addressFormCountry">Country*</label>
+                                    ng-class="{ 'has-error' : addressForm.country.$invalid && (addressForm.$submitted || addressForm.country.$touched) }">
+                                    <label for="addressCountry">Country*</label>
 
                                     <div>
                                         <select class="form-control"
-                                            id="addressFormCountry"
+                                            id="addressCountry"
                                             name="country"
                                             ng-model="address.country"
                                             required
@@ -140,31 +153,35 @@
                                         </select>
                                     </div>
 
-                                    <p ng-show="(submitted && addressForm.country.$error.required) || (addressForm.country.$invalid && !addressForm.country.$pristine)"
-                                        class="help-block">This field is required.</p>
+                                    <div class="help-block"
+                                        ng-show="addressForm.country.$invalid && (addressForm.$submitted || addressForm.country.$touched)">
+                                        This field is required.
+                                    </div>
                                 </div>
 
                                 <!--City-->
                                 <div class="form-group"
                                     ng-class="{ 'has-error' : (submitted && addressForm.city.$error.required) || (addressForm.city.$invalid && !addressForm.city.$pristine) }">
-                                    <label for="addressFormCity">City*</label>
+                                    <label for="addressCity">City*</label>
                                     <input type="text"
                                         class="form-control"
-                                        id="addressFormCity"
+                                        id="addressCity"
                                         name="city"
                                         ng-model="address.city"
                                         required>
 
-                                    <p ng-show="(submitted && addressForm.city.$error.required) || (addressForm.city.$invalid && !addressForm.city.$pristine)"
-                                        class="help-block">This field is required.</p>
+                                    <div class="help-block"
+                                        ng-show="addressForm.city.$invalid && (addressForm.$submitted || addressForm.city.$touched)">
+                                        This field is required.
+                                    </div>
                                 </div>
 
                                 <!--State-->
                                 <div class="form-group"
-                                    ng-class="{ 'has-error' : (submitted && addressForm.state.$error.required) || (addressForm.state.$invalid && !addressForm.state.$pristine) }">
+                                    ng-class="{ 'has-error' : addressForm.state.$invalid && (addressForm.$submitted || addressForm.state.$touched) }">
 
-                                    <label for="addressFormCity">
-                                        {{ checkout.shipping_address.country === 'US' ? 'State*' : 'State / Province / Region *'}}
+                                    <label for="addressState">
+                                        {{ address.country === 'US' ? 'State*' : 'State / Province / Region *'}}
                                     </label>
 
                                     <!-- US: States -->
@@ -184,16 +201,18 @@
                                         ng-model="address.state"
                                         ng-show="address.country !== 'US'">
 
-                                    <p ng-show="(submitted && addressForm.state.$error.required) || (addressForm.state.$invalid && !addressForm.state.$pristine)"
-                                        class="help-block">This field is required.</p>
+                                    <div class="help-block"
+                                        ng-show="addressForm.state.$invalid && (addressForm.$submitted || addressForm.state.$touched)">
+                                        This field is required.
+                                    </div>
                                 </div>
 
                                 <!--Zip code-->
                                 <div class="form-group"
-                                    ng-class="{ 'has-error' : (submitted && addressForm.zip_code.$invalid) || (addressForm.zip_code.$invalid && !addressForm.zip_code.$pristine) }">
-                                    <label for="addressFormZip">Zip / Postal Code*</label>
+                                    ng-class="{ 'has-error' : addressForm.zip_code.$invalid && (addressForm.$submitted || addressForm.zip_code.$touched) }">
+                                    <label for="addressZip">Zip / Postal Code*</label>
                                     <input class="form-control"
-                                        id="addressFormZip"
+                                        id="addressZip"
                                         name="zip_code"
                                         type="text"
                                         ng-model="address.zip_code"
@@ -201,55 +220,51 @@
                                         ot-zip-code-linked-country="address.country"
                                         required>
 
-                                    <p ng-show="(submitted && addressForm.zip_code.$error.required)"
-                                        class="help-block">This field is required.</p>
-
-                                    <p ng-if="!addressForm.zip_code.$error.required"
-                                        ng-show="(submitted && addressForm.zip_code.$invalid) ||
-                                           (addressForm.zip_code.$invalid && !addressForm.zip_code.$pristine)"
-                                        class="help-block">{{addressForm.zip_code.message}}</p>
+                                    <div class="help-block"
+                                        ng-show="addressForm.zip_code.$invalid && (addressForm.$submitted || addressForm.zip_code.$touched)">
+                                        <div ng-show="addressForm.zip_code.$error.required">This field is required.</div>
+                                        <div ng-show="addressForm.zip_code.$error.validateZipCode">{{addressForm.zip_code.message}}</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <!--Company-->
                         <div class="form-group">
-                            <label for="billingInputCompany">Company Name</label>
+                            <label for="addressCompany">Company Name</label>
                             <input type="text"
                                 class="form-control"
-                                id="billingInputCompany"
+                                id="addressCompany"
                                 name="company"
                                 ng-model="address.company">
                         </div>
 
                         <!--Phone-->
                         <div class="form-group"
-                            ng-class="{ 'has-error' : (submitted && addressForm.phone.$invalid) || (addressForm.phone.$invalid && !addressForm.phone.$pristine) }">
-                            <label for="addressFormPhone">Phone*</label>
+                            ng-class="{ 'has-error' : addressForm.phone.$invalid && (addressForm.$submitted || addressForm.phone.$touched) }">
+                            <label for="addressPhone">Phone*</label>
                             <input type="text"
                                 class="form-control"
-                                id="addressFormPhone"
+                                id="addressPhone"
                                 ng-model="address.phone"
                                 name="phone"
                                 ot-telephone
                                 ot-telephone-linked-country="address.country"
                                 required />
 
-                            <p ng-show="(submitted && addressForm.phone.$error.required)"
-                                class="help-block">This field is required.</p>
-
-                            <p ng-if="!addressForm.phone.$error.required"
-                                ng-show="(submitted && addressForm.phone.$invalid) ||
-                                   (addressForm.phone.$invalid && !addressForm.phone.$pristine)"
-                                class="help-block">{{addressForm.phone.message}}</p>
+                            <div class="help-block"
+                                ng-show="addressForm.phone.$invalid && (addressForm.$submitted || addressForm.phone.$touched)">
+                                <div ng-show="addressForm.phone.$error.required">This field is required.</div>
+                                <div ng-show="addressForm.phone.$error.validateZipCode">{{addressForm.phone.message}}</div>
+                            </div>
                         </div>
 
-                        <!-- default billing address -->
+                        <!-- Default Billing Address -->
                         <div class="checkbox">
-                            <label for="billingUseAsBilling">
+                            <label for="addressIsDefaultBilling">
                                 <input type="checkbox"
                                     name="billingAddressId"
-                                    id="billingUseAsBilling"
+                                    id="addressIsDefaultBilling"
                                     ng-model="useAsDefaultBilling"
                                     ng-change="changeBillingAsDefault(address._id)"> use as default billing address
                             </label>
@@ -257,24 +272,25 @@
 
                         <!-- default shipping address -->
                         <div class="checkbox">
-                            <label for="shippingUseAsBilling">
+                            <label for="addressIsDefaultShipping">
                                 <input type="checkbox"
                                     name="shippingAddressId"
-                                    id="shippingUseAsBilling"
+                                    id="addressIsDefaultShipping"
                                     ng-model="useAsDefaultShipping"
                                     ng-change="changeShippingAsDefault(address._id)"> use as default shipping address
                             </label>
                         </div>
+
+                        <button type="button"
+                            data-dismiss="modal"
+                            class="btn btn-default">
+                            Close
+                        </button>
+                        <button type="submit"
+                            class="btn btn-primary">
+                            Save
+                        </button>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit"
-                        data-dismiss="modal"
-                        class="btn btn-default">Close</button>
-                    <button type="submit"
-                        class="btn btn-primary"
-                        ng-click="save()"
-                        target="_self">Save</button>
                 </div>
             </div>
         </div>

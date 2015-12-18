@@ -33,11 +33,17 @@ angular.module("visitorModule")
             });
 
             $visitorLoginService.isLoggedIn().then(function(isLoggedIn) {
-                if (!isLoggedIn) $location.path("/");
+                if (!isLoggedIn) {
+                    $location.path("/");
+                }
             });
 
-            $scope.orderId ? fetchOrder() : fetchOrderList();
-        };
+            if ($scope.orderId) {
+                fetchOrder();
+            } else {
+                fetchOrderList();
+            }
+        }
 
         function fetchOrderList() {
             var data = {

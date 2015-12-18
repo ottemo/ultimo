@@ -1,4 +1,4 @@
-var gl = function () {
+var gl = (function () {
 
     var init, requestData, login, loginCallback, userData;
     userData = {'access_token': ''};
@@ -48,5 +48,5 @@ var gl = function () {
         init: init
     };
 
-}();
+})();
 

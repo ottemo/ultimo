@@ -6,8 +6,7 @@ angular.module("visitorModule")
         '$resource',
         '$visitorApiService',
         '$q',
-        '$designService',
-        function ($resource, $visitorApiService, $q, $designService) {
+        function ($resource, $visitorApiService, $q) {
 
             /** Variables */
             var login, loginId, isLoggedIn, mapFields, sendingRequest;

@@ -4,10 +4,8 @@ angular.module("visitorModule", [
     "giftCardsModule"
 ])
 
-.config(["$routeProvider", "$locationProvider", function($routeProvider, $locationProvider) {
-
-    //REFACTOR:
-    gl.init();
+.config(["$routeProvider", "$locationProvider",
+    function($routeProvider, $locationProvider) {
 
     $routeProvider
         .when("/account", {
@@ -77,7 +75,7 @@ angular.module("visitorModule", [
 
         // Facebook Login callback
         $window.fbAsyncInit = function() {
-            FB.init({
+            $window.FB.init({
               appId: angular.appConfigValue("general.app.login.facebook.appId"),
               status: true,
               cookie: true,
@@ -89,12 +87,13 @@ angular.module("visitorModule", [
         // Load the SDK asynchronously
         (function(d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
+            if (d.getElementById(id)) {return;}
             js = d.createElement(s); js.id = id;
             js.src = "//connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
 
+        $window.gl.init();
 
         // Check if they are logged in and save auth info to root
         $visitorLoginService.isLoggedIn().then(function(isLoggedIn) {

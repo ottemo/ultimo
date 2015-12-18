@@ -5,12 +5,24 @@ angular.module("visitorModule")
         '$route',
         '$routeParams',
         '$anchorScroll',
+        '$window',
         '$visitorApiService',
         '$visitorLoginService',
         '$location',
         '$cartService',
         '$commonUtilService',
-        function ($scope, $route, $routeParams, $anchorScroll, $visitorApiService, $visitorLoginService, $location, $cartService, $commonUtilService) {
+        function (
+            $scope,
+            $route,
+            $routeParams,
+            $anchorScroll,
+            $window,
+            $visitorApiService,
+            $visitorLoginService,
+            $location,
+            $cartService,
+            $commonUtilService
+        ) {
 
             $scope.login = $visitorLoginService.getVisitor();
             $scope.loginCredentials = {};
@@ -130,10 +142,12 @@ angular.module("visitorModule")
 
             $scope.facebookLogin = function(isPopUp) {
 
-                FB.login( fbLoginCallback, { scope: 'email' });
+                $window.FB.login( fbLoginCallback, { scope: 'email' });
 
                 function fbLoginCallback(response) {
-                    if (typeof response.authResponse === "undefined") return;
+                    if (typeof response.authResponse === "undefined") {
+                        return;
+                    }
 
                     var authData = {
                         'user_id': response.authResponse.userID,
@@ -153,11 +167,11 @@ angular.module("visitorModule")
             };
 
             $scope.googleLogin = function () {
-                gl.login();
+                $window.gl.login();
             };
 
             $scope.loginCallback = window.loginCallback = function (response) {
-                var data = gl.loginCallback(response);
+                var data = $window.gl.loginCallback(response);
                 $visitorApiService.loginGoolge(data).$promise.then(
                     function () {
                         $visitorLoginService.isLoggedIn(true).then(

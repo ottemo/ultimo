@@ -23,7 +23,7 @@ angular.module("visitorModule")
                         $scope.searching = false;
                         $scope.error = false;
 
-                        if (response.error && response.error.code == "dd7b2130-b5ed-4b26-b1fc-2d36c3bf147f") {
+                        if (response.error && response.error.code === "dd7b2130-b5ed-4b26-b1fc-2d36c3bf147f") {
                             $scope.error = "Invalid giftcard code";
                         }
                         $scope.giftcardDetails = response.result || false;
@@ -34,7 +34,7 @@ angular.module("visitorModule")
         // REFACTOR
         // Sidebar, highlight active tab
         function isActive(path) {
-            return path == $location.path();
+            return path === $location.path();
         }
     }
 ]);

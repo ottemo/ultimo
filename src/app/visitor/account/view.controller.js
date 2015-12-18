@@ -33,11 +33,13 @@ angular.module("visitorModule")
                 // Redirect
                 $visitorLoginService.isLoggedIn()
                     .then(function (isLoggedIn) {
-                        if (!isLoggedIn) $location.path("/");
+                        if (!isLoggedIn) {
+                            $location.path("/");
+                        }
                     });
             }
 
-            function save(visitorForm) {
+            function save() {
                 delete $scope.visitor["password"];
                 delete $scope.visitor["billing_address"];
                 delete $scope.visitor["shipping_address"];
@@ -51,7 +53,7 @@ angular.module("visitorModule")
                             $scope.message = $commonUtilService.getMessage(null, "danger", "Something went wrong");
                         }
                     });
-            };
+            }
 
             function changePassword(passwordForm) {
                 var data = {
@@ -73,18 +75,18 @@ angular.module("visitorModule")
                             $scope.messagePassword = $commonUtilService.getMessage(response);
                         }
                     });
-            };
+            }
 
             // helper for closing popups
             function closePopUp() {
                 $(".modal").modal("hide");
-            };
+            }
 
             // REFACTOR
             // Sidebar
             function isActive(path) {
                 return activePath === path;
-            };
+            }
 
         }
     ]);

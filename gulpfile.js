@@ -79,7 +79,7 @@ gulp.task('serve', ['build'], function() {
 gulp.task('vet', function() {
     return gulp.src(config.scripts.app)
         .pipe($.jshint())
-        .pipe($.jshint.reporter(require('jshint-stylish')));
+        .pipe($.jshint.reporter('jshint-stylish'));
 });
 
 /**
