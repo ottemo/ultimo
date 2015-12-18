@@ -7,7 +7,7 @@ angular.module("giftCardsModule", [])
 
 		// How much money is on this giftcard
 		this.getBalance = function(code) {
-			return $http.get(REST_SERVER_URI + "/giftcard/" + code)
+			return $http.get(REST_SERVER_URI + "/giftcards/" + code)
 			.then(function(response){
 				return response.data;
 			});
@@ -15,7 +15,7 @@ angular.module("giftCardsModule", [])
 
 		// Attach the gift card to this session
 		this.apply = function(code) {
-			return $http.get(REST_SERVER_URI + "/giftcard/" + code + "/apply")
+			return $http.get(REST_SERVER_URI + "/giftcards/" + code + "/apply")
 			.then(function(response){
 				return response.data;
 			});
