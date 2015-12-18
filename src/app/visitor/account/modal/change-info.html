@@ -33,8 +33,10 @@
                             ng-model="visitor.fname"
                             required>
 
-                        <p ng-show="visitorForm.first_name.$invalid && (visitorForm.$submitted || visitorForm.first_name.$touched)"
-                            class="help-block">This field is required.</p>
+                        <div class="help-block"
+                            ng-show="visitorForm.first_name.$invalid && (visitorForm.$submitted || visitorForm.first_name.$touched)">
+                            This field is required.
+                        </div>
                     </div>
 
                     <!--Last Name-->
@@ -48,8 +50,10 @@
                             ng-model="visitor.lname"
                             required>
 
-                        <p ng-show="visitorForm.last_name.$invalid && (visitorForm.$submitted || visitorForm.last_name.$touched)"
-                            class="help-block">This field is required.</p>
+                        <div class="help-block"
+                            ng-show="visitorForm.last_name.$invalid && (visitorForm.$submitted || visitorForm.last_name.$touched)">
+                            This field is required.
+                        </div>
                     </div>
 
                     <!--Email-->
@@ -61,11 +65,14 @@
                             id="visitorFormEmail"
                             name="email"
                             ng-model="visitor.email"
-                            ot-email
                             required>
 
-                        <p ng-show="visitorForm.email.$invalid && (visitorForm.$submitted || visitorForm.email.$touched)"
-                            class="help-block">Please enter a valid email address.</p>
+                        <!-- error message -->
+                        <div class="help-block"
+                            ng-show="visitorForm.email.$invalid && (visitorForm.$submitted || visitorForm.email.$touched)">
+                            <div ng-show="visitorForm.email.$error.required">This field is required.</div>
+                            <div ng-show="visitorForm.email.$error.email">This email address is not properly formatted.</div>
+                        </div>
                     </div>
 
                     <button type="submit"

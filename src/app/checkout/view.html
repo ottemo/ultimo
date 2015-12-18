@@ -553,7 +553,7 @@
                      ng-class="{ 'has-error' : (subAdditionalInfo && customerInfo.email.$invalid) || (customerInfo.email.$invalid && !customerInfo.email.$pristine) }">
                     <label for="customerInputEmail">Email*</label>
                     <input type="text" class="form-control" id="customerInputEmail" placeholder="Email"
-                           ot-email="true" name="email" ng-model="checkout.info.customer_email" required />
+                           name="email" ng-model="checkout.info.customer_email" required />
 
                     <!-- error message -->
                     <p ng-show="(subAdditionalInfo && customerInfo.email.$error.required)"

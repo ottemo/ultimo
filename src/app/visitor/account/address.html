@@ -126,6 +126,7 @@
                                         This field is required.
                                     </div>
                                 </div>
+
                                 <!--Address 2-->
                                 <div class="form-group">
                                     <label for="addressLine2">Address 2</label>
@@ -217,13 +218,13 @@
                                         type="text"
                                         ng-model="address.zip_code"
                                         ot-zip-code
-                                        ot-zip-code-linked-country="address.country"
+                                        ot-zip-code-linked-country="{{address.country}}"
                                         required>
 
                                     <div class="help-block"
                                         ng-show="addressForm.zip_code.$invalid && (addressForm.$submitted || addressForm.zip_code.$touched)">
                                         <div ng-show="addressForm.zip_code.$error.required">This field is required.</div>
-                                        <div ng-show="addressForm.zip_code.$error.validateZipCode">{{addressForm.zip_code.message}}</div>
+                                        <div ng-show="addressForm.zip_code.$error.otZipCode">The provided zipcode is in an invalid format.</div>
                                     </div>
                                 </div>
                             </div>
@@ -249,13 +250,13 @@
                                 ng-model="address.phone"
                                 name="phone"
                                 ot-telephone
-                                ot-telephone-linked-country="address.country"
+                                ot-telephone-linked-country="{{address.country}}"
                                 required />
 
                             <div class="help-block"
                                 ng-show="addressForm.phone.$invalid && (addressForm.$submitted || addressForm.phone.$touched)">
                                 <div ng-show="addressForm.phone.$error.required">This field is required.</div>
-                                <div ng-show="addressForm.phone.$error.validateZipCode">{{addressForm.phone.message}}</div>
+                                <div ng-show="addressForm.phone.$error.otTelephone">The telephone provided is in an invalid format.</div>
                             </div>
                         </div>
 

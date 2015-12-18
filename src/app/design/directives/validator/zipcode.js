@@ -1,53 +1,34 @@
+/**
+ * Zip code validation directive
+ */
 angular.module('designModule')
 
-// Zip code validation directive
 .directive('otZipCode', function() {
     return {
         restrict: 'A',
         require: 'ngModel',
-        scope: {
-            country: '=otZipCodeLinkedCountry'
-        },
-        link: function(scope, elem, attrs, ngModel) {
+        link: function(scope, element, attr, ctrl) {
 
-            scope.$watch('country', function() {
-                ngModel.$validate();
-            });
+            var country;
 
             // Validators for each country
-            // consist of regular expression
-            // and optional validation error message
             var validators = {
-                'US': {
-                    // 5 digits (an options slash or white space then 4 digits)
-                    re: /^\d{5}([-\s]\d{4})?$/,
-                    msg: 'The code must be in format XXXXX-XXXX'
-                },
-                'CA': {
-                    re: /^[ABCEGHJKLMNPRSTVXYabceghjklmnprstvxy]\d[A-Za-z]\s\d[A-Za-z]\d$/,
-                    msg: 'The code must be in format X1X 1X1'
-                }
-            }
+                'US': /^\d{5}([-\s]\d{4})?$/,
+                'CA': /^[ABCEGHJKLMNPRSTVXYabceghjklmnprstvxy]\d[A-Za-z]\s\d[A-Za-z]\d$/
+            };
 
-            // Default validation error message
-            var invalidMsg = 'This field is not valid';
+            attr.$observe('otZipCodeLinkedCountry', function(val) {
+                country = val;
+                ctrl.$validate();
+            });
 
-            ngModel.$validators.validateZipCode = function (modelValue, viewValue) {
-
+            ctrl.$validators.otZipCode = function(modelValue, viewValue) {
                 var value = viewValue || modelValue;
-                var validator = validators[scope.country];
+                var validator = validators[country];
 
-                // Set validity state to true if
-                // no validator specified for current country
-                // or value matches regular expression
-                var isValid = (validator) ? validator.re.test(value) : true;
-
-                if (!isValid) {
-                    ngModel.message = validator.msg || invalidMsg;
-                }
-
-                return isValid;
+                return (validator) ? validator.test(value) : true;
             }
         }
     }
 });
+

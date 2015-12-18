@@ -81,7 +81,6 @@
                         type="text"
                         class="form-control"
                         name="email"
-                        ot-email="true"
                         ng-model="login.email"
                         required />
 
@@ -89,7 +88,7 @@
                     <div class="help-block"
                         ng-show="register.email.$invalid && (register.$submitted || register.email.$touched)">
                         <div ng-show="register.email.$error.required">This field is required.</div>
-                        <div ng-show="register.email.$error['ot-email']">{{register.email.message}}</div>
+                        <div ng-show="register.email.$error.email">This email address is not properly formatted.</div>
                     </div>
                 </div>
             </div>
@@ -109,9 +108,10 @@
 
                     <!-- error message -->
                     <div class="help-block"
-                        ng-show="register.$submitted || register.password.$touched">
+                        ng-show="register.password.$invalid && (register.$submitted || register.password.$touched)">
                         <div ng-show="register.password.$error.required">This field is required.</div>
-                        <div ng-show="register.password.$error['ot-password']">{{register.password.message}}</div>
+                        <div ng-show="register.password.$error.otPasswordMinLenth">Passwords must be a minimum of 6 characters.</div>
+                        <div ng-show="register.password.$error.otPasswordCommon">You entered one of the 50 most common passwords, please try something more secure.</div>
                     </div>
                 </div>
 
@@ -131,8 +131,8 @@
                     <!-- error message -->
                     <div class="help-block"
                         ng-show="register.$submitted || register.confirm_password.$touched">
-                        <span ng-show="register.confirm_password.$error.required">This field is required.</span>
-                        <span ng-show="register.confirm_password.$error.match">The two passwords don't match</span>
+                        <div ng-show="register.confirm_password.$error.required">This field is required.</div>
+                        <div ng-show="register.confirm_password.$error.match">The two passwords don't match.</div>
                     </div>
                 </div>
             </div>
