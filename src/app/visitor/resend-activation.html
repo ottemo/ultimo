@@ -19,16 +19,18 @@
                     ng-class="{ 'has-error' : invalidateForm.email.$invalid && (invalidateForm.$submitted || invalidateForm.email.$touched) }">
                     <label for="email">Email *</label>
                     <input class="form-control"
-                        type="text"
+                        type="email"
                         id="email"
                         placeholder="email"
                         ng-model="invalidateCredentials.email"
                         name="email"
                         required />
 
+                    <!-- error message -->
                     <div class="help-block"
                         ng-show="invalidateForm.email.$invalid && (invalidateForm.$submitted || invalidateForm.email.$touched)">
-                        This field is required.
+                        <div ng-show="invalidateForm.email.$error.required">This field is required.</div>
+                        <div ng-show="invalidateForm.email.$error.email">This email address is not properly formatted.</div>
                     </div>
                 </div>
 
