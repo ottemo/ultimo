@@ -25,11 +25,11 @@ angular.module("designModule")
             ];
 
             ctrl.$validators.otPasswordMinLength = function(value) {
-                return angular.isUndefined(value) ||(value.length < minLength);
+                return angular.isUndefined(value) || (value.length >= minLength);
             }
 
             ctrl.$validators.otPasswordCommon = function(value) {
-                return angular.isUndefined(value) || (commonPasswords.indexOf(value) !== -1);
+                return angular.isUndefined(value) || (commonPasswords.indexOf(value) === -1);
             }
         }
     };
