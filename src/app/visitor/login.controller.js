@@ -50,7 +50,6 @@ angular.module("visitorModule")
                             $scope.messageValidation = $commonUtilService.getMessage(response);
                         }
                     });
-
                 }
             };
 
@@ -110,7 +109,6 @@ angular.module("visitorModule")
                         $scope.message = $commonUtilService.getMessage(response);
                     }
                 });
-
             };
 
             var signInSuccess = function (isPopUp) {
@@ -122,6 +120,7 @@ angular.module("visitorModule")
                 }
             };
 
+            // Login page
             $scope.signIn = function () {
                 $visitorApiService.login($scope.loginCredentials).$promise
                     .then(function (response) {

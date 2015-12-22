@@ -9,7 +9,9 @@
 
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form name="invalidateForm" ng-submit="invalidateForm.$valid && sendInvalidateEmail()">
+            <form name="invalidateForm"
+                ng-submit="invalidateForm.$valid && sendInvalidateEmail()"
+                novalidate>
 
                 <!-- error message -->
                 <gui-message-manager item="message"></gui-message-manager>
