@@ -27,13 +27,8 @@ angular.module("visitorModule")
         $scope.isSubmitting = false;
         $scope.message = '';
 
-        activate();
-
         ///////////////////////////
 
-        function activate() {
-
-        }
 
         /**
          * Send the request to reset the password

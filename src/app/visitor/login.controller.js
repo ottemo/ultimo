@@ -86,7 +86,7 @@ angular.module("visitorModule")
                 var blackListedFields = ['confirm_password', 'billing_address', 'shipping_address'];
                 for (var field in $scope.login) {
                     var isFieldBlackListed = blackListedFields.indexOf(field) !== -1;
-                    if ($scope.login.hasOwnProperty(field) && false == isFieldBlackListed) {
+                    if ($scope.login.hasOwnProperty(field) && false === isFieldBlackListed) {
                         data[field] = $scope.login[field];
                     }
                 }
