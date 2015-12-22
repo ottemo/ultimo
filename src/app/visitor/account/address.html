@@ -162,7 +162,7 @@
 
                                 <!--City-->
                                 <div class="form-group"
-                                    ng-class="{ 'has-error' : (submitted && addressForm.city.$error.required) || (addressForm.city.$invalid && !addressForm.city.$pristine) }">
+                                    ng-class="{ 'has-error' : addressForm.city.$invalid && (addressForm.$submitted || addressForm.city.$touched) }">
                                     <label for="addressCity">City*</label>
                                     <input type="text"
                                         class="form-control"
