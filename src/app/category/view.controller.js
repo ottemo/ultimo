@@ -400,12 +400,6 @@ angular.module("categoryModule")
                     $scope.productsList = $scope.productsList.concat(result);
                 }
             );
-            $categoryApiService.getProductsByCategoryId(params).$promise.then(
-                function(response) {
-                    var result = response.result || [];
-                    $scope.productsList = $scope.productsList.concat(result);
-                }
-            );
         };
 
         function search() {
