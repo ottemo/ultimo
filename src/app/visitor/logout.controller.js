@@ -27,7 +27,7 @@ angular.module("visitorModule")
         }
 
         function sendHome() {
-            return window.location.href = '/';
+            return $window.location.href = '/';
         }
     }
 ]);
