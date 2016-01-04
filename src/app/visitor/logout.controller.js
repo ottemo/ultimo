@@ -2,29 +2,33 @@ angular.module("visitorModule")
 
 .controller("visitorLogoutController", [
     "$scope",
+    "$window",
     "$visitorLoginService",
-    "$location",
     "$cartService",
-    function($scope, $visitorLoginService, $location, $cartService) {
+    function($scope, $window, $visitorLoginService, $cartService) {
 
-        $visitorLoginService.isLoggedIn()
-            .then(function(isLoggedIn) {
-                if (!isLoggedIn) {
-                    $location.path("/");
-                } else {
-                    // Send logout request, and clean up visitor object
-                    $visitorLoginService.logout()
-                        .then(function() {
+        activate();
 
-                            // Update the cart
-                            $cartService.reload()
-                                .then(function() {
-                                    $location.path("/");
-                                });
+        //////////////////////
+        
+        function activate() {
 
-                        });
-                }
+            // Log the user out and send them to the homepage
+            $visitorLoginService.isLoggedIn()
+                .then(function(isLoggedIn) {
+                    isLoggedIn ? logoutActions() : sendHome();
             });
+        }
+
+        function logoutActions() {
+            $visitorLoginService.logout()
+                .then($cartService.reload)
+                .then(sendHome);
+        }
+
+        function sendHome() {
+            return $window.location.href = '/';
+        }
     }
 ]);
 
