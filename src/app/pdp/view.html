@@ -58,7 +58,7 @@
                 config="{dots:true}">
                 <div ng-repeat="img in product.images">
                     <a class="pdp-img-container js-pdp-img"
-                        href="{{img.large}}">
+                        data-href-lg="{{img.large}}">
                         <img ng-src="{{img.large}}"
                             class="img-fill" />
                     </a>
@@ -190,19 +190,16 @@ $(function() {
 
     function monitorZoomImage() {
         $(document).on('click', '.js-pdp-img', function(e) {
+            // Toss it in a data attribute because the event
+            // doesn't always get prevented
+            var href = $(this).data('href-lg');
 
-            // Don't follow the link if we are on something larger than a tablet
+            // greater than tablet gets a fancybox
             if ($(window).width() > 767) {
-                e.preventDefault();
-
-                // There is some weird bug with fancybox and context,
-                // so just pass in the source for it
-                var src = $(this).attr('href');
-
-                $.fancybox({
-                    href: src
-                });
-            };
+                $.fancybox({href: href});
+            } else {
+                window.location = href;
+            }
         });
     }
 
