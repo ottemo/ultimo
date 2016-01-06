@@ -3,7 +3,7 @@ Urbanity Store
 
 ## License
 
-[MIT License](LICENSE.md) Copyright 2015, Ottemo, Inc
+[MIT License](LICENSE.md) Copyright 2016, Ottemo, Inc
 
 ## Terms and Conditions
 
