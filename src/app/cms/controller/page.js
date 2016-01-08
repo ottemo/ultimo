@@ -1,48 +1,43 @@
 angular.module("cmsModule")
-    /*
-     *  HTML top page header manipulator (direct service mapping)
-     */
-    .controller("cmsPageController", [
-        "$scope",
-        "$routeParams",
-        "$location",
-        "$sce",
-        "$cmsApiService",
-        "$cmsPageService",
-        "$commonPageService",
-        function ($scope, $routeParams, $location, $sce, $cmsApiService, $cmsPageService) {
-            var getDefaultPage;
 
-            getDefaultPage = function () {
-                return {};
-            };
+.controller("cmsPageController", [
+    "$scope",
+    "$routeParams",
+    "$location",
+    "$cmsApiService",
+    "$cmsPageService",
+    function($scope, $routeParams, $location, $cmsApiService, $cmsPageService) {
 
-            $scope.pageId = $routeParams.id;
+        $scope.pageId = $routeParams.id;
+        $scope.page = {};
 
-            $scope.page = getDefaultPage();
+        activate();
 
-            $cmsApiService.getPage({"pageID": $scope.pageId}).$promise.then(
-                function (response) {
-                    if (response.error === null) {
-                        var result = response.result || getDefaultPage();
-                        $scope.page = result;
+        /////////////////////////
+        function activate() {
 
-                        // BREADCRUMBS
-                        $scope.$emit("add-breadcrumbs", {
-                            "label": $scope.page.identifier,
-                            "url": $cmsPageService.getUrl($scope.page._id)
-                        });
-                    } else {
-                        $location.path("/");
-                    }
-                }
-            );
+            // Get the page
+            getPage().then(function(page){
+                $scope.page = page;
 
-            $scope.getContent = function () {
-                return $sce.trustAsHtml($scope.page.content);
-            };
-
+                // BREADCRUMBS
+                $scope.$emit("add-breadcrumbs", {
+                    "label": $scope.page.identifier,
+                    "url": $cmsPageService.getUrl($scope.page._id)
+                });
+            });
         }
-    ]
-);
+
+        function getPage() {
+            return $cmsApiService.getPage({"pageID": $scope.pageId}).$promise
+                .then(function(response){
+                    if (response.error !== null) {
+                        $location.path("/");
+                    };
+
+                    return response.result || {};
+                });
+        }
+    }
+]);
 
