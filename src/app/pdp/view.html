@@ -83,9 +83,15 @@
             <div ng-show="product.isInStoreOnly">
                 <div class="alert alert-info">
                     <p><strong>Only Available In-Store</strong></p>
-                    <p>Stop by our store in Downtown Seattle to shop for this product, and discover our other in-store only specials.</p>
+                    <p>
+                        Stop by our store in Downtown Seattle to shop for this product, and discover our other
+                        in-store only specials.
+                    </p>
                 </div>
-                <a href="/contact" class="btn btn-block btn-primary">Visit Us Today</a>
+                <a class="btn btn-block btn-primary"
+                    href="/email-orders">
+                    Email Orders Accepted
+                </a>
             </div>
 
             <div ng-show="!product.isInStoreOnly">
@@ -223,5 +229,6 @@ $(function() {
     }
 
 });
+
 </script>
 
