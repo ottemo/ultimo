@@ -29,7 +29,7 @@
             </div>
             <div class="visible-md visible-lg">
                 <!-- description 1/2 -->
-                <p>{{product.description}}</p>
+                <div ng-bind-html="product.description"></div>
 
                 <!-- social links -->
                 <ul class="list-social">
@@ -78,7 +78,7 @@
         <!-- right column -->
         <div class="col-sm-5 col-md-3">
             <!-- description 2/2 -->
-            <p class="hidden-md hidden-lg std">{{product.description}}</p>
+            <div class="hidden-md hidden-lg std" ng-bind-html="product.description"></div>
 
             <div ng-show="product.isInStoreOnly">
                 <div class="alert alert-info">
