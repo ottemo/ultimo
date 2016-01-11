@@ -1,4 +1,6 @@
-<div class="container">
+<div class="container"
+    itemscope
+    itemtype="http://schema.org/Product">
 
     <!-- disabled message -->
     <div ng-if="product && !product.enabled"
@@ -25,10 +27,12 @@
         <!-- details -->
         <div class="col-md-3 pdp-left">
             <div class="page-header">
-                <h1>{{product.name}}</h1>
+                <h1 itemprop="name">{{product.name}}</h1>
             </div>
             <div class="visible-md visible-lg">
                 <!-- description 1/2 -->
+
+                <meta itemprop="description" content="{{ product.description | htmlToText }}"/>
                 <div ng-bind-html="product.description"></div>
 
                 <!-- social links -->
@@ -60,7 +64,8 @@
                     <a class="pdp-img-container js-pdp-img"
                         data-href-lg="{{img.large}}">
                         <img ng-src="{{img.large}}"
-                            class="img-fill" />
+                            class="img-fill"
+                            itemprop="image" />
                     </a>
                 </div>
 
@@ -80,7 +85,8 @@
             <!-- description 2/2 -->
             <div class="hidden-md hidden-lg std" ng-bind-html="product.description"></div>
 
-            <div ng-show="product.isInStoreOnly">
+            <!-- UB Specific -->
+            <div ng-if="product.isInStoreOnly">
                 <div class="alert alert-info">
                     <p><strong>Only Available In-Store</strong></p>
                     <p>
@@ -94,11 +100,26 @@
                 </a>
             </div>
 
+            <!-- can't use ng-if here because of a scoping problem with product options -->
             <div ng-show="!product.isInStoreOnly">
+
                 <!-- price -->
                 <div class="form-group">
+
+                    <!-- price microdata is rendered conditionally -->
+                    <span ng-if="!product.isInStoreOnly"
+                        itemprop="offers"
+                        itemscope
+                        itemtype="http://schema.org/Offer">
+
+                        <meta itemprop="priceCurrency" content="USD" />
+                        <meta itemprop="price" content="{{ product.price.toFixed(2) }}" />
+                    </span>
+
                     <label class="control-label">Price:</label>
-                    <span class="form-control-static">{{product.price | currency}}</span>
+                    <span class="form-control-static">
+                        {{product.price | currency}}
+                    </span>
                 </div>
 
                 <!-- custom options -->
