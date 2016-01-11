@@ -111,19 +111,21 @@ angular.module("visitorModule", [
             if (matches !== null) {
                 var path = matches[1] || "";
 
-                var pathBlacklist = [
-                    '/forgot-password',
-                    '/reset-password',
-                    '/login',
-                    '/logout',
-                    '/resend-activation',
-                    '/registration',
-                ];
+                var blacklist = [
+                    '^/checkout/success',
+                    '^/forgot-password',
+                    '^/login',
+                    '^/logout',
+                    '^/registration',
+                    '^/resend-activation',
+                    '^/reset-password',
+                ].join('|');
 
-                var isPathInBlacklist = (-1 !== pathBlacklist.indexOf(path));
+                var blackReg = new RegExp(blacklist);
+                var isPathInBlacklist = (null != path.match(blackReg));
 
                 // Only record redirect urls if they are ones we want someone ever
-                // redireting to
+                // redirecting to
                 if (!isPathInBlacklist) {
                     angular.module('visitorModule').back.path = path;
                 }
