@@ -43,9 +43,11 @@
                             class="std"></div>
 
                         <!-- Custom options -->
-                        <gui-custom-options item="popupProduct"
-                            object="this"></gui-custom-options>
-
+                        <!-- UB specific -->
+                        <div ng-hide="popupProduct.isInStoreOnly">
+                            <gui-custom-options item="popupProduct"
+                                object="this"></gui-custom-options>
+                        </div>
 
                         <div class="clearfix"></div>
 
@@ -66,7 +68,9 @@
                 </a>
 
                 <!-- add to cart button -->
+                <!-- UB Specific ng-show -->
                 <button type="submit"
+                    ng-hide="popupProduct.isInStoreOnly"
                     class="btn btn-primary"
                     ng-class="{disabled: isAddingToCart}"
                     ng-click="addToCart(popupProduct)">

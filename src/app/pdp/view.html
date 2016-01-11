@@ -85,43 +85,24 @@
             <!-- description 2/2 -->
             <div class="hidden-md hidden-lg std" ng-bind-html="product.description"></div>
 
-            <!-- UB Specific -->
-            <div ng-if="product.isInStoreOnly">
-                <div class="alert alert-info">
-                    <p><strong>Only Available In-Store</strong></p>
-                    <p>
-                        Stop by our store in Downtown Seattle to shop for this product, and discover our other
-                        in-store only specials.
-                    </p>
-                </div>
-                <a class="btn btn-block btn-primary"
-                    href="/email-orders">
-                    Email Orders Accepted
-                </a>
+            <!-- price -->
+            <div class="form-group">
+
+                <span itemprop="offers"
+                    itemscope
+                    itemtype="http://schema.org/Offer">
+
+                    <meta itemprop="priceCurrency" content="USD" />
+                    <meta itemprop="price" content="{{ product.price.toFixed(2) }}" />
+                </span>
+
+                <label class="control-label">Price:</label>
+                <span class="form-control-static">
+                    {{product.price | currency}}
+                </span>
             </div>
 
-            <!-- can't use ng-if here because of a scoping problem with product options -->
             <div ng-show="!product.isInStoreOnly">
-
-                <!-- price -->
-                <div class="form-group">
-
-                    <!-- price microdata is rendered conditionally -->
-                    <span ng-if="!product.isInStoreOnly"
-                        itemprop="offers"
-                        itemscope
-                        itemtype="http://schema.org/Offer">
-
-                        <meta itemprop="priceCurrency" content="USD" />
-                        <meta itemprop="price" content="{{ product.price.toFixed(2) }}" />
-                    </span>
-
-                    <label class="control-label">Price:</label>
-                    <span class="form-control-static">
-                        {{product.price | currency}}
-                    </span>
-                </div>
-
                 <!-- custom options -->
                 <gui-custom-options item="product"
                     object="this"></gui-custom-options>
@@ -157,9 +138,26 @@
                 <div class="alert alert-success text-center"
                     ng-show="isAddToCartSuccessful">
                     <p>{{product.name}} was added to your bag</p>
-                    <p><a href="/cart"
-                            class="btn btn-default">view my bag</a></p>
+                    <p>
+                        <a href="/cart"
+                            class="btn btn-default">view my bag</a>
+                    </p>
                 </div>
+            </div>
+
+            <!-- UB Specific -->
+            <div ng-if="product.isInStoreOnly">
+                <div class="alert alert-info">
+                    <p><strong>Only Available In-Store</strong></p>
+                    <p>
+                        Stop by our store in Downtown Seattle to shop for this product, and discover our other
+                        in-store only specials.
+                    </p>
+                </div>
+                <a class="btn btn-block btn-primary"
+                    href="/email-orders">
+                    Email Orders Accepted
+                </a>
             </div>
 
             <!-- social links -->
@@ -167,24 +165,13 @@
             <ul class="hidden-md hidden-lg text-center list-social">
                 <li>share:</li>
                 <li>
-                    <a href="">
-                        <i class="fa fa-facebook fa-fw"></i>
-                    </a>
+                    <a href="https://www.instagram.com/urbanityshop/"><i class="fa fa-instagram"></i></a>
                 </li>
                 <li>
-                    <a href="">
-                        <i class="fa fa-twitter fa-fw"></i>
-                    </a>
+                    <a href="https://twitter.com/urbanityshop"><i class="fa fa-twitter"></i></a>
                 </li>
                 <li>
-                    <a href="">
-                        <i class="fa fa-pinterest-p fa-fw"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="/contact">
-                        <i class="fa fa-envelope fa-fw"></i>
-                    </a>
+                    <a href="https://www.facebook.com/urbanityclothingstore/"><i class="fa fa-facebook"></i></a>
                 </li>
             </ul>
         </div>
