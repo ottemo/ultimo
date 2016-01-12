@@ -1,11 +1,34 @@
 <!-- Inliner Build Version 4380b7741bb759d6cb997545f3add21ad48f010b -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+
+# Gift Card Template
+
+## Variables Available in this template
+
+.Recipient
+  .Name
+  .Email
+.Buyer
+  .Name
+  .Email
+.GiftCard
+  .Amount
+  .Code
+  .RecipientName
+  .RecipientEmail
+  .Message
+.Site
+  .Url - has trailing slash
+
+-->
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width" />
+<!-- For testing only -->
   </head>
-  <body style="width: 100% !important; min-width: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 19px; font-size: 14px; background: #eee; margin: 0; padding: 0;" bgcolor="#eee"><style type="text/css">
+  <body style="width: 100% !important; min-width: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; text-align: left; line-height: 24px; font-size: 16px; background: #f2f2f2; margin: 0; padding: 0;" bgcolor="#f2f2f2"><style type="text/css">
 a:hover {
 color: #2795b6 !important;
 }
@@ -52,37 +75,37 @@ h6 a:visited {
 color: #2ba6cb !important;
 }
 table.button:hover td {
-background: #000 !important; border-color: #000 !important; cursor: pointer !important;
+background: #080808 !important; border-color: #000 !important;
 }
 table.button:visited td {
-background: #000 !important; border-color: #000 !important; cursor: pointer !important;
+background: #080808 !important; border-color: #000 !important;
 }
 table.button:active td {
-background: #000 !important; border-color: #000 !important; cursor: pointer !important;
+background: #080808 !important; border-color: #000 !important;
 }
 table.button:hover td a {
-color: #fff !important;
+color: #ffffff !important;
 }
 table.button:visited td a {
-color: #fff !important;
+color: #ffffff !important;
 }
 table.button:active td a {
-color: #fff !important;
+color: #ffffff !important;
 }
 table.button:hover td {
-background: #000 !important;
+background: #080808 !important;
 }
 table.tiny-button:hover td {
-background: #000 !important;
+background: #080808 !important;
 }
 table.small-button:hover td {
-background: #000 !important;
+background: #080808 !important;
 }
 table.medium-button:hover td {
-background: #000 !important;
+background: #080808 !important;
 }
 table.large-button:hover td {
-background: #000 !important;
+background: #080808 !important;
 }
 table.button:hover td a {
 color: #ffffff !important;
@@ -130,16 +153,16 @@ table.large-button td a:visited {
 color: #ffffff !important;
 }
 table.secondary:hover td {
-background: #d0d0d0 !important; color: #555;
+background: #d0d0d0 !important; color: #555555;
 }
 table.secondary:hover td a {
-color: #555 !important;
+color: #555555 !important;
 }
 table.secondary td a:visited {
-color: #555 !important;
+color: #555555 !important;
 }
 table.secondary:active td a {
-color: #555 !important;
+color: #555555 !important;
 }
 table.success:hover td {
 background: #457a1a !important;
@@ -149,7 +172,7 @@ background: #970b0e !important;
 }
 @media only screen and (max-width: 600px) {
   table[class="body"] img {
-    width: auto !important; height: auto !important;
+    max-width: auto !important; max-height: auto !important;
   }
   table[class="body"] center {
     min-width: 0 !important;
@@ -161,7 +184,7 @@ background: #970b0e !important;
     width: 100% !important; display: block !important;
   }
   table[class="body"] .wrapper {
-    display: block !important;
+    display: block !important; padding-right: 0 !important;
   }
   table[class="body"] .columns {
     table-layout: fixed !important; float: none !important; width: 100% !important; padding-right: 0px !important; padding-left: 0px !important; display: block !important;
@@ -308,71 +331,85 @@ background: #970b0e !important;
     display: none !important;
   }
   table[class="body"] .show-for-small {
-    display: inherit !important;
+    display: block !important; width: auto !important; overflow: visible !important;
   }
   table[class="body"] .hide-for-desktop {
-    display: inherit !important;
+    display: block !important; width: auto !important; overflow: visible !important;
   }
 }
 </style>
-  <table class="body" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; height: 100%; width: 100%; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; background: #eee; margin: 0; padding: 0;" bgcolor="#eee"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="center" align="center" valign="top" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: center; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;">
-        <center style="width: 100%; min-width: 580px;">
+    <table class="body" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; height: 100%; width: 100%; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; background: #f2f2f2; margin: 0; padding: 0;" bgcolor="#f2f2f2"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="center" align="center" valign="top" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: center; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0;">
+          <center style="width: 100%; min-width: 580px;">
 
-          <table class="container" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: inherit; width: 580px; background: #fff; margin: 30px auto; padding: 0; border: 1px solid #d9d9d9;" bgcolor="#fff"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="left" valign="top">
-                <table class="row" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="wrapper" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px 10px 0px;" align="left" valign="top">
+            <!-- container-primary -->
+            <table class="container container-primary" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: inherit; width: 580px; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: #ddd; background: #fff; margin: 30px 0; padding: 0;" bgcolor="#fff"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0;" align="left" valign="top">
 
-                      <table class="twelve columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0px 0px 10px;" align="left" valign="top">
-                            <a href="{{ .Site.Url }}" style="color: #2ba6cb; text-decoration: none;">
-                              <img src="{{ .Site.Url }}theme/images/email/kg-logo.jpg" style="outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; width: auto; max-width: 100%; float: left; clear: both; display: block; border: none;" align="left" /></a>
-                          </td>
-                          <td class="expander" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="left" valign="top"></td>
-
-                        </tr></table></td>
-                  </tr></table><table class="row" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="wrapper" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px 10px 0px;" align="left" valign="top">
-
-                      <table class="twelve columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0px 0px 10px;" align="left" valign="top">
-
-                            <h1 style="color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 1.3; word-break: normal; font-size: 22px; margin: 0; padding: 0;" align="left">Hello,</h1>
-                            <p style="color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 19px; font-size: 14px; margin: 0 0 10px; padding: 0;" align="left">Thank you for ordering a gift card from Kari Gran. This gift card can be applied durring the checkout process. You will also receive an order confirmation outlining all order information.</p>
-                            <p style="color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 19px; font-size: 14px; margin: 0 0 10px; padding: 0;" align="left">We use a holistic approach to skin care health, so our products are made from pure ingredients. It's a change from other skin care companies, and you'll be able to feel your skin become more hydrated and nourished.</p>
-
-                          </td>
-                          <td class="expander" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="left" valign="top"></td>
-                        </tr></table></td>
-                  </tr></table><table class="row" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="wrapper" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px 10px 0px;" align="left" valign="top">
-                      <table class="twelve columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0px 0px 10px;" align="left" valign="top">
-                            <h5 style="color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 1.3; word-break: normal; font-size: 16px; margin: 0; padding: 0;" align="left">Gift Amount: {{ .GiftCard.Amount | printf "%2.f" }}</h5>
-                            <h5 style="color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 1.3; word-break: normal; font-size: 16px; margin: 0; padding: 0;" align="left">Gift Code: {{ .GiftCard.Code }}</h5>
-
-                          </td>
-                          <td class="expander" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="left" valign="top"></td>
-                        </tr></table></td>
-                  </tr></table><table class="row" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="wrapper last offset-by-three" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px 0px 0px 160px;" align="left" valign="top">
-                      <table class="six columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 280px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0px 0px 10px;" align="left" valign="top">
-                            <table class="button" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; overflow: hidden; padding: 0;"><tbody><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: center; color: #ffffff; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; display: block; width: auto !important; background: #999; margin: 0; padding: 8px 0; border: 1px solid #999;" align="center" bgcolor="#999" valign="top">
-                                    <a href="{{ .Site.Url }}" style="color: #ffffff; text-decoration: none; text-transform: lowercase; font-family: Georgia, sans-serif; font-style: italic; font-size: 16px;">Start Shopping</a>
+                  <!-- branding -->
+                  <table class="row" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="wrapper last" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 10px 0px 0px;" align="left" valign="top">
+                        <table class="twelve columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="text-pad center" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: center; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0px 10px 10px;" align="center" valign="top">
+                              <a href="{{ .Site.Url }}" style="color: #2ba6cb; text-decoration: none;">
+                                <img src="{{ .Info.base_storefront_url }}/images/logo_white.jpg" class="center" width="260" height="95" alt="Urbanity" style="outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; width: auto; max-width: 100%; float: none; clear: both; display: block; margin: 0 auto; border: none;" align="none" /></a>
+                            </td>
+                            <td class="expander" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0;" align="left" valign="top"></td>
+                          </tr></table></td>
+                    </tr></table><!-- /end branding --><!-- header information  --><table class="row" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="wrapper last" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 10px 0px 0px;" align="left" valign="top">
+                        <table class="twelve columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="text-pad" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0px 10px 10px;" align="left" valign="top">
+                              <h1 style="color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 600; text-align: left; line-height: 36px; word-break: normal; font-size: 28px; margin: 0; padding: 0;" align="left">You just got the perfect gift!</h1>
+                              <p style="color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; text-align: left; line-height: 24px; font-size: 16px; margin: 0 0 10px; padding: 0;" align="left">
+                                Find something you love on our site, and apply the gift card during checkout.
+                              </p>
+                            </td>
+                            <td class="expander" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0;" align="left" valign="top"></td>
+                          </tr></table></td>
+                    </tr></table><!-- /end header information --><!-- gift card details --><table class="row" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="wrapper last" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 10px 0px 0px;" align="left" valign="top">
+                        <table class="twelve columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="text-pad" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0px 10px 10px;" align="left" valign="top">
+                              <h5 style="color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 600; text-align: left; line-height: 1.3; word-break: normal; font-size: 18px; margin: 0; padding: 0;" align="left">Gift Amount: ${{ .GiftCard.Amount | printf "%2.f" }}</h5>
+                              <h5 style="color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 600; text-align: left; line-height: 1.3; word-break: normal; font-size: 18px; margin: 0; padding: 0;" align="left">Gift Code: {{ .GiftCard.Code }}</h5>
+                            </td>
+                            <td class="expander" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0;" align="left" valign="top"></td>
+                          </tr></table></td>
+                    </tr></table><!-- /end gift card details --><!-- TODO: gift card message --><table class="row" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="wrapper last" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 10px 0px 0px;" align="left" valign="top">
+                        <table class="twelve columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="text-pad" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0px 10px 10px;" align="left" valign="top">
+                              {{ if .GiftCard.Message }}
+                              <p style="color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; text-align: left; line-height: 24px; font-size: 16px; margin: 0 0 10px; padding: 0;" align="left">{{ .GiftCard.Message }}</p>
+                              {{ end }}
+                              <br />
+                              From, {{ .Buyer.Name }}
+                            </td>
+                            <td class="expander" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0;" align="left" valign="top"></td>
+                          </tr></table></td>
+                    </tr></table><!-- /end gift card message --><!-- call to action --><table class="row" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="wrapper hide-for-small" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 10px 20px 0px 0px;" align="left" valign="top">
+                        <table class="four columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 180px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0px 0px 10px;" align="left" valign="top"> </td>
+                            <td class="expander" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0;" align="left" valign="top"></td>
+                          </tr></table></td>
+                      <td class="wrapper last" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 10px 0px 0px;" align="left" valign="top">
+                        <table class="four columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 180px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="text-pad" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0px 10px 10px;" align="left" valign="top">
+                              <table class="button" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; overflow: hidden; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: center; color: #ffffff; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: initial !important; font-size: 16px; display: block; width: auto !important; background: #222; margin: 0; padding: 8px 0; border: 1px solid #151515;" align="center" bgcolor="#222" valign="top">
+                                    <a href="{{ .Site.Url }}" style="color: #ffffff; text-decoration: none; font-weight: bold; font-family: Helvetica, Arial, sans-serif; font-size: 16px; display: block; height: 100%; width: 100%;">Start Shopping</a>
                                   </td>
-                                </tr></tbody></table></td>
-                          <td class="expander" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="left" valign="top"></td>
-                        </tr></table></td>
-                  </tr></table><table class="row" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="wrapper" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px 10px 0px;" align="left" valign="top">
-
-                      <table class="twelve columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0px 0px 10px;" align="left" valign="top">
-                            <p style="color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 19px; font-size: 14px; margin: 0 0 10px; padding: 0;" align="left">If you have any questions about your order please contact us at <a href="mailto:support@karigran.com" style="color: #2ba6cb; text-decoration: none;">support@karigran.com</a> or call us at (206) 257-1226 Monday - Friday, 8am - 5pm PST.</p>
-
-                          </td>
-                          <td class="expander" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="left" valign="top"></td>
-                        </tr></table></td>
-                  </tr></table><table class="row footer" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; border-top-style: solid; border-top-width: 1px; border-top-color: #d9d9d9; display: block; background: #f2f2f2; padding: 0px;" bgcolor="#f2f2f2"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="wrapper" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px 10px 0px;" align="left" valign="top">
-                      <table class="twelve columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td align="center" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0px 0px 10px;" valign="top">
-                            <center style="width: 100%; min-width: 580px;">
-                              <p style="text-align: center; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="center">Thank you again, <strong>Kari Gran</strong></p>
-                            </center>
-                          </td>
-                          <td class="expander" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="left" valign="top"></td>
-                        </tr></table></td>
-                  </tr></table><!-- container end below --></td>
-            </tr></table></center>
-      </td>
-    </tr></table></body>
+                                </tr></table></td>
+                            <td class="expander" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0;" align="left" valign="top"></td>
+                          </tr></table></td>
+                    </tr></table><!-- /end call to action --><!-- salutation --><table class="row" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="wrapper last" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 10px 0px 0px;" align="left" valign="top">
+                        <table class="twelve columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="center" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: center; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0px 0px 10px;" align="center" valign="top">
+                              <center style="width: 100%; min-width: 580px;">
+                                Thanks again for your business, Urbanity
+                              </center>
+                            </td>
+                            <td class="expander" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0;" align="left" valign="top"></td>
+                          </tr></table></td>
+                    </tr></table><!-- /end salutation --></td>
+              </tr></table><!-- /end container-primary --><!-- container-footer --><table class="container container-footer" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: inherit; width: 580px; margin: 30px 0; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 12px; margin: 0; padding: 0;" align="left" valign="top">
+                  <table class="row" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="wrapper last" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 12px; margin: 0; padding: 10px 0px 0px;" align="left" valign="top">
+                        <table class="twelve columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="center" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: center; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 12px; margin: 0; padding: 0px 0px 10px;" align="center" valign="top">
+                              <center style="width: 100%; min-width: 580px;">
+                                <div>©2016 Urbanity, All Rights Reserved.</div>
+                              </center>
+                            </td>
+                            <td class="expander" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 12px; margin: 0; padding: 0;" align="left" valign="top"></td>
+                          </tr></table></td>
+                    </tr></table></td>
+              </tr></table><!-- /end container-footer --></center>
+        </td>
+      </tr></table></body>
 </html>

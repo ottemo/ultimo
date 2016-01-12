@@ -1,252 +1,315 @@
+<!--
+
+# Order Confirmation Template
+
+## Variables Available in this template
+.Info
+  .base_storefront_url _has no trailing slash_
+.Order
+  ._id
+  .billing_address
+    .first_name
+    .last_name
+    .address_line1
+    .address_line2
+    .city
+    .state
+    .zip_code
+    .country
+    .phone
+  .created_at
+  .discount
+  .grand_total
+  .items
+    .name
+    .options[label] : value
+    .sku
+    .qty
+    .price
+  .payment_info.payment_method_name
+  .shipping_address _same as billing_address children_
+  .shipping_amount
+  .shipping_info.shipping_method_name
+  .subtotal
+  .tax_amount
+
+## Useful Pipes
+* ` | printf "%.2f"`
+* dates: .Date.Format "Monday Jan 2 15:04 MST"  https://golang.org/pkg/time/#pkg-constants
+
+# Instantiated Variables
+{{ $dateFormat := "Monday, 2 Jan 2006, 3:04pm" }}
+
+-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width"/>
-	<link rel="stylesheet" href="css.css" />
-	<style>
-	/* paste styles here */
-	</style>
-</head>
-<body>
-	<table class="body">
-		<tr>
-			<td class="center" align="center" valign="top">
-				<center>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width"/>
 
-					<table class="container">
-						<tr>
-							<td>
-								<table class="row">
-									<tr>
-										<td class="wrapper">
+    <link rel="stylesheet" href="css.css">
+    <style>
+    /* paste styles here */
+    </style>
+  </head>
+  <body>
+    <table class="body">
+      <tr>
+        <td class="center" align="center" valign="top">
+          <center>
 
-											<table class="twelve columns">
-												<tr>
-													<td>
-														<a href="{{ .Info.base_storefront_url }}">
-															<img src="{{ .Info.base_storefront_url }}/theme/images/email/kg-logo.jpg">
-														</a>
-													</td>
-													<td class="expander"></td>
+            <!-- container-primary -->
+            <table class="container container-primary">
+              <tr>
+                <td>
+                  <!-- branding -->
+                  <table class="row">
+                    <tr>
+                      <td class="wrapper last">
+                        <table class="twelve columns">
+                          <tr>
+                            <td class="text-pad center">
+                              <a href="{{ .Info.base_storefront_url }}">
+                                <img src="{{ .Info.base_storefront_url }}/images/logo_white.jpg"
+                                  class="center"
+                                  width="260"
+                                  height="95"
+                                  alt="Urbanity">
+                              </a>
+                            </td>
+                            <td class="expander"></td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                  <!-- /end branding -->
 
-												</tr>
-											</table>
+                  <!-- information  -->
+                  <table class="row">
+                    <tr>
+                      <td class="wrapper last">
+                        <table class="twelve columns">
+                          <tr>
+                            <td class="text-pad">
+                              <h1>Thanks for your order!</h1>
+                              <p>Get excited, your order is on its way.</p>
+                            </td>
+                            <td class="expander"></td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                  <!-- /end information -->
 
-										</td>
-									</tr>
-								</table>
+                  <!-- order blurb  -->
+                  <table class="row">
+                    <tr>
+                      <td class="wrapper last">
+                        <table class="twelve columns">
+                          <tr>
+                            <td class="text-pad">
+                              <h5>Order #{{ .Order._id }}</h5>
+                              <h5>Placed On: {{ .Order.created_at.Format $dateFormat }}</h5>
+                            </td>
+                            <td class="expander"></td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                  <!-- /end order blurb -->
 
-								<table class="row">
-									<tr>
-										<td class="wrapper">
+                  <!-- payments row -->
+                  <table class="row">
+                    <tr>
+                      <!-- billing address -->
+                      <td class="wrapper">
+                        <table class="six columns">
+                          <tr>
+                            <td class="text-pad-left">
+                              <h4 class="section-header">Billing Information</h4>
+                              <div>{{ .Order.billing_address.first_name }} {{ .Order.billing_address.last_name }}</div>
+                              <div>{{ .Order.billing_address.address_line1 }}</div>
+                              {{ if .Order.billing_address.address_line2 }}
+                              <div>{{ .Order.billing_address.address_line2 }}</div>
+                              {{ end }}
+                              <div>{{ .Order.billing_address.city }}, {{ .Order.billing_address.state }} {{ .Order.billing_address.zip_code }} {{ .Order.billing_address.country }}</div>
+                              <div>{{ .Order.billing_address.phone }}</div>
+                            </td>
+                            <td class="expander"></td>
+                          </tr>
+                        </table>
+                      </td>
 
-											<table class="twelve columns">
-												<tr>
-													<td>
+                      <!-- payment method -->
+                      <td class="wrapper last">
+                        <table class="six columns">
+                          <tr>
+                            <td class="text-pad-right">
+                              <h4 class="section-header">Payment Method</h4>
+                              <div>{{ .Order.payment_info.payment_method_name }}</div>
+                            </td>
+                            <td class="expander"></td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                  <!-- /end payments row -->
 
-														<h1>Hi there,</h1>
-														<p>Thank you for your order and it will be on its way shortly, as we know thirsty skin can't wait for long!  Once your package ships, we will send an email with a link to track your order, but along the way if you have questions about your order, please contact us at <a href="mailto:support@karigran.com">support@karigran.com</a> or go completely old school and give us a call at (206) 588-1573.  We are open Monday thru Friday, from 8AM to 5PM and we are on the West Coast.
-														<p>Your order confirmation is below. And again, thank you for your order and don't hesitate to let us know if the shipping or condition of your packages is less than what you expected.</p>
-														<p>Thanks again,</p>
-														<p>Kari &amp; Lisa</p>
-													</td>
-													<td class="expander"></td>
-												</tr>
-											</table>
+                  <!-- shipping row -->
+                  <table class="row">
+                    <tr>
+                      <!-- shipping information -->
+                      <td class="wrapper">
+                        <table class="six columns">
+                          <tr>
+                            <td class="text-pad-left">
+                              <h4 class="section-header">Shipping Information</h4>
+                              <div>{{ .Order.shipping_address.first_name }} {{ .Order.shipping_address.last_name }}</div>
+                              <div>{{ .Order.shipping_address.address_line1 }}</div>
+                              {{ if .Order.shipping_address.address_line2 }}
+                              <div>{{ .Order.shipping_address.address_line2 }}</div>
+                              {{ end }}
+                              <div>{{ .Order.shipping_address.city }}, {{ .Order.shipping_address.state }} {{ .Order.shipping_address.zip_code }} {{ .Order.shipping_address.country }}</div>
+                              <div>{{ .Order.shipping_address.phone }}</div>
+                            </td>
+                            <td class="expander"></td>
+                          </tr>
+                        </table>
+                      </td>
 
-										</td>
-									</tr>
-								</table>
+                      <!-- shipping method -->
+                      <td class="wrapper last">
+                        <table class="six columns">
+                          <tr>
+                            <td class="text-pad-right">
+                              <h4 class="section-header">Shipping Method</h4>
+                              <div>{{ .Order.shipping_info.shipping_method_name }}</div>
+                            </td>
+                            <td class="expander"></td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                  <!-- /end shipping row -->
 
-								<table class="row">
-									<tr>
-										<td class="wrapper">
-											<table class="twelve columns">
-												<tr>
-													<td>
-														<h5>Your Order #{{ .Order._id }} (placed on {{ .Order.created_at }})</h5>
-													</td>
-													<td class="expander"></td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-								</table>
+                  <!-- order items -->
+                  <table class="row">
+                    <tr>
+                      <td class="wrapper last">
+                        <table class="twelve columns">
+                          <!-- headers -->
+                          <tr>
+                            <td class="totals__header-left">
+                              <h4 class="section-header">Item</h4>
+                            </td>
+                            <td class="totals__header-right">
+                              <h4 class="section-header">Subtotal</h4>
+                            </td>
+                          </tr>
 
-								<table class="row">
-									<tr>
-										<td class="wrapper">
+                          <!-- items -->
+                          {{ range $item := .Order.items }}
+                          <tr>
+                              <td class="totals__item-left">
+                                <h5>{{ $item.name }}</h5>
+                                <ul>
+                                  {{ range $label, $value := $item.options }}
+                                    <li>{{ $label }}: {{ $value }}</li>
+                                  {{ end }}
+                                  <li>sku: {{ $item.sku }}</li>
+                                  <li>qty: {{ $item.qty }}</li>
+                                </ul>
+                              </td>
+                              <td class="totals__item-right">
+                                {{ $item.price | printf "%.2f" }}
+                              </td>
+                          </tr>
+                          {{ end }}
 
-											<table class="six columns">
-												<tr>
-													<td class="panel__header">
-														<h4>Billing Information</h4>
-													</td>
-													<td class="expander"></td>
-												</tr>
-												<tr>
-													<td class="panel__body">
-														<div>{{ .Order.billing_address.first_name }} {{ .Order.billing_address.last_name }}</div>
-														<div>{{ .Order.billing_address.address_line1 }}</div>
-														{{ if .Order.billing_address.address_line2 }}
-															<div>{{ .Order.billing_address.address_line2 }}</div>
-														{{ end }}
-														<div>{{ .Order.billing_address.city }}, {{ .Order.billing_address.state }} {{ .Order.billing_address.zip_code }} {{ .Order.billing_address.country }}</div>
-														<div>{{ .Order.billing_address.phone }}</div>
-													</td>
-													<td class="expander"></td>
-												</tr>
-											</table>
+                          <!-- totals -->
+                          <tr>
+                            <td class="totals__footer-left">Subtotal</td>
+                            <td class="totals__footer-right">{{ .Order.subtotal | printf "%.2f" }}</td>
+                          </tr>
+                          <tr>
+                            <td class="totals__footer-left">Shipping &amp; Handling</td>
+                            <td class="totals__footer-right">{{ .Order.shipping_amount | printf "%.2f" }}</td>
+                          </tr>
+                          <tr>
+                            <td class="totals__footer-left">Tax</td>
+                            <td class="totals__footer-right">{{ .Order.tax_amount | printf "%.2f" }}</td>
+                          </tr>
+                          {{ if .Order.discount }}
+                            <tr>
+                              <td class="totals__footer-left">Discounts</td>
+                              <td class="totals__footer-right">({{ .Order.discount | printf "%.2f" }})</td>
+                            </tr>
+                          {{ end }}
+                          <tr>
+                            <td class="totals__footer-left"><strong>Grand Total</strong></td>
+                            <td class="totals__footer-right"><strong>{{ .Order.grand_total | printf "%.2f" }}</strong></td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                  <!-- /end order items -->
 
-										</td>
-										<td class="wrapper">
+                  <!-- on-topic footer -->
+                  <table class="row">
+                    <tr>
+                      <td class="wrapper last">
+                        <table class="twelve columns">
+                          <tr>
+                            <td class="center">
+                              <center>
+                                Thanks again for your business, Urbanity
+                              </center>
+                            </td>
+                            <td class="expander"></td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                  <!-- /end on-topic footer -->
+                </td>
+              </tr>
+            </table>
+            <!-- /end container-primary -->
 
-											<table class="six columns">
-												<tr>
-													<td class="panel__header">
-														<h4>Payment Method</h4>
-													</td>
-													<td class="expander"></td>
-												</tr>
-												<tr>
-													<td class="panel__body">
-														<div>{{ .Order.payment_info.payment_method_name }}</div>
-													</td>
-													<td class="expander"></td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-								</table>
-
-								<table class="row">
-									<tr>
-										<td class="wrapper">
-
-											<table class="six columns">
-												<tr>
-													<td class="panel__header">
-														<h4>Shipping Information</h4>
-													</td>
-													<td class="expander"></td>
-												</tr>
-												<tr>
-													<td class="panel__body">
-														<div>{{ .Order.shipping_address.first_name }} {{ .Order.shipping_address.last_name }}</div>
-														<div>{{ .Order.shipping_address.address_line1 }}</div>
-														{{ if .Order.shipping_address.address_line2 }}
-															<div>{{ .Order.shipping_address.address_line2 }}</div>
-														{{ end }}
-														<div>{{ .Order.shipping_address.city }}, {{ .Order.shipping_address.state }} {{ .Order.shipping_address.zip_code }} {{ .Order.shipping_address.country }}</div>
-														<div>{{ .Order.shipping_address.phone }}</div>
-													</td>
-													<td class="expander"></td>
-												</tr>
-											</table>
-
-										</td>
-										<td class="wrapper">
-
-											<table class="six columns">
-												<tr>
-													<td class="panel__header">
-														<h4>Shipping Method</h4>
-													</td>
-													<td class="expander"></td>
-												</tr>
-												<tr>
-													<td class="panel__body">
-														<div>{{ .Order.shipping_info.shipping_method_name }}</div>
-													</td>
-													<td class="expander"></td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-								</table>
-
-								<table class="row">
-									<tr>
-										<td class="wrapper">
-											<table class="twelve columns tt">
-												<tr>
-													<td class="tt__header"><h4>Item</h4></td>
-													<td class="tt__header tt__header--last"><h4>Subtotal</h4></td>
-												</tr>
-												{{ range $item := .Order.items }}
-													<tr class="tt__items">
-														<td>
-															<h4>{{ $item.name }}</h4>
-															<ul>
-																{{ range $label, $value := $item.options }}
-																	<li>{{ $label }}: {{ $value }}</li>
-																{{ end }}
-																<li>sku: {{ $item.sku }}</li>
-																<li>qty: {{ $item.qty }}</li>
-															</ul>
-														</td>
-														<td class="tt__td-total">{{ $item.price | printf "%.2f" }}</td>
-													</tr>
-												{{ end }}
-												<tr>
-													<td class="tt__total-label">Subtotal</td>
-													<td class="tt__td-total">{{ .Order.subtotal | printf "%.2f" }}</td>
-												</tr>
-												<tr>
-													<td class="tt__total-label">Shipping &amp; Handling</td>
-													<td class="tt__td-total">{{ .Order.shipping_amount | printf "%.2f" }}</td>
-												</tr>
-												<tr>
-													<td class="tt__total-label">Tax</td>
-													<td class="tt__td-total">{{ .Order.tax_amount | printf "%.2f" }}</td>
-												</tr>
-												{{ if .Order.discount }}
-													<tr>
-														<td class="tt__total-label">Discounts</td>
-														<td class="tt__td-total">({{ .Order.discount | printf "%.2f" }})</td>
-													</tr>
-												{{ end }}
-												<tr class="tt__totals--grand">
-													<td class="tt__total-label">Grand Total</td>
-													<td class="tt__td-total">{{ .Order.grand_total | printf "%.2f" }}</td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-								</table>
-
-								<table class="row">
-									<tr>
-										<td class="break">&nbsp;</td>
-									</tr>
-								</table>
-
-								<table class="row footer">
-									<tr>
-										<td class="wrapper">
-											<table class="twelve columns">
-												<tr>
-													<td align="center">
-														<center>
-															<p style="text-align:center;">Thank you again, <strong>Kari Gran</strong></p>
-														</center>
-													</td>
-													<td class="expander"></td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-								</table>
-
-								<!-- container end below -->
-							</td>
-						</tr>
-					</table>
-
-				</center>
-			</td>
-		</tr>
-	</table>
-</body>
+            <!-- container-footer -->
+            <table class="container container-footer">
+              <tr>
+                <td>
+                  <table class="row">
+                    <tr>
+                      <td class="wrapper last">
+                        <table class="twelve columns">
+                          <tr>
+                            <td class="center">
+                              <center>
+                                <div>©2016 Urbanity, All Rights Reserved.</div>
+                              </center>
+                            </td>
+                            <td class="expander"></td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+            <!-- /end container-footer -->
+          </center>
+        </td>
+      </tr>
+    </table>
+  </body>
 </html>

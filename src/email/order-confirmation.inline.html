@@ -1,11 +1,54 @@
 <!-- Inliner Build Version 4380b7741bb759d6cb997545f3add21ad48f010b -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+
+# Order Confirmation Template
+
+## Variables Available in this template
+.Info
+  .base_storefront_url _has no trailing slash_
+.Order
+  ._id
+  .billing_address
+    .first_name
+    .last_name
+    .address_line1
+    .address_line2
+    .city
+    .state
+    .zip_code
+    .country
+    .phone
+  .created_at
+  .discount
+  .grand_total
+  .items
+    .name
+    .options[label] : value
+    .sku
+    .qty
+    .price
+  .payment_info.payment_method_name
+  .shipping_address _same as billing_address children_
+  .shipping_amount
+  .shipping_info.shipping_method_name
+  .subtotal
+  .tax_amount
+
+## Useful Pipes
+* ` | printf "%.2f"`
+* dates: .Date.Format "Monday Jan 2 15:04 MST"  https://golang.org/pkg/time/#pkg-constants
+
+# Instantiated Variables
+{{ $dateFormat := "Monday, 2 Jan 2006, 3:04pm" }}
+
+-->
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width" />
   </head>
-  <body style="width: 100% !important; min-width: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 19px; font-size: 14px; background: #eee; margin: 0; padding: 0;" bgcolor="#eee"><style type="text/css">
+  <body style="width: 100% !important; min-width: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; text-align: left; line-height: 24px; font-size: 16px; background: #f2f2f2; margin: 0; padding: 0;" bgcolor="#f2f2f2"><style type="text/css">
 a:hover {
 color: #2795b6 !important;
 }
@@ -52,37 +95,37 @@ h6 a:visited {
 color: #2ba6cb !important;
 }
 table.button:hover td {
-background: #000 !important; border-color: #000 !important; cursor: pointer !important;
+background: #080808 !important; border-color: #000 !important;
 }
 table.button:visited td {
-background: #000 !important; border-color: #000 !important; cursor: pointer !important;
+background: #080808 !important; border-color: #000 !important;
 }
 table.button:active td {
-background: #000 !important; border-color: #000 !important; cursor: pointer !important;
+background: #080808 !important; border-color: #000 !important;
 }
 table.button:hover td a {
-color: #fff !important;
+color: #ffffff !important;
 }
 table.button:visited td a {
-color: #fff !important;
+color: #ffffff !important;
 }
 table.button:active td a {
-color: #fff !important;
+color: #ffffff !important;
 }
 table.button:hover td {
-background: #000 !important;
+background: #080808 !important;
 }
 table.tiny-button:hover td {
-background: #000 !important;
+background: #080808 !important;
 }
 table.small-button:hover td {
-background: #000 !important;
+background: #080808 !important;
 }
 table.medium-button:hover td {
-background: #000 !important;
+background: #080808 !important;
 }
 table.large-button:hover td {
-background: #000 !important;
+background: #080808 !important;
 }
 table.button:hover td a {
 color: #ffffff !important;
@@ -130,16 +173,16 @@ table.large-button td a:visited {
 color: #ffffff !important;
 }
 table.secondary:hover td {
-background: #d0d0d0 !important; color: #555;
+background: #d0d0d0 !important; color: #555555;
 }
 table.secondary:hover td a {
-color: #555 !important;
+color: #555555 !important;
 }
 table.secondary td a:visited {
-color: #555 !important;
+color: #555555 !important;
 }
 table.secondary:active td a {
-color: #555 !important;
+color: #555555 !important;
 }
 table.success:hover td {
 background: #457a1a !important;
@@ -149,7 +192,7 @@ background: #970b0e !important;
 }
 @media only screen and (max-width: 600px) {
   table[class="body"] img {
-    width: auto !important; height: auto !important;
+    max-width: auto !important; max-height: auto !important;
   }
   table[class="body"] center {
     min-width: 0 !important;
@@ -161,7 +204,7 @@ background: #970b0e !important;
     width: 100% !important; display: block !important;
   }
   table[class="body"] .wrapper {
-    display: block !important;
+    display: block !important; padding-right: 0 !important;
   }
   table[class="body"] .columns {
     table-layout: fixed !important; float: none !important; width: 100% !important; padding-right: 0px !important; padding-left: 0px !important; display: block !important;
@@ -308,143 +351,144 @@ background: #970b0e !important;
     display: none !important;
   }
   table[class="body"] .show-for-small {
-    display: inherit !important;
+    display: block !important; width: auto !important; overflow: visible !important;
   }
   table[class="body"] .hide-for-desktop {
-    display: inherit !important;
+    display: block !important; width: auto !important; overflow: visible !important;
   }
 }
 </style>
-  <table class="body" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; height: 100%; width: 100%; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; background: #eee; margin: 0; padding: 0;" bgcolor="#eee"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="center" align="center" valign="top" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: center; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;">
-        <center style="width: 100%; min-width: 580px;">
+    <table class="body" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; height: 100%; width: 100%; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; background: #f2f2f2; margin: 0; padding: 0;" bgcolor="#f2f2f2"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="center" align="center" valign="top" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: center; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0;">
+          <center style="width: 100%; min-width: 580px;">
 
-          <table class="container" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: inherit; width: 580px; background: #fff; margin: 30px auto; padding: 0; border: 1px solid #d9d9d9;" bgcolor="#fff"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="left" valign="top">
-                <table class="row" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="wrapper" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px 10px 0px;" align="left" valign="top">
-
-                      <table class="twelve columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0px 0px 10px;" align="left" valign="top">
-                            <a href="{{ .Info.base_storefront_url }}" style="color: #2ba6cb; text-decoration: none;">
-                              <img src="{{ .Info.base_storefront_url }}/theme/images/email/kg-logo.jpg" style="outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; width: auto; max-width: 100%; float: left; clear: both; display: block; border: none;" align="left" /></a>
-                          </td>
-                          <td class="expander" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="left" valign="top"></td>
-
-                        </tr></table></td>
-                  </tr></table><table class="row" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="wrapper" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px 10px 0px;" align="left" valign="top">
-
-                      <table class="twelve columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0px 0px 10px;" align="left" valign="top">
-
-                            <h1 style="color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 1.3; word-break: normal; font-size: 22px; margin: 0; padding: 0;" align="left">Hi there,</h1>
-                            <p style="color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 19px; font-size: 14px; margin: 0 0 10px; padding: 0;" align="left">Thank you for your order and it will be on its way shortly, as we know thirsty skin can't wait for long!  Once your package ships, we will send an email with a link to track your order, but along the way if you have questions about your order, please contact us at <a href="mailto:support@karigran.com" style="color: #2ba6cb; text-decoration: none;">support@karigran.com</a> or go completely old school and give us a call at (206) 588-1573.  We are open Monday thru Friday, from 8AM to 5PM and we are on the West Coast.
-                            </p><p style="color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 19px; font-size: 14px; margin: 0 0 10px; padding: 0;" align="left">Your order confirmation is below. And again, thank you for your order and don't hesitate to let us know if the shipping or condition of your packages is less than what you expected.</p>
-                            <p style="color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 19px; font-size: 14px; margin: 0 0 10px; padding: 0;" align="left">Thanks again,</p>
-                            <p style="color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 19px; font-size: 14px; margin: 0 0 10px; padding: 0;" align="left">Kari &amp; Lisa</p>
-                          </td>
-                          <td class="expander" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="left" valign="top"></td>
-                        </tr></table></td>
-                  </tr></table><table class="row" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="wrapper" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px 10px 0px;" align="left" valign="top">
-                      <table class="twelve columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0px 0px 10px;" align="left" valign="top">
-                            <h5 style="color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 1.3; word-break: normal; font-size: 16px; margin: 0; padding: 0;" align="left">Your Order #{{ .Order._id }} (placed on {{ .Order.created_at }})</h5>
-                          </td>
-                          <td class="expander" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="left" valign="top"></td>
-                        </tr></table></td>
-                  </tr></table><table class="row" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="wrapper" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px 10px 0px;" align="left" valign="top">
-
-                      <table class="six columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 280px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="panel__header" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; background: #f2f2f2; margin: 0; padding: 10px; border: 1px solid #d9d9d9;" align="left" bgcolor="#f2f2f2" valign="top">
-                            <h4 style="color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 1.3; word-break: normal; font-size: 16px; margin: 0; padding: 0;" align="left">Billing Information</h4>
-                          </td>
-                          <td class="expander" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="left" valign="top"></td>
-                        </tr><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="panel__body" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px; border: 1px solid #d9d9d9;" align="left" valign="top">
-                            <div>{{ .Order.billing_address.first_name }} {{ .Order.billing_address.last_name }}</div>
-                            <div>{{ .Order.billing_address.address_line1 }}</div>
-                            {{ if .Order.billing_address.address_line2 }}
+            <!-- container-primary -->
+            <table class="container container-primary" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: inherit; width: 580px; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: #ddd; background: #fff; margin: 30px 0; padding: 0;" bgcolor="#fff"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0;" align="left" valign="top">
+                  <!-- branding -->
+                  <table class="row" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="wrapper last" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 10px 0px 0px;" align="left" valign="top">
+                        <table class="twelve columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="text-pad center" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: center; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0px 10px 10px;" align="center" valign="top">
+                              <a href="{{ .Info.base_storefront_url }}" style="color: #2ba6cb; text-decoration: none;">
+                                <img src="{{ .Info.base_storefront_url }}/images/logo_white.jpg" class="center" width="260" height="95" alt="Urbanity" style="outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; width: auto; max-width: 100%; float: none; clear: both; display: block; margin: 0 auto; border: none;" align="none" /></a>
+                            </td>
+                            <td class="expander" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0;" align="left" valign="top"></td>
+                          </tr></table></td>
+                    </tr></table><!-- /end branding --><!-- information  --><table class="row" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="wrapper last" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 10px 0px 0px;" align="left" valign="top">
+                        <table class="twelve columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="text-pad" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0px 10px 10px;" align="left" valign="top">
+                              <h1 style="color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 600; text-align: left; line-height: 36px; word-break: normal; font-size: 28px; margin: 0; padding: 0;" align="left">Thanks for your order!</h1>
+                              <p style="color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; text-align: left; line-height: 24px; font-size: 16px; margin: 0 0 10px; padding: 0;" align="left">Get excited, your order is on its way.</p>
+                            </td>
+                            <td class="expander" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0;" align="left" valign="top"></td>
+                          </tr></table></td>
+                    </tr></table><!-- /end information --><!-- order blurb  --><table class="row" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="wrapper last" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 10px 0px 0px;" align="left" valign="top">
+                        <table class="twelve columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="text-pad" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0px 10px 10px;" align="left" valign="top">
+                              <h5 style="color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 600; text-align: left; line-height: 1.3; word-break: normal; font-size: 18px; margin: 0; padding: 0;" align="left">Order #{{ .Order._id }}</h5>
+                              <h5 style="color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 600; text-align: left; line-height: 1.3; word-break: normal; font-size: 18px; margin: 0; padding: 0;" align="left">Placed On: {{ .Order.created_at.Format $dateFormat }}</h5>
+                            </td>
+                            <td class="expander" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0;" align="left" valign="top"></td>
+                          </tr></table></td>
+                    </tr></table><!-- /end order blurb --><!-- payments row --><table class="row" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><!-- billing address --><td class="wrapper" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 10px 20px 0px 0px;" align="left" valign="top">
+                        <table class="six columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 280px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="text-pad-left" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0px 0px 10px 10px;" align="left" valign="top">
+                              <h4 class="section-header" style="color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 600; text-align: left; line-height: 1.3; word-break: normal; font-size: 20px; border-bottom-width: 1px; border-bottom-color: #ddd; border-bottom-style: solid; margin: 0; padding: 0;" align="left">Billing Information</h4>
+                              <div>{{ .Order.billing_address.first_name }} {{ .Order.billing_address.last_name }}</div>
+                              <div>{{ .Order.billing_address.address_line1 }}</div>
+                              {{ if .Order.billing_address.address_line2 }}
                               <div>{{ .Order.billing_address.address_line2 }}</div>
-                            {{ end }}
-                            <div>{{ .Order.billing_address.city }}, {{ .Order.billing_address.state }} {{ .Order.billing_address.zip_code }} {{ .Order.billing_address.country }}</div>
-                            <div>{{ .Order.billing_address.phone }}</div>
-                          </td>
-                          <td class="expander" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="left" valign="top"></td>
-                        </tr></table></td>
-                    <td class="wrapper" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px 10px 0px;" align="left" valign="top">
+                              {{ end }}
+                              <div>{{ .Order.billing_address.city }}, {{ .Order.billing_address.state }} {{ .Order.billing_address.zip_code }} {{ .Order.billing_address.country }}</div>
+                              <div>{{ .Order.billing_address.phone }}</div>
+                            </td>
+                            <td class="expander" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0;" align="left" valign="top"></td>
+                          </tr></table></td>
 
-                      <table class="six columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 280px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="panel__header" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; background: #f2f2f2; margin: 0; padding: 10px; border: 1px solid #d9d9d9;" align="left" bgcolor="#f2f2f2" valign="top">
-                            <h4 style="color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 1.3; word-break: normal; font-size: 16px; margin: 0; padding: 0;" align="left">Payment Method</h4>
-                          </td>
-                          <td class="expander" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="left" valign="top"></td>
-                        </tr><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="panel__body" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px; border: 1px solid #d9d9d9;" align="left" valign="top">
-                            <div>{{ .Order.payment_info.payment_method_name }}</div>
-                          </td>
-                          <td class="expander" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="left" valign="top"></td>
-                        </tr></table></td>
-                  </tr></table><table class="row" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="wrapper" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px 10px 0px;" align="left" valign="top">
-
-                      <table class="six columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 280px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="panel__header" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; background: #f2f2f2; margin: 0; padding: 10px; border: 1px solid #d9d9d9;" align="left" bgcolor="#f2f2f2" valign="top">
-                            <h4 style="color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 1.3; word-break: normal; font-size: 16px; margin: 0; padding: 0;" align="left">Shipping Information</h4>
-                          </td>
-                          <td class="expander" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="left" valign="top"></td>
-                        </tr><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="panel__body" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px; border: 1px solid #d9d9d9;" align="left" valign="top">
-                            <div>{{ .Order.shipping_address.first_name }} {{ .Order.shipping_address.last_name }}</div>
-                            <div>{{ .Order.shipping_address.address_line1 }}</div>
-                            {{ if .Order.shipping_address.address_line2 }}
+                      <!-- payment method -->
+                      <td class="wrapper last" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 10px 0px 0px;" align="left" valign="top">
+                        <table class="six columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 280px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="text-pad-right" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0px 10px 10px 0px;" align="left" valign="top">
+                              <h4 class="section-header" style="color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 600; text-align: left; line-height: 1.3; word-break: normal; font-size: 20px; border-bottom-width: 1px; border-bottom-color: #ddd; border-bottom-style: solid; margin: 0; padding: 0;" align="left">Payment Method</h4>
+                              <div>{{ .Order.payment_info.payment_method_name }}</div>
+                            </td>
+                            <td class="expander" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0;" align="left" valign="top"></td>
+                          </tr></table></td>
+                    </tr></table><!-- /end payments row --><!-- shipping row --><table class="row" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><!-- shipping information --><td class="wrapper" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 10px 20px 0px 0px;" align="left" valign="top">
+                        <table class="six columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 280px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="text-pad-left" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0px 0px 10px 10px;" align="left" valign="top">
+                              <h4 class="section-header" style="color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 600; text-align: left; line-height: 1.3; word-break: normal; font-size: 20px; border-bottom-width: 1px; border-bottom-color: #ddd; border-bottom-style: solid; margin: 0; padding: 0;" align="left">Shipping Information</h4>
+                              <div>{{ .Order.shipping_address.first_name }} {{ .Order.shipping_address.last_name }}</div>
+                              <div>{{ .Order.shipping_address.address_line1 }}</div>
+                              {{ if .Order.shipping_address.address_line2 }}
                               <div>{{ .Order.shipping_address.address_line2 }}</div>
-                            {{ end }}
-                            <div>{{ .Order.shipping_address.city }}, {{ .Order.shipping_address.state }} {{ .Order.shipping_address.zip_code }} {{ .Order.shipping_address.country }}</div>
-                            <div>{{ .Order.shipping_address.phone }}</div>
-                          </td>
-                          <td class="expander" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="left" valign="top"></td>
-                        </tr></table></td>
-                    <td class="wrapper" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px 10px 0px;" align="left" valign="top">
+                              {{ end }}
+                              <div>{{ .Order.shipping_address.city }}, {{ .Order.shipping_address.state }} {{ .Order.shipping_address.zip_code }} {{ .Order.shipping_address.country }}</div>
+                              <div>{{ .Order.shipping_address.phone }}</div>
+                            </td>
+                            <td class="expander" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0;" align="left" valign="top"></td>
+                          </tr></table></td>
 
-                      <table class="six columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 280px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="panel__header" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; background: #f2f2f2; margin: 0; padding: 10px; border: 1px solid #d9d9d9;" align="left" bgcolor="#f2f2f2" valign="top">
-                            <h4 style="color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 1.3; word-break: normal; font-size: 16px; margin: 0; padding: 0;" align="left">Shipping Method</h4>
-                          </td>
-                          <td class="expander" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="left" valign="top"></td>
-                        </tr><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="panel__body" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px; border: 1px solid #d9d9d9;" align="left" valign="top">
-                            <div>{{ .Order.shipping_info.shipping_method_name }}</div>
-                          </td>
-                          <td class="expander" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="left" valign="top"></td>
-                        </tr></table></td>
-                  </tr></table><table class="row" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="wrapper" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px 10px 0px;" align="left" valign="top">
-                      <table class="twelve columns tt" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="tt__header" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; background: #f2f2f2; margin: 0; padding: 5px 10px; border: 1px solid #d9d9d9;" align="left" bgcolor="#f2f2f2" valign="top"><h4 style="color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 1.3; word-break: normal; font-size: 16px; margin: 0; padding: 0;" align="left">Item</h4></td>
-                          <td class="tt__header tt__header--last" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; background: #f2f2f2; margin: 0; padding: 5px 10px; border: 1px solid #d9d9d9;" align="left" bgcolor="#f2f2f2" valign="top"><h4 style="color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: right; line-height: 1.3; word-break: normal; font-size: 16px; margin: 0; padding: 0;" align="right">Subtotal</h4></td>
-                        </tr>
-                        {{ range $item := .Order.items }}
-                          <tr class="tt__items" style="vertical-align: top; text-align: left; padding: 0;" align="left"><td style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px; border: 1px solid #d9d9d9;" align="left" valign="top">
-                              <h4 style="color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 1.3; word-break: normal; font-size: 16px; margin: 0; padding: 0;" align="left">{{ $item.name }}</h4>
-                              <ul style="padding-left: 20px; margin: 4px 0;">
-                                {{ range $label, $value := $item.options }}
-                                  <li>{{ $label }}: {{ $value }}</li>
-                                {{ end }}
-                                <li>sku: {{ $item.sku }}</li>
-                                <li>qty: {{ $item.qty }}</li>
-                              </ul></td>
-                            <td class="tt__td-total" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: right; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px; border: 1px solid #d9d9d9;" align="right" valign="top">{{ $item.price | printf "%.2f" }}</td>
+                      <!-- shipping method -->
+                      <td class="wrapper last" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 10px 0px 0px;" align="left" valign="top">
+                        <table class="six columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 280px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="text-pad-right" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0px 10px 10px 0px;" align="left" valign="top">
+                              <h4 class="section-header" style="color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 600; text-align: left; line-height: 1.3; word-break: normal; font-size: 20px; border-bottom-width: 1px; border-bottom-color: #ddd; border-bottom-style: solid; margin: 0; padding: 0;" align="left">Shipping Method</h4>
+                              <div>{{ .Order.shipping_info.shipping_method_name }}</div>
+                            </td>
+                            <td class="expander" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0;" align="left" valign="top"></td>
+                          </tr></table></td>
+                    </tr></table><!-- /end shipping row --><!-- order items --><table class="row" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="wrapper last" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 10px 0px 0px;" align="left" valign="top">
+                        <table class="twelve columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;"><!-- headers --><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="totals__header-left" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0px 0px 10px;" align="left" valign="top">
+                              <h4 class="section-header" style="color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 600; text-align: left; line-height: 1.3; word-break: normal; font-size: 20px; border-bottom-width: 1px; border-bottom-color: #ddd; border-bottom-style: solid; margin: 0; padding: 0 0 0 10px;" align="left">Item</h4>
+                            </td>
+                            <td class="totals__header-right" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0px 0px 10px;" align="left" valign="top">
+                              <h4 class="section-header" style="color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 600; text-align: right; line-height: 1.3; word-break: normal; font-size: 20px; border-bottom-width: 1px; border-bottom-color: #ddd; border-bottom-style: solid; margin: 0; padding: 0 10px 0 0;" align="right">Subtotal</h4>
+                            </td>
+                          </tr><!-- items -->
+                          {{ range $item := .Order.items }}
+                          <tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="totals__item-left" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; border-bottom-style: solid; border-bottom-color: #eee; border-bottom-width: 1px; margin: 0; padding: 4px 0px 4px 10px;" align="left" valign="top">
+                                <h5 style="color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 600; text-align: left; line-height: 1.3; word-break: normal; font-size: 18px; margin: 0; padding: 0;" align="left">{{ $item.name }}</h5>
+                                <ul>
+                                  {{ range $label, $value := $item.options }}
+                                    <li>{{ $label }}: {{ $value }}</li>
+                                  {{ end }}
+                                  <li>sku: {{ $item.sku }}</li>
+                                  <li>qty: {{ $item.qty }}</li>
+                                </ul></td>
+                              <td class="totals__item-right" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: right; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; border-bottom-style: solid; border-bottom-color: #eee; border-bottom-width: 1px; margin: 0; padding: 4px 10px 4px 0px;" align="right" valign="top">
+                                {{ $item.price | printf "%.2f" }}
+                              </td>
                           </tr>
-                        {{ end }}
-                        <tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="tt__total-label" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: right; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; border-left-color: #d9d9d9; border-left-width: 1px; border-left-style: solid; margin: 0; padding: 5px 10px;" align="right" valign="top">Subtotal</td>
-                          <td class="tt__td-total" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: right; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; border-right-color: #d9d9d9; border-right-width: 1px; border-right-style: solid; margin: 0; padding: 5px 10px;" align="right" valign="top">{{ .Order.subtotal | printf "%.2f" }}</td>
-                        </tr><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="tt__total-label" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: right; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; border-left-color: #d9d9d9; border-left-width: 1px; border-left-style: solid; margin: 0; padding: 5px 10px;" align="right" valign="top">Shipping &amp; Handling</td>
-                          <td class="tt__td-total" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: right; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; border-right-color: #d9d9d9; border-right-width: 1px; border-right-style: solid; margin: 0; padding: 5px 10px;" align="right" valign="top">{{ .Order.shipping_amount | printf "%.2f" }}</td>
-                        </tr><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="tt__total-label" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: right; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; border-left-color: #d9d9d9; border-left-width: 1px; border-left-style: solid; margin: 0; padding: 5px 10px;" align="right" valign="top">Tax</td>
-                          <td class="tt__td-total" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: right; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; border-right-color: #d9d9d9; border-right-width: 1px; border-right-style: solid; margin: 0; padding: 5px 10px;" align="right" valign="top">{{ .Order.tax_amount | printf "%.2f" }}</td>
-                        </tr>
-                        {{ if .Order.discount }}
-                          <tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="tt__total-label" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: right; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; border-left-color: #d9d9d9; border-left-width: 1px; border-left-style: solid; margin: 0; padding: 5px 10px;" align="right" valign="top">Discounts</td>
-                            <td class="tt__td-total" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: right; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; border-right-color: #d9d9d9; border-right-width: 1px; border-right-style: solid; margin: 0; padding: 5px 10px;" align="right" valign="top">({{ .Order.discount | printf "%.2f" }})</td>
+                          {{ end }}
+
+                          <!-- totals -->
+                          <tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="totals__footer-left" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: right; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; border-bottom-style: solid; border-bottom-color: #eee; border-bottom-width: 1px; margin: 0; padding: 4px 0px 4px 10px;" align="right" valign="top">Subtotal</td>
+                            <td class="totals__footer-right" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: right; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; border-bottom-style: solid; border-bottom-color: #eee; border-bottom-width: 1px; margin: 0; padding: 4px 10px 4px 0px;" align="right" valign="top">{{ .Order.subtotal | printf "%.2f" }}</td>
+                          </tr><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="totals__footer-left" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: right; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; border-bottom-style: solid; border-bottom-color: #eee; border-bottom-width: 1px; margin: 0; padding: 4px 0px 4px 10px;" align="right" valign="top">Shipping &amp; Handling</td>
+                            <td class="totals__footer-right" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: right; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; border-bottom-style: solid; border-bottom-color: #eee; border-bottom-width: 1px; margin: 0; padding: 4px 10px 4px 0px;" align="right" valign="top">{{ .Order.shipping_amount | printf "%.2f" }}</td>
+                          </tr><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="totals__footer-left" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: right; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; border-bottom-style: solid; border-bottom-color: #eee; border-bottom-width: 1px; margin: 0; padding: 4px 0px 4px 10px;" align="right" valign="top">Tax</td>
+                            <td class="totals__footer-right" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: right; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; border-bottom-style: solid; border-bottom-color: #eee; border-bottom-width: 1px; margin: 0; padding: 4px 10px 4px 0px;" align="right" valign="top">{{ .Order.tax_amount | printf "%.2f" }}</td>
                           </tr>
-                        {{ end }}
-                        <tr class="tt__totals--grand" style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="tt__total-label" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: right; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: bold; line-height: 19px; font-size: 14px; border-left-color: #d9d9d9; border-left-width: 1px; border-left-style: solid; border-bottom-color: #d9d9d9; border-bottom-width: 1px; border-bottom-style: solid; margin: 0; padding: 0 10px 4px;" align="right" valign="top">Grand Total</td>
-                          <td class="tt__td-total" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: right; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: bold; line-height: 19px; font-size: 14px; border-bottom-color: #d9d9d9; border-bottom-width: 1px; border-bottom-style: solid; border-right-color: #d9d9d9; border-right-width: 1px; border-right-style: solid; margin: 0; padding: 0 10px 4px;" align="right" valign="top">{{ .Order.grand_total | printf "%.2f" }}</td>
-                        </tr></table></td>
-                  </tr></table><table class="row" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="break" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="left" valign="top"> </td>
-                  </tr></table><table class="row footer" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; border-top-style: solid; border-top-width: 1px; border-top-color: #d9d9d9; display: block; background: #f2f2f2; padding: 0px;" bgcolor="#f2f2f2"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="wrapper" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px 10px 0px;" align="left" valign="top">
-                      <table class="twelve columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td align="center" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0px 0px 10px;" valign="top">
-                            <center style="width: 100%; min-width: 580px;">
-                              <p style="text-align: center; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="center">Thank you again, <strong>Kari Gran</strong></p>
-                            </center>
-                          </td>
-                          <td class="expander" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="left" valign="top"></td>
-                        </tr></table></td>
-                  </tr></table><!-- container end below --></td>
-            </tr></table></center>
-      </td>
-    </tr></table></body>
+                          {{ if .Order.discount }}
+                            <tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="totals__footer-left" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: right; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; border-bottom-style: solid; border-bottom-color: #eee; border-bottom-width: 1px; margin: 0; padding: 4px 0px 4px 10px;" align="right" valign="top">Discounts</td>
+                              <td class="totals__footer-right" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: right; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; border-bottom-style: solid; border-bottom-color: #eee; border-bottom-width: 1px; margin: 0; padding: 4px 10px 4px 0px;" align="right" valign="top">({{ .Order.discount | printf "%.2f" }})</td>
+                            </tr>
+                          {{ end }}
+                          <tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="totals__footer-left" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: right; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; border-bottom-style: solid; border-bottom-color: #eee; border-bottom-width: 1px; margin: 0; padding: 4px 0px 4px 10px;" align="right" valign="top"><strong>Grand Total</strong></td>
+                            <td class="totals__footer-right" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: right; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; border-bottom-style: solid; border-bottom-color: #eee; border-bottom-width: 1px; margin: 0; padding: 4px 10px 4px 0px;" align="right" valign="top"><strong>{{ .Order.grand_total | printf "%.2f" }}</strong></td>
+                          </tr></table></td>
+                    </tr></table><!-- /end order items --><!-- on-topic footer --><table class="row" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="wrapper last" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 10px 0px 0px;" align="left" valign="top">
+                        <table class="twelve columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="center" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: center; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0px 0px 10px;" align="center" valign="top">
+                              <center style="width: 100%; min-width: 580px;">
+                                Thanks again for your business, Urbanity
+                              </center>
+                            </td>
+                            <td class="expander" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 16px; margin: 0; padding: 0;" align="left" valign="top"></td>
+                          </tr></table></td>
+                    </tr></table><!-- /end on-topic footer --></td>
+              </tr></table><!-- /end container-primary --><!-- container-footer --><table class="container container-footer" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: inherit; width: 580px; margin: 30px 0; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 12px; margin: 0; padding: 0;" align="left" valign="top">
+                  <table class="row" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="wrapper last" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 12px; margin: 0; padding: 10px 0px 0px;" align="left" valign="top">
+                        <table class="twelve columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="center" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: center; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 12px; margin: 0; padding: 0px 0px 10px;" align="center" valign="top">
+                              <center style="width: 100%; min-width: 580px;">
+                                <div>©2016 Urbanity, All Rights Reserved.</div>
+                              </center>
+                            </td>
+                            <td class="expander" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #606060; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; line-height: 24px; font-size: 12px; margin: 0; padding: 0;" align="left" valign="top"></td>
+                          </tr></table></td>
+                    </tr></table></td>
+              </tr></table><!-- /end container-footer --></center>
+        </td>
+      </tr></table></body>
 </html>

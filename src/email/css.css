@@ -1,9 +1,8 @@
-
 /**********************************************
 * Ink v1.0.5 - Copyright 2013 ZURB Inc        *
 **********************************************/
 
-/* Client-specific Styles & Reset */
+/* Client-specific Styles and Reset */
 
 #outlook a {
   padding:0;
@@ -18,10 +17,7 @@ body{
   padding:0;
 }
 
-body,
-.body {
-	background-color: #eee;
-}
+  /* .ExternalClass applies to Outlook.com (the artist formerly known as Hotmail)  */
 
 .ExternalClass {
   width:100%;
@@ -74,9 +70,9 @@ table {
 
 td {
   word-break: break-word;
-  -webkit-hyphens: auto;
-  -moz-hyphens: auto;
-  hyphens: auto;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  hyphens: none;
   border-collapse: collapse !important;
 }
 
@@ -101,10 +97,8 @@ table.body {
 }
 
 table.container {
-	background-color: #fff;
-    border: 1px solid #d9d9d9;
   width: 580px;
-  margin: 30px auto;
+  margin: 0 auto;
   text-align: inherit;
 }
 
@@ -113,20 +107,13 @@ table.row {
   width: 100%;
   position: relative;
 }
-table.row.footer {
-	border-top: 1px solid #d9d9d9;
-    background-color: #f2f2f2;
-}
-.footer p {
-	margin: 0;
-}
 
 table.container table.row {
   display: block;
 }
 
 td.wrapper {
-  padding: 10px 10px 0px 10px;
+  padding: 10px 20px 0px 0px;
   position: relative;
 }
 
@@ -153,7 +140,7 @@ td.sub-column, td.sub-columns {
 
 table.row td.last,
 table.container td.last {
-   padding-right: 0px;
+  padding-right: 0px;
 }
 
 table.one { width: 30px; }
@@ -222,7 +209,7 @@ table.twelve .panel center { min-width: 560px; }
 
 td.offset-by-one { padding-left: 50px; }
 td.offset-by-two { padding-left: 100px; }
-td.offset-by-three { padding-left: 160px; }
+td.offset-by-three { padding-left: 150px; }
 td.offset-by-four { padding-left: 200px; }
 td.offset-by-five { padding-left: 250px; }
 td.offset-by-six { padding-left: 300px; }
@@ -298,7 +285,7 @@ table.column .text-pad-right {
   width:52px;
 }
 
-/* Alignment & Visibility Classes */
+/* Alignment and Visibility Classes */
 
 table.center, td.center {
   text-align: center;
@@ -309,7 +296,8 @@ h2.center,
 h3.center,
 h4.center,
 h5.center,
-h6.center {
+h6.center,
+p.center {
   text-align: center;
 }
 
@@ -327,14 +315,22 @@ img.center {
 .show-for-small,
 .hide-for-desktop {
   display: none;
+  width:0;
+  mso-hide:all;
+  overflow:hidden;
+}
+
+.show-for-small *,
+.hide-for-desktop * {
+	mso-hide:all;
 }
 
 /* Typography */
 
 body, table.body, h1, h2, h3, h4, h5, h6, p, td {
-  color: #222222;
-  font-family: "Helvetica", "Arial", sans-serif;
-  font-weight: normal;
+  color: #606060;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 400;
   padding:0;
   margin: 0;
   text-align: left;
@@ -343,15 +339,31 @@ body, table.body, h1, h2, h3, h4, h5, h6, p, td {
 
 h1, h2, h3, h4, h5, h6 {
   word-break: normal;
+  font-weight: 600;
 }
 
-h1 {font-size: 22px;}
-h2 {font-size: 20px;}
-h3 {font-size: 18px;}
-h4 {font-size: 16px;}
-h5 {font-size: 16px;}
-h6 {font-size: 15px;}
-body, table.body, p, td {font-size: 14px;line-height:19px;}
+h1 {
+  font-size: 28px;
+  line-height: 36px;
+}
+h2 {font-size: 26px;}
+h3 {font-size: 24px;}
+h4 {
+  font-size: 20px;
+}
+h4.section-header {
+  border-bottom: 1px solid #ddd;
+}
+h5 {font-size: 18px;}
+h6 {font-size: 16px;}
+
+body,
+table.body,
+p,
+td {
+  font-size: 16px;
+  line-height:24px;
+}
 
 p.lead, p.lede, p.leed {
   font-size: 18px;
@@ -418,20 +430,6 @@ h6 a:visited {
   padding: 10px !important;
 }
 
-.panel__header {
-	background: #f2f2f2;
-    border: 1px solid #d9d9d9;
-    padding: 10px !important;
-}
-.panel__body {
-	border: 1px solid #d9d9d9;
-    padding: 10px !important;
-}
-.panel__body ul {
-	margin: 5px 0;
-    padding-left: 20px;
-}
-
 .sub-grid table {
   width: 100%;
 }
@@ -459,26 +457,27 @@ table.large-button td {
   display: block;
   width: auto !important;
   text-align: center;
-  background: #999;
-  border: 1px solid #999;
+  background: #222;
+  border: 1px solid #151515;
   color: #ffffff;
   padding: 8px 0;
+  line-height: initial !important;
 }
 
 table.tiny-button td {
-  padding: 5px 0 4px;
+  padding: 5px 0;
 }
 
 table.small-button td {
-  padding: 8px 0 7px;
+  padding: 8px 0;
 }
 
 table.medium-button td {
-  padding: 12px 0 10px;
+  padding: 12px 0;
 }
 
 table.large-button td {
-  padding: 21px 0 18px;
+  padding: 21px 0;
 }
 
 table.button td a,
@@ -486,12 +485,14 @@ table.tiny-button td a,
 table.small-button td a,
 table.medium-button td a,
 table.large-button td a {
+  font-weight: bold;
   text-decoration: none;
-  text-transform: lowercase;
-  font-family: Georgia, sans-serif;
-  font-style: italic;
+  font-family: Helvetica, Arial, sans-serif;
   color: #ffffff;
   font-size: 16px;
+  display: block;
+  height: 100%;
+  width: 100%;
 }
 
 table.tiny-button td a {
@@ -514,15 +515,14 @@ table.large-button td a {
 table.button:hover td,
 table.button:visited td,
 table.button:active td {
-  background: #000 !important;
+  background: #080808 !important;
   border-color: #000 !important;
-  cursor: pointer !important;
 }
 
 table.button:hover td a,
 table.button:visited td a,
 table.button:active td a {
-  color: #fff !important;
+  color: #ffffff !important;
 }
 
 table.button:hover td,
@@ -530,7 +530,7 @@ table.tiny-button:hover td,
 table.small-button:hover td,
 table.medium-button:hover td,
 table.large-button:hover td {
-  background: #000 !important;
+  background: #080808 !important;
 }
 
 table.button:hover td a,
@@ -554,22 +554,22 @@ table.large-button td a:visited {
 table.secondary td {
   background: #e9e9e9;
   border-color: #d0d0d0;
-  color: #555;
+  color: #555555;
 }
 
 table.secondary td a {
-  color: #555;
+  color: #555555;
 }
 
 table.secondary:hover td {
   background: #d0d0d0 !important;
-  color: #555;
+  color: #555555;
 }
 
 table.secondary:hover td a,
 table.secondary td a:visited,
 table.secondary:active td a {
-  color: #555 !important;
+  color: #555555 !important;
 }
 
 table.success td {
@@ -613,8 +613,8 @@ body.outlook p {
 @media only screen and (max-width: 600px) {
 
   table[class="body"] img {
-    width: auto !important;
-    height: auto !important;
+    max-width: auto !important;
+    max-height: auto !important;
   }
 
   table[class="body"] center {
@@ -632,7 +632,7 @@ body.outlook p {
 
   table[class="body"] .wrapper {
     display: block !important;
-   /*  padding-right: 0 !important; */
+    padding-right: 0 !important;
   }
 
   table[class="body"] .columns,
@@ -715,46 +715,59 @@ body.outlook p {
 
   table[class="body"] .show-for-small,
   table[class="body"] .hide-for-desktop {
-    display: inherit !important;
+    display : block !important;
+    width : auto !important;
+    overflow : visible !important;
   }
 }
 
+/* Additional Styles */
+body, .body {
+  background-color: #f2f2f2;
+}
+table.container-primary {
+  background-color: #fff;
+  margin: 30px 0;
+  border-bottom: 2px solid #ddd;
+}
 
-.tt td {
-    padding: 5px 10px !important;
+table.columns td.totals__header-left h4 {
+  padding-left: 10px;
 }
-.tt .tt__last {
-	text-align: right;
+table.columns td.totals__header-right h4 {
+  padding-right: 10px;
 }
-.tt__items td {
-	padding: 10px !important;
-    border: 1px solid #d9d9d9;
+table.columns td.totals__header-right h4 {
+  text-align: right;
 }
-.tt__items ul {
-	margin: 4px 0;
-    padding-left: 20px;
+
+table.columns td.totals__item-left,
+table.columns td.totals__item-right,
+table.columns td.totals__footer-left,
+table.columns td.totals__footer-right {
+  border-bottom: 1px solid #eee;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
-.tt__header {
-	border: 1px solid #d9d9d9;
-	background-color: #f2f2f2;
+table.columns td.totals__footer-left,
+table.columns td.totals__item-left {
+  padding-left: 10px;
 }
-.tt__header--last h4 {
-	text-align: right;
+table.columns td.totals__footer-right,
+table.columns td.totals__item-right {
+  padding-right: 10px;
 }
-.tt__total-label {
-	text-align: right;
-    border-left: 1px solid #d9d9d9;
+
+table.columns td.totals__item-right,
+table.columns td.totals__footer-left,
+table.columns td.totals__footer-right {
+  text-align: right;
 }
-.tt__totals td,
-.tt__totals--grand td {
-	padding: 0 10px 4px 10px !important;
-	text-align: right;
+
+table.container-footer {
+  margin: 30px 0;
 }
-.tt__totals--grand td {
-	font-weight: bold;
-    border-bottom: 1px solid #d9d9d9;
-}
-.tt__td-total {
-    text-align: right;
-    border-right: 1px solid #d9d9d9;
+table.container-footer td {
+  font-size: 12px;
+  line-height: 24px;
 }

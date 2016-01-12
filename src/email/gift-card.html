@@ -1,149 +1,214 @@
+<!--
+
+# Gift Card Template
+
+## Variables Available in this template
+
+.Recipient
+  .Name
+  .Email
+.Buyer
+  .Name
+  .Email
+.GiftCard
+  .Amount
+  .Code
+  .RecipientName
+  .RecipientEmail
+  .Message
+.Site
+  .Url - has trailing slash
+
+-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width"/>
-	<link rel="stylesheet" href="css.css" />
-	<style>
-	/* paste styles here */
-	</style>
-</head>
-<body>
-	<table class="body">
-		<tr>
-			<td class="center" align="center" valign="top">
-				<center>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width"/>
 
-					<table class="container">
-						<tr>
-							<td>
-								<table class="row">
-									<tr>
-										<td class="wrapper">
+    <link rel="stylesheet" href="css.css"> <!-- For testing only -->
+    <style type="text/css">
 
-											<table class="twelve columns">
-												<tr>
-													<td>
-														<a href="{{ .Site.Url }}">
-															<img src="{{ .Site.Url }}theme/images/email/kg-logo.jpg">
-														</a>
-													</td>
-													<td class="expander"></td>
+      /* Inline styles go here before pasting into Ink's Inliner tool */
 
-												</tr>
-											</table>
+    </style>
+  </head>
+  <body>
+    <table class="body">
+      <tr>
+        <td class="center" align="center" valign="top">
+          <center>
 
-										</td>
-									</tr>
-								</table>
+            <!-- container-primary -->
+            <table class="container container-primary">
+              <tr>
+                <td>
 
-								<table class="row">
-									<tr>
-										<td class="wrapper">
+                  <!-- branding -->
+                  <table class="row">
+                    <tr>
+                      <td class="wrapper last">
+                        <table class="twelve columns">
+                          <tr>
+                            <td class="text-pad center">
+                              <a href="{{ .Site.Url }}">
+                                <img src="{{ .Info.base_storefront_url }}/images/logo_white.jpg"
+                                  class="center"
+                                  width="260"
+                                  height="95"
+                                  alt="Urbanity">
+                              </a>
+                            </td>
+                            <td class="expander"></td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                  <!-- /end branding -->
 
-											<table class="twelve columns">
-												<tr>
-													<td>
+                  <!-- header information  -->
+                  <table class="row">
+                    <tr>
+                      <td class="wrapper last">
+                        <table class="twelve columns">
+                          <tr>
+                            <td class="text-pad">
+                              <h1>You just got the perfect gift!</h1>
+                              <p>
+                                Find something you love on our site, and apply the gift card during checkout.
+                              </p>
+                            </td>
+                            <td class="expander"></td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                  <!-- /end header information -->
 
-														<h1>Hello,</h1>
-														<p>Thank you for ordering a gift card from Kari Gran. This gift card can be applied durring the checkout process. You will also receive an order confirmation outlining all order information.</p>
-														<p>We use a holistic approach to skin care health, so our products are made from pure ingredients. It's a change from other skin care companies, and you'll be able to feel your skin become more hydrated and nourished.</p>
+                  <!-- gift card details -->
+                  <table class="row">
+                    <tr>
+                      <td class="wrapper last">
+                        <table class="twelve columns">
+                          <tr>
+                            <td class="text-pad">
+                              <h5>Gift Amount: ${{ .GiftCard.Amount | printf "%2.f" }}</h5>
+                              <h5>Gift Code: {{ .GiftCard.Code }}</h5>
+                            </td>
+                            <td class="expander"></td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                  <!-- /end gift card details -->
 
-													</td>
-													<td class="expander"></td>
-												</tr>
-											</table>
+                  <!-- TODO: gift card message -->
+                  <table class="row">
+                    <tr>
+                      <td class="wrapper last">
+                        <table class="twelve columns">
+                          <tr>
+                            <td class="text-pad">
+                              {{ if .GiftCard.Message }}
+                              <p>{{ .GiftCard.Message }}</p>
+                              {{ end }}
+                              <br />
+                              From, {{ .Buyer.Name }}
+                            </td>
+                            <td class="expander"></td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                  <!-- /end gift card message -->
 
-										</td>
-									</tr>
-								</table>
+                  <!-- call to action -->
+                  <table class="row">
+                    <tr>
+                      <td class="wrapper hide-for-small">
+                        <table class="four columns">
+                          <tr>
+                            <td>&nbsp;</td>
+                            <td class="expander"></td>
+                          </tr>
+                        </table>
+                      </td>
+                      <td class="wrapper last">
+                        <table class="four columns">
+                          <tr>
+                            <td class="text-pad">
+                              <table class="button">
+                                <tr>
+                                  <td>
+                                    <a href="{{ .Site.Url }}">Start Shopping</a>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                            <td class="expander"></td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                  <!-- /end call to action -->
 
-								<table class="row">
-									<tr>
-										<td class="wrapper">
-											<table class="twelve columns">
-												<tr>
-													<td>
-														<h5>Gift Amount: {{ .GiftCard.Amount | printf "%2.f" }}</h5>
-														<h5>Gift Code: {{ .GiftCard.Code }}</h5>
+                  <!-- salutation -->
+                  <table class="row">
+                    <tr>
+                      <td class="wrapper last">
+                        <table class="twelve columns">
+                          <tr>
+                            <td class="center">
+                              <center>
+                                Thanks again for your business, Urbanity
+                              </center>
+                            </td>
+                            <td class="expander"></td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                  <!-- /end salutation -->
 
-													</td>
-													<td class="expander"></td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-								</table>
-								<table class="row">
-									<tr>
-										<td class="wrapper last offset-by-three">
-											<table class="six columns">
-												<tr>
-													<td>
-														<table class="button">
-															<tbody>
-																<tr>
-																	<td>
-																		<a href="{{ .Site.Url }}">Start Shopping</a>
-																	</td>
-																</tr>
-															</tbody>
-														</table>
+                </td>
+              </tr>
+            </table>
+            <!-- /end container-primary -->
 
-													</td>
-													<td class="expander"></td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-								</table>
+            <!-- container-footer -->
+            <table class="container container-footer">
+              <tr>
+                <td>
+                  <table class="row">
+                    <tr>
+                      <td class="wrapper last">
+                        <table class="twelve columns">
+                          <tr>
+                            <td class="center">
+                              <center>
+                                <div>©2016 Urbanity, All Rights Reserved.</div>
+                              </center>
+                            </td>
+                            <td class="expander"></td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+            <!-- /end container-footer -->
 
-
-
-								<table class="row">
-									<tr>
-										<td class="wrapper">
-
-											<table class="twelve columns">
-												<tr>
-													<td>
-														<p>If you have any questions about your order please contact us at <a href="mailto:support@karigran.com">support@karigran.com</a> or call us at (206) 257-1226 Monday - Friday, 8am - 5pm PST.</p>
-
-													</td>
-													<td class="expander"></td>
-												</tr>
-											</table>
-
-										</td>
-									</tr>
-								</table>
-
-
-								<table class="row footer">
-									<tr>
-										<td class="wrapper">
-											<table class="twelve columns">
-												<tr>
-													<td align="center">
-														<center>
-															<p style="text-align:center;">Thank you again, <strong>Kari Gran</strong></p>
-														</center>
-													</td>
-													<td class="expander"></td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-								</table>
-
-								<!-- container end below -->
-							</td>
-						</tr>
-					</table>
-
-				</center>
-			</td>
-		</tr>
-	</table>
-</body>
+          </center>
+        </td>
+      </tr>
+    </table>
+  </body>
 </html>
