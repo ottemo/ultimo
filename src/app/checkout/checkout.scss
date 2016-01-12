@@ -18,4 +18,7 @@ $panel-checkout-step-heading-bg: $panel-default-heading-bg;
     .panel-body {
         border-top: 1px solid $panel-checkout-step-border;
     }
+    .panel-title .dropdown {
+        display: inline-block;
+    }
 }
