@@ -614,7 +614,7 @@ angular.module("checkoutModule")
             };
 
             $scope.discountApply = function () {
-                $checkoutService.discountApply({"coupon": $scope.discount}).$promise.then(
+                $checkoutService.discountApply({"code": $scope.discount}).$promise.then(
                     function (response) {
                         if (response.error === null) {
                             info();
@@ -624,7 +624,7 @@ angular.module("checkoutModule")
             };
 
             $scope.discountNeglect = function (code) {
-                $checkoutService.discountNeglect({"coupon": code}).$promise.then(
+                $checkoutService.discountNeglect({"code": code}).$promise.then(
                     function (response) {
                         if (response.error === null) {
                             info();
