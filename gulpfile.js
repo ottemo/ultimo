@@ -40,6 +40,20 @@ function activate() {
 
     // Assign the application settings from the config folder
     config.appSettings = readConfig(config.api);
+
+    giveArgumentFeedback();
+}
+
+/**
+ * Log some feedback related to the args we just processed
+ */
+function giveArgumentFeedback() {
+    var bar = '+-----------------------------------+'
+    log(bar);
+    log('Environment Settings')
+    log('env = ' + config.env + ' -> isProduction = ' + config.isProduction);
+    log('api = ' + config.api);
+    log(bar);
 }
 
 /**
@@ -138,8 +152,7 @@ gulp.task('compile_scripts_app', function() {
     } else {
         return gulp.src(config.scripts.app)
             .pipe($.concat('main.js'))
-            .pipe(gulp.dest(config.build + 'scripts'))
-            .pipe($.livereload());
+            .pipe(gulp.dest(config.build + 'scripts'));
     }
 });
 
@@ -195,15 +208,14 @@ gulp.task('compile_styles', function() {
     return gulp.src(config.styles.root)
         .pipe($.sourcemaps.init())
         .pipe($.plumber(handleError))
-        .pipe($.sass.sync(config.sassSettings))
+        .pipe($.sass(config.sassSettings))
         .pipe($.rename({
             suffix: '.min'
         }))
         // .pipe($.autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
         .pipe($.plumber.stop())
         .pipe($.sourcemaps.write('./maps'))
-        .pipe(gulp.dest(config.build + 'styles/'))
-        .pipe($.livereload());
+        .pipe(gulp.dest(config.build + 'styles/'));
 });
 
 /**
@@ -231,10 +243,6 @@ gulp.task('compile_fonts', function() {
  * Watch files for changes and compile
  */
 gulp.task('serve_watch', function() {
-    $.livereload.listen({
-        basePath: config.build
-    });
-
     gulp.start('serve_server');
 
     gulp.watch(config.html.all, ['compile_html']);
@@ -275,11 +283,11 @@ gulp.task('serve_server', function() {
 gulp.task('revision', function() {
     if (config.isProduction) {
         var revAll = new $.revAll({
-            dontUpdateReference: [/^((?!.js|.css).)*$/g],
-            dontRenameFile: [/^((?!.js|.css).)*$/g]
+            dontUpdateReference: ['.html'],
+            dontRenameFile: ['.html']
         });
 
-        return gulp.src(config.build + '**')
+        return gulp.src(config.build + '**/*.{js,css,html}')
             .pipe(revAll.revision())
             .pipe(gulp.dest(config.build));
     }
