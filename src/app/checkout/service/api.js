@@ -60,13 +60,15 @@ angular.module("checkoutModule")
                     method: "POST",
                     url: REST_SERVER_URI + "/checkout/submit"
                 },
+
+                // post up the {code}
                 "discountApply": {
-                    method: "GET",
-                    url: REST_SERVER_URI + "/discount/:coupon/apply"
+                    method: "POST",
+                    url: REST_SERVER_URI + "/cart/coupons"
                 },
                 "discountNeglect": {
-                    method: "GET",
-                    url: REST_SERVER_URI + "/discount/:coupon/neglect"
+                    method: "DELETE",
+                    url: REST_SERVER_URI + "/cart/coupons/:code"
                 }
             });
         }
