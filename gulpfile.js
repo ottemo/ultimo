@@ -48,9 +48,9 @@ function activate() {
  * Log some feedback related to the args we just processed
  */
 function giveArgumentFeedback() {
-    var bar = '+-----------------------------------+'
+    var bar = '+-----------------------------------+';
     log(bar);
-    log('Environment Settings')
+    log('Environment Settings');
     log('env = ' + config.env + ' -> isProduction = ' + config.isProduction);
     log('api = ' + config.api);
     log(bar);
