@@ -26,17 +26,17 @@ activate();
 
 function activate() {
     // Read the args, and set defaults
-    config.env = args.env || 'localhost'
+    config.env = args.env || 'localhost';
     config.api = args.api || 'staging';
 
     // The `env` arg drives whether or not this is production
-    config.isProduction = (config.env == 'production');
+    config.isProduction = (config.env === 'production');
     if (config.isProduction) {
         if (config.api !== 'production') {
             log('When `env` is set to production the `api` will be automatically set to production as well');
         }
         config.api = 'production';
-    };
+    }
 
     // Assign the application settings from the config folder
     config.appSettings = readConfig(config.api);
@@ -177,7 +177,7 @@ gulp.task('compile_html_nonroot', function() {
     return gulp.src(['!' + config.html.root, config.html.all])
         .pipe($.changed(config.build + 'views/'))
         .pipe(gulp.dest(config.build + 'views/'));
-})
+});
 
 /**
  * Compile the robots.txt file
@@ -237,7 +237,7 @@ gulp.task('compile_media', function() {
 gulp.task('compile_fonts', function() {
     return gulp.src(config.fonts)
         .pipe(gulp.dest(config.build + 'fonts/'));
-})
+});
 
 /**
  * Watch files for changes and compile
@@ -265,9 +265,9 @@ gulp.task('serve_server', function() {
         .use(express.static(staticFolder));
 
     app.listen(config.node.port, function() {
-        var bar = '+-----------------------------------+'
+        var bar = '+-----------------------------------+';
         log(bar);
-        log('Server Started')
+        log('Server Started');
         log('Storefront: http://localhost:' + config.node.port);
         log('Foundation: ' + config.appSettings['apiUrl']);
         log(bar);
