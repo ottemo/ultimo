@@ -109,7 +109,7 @@ gulp.task('clean', function clean(done) {
  *
  * `gulp build --api=(production|staging|localhost)`
  */
-gulp.task('config', function config() {
+gulp.task('config', function config_task() {
     return gulp.src('config/config.js')
         .pipe($.replaceTask({
             patterns: [{
