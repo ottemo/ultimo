@@ -2,12 +2,16 @@ module.exports = function() {
 
     var src = './src/';
     var app = src + 'app/';
+    var email = src +'email/';
+
     var temp = './tmp/';
 
     var config = {
 
         /************** Paths ****************/
         build: 'dist/',
+
+        // App
         fonts: app + '_fonts/**/*.{svg,eot,ttf,woff,woff2}',
         html: {
             all: app + '**/*.html',
@@ -46,6 +50,14 @@ module.exports = function() {
                 app + '_lib/**/*.min.js'
             ]
         },
+
+        // Emails
+        email: [
+            '!'+email+'**/*.inline.html',   // Build files are saved as .inline.html
+            email +'**/*.html'
+        ],
+
+        // Temp
         temp: temp,
 
         /************** Settings ****************/
@@ -63,5 +75,5 @@ module.exports = function() {
     };
 
     return config;
-}
+};
 

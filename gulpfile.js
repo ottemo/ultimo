@@ -74,7 +74,7 @@ gulp.task('default', ['help']);
  * This is typically used when getting ready to deploy the app
  * `gulp build --env=production`
  */
-gulp.task('build', function() {
+gulp.task('build', function build() {
     runSequence('clean', 'config', 'compile', 'revision');
 });
 
@@ -83,14 +83,14 @@ gulp.task('build', function() {
  * This is typically used for local development work
  * `gulp serve` or `gulp serve --api=localhost`
  */
-gulp.task('serve', ['build'], function() {
+gulp.task('serve', ['build'], function serve() {
     gulp.start('serve_watch');
 });
 
 /**
  * Vet the code
  */
-gulp.task('vet', function() {
+gulp.task('vet', function vet() {
     return gulp.src(config.scripts.app)
         .pipe($.jshint())
         .pipe($.jshint.reporter('jshint-stylish'));
@@ -99,7 +99,7 @@ gulp.task('vet', function() {
 /**
  * Remove all build / temp files
  */
-gulp.task('clean', function(done) {
+gulp.task('clean', function clean(done) {
     del([config.build], done);
 });
 
@@ -109,7 +109,7 @@ gulp.task('clean', function(done) {
  *
  * `gulp build --api=(production|staging|localhost)`
  */
-gulp.task('config', function() {
+gulp.task('config', function config() {
     return gulp.src('config/config.js')
         .pipe($.replaceTask({
             patterns: [{
@@ -129,7 +129,8 @@ gulp.task('compile', [
     'compile_scripts',
     'compile_styles',
     'compile_media',
-    'compile_fonts'
+    'compile_fonts',
+    'compile_emails',
 ]);
 
 /**
@@ -137,7 +138,7 @@ gulp.task('compile', [
  */
 gulp.task('compile_scripts', ['compile_scripts_app', 'compile_scripts_lib']);
 
-gulp.task('compile_scripts_app', function() {
+gulp.task('compile_scripts_app', function compile_scripts_app() {
 
     // REFACTOR: This makes dev/staging/production different... :-1:
     // uglify + concat breaks sourcemaps so don't use it unless we are on production
@@ -156,7 +157,7 @@ gulp.task('compile_scripts_app', function() {
     }
 });
 
-gulp.task('compile_scripts_lib', function() {
+gulp.task('compile_scripts_lib', function compile_scripts_lib() {
     return gulp.src(config.scripts.lib)
         .pipe($.concat('lib.js'))
         .pipe(gulp.dest(config.build + 'scripts'));
@@ -167,13 +168,13 @@ gulp.task('compile_scripts_lib', function() {
  */
 gulp.task('compile_html', ['compile_html_root', 'compile_html_nonroot']);
 
-gulp.task('compile_html_root', function() {
+gulp.task('compile_html_root', function compile_html_root() {
     return gulp.src(config.html.root)
         .pipe($.changed(config.build))
         .pipe(gulp.dest(config.build));
 });
 
-gulp.task('compile_html_nonroot', function() {
+gulp.task('compile_html_nonroot', function compile_html_nonroot() {
     return gulp.src(['!' + config.html.root, config.html.all])
         .pipe($.changed(config.build + 'views/'))
         .pipe(gulp.dest(config.build + 'views/'));
@@ -183,7 +184,7 @@ gulp.task('compile_html_nonroot', function() {
  * Compile the robots.txt file
  * --env=(production|*)
  */
-gulp.task('compile_robots', function() {
+gulp.task('compile_robots', function compile_robots() {
     var robotPath = config.isProduction ? config.robots.prod : config.robots.default;
     return gulp.src(robotPath)
         .pipe($.rename('robots.txt'))
@@ -193,7 +194,7 @@ gulp.task('compile_robots', function() {
 /**
  * Compile oddball files
  */
-gulp.task('compile_misc', function() {
+gulp.task('compile_misc', function compile_misc() {
     return gulp.src(config.misc)
         .pipe(gulp.dest(config.build));
 });
@@ -202,7 +203,7 @@ gulp.task('compile_misc', function() {
  * Compile styles
  * SASS -> CSS -> app.min.css
  */
-gulp.task('compile_styles', function() {
+gulp.task('compile_styles', function compile_styles() {
 
     // REFACTOR: autoprefixer seems to not play well with sass + sourcemaps
     return gulp.src(config.styles.root)
@@ -221,7 +222,7 @@ gulp.task('compile_styles', function() {
 /**
  * Move and minify images / mixed-media
  */
-gulp.task('compile_media', function() {
+gulp.task('compile_media', function compile_media() {
 
     var mediaBuild = config.build + 'images/';
 
@@ -234,28 +235,44 @@ gulp.task('compile_media', function() {
 /**
  * Move fonts
  */
-gulp.task('compile_fonts', function() {
+gulp.task('compile_fonts', function compile_fonts() {
     return gulp.src(config.fonts)
         .pipe(gulp.dest(config.build + 'fonts/'));
 });
 
 /**
+ * Inline css for emails
+ */
+gulp.task('compile_emails', function compile_emails() {
+    return gulp.src(config.email)
+        .pipe($.inlineCss())
+        .pipe($.rename({
+            suffix: '.inline'
+        }))
+        .pipe(gulp.dest('./src/email'));
+});
+
+/**
  * Watch files for changes and compile
  */
-gulp.task('serve_watch', function() {
+gulp.task('serve_watch', function serve_watch() {
     gulp.start('serve_server');
 
+    // App
     gulp.watch(config.html.all, ['compile_html']);
     gulp.watch(config.styles.all, ['compile_styles']);
     gulp.watch(config.scripts.lib, ['compile_scripts_lib']);
     gulp.watch(config.scripts.ie, ['compile_scripts_ie']);
     gulp.watch(config.scripts.app, ['compile_scripts_app']);
+
+    // Emails
+    gulp.watch(config.email, ['compile_emails']);
 });
 
 /**
  * Starts a server in the build directory
  */
-gulp.task('serve_server', function() {
+gulp.task('serve_server', function serve_server() {
     var express = require('express');
     var path = require('path');
     var app = express();
@@ -280,7 +297,7 @@ gulp.task('serve_server', function() {
  * Only fires for production
  * --env=(production|*)
  */
-gulp.task('revision', function() {
+gulp.task('revision', function revision() {
     if (config.isProduction) {
         var revAll = new $.revAll({
             dontUpdateReference: ['.html'],
@@ -298,7 +315,7 @@ gulp.task('revision', function() {
 function handleError(err) {
     log('# Error in ' + err.plugin);
     if (err.fileName) {
-        log('File: '+ err.fileName +':'+ err.lineNumber);
+        log('File: ' + err.fileName + ':' + err.lineNumber);
     }
     log('Error Message: ' + err.message);
     $.util.beep();
@@ -307,3 +324,4 @@ function handleError(err) {
 function log(msg) {
     $.util.log($.util.colors.magenta(msg));
 }
+
