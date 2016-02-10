@@ -30,8 +30,11 @@ function activate() {
     config.api = args.api || 'staging';
 
     // The `env` arg drives whether or not this is production
-    config.isProduction = (config.env === 'production');
-    if (config.isProduction) {
+    config.isEnvProduction = (config.env === 'production');
+    config.isEnvStaging = (config.env === 'staging');
+    config.isEnvLocal = (config.env === 'localhost');
+
+    if (config.isEnvProduction) {
         if (config.api !== 'production') {
             log('When `env` is set to production the `api` will be automatically set to production as well');
         }
@@ -51,7 +54,7 @@ function giveArgumentFeedback() {
     var bar = '+-----------------------------------+';
     log(bar);
     log('Environment Settings');
-    log('env = ' + config.env + ' -> isProduction = ' + config.isProduction);
+    log('env = ' + config.env);
     log('api = ' + config.api);
     log(bar);
 }
@@ -143,7 +146,7 @@ gulp.task('compile_scripts_app', function compile_scripts_app() {
     // REFACTOR: This makes dev/staging/production different... :-1:
     // uglify + concat breaks sourcemaps so don't use it unless we are on production
     // https://github.com/terinjokes/gulp-uglify/issues/105
-    if (config.isProduction) {
+    if (config.isEnvProduction || config.isEnvStaging) {
         return gulp.src(config.scripts.app)
             .pipe($.plumber(handleError))
             .pipe($.uglify(config.uglifySettings))
@@ -185,7 +188,7 @@ gulp.task('compile_html_nonroot', function compile_html_nonroot() {
  * --env=(production|*)
  */
 gulp.task('compile_robots', function compile_robots() {
-    var robotPath = config.isProduction ? config.robots.prod : config.robots.default;
+    var robotPath = config.isEnvProduction ? config.robots.prod : config.robots.default;
     return gulp.src(robotPath)
         .pipe($.rename('robots.txt'))
         .pipe(gulp.dest(config.build));
@@ -213,7 +216,7 @@ gulp.task('compile_styles', function compile_styles() {
         .pipe($.rename({
             suffix: '.min'
         }))
-        // .pipe($.autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+        // .pipe($.autoprefixer('last 2 version', 'safari 5', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
         .pipe($.plumber.stop())
         .pipe($.sourcemaps.write('./maps'))
         .pipe(gulp.dest(config.build + 'styles/'));
@@ -225,10 +228,11 @@ gulp.task('compile_styles', function compile_styles() {
 gulp.task('compile_media', function compile_media() {
 
     var mediaBuild = config.build + 'images/';
+    var isMinifyActive = config.isEnvProduction || config.isEnvStaging;
 
     return gulp.src(config.media)
         .pipe($.changed(mediaBuild))
-        .pipe($.if(config.isProduction, $.imagemin()))
+        .pipe($.if(isMinifyActive, $.imagemin()))
         .pipe(gulp.dest(mediaBuild));
 });
 
@@ -293,12 +297,11 @@ gulp.task('serve_server', function serve_server() {
 });
 
 /**
- * Thumbprint js, css
- * Only fires for production
+ * Thumbprint js, css for prod and staging
  * --env=(production|*)
  */
 gulp.task('revision', function revision() {
-    if (config.isProduction) {
+    if (config.isEnvProduction || config.isEnvStaging) {
         var revAll = new $.revAll({
             dontUpdateReference: ['.html'],
             dontRenameFile: ['.html']
