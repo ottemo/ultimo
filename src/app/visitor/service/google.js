@@ -4,7 +4,7 @@ var gl = (function () {
     userData = {'access_token': ''};
 
     requestData = {
-        'clientid': angular.appConfigValue("general.app.login.google.clientId"),
+        'clientid': angular.appConfig.googleClientId,
         'cookiepolicy': 'single_host_origin',
         'callback': 'loginCallback',
         'approvalprompt': 'force',
@@ -40,7 +40,7 @@ var gl = (function () {
     };
 
     return {
-        clientId: angular.appConfigValue("general.app.login.google.clientId"),
+        clientId: angular.appConfig.googleClientId,
         requestData: requestData,
         userData: userData,
         login: login,

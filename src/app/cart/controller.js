@@ -17,7 +17,7 @@ angular.module("cartModule")
             $scope.visitorService = $visitorLoginService;
 
             $scope.init = function () {
-                if (!angular.appConfigValue("general.checkout.guest_checkout")) {
+                if (!angular.appConfig.hasGuestCheckout) {
                     $scope.visitorService.isLoggedIn().then(function (isLoggedIn) {
                         if (!isLoggedIn) {
                             $location.path("/");

@@ -1,9 +1,3 @@
-/**
- *  Angular "commonModule" declaration
- */
-
-angular.REST_SERVER_URI = angular.appConfigValue("general.app.foundation_url");
-
 angular.module("commonModule", [
     // Google
     "ngResource",
@@ -29,12 +23,31 @@ angular.module("commonModule", [
 
 // SEO Meta Data
 .value("DEFAULT_TITLE", "Urbanity")
-    .value("DEFAULT_KEYWORDS", "")
-    .value("DEFAULT_DESCRIPTION", "")
-    .value("REST_SERVER_URI", angular.REST_SERVER_URI) // REFACTOR: why is this declared twice
 
-.config(["$routeProvider", "$locationProvider", "$animateProvider", "cfpLoadingBarProvider",
-    function($routeProvider, $locationProvider, $animateProvider, cfpLoadingBarProvider) {
+.value("DEFAULT_KEYWORDS", "")
+
+.value("DEFAULT_DESCRIPTION", "")
+
+.constant("REST_SERVER_URI", angular.appConfig.apiUrl)
+
+.config([
+    "$routeProvider",
+    "$locationProvider",
+    "$animateProvider",
+    "cfpLoadingBarProvider",
+    "$analyticsProvider",
+    "REST_SERVER_URI",
+    function(
+        $routeProvider,
+        $locationProvider,
+        $animateProvider,
+        cfpLoadingBarProvider,
+        $analyticsProvider,
+        REST_SERVER_URI
+    ) {
+        // Use html5 instead of #! urls
+        $locationProvider.html5Mode(true);
+
         $routeProvider
             .when("/", {
                 // Uses default seo
@@ -59,14 +72,28 @@ angular.module("commonModule", [
                 }
             });
 
-        // Use html5 instead of #! urls
-        $locationProvider.html5Mode(true);
-
         // loading bar configuration
         cfpLoadingBarProvider.includeSpinner = false;
 
         // Don't monitor font awesome animation .fa-spin
         $animateProvider.classNameFilter(/^((?!(fa-spin)).)*$/);
+
+        // We trigger pageviews manually so that it doesn't fire
+        // twice with SEO urls
+        $analyticsProvider.virtualPageviews(false);
+        $analyticsProvider.registerPageTrack(function(path, loc){
+            return $.ajax({
+                url: REST_SERVER_URI + "/rts/visit",
+                type: "POST",
+                data: {
+                    path: path,
+                    referrer: document.referrer
+                },
+                xhrFields: {
+                    withCredentials: true
+                }
+            });
+        });
     }
 ])
 
@@ -79,8 +106,9 @@ angular.module("commonModule", [
     "$q",
     "$commonPageService",
     "$commonRewriteService",
-    "REST_SERVER_URI",
+    "$analytics",
     "DEFAULT_TITLE",
+    "REST_SERVER_URI",
     function(
         $rootScope,
         $designService,
@@ -90,13 +118,17 @@ angular.module("commonModule", [
         $q,
         $commonPageService,
         $commonRewriteService,
-        REST_SERVER_URI,
-        DEFAULT_TITLE
+        $analytics,
+        DEFAULT_TITLE,
+        REST_SERVER_URI
     ) {
-        // Ensures we hide modals after change url
         $rootScope.$on("$locationChangeSuccess", function() {
+            // Ensures we hide modals after change url
             $('.modal').modal('hide');
             $('body').removeClass('modal-open');
+
+            // Analytics page tracking
+             $analytics.pageTrack($location.url(), $location);
         });
 
         // ajax cookies support fix
@@ -150,7 +182,6 @@ angular.module("commonModule", [
                             $location.$$path = "/" + rewrite.type + "/" + rewrite.rewrite;
                             $location.$$url = $location.$$path;
 
-
                             var route = $route.routes["/" + rewrite.type + "/:id"];
 
                             // Assign meta information to the route
@@ -180,3 +211,4 @@ angular.module("commonModule", [
         };
     }
 ]);
+

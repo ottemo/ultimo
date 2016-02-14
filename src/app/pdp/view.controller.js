@@ -164,7 +164,7 @@ angular.module("pdpModule")
                 // we get an odd bug where the link retains focus
                 $event.target.blur();
 
-                if (angular.appConfigValue("general.checkout.guest_checkout")) {
+                if (angular.appConfig.hasGuestCheckout) {
                     if (!$scope.isAddingToCart) {
                         addItem();
                     }

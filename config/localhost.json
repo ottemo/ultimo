@@ -1,7 +1,8 @@
 {
-    "useStrict"     : "use strict",
-    "apiUrl"        : "http://localhost:3000",
-    "idFacebook"    : "TBD",
-    "idGoogle"      : "TBD",
-    "GA"            : "UA-XXXXXXXX-1"
+    "useStrict": "use strict",
+    "apiUrl": "http://localhost:3000",
+    "fbAppId": "TBD",
+    "googleClientId": "TBD",
+    "googleAnalyticsId": "UA-XXXXXXXX-1"
 }
+

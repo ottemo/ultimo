@@ -232,7 +232,7 @@ angular.module("checkoutModule")
 
             enabledGuestCheckout = function () {
                 $scope.subAdditionalInfo = false;
-                return angular.appConfigValue("general.checkout.guest_checkout");
+                return angular.appConfig.hasGuestCheckout;
             };
 
             /**

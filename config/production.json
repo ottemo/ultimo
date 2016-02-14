@@ -1,7 +1,8 @@
 {
-    "useStrict"     : "",
-    "apiUrl"        : "http://api.ub.production.ottemo.io",
-    "idFacebook"    : "TBD",
-    "idGoogle"      : "TBD",
-    "GA"            : "UA-68512923-1"
+    "useStrict": "",
+    "apiUrl": "http://api.ub.production.ottemo.io",
+    "fbAppId": "TBD",
+    "googleClientId": "TBD",
+    "googleAnalyticsId": "UA-68512923-1"
 }
+

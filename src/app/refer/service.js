@@ -2,7 +2,8 @@ angular.module('referModule')
 
 .service('referService', [
     '$http',
-    function($http) {
+    'REST_SERVER_URI',
+    function($http, REST_SERVER_URI) {
 
         /**
          * Send off refer-a-friend form data
@@ -11,7 +12,7 @@ angular.module('referModule')
          * @return Promise
          */
         this.post = function(data) {
-            var url = angular.REST_SERVER_URI + '/friend/email';
+            var url = REST_SERVER_URI + '/friend/email';
             return $http.post(url, data)
                 .then(function(response) {
                     return response.data;
@@ -24,7 +25,7 @@ angular.module('referModule')
          * @return String
          */
         this.getCaptcha = function() {
-            var url = angular.REST_SERVER_URI + '/friend/captcha?json=1';
+            var url = REST_SERVER_URI + '/friend/captcha?json=1';
             return $http.get(url)
                 .then(function(response) {
                     return response.data.result.captcha;

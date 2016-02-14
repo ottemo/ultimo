@@ -28,7 +28,7 @@ angular.module("categoryModule")
 
         // Pagination
         $scope.currentPage = getPage();
-        $scope.itemsPerPage = angular.appConfigValue("general.app.category.itemsPerPage");
+        $scope.itemsPerPage = angular.appConfig.categoryItemsPerPage;
         $scope.pages = 0;
         $scope.totalItems = 0;
         $scope.showMoreBtn = showMoreBtn;
@@ -321,7 +321,7 @@ angular.module("categoryModule")
                 );
             };
 
-            if (angular.appConfigValue("general.checkout.guest_checkout")) {
+            if (angular.appConfig.hasGuestCheckout) {
                 if (!$scope.isAddingToCart) {
                     addItem();
                 }

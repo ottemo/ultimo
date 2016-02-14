@@ -1,14 +1,15 @@
 "@@useStrict";
 
-var appConfig = {
-    'general.app.foundation_url': '@@apiUrl',
+angular.appConfig = {
+    // general
+    apiUrl: '@@apiUrl',
+    categoryItemsPerPage : 30,
+    hasGuestCheckout : true,
 
     // social networks
-    'general.app.login.facebook.appId' : '@@idFacebook',
-    'general.app.login.google.clientId' : '@@idGoogle',
+    fbAppId : '@@fbAppId',
+    googleClientId : '@@googleClientId',
 
-    // general
-    'general.app.category.itemsPerPage' : 30,
-    'general.checkout.guest_checkout' : true,
-    "GA" : "@@GA"
+    // tracking
+    googleAnalyticsId : "@@googleAnalyticsId"
 };

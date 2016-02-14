@@ -210,7 +210,7 @@ angular.module("checkoutModule")
             };
 
             getType = function () {
-                return angular.appConfigValue('general.checkout.checkout_type');
+                return 'accordion';
             };
 
             getCheckout = function () {
@@ -226,7 +226,7 @@ angular.module("checkoutModule")
             };
 
             getAllowedGuestCheckout = function () {
-                return angular.appConfigValue("general.checkout.guest_checkout");
+                return angular.appConfig.hasGuestCheckout;
             };
 
             getMinimalCostShippingMethods = function () {

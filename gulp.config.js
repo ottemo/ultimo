@@ -40,7 +40,6 @@ module.exports = function() {
             app: [
                 '!' + app + '_lib/**/*', // don't clobber lib
                 temp + 'config.js', // this is a built file
-                app + 'main.js',
                 app + '**/init.js',
                 app + '**/*.js'
             ],

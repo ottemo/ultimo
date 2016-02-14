@@ -76,7 +76,7 @@ angular.module("visitorModule", [
         // Facebook Login callback
         $window.fbAsyncInit = function() {
             $window.FB.init({
-              appId: angular.appConfigValue("general.app.login.facebook.appId"),
+              appId: angular.appConfig.fbAppId,
               status: true,
               cookie: true,
               xfbml: false,   // parse facebook html tags <fb:like>
