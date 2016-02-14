@@ -112,13 +112,15 @@ gulp.task('clean', function clean(done) {
  *
  * `gulp build --api=(production|staging|localhost)`
  */
-gulp.task('config', function config_task() {
+gulp.task('config', function() {
+    var replacePattern = {
+        patterns: [{
+            json: config.appSettings
+        }]
+    };
+
     return gulp.src('config/config.js')
-        .pipe($.replaceTask({
-            patterns: [{
-                json: config.appSettings
-            }]
-        }))
+        .pipe($.replaceTask(replacePattern))
         .pipe(gulp.dest(config.temp));
 });
 
@@ -171,8 +173,15 @@ gulp.task('compile_scripts_lib', function compile_scripts_lib() {
  */
 gulp.task('compile_html', ['compile_html_root', 'compile_html_nonroot']);
 
-gulp.task('compile_html_root', function compile_html_root() {
+gulp.task('compile_html_root', function() {
+    var replacePattern = {
+        patterns: [{
+            json: config.appSettings
+        }]
+    };
+
     return gulp.src(config.html.root)
+        .pipe($.replaceTask(replacePattern))
         .pipe($.changed(config.build))
         .pipe(gulp.dest(config.build));
 });

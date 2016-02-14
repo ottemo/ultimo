@@ -10,7 +10,6 @@
     "connect-modrewrite": "^0.8.1",
     "del": "^0.1.2",
     "express": "^4.12.3",
-    "fs": "0.0.2",
     "gulp": "^3.8.11",
     "gulp-autoprefixer": "0.0.8",
     "gulp-changed": "^1.0.0",
