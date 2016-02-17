@@ -12,11 +12,11 @@ var $ = require('gulp-load-plugins')({
 /**
  * yargs variables can be passed in to alter the behavior of tasks
  *
- * --env=(production|staging|localhost)
+ * --env=(prod|staging|local)
  * Applies revision thumbprints, minifies media, uses relavent robots...
  * Forces the api to production
  *
- * --api=(production|staging|localhost)
+ * --api=(prod|staging|local)
  * Sets the config.js variables, primarily the api to connect to
  */
 
@@ -26,19 +26,19 @@ activate();
 
 function activate() {
     // Read the args, and set defaults
-    config.env = args.env || 'localhost';
+    config.env = args.env || 'local';
     config.api = args.api || 'staging';
 
     // The `env` arg drives whether or not this is production
-    config.isEnvProduction = (config.env === 'production');
+    config.isEnvProduction = (config.env === 'prod');
     config.isEnvStaging = (config.env === 'staging');
-    config.isEnvLocal = (config.env === 'localhost');
+    config.isEnvLocal = (config.env === 'local');
 
     if (config.isEnvProduction) {
-        if (config.api !== 'production') {
+        if (config.api !== 'prod') {
             log('When `env` is set to production the `api` will be automatically set to production as well');
         }
-        config.api = 'production';
+        config.api = 'prod';
     }
 
     // Assign the application settings from the config folder
