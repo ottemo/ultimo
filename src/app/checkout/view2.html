@@ -886,50 +886,52 @@
                 <div class="panel-body"
                     style="display:none">
                     <div class="accordion">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <table class="table table-bordered"
-                                    ng-show="cart.getCountItems()"
-                                    ng-class="{'last':$last}">
-                                    <tr>
-                                        <th>Product Name</th>
-                                        <th>Qty</th>
-                                        <th>Price</th>
-                                    </tr>
-                                    <tr ng-repeat="item in cart.getItems()">
-                                        <td>{{item.product.name}}</td>
-                                        <td>{{item.qty}}</td>
-                                        <td>{{item.product.price | number: 2 | currency}}</td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div class="col-sm-6">
-                                <table class="table table-bordered"
-                                    ng-show="cart.getCountItems()"
-                                    ng-class="{'last':$last}">
-                                    <tr>
-                                        <td>Subtotal</td>
-                                        <td>{{checkout.subtotal | currency}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tax</td>
-                                        <td>{{checkout.tax_amount | currency}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Shipping</td>
-                                        <td>{{checkout.shipping_amount | currency}}</td>
-                                    </tr>
-                                    <tr ng-if="checkout.discount_amount">
-                                        <td>Discounts</td>
-                                        <td>({{checkout.discount_amount | currency}})</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Total</td>
-                                        <td>{{checkout.grandtotal | currency}}</td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th class="hidden-xs">Price</th>
+                                    <th class="hidden-xs">Quantity</th>
+                                    <th class="text-right">Totals</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in cart.getItems()">
+                                    <td>
+                                        {{item.product.name}}
+                                        <ul>
+                                            <li ng-repeat="(label, value) in item.options">
+                                                {{ label }}: {{ value }}
+                                            </li>
+                                            <li class="visible-xs">
+                                                quantity: {{item.qty}}
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td class="hidden-xs">{{item.product.price | currency}}</td>
+                                    <td class="hidden-xs">{{item.qty}}</td>
+                                    <td class="text-right">{{item.product.price * item.qty | currency}}</td>
+                                </tr>
+                            </tbody>
+                            <tbody>
+                                <td colspan="2" class="hidden-xs"></td>
+                                <td>
+                                    <div>Subtotal</div>
+                                    <div>Tax</div>
+                                    <div>Shipping</div>
+                                    <div ng-if="checkout.discount_amount">Discounts</div>
+                                    <div>Total</div>
+                                </td>
+                                <td class="text-right">
+                                    <div>{{checkout.subtotal | currency}}</div>
+                                    <div>{{checkout.tax_amount | currency}}</div>
+                                    <div>{{checkout.shipping_amount | currency}}</div>
+                                    <div ng-if="checkout.discount_amount">({{checkout.discount_amount | currency}})</div>
+                                    <div>{{checkout.grandtotal | currency}}</div>
+                                </td>
+                            </tbody>
+                        </table>
+
 
                         <div class="clearfix"></div>
 
