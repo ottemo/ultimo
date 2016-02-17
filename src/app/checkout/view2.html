@@ -899,12 +899,12 @@
                                 <tr ng-repeat="item in cart.getItems()">
                                     <td>
                                         {{item.product.name}}
-                                        <ul>
+                                        <ul class="list-untstyled m-b-0">
                                             <li ng-repeat="(label, value) in item.options">
                                                 {{ label }}: {{ value }}
                                             </li>
                                             <li class="visible-xs">
-                                                quantity: {{item.qty}}
+                                                Quantity: {{item.qty}}
                                             </li>
                                         </ul>
                                     </td>
