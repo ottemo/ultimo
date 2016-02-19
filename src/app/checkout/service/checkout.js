@@ -30,9 +30,9 @@ angular.module("checkoutModule")
                     for (i = 0; i < method.Rates.length; i += 1) {
                         rate = method.Rates[i];
 
-                        var methodLabel = method.Name + " - " + rate.Name + " ($" + rate.Price + ")";
+                        var methodLabel = method.Name + " - " + rate.Name + " ($" + rate.Price.toFixed(2) + ")";
                         if (method.Name == 'Flat Rate') {
-                            methodLabel = rate.Name + " ($" + rate.Price + ")";
+                            methodLabel = rate.Name + " ($" + rate.Price.toFixed(2) + ")";
                         }
 
                         allowedShippingMethods.push({
