@@ -177,16 +177,8 @@
         </div>
     </div>
 
-    <!-- related -->
-    <!-- <div class="row"
-        ng-if="related && related.length">
-        <div class="col-xs-6 col-sm-4"
-            ng-repeat="_item in related">
-            <a href="{{productService.getUrl(_item.ID)}}">
-                <img ng-src="{{ _item.images.thumb }}" />
-            </a>
-        </div>
-    </div> -->
+    <!-- related products -->
+    <div ot-related-products product-id="{{product._id}}"></div>
 </div>
 
 <!-- TODO: move out -->

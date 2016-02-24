@@ -27,7 +27,7 @@ angular.module("pdpModule")
 
             // Ratings & Reviews
             $scope.ratingInfo = getDefaultRatingInfo();
-            $scope.reviewsList = []
+            $scope.reviewsList = [];
 
             // Related Products
             $scope.related = [];
@@ -45,7 +45,6 @@ angular.module("pdpModule")
                 $pdpProductService.setOptions({});
 
                 getProduct();
-                getRelatedProducts();
                 getReviews();
                 getRatingInfo();
                 initWatchers();
@@ -61,8 +60,8 @@ angular.module("pdpModule")
                 // by iterating over product.options guiCustomOptions
                 $scope.$watch('options', function(){
                     $pdpProductService.setOptions($scope.options);
-                })
-            };
+                });
+            }
 
             function getDefaultRatingInfo() {
                 return {
@@ -78,11 +77,11 @@ angular.module("pdpModule")
                     "threeStarPersent": 0,
                     "twoStarPersent": 0
                 };
-            };
+            }
 
             function defaultProduct() {
                 return {};
-            };
+            }
 
             function reinitializeStars() {
                 setTimeout(function () {
@@ -105,7 +104,7 @@ angular.module("pdpModule")
                     });
 
                 }, 300);
-            };
+            }
 
             function getAverageValue() {
 
@@ -122,7 +121,7 @@ angular.module("pdpModule")
                         (4 * $scope.ratingInfo['stars_4']) +
                         (5 * $scope.ratingInfo['stars_5'])) / ($scope.count);
                 }
-            };
+            }
 
             function getStarsPercents() {
                 if (typeof $scope.ratingInfo === "undefined") {
@@ -134,7 +133,7 @@ angular.module("pdpModule")
                 $scope.ratingInfo.threeStarPersent = ($scope.ratingInfo['stars_3'] / $scope.count) * 100;
                 $scope.ratingInfo.fourStarPersent = ($scope.ratingInfo['stars_4'] / $scope.count) * 100;
                 $scope.ratingInfo.fifeStarPersent = ($scope.ratingInfo['stars_5'] / $scope.count) * 100;
-            };
+            }
 
             function getProduct() {
                 $pdpApiService.getProduct({"productID": $scope.productId}).$promise.then(function (response) {
@@ -153,11 +152,11 @@ angular.module("pdpModule")
                         $location.path("/");
                     }
                 });
-            };
+            }
 
             function getTotal() {
                 return $scope.qty * $scope.product.price;
-            };
+            }
 
             function addToCart($event) {
                 // I think because we don't have an href in the link
@@ -199,42 +198,8 @@ angular.module("pdpModule")
                                 }
                             });
                     }
-                };
-            };
-
-
-            // REFACTOR:
-            // - improve response format
-            // - shouldn't have to split with regex
-            function getRelatedProducts() {
-                $pdpApiService.getRelated({
-                    "productID": $scope.productId,
-                    "extra": 'price'
-                }).$promise.then(function (response) {
-                        var result, i, parts, splitName;
-
-                        splitName = function (string) {
-                            var parts;
-                            var regExp = /\[(.+)\](.+)/i;
-                            parts = string.match(regExp);
-
-                            return parts;
-                        };
-                        result = response.result || [];
-
-                        for (i = 0; i < result.length; i += 1) {
-                            parts = splitName(result[i].Name);
-                            $scope.related.push({
-                                "ID": result[i].ID,
-                                "Image": result[i].Image,
-                                "Name": parts[2],
-                                "Sku": parts[1],
-                                "Price": result[i].Extra.price
-                            });
-                        }
-
-                    });
-            };
+                }
+            }
 
 
             /**
@@ -244,7 +209,7 @@ angular.module("pdpModule")
                 $pdpApiService.reviewList({"productID": $scope.productId}).$promise.then(function (response) {
                     $scope.reviewsList = response.result || [];
                 });
-            };
+            }
 
             /**
              * Gets rating info
@@ -259,7 +224,7 @@ angular.module("pdpModule")
                     getAverageValue();
                     getStarsPercents();
                 });
-            };
+            }
 
             /**
              * Gets title for review
