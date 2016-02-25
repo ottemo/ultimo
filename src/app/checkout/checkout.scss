@@ -22,3 +22,23 @@ $panel-checkout-step-heading-bg: $panel-default-heading-bg;
         display: inline-block;
     }
 }
+
+.table-checkout-totals-side {
+    width: 100%;
+    max-width: 100%;
+    th,td {
+        padding: 2px 0;
+    }
+    th {
+        font-weight: normal;
+        text-align: left;
+    }
+    td {
+        text-align: right;
+    }
+
+    .grand-total-row th,
+    .grand-total-row td {
+        font-weight: bold;
+    }
+}

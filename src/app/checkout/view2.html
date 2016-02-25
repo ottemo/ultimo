@@ -956,23 +956,15 @@
         </div>
         <div class="col-md-4 hidden-xs hidden-sm">
             <div class="checkout">
-                <!-- product row -->
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">Order summary</h3>
                     </div>
                     <div class="panel-body">
                         <div ng-controller="cartListController">
-                            <!-- if cart is empty -->
-                            <h3 ng-hide="it.getCountItems()"
-                                class="text-center">Cart is empty</h3>
-
-
                             <div class="product row"
-                                ng-repeat="item in it.getItems()"
-                                ng-show="it.getCountItems()">
+                                ng-repeat="item in it.getItems()">
 
-                                <!-- image -->
                                 <div class="col-md-4">
                                     <img class="img-responsive"
                                         ng-src="{{ item.product.image.thumb }}"
@@ -1004,50 +996,32 @@
                                         <div class="price text-right col-xs-6">{{item.product.price * item.qty | currency}}</div>
                                     </div>
                                 </div>
-                                <div class="clearfix"></div>
                             </div>
                             <hr>
                         </div>
-                        <div class="row cart-total"
-                            ng-show="cart.getCountItems()"
-                            ng-class="{'last':$last}">
-                            <div class="col-xs-6">
-                                <div class="cart-total__label cart-total__label--sub">Subtotal:</div>
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="cart-total__value cart-total__value--sub">{{checkout.subtotal | currency}}</div>
-                            </div>
-
-                            <div class="col-xs-6">
-                                <div class="cart-total__label cart-total__label--tax">Tax:</div>
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="cart-total__value cart-total__value--tax">{{checkout.tax_amount | currency}}</div>
-                            </div>
-
-                            <div class="col-xs-6">
-                                <div class="cart-total__label cart-total__label--ship">Shipping:</div>
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="cart-total__value cart-total__value--ship">{{checkout.shipping_amount | currency}}</div>
-                            </div>
-
-                            <div class="col-xs-6"
-                                ng-if="checkout.discount_amount">
-                                <div class="cart-total__label cart-total__label--discounts">Discounts:</div>
-                            </div>
-                            <div class="col-xs-6"
-                                ng-if="checkout.discount_amount">
-                                <div class="cart-total__value cart-total__value--discounts">({{checkout.discount_amount | currency}})</div>
-                            </div>
-
-                            <div class="col-xs-6">
-                                <div class="cart-total__label cart-total__label--total">Total:</div>
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="cart-total__value cart-total__value--total">{{checkout.grandtotal | currency}}</div>
-                            </div>
-
+                        <div>
+                            <table class="table-checkout-totals-side">
+                                <tr>
+                                    <th>Subtotal:</th>
+                                    <td>{{checkout.subtotal | currency}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Tax:</th>
+                                    <td>{{checkout.tax_amount | currency}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Shipping:</th>
+                                    <td>{{checkout.shipping_amount | currency}}</td>
+                                </tr>
+                                <tr ng-if="checkout.discount_amount">
+                                    <th>Discounts</th>
+                                    <td>({{checkout.discount_amount | currency}})</td>
+                                </tr>
+                                <tr class="grand-total-row">
+                                    <th>Total</th>
+                                    <td>{{checkout.grandtotal | currency}}</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
