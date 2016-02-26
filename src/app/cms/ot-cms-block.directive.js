@@ -47,7 +47,12 @@ angular.module('cmsModule')
                     };
 
                     return $cmsApiService.getBlocks(params).$promise.then(function(response) {
-                        return (response.error === null) ? response.result[0].Extra.content : '';
+                        var content = '';
+                        if (response.error === null && response.result !== null) {
+                            content = response.result[0].Extra.content;
+                        }
+
+                        return content;
                     });
                 }
 
