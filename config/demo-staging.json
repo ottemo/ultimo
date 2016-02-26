@@ -1,6 +1,6 @@
 {
     "useStrict": "use strict",
-    "apiUrl": "http://api.ub.staging.ottemo.io",
+    "apiUrl": "http://api.demo.staging.ottemo.io",
     "fbAppId": "698759790223692",
     "googleClientId": "373116460663-hoaunp6u59487dqev7hh2sf5vsoibsdv.apps.googleusercontent.com",
     "googleAnalyticsId": "UA-XXXXXXXX-1"
