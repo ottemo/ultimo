@@ -1,4 +1,4 @@
-I# Enforce Unix newlines
+# Enforce Unix newlines
 *.css   text eol=lf
 *.html  text eol=lf
 *.js    text eol=lf
