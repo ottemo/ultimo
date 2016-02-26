@@ -16,7 +16,7 @@ if [ "$BRANCH" == 'develop' ]; then
 
     echo ""
     echo RUNNING PRODUCTION GULP BUILD AND RESTORING SYMLINK TO MEDIA FOLDER.
-    ssh ottemo@$REMOTE_HOST "cd $SRCDIR && npm install && gulp build --api=staging"
+    ssh ottemo@$REMOTE_HOST "cd $SRCDIR && npm install && gulp build --env=staging --api=demo-staging"
 
     echo ""
     echo RESTORING DIST DIRECTORY.
