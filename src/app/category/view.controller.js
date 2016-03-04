@@ -311,6 +311,7 @@ angular.module("categoryModule")
 
                         if (response.error !== null) {
                             $scope.message = $commonUtilService.getMessage(response);
+                            $scope.isAddingToCart = false;
                         } else {
                             $pdpProductService.setOptions({});
                             $scope.isAddToCartSuccess = true;
