@@ -2,4 +2,4 @@
 
 User-agent: *
 Disallow: /
-Sitemap: https://urbanity.com/sitemap.xml
+Sitemap: https://demo.ottemo.io/sitemap.xml

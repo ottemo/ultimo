@@ -22,7 +22,7 @@ angular.module("commonModule", [
 ])
 
 // SEO Meta Data
-.value("DEFAULT_TITLE", "Urbanity")
+.value("DEFAULT_TITLE", "Ultimo")
 
 .value("DEFAULT_KEYWORDS", "")
 

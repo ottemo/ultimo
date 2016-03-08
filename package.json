@@ -1,10 +1,10 @@
 {
-  "name": "Urbanity",
+  "name": "Ultimo",
   "version": "0.9.8",
-  "description": "Storefront for Urbanity eCommerce",
+  "description": "Ultimo - Demo Storefront for the ottemo platform",
   "repository": {
     "type": "git",
-    "url": "git://github.com/ottemo/urbanity.git"
+    "url": "git://github.com/ottemo/ultimo.git"
   },
   "devDependencies": {
     "connect-modrewrite": "^0.8.1",

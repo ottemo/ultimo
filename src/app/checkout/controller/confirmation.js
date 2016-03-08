@@ -61,9 +61,10 @@ angular.module("checkoutModule")
                 ga('require', 'ecommerce');
 
                 // Add the transaction
+                //TODO: Site Specific
                 ga('ecommerce:addTransaction', {
                     'id': order._id,                    // Transaction ID. Required.
-                    'affiliation': 'Urbanity',         // Affiliation or store name.
+                    'affiliation': 'XXXXX',             // Affiliation or store name.
                     'revenue': order.grand_total,       // Grand Total.
                     'shipping': order.shipping_amount,  // Shipping.
                     'tax': order.tax_amount             // Tax.
@@ -95,11 +96,11 @@ angular.module("checkoutModule")
         function trackFBConversion(order) {
             if (window._fbq) {
 
-                // Urbanity Specific
-                _fbq.push(['track', 'XXXXX', {
-                    'value': order.grand_total,
-                    'currency': 'USD'
-                }]);
+                //TODO: Site Specific
+                // _fbq.push(['track', 'XXXXX', {
+                //     'value': order.grand_total,
+                //     'currency': 'USD'
+                // }]);
             }
         }
     }

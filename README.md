@@ -1,4 +1,4 @@
-Urbanity Store
+Ultimo - Demo Store for the Ottemo Platform
 ==========
 
 ## License

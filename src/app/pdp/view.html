@@ -39,13 +39,13 @@
                 <ul class="list-social">
                     <li>share:</li>
                     <li>
-                        <a href="https://www.instagram.com/urbanityshop/"><i class="fa fa-instagram"></i></a>
+                        <a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a>
                     </li>
                     <li>
-                        <a href="https://twitter.com/urbanityshop"><i class="fa fa-twitter"></i></a>
+                        <a href="https://twitter.com"><i class="fa fa-twitter"></i></a>
                     </li>
                     <li>
-                        <a href="https://www.facebook.com/urbanityclothingstore/"><i class="fa fa-facebook"></i></a>
+                        <a href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a>
                     </li>
                     <!-- <li>
                         <a href="mailto:">
@@ -102,76 +102,58 @@
                 </span>
             </div>
 
-            <div ng-show="!product.isInStoreOnly">
-                <!-- custom options -->
-                <gui-custom-options item="product"
-                    object="this"></gui-custom-options>
+            <!-- custom options -->
+            <gui-custom-options item="product"
+                object="this"></gui-custom-options>
 
-                <!-- Quantity -->
-                <div class="form-group">
-                    <label for="qty"
-                        class="control-label">Qty:</label>
-                    <input type="text"
-                        id="qty"
-                        class="form-control"
-                        placeholder="1"
-                        value="{{qty}}"
-                        ng-model="qty"
-                        ng-change="update(idx, qty)">
-                </div>
-
-                <!-- add to cart button -->
-                <div class="form-group">
-                    <a class="btn btn-primary btn-block"
-                        ng-class="{disabled: isAddingToCart}"
-                        ng-click="addToCart($event)">
-                        Add to bag
-                        <i class="fa fa-circle-o-notch fa-spin"
-                        ng-show="isAddingToCart"></i>
-                    </a>
-                </div>
-
-                <!-- error message -->
-                <gui-message-manager item="messageOptions"></gui-message-manager>
-
-                <!-- add to bag success message -->
-                <div class="alert alert-success text-center"
-                    ng-show="isAddToCartSuccessful">
-                    <p>{{product.name}} was added to your bag</p>
-                    <p>
-                        <a href="/cart"
-                            class="btn btn-default">view my bag</a>
-                    </p>
-                </div>
+            <!-- Quantity -->
+            <div class="form-group">
+                <label for="qty"
+                    class="control-label">Qty:</label>
+                <input type="text"
+                    id="qty"
+                    class="form-control"
+                    placeholder="1"
+                    value="{{qty}}"
+                    ng-model="qty"
+                    ng-change="update(idx, qty)">
             </div>
 
-            <!-- UB Specific -->
-            <div ng-if="product.isInStoreOnly">
-                <div class="alert alert-info">
-                    <p><strong>Only Available In-Store</strong></p>
-                    <p>
-                        Stop by our store in Downtown Seattle to shop for this product, and discover our other
-                        in-store only specials.
-                    </p>
-                </div>
-                <a class="btn btn-block btn-primary"
-                    href="/email-orders">
-                    Email Orders Accepted
+            <!-- add to cart button -->
+            <div class="form-group">
+                <a class="btn btn-primary btn-block"
+                    ng-class="{disabled: isAddingToCart}"
+                    ng-click="addToCart($event)">
+                    Add to bag
+                    <i class="fa fa-circle-o-notch fa-spin"
+                    ng-show="isAddingToCart"></i>
                 </a>
             </div>
 
+            <!-- error message -->
+            <gui-message-manager item="messageOptions"></gui-message-manager>
+
+            <!-- add to bag success message -->
+            <div class="alert alert-success text-center"
+                ng-show="isAddToCartSuccessful">
+                <p>{{product.name}} was added to your bag</p>
+                <p>
+                    <a href="/cart"
+                        class="btn btn-default">view my bag</a>
+                </p>
+            </div>
+
             <!-- social links -->
-            <!-- TODO: fill in social hrefs -->
             <ul class="hidden-md hidden-lg text-center list-social">
                 <li>share:</li>
                 <li>
-                    <a href="https://www.instagram.com/urbanityshop/"><i class="fa fa-instagram"></i></a>
+                    <a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a>
                 </li>
                 <li>
-                    <a href="https://twitter.com/urbanityshop"><i class="fa fa-twitter"></i></a>
+                    <a href="https://twitter.com"><i class="fa fa-twitter"></i></a>
                 </li>
                 <li>
-                    <a href="https://www.facebook.com/urbanityclothingstore/"><i class="fa fa-facebook"></i></a>
+                    <a href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a>
                 </li>
             </ul>
         </div>

@@ -7,4 +7,4 @@ Disallow: /not-found/*
 Disallow: /account/*
 Disallow: /catalog/product_compare/*
 
-Sitemap: https://urbanity.com/sitemap.xml
+Sitemap: https://demo.ottemo.io/sitemap.xml
