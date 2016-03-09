@@ -105,7 +105,7 @@
             <!-- custom options -->
             <gui-custom-options item="product"
                 object="this"></gui-custom-options>
-
+ 
             <!-- Quantity -->
             <div class="form-group">
                 <label for="qty"
@@ -124,7 +124,7 @@
                 <a class="btn btn-primary btn-block"
                     ng-class="{disabled: isAddingToCart}"
                     ng-click="addToCart($event)">
-                    Add to bag
+                    Add to cart
                     <i class="fa fa-circle-o-notch fa-spin"
                     ng-show="isAddingToCart"></i>
                 </a>
@@ -133,13 +133,13 @@
             <!-- error message -->
             <gui-message-manager item="messageOptions"></gui-message-manager>
 
-            <!-- add to bag success message -->
+            <!-- add to cart success message -->
             <div class="alert alert-success text-center"
                 ng-show="isAddToCartSuccessful">
-                <p>{{product.name}} was added to your bag</p>
+                <p>{{product.name}} was added to your cart</p>
                 <p>
                     <a href="/cart"
-                        class="btn btn-default">view my bag</a>
+                        class="btn btn-default">view my cart</a>
                 </p>
             </div>
 
