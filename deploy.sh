@@ -2,7 +2,7 @@
 
 # SRCDIR
 HOME=/home/ottemo
-SRCDIR=$HOME/code/urbanity
+SRCDIR=$HOME/code/ultimo
 MEDIADIR=$HOME/media
 
 if [ "$BRANCH" == 'develop' ]; then
@@ -16,7 +16,7 @@ if [ "$BRANCH" == 'develop' ]; then
 
     echo ""
     echo RUNNING PRODUCTION GULP BUILD AND RESTORING SYMLINK TO MEDIA FOLDER.
-    ssh ottemo@$REMOTE_HOST "cd $SRCDIR && npm install && gulp build --env=staging --api=demo-staging"
+    ssh ottemo@$REMOTE_HOST "cd $SRCDIR && npm install && gulp build --env=staging --api=staging"
 
     echo ""
     echo RESTORING DIST DIRECTORY.
