@@ -4,7 +4,7 @@
     </div>
 
     <div class="row">
-        <!-- checkout page -->
+        <!-- main panel -->
         <div ng-init="init()"
             class="col-xs-12 col-md-8">
 
@@ -641,102 +641,6 @@
                 </div>
             </div>
 
-            <!-- Discounts -->
-            <div id="discounts"
-                class="panel panel--checkout-step">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        Discounts
-                    </h3>
-                </div>
-                <div class="panel-body"
-                    style="display:none">
-                    <div class="accordion">
-                        <gui-message-manager item="messageDiscounts"></gui-message-manager>
-                        <gui-message-manager item="giftcard.message"></gui-message-manager>
-
-                        <form ng-submit="discountApply()"
-                            novalidate>
-                            <div class="form-group">
-                                <label for="discount">Discount Code</label>
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-8">
-                                        <input id="discount"
-                                            type="text"
-                                            class="form-control"
-                                            name="discount"
-                                            ng-model="discount">
-                                    </div>
-                                    <div class="col-xs-12 col-sm-4">
-                                        <br class="visible-xs">
-                                        <button type="submit"
-                                            class="btn btn-primary btn-block">
-                                            Apply Discount Code
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-
-                        <form ng-submit="giftcard.apply()"
-                            novalidate>
-                            <div class="form-group">
-                                <label for="giftcode">Gift Card Code</label>
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-8">
-                                        <input id="giftcode"
-                                            type="text"
-                                            class="form-control"
-                                            ng-model="giftcard.code">
-                                    </div>
-                                    <div class="col-xs-12 col-sm-4">
-                                        <br class="visible-xs">
-                                        <button type="submit"
-                                            class="btn btn-primary btn-block"
-                                            ng-disabled="giftcard.searching">
-                                            Apply Gift Card
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-
-                        <div class=""
-                            ng-show="checkout.discounts.length">
-                            Applied Discounts
-                            <ul>
-                                <li ng-repeat="discount in checkout.discounts">
-                                    <div>
-                                        {{discount.Amount | currency}} ({{discount.Code}})
-                                        <!-- todo: we can't tell the difference between coupons and gift cards, so we can't neglect them properly -->
-                                        <!-- <a class="" ng-click="discountNeglect(discount.Code)">
-                                            <i class="fa fa-remove"></i>
-                                            remove
-                                        </a> -->
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="clearfix"></div>
-
-                        <div class="text-center">
-                            <!-- prev step -->
-                            <button class="back btn btn-default btn-block-xs"
-                                ng-click="back('discounts')">
-                                Prev step
-                            </button>
-
-                            <!-- next step -->
-                            <button class="next btn btn-primary btn-block-xs"
-                                ng-click="next('discounts')">
-                                Next step
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- Payment Method -->
             <div id="paymentMethod"
                 class="panel panel--checkout-step">
@@ -749,7 +653,8 @@
                     style="display:none">
                     <div class="accordion">
 
-                        <div ng-repeat="method in paymentMethods">
+                        <div ng-show="checkout.grandtotal > 0"
+                            ng-repeat="method in paymentMethods" >
                             <div class="radio">
                                 <label>
                                     <input type="radio"
@@ -759,7 +664,7 @@
                                 </label>
                             </div>
 
-                            <div class="paypal"
+                            <div class="radio-subform paypal"
                                 ng-show="paymentMethod.selected.Code === method.Code"
                                 ng-if="method.isCreditCard">
                                 <form name="method.form"
@@ -855,7 +760,53 @@
                                     <div class="clearfix"></div>
                                 </form>
                             </div>
+                        </div>
+                        <div ng-show="checkout.grandtotal <= 0">
+                            <p>No payment method is required, your grand total is $0.00</p>
+                        </div>
 
+                        <!-- discounts & giftcards -->
+                        <div class="form-group">
+                            <label class="small"
+                                for="discount-giftcard"
+                                ng-click="discounts.isVisible = !discounts.isVisible">
+                                <i class="fa fa-caret-down"></i>
+                                Add a gift card or promotion code
+                            </label>
+                            <div class="input-group" ng-show="discounts.isVisible">
+                                <input type="text"
+                                    id="discount-giftcard"
+                                    class="form-control"
+                                    placeholder="Enter code"
+                                    ng-model="discounts.code" />
+                                <span class="input-group-btn">
+                                    <button type="button"
+                                        class="btn btn-default"
+                                        ng-click="discounts.apply()"
+                                        ng-disabled="discounts.isApplying">
+                                        <i class="fa fa-circle-o-notch fa-spin"
+                                            ng-show="discounts.isApplying">
+                                        </i>
+                                        Apply
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <gui-message-manager item="discounts.message"></gui-message-manager>
+
+                        <div ng-show="checkout.discounts.length">
+                            Applied Discounts
+                            <ul>
+                                <li ng-repeat="discount in checkout.discounts">
+                                    {{discount.Amount | currency}} - {{discount.Code}}
+                                    <!-- {{discount.Type}} -->
+                                    <!-- <a ng-click="discounts.neglect(discount.Code, discount.Type)"
+                                        title="remove">
+                                        <i class="fa fa-times"></i>
+                                    </a> -->
+                                </li>
+                            </ul>
                         </div>
 
                         <div class="text-center">
@@ -954,6 +905,8 @@
                 </div>
             </div>
         </div>
+
+        <!-- sidebar -->
         <div class="col-md-4 hidden-xs hidden-sm">
             <div class="checkout">
                 <div class="panel panel-default">

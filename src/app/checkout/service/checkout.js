@@ -1,7 +1,5 @@
 angular.module("checkoutModule")
-/**
- *
- */
+
     .service("$checkoutService", [
         "$q",
         "$timeout",
@@ -180,29 +178,11 @@ angular.module("checkoutModule")
             };
 
             discountApply = function (data) {
-                var defer = $q.defer();
-
-                $checkoutApiService.discountApply(data).$promise.then(
-                    function (response) {
-                        defer.resolve(response);
-                    }
-                );
-
-                return defer.promise;
+                return $checkoutApiService.discountApply(data).$promise;
             };
 
             discountNeglect = function (data) {
-                var defer = $q.defer();
-
-                $checkoutApiService.discountNeglect(data).$promise.then(
-                    function (response) {
-                        if (response.error === null) {
-                            defer.resolve(response);
-                        }
-                    }
-                );
-
-                return defer.promise;
+                return $checkoutApiService.discountNeglect(data).$promise;
             };
 
             getUrl = function () {

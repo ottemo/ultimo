@@ -13,7 +13,7 @@ angular.module("checkoutModule")
         "$designCountryService",
         "$commonUtilService",
         "$checkoutService",
-        "$giftCardsService",
+        "giftCardsService",
         function (
             $scope,
             $location,
@@ -27,11 +27,21 @@ angular.module("checkoutModule")
             $designCountryService,
             $commonUtilService,
             $checkoutService,
-            $giftCardsService
+            giftCardsService
         ) {
 
             var init, info, getDefaultAddress, getAddresses, enabledGuestCheckout,
                 getPaymentInfo, creditCardTypes, isValidSteps;
+
+
+            // Discounts and Giftcards
+            $scope.discounts = {
+                apply: applyDiscount,
+                code: '',
+                isVisible: false,
+                message: false,
+                isApplying: false,
+            };
 
             /**
              * Gets checkout information
@@ -74,7 +84,6 @@ angular.module("checkoutModule")
                     "shippingAddress": false,
                     "shippingMethod": false,
                     "paymentMethod": false,
-                    "discounts": true
                 };
 
                 // Addresses
@@ -111,13 +120,13 @@ angular.module("checkoutModule")
                 };
                 $scope.paymentMethods = []; // REFACTOR: nest under paymentMethod as options
                 $checkoutService.loadPaymentMethods()
-                .then(function(methods){
-                    // Flag methods that have a credit card form
-                    angular.forEach(methods, function(method){
-                        method.isCreditCard = method.Type.split("_").indexOf("cc") >= 0;
+                    .then(function(methods){
+                        // Flag methods that have a credit card form
+                        angular.forEach(methods, function(method){
+                            method.isCreditCard = method.Type.split("_").indexOf("cc") >= 0;
+                        });
+                        $scope.paymentMethods = methods;
                     });
-                    $scope.paymentMethods = methods;
-                });
 
                 $scope.creditTypes = [
                     {
@@ -470,6 +479,13 @@ angular.module("checkoutModule")
                     $scope.subPaymentForm = true;
                     isValidSteps.paymentMethod = false;
 
+                    // Zero dollar, proceed
+                    if ($scope.checkout.grandtotal <= 0) {
+                        isValidSteps.paymentMethod = true;
+                        info();
+                        _accordionAnimation(step);
+                    }
+
                     if ($scope.paymentMethod.selected) {
 
                         if ($scope.paymentMethod.selected.isCreditCard) {
@@ -530,20 +546,6 @@ angular.module("checkoutModule")
                     }
                 };
 
-                var actionDiscount = function () {
-                    // Discounts step is always valid
-                    // If the grand total is 0 we can set the paymentMethod step to valid and jump over it.
-                    if ($scope.checkout.grandtotal <= 0)  {
-                        isValidSteps.paymentMethod = true;
-                        var skipOneStep = true;
-                        _accordionAnimation(step, skipOneStep);
-
-                    } else {
-                        isValidSteps.paymentMethod = false;
-                        _accordionAnimation(step);
-                    }
-                };
-
                 var actionDefault = function () {
                     if (isValidSteps[step]) {
                         _accordionAnimation(step);
@@ -565,9 +567,6 @@ angular.module("checkoutModule")
                         break;
                     case "customerInfo":
                         actionCustomerAdditionalInfo();
-                        break;
-                    case "discounts":
-                        actionDiscount();
                         break;
                     default:
                         actionDefault();
@@ -704,54 +703,6 @@ angular.module("checkoutModule")
                 });
             };
 
-            $scope.giftcard = {};
-            $scope.giftcard.apply = function() {
-                if ($scope.giftcard.code) {
-                    $scope.giftcard.searching = true;
-                    $giftCardsService.apply($scope.giftcard.code)
-                    .then(function(response) {
-
-                        $scope.giftcard.searching = false;
-                        if (response.error === null) {
-                            info();
-                            // $scope.giftcard.message = $commonUtilService.getMessage(null, "warning", "Please enter a gift card code before submitting.");
-                        } else {
-                            $scope.giftcard.message = $commonUtilService.getMessage(response);
-                        }
-
-                    });
-                } else {
-                    $scope.giftcard.message = $commonUtilService.getMessage(null, "danger", "Gift card code can't be empty");
-                }
-            };
-
-            $scope.discountApply = function () {
-                if ("" === $scope.discount || typeof $scope.discount === "undefined") {
-                    $scope.messageDiscounts = $commonUtilService.getMessage(null, "danger", "Discount code can't be empty");
-                } else {
-                    $checkoutService.discountApply({"code" : $scope.discount}).then(
-                        function (response) {
-                            if (response.error === null) {
-                                info();
-                            } else {
-                                $scope.messageDiscounts = $commonUtilService.getMessage(response);
-                                $scope.discount = "";
-                            }
-                        }
-                    );
-                }
-            };
-
-            $scope.discountNeglect = function (code) {
-                $checkoutService.discountNeglect({"code": code}).then(
-                    function (response) {
-                        if (response.error === null) {
-                            info();
-                        }
-                    }
-                );
-            };
-
             // REFACTOR: this should be a directive
             $scope.validateCcNumber = function () {
                 var i, payment, result;
@@ -801,6 +752,69 @@ angular.module("checkoutModule")
                 return result;
             };
 
+            function applyDiscount() {
+                var errorMessage = 'The coupon code or giftcard code entered is not valid at this time.';
+                var validationMessage = 'Please enter a coupon code or a giftcard code.';
+                var code = $scope.discounts.code;
+                var promises = [];
+
+                // Clear old messaging
+                $scope.discounts.message = false;
+
+                if (!code) {
+                    $scope.discounts.message = $commonUtilService.getMessage(null, 'danger', validationMessage);
+                    return;
+                }
+
+                // Prevent double submission
+                if ($scope.discounts.isApplying) {
+                    return;
+                }
+                $scope.discounts.isApplying = true;
+
+                // Apply this as a giftcard and a coupon
+                promises.push(giftCardsService.apply(code));
+                promises.push($checkoutService.discountApply({'code' :code}));
+
+                allResolved(promises).then(function(responses){
+                    $scope.discounts.isApplying = false;
+
+                    var respSuccess = _.filter(responses, {'error': null});
+                    if (respSuccess.length) {
+                        $scope.discounts.code = '';
+                        info();
+                    } else {
+                        $scope.discounts.message = $commonUtilService.getMessage(null, 'danger', errorMessage);
+                    }
+                });
+
+                // NOTE: $q.all will reject if one of the promises is bad, so we can't use it here
+                // and have instead replicateed $Q.allResolved
+                function allResolved(promises) {
+                    var deferred = $q.defer(),
+                        counter = 0,
+                        results = [];
+
+                    angular.forEach(promises, function(promise, key) {
+                        counter++;
+                        $q.when(promise).then(function(value) {
+                            if (results.hasOwnProperty(key)) return;
+                            results[key] = value;
+                            if (!(--counter)) deferred.resolve(results);
+                        }, function(reason) {
+                            if (results.hasOwnProperty(key)) return;
+                            results[key] = reason.data;
+                            if (!(--counter)) deferred.resolve(results);
+                        });
+                    });
+
+                    if (counter === 0) {
+                        deferred.resolve(results);
+                    }
+
+                    return deferred.promise;
+                }
+            }
         }
     ]
 );

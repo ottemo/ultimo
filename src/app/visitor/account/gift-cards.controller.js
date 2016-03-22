@@ -3,8 +3,8 @@ angular.module("visitorModule")
 .controller("visitorAccountGiftCardsController", [
     "$scope",
     "$location",
-    "$giftCardsService",
-    function($scope, $location, $giftCardsService) {
+    "giftCardsService",
+    function($scope, $location, giftCardsService) {
 
         $scope.giftcode = '';
         $scope.checkBalance = checkBalance;
@@ -17,7 +17,7 @@ angular.module("visitorModule")
             if (!$scope.searching) {
                 $scope.searching = true;
 
-                $giftCardsService.getBalance($scope.giftcode)
+                giftCardsService.getBalance($scope.giftcode)
                     .then(function(response) {
 
                         $scope.searching = false;
