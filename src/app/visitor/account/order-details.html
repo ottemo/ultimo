@@ -1,148 +1,122 @@
-<!-- Orders details page -->
 <div class="container">
 
     <div class="page-header">
         <h1>Order Details</h1>
     </div>
 
-    <h3>Order Id: {{order._id}}</h3>
-    <h3>Date: {{order.created_at | date:"MM/dd/yyyy h:mma"}}</h3>
-
-
     <div class="row">
-        <!-- bill to table -->
-        <div class="col-sm-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                    Billing Address
-                </h3>
+        <!-- left-side menu -->
+        <ng-include src="getTemplate('visitor/account/sidebar.html')"></ng-include>
+
+        <!-- orders layout -->
+        <div class="col-xs-12 col-sm-9">
+            <h2 class="m-t-0">Order Id: {{order._id}}</h2>
+
+            <ul>
+                <li>Date: {{order.created_at | date:"MM/dd/yyyy h:mma"}}</li>
+                <li ng-show="order.shipping_info.tracking_url">Track package:
+                    <a class="text-underline"
+                        ng-href="{{order.shipping_info.tracking_url}}" target="_blank">
+                        {{order.shipping_info.carrier}} {{order.shipping_info.tracking_number}}
+                    </a>
+                </li>
+            </ul>
+
+
+            <div class="row">
+                <!-- ship to table -->
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                Shipping Address
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div>{{order.shipping_address.first_name}} {{order.shipping_address.last_name}}</div>
+                            <div>{{order.shipping_address.company}}</div>
+                            <div>{{order.shipping_address.address_line1}}</div>
+                            <div>{{order.shipping_address.address_line2}}</div>
+                            <div>
+                                {{order.shipping_address.city}} {{order.shipping_address.state}} {{order.shipping_address.zip_code}} {{order.shipping_address.country}}
+                            </div>
+                            <div>{{order.shipping_address.phone}}</div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- bill to info -->
-                <table class="table table-bordered ">
-                    <tr>
-                        <td>Name:</td>
-                        <td>{{order.billing_address.last_name}} {{order.billing_address.first_name}}</td>
-                    </tr>
-                    <tr ng-show="order.billing_address.company">
-                        <td>Company:</td>
-                        <td>{{order.billing_address.company}}</td>
-                    </tr>
-                    <tr>
-                        <td>Address:</td>
-                        <td>
-                            {{order.billing_address.address_line1}}
-                            <br> {{order.billing_address.address_line2}}
-                            <br ng-if="order.billing_address.address_line2"> {{order.billing_address.city}} {{order.billing_address.state}} {{order.billing_address.zip_code}} {{order.billing_address.country}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Phone:</td>
-                        <td>{{order.billing_address.phone}}</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-
-        <!-- ship to table -->
-        <div class="col-sm-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                    Shipping Address
-                </h3>
+                <!-- bill to table -->
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                Billing Address
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div>{{order.billing_address.first_name}} {{order.billing_address.last_name}}</div>
+                            <div>{{order.billing_address.company}}</div>
+                            <div>{{order.billing_address.address_line1}}</div>
+                            <div>{{order.billing_address.address_line2}}</div>
+                            <div>
+                                {{order.billing_address.city}} {{order.billing_address.state}} {{order.billing_address.zip_code}} {{order.billing_address.country}}
+                            </div>
+                            <div>{{order.billing_address.phone}}</div>
+                        </div>
+                    </div>
                 </div>
-
-                <!-- ship to info -->
-                <table class="table table-bordered ">
-                    <tr>
-                        <td>Name:</td>
-                        <td>{{order.shipping_address.last_name}} {{order.shipping_address.first_name}}</td>
-                    </tr>
-                    <tr ng-show="order.shipping_address.company">
-                        <td>Company:</td>
-                        <td>{{order.shipping_address.company}}</td>
-                    </tr>
-                    <tr>
-                        <td>Address:</td>
-                        <td>
-                            {{order.shipping_address.address_line1}}
-                            <br> {{order.shipping_address.address_line2}}
-                            <br ng-if="order.shipping_address.address_line2"> {{order.shipping_address.city}} {{order.shipping_address.state}} {{order.shipping_address.zip_code}} {{order.shipping_address.country}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Phone:</td>
-                        <td>{{order.shipping_address.phone}}</td>
-                    </tr>
-                </table>
             </div>
-        </div>
-    </div>
 
-    <div class="row">
-        <!-- products in order -->
-        <div class="col-sm-6">
-            <table class="table table-bordered table-condensed">
+            <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Products</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
+                        <th>Name</th>
+                        <th class="hidden-xs">Price</th>
+                        <th class="hidden-xs">Quantity</th>
+                        <th class="text-right">Totals</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="product in order.items">
-
-                        <!-- product name -->
                         <td>
-                            <strong>{{product.Name}}</strong>
-                            <div ng-repeat="option in product.Options">
-                                {{ option.label }}: {{ option.value }}
-                            </div>
+                            {{product.Name}}
+                            <ul class="list-unstyled m-b-0">
+                                <li ng-repeat="option in product.Options">
+                                    {{ option.label }}: {{ option.value }}
+                                </li>
+                                <li class="visible-xs">
+                                    Quantity: {{product.Qty}}
+                                </li>
+                            </ul>
                         </td>
-
-                        <!-- product quantity -->
-                        <td>{{product.Qty}}</td>
-
-                        <!-- product price -->
-                        <td>{{product.Price | currency}}</td>
+                        <td class="hidden-xs">{{product.Price | currency}}</td>
+                        <td class="hidden-xs">{{product.Qty}}</td>
+                        <td class="text-right">{{product.Price * product.Qty | currency}}</td>
                     </tr>
                 </tbody>
+                <tbody>
+                    <td colspan="2" class="hidden-xs"></td>
+                    <td>
+                        <div>Subtotal</div>
+                        <div>Tax</div>
+                        <div>Shipping</div>
+                        <div ng-if="order.discount">Discounts</div>
+                        <div>Total</div>
+                    </td>
+                    <td class="text-right">
+                        <div>{{order.subtotal | currency}}</div>
+                        <div>{{order.tax_amount | currency}}</div>
+                        <div>{{order.shipping_amount | currency}}</div>
+                        <div ng-if="order.discount">({{order.discount | currency}})</div>
+                        <div>{{order.grand_total | currency}}</div>
+                    </td>
+                </tbody>
             </table>
-        </div>
 
-        <!-- total table -->
-        <div class="col-sm-6">
-            <table class="table table-bordered table-condensed">
-                <tr>
-                    <td class="text-left">Subtotal:</td>
-                    <td>{{order.subtotal | currency}}</td>
-                </tr>
-                <tr>
-                    <td class="text-left">Shipping:</td>
-                    <td>{{order.shipping_amount | currency}}</td>
-                </tr>
-                <tr>
-                    <td class="text-left">Tax:</td>
-                    <td>{{order.tax_amount | currency}}</td>
-                </tr>
-                <tr ng-if="order.discount">
-                    <td class="text-left">Discounts:</td>
-                    <td>({{order.discount | currency}})</td>
-                </tr>
-                <tr>
-                    <td class="text-left">Order Total:</td>
-                    <td>{{order.grand_total | currency}}</td>
-                </tr>
-            </table>
-        </div>
+            <a class="btn btn-primary"
+                href="/account/orders">
+                Back To Orders
+            </a>
     </div>
-
-    <a class="btn btn-primary"
-        href="/account/orders">Back to Orders</a>
-    <br>
-    <br>
 </div>
 
