@@ -1,3 +1,5 @@
+/*jshint node:true */
+
 module.exports = function() {
 
     var src = './src/';
@@ -7,6 +9,9 @@ module.exports = function() {
     var temp = './tmp/';
 
     var config = {
+        // Reserved and written to in gulpfile.js
+        env: '',
+        settings: '',
 
         /************** Paths ****************/
         build: 'dist/',
@@ -14,8 +19,12 @@ module.exports = function() {
         // App
         fonts: app + '_fonts/**/*.{svg,eot,ttf,woff,woff2}',
         html: {
-            all: app + '**/*.html',
-            root: app + '*.html'
+            root: app + '*.html',
+            nonRoot: [
+                '!' + email + '**/*',
+                '!' + app + '*.html',
+                app + '**/*.html',
+            ],
         },
         media: [
             // Ignore media, declaring the _images folder directly moves all of its contents
@@ -27,33 +36,34 @@ module.exports = function() {
         misc: app + '*.{htaccess,ico,xml}',
         robots: {
             default: app + 'robots.dev.txt',
-            prod: app + 'robots.prod.txt'
+            prod: app + 'robots.prod.txt',
         },
         styles: {
             root: app + 'app.scss',
             all: [
                 app + '**/*.scss',
-                app + '**/*.css'
-            ]
+                app + '**/*.css',
+            ],
         },
         scripts: {
             app: [
                 '!' + app + '_lib/**/*', // don't clobber lib
                 temp + 'config.js', // this is a built file
                 app + '**/init.js',
-                app + '**/*.js'
+                app + '**/*.js',
             ],
             lib: [
                 app + '_lib/jquery.min.js',
                 app + '_lib/angular.min.js',
-                app + '_lib/**/*.min.js'
-            ]
+                app + '_lib/**/*.min.js',
+            ],
         },
 
         // Emails
         email: [
-            '!'+email+'**/*.inline.html',   // Build files are saved as .inline.html
-            email +'**/*.html'
+            // Build files are saved as .inline.html
+            '!' + email + '**/*.inline.html',
+            email + '**/*.html',
         ],
 
         // Temp
@@ -62,15 +72,15 @@ module.exports = function() {
         /************** Settings ****************/
         node: {
             port: '8080',
-            lrPort: '35729' // not used?
+            lrPort: '35729', // not used?
         },
         sassSettings: {
             // outputStyle: 'compressed',
             // precision: 8,
         },
         uglifySettings: {
-            mangle: false
-        }
+            mangle: false,
+        },
     };
 
     return config;

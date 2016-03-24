@@ -1,3 +1,5 @@
+/*jshint node: true */
+
 var args = require('yargs').argv;
 var config = require('./gulp.config')();
 var del = require('del');
@@ -5,80 +7,90 @@ var fs = require('fs');
 var gulp = require('gulp');
 var modRewrite = require('connect-modrewrite');
 var runSequence = require('run-sequence');
+var colors = require('chalk');
 var $ = require('gulp-load-plugins')({
     lazy: true
 });
 
 /**
  * yargs variables can be passed in to alter the behavior of tasks
- *
- * --env=(prod|staging|local)
- * Applies revision thumbprints, minifies media, uses relavent robots...
- * Forces the api to production
- *
- * --api=(prod|staging|local)
- * Sets the config.js variables, primarily the api to connect to
  */
+gulp.task('default', ['help']);
+gulp.task('help', function() {
+    logHead('Options');
+    logBody([
+        '--env=[prod|staging|local]',
+        '    Controls applying revision thumbprints, minifying media, choosing robots.txt',
+        '    "prod" forces the api to production',
+        '    Defaults to local',
+        '',
+        '--config=[prod|staging|local]',
+        '    Sets which config file to use. `/config/*.json`',
+        '    Settings include; useStrict, apiUrl, fbAppId, googleClientId, googleAnalyticsId',
+        '    Defaults to staging',
+    ], 1);
 
-activate();
+    logHead('Example Usage');
+    logBody('Make a production build',1);
+    logBody('`gulp build --env=prod --config=prod`', 2, 'cyan');
+    logBody('');
+    logBody('Start a development server',1);
+    logBody('`gulp serve`', 2, 'cyan');
+    logBody('');
+    logBody('Start a development server using a local api server',1);
+    logBody('`gulp serve --config=local`', 2, 'cyan');
+
+    return $.taskListing.withFilters(null, 'default')();
+});
+
 
 //////////////////////////////
 
-function activate() {
+gulp.task('readArgs', function readArgs(cb) {
     // Read the args, and set defaults
     config.env = args.env || 'local';
-    config.api = args.api || 'staging';
+    config.configFile = args.config || 'staging';
 
     // The `env` arg drives whether or not this is production
     config.isEnvProduction = (config.env === 'prod');
     config.isEnvStaging = (config.env === 'staging');
     config.isEnvLocal = (config.env === 'local');
 
+    logHead('Argument Feedback');
     if (config.isEnvProduction) {
-        if (config.api !== 'prod') {
-            log('When `env` is set to production the `api` will be automatically set to production as well');
+        if (config.configFile !== 'prod') {
+            logBody('When `env=prod` we enforce that `config=prod`', 1, 'red');
         }
-        config.api = 'prod';
+        config.configFile = 'prod';
     }
 
+    logBody([
+        '--env=' + config.env,
+        '--config=' + config.configFile,
+        '',
+    ], 1, 'cyan');
+
     // Assign the application settings from the config folder
-    config.appSettings = readConfig(config.api);
+    // this read is sync
+    config.settings = readConfig(config.configFile);
 
-    giveArgumentFeedback();
-}
-
-/**
- * Log some feedback related to the args we just processed
- */
-function giveArgumentFeedback() {
-    var bar = '+-----------------------------------+';
-    log(bar);
-    log('Environment Settings');
-    log('env = ' + config.env);
-    log('api = ' + config.api);
-    log(bar);
-}
+    cb();
+});
 
 /**
  * Read the settings from the right file
  */
-function readConfig(api) {
-    return JSON.parse(fs.readFileSync('./config/' + api + '.json', 'utf8'));
+function readConfig(configFile) {
+    return JSON.parse(fs.readFileSync('./config/' + configFile + '.json', 'utf8'));
 }
-
-/**
- * List the tasks available
- */
-gulp.task('help', $.taskListing.withFilters(null, 'default'));
-gulp.task('default', ['help']);
 
 /**
  * Build the app
  * This is typically used when getting ready to deploy the app
  * `gulp build --env=production`
  */
-gulp.task('build', function build() {
-    runSequence('clean', 'config', 'compile', 'revision');
+gulp.task('build', function build(cb) {
+    runSequence('clean', 'readArgs', 'config', 'compile', 'revision', cb);
 });
 
 /**
@@ -115,7 +127,7 @@ gulp.task('clean', function clean(done) {
 gulp.task('config', function() {
     var replacePattern = {
         patterns: [{
-            json: config.appSettings
+            json: config.settings
         }]
     };
 
@@ -176,7 +188,7 @@ gulp.task('compile_html', ['compile_html_root', 'compile_html_nonroot']);
 gulp.task('compile_html_root', function() {
     var replacePattern = {
         patterns: [{
-            json: config.appSettings
+            json: config.settings
         }]
     };
 
@@ -187,7 +199,7 @@ gulp.task('compile_html_root', function() {
 });
 
 gulp.task('compile_html_nonroot', function compile_html_nonroot() {
-    return gulp.src(['!' + config.html.root, config.html.all])
+    return gulp.src(config.html.nonRoot)
         .pipe($.changed(config.build + 'views/'))
         .pipe(gulp.dest(config.build + 'views/'));
 });
@@ -272,11 +284,12 @@ gulp.task('serve_watch', function serve_watch() {
     gulp.start('serve_server');
 
     // App
-    gulp.watch(config.html.all, ['compile_html']);
-    gulp.watch(config.styles.all, ['compile_styles']);
-    gulp.watch(config.scripts.lib, ['compile_scripts_lib']);
-    gulp.watch(config.scripts.ie, ['compile_scripts_ie']);
-    gulp.watch(config.scripts.app, ['compile_scripts_app']);
+    gulp.watch(config.html.root,    ['compile_html_root']);
+    gulp.watch(config.html.nonRoot, ['compile_html_nonroot']);
+    gulp.watch(config.styles.all,   ['compile_styles']);
+    gulp.watch(config.scripts.lib,  ['compile_scripts_lib']);
+    gulp.watch(config.scripts.ie,   ['compile_scripts_ie']);
+    gulp.watch(config.scripts.app,  ['compile_scripts_app']);
 
     // Emails
     gulp.watch(config.email, ['compile_emails']);
@@ -295,12 +308,12 @@ gulp.task('serve_server', function serve_server() {
         .use(express.static(staticFolder));
 
     app.listen(config.node.port, function() {
-        var bar = '+-----------------------------------+';
-        log(bar);
-        log('Server Started');
-        log('Storefront: http://localhost:' + config.node.port);
-        log('Foundation: ' + config.appSettings['apiUrl']);
-        log(bar);
+        logHead('Server Started');
+        logBody([
+            'Storefront: http://localhost:' + config.node.port,
+            'Foundation: ' + config.settings['apiUrl'],
+            '',
+        ]);
         return gulp;
     });
 });
@@ -325,15 +338,44 @@ gulp.task('revision', function revision() {
 ////////////////////////////////
 
 function handleError(err) {
-    log('# Error in ' + err.plugin);
+    logHead('Error');
+    logBody('Plugin: ' + err.plugin);
     if (err.fileName) {
-        log('File: ' + err.fileName + ':' + err.lineNumber);
+        logBody('File: ' + err.fileName + ':' + err.lineNumber);
     }
-    log('Error Message: ' + err.message);
+    logBody('Message: ' + err.message);
+
     $.util.beep();
 }
 
-function log(msg) {
-    $.util.log($.util.colors.magenta(msg));
+function logHead(msg) {
+    var bar = '------------------------------';
+    console.log('');
+    console.log(colors.gray(msg));
+    console.log(bar);
 }
 
+function logBody(msgs, prefixCount, strColor) {
+    if (typeof prefixCount === 'undefined') {
+        prefixCount = 1;
+    }
+    var prefix = repeat('    ', prefixCount);
+    msgs = (typeof msgs === 'string') ? [msgs] : msgs;
+
+    msgs.forEach(function(msg) {
+        if (strColor) {
+            msg = colors.styles[strColor].open + msg + colors.styles[strColor].close;
+        }
+        console.log(prefix + msg);
+    });
+}
+
+function repeat(str, num) {
+    var resp = '';
+    if (num) {
+        for (var i = 0; i < num; i++) {
+            resp += str;
+        }
+    }
+    return resp;
+}
