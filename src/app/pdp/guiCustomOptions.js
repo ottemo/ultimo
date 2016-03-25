@@ -1,19 +1,20 @@
-angular.module("pdpModule")
-    .directive("guiCustomOptions", ["designService", function(designService) {
+angular.module('pdpModule')
+
+    .directive('guiCustomOptions', [function() {
         return {
-            restrict: "E",
+            restrict: 'E',
             scope: {
-                "parent": "=object",
-                "product": "=item"
+                'parent': '=object',
+                'product': '=item'
             },
-            templateUrl: designService.getTemplate("pdp/guiCustomOptions.html"),
+            templateUrl: '/views/pdp/guiCustomOptions.html',
             controller: function($scope) {
 
                 $scope.selectFirstRadio = selectFirstRadio;
                 $scope.toggleCheckbox = toggleCheckbox;
                 $scope.todaysDate = new Date();
 
-                $scope.$watch("customOptionsForm", function() {
+                $scope.$watch('customOptionsForm', function() {
                     $scope.parent.customOptionsForm = $scope.customOptionsForm;
                 }, true);
 
@@ -28,12 +29,12 @@ angular.module("pdpModule")
 
                 /**
                  * checkbox options want to be in the format
-                 * {"Gift Card":["Gift Card"]}
+                 * {'Gift Card':['Gift Card']}
                  */
                 function toggleCheckbox(option) {
 
                     // See if we have any selected option Items
-                    var selectedCheckboxes = []
+                    var selectedCheckboxes = [];
                     angular.forEach(option.options, function(optionItem) {
                         if (optionItem.selected) {
                             selectedCheckboxes.push(optionItem.label);

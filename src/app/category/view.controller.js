@@ -1,22 +1,32 @@
-angular.module("categoryModule")
+angular.module('categoryModule')
 
-.controller("categoryViewController", [
-    "$scope",
-    "$location",
-    "$route",
-    "$routeParams",
-    "categoryApiService",
-    "designService",
-    "categoryService",
-    "visitorLoginService",
-    "cartService",
-    "pdpProductService",
-    "commonUtilService",
-    "$timeout",
-    "SEARCH_KEY_NAME",
-    function($scope, $location, $route, $routeParams, categoryApiService, designService,
-        categoryService, visitorLoginService, cartService,
-        pdpProductService, commonUtilService, $timeout, SEARCH_KEY_NAME) {
+.controller('categoryViewController', [
+    '$scope',
+    '$location',
+    '$route',
+    '$routeParams',
+    'categoryApiService',
+    'categoryService',
+    'visitorLoginService',
+    'cartService',
+    'pdpProductService',
+    'commonUtilService',
+    '$timeout',
+    'SEARCH_KEY_NAME',
+    function(
+        $scope,
+        $location,
+        $route,
+        $routeParams,
+        categoryApiService,
+        categoryService,
+        visitorLoginService,
+        cartService,
+        pdpProductService,
+        commonUtilService,
+        $timeout,
+        SEARCH_KEY_NAME
+    ) {
 
         // Utilities
         $scope.productService = pdpProductService;

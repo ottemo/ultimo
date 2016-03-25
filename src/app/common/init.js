@@ -99,7 +99,6 @@ angular.module("commonModule", [
 
 .run([
     "$rootScope",
-    "designService",
     "$route",
     "$http",
     "$location",
@@ -111,7 +110,6 @@ angular.module("commonModule", [
     "REST_SERVER_URI",
     function(
         $rootScope,
-        designService,
         $route,
         $http,
         $location,

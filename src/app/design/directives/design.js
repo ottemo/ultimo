@@ -16,7 +16,7 @@ angular.module("designModule")
         link: function(scope, element, attrs) {
             element.bind('error', function() {
                 if (attrs.src !== attrs.errSrc) {
-                    attrs.$set('src', $rootScope.getImg(attrs.errSrc));
+                    attrs.$set('src', '/images/' + attrs.errSrc);
                 }
             });
         }

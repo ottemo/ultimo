@@ -1,10 +1,10 @@
 angular.module('commonModule')
 
-.directive('otBreadcrumbs', ['designService', 'commonBreadcrumbsService',
-    function(designService, commonBreadcrumbsService) {
+.directive('otBreadcrumbs', ['commonBreadcrumbsService',
+    function(commonBreadcrumbsService) {
         return {
             restrict: 'EA',
-            templateUrl: designService.getTemplate('common/breadcrumbs/breadcrumbs.html'),
+            templateUrl: '/views/common/breadcrumbs/breadcrumbs.html',
             link: function(scope) {
                 scope.crumbs = commonBreadcrumbsService.getItems();
             }

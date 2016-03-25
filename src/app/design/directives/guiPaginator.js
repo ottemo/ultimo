@@ -1,11 +1,12 @@
 angular.module("designModule")
-    .directive('guiPaginator', ['$location', 'designService', function ($location, designService) {
+
+    .directive('guiPaginator', ['$location', function ($location) {
         return {
             restrict: 'E',
             scope: {
                 'parent': '=object'
             },
-            templateUrl: designService.getTemplate('design/gui/guiPaginator.html'),
+            templateUrl: '/views/design/gui/guiPaginator.html',
             controller: function ($scope) {
                 /**
                  * Prepares array of pages
