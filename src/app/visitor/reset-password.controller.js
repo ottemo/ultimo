@@ -3,19 +3,19 @@ angular.module("visitorModule")
 .controller('visitorResetPasswordController', [
     '$scope',
     '$routeParams',
-    '$visitorApiService',
-    '$visitorLoginService',
-    '$cartService',
-    '$commonUtilService',
+    'visitorApiService',
+    'visitorLoginService',
+    'cartService',
+    'commonUtilService',
     '$q',
     '$location',
     function(
         $scope,
         $routeParams,
-        $visitorApiService,
-        $visitorLoginService,
-        $cartService,
-        $commonUtilService,
+        visitorApiService,
+        visitorLoginService,
+        cartService,
+        commonUtilService,
         $q,
         $location
     ) {
@@ -42,7 +42,7 @@ angular.module("visitorModule")
             $scope.isSubmitting = true;
 
             // Lets try to reset their password
-            $visitorApiService.resetPassword({
+            visitorApiService.resetPassword({
                     key: $scope.key,
                     password: $scope.visitor.password
                 })
@@ -54,31 +54,31 @@ angular.module("visitorModule")
                         return response.result; // email
                     } else {
                         // Most common error is an expired key
-                        $scope.message = $commonUtilService.getMessage(response);
+                        $scope.message = commonUtilService.getMessage(response);
                         return $q.reject();
                     }
                 })
                 .then(function(email) {
 
                     // Log them in now
-                    return $visitorApiService.login({
+                    return visitorApiService.login({
                             email: email,
                             password: $scope.visitor.password
                         })
                         .$promise.then(function(response) {
                             if (response.error !== null) {
-                                $scope.message = $commonUtilService.getMessage(response);
+                                $scope.message = commonUtilService.getMessage(response);
                                 return $q.reject();
                             }
                         });
                 })
                 .then(function() {
                     // Request customer info
-                    return $visitorLoginService.isLoggedIn(true);
+                    return visitorLoginService.isLoggedIn(true);
                 })
                 .then(function() {
                     // Get their cart info
-                    $cartService.reload();
+                    cartService.reload();
                 })
                 .then(function() {
                     // Redirect them to their last page

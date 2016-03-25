@@ -3,25 +3,25 @@ angular.module("checkoutModule")
     .controller("checkoutOnepageController", [
         "$scope",
         "$location",
-        "$checkoutApiService",
-        "$visitorLoginService",
-        "$cartService",
-        "$designStateService",
-        "$designCountryService",
-        "$commonUtilService",
-        "$checkoutService",
+        "checkoutApiService",
+        "visitorLoginService",
+        "cartService",
+        "designStateService",
+        "designCountryService",
+        "commonUtilService",
+        "checkoutService",
         "$q",
         "$interval",
         function (
             $scope,
             $location,
-            $checkoutApiService,
-            $visitorLoginService,
-            $cartService,
-            $designStateService,
-            $designCountryService,
-            $commonUtilService,
-            $checkoutService,
+            checkoutApiService,
+            visitorLoginService,
+            cartService,
+            designStateService,
+            designCountryService,
+            commonUtilService,
+            checkoutService,
             $q,
             $interval
         ) {
@@ -70,7 +70,7 @@ angular.module("checkoutModule")
                         return true;
                     }
 
-                    $scope.paymentMethods = $checkoutService.getAllowedPaymentMethods();
+                    $scope.paymentMethods = checkoutService.getAllowedPaymentMethods();
                     for (i = 0; i < $scope.paymentMethods.length; i += 1) {
                         item = $scope.paymentMethods[i];
                         if ($scope.checkout["payment_method_code"] === item.Code) {
@@ -89,7 +89,7 @@ angular.module("checkoutModule")
                     }
                 };
 
-                $checkoutService.update().then(
+                checkoutService.update().then(
                     function (checkout) {
                         $scope.checkout = checkout;
                         initCurrentShippingMethod();
@@ -112,7 +112,7 @@ angular.module("checkoutModule")
                         typeof $scope.checkout["payment_method_code"] !== "undefined" &&
                         $scope.checkout["payment_method_code"] !== "" &&
                         $scope.checkout["payment_method_code"] !== null) {
-                        $checkoutService.savePaymentMethod({
+                        checkoutService.savePaymentMethod({
                             "method": $scope.checkout["payment_method_code"]
                         }).then(
                             function (response) {
@@ -195,9 +195,9 @@ angular.module("checkoutModule")
                     isValidSteps.additionalInfo = false;
                 }
 
-                $scope["checkoutService"] = $checkoutService;
+                $scope["checkoutService"] = checkoutService;
 
-                $scope["countries"] = $designCountryService;
+                $scope["countries"] = designCountryService;
                 $scope["creditTypes"] = [
                     {
                         "Code": "VI",
@@ -218,8 +218,8 @@ angular.module("checkoutModule")
                 ];
 
                 $scope["useAsBilling"] = false;
-                $scope["states"] = $designStateService;
-                $scope["cart"] = $cartService;
+                $scope["states"] = designStateService;
+                $scope["cart"] = cartService;
                 $scope["shippingMethods"] = [];
                 $scope["checkout"] = {};
                 $scope["shipping_address"] = getDefaultAddress();
@@ -240,7 +240,7 @@ angular.module("checkoutModule")
              */
             getAddresses = function () {
                 if (!$scope["isGuestCheckout"]) {
-                    $checkoutApiService.getAddresses().$promise.then(
+                    checkoutApiService.getAddresses().$promise.then(
                         function (response) {
                             var result = response.result || [];
                             $scope.addresses = result;
@@ -257,47 +257,47 @@ angular.module("checkoutModule")
             $scope.init = function () {
                 var stopWaiting, stop;
                 stopWaiting = function () {
-                    if (typeof $checkoutService.getType() !== "undefined") {
+                    if (typeof checkoutService.getType() !== "undefined") {
                         $interval.cancel(stop);
                         stop = undefined;
                     }
                 };
                 stop = $interval(function () {
-                    if (typeof $checkoutService.getType() !== "undefined") {
+                    if (typeof checkoutService.getType() !== "undefined") {
                         stopWaiting();
-                        if ("accordion" === $checkoutService.getType()) {
-                            $location.path($checkoutService.getUrl().replace("#/", ""));
+                        if ("accordion" === checkoutService.getType()) {
+                            $location.path(checkoutService.getUrl().replace("#/", ""));
                         }
 
-                        $cartService.init().then(function () {
-                            if ($cartService.getCountItems() === 0) {
+                        cartService.init().then(function () {
+                            if (cartService.getCountItems() === 0) {
                                 $location.path("/");
                             } else {
                                 if (!enabledGuestCheckout()) {
                                     $scope.isGuestCheckout = false;
-                                    $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
+                                    visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
                                         if (!isLoggedIn) {
                                             $location.path("/");
                                         } else {
                                             getAddresses();
-                                            $checkoutService.init().then(function () {
+                                            checkoutService.init().then(function () {
                                                 init();
-                                                $scope.shippingMethods = $checkoutService.getAllowedShippingMethods();
+                                                $scope.shippingMethods = checkoutService.getAllowedShippingMethods();
                                                 initWatchers();
                                             });
                                         }
                                     });
                                 } else {
-                                    $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
+                                    visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
                                         if (!isLoggedIn) {
                                             $scope.isGuestCheckout = true;
                                         } else {
                                             $scope.isGuestCheckout = false;
                                         }
                                         getAddresses();
-                                        $checkoutService.init().then(function () {
+                                        checkoutService.init().then(function () {
                                             init();
-                                            $scope.shippingMethods = $checkoutService.getAllowedShippingMethods();
+                                            $scope.shippingMethods = checkoutService.getAllowedShippingMethods();
                                             initWatchers();
                                         });
                                     });
@@ -393,7 +393,7 @@ angular.module("checkoutModule")
                     isCreditCard = $scope.paymentType.split("_").indexOf("cc") >= 0;
                     if (isCreditCard) {
                         if (payment.method.form.$valid && $scope.validateCcNumber()) {
-                            $checkoutService.saveAdditionalInfo({"cc": payment["method"]["cc"]});
+                            checkoutService.saveAdditionalInfo({"cc": payment["method"]["cc"]});
                         }
                     }
                 }
@@ -415,7 +415,7 @@ angular.module("checkoutModule")
                     if (checkoutValid.status) {
                         $(this).parents('.confirm').css('display', 'none');
                         $('#processing').modal('show');
-                        $checkoutApiService.save().$promise.then(
+                        checkoutApiService.save().$promise.then(
                             function (response) {
 
                                 if (response.error === null && null !== payment.method && payment.method.Type === "remote" && response.result === "redirect") {
@@ -425,7 +425,7 @@ angular.module("checkoutModule")
                                     sendPostForm(payment.method, response);
                                 } else if (response.error === null) {
 //                                            info();
-                                    $cartService.reload().then(
+                                    cartService.reload().then(
                                         function () {
                                             $scope.subBillingAddress = false;
                                             $scope.subShippingAddress = false;
@@ -441,14 +441,14 @@ angular.module("checkoutModule")
                                     $(this).parents('.confirm').css('display', 'block');
                                     $('#processing').modal('hide');
                                     // Errors from server
-                                    $scope.message = $commonUtilService.getMessage(response);
+                                    $scope.message = commonUtilService.getMessage(response);
                                 }
                             }
                         );
                     } else {
                         $(this).parents('.confirm').css('display', 'block');
                         $('#processing').modal('hide');
-                        $scope.message = $commonUtilService.getMessage(null, "danger", checkoutValid.message);
+                        $scope.message = commonUtilService.getMessage(null, "danger", checkoutValid.message);
                     }
                 });
 
@@ -489,7 +489,7 @@ angular.module("checkoutModule")
 
             $scope.choiceBilling = function (billingId) {
                 if ($scope.isGuestCheckout && $scope.shippingAddress.$valid) {
-                    $checkoutService.saveBillingAddress($scope.checkout["shipping_address"]).then(
+                    checkoutService.saveBillingAddress($scope.checkout["shipping_address"]).then(
                         function (response) {
                             if (response.error === null) {
                                 isValidSteps.billingAddress = true;
@@ -500,7 +500,7 @@ angular.module("checkoutModule")
                     );
                 } else if (($scope.checkout["billing_address"] !== null && $scope.checkout["billing_address"]._id !== billingId) || typeof billingId === "string" && billingId !== "") {
                     // Sets existing address as billing
-                    $checkoutService.saveBillingAddress({"id": billingId}).then(
+                    checkoutService.saveBillingAddress({"id": billingId}).then(
                         function (response) {
                             if (response.error === null) {
                                 isValidSteps.billingAddress = true;
@@ -511,7 +511,7 @@ angular.module("checkoutModule")
                     );
                 } else {
                     if ($scope.shippingAddress.$valid) {
-                        $checkoutService.saveBillingAddress($scope.checkout["shipping_address"]).then(
+                        checkoutService.saveBillingAddress($scope.checkout["shipping_address"]).then(
                             function (response) {
                                 if (response.error === null) {
                                     isValidSteps.billingAddress = true;
@@ -526,14 +526,14 @@ angular.module("checkoutModule")
 
             $scope.choiceShipping = function (shippingId) {
                 if ($scope.isGuestCheckout) {
-                    $checkoutService.saveShippingAddress($scope.checkout["shipping_address"]).then(
+                    checkoutService.saveShippingAddress($scope.checkout["shipping_address"]).then(
                         function (response) {
                             // update checkout
                             info().then(function () {
                                 // if all ok, must update allowed shipping methods list
                                 // and must set billing address if set appropriate checkbox
                                 if (response.error === null) {
-                                    $checkoutService.loadShippingMethods().then(function (methods) {
+                                    checkoutService.loadShippingMethods().then(function (methods) {
                                         $scope.shippingMethods = methods;
                                     });
                                     // sets billing address
@@ -547,7 +547,7 @@ angular.module("checkoutModule")
                 } else if (($scope.checkout["shipping_address"] !== null && $scope.checkout["shipping_address"]._id !== shippingId) || Boolean(shippingId)) {
 
                     // Sets existing address as shipping
-                    $checkoutService.saveShippingAddress({"id": shippingId}).then(
+                    checkoutService.saveShippingAddress({"id": shippingId}).then(
                         function (response) {
                             // update checkout
                             info().then(function () {
@@ -555,7 +555,7 @@ angular.module("checkoutModule")
                                 // and must set billing address if set appropriate checkbox
                                 if (response.error === null) {
                                     isValidSteps.shippingAddress = true;
-                                    $checkoutService.loadShippingMethods().then(function (methods) {
+                                    checkoutService.loadShippingMethods().then(function (methods) {
                                         $scope.shippingMethods = methods;
                                     });
                                     // sets billing address
@@ -574,7 +574,7 @@ angular.module("checkoutModule")
             $scope.choiceShippingMethod = function (index) {
 
                 if (typeof index !== "undefined" && index !== "") {
-                    $checkoutService.saveShippingMethod({
+                    checkoutService.saveShippingMethod({
                         "method": $scope.shippingMethods[index].Method,
                         "rate": $scope.shippingMethods[index].Rate
                     }).then(
@@ -614,7 +614,7 @@ angular.module("checkoutModule")
             };
 
             $scope.discountApply = function () {
-                $checkoutService.discountApply({"code": $scope.discount}).$promise.then(
+                checkoutService.discountApply({"code": $scope.discount}).$promise.then(
                     function (response) {
                         if (response.error === null) {
                             info();
@@ -624,7 +624,7 @@ angular.module("checkoutModule")
             };
 
             $scope.discountNeglect = function (code) {
-                $checkoutService.discountNeglect({"code": code}).$promise.then(
+                checkoutService.discountNeglect({"code": code}).$promise.then(
                     function (response) {
                         if (response.error === null) {
                             info();
@@ -689,7 +689,7 @@ angular.module("checkoutModule")
                 actionBillingAddress = function () {
                     if ($scope.billingAddress.$valid) {
                         $scope.subBillingAddress = true;
-                        $checkoutService.saveBillingAddress($scope.checkout["billing_address"]).then(
+                        checkoutService.saveBillingAddress($scope.checkout["billing_address"]).then(
                             function () {
                                 getAddresses();
                                 isValidSteps.billingAddress = true;
@@ -706,15 +706,15 @@ angular.module("checkoutModule")
                     if ($scope.shippingAddress.$valid) {
                         $scope.subShippingAddress = true;
                         if ((!Boolean($scope.checkout["shipping_address"]._id) && !$scope["isGuestCheckout"]) || $scope["isGuestCheckout"]) {
-                            $checkoutService.saveShippingAddress($scope.checkout["shipping_address"]).then(
+                            checkoutService.saveShippingAddress($scope.checkout["shipping_address"]).then(
                                 function () {
                                     getAddresses();
                                     isValidSteps.shippingAddress = true;
-                                    $checkoutService.loadShippingMethods().then(function (methods) {
+                                    checkoutService.loadShippingMethods().then(function (methods) {
                                         $scope.shippingMethods = methods;
                                     });
                                     if ($scope.useAsBilling) {
-                                        $checkoutService.saveBillingAddress($scope.checkout["shipping_address"]).then(function () {
+                                        checkoutService.saveBillingAddress($scope.checkout["shipping_address"]).then(function () {
                                             isValidSteps.billingAddress = true;
                                             // update checkout
                                             info();
@@ -735,7 +735,7 @@ angular.module("checkoutModule")
                     if ($scope.customerInfo.$valid) {
                         $scope.subAdditionalInfo = true;
                         if ($scope["isGuestCheckout"]) {
-                            $checkoutService.saveAdditionalInfo({
+                            checkoutService.saveAdditionalInfo({
                                 "customer_email": $scope.checkout.info["customer_email"],
                                 "customer_name": $scope.checkout.info["customer_name"]
                             }).then(function () {

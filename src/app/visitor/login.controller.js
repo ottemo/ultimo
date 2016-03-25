@@ -6,25 +6,25 @@ angular.module("visitorModule")
         '$routeParams',
         '$anchorScroll',
         '$window',
-        '$visitorApiService',
-        '$visitorLoginService',
+        'visitorApiService',
+        'visitorLoginService',
         '$location',
-        '$cartService',
-        '$commonUtilService',
+        'cartService',
+        'commonUtilService',
         function (
             $scope,
             $route,
             $routeParams,
             $anchorScroll,
             $window,
-            $visitorApiService,
-            $visitorLoginService,
+            visitorApiService,
+            visitorLoginService,
             $location,
-            $cartService,
-            $commonUtilService
+            cartService,
+            commonUtilService
         ) {
 
-            $scope.login = $visitorLoginService.getVisitor();
+            $scope.login = visitorLoginService.getVisitor();
             $scope.loginCredentials = {};
             var verifyCode = $routeParams["validate"];
 
@@ -43,11 +43,11 @@ angular.module("visitorModule")
 
             $scope.init = function () {
                 if (typeof verifyCode !== "undefined") {
-                    $visitorApiService.validate({"key": verifyCode}).$promise.then(function (response) {
+                    visitorApiService.validate({"key": verifyCode}).$promise.then(function (response) {
                         if (response.error === null) {
-                            $scope.messageValidation = $commonUtilService.getMessage(null, "success", VALIDATION_SUCCESS);
+                            $scope.messageValidation = commonUtilService.getMessage(null, "success", VALIDATION_SUCCESS);
                         } else {
-                            $scope.messageValidation = $commonUtilService.getMessage(response);
+                            $scope.messageValidation = commonUtilService.getMessage(response);
                         }
                     });
                 }
@@ -55,22 +55,22 @@ angular.module("visitorModule")
 
             // Forgot password email
             $scope.sendForgotEmail = function () {
-                $visitorApiService.forgotPassword({"email": $scope.forgotCredentials.email}).$promise.then(function (response) {
+                visitorApiService.forgotPassword({"email": $scope.forgotCredentials.email}).$promise.then(function (response) {
                     if (response.result === 'ok') {
-                        $scope.messageValidation = $commonUtilService.getMessage(null, "success", FORGOT_SUCCESS);
+                        $scope.messageValidation = commonUtilService.getMessage(null, "success", FORGOT_SUCCESS);
                     } else {
-                        $scope.messageValidation = $commonUtilService.getMessage(response);
+                        $scope.messageValidation = commonUtilService.getMessage(response);
                     }
                 });
             };
 
             // Resend activation email
             $scope.sendInvalidateEmail = function () {
-                $visitorApiService.invalidate({"email": $scope.invalidateCredentials.email}).$promise.then(function (response) {
+                visitorApiService.invalidate({"email": $scope.invalidateCredentials.email}).$promise.then(function (response) {
                     if (response.result === 'ok') {
-                        $scope.messageValidation = $commonUtilService.getMessage(null, "success", INVALIDATE_SUCCESS);
+                        $scope.messageValidation = commonUtilService.getMessage(null, "success", INVALIDATE_SUCCESS);
                     } else {
-                        $scope.messageValidation = $commonUtilService.getMessage(response);
+                        $scope.messageValidation = commonUtilService.getMessage(response);
                     }
                 });
             };
@@ -90,23 +90,23 @@ angular.module("visitorModule")
                     }
                 }
 
-                $visitorApiService.register(data).$promise.then(function (response) {
+                visitorApiService.register(data).$promise.then(function (response) {
                     if (response.error === null) {
                         $('.modal').modal('hide');
 
-                        $scope.message = $commonUtilService.getMessage(null, "success", "Thanks for registration. Please check your email and confirm your account");
+                        $scope.message = commonUtilService.getMessage(null, "success", "Thanks for registration. Please check your email and confirm your account");
 
                         // After registration, we are expecting the customer
                         // to be logged in, so we
                         // 1. verify is logged in
                         // 1. refresh cart
                         // 1. fire off success action, redirects
-                        $visitorLoginService.isLoggedIn(true).then(function(){
-                            $cartService.reload();
+                        visitorLoginService.isLoggedIn(true).then(function(){
+                            cartService.reload();
                             signInSuccess(false);
                         });
                     } else {
-                        $scope.message = $commonUtilService.getMessage(response);
+                        $scope.message = commonUtilService.getMessage(response);
                     }
                 });
             };
@@ -122,17 +122,17 @@ angular.module("visitorModule")
 
             // Login page
             $scope.signIn = function () {
-                $visitorApiService.login($scope.loginCredentials).$promise
+                visitorApiService.login($scope.loginCredentials).$promise
                     .then(function (response) {
                         if (response.result === 'ok') {
-                            $visitorLoginService.isLoggedIn(true)
+                            visitorLoginService.isLoggedIn(true)
                                 .then(function () {
                                     $('.modal').modal('hide');
-                                    $cartService.reload();
+                                    cartService.reload();
                                     signInSuccess();
                                 });
                         } else {
-                            $scope.message = $commonUtilService.getMessage(response);
+                            $scope.message = commonUtilService.getMessage(response);
                         }
                     });
             };
@@ -151,12 +151,12 @@ angular.module("visitorModule")
                         'access_token': response.authResponse.accessToken
                     };
 
-                    $visitorApiService.loginFacebook(authData).$promise.then(function() {
-                        $visitorLoginService.isLoggedIn(true)
+                    visitorApiService.loginFacebook(authData).$promise.then(function() {
+                        visitorLoginService.isLoggedIn(true)
                             .then(function() {
                                 //REFACTOR jquery
                                 $('.modal').modal('hide');
-                                $cartService.reload();
+                                cartService.reload();
                                 signInSuccess(isPopUp);
                             });
                     });
@@ -169,12 +169,12 @@ angular.module("visitorModule")
 
             $scope.loginCallback = window.loginCallback = function (response) {
                 var data = $window.gl.loginCallback(response);
-                $visitorApiService.loginGoolge(data).$promise.then(
+                visitorApiService.loginGoolge(data).$promise.then(
                     function () {
-                        $visitorLoginService.isLoggedIn(true).then(
+                        visitorLoginService.isLoggedIn(true).then(
                             function () {
                                 $('.modal').modal('hide');
-                                $cartService.reload();
+                                cartService.reload();
 
                                 signInSuccess();
                             }

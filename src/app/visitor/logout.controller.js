@@ -3,9 +3,9 @@ angular.module("visitorModule")
 .controller("visitorLogoutController", [
     "$scope",
     "$window",
-    "$visitorLoginService",
-    "$cartService",
-    function($scope, $window, $visitorLoginService, $cartService) {
+    "visitorLoginService",
+    "cartService",
+    function($scope, $window, visitorLoginService, cartService) {
 
         activate();
 
@@ -14,15 +14,15 @@ angular.module("visitorModule")
         function activate() {
 
             // Log the user out and send them to the homepage
-            $visitorLoginService.isLoggedIn()
+            visitorLoginService.isLoggedIn()
                 .then(function(isLoggedIn) {
                     isLoggedIn ? logoutActions() : sendHome();
             });
         }
 
         function logoutActions() {
-            $visitorLoginService.logout()
-                .then($cartService.reload)
+            visitorLoginService.logout()
+                .then(cartService.reload)
                 .then(sendHome);
         }
 

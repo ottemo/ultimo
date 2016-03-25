@@ -1,11 +1,11 @@
 angular.module("commonModule")
 /**
- *  $commonRewriteService implementation
+ *  commonRewriteService implementation
  */
-    .service("$commonRewriteService", [
+    .service("commonRewriteService", [
         "$q",
-        "$commonApiService",
-        function ($q, $commonApiService) {
+        "commonApiService",
+        function ($q, commonApiService) {
             // Variables
             var rules, deferInit;
 
@@ -20,7 +20,7 @@ angular.module("commonModule")
                     return deferInit.promise;
                 }
 
-                $commonApiService.getRewriteUrls().$promise.then(
+                commonApiService.getRewriteUrls().$promise.then(
                     function (response) {
                         rules = response.result || [];
                         deferInit.resolve(rules);

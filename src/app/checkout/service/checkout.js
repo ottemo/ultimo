@@ -1,13 +1,13 @@
 angular.module("checkoutModule")
 
-    .service("$checkoutService", [
+    .service("checkoutService", [
         "$q",
         "$timeout",
         "$interval",
-        "$checkoutApiService",
+        "checkoutApiService",
         "ONEPAGE_URL",
         "ACCORDION_URL",
-        function ($q, $timeout, $interval, $checkoutApiService, ONEPAGE_URL, ACCORDION_URL) {
+        function ($q, $timeout, $interval, checkoutApiService, ONEPAGE_URL, ACCORDION_URL) {
             // Variables
             var checkout, allowedShippingMethods, allowedPaymentMethods, defaultType;
 
@@ -42,7 +42,7 @@ angular.module("checkoutModule")
                     }
                 };
 
-                $checkoutApiService.shippingMethods().$promise.then(function (response) {
+                checkoutApiService.shippingMethods().$promise.then(function (response) {
                     var i, method;
                     allowedShippingMethods = [];
                     if (response.error === null) {
@@ -63,7 +63,7 @@ angular.module("checkoutModule")
             loadPaymentMethods = function () {
                 var defer = $q.defer();
                 allowedPaymentMethods = [];
-                $checkoutApiService.paymentMethods().$promise.then(function (response) {
+                checkoutApiService.paymentMethods().$promise.then(function (response) {
                     allowedPaymentMethods = response.result || [];
                     defer.resolve(allowedPaymentMethods);
                 });
@@ -107,7 +107,7 @@ angular.module("checkoutModule")
             update = function () {
                 var defer = $q.defer();
 
-                $checkoutApiService.info().$promise.then(
+                checkoutApiService.info().$promise.then(
                     function (response) {
                         checkout = response.result || [];
                         defer.resolve(checkout);
@@ -120,7 +120,7 @@ angular.module("checkoutModule")
             saveBillingAddress = function (address) {
                 var defer = $q.defer();
 
-                $checkoutApiService.setBillingAddress(address).$promise.then(
+                checkoutApiService.setBillingAddress(address).$promise.then(
                     function (response) {
                         defer.resolve(response);
                     }
@@ -132,7 +132,7 @@ angular.module("checkoutModule")
             saveShippingAddress = function (address) {
                 var defer = $q.defer();
 
-                $checkoutApiService.setShippingAddress(address).$promise.then(
+                checkoutApiService.setShippingAddress(address).$promise.then(
                     function (response) {
                         defer.resolve(response);
                     }
@@ -144,7 +144,7 @@ angular.module("checkoutModule")
             saveShippingMethod = function (method) {
                 var defer = $q.defer();
 
-                $checkoutApiService.setShippingMethod(method).$promise.then(
+                checkoutApiService.setShippingMethod(method).$promise.then(
                     function (response) {
                         defer.resolve(response);
                     }
@@ -156,7 +156,7 @@ angular.module("checkoutModule")
             savePaymentMethod = function (method) {
                 var defer = $q.defer();
 
-                $checkoutApiService.setPaymentMethod(method).$promise.then(
+                checkoutApiService.setPaymentMethod(method).$promise.then(
                     function (response) {
                         defer.resolve(response);
                     }
@@ -168,7 +168,7 @@ angular.module("checkoutModule")
             saveAdditionalInfo = function (data) {
                 var defer = $q.defer();
 
-                $checkoutApiService.setInfo(data).$promise.then(
+                checkoutApiService.setInfo(data).$promise.then(
                     function (response) {
                         defer.resolve(response);
                     }
@@ -178,11 +178,11 @@ angular.module("checkoutModule")
             };
 
             discountApply = function (data) {
-                return $checkoutApiService.discountApply(data).$promise;
+                return checkoutApiService.discountApply(data).$promise;
             };
 
             discountNeglect = function (data) {
-                return $checkoutApiService.discountNeglect(data).$promise;
+                return checkoutApiService.discountNeglect(data).$promise;
             };
 
             getUrl = function () {

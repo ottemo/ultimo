@@ -3,13 +3,13 @@ angular.module("visitorModule")
 .controller("visitorAccountController", [
     "$scope",
     "$location",
-    "$visitorLoginService",
-    "$visitorApiService",
-    "$commonUtilService",
-    function($scope, $location, $visitorLoginService, $visitorApiService, $commonUtilService) {
+    "visitorLoginService",
+    "visitorApiService",
+    "commonUtilService",
+    function($scope, $location, visitorLoginService, visitorApiService, commonUtilService) {
 
         // Data
-        $scope.visitor = $visitorLoginService.getVisitor();
+        $scope.visitor = visitorLoginService.getVisitor();
 
         // Visitor Form
         $scope.save = save;
@@ -34,7 +34,7 @@ angular.module("visitorModule")
             });
 
             // Redirect
-            $visitorLoginService.isLoggedIn()
+            visitorLoginService.isLoggedIn()
                 .then(function(isLoggedIn) {
                     if (!isLoggedIn) {
                         $location.path("/");
@@ -52,13 +52,13 @@ angular.module("visitorModule")
             delete $scope.visitor["billing_address"];
             delete $scope.visitor["shipping_address"];
 
-            $visitorApiService.update($scope.visitor).$promise
+            visitorApiService.update($scope.visitor).$promise
                 .then(function(response) {
                     if (response.error === null) {
                         setTimeout(closePopUp, 2000);
-                        $scope.message = $commonUtilService.getMessage(null, "success", "Сhanges have been made");
+                        $scope.message = commonUtilService.getMessage(null, "success", "Сhanges have been made");
                     } else {
-                        $scope.message = $commonUtilService.getMessage(null, "danger", "Something went wrong");
+                        $scope.message = commonUtilService.getMessage(null, "danger", "Something went wrong");
                     }
                 });
         }
@@ -73,18 +73,18 @@ angular.module("visitorModule")
                 "password": $scope.changePswCredentials.password
             };
 
-            $visitorApiService.update(data).$promise
+            visitorApiService.update(data).$promise
                 .then(function(response) {
                     if (response.error === null) {
                         setTimeout(closePopUp, 2000);
-                        $scope.messagePassword = $commonUtilService.getMessage(response, "success", "Password change was successfully");
+                        $scope.messagePassword = commonUtilService.getMessage(response, "success", "Password change was successfully");
 
                         // Clean the form
                         $scope.changePswCredentials = {};
                         passwordForm.$setPristine();
                         passwordForm.$setUntouched();
                     } else {
-                        $scope.messagePassword = $commonUtilService.getMessage(response);
+                        $scope.messagePassword = commonUtilService.getMessage(response);
                     }
                 });
         }

@@ -1,8 +1,8 @@
 angular.module("commonModule")
 /**
- *  $commonBreadcrumbsService implementation
+ *  commonBreadcrumbsService implementation
  */
-    .service("$commonBreadcrumbsService", [function () {
+    .service("commonBreadcrumbsService", [function () {
         var addItem, getItems, items, clear, removeDups;
         items = [];
 

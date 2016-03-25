@@ -2,8 +2,8 @@ angular.module('cmsModule')
 
 .directive('otCmsBlock', [
     '$sce',
-    '$cmsApiService',
-    function($sce, $cmsApiService) {
+    'cmsApiService',
+    function($sce, cmsApiService) {
         return {
             restrict: 'EA',
             scope: {
@@ -46,7 +46,7 @@ angular.module('cmsModule')
                         identifier: identifier
                     };
 
-                    return $cmsApiService.getBlocks(params).$promise.then(function(response) {
+                    return cmsApiService.getBlocks(params).$promise.then(function(response) {
                         var content = '';
                         if (response.error === null && response.result !== null) {
                             content = response.result[0].Extra.content;
@@ -66,7 +66,7 @@ angular.module('cmsModule')
                         blockID: id
                     };
 
-                    return $cmsApiService.getBlock(params).$promise.then(function(response) {
+                    return cmsApiService.getBlock(params).$promise.then(function(response) {
                         return (response.error === null) ? response.result.content : '';
                     });
                 }

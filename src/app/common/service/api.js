@@ -1,8 +1,6 @@
 angular.module("commonModule")
-    /*
-     *  $productApiService interaction service
-     */
-    .service("$commonApiService", ["$resource", "REST_SERVER_URI", function ($resource, REST_SERVER_URI) {
+
+    .service("commonApiService", ["$resource", "REST_SERVER_URI", function ($resource, REST_SERVER_URI) {
 
         var methods = {
             "getRewriteUrls": {

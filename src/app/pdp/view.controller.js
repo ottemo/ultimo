@@ -5,13 +5,13 @@ angular.module("pdpModule")
         "$routeParams",
         "$location",
         "$timeout",
-        "$pdpApiService",
-        "$pdpProductService",
-        "$cartService",
-        "$visitorLoginService",
-        "$commonUtilService",
-        function ($scope, $routeParams, $location, $timeout, $pdpApiService, $pdpProductService,
-                  $cartService, $visitorLoginService, $commonUtilService) {
+        "pdpApiService",
+        "pdpProductService",
+        "cartService",
+        "visitorLoginService",
+        "commonUtilService",
+        function ($scope, $routeParams, $location, $timeout, pdpApiService, pdpProductService,
+                  cartService, visitorLoginService, commonUtilService) {
 
             // Product
             $scope.productId = $routeParams.id;
@@ -42,7 +42,7 @@ angular.module("pdpModule")
                 // product, idk
                 // BUG: if we don't clean out the options the pdpProductService tries to hold onto those
                 // options on page change
-                $pdpProductService.setOptions({});
+                pdpProductService.setOptions({});
 
                 getProduct();
                 getReviews();
@@ -59,7 +59,7 @@ angular.module("pdpModule")
                 // REFACTOR: ugh, the options are actually built out in the view
                 // by iterating over product.options guiCustomOptions
                 $scope.$watch('options', function(){
-                    $pdpProductService.setOptions($scope.options);
+                    pdpProductService.setOptions($scope.options);
                 });
             }
 
@@ -136,17 +136,17 @@ angular.module("pdpModule")
             }
 
             function getProduct() {
-                $pdpApiService.getProduct({"productID": $scope.productId}).$promise.then(function (response) {
+                pdpApiService.getProduct({"productID": $scope.productId}).$promise.then(function (response) {
                     if (response.error === null) {
                         var result = response.result || defaultProduct();
 
-                        $pdpProductService.setProduct(result);
-                        $scope.product = $pdpProductService.getProduct();
+                        pdpProductService.setProduct(result);
+                        $scope.product = pdpProductService.getProduct();
 
                         // BREADCRUMBS
                         $scope.$emit("add-breadcrumbs", {
                             "label": $scope.product.name,
-                            "url": $pdpProductService.getUrl($scope.product._id)
+                            "url": pdpProductService.getUrl($scope.product._id)
                         });
                     } else {
                         $location.path("/");
@@ -168,7 +168,7 @@ angular.module("pdpModule")
                         addItem();
                     }
                 } else {
-                    $visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
+                    visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
                         //TODO: if we don't have guest checkout enabled and they are not logged in we just drop them
                         if (isLoggedIn && !$scope.isAddingToCart) {
                             addItem();
@@ -186,12 +186,12 @@ angular.module("pdpModule")
                         // Flag that we are in the process of adding to cart, prevent double clicks
                         $scope.isAddingToCart = true;
 
-                        $cartService.add($scope.productId, $scope.qty, $pdpProductService.getOptions())
+                        cartService.add($scope.productId, $scope.qty, pdpProductService.getOptions())
                             .then(function (response) {
                                 // Let them keep adding to cart now
                                 $scope.isAddingToCart = false;
                                 if (response.error !== null) {
-                                    $scope.messageOptions = $commonUtilService.getMessage(response);
+                                    $scope.messageOptions = commonUtilService.getMessage(response);
                                 } else {
                                     // Show a success message
                                     $scope.isAddToCartSuccessful = true;
@@ -206,7 +206,7 @@ angular.module("pdpModule")
              * Gets reviews list
              */
             function getReviews() {
-                $pdpApiService.reviewList({"productID": $scope.productId}).$promise.then(function (response) {
+                pdpApiService.reviewList({"productID": $scope.productId}).$promise.then(function (response) {
                     $scope.reviewsList = response.result || [];
                 });
             }
@@ -215,7 +215,7 @@ angular.module("pdpModule")
              * Gets rating info
              */
             function getRatingInfo() {
-                $pdpApiService.ratingInfo({"productID": $scope.productId}).$promise.then(function (response) {
+                pdpApiService.ratingInfo({"productID": $scope.productId}).$promise.then(function (response) {
                     if (response.result instanceof Array) {
                         $scope.ratingInfo = response.result[0];
                     } else {
@@ -244,7 +244,7 @@ angular.module("pdpModule")
             $scope.saveReview = function () {
                 $scope.submittedReview = true;
                 if (!$scope.reviewForm.$invalid) {
-                    $pdpApiService.addReview(
+                    pdpApiService.addReview(
                         {
                             "productID": $scope.productId,
                             "stars": $scope.review.stars
@@ -265,7 +265,7 @@ angular.module("pdpModule")
                                 $scope.review.stars = 0;
                                 reinitializeStars();
                             } else {
-                                $scope.messageReview = $commonUtilService.getMessage(response);
+                                $scope.messageReview = commonUtilService.getMessage(response);
                             }
 
                         }

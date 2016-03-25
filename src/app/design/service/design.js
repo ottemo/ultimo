@@ -1,8 +1,8 @@
 angular.module("designModule")
 /**
- *  $designService allows to do operations over very top HTML page
+ *  designService allows to do operations over very top HTML page
  */
-    .service("$designService", [function () {
+    .service("designService", [function () {
 
         return {
             getTemplate: function (templateName) {

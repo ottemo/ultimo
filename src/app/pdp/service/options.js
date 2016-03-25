@@ -1,10 +1,10 @@
 angular.module("pdpModule")
 /**
- *  $pdpProductOptionsService applies the custom options for product
+ *  pdpProductOptionsService applies the custom options for product
  */
-    .service("$pdpProductOptionsService", [
-        "$commonUtilService",
-        function ($commonUtilService) {
+    .service("pdpProductOptionsService", [
+        "commonUtilService",
+        function (commonUtilService) {
             // Variables
             var product;
 
@@ -13,7 +13,7 @@ angular.module("pdpModule")
 
             getSelectOptionInfo = function (data, key) {
                 var info;
-                info = $commonUtilService.clone(data);
+                info = commonUtilService.clone(data);
                 delete info.options;
 
                 for (var row in  data.options) {
@@ -35,7 +35,7 @@ angular.module("pdpModule")
 
                 initItem = function (item) {
                     if (typeof item === "undefined") {
-                        item = $commonUtilService.clone(data);
+                        item = commonUtilService.clone(data);
                         delete item.options;
                     }
 
@@ -154,7 +154,7 @@ angular.module("pdpModule")
                 }
                 var rules;
 
-                product = $commonUtilService.clone(prod);
+                product = commonUtilService.clone(prod);
                 rules = getPriceRules(product, options);
                 applyPrice(rules);
 

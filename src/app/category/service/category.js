@@ -1,14 +1,14 @@
 angular.module("categoryModule")
 
 /**
- *  $categoryService implementation
+ *  categoryService implementation
  *  Saves in the tree a categories list. Used for the breadcrumbs
  */
-.service("$categoryService", [
+.service("categoryService", [
     "$location",
-    "$commonRewriteService",
+    "commonRewriteService",
     "SEARCH_KEY_NAME",
-    function($location, $commonRewriteService, SEARCH_KEY_NAME) {
+    function($location, commonRewriteService, SEARCH_KEY_NAME) {
 
         var tree = [];
         var type = "category";
@@ -27,7 +27,7 @@ angular.module("categoryModule")
 
         function getUrl(id) {
             var url;
-            url = $commonRewriteService.getRewrite(type, id);
+            url = commonRewriteService.getRewrite(type, id);
 
             if (!url) {
                 url = type + "/" + id;

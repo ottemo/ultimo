@@ -12,9 +12,9 @@ angular.module("categoryModule", ["ngRoute", "ngResource", "designModule"])
     }
 ])
 
-.run(["$rootScope", "$categoryService",
-    function($rootScope, $categoryService) {
-        $rootScope.searchProducts = $categoryService.searchProducts;
+.run(["$rootScope", "categoryService",
+    function($rootScope, categoryService) {
+        $rootScope.searchProducts = categoryService.searchProducts;
     }
 ]);
 

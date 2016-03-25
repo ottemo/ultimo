@@ -4,16 +4,16 @@ angular.module("visitorModule")
     '$scope',
     '$location',
     '$routeParams',
-    '$visitorLoginService',
-    '$visitorApiService',
-    '$commonUtilService',
-    function($scope, $location, $routeParams, $visitorLoginService, $visitorApiService, $commonUtilService) {
+    'visitorLoginService',
+    'visitorApiService',
+    'commonUtilService',
+    function($scope, $location, $routeParams, visitorLoginService, visitorApiService, commonUtilService) {
 
         $scope.orderId = $routeParams.id;
         $scope.ordersList = [];
         $scope.order = [];
 
-        $scope.visitor = $visitorLoginService.getVisitor();
+        $scope.visitor = visitorLoginService.getVisitor();
 
         var activePath = $location.path();
 
@@ -32,7 +32,7 @@ angular.module("visitorModule")
                 'url': '/account/orders'
             });
 
-            $visitorLoginService.isLoggedIn().then(function(isLoggedIn) {
+            visitorLoginService.isLoggedIn().then(function(isLoggedIn) {
                 if (!isLoggedIn) {
                     $location.path("/");
                 }
@@ -50,7 +50,7 @@ angular.module("visitorModule")
                 "extra": "created_at,status,grand_total"
             };
 
-            $visitorApiService.getOrderList(data).$promise
+            visitorApiService.getOrderList(data).$promise
                 .then(function(response) {
                     $scope.ordersList = response.result || [];
                 });
@@ -61,7 +61,7 @@ angular.module("visitorModule")
                 "orderID": $scope.orderId
             };
 
-            $visitorApiService.getOrder(data).$promise
+            visitorApiService.getOrder(data).$promise
                 .then(function(response) {
                     $scope.order = response.result || [];
                     $scope.$emit('add-breadcrumbs', {
@@ -73,7 +73,7 @@ angular.module("visitorModule")
 
         $scope.$watch('addedOrderId', function() {
             if (typeof $scope.addedOrderId !== 'undefined') {
-                $scope.message = $commonUtilService.getMessage(null, "success", "THANK YOU FOR YOUR PURCHASE!<br/>" +
+                $scope.message = commonUtilService.getMessage(null, "success", "THANK YOU FOR YOUR PURCHASE!<br/>" +
                     "Your order # is: <a href=\"/account/order/" + $scope.addedOrderId + "\">" + $scope.addedOrderId + "</a>"
                 );
             }

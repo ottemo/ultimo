@@ -1,12 +1,12 @@
 angular.module("visitorModule")
 /**
- *  $visitorApiService interaction service
+ *  visitorApiService interaction service
  */
-    .factory('$visitorLoginService', [
+    .factory('visitorLoginService', [
         '$resource',
-        '$visitorApiService',
+        'visitorApiService',
         '$q',
-        function ($resource, $visitorApiService, $q) {
+        function ($resource, visitorApiService, $q) {
 
             /** Variables */
             var login, loginId, isLoggedIn, mapFields, sendingRequest;
@@ -67,7 +67,7 @@ angular.module("visitorModule")
             login = getDefaultLogin();
 
             logout = function () {
-                return $visitorApiService.logout().$promise.then(function(resp){
+                return visitorApiService.logout().$promise.then(function(resp){
                     // Set to default
                     cleanLogin();
 
@@ -130,7 +130,7 @@ angular.module("visitorModule")
                     }
                     sendingRequest = [];
                 } else if (sendRequestFlag) {
-                    $visitorApiService.info().$promise.then(function (response) {
+                    visitorApiService.info().$promise.then(function (response) {
                         if (response.error === null) {
                             loginId = response.result._id || '';
                             if (loginId !== '') {

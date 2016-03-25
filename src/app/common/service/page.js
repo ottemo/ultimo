@@ -1,8 +1,6 @@
 angular.module("commonModule")
-    /*
-     *  $pageSidebarService implementation
-     */
-    .service("$commonPageService", [
+
+    .service("commonPageService", [
         "DEFAULT_TITLE",
         "DEFAULT_DESCRIPTION",
         "DEFAULT_KEYWORDS",

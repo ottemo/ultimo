@@ -1,9 +1,9 @@
 angular.module("checkoutModule")
 
     /*
-     *  $checkoutApiService interaction service
+     *  checkoutApiService interaction service
      */
-    .service("$checkoutApiService", [
+    .service("checkoutApiService", [
         "$resource",
         "REST_SERVER_URI",
         function ($resource, REST_SERVER_URI) {

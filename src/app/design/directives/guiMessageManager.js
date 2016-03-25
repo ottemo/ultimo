@@ -1,11 +1,11 @@
 angular.module("designModule")
-    .directive("guiMessageManager", ["$designService", "$timeout", function ($designService, $timeout) {
+    .directive("guiMessageManager", ["designService", "$timeout", function (designService, $timeout) {
         return {
             restrict: "E",
             scope: {
                 "obj": "=item"
             },
-            templateUrl: $designService.getTemplate("design/gui/guiMessageManager.html"),
+            templateUrl: designService.getTemplate("design/gui/guiMessageManager.html"),
             link: function ($scope) {
                 var timeout;
                 $scope.isShow = false;

@@ -1,17 +1,15 @@
 angular.module("cmsModule")
-    /*
-     *  $productApiService interaction service
-     */
-    .service("$cmsPageService", [
-        "$commonRewriteService",
-        function ($commonRewriteService) {
+
+    .service("cmsPageService", [
+        "commonRewriteService",
+        function (commonRewriteService) {
             var getUrl, type;
 
             type = "page";
 
             getUrl = function (id) {
                 var url;
-                url = $commonRewriteService.getRewrite(type, id);
+                url = commonRewriteService.getRewrite(type, id);
 
                 if (!url) {
                     url = type + "/" + id;

@@ -69,8 +69,8 @@ angular.module("visitorModule", [
     "$location",
     "$window",
     "$anchorScroll",
-    "$visitorLoginService",
-    function($rootScope, $location, $window, $anchorScroll, $visitorLoginService) {
+    "visitorLoginService",
+    function($rootScope, $location, $window, $anchorScroll, visitorLoginService) {
         $anchorScroll.yOffset = 150;
 
         // Facebook Login callback
@@ -96,8 +96,8 @@ angular.module("visitorModule", [
         $window.gl.init();
 
         // Check if they are logged in and save auth info to root
-        $visitorLoginService.isLoggedIn().then(function(isLoggedIn) {
-            $rootScope.visitorProps = $visitorLoginService.props;
+        visitorLoginService.isLoggedIn().then(function(isLoggedIn) {
+            $rootScope.visitorProps = visitorLoginService.props;
         });
 
         // After login redirect recording

@@ -2,7 +2,7 @@ angular.module("designModule")
 /**
  *
  */
-    .service("$designStateService", [function () {
+    .service("designStateService", [function () {
         return [
             {
                 "Code": "AL",

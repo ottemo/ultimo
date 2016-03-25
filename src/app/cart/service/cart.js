@@ -1,13 +1,13 @@
 angular.module("cartModule")
 /**
- *  $cartService interaction service
+ *  cartService interaction service
  */
-    .service('$cartService', [
+    .service('cartService', [
         '$resource',
-        '$cartApiService',
-        '$pdpProductOptionsService',
+        'cartApiService',
+        'pdpProductOptionsService',
         '$q',
-        function ($resource, $cartApiService, $pdpProductOptionsService, $q) {
+        function ($resource, cartApiService, pdpProductOptionsService, $q) {
 
             var isInit, items, visitorId, subtotal, saleTax, shipping, total, activeRequests, initScope,
                 addItem, init, reload, loadCartInfo, getItems, remove, update,
@@ -174,7 +174,7 @@ angular.module("cartModule")
                 if (activeRequests > 0) {
                     deferLoadCart.resolve(true);
                 } else {
-                    $cartApiService.info().$promise.then(
+                    cartApiService.info().$promise.then(
                         function (response) {
                             if (response.error === null) {
 
@@ -205,7 +205,7 @@ angular.module("cartModule")
 
             addItem = function (productId, qty, options) {
                 var deferAddItem = $q.defer();
-                $cartApiService.add({
+                cartApiService.add({
                     'pid': productId,
                     'qty': qty
                 }, options).$promise.then(
@@ -220,7 +220,7 @@ angular.module("cartModule")
 
             remove = function (itemIdx) {
                 var deferRemoveItem = $q.defer();
-                $cartApiService.remove({'itemIdx': itemIdx}).$promise.then(
+                cartApiService.remove({'itemIdx': itemIdx}).$promise.then(
                     function () {
                         activeRequests -= 1;
                         loadCartInfo().then(
@@ -237,7 +237,7 @@ angular.module("cartModule")
             update = function (itemIdx, qty) {
                 var deferRemoveItem = $q.defer();
 
-                $cartApiService.update({
+                cartApiService.update({
                     'itemIdx': itemIdx,
                     'qty': qty
                 }).$promise.then(

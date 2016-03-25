@@ -4,9 +4,9 @@ angular.module("cmsModule")
     "$scope",
     "$routeParams",
     "$location",
-    "$cmsApiService",
-    "$cmsPageService",
-    function($scope, $routeParams, $location, $cmsApiService, $cmsPageService) {
+    "cmsApiService",
+    "cmsPageService",
+    function($scope, $routeParams, $location, cmsApiService, cmsPageService) {
 
         $scope.pageId = $routeParams.id;
         $scope.page = {};
@@ -23,13 +23,13 @@ angular.module("cmsModule")
                 // BREADCRUMBS
                 $scope.$emit("add-breadcrumbs", {
                     "label": $scope.page.identifier,
-                    "url": $cmsPageService.getUrl($scope.page._id)
+                    "url": cmsPageService.getUrl($scope.page._id)
                 });
             });
         }
 
         function getPage() {
-            return $cmsApiService.getPage({"pageID": $scope.pageId}).$promise
+            return cmsApiService.getPage({"pageID": $scope.pageId}).$promise
                 .then(function(response){
                     if (response.error !== null) {
                         $location.path("/");

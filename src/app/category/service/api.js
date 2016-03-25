@@ -1,9 +1,9 @@
 /*
- *  $categoryApiService interaction service
+ *  categoryApiService interaction service
  */
 angular.module("categoryModule")
 
-.service("$categoryApiService", [
+.service("categoryApiService", [
     "$resource",
     "REST_SERVER_URI",
     function($resource, REST_SERVER_URI) {

@@ -99,25 +99,25 @@ angular.module("commonModule", [
 
 .run([
     "$rootScope",
-    "$designService",
+    "designService",
     "$route",
     "$http",
     "$location",
     "$q",
-    "$commonPageService",
-    "$commonRewriteService",
+    "commonPageService",
+    "commonRewriteService",
     "$analytics",
     "DEFAULT_TITLE",
     "REST_SERVER_URI",
     function(
         $rootScope,
-        $designService,
+        designService,
         $route,
         $http,
         $location,
         $q,
-        $commonPageService,
-        $commonRewriteService,
+        commonPageService,
+        commonRewriteService,
         $analytics,
         DEFAULT_TITLE,
         REST_SERVER_URI
@@ -135,9 +135,9 @@ angular.module("commonModule", [
         $http.defaults.withCredentials = true;
         delete $http.defaults.headers.common["X-Requested-With"];
 
-        $rootScope.page = $commonPageService;
+        $rootScope.page = commonPageService;
 
-        $commonRewriteService.init();
+        commonRewriteService.init();
 
         // Apply page title and meta data that is declared on the route
         $rootScope.$on('$routeChangeSuccess', function(event, current, previous) {
@@ -146,9 +146,9 @@ angular.module("commonModule", [
             var pageTitle = current.title ? current.title + ' | ' : '';
             pageTitle += DEFAULT_TITLE;
 
-            $commonPageService.setTitle(pageTitle);
-            $commonPageService.setMetaDescription(current.description);
-            $commonPageService.setMetaKeywords(current.keywords);
+            commonPageService.setTitle(pageTitle);
+            commonPageService.setMetaDescription(current.description);
+            commonPageService.setMetaKeywords(current.keywords);
         });
 
         angular.module("commonModule").otherwiseResolveFunc = function() {

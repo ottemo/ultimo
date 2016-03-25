@@ -1,14 +1,12 @@
 angular.module("pdpModule")
-    /*
-     *  $productApiService interaction service
-     */
-    .service("$pdpProductService", [
-        "$commonRewriteService",
-        "$commonUtilService",
-        "$pdpApiService",
-        "$pdpProductOptionsService",
+
+    .service("pdpProductService", [
+        "commonRewriteService",
+        "commonUtilService",
+        "pdpApiService",
+        "pdpProductOptionsService",
         "$q",
-        function ($commonRewriteService, $commonUtilService, $pdpApiService, $pdpProductOptionsService, $q) {
+        function (commonRewriteService, commonUtilService, pdpApiService, pdpProductOptionsService, $q) {
             // Variables
             var type, ratingInfo, oldProduct, product, options;
 
@@ -20,7 +18,7 @@ angular.module("pdpModule")
 
             getUrl = function (id) {
                 var url;
-                url = $commonRewriteService.getRewrite(type, id);
+                url = commonRewriteService.getRewrite(type, id);
 
                 if (!url) {
                     url = type + "/" + id;
@@ -31,7 +29,7 @@ angular.module("pdpModule")
 
             setProduct = function (obj) {
                 product = obj;
-                oldProduct = $commonUtilService.clone(product);
+                oldProduct = commonUtilService.clone(product);
 
                 return product;
             };
@@ -72,15 +70,15 @@ angular.module("pdpModule")
             ratingInfo = getDefaultRatingInfo();
 
             applyOptions = function () {
-                product = $commonUtilService.clone(oldProduct);
-                product = $pdpProductOptionsService.applyOptions(product, options);
+                product = commonUtilService.clone(oldProduct);
+                product = pdpProductOptionsService.applyOptions(product, options);
                 return product;
             };
 
             getRatingInfo = function (productId) {
                 var defer = $q.defer();
 
-                $pdpApiService.ratingInfo({"productID": productId}).$promise.then(
+                pdpApiService.ratingInfo({"productID": productId}).$promise.then(
                     function (response) {
                         if (response.result instanceof Array) {
                             ratingInfo = response.result[0];

@@ -1,9 +1,9 @@
 angular.module("cartModule")
 
     /*
-     *  $cartApiService interaction service
+     *  cartApiService interaction service
      */
-    .service("$cartApiService", ["$resource", "REST_SERVER_URI", function ($resource, REST_SERVER_URI) {
+    .service("cartApiService", ["$resource", "REST_SERVER_URI", function ($resource, REST_SERVER_URI) {
 
         return $resource(REST_SERVER_URI, {}, {
             "add": {

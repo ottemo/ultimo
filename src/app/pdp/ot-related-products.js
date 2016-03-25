@@ -1,16 +1,16 @@
 angular.module("pdpModule")
 
 .directive('otRelatedProducts', [
-    "$designService",
-    "$pdpProductService",
-    "$pdpApiService",
-    function($designService, $pdpProductService, $pdpApiService) {
+    "designService",
+    "pdpProductService",
+    "pdpApiService",
+    function(designService, pdpProductService, pdpApiService) {
         return {
             scope: {
                 "productId": "@"
             },
             restrict: 'A',
-            templateUrl: $designService.getTemplate("pdp/ot-related-products.html"),
+            templateUrl: designService.getTemplate("pdp/ot-related-products.html"),
             link: function($scope, $element, $attributes, controller) {
                 $scope.related = [];
                 $scope.getUrl = getUrl;
@@ -34,14 +34,14 @@ angular.module("pdpModule")
                         "productID": productId,
                     };
 
-                    return $pdpApiService.getRelated(params).$promise
+                    return pdpApiService.getRelated(params).$promise
                         .then(function(response) {
                             return response.result || [];
                         });
                 }
 
                 function getUrl(id) {
-                    return $pdpProductService.getUrl(id);
+                    return pdpProductService.getUrl(id);
                 }
             }
         };

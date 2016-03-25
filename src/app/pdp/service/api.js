@@ -1,8 +1,8 @@
 /*
- *  $pdpApiService interaction service
+ *  pdpApiService interaction service
  */
 angular.module("pdpModule")
-    .service('$pdpApiService', ['$resource', 'REST_SERVER_URI', function ($resource, REST_SERVER_URI) {
+    .service('pdpApiService', ['$resource', 'REST_SERVER_URI', function ($resource, REST_SERVER_URI) {
 
         return $resource(REST_SERVER_URI, {}, {
             'getProduct': {

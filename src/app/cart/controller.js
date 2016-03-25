@@ -4,17 +4,17 @@ angular.module("cartModule")
     .controller("cartListController", [
         "$scope",
         "$interval",
-        "$cartApiService",
-        "$cartService",
-        "$visitorLoginService",
-        "$pdpProductService",
-        "$checkoutService",
-        function ($scope, $interval, $cartApiService, $cartService, $visitorLoginService, $pdpProductService, $checkoutService, $location, $commonPageService) {
+        "cartApiService",
+        "cartService",
+        "visitorLoginService",
+        "pdpProductService",
+        "checkoutService",
+        function ($scope, $interval, cartApiService, cartService, visitorLoginService, pdpProductService, checkoutService, $location, commonPageService) {
 
-            $scope.it = $cartService;
-            $scope.checkout = $checkoutService;
-            $scope.productService = $pdpProductService;
-            $scope.visitorService = $visitorLoginService;
+            $scope.it = cartService;
+            $scope.checkout = checkoutService;
+            $scope.productService = pdpProductService;
+            $scope.visitorService = visitorLoginService;
 
             $scope.init = function () {
                 if (!angular.appConfig.hasGuestCheckout) {
@@ -43,30 +43,30 @@ angular.module("cartModule")
             ];
 
             $scope.remove = function (itemIdx) {
-                $cartService.increaseCountRequest();
-                $cartService.remove(itemIdx);
+                cartService.increaseCountRequest();
+                cartService.remove(itemIdx);
             };
 
             $scope.update = function (itemIdx, qty) {
                 // TODO: not sure why we are tracking number of requests
-                $cartService.increaseCountRequest();
-                $cartService.update(itemIdx, qty);
+                cartService.increaseCountRequest();
+                cartService.update(itemIdx, qty);
             };
 
             $scope.getSubtotal = function () {
-                return $cartService.getSubtotal();
+                return cartService.getSubtotal();
             };
 
             $scope.getSalesTax = function () {
-                return $cartService.getSalesTax();
+                return cartService.getSalesTax();
             };
 
             $scope.getShipping = function () {
-                return $cartService.getShipping();
+                return cartService.getShipping();
             };
 
             $scope.getTotal = function () {
-                return $cartService.getTotal();
+                return cartService.getTotal();
             };
 
             $scope.changeQty = function (item, action) {

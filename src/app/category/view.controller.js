@@ -5,21 +5,21 @@ angular.module("categoryModule")
     "$location",
     "$route",
     "$routeParams",
-    "$categoryApiService",
-    "$designService",
-    "$categoryService",
-    "$visitorLoginService",
-    "$cartService",
-    "$pdpProductService",
-    "$commonUtilService",
+    "categoryApiService",
+    "designService",
+    "categoryService",
+    "visitorLoginService",
+    "cartService",
+    "pdpProductService",
+    "commonUtilService",
     "$timeout",
     "SEARCH_KEY_NAME",
-    function($scope, $location, $route, $routeParams, $categoryApiService, $designService,
-        $categoryService, $visitorLoginService, $cartService,
-        $pdpProductService, $commonUtilService, $timeout, SEARCH_KEY_NAME) {
+    function($scope, $location, $route, $routeParams, categoryApiService, designService,
+        categoryService, visitorLoginService, cartService,
+        pdpProductService, commonUtilService, $timeout, SEARCH_KEY_NAME) {
 
         // Utilities
-        $scope.productService = $pdpProductService;
+        $scope.productService = pdpProductService;
 
         // Category Details
         $scope.categoryId = $routeParams.id || null;
@@ -75,7 +75,7 @@ angular.module("categoryModule")
 
         function getCategory() {
             if ($scope.categoryId !== null) {
-                $categoryApiService.load({
+                categoryApiService.load({
                     "id": $scope.categoryId
                 }).$promise.then(function(response) {
                     var result = response.result || [];
@@ -88,7 +88,7 @@ angular.module("categoryModule")
          * Gets layers for category
          */
         function getLayered() {
-            $categoryApiService.getLayered({
+            categoryApiService.getLayered({
                 categoryID: $scope.categoryId
             }).$promise
                 .then(function(response) {
@@ -107,7 +107,7 @@ angular.module("categoryModule")
         function getProducts() {
             var params = getParams();
             params["categoryID"] = $scope.categoryId;
-            $categoryApiService.getProductsByCategoryId(params).$promise.then(function(response) {
+            categoryApiService.getProductsByCategoryId(params).$promise.then(function(response) {
                 var result = response.result || [];
                 $scope.productsList = result;
             });
@@ -119,7 +119,7 @@ angular.module("categoryModule")
         function getCountProduct() {
             var params = getParams(true);
             params["categoryID"] = $scope.categoryId;
-            $categoryApiService.getCountProducts(params).$promise.then(function(response) {
+            categoryApiService.getCountProducts(params).$promise.then(function(response) {
                 var result = response.result || [];
                 $scope.totalItems = result;
                 $scope.pages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
@@ -139,13 +139,13 @@ angular.module("categoryModule")
 
         function addCategoryCrumbs() {
             var list, i, category;
-            list = $categoryService.getChainCategories($scope.categoryId);
+            list = categoryService.getChainCategories($scope.categoryId);
 
             for (i = 0; i < list.length; i += 1) {
                 category = list[i];
                 $scope.$emit("add-breadcrumbs", {
                     "label": category.name,
-                    "url": $categoryService.getUrl(category.id)
+                    "url": categoryService.getUrl(category.id)
                 });
             }
         };
@@ -175,13 +175,13 @@ angular.module("categoryModule")
         };
 
         function updateTree() {
-            var categories = $categoryService.getTree();
+            var categories = categoryService.getTree();
 
             if (!categories.length) {
-                $categoryApiService.getCategories().$promise
+                categoryApiService.getCategories().$promise
                     .then(function(response) {
                         var categories = response.result || [];
-                        var tree = $categoryService.setTree(categories);
+                        var tree = categoryService.setTree(categories);
                         setSubcategories(tree);
                         addCategoryCrumbs();
                     });
@@ -191,7 +191,7 @@ angular.module("categoryModule")
             }
 
             function setSubcategories(categories) {
-                var category = $categoryService.getSubMenuItem(categories, $scope.categoryId, [])
+                var category = categoryService.getSubMenuItem(categories, $scope.categoryId, [])
                 $scope.categories = category[0] && category[0].child;
             }
         }
@@ -206,8 +206,8 @@ angular.module("categoryModule")
             var filterStr, url;
             filterStr = getFilters();
             if (typeof filterStr !== "undefined") {
-                url = $categoryService.getUrl($scope.categoryId);
-                $categoryService.setFiltersInLocation(url, filterStr);
+                url = categoryService.getUrl($scope.categoryId);
+                categoryService.setFiltersInLocation(url, filterStr);
             }
         };
 
@@ -215,8 +215,8 @@ angular.module("categoryModule")
             $scope.$watch("filters", changeLocation, true);
 
             $scope.$watch("options", function() {
-                $pdpProductService.setOptions($scope.options);
-                $scope.popupProduct = $pdpProductService.getProduct();
+                pdpProductService.setOptions($scope.options);
+                $scope.popupProduct = pdpProductService.getProduct();
             }, true);
         };
 
@@ -297,7 +297,7 @@ angular.module("categoryModule")
             $("#quick-view").modal('hide');
 
             $timeout(function() {
-                var url = $pdpProductService.getUrl(product._id);
+                var url = pdpProductService.getUrl(product._id);
                 $location.path(url);
             }, 250);
         }
@@ -305,15 +305,15 @@ angular.module("categoryModule")
         function addToCart(product) {
 
             var addItem = function() {
-                $cartService.add(product._id, 1, $pdpProductService.getOptions()).then(
+                cartService.add(product._id, 1, pdpProductService.getOptions()).then(
                     function(response) {
                         $scope.isAddingToCart = true;
 
                         if (response.error !== null) {
-                            $scope.message = $commonUtilService.getMessage(response);
+                            $scope.message = commonUtilService.getMessage(response);
                             $scope.isAddingToCart = false;
                         } else {
-                            $pdpProductService.setOptions({});
+                            pdpProductService.setOptions({});
                             $scope.isAddToCartSuccess = true;
                             $("#quick-view").modal('hide');
                             $("#quick-view-success").modal('show');
@@ -327,7 +327,7 @@ angular.module("categoryModule")
                     addItem();
                 }
             } else {
-                $visitorLoginService.isLoggedIn().then(function(isLoggedIn) {
+                visitorLoginService.isLoggedIn().then(function(isLoggedIn) {
                     if (isLoggedIn && !$scope.isAddingToCart) {
                         addItem();
                     }
@@ -364,8 +364,8 @@ angular.module("categoryModule")
         function openPopUp(product) {
             $scope.message = {};
             $scope.options = {};
-            $pdpProductService.setProduct(product);
-            $scope.popupProduct = $pdpProductService.getProduct();
+            pdpProductService.setProduct(product);
+            $scope.popupProduct = pdpProductService.getProduct();
             $scope.productService.getRatingInfo(product._id);
             $("#quick-view").modal('show');
             setTimeout(function() {
@@ -395,7 +395,7 @@ angular.module("categoryModule")
             var params = getParams();
             params["categoryID"] = $scope.categoryId;
 
-            $categoryApiService.getProductsByCategoryId(params).$promise.then(
+            categoryApiService.getProductsByCategoryId(params).$promise.then(
                 function(response) {
                     var result = response.result || [];
                     $scope.productsList = $scope.productsList.concat(result);

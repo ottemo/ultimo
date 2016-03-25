@@ -1,9 +1,9 @@
 /**
- *  $commonUtilService interaction service
+ *  commonUtilService interaction service
  */
 angular.module("commonModule")
 
-    .service("$commonUtilService", function () {
+    .service("commonUtilService", function () {
 
         /**
          * Extends String object

@@ -4,12 +4,12 @@ angular.module("checkoutModule")
     "$scope",
     "$routeParams",
     "$localStorage",
-    "$visitorApiService",
+    "visitorApiService",
     function(
         $scope,
         $routeParams,
         $localStorage,
-        $visitorApiService
+        visitorApiService
     ) {
         // NOTE: Additional tracking exists in the view
         var orderId = $routeParams.orderId;
@@ -23,7 +23,7 @@ angular.module("checkoutModule")
 
         function activate() {
             // Fetch this order from the server
-            $visitorApiService.getOrder({
+            visitorApiService.getOrder({
                     orderID: orderId
                 })
                 .$promise.then(function(response) {

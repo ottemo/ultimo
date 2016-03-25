@@ -3,22 +3,22 @@ angular.module("visitorModule")
 .controller('visitorAccountAddressController', [
     '$scope',
     '$location',
-    '$visitorLoginService',
-    '$visitorApiService',
-    '$designStateService',
-    '$commonUtilService',
-    '$designCountryService',
+    'visitorLoginService',
+    'visitorApiService',
+    'designStateService',
+    'commonUtilService',
+    'designCountryService',
     function(
         $scope,
         $location,
-        $visitorLoginService,
-        $visitorApiService,
-        $designStateService,
-        $commonUtilService,
-        $designCountryService
+        visitorLoginService,
+        visitorApiService,
+        designStateService,
+        commonUtilService,
+        designCountryService
     ) {
         // General
-        $scope.visitor = $visitorLoginService.getVisitor();
+        $scope.visitor = visitorLoginService.getVisitor();
 
         // Address List
         $scope.addresses = [];
@@ -29,8 +29,8 @@ angular.module("visitorModule")
         // Edit / Add Form
         $scope.address = {};
         $scope.addressForm = {};
-        $scope.countries = $designCountryService;
-        $scope.states = $designStateService;
+        $scope.countries = designCountryService;
+        $scope.states = designStateService;
         $scope.message = '';
         $scope.save = save;
         $scope.changeShippingAsDefault = changeShippingAsDefault; // REFACTOR: buggy implementation
@@ -57,7 +57,7 @@ angular.module("visitorModule")
             });
 
             // Redirect
-            $visitorLoginService.isLoggedIn()
+            visitorLoginService.isLoggedIn()
                 .then(function(isLoggedIn) {
                     if (!isLoggedIn) {
                         $location.path("/");
@@ -65,7 +65,7 @@ angular.module("visitorModule")
                 });
 
             // Fetch addresses
-            $visitorApiService.getAddresses().$promise
+            visitorApiService.getAddresses().$promise
                 .then(function(response) {
                     var result = response.result || [];
                     $scope.addresses = result;
@@ -79,7 +79,7 @@ angular.module("visitorModule")
             if (typeof addressId === 'undefined') {
                 $('#parent_popup_address').modal('show');
             } else {
-                $visitorApiService.loadAddress({
+                visitorApiService.loadAddress({
                     'addressID': addressId
                 }).$promise.then(
                     function(response) {
@@ -102,7 +102,7 @@ angular.module("visitorModule")
         function remove(id) {
             var i;
 
-            $visitorApiService.deleteAddress({
+            visitorApiService.deleteAddress({
                 'addressID': id
             }, function(response) {
                 if (response.result === 'ok') {
@@ -117,13 +117,13 @@ angular.module("visitorModule")
         }
 
         function setAsDefault(id) {
-            $visitorApiService.update({
+            visitorApiService.update({
                 'shipping_address_id': id
             }).$promise.then(
                 function(response) {
-                    $visitorLoginService.setLogin(response.result);
-                    $scope.visitor = $visitorLoginService.getVisitor();
-                    $scope.message = $commonUtilService.getMessage(null, 'success', 'Address was selected as default with success');
+                    visitorLoginService.setLogin(response.result);
+                    $scope.visitor = visitorLoginService.getVisitor();
+                    $scope.message = commonUtilService.getMessage(null, 'success', 'Address was selected as default with success');
                 }
             );
         }
@@ -154,11 +154,11 @@ angular.module("visitorModule")
             }
 
             if (!id) {
-                $scope.address["visitor_id"] = $visitorLoginService.getVisitorId();
-                $visitorApiService.saveAddress($scope.address, saveSuccess, errCallback);
+                $scope.address["visitor_id"] = visitorLoginService.getVisitorId();
+                visitorApiService.saveAddress($scope.address, saveSuccess, errCallback);
             } else {
                 $scope.address.id = id;
-                $visitorApiService.addressUpdate($scope.address, updateSuccess, errCallback);
+                visitorApiService.addressUpdate($scope.address, updateSuccess, errCallback);
             }
 
             function saveSuccess(response) {
@@ -169,7 +169,7 @@ angular.module("visitorModule")
                     });
                 }
                 $('#parent_popup_address').modal("hide");
-                $scope.message = $commonUtilService.getMessage(null, 'success', 'New address was added with success');
+                $scope.message = commonUtilService.getMessage(null, 'success', 'New address was added with success');
             }
 
             function updateSuccess(response) {
@@ -184,7 +184,7 @@ angular.module("visitorModule")
                     }
                 }
                 $('#parent_popup_address').modal('hide');
-                $scope.message = $commonUtilService.getMessage(null, 'success', 'Address was changed with success');
+                $scope.message = commonUtilService.getMessage(null, 'success', 'Address was changed with success');
             }
 
             function errCallback() {}
@@ -201,10 +201,10 @@ angular.module("visitorModule")
                 $scope.visitor["shipping_address_id"] = id;
             }
 
-            $visitorApiService.update($scope.visitor).$promise.then(
+            visitorApiService.update($scope.visitor).$promise.then(
                 function(response) {
-                    $visitorLoginService.setLogin(response.result);
-                    $scope.visitor = $visitorLoginService.getVisitor();
+                    visitorLoginService.setLogin(response.result);
+                    $scope.visitor = visitorLoginService.getVisitor();
                 }
             );
         }
@@ -219,10 +219,10 @@ angular.module("visitorModule")
             } else {
                 $scope.visitor["billing_address_id"] = id;
             }
-            $visitorApiService.update($scope.visitor).$promise.then(
+            visitorApiService.update($scope.visitor).$promise.then(
                 function(response) {
-                    $visitorLoginService.setLogin(response.result);
-                    $scope.visitor = $visitorLoginService.getVisitor();
+                    visitorLoginService.setLogin(response.result);
+                    $scope.visitor = visitorLoginService.getVisitor();
                 }
             );
         }
