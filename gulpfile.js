@@ -228,18 +228,17 @@ gulp.task('compile_misc', function compile_misc() {
  * SASS -> CSS -> app.min.css
  */
 gulp.task('compile_styles', function compile_styles() {
+    var isMinifyActive = config.isEnvProduction || config.isEnvStaging;
 
-    // REFACTOR: autoprefixer seems to not play well with sass + sourcemaps
     return gulp.src(config.styles.root)
         .pipe($.sourcemaps.init())
-        .pipe($.plumber(handleError))
-        .pipe($.sass(config.sassSettings))
+        .pipe($.sass(config.sassSettings).on('error', $.sass.logError))
+        .pipe($.sourcemaps.write())
+        .pipe($.autoprefixer('last 2 version', 'safari 5', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+        .pipe($.if(isMinifyActive, $.cleanCss()))
         .pipe($.rename({
             suffix: '.min'
         }))
-        // .pipe($.autoprefixer('last 2 version', 'safari 5', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-        .pipe($.plumber.stop())
-        .pipe($.sourcemaps.write('./maps'))
         .pipe(gulp.dest(config.build + 'styles/'));
 });
 

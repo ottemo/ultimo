@@ -75,8 +75,9 @@ module.exports = function() {
             lrPort: '35729', // not used?
         },
         sassSettings: {
+            // Seems to break sourcemaps, so conditionally minify css in gulpfile
             // outputStyle: 'compressed',
-            // precision: 8,
+            precision: 8,
         },
         uglifySettings: {
             mangle: false,

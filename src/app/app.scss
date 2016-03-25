@@ -1,6 +1,7 @@
-// Bootstrap
-@import "_styles/bootstrap/bootstrap";
-// @import "_styles/"
+// Libs
+@import "_styles/var";
+@import "_styles/bootstrap";
+@import "_styles/font-awesome";
 
 // Components
 @import "_styles/components";
