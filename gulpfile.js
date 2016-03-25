@@ -1,13 +1,15 @@
 /*jshint node: true */
 
 var args = require('yargs').argv;
+var colors = require('chalk');
 var config = require('./gulp.config')();
 var del = require('del');
 var fs = require('fs');
 var gulp = require('gulp');
+var md5 = require('md5');
 var modRewrite = require('connect-modrewrite');
 var runSequence = require('run-sequence');
-var colors = require('chalk');
+var siphonMQ = require('siphon-media-query');
 var $ = require('gulp-load-plugins')({
     lazy: true
 });
@@ -87,7 +89,7 @@ function readConfig(configFile) {
 /**
  * Build the app
  * This is typically used when getting ready to deploy the app
- * `gulp build --env=production`
+ * `gulp build --env=prod`
  */
 gulp.task('build', function build(cb) {
     runSequence('clean', 'readArgs', 'config', 'compile', 'revision', cb);
@@ -96,7 +98,7 @@ gulp.task('build', function build(cb) {
 /**
  * Build and start a server
  * This is typically used for local development work
- * `gulp serve` or `gulp serve --api=localhost`
+ * `gulp serve` or `gulp serve --config=local`
  */
 gulp.task('serve', ['build'], function serve() {
     gulp.start('serve_watch');
@@ -122,7 +124,7 @@ gulp.task('clean', function clean(done) {
  * Replace the config placeholders with the correct value for the variable
  * from the config files in /config. Then move the file to a tmp folder
  *
- * `gulp build --api=(production|staging|localhost)`
+ * `gulp build --config=(prod|staging|local)`
  */
 gulp.task('config', function() {
     var replacePattern = {
@@ -206,7 +208,7 @@ gulp.task('compile_html_nonroot', function compile_html_nonroot() {
 
 /**
  * Compile the robots.txt file
- * --env=(production|*)
+ * --env=(prod|*)
  */
 gulp.task('compile_robots', function compile_robots() {
     var robotPath = config.isEnvProduction ? config.robots.prod : config.robots.default;
@@ -268,10 +270,37 @@ gulp.task('compile_fonts', function compile_fonts() {
  * Inline css for emails
  */
 gulp.task('compile_emails', function compile_emails() {
+    var css = fs.readFileSync('./src/email/css.css').toString();
+    var mqCss = siphonMQ(css);
+
     return gulp.src(config.email)
-        .pipe($.inlineCss())
+        .pipe($.inlineCss({
+            applyStyleTags: false,       // currently removes trailing slashes on meta
+        }))
+        .pipe($.replaceTask({
+            patterns: [{
+                match: '<!-- <inline-style-injection> -->',
+                replacement: '<style>' + mqCss + '</style>',
+            }],
+            usePrefix: false,
+        }))
+        .pipe($.htmlmin({
+            // keepClosingSlash: true,  // would like to enable
+            collapseWhitespace: true,
+            conservativeCollapse: true, // breaks gmail if you remove me
+            preserveLineBreaks: true,   // breaks gmail if you remove me
+            minifyCSS: true,
+            removeComments: true,
+        }))
+        .pipe($.insert.transform(function(content, f){
+            // Email templates break if you have a carriage return after
+            // this comment, so be careful
+            var hash = md5(content);
+            var header = '<!-- build:' + hash + ' -->';
+            return header + content;
+        }))
         .pipe($.rename({
-            suffix: '.inline'
+            suffix: '.inline',
         }))
         .pipe(gulp.dest('./src/email'));
 });
@@ -319,7 +348,7 @@ gulp.task('serve_server', function serve_server() {
 
 /**
  * Thumbprint js, css for prod and staging
- * --env=(production|*)
+ * --env=(prod|*)
  */
 gulp.task('revision', function revision() {
     if (config.isEnvProduction || config.isEnvStaging) {

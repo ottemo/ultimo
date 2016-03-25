@@ -17,21 +17,21 @@ module.exports = function() {
         build: 'dist/',
 
         // App
-        fonts: app + '_fonts/**/*.{svg,eot,ttf,woff,woff2}',
+        fonts: app + '_fonts/**/*.{otf,svg,eot,ttf,woff,woff2}',
         html: {
             root: app + '*.html',
             nonRoot: [
+                app + '**/*.html',
                 '!' + email + '**/*',
                 '!' + app + '*.html',
-                app + '**/*.html',
             ],
         },
         media: [
             // Ignore media, declaring the _images folder directly moves all of its contents
             // without the container folder getting in the way
-            '!' + app + '_fonts/*',
             app + '_images/**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf}',
             app + '**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf}',
+            '!' + app + '_fonts/*',
         ],
         misc: app + '*.{htaccess,ico,xml}',
         robots: {
@@ -47,10 +47,10 @@ module.exports = function() {
         },
         scripts: {
             app: [
-                '!' + app + '_lib/**/*', // don't clobber lib
                 temp + 'config.js', // this is a built file
                 app + '**/init.js',
                 app + '**/*.js',
+                '!' + app + '_lib/**/*', // don't clobber lib
             ],
             lib: [
                 app + '_lib/jquery.min.js',
@@ -61,9 +61,9 @@ module.exports = function() {
 
         // Emails
         email: [
-            // Build files are saved as .inline.html
-            '!' + email + '**/*.inline.html',
-            email + '**/*.html',
+            // ignore built files
+            email + '*.html',
+            '!' + email + '*.inline.html',
         ],
 
         // Temp

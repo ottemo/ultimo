@@ -1,30 +1,54 @@
 <!--
 
-# Gift Card Template
+# Shipping Status Email
 
 ## Variables Available in this template
-
-.Recipient
-  .Name
-  .Email
-.Buyer
-  .Name
-  .Email
-.GiftCard
-  .Amount
-  .Code
-  .RecipientName
-  .RecipientEmail
-  .Message
 .Site
   .Url - has trailing slash
+.Order
+  ._id
+  .billing_address
+    .first_name
+    .last_name
+    .address_line1
+    .address_line2
+    .city
+    .state
+    .zip_code
+    .country
+    .phone
+  .created_at
+  .discount
+  .grand_total
+  .items
+    .name
+    .options[label] : value
+    .sku
+    .qty
+    .price
+  .payment_info.payment_method_name
+  .shipping_address _same as billing_address children_
+  .shipping_amount
+  .shipping_info
+    .shipping_method_name
+    .carrier
+    .service
+    .tracking_url
+  .subtotal
+  .tax_amount
 
+## Useful Pipes
+* ` | printf "%.2f"`
+* dates: .Date.Format "Monday Jan 2 15:04 MST"  https://golang.org/pkg/time/#pkg-constants
+
+# Instantiated Variables
 -->
+{{ $dateFormat := "Jan 2, 2006, 3:04pm" }}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width"/>
     <link rel="stylesheet" href="css.css">
   </head>
   <body>
@@ -38,7 +62,6 @@
             <table class="container container-primary">
               <tr>
                 <td>
-
                   <!-- branding -->
                   <table class="row">
                     <tr>
@@ -62,17 +85,29 @@
                   </table>
                   <!-- /end branding -->
 
-                  <!-- header information  -->
+                  <!-- information  -->
                   <table class="row">
                     <tr>
                       <td class="wrapper last">
                         <table class="twelve columns">
                           <tr>
                             <td class="text-pad">
-                              <h1>You just got the perfect gift!</h1>
-                              <p>
-                                Find something you love on our site, and apply the gift card during checkout.
-                              </p>
+                              <h1>Shipping status update!</h1>
+                              <p>Get excited, your order is on its way.</p>
+                              <ul>
+                                <li>
+                                  Order
+                                  {{ if .Order.visitor_id }}
+                                    <a href="{{ .Site.Url }}/account/order/{{ .Order._id }}">
+                                      #{{ .Order._id }}
+                                    </a>
+                                  {{ else }}
+                                    #{{ .Order._id }}
+                                  {{ end }}
+                                </li>
+                                <li>Placed On: {{ .Order.created_at.Format $dateFormat }}</li>
+                                <li>{{ .Order.shipping_info.service }}: {{ .Order.shipping_info.tracking_number }}</li>
+                              </ul>
                             </td>
                             <td class="expander"></td>
                           </tr>
@@ -80,54 +115,13 @@
                       </td>
                     </tr>
                   </table>
-                  <!-- /end header information -->
-
-                  <!-- gift card details -->
-                  <table class="row">
-                    <tr>
-                      <td class="wrapper last">
-                        <table class="twelve columns">
-                          <tr>
-                            <td class="text-pad">
-                              <h5>Gift Amount: ${{ .GiftCard.Amount | printf "%2.f" }}</h5>
-                              <h5>Gift Code: {{ .GiftCard.Code }}</h5>
-                            </td>
-                            <td class="expander"></td>
-                          </tr>
-                        </table>
-                      </td>
-                    </tr>
-                  </table>
-                  <!-- /end gift card details -->
-
-                  <!-- gift card message -->
-                  <table class="row">
-                    <tr>
-                      <td class="wrapper last">
-                        <table class="twelve columns">
-                          <tr>
-                            <td class="text-pad">
-                              <p>
-                                {{ if .GiftCard.Message }}
-                                  {{ .GiftCard.Message }}
-                                  <br />
-                                {{ end }}
-                                From, {{ .Buyer.Name }}
-                              </p>
-                            </td>
-                            <td class="expander"></td>
-                          </tr>
-                        </table>
-                      </td>
-                    </tr>
-                  </table>
-                  <!-- /end gift card message -->
+                  <!-- /end information -->
 
                   <!-- call to action -->
                   <table class="row">
                     <tr>
                       <td class="wrapper hide-for-small">
-                        <table class="four columns">
+                        <table class="three columns">
                           <tr>
                             <td>&nbsp;</td>
                             <td class="expander"></td>
@@ -135,13 +129,13 @@
                         </table>
                       </td>
                       <td class="wrapper last">
-                        <table class="four columns">
+                        <table class="six columns">
                           <tr>
                             <td class="text-pad">
                               <table class="button">
                                 <tr>
                                   <td>
-                                    <a href="{{ .Site.Url }}">Start Shopping</a>
+                                    <a href="{{ .Order.shipping_info.tracking_url }}">Track Your Package</a>
                                   </td>
                                 </tr>
                               </table>
@@ -154,7 +148,7 @@
                   </table>
                   <!-- /end call to action -->
 
-                  <!-- salutation -->
+                  <!-- on-topic footer -->
                   <table class="row">
                     <tr>
                       <td class="wrapper last">
@@ -171,8 +165,7 @@
                       </td>
                     </tr>
                   </table>
-                  <!-- /end salutation -->
-
+                  <!-- /end on-topic footer -->
                 </td>
               </tr>
             </table>
@@ -202,7 +195,6 @@
               </tr>
             </table>
             <!-- /end container-footer -->
-
           </center>
         </td>
       </tr>
