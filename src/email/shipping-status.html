@@ -106,7 +106,7 @@
                                   {{ end }}
                                 </li>
                                 <li>Placed On: {{ .Order.created_at.Format $dateFormat }}</li>
-                                <li>{{ .Order.shipping_info.service }}: {{ .Order.shipping_info.tracking_number }}</li>
+                                <li>{{ .Order.shipping_info.carrier }}: {{ .Order.shipping_info.tracking_number }}</li>
                               </ul>
                             </td>
                             <td class="expander"></td>

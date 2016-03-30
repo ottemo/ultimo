@@ -1,4 +1,4 @@
-<!-- build:97c003830a67047ee5f11efdc3240b80 -->{{ $dateFormat := "Jan 2, 2006, 3:04pm" }}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- build:1109ebdfa3123d2e1936058b7c0dee3f -->{{ $dateFormat := "Jan 2, 2006, 3:04pm" }}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -46,7 +46,7 @@ Order {{ if .Order.visitor_id }}
 {{ else }} #{{ .Order._id }} {{ end }}
 </li>
 <li>Placed On: {{ .Order.created_at.Format $dateFormat }}</li>
-<li>{{ .Order.shipping_info.service }}: {{ .Order.shipping_info.tracking_number }}</li>
+<li>{{ .Order.shipping_info.carrier }}: {{ .Order.shipping_info.tracking_number }}</li>
 </ul>
 </td>
 <td class="expander" style="-moz-hyphens:none;-webkit-hyphens:none;border-collapse:collapse!important;color:#606060;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:16px;font-weight:400;hyphens:none;line-height:24px;margin:0;padding:0!important;text-align:left;vertical-align:top;visibility:hidden;width:0;word-break:break-word"></td>
