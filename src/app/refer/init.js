@@ -1,5 +1,6 @@
 angular.module('referModule', [
-    'ngRoute'
+    'ngRoute',
+    "coreModule"
 ])
 
 .config(['$routeProvider',

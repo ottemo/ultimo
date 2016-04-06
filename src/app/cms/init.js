@@ -2,7 +2,12 @@
  *  Angular "cmsModule" declaration
  */
 
-angular.module("cmsModule", ["ngRoute", "ngResource", "ngSanitize"])
+angular.module("cmsModule", [
+    "ngRoute", 
+    "ngResource", 
+    "ngSanitize",
+    "coreModule"
+])
 
     /*
      *  Basic routing configuration

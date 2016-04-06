@@ -1,4 +1,7 @@
-angular.module("contactModule", ["ngRoute"])
+angular.module("contactModule", [
+	"ngRoute",
+	"coreModule"
+])
 .config([
     "$routeProvider",
     function ($routeProvider) {

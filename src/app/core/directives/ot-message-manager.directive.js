@@ -1,12 +1,12 @@
-angular.module('designModule')
+angular.module('coreModule')
 
-.directive('guiMessageManager', ['$timeout', function($timeout) {
+.directive('otMessageManager', ['$timeout', function($timeout) {
     return {
         restrict: 'E',
         scope: {
             'obj': '=item'
         },
-        templateUrl: '/views/design/gui/guiMessageManager.html',
+        templateUrl: '/views/core/directives/ot-message-manager.html',
         link: function($scope) {
             var timeout;
 

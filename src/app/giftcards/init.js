@@ -1,1 +1,3 @@
-angular.module('giftCardsModule', []);
+angular.module('giftCardsModule', [
+	"coreModule"
+]);

@@ -5,17 +5,17 @@ angular.module("visitorModule")
     '$location',
     'visitorLoginService',
     'visitorApiService',
-    'designStateService',
+    'coreStateService',
     'commonUtilService',
-    'designCountryService',
+    'coreCountryService',
     function(
         $scope,
         $location,
         visitorLoginService,
         visitorApiService,
-        designStateService,
+        coreStateService,
         commonUtilService,
-        designCountryService
+        coreCountryService
     ) {
         // General
         $scope.visitor = visitorLoginService.getVisitor();
@@ -29,8 +29,8 @@ angular.module("visitorModule")
         // Edit / Add Form
         $scope.address = {};
         $scope.addressForm = {};
-        $scope.countries = designCountryService;
-        $scope.states = designStateService;
+        $scope.countries = coreCountryService;
+        $scope.states = coreStateService;
         $scope.message = '';
         $scope.save = save;
         $scope.changeShippingAsDefault = changeShippingAsDefault; // REFACTOR: buggy implementation

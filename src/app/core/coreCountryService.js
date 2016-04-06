@@ -1,5 +1,5 @@
-angular.module("designModule")
-.service("designCountryService", [ function () {
+angular.module("coreModule")
+.service("coreCountryService", [ function () {
     return [
         { "Code": "US", "Name": "United States" }
         //{ "Code": "AF", "Name": "Afghanistan" },

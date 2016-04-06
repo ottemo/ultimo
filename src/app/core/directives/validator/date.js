@@ -1,4 +1,4 @@
-angular.module("designModule")
+angular.module("coreModule")
     .directive("otDate", ["commonUtilService", function (commonUtilService) {
         return {
             restrict: 'A',

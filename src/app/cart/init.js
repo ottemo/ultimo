@@ -4,7 +4,7 @@
 angular.module("cartModule", [
     "ngRoute",
     "ngResource",
-    "designModule",
+    "coreModule",
     "pdpModule",
     "visitorModule",
     "checkoutModule"

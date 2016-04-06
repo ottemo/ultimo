@@ -1,8 +1,8 @@
-angular.module("designModule")
+angular.module("coreModule")
 /**
  *
  */
-    .service("designStateService", [function () {
+    .service("coreStateService", [function () {
         return [
             {
                 "Code": "AL",

@@ -1,9 +1,9 @@
 /**
- * Zip code validation directive
+ * Telephone validation directive
  */
-angular.module('designModule')
+angular.module('coreModule')
 
-.directive('otZipCode', function() {
+.directive('otTelephone', function() {
     return {
         restrict: 'A',
         require: 'ngModel',
@@ -11,18 +11,18 @@ angular.module('designModule')
 
             var country;
 
-            // Validators for each country
+            // Validators for each country consist of regular expression
             var validators = {
-                'US': /^\d{5}([-\s]\d{4})?$/,
-                'CA': /^[ABCEGHJKLMNPRSTVXYabceghjklmnprstvxy]\d[A-Za-z]\s\d[A-Za-z]\d$/
+                //todo: regex explained
+                'US': /^(\+?\d{1,3})?[- ]?\(?(\d{3})\)?[- ]?((?:\d{3})-?(?:\d{2})-?(?:\d{2}))$/
             };
 
-            attr.$observe('otZipCodeLinkedCountry', function(val) {
+            attr.$observe('otTelephoneLinkedCountry', function(val) {
                 country = val;
                 ctrl.$validate();
             });
 
-            ctrl.$validators.otZipCode = function(modelValue, viewValue) {
+            ctrl.$validators.otTelephone = function(modelValue, viewValue) {
                 var value = viewValue || modelValue;
                 var validator = validators[country];
 

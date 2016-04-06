@@ -54,7 +54,7 @@
  * waitForAnimate: true,
  * zIndex: 1000
  */
-angular.module('designModule')
+angular.module('coreModule')
     .directive('otSlider', [
         '$timeout',
         function($timeout){

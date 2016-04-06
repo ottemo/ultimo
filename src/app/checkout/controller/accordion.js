@@ -9,8 +9,8 @@ angular.module("checkoutModule")
         "checkoutApiService",
         "visitorLoginService",
         "cartService",
-        "designStateService",
-        "designCountryService",
+        "coreStateService",
+        "coreCountryService",
         "commonUtilService",
         "checkoutService",
         "giftCardsService",
@@ -23,8 +23,8 @@ angular.module("checkoutModule")
             checkoutApiService,
             visitorLoginService,
             cartService,
-            designStateService,
-            designCountryService,
+            coreStateService,
+            coreCountryService,
             commonUtilService,
             checkoutService,
             giftCardsService
@@ -87,8 +87,8 @@ angular.module("checkoutModule")
                 };
 
                 // Addresses
-                $scope.countries = designCountryService;
-                $scope.states = designStateService;
+                $scope.countries = coreCountryService;
+                $scope.states = coreStateService;
 
                 getDefaultAddress = function () {
                     return {

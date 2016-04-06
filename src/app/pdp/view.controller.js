@@ -57,7 +57,7 @@ angular.module("pdpModule")
                 }, true);
 
                 // REFACTOR: ugh, the options are actually built out in the view
-                // by iterating over product.options guiCustomOptions
+                // by iterating over product.options otCustomOptions
                 $scope.$watch('options', function(){
                     pdpProductService.setOptions($scope.options);
                 });
@@ -178,7 +178,7 @@ angular.module("pdpModule")
 
                 function addItem() {
                     // Flag that we attempted to submit form
-                    // gets picked up by form error flags in guiCustomOptions.html
+                    // gets picked up by form error flags in otCustomOptions.html
                     $scope.submitted = true; //REFACTOR
                     $scope.isAddToCartSuccessful = false;
 

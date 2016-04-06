@@ -1,13 +1,13 @@
 angular.module('pdpModule')
 
-    .directive('guiCustomOptions', [function() {
+    .directive('otCustomOptions', [function() {
         return {
             restrict: 'E',
             scope: {
                 'parent': '=object',
                 'product': '=item'
             },
-            templateUrl: '/views/pdp/guiCustomOptions.html',
+            templateUrl: '/views/pdp/ot-custom-options.html',
             controller: function($scope) {
 
                 $scope.selectFirstRadio = selectFirstRadio;

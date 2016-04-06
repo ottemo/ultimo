@@ -1,12 +1,12 @@
-angular.module("designModule")
+angular.module("coreModule")
 
-    .directive('guiPaginator', ['$location', function ($location) {
+    .directive('otPaginator', ['$location', function ($location) {
         return {
             restrict: 'E',
             scope: {
                 'parent': '=object'
             },
-            templateUrl: '/views/design/gui/guiPaginator.html',
+            templateUrl: '/views/core/directives/ot-paginator.html',
             controller: function ($scope) {
                 /**
                  * Prepares array of pages

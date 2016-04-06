@@ -1,7 +1,8 @@
 angular.module("visitorModule", [
     "ngRoute",
     "ngResource",
-    "giftCardsModule"
+    "giftCardsModule",
+    "coreModule"
 ])
 
 .config(["$routeProvider", "$locationProvider",

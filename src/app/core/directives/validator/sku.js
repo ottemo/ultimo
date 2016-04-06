@@ -1,4 +1,4 @@
-angular.module("designModule")
+angular.module("coreModule")
     .directive("otSku", function () {
         return {
             restrict: 'A',

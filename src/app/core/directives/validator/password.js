@@ -1,7 +1,7 @@
 /**
  * Password Directive
  */
-angular.module("designModule")
+angular.module("coreModule")
 
 .directive("otPassword", function() {
     return {

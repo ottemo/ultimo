@@ -1,5 +1,6 @@
 angular.module('facebookAnalytics', [
-	'angulartics'
+	'angulartics',
+	"coreModule" 
 ])
 
 .config(['$analyticsProvider', function($analyticsProvider) {

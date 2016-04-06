@@ -5,7 +5,7 @@
  *  match-caseless
  *  not-match
  */
-angular.module("designModule")
+angular.module("coreModule")
     .directive("otMatch", ['$parse', function($parse) {
         return {
             restrict: 'A',

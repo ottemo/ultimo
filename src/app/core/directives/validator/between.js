@@ -1,4 +1,4 @@
-angular.module("designModule")
+angular.module("coreModule")
     .directive("otBetween", function () {
         return {
             restrict: 'A',

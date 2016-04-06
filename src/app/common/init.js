@@ -16,7 +16,7 @@ angular.module("commonModule", [
     "categoryModule",
     "cmsModule",
     "contactModule",
-    "designModule",
+    "coreModule",
     "facebookAnalytics",
     "referModule"
 ])

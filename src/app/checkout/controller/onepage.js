@@ -6,8 +6,8 @@ angular.module("checkoutModule")
         "checkoutApiService",
         "visitorLoginService",
         "cartService",
-        "designStateService",
-        "designCountryService",
+        "coreStateService",
+        "coreCountryService",
         "commonUtilService",
         "checkoutService",
         "$q",
@@ -18,8 +18,8 @@ angular.module("checkoutModule")
             checkoutApiService,
             visitorLoginService,
             cartService,
-            designStateService,
-            designCountryService,
+            coreStateService,
+            coreCountryService,
             commonUtilService,
             checkoutService,
             $q,
@@ -197,7 +197,7 @@ angular.module("checkoutModule")
 
                 $scope["checkoutService"] = checkoutService;
 
-                $scope["countries"] = designCountryService;
+                $scope["countries"] = coreCountryService;
                 $scope["creditTypes"] = [
                     {
                         "Code": "VI",
@@ -218,7 +218,7 @@ angular.module("checkoutModule")
                 ];
 
                 $scope["useAsBilling"] = false;
-                $scope["states"] = designStateService;
+                $scope["states"] = coreStateService;
                 $scope["cart"] = cartService;
                 $scope["shippingMethods"] = [];
                 $scope["checkout"] = {};

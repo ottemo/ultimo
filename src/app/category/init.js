@@ -1,4 +1,8 @@
-angular.module("categoryModule", ["ngRoute", "ngResource", "designModule"])
+angular.module("categoryModule", [
+    "ngRoute", 
+    "ngResource", 
+    "coreModule"
+])
 
 .constant("SEARCH_KEY_NAME", "search")
 

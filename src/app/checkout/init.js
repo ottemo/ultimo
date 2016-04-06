@@ -5,7 +5,7 @@ angular.module("checkoutModule", [
     "ngRoute",
     "ngResource",
     "ngStorage",
-    "designModule",
+    "coreModule",
     "giftCardsModule"
 ])
 
