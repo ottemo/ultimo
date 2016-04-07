@@ -3,6 +3,14 @@
         <h1>Checkout</h1>
     </div>
 
+    <!-- Ultimo specific-->
+    <div class="alert alert-warning" role="alert">
+        <p>
+            This is a demo storefront running on <a href="http://ottemo.io" target="_blank">Ottemo</a>, the mobile cloud commerce platform. <br>
+            Orders will not be fullfilled and no money will be collected. Please do not enter any valid payment details.
+        </p>
+    </div>
+
     <div class="row">
         <!-- main panel -->
         <div ng-init="init()"
@@ -652,6 +660,16 @@
                 <div class="panel-body"
                     style="display:none">
                     <div class="accordion">
+
+                        <!-- Ultimo Specific -->
+                        <div class="alert alert-danger" role="alert">
+                            <p>
+                                This is a demo storefront running on the Ottemo platform.
+                                Please use a test credit card or the "check/money order" payment method.
+                                <br>
+                                <code>Visa 4111111111111111 01/2020</code>
+                            </p>
+                        </div>
 
                         <div ng-show="checkout.grandtotal > 0"
                             ng-repeat="method in paymentMethods" >
