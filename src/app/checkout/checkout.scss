@@ -42,3 +42,62 @@ $panel-checkout-step-heading-bg: $panel-default-heading-bg;
         font-weight: bold;
     }
 }
+
+.well-cc {
+    position: relative;
+    max-width: 340px;
+    border-radius: 10px;
+}
+
+.form-cc {
+    label {
+        font-weight: normal;
+    }
+
+    .form-cc__exp {
+        .form-group {
+            display: inline-block;
+            margin-bottom: 0;
+            vertical-align: middle;
+        }
+        .form-control {
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+
+    .form-cc__exp-divider {
+        width: 5%;
+        text-align: center;
+    }
+    .form-cc__exp-mm,
+    .form-cc__exp-yy {
+        width: 45%;
+    }
+
+    @media (min-width: $screen-sm-min) {
+        .form-cc__exp {
+            float: right;
+
+            .form-cc__exp-divider,
+            .form-cc__exp-mm,
+            .form-cc__exp-yy {
+                width: auto;
+            }
+            .form-control {
+                width: 50px;
+            }
+        }
+    }
+
+    .form-cc__type {
+        position: absolute;
+        bottom: 0;
+        left: 20px;
+        border-width: 1px 1px 0 1px;
+        border-style: solid;
+        border-color: #ddd;
+        background-color: #fdfdfd;
+        padding: 6px 18px;
+    }
+}

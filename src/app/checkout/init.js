@@ -1,12 +1,13 @@
 /**
  *  Angular "checkoutModule" declaration
  */
-angular.module("checkoutModule", [
-    "ngRoute",
-    "ngResource",
-    "ngStorage",
-    "coreModule",
-    "giftCardsModule"
+angular.module('checkoutModule', [
+    'ngRoute',
+    'ngResource',
+    'ngStorage',
+    'coreModule',
+    'giftCardsModule',
+    'credit-cards',
 ])
 
 .constant("ONEPAGE_URL", "/spcheckout")

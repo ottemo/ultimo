@@ -667,7 +667,11 @@
                                 This is a demo storefront running on the Ottemo platform.
                                 Please use a test credit card or the "check/money order" payment method.
                                 <br>
-                                <code>Visa 4111111111111111 01/2020</code>
+                                <ul>
+                                    <li>Visa: <code>4111 1111 1111 1111</code></li>
+                                    <li>American Express: <code>3700 000000 00002</code></li>
+                                    <li>Discover: <code>6011 0009 9013 9424</code></li>
+                                </ul>
                             </p>
                         </div>
 
@@ -683,102 +687,105 @@
                             </div>
 
                             <div class="radio-subform paypal"
-                                ng-show="paymentMethod.selected.Code === method.Code"
-                                ng-if="method.isCreditCard">
-                                <form name="method.form"
-                                    novalidate
-                                    class="row">
+                                ng-if="method.isCreditCard"
+                                ng-show="paymentMethod.selected.Code === method.Code">
+                                <form class="form-cc"
+                                    name="method.form"
+                                    novalidate>
+                                    <div class="well well-cc">
+                                        <div class="form-group form-cc__number">
+                                            <label for="paymentCardNumber">Card Number</label>
+                                            <input type="text"
+                                                class="form-control"
+                                                id="paymentCardNumber"
+                                                name="number"
+                                                cc-number
+                                                cc-format
+                                                cc-eager-type
+                                                ng-model="method.cc.number"
+                                                required>
+                                        </div>
 
-                                    <!-- REFACTOR: I don't believe we are using method.form.submited properly, and we might not even need it -->
-                                    <div class="form-group col-xs-12 col-sm-4"
-                                        ng-class="{ 'has-error' : (method.form.submited && method.form.type.$invalid) || (method.form.type.$invalid && !method.form.type.$pristine) }">
-                                        <label>Credit Card Type</label>
+                                        <div class="form-cc__exp">
+                                            <label>Expiration</label>
+                                            <div class="">
+                                                <div class="form-group form-cc__exp-mm">
+                                                    <label for="" class="sr-only">Expiration Month</label>
+                                                    <select class="form-control"
+                                                        ng-model="method.cc.expire_month"
+                                                        name="expire_month"
+                                                        required>
+                                                        <option value="">MM</option>
+                                                        <option value="01">01</option>
+                                                        <option value="02">02</option>
+                                                        <option value="03">03</option>
+                                                        <option value="04">04</option>
+                                                        <option value="05">05</option>
+                                                        <option value="06">06</option>
+                                                        <option value="07">07</option>
+                                                        <option value="08">08</option>
+                                                        <option value="09">09</option>
+                                                        <option value="10">10</option>
+                                                        <option value="11">11</option>
+                                                        <option value="12">12</option>
+                                                    </select>
+                                                </div>
 
-                                        <select name="type"
-                                            class="form-control"
-                                            ng-model="method.cc.type"
-                                            required
-                                            ng-init="method.cc.type = creditTypes[0].Code"
-                                            ng-options="c.Code as c.Name for c in creditTypes">
-                                        </select>
+                                                <div class="form-group form-cc__exp-divider">/</div>
 
-                                        <p ng-show="(method.form.submited && method.form.type.$invalid) || (method.form.type.$invalid && !method.form.type.$pristine)"
-                                            class="help-block">This field is required.</p>
+                                                <div class="form-group form-cc__exp-yy">
+                                                    <label for="" class="sr-only">Expiration Year</label>
+                                                    <select class="form-control"
+                                                        ng-model="method.cc.expire_year"
+                                                        name="expire_year"
+                                                        required>
+                                                        <option value="">YY</option>
+                                                        <option value="2016">16</option>
+                                                        <option value="2017">17</option>
+                                                        <option value="2018">18</option>
+                                                        <option value="2019">19</option>
+                                                        <option value="2020">20</option>
+                                                        <option value="2021">21</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-cc__type hidden-xs"
+                                            ng-show="method.form.number.$ccEagerType">
+                                            {{method.form.number.$ccEagerType}}
+                                        </div>
+
+                                        <div class="clearfix"></div>
                                     </div>
 
-                                    <div class="form-group col-xs-12 col-sm-8"
-                                        ng-class="{ 'has-error' : (method.form.submited && method.form.number.$invalid) || ((!method.form.number.$invalidFormat || method.form.number.$invalid) && !method.form.number.$pristine) }">
+                                    <!-- error messaging -->
+                                    <div class="has-error">
+                                        <div class="help-block">
 
-                                        <label for="paymentCardNumber">Number *</label>
-                                        <input type="text"
-                                            class="form-control"
-                                            id="paymentCardNumber"
-                                            name="number"
-                                            ng-model="method.cc.number"
-                                            required
-                                            ng-change="validateCcNumber()">
+                                            <!-- number errors -->
+                                            <div ng-show="method.form.number.$invalid && (method.form.submited || method.form.number.$touched)">
+                                                <div ng-show="method.form.number.$error.required">
+                                                    Card number is required.
+                                                </div>
+                                                <div ng-show="method.form.number.$error.ccNumber">
+                                                    The card number you entered is invalid.
+                                                </div>
+                                            </div>
 
-                                        <p class="help-block"
-                                            ng-show="method.form.submited && method.form.number.$error.required">This field is required.</p>
-
-                                        <p class="help-block"
-                                            ng-if="!method.form.number.$error.required"
-                                            ng-show="(method.form.submited && method.form.number.$invalid) || ((!method.form.number.$invalidFormat || method.form.number.$invalid) && !method.form.number.$pristine)">
-                                            Invalid number format.
-                                        </p>
-
+                                            <!-- expiry errors -->
+                                            <div ng-show="method.form.expire_month.$invalid && (method.form.submited || method.form.expire_month.$touched)">
+                                                Expiration month is required.
+                                            </div>
+                                            <div ng-show="method.form.expire_year.$invalid && (method.form.submited || method.form.expire_year.$touched)">
+                                                Expiration year is required.
+                                            </div>
+                                        </div>
                                     </div>
-
-                                    <div class="form-group col-xs-6 col-md-4"
-                                        ng-class="{ 'has-error' : method.form.submited && method.form.expire_month.$invalid }">
-                                        <label>Expiration <span class="hidden-xs">Month</span></label>
-
-                                        <select class="form-control"
-                                            ng-model="method.cc.expire_month"
-                                            name="expire_month"
-                                            required>
-                                            <option value="">MM</option>
-                                            <option value="1">01</option>
-                                            <option value="2">02</option>
-                                            <option value="3">03</option>
-                                            <option value="4">04</option>
-                                            <option value="5">05</option>
-                                            <option value="6">06</option>
-                                            <option value="7">07</option>
-                                            <option value="8">08</option>
-                                            <option value="9">09</option>
-                                            <option value="10">10</option>
-                                            <option value="11">11</option>
-                                            <option value="12">12</option>
-                                        </select>
-
-                                        <p ng-show="method.form.submited && method.form.expire_month.$invalid"
-                                            class="help-block">This field is required.</p>
-                                    </div>
-
-                                    <div class="form-group col-xs-6 col-md-4"
-                                        ng-class="{ 'has-error' : method.form.submited && method.form.expire_year.$invalid }">
-                                        <label>&nbsp; <span class="hidden-xs">Year</span></label>
-                                        <select class="form-control"
-                                            ng-model="method.cc.expire_year"
-                                            name="expire_year"
-                                            required>
-                                            <option value="">YY</option>
-                                            <option value="2016">16</option>
-                                            <option value="2017">17</option>
-                                            <option value="2018">18</option>
-                                            <option value="2019">19</option>
-                                            <option value="2020">20</option>
-                                            <option value="2021">21</option>
-                                        </select>
-
-                                        <p ng-show="method.form.submited && method.form.expire_year.$invalid"
-                                            class="help-block">This field is required.</p>
-                                    </div>
-                                    <div class="clearfix"></div>
                                 </form>
                             </div>
                         </div>
+
                         <div ng-show="checkout.grandtotal <= 0">
                             <p>No payment method is required, your grand total is $0.00</p>
                         </div>

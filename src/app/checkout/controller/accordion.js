@@ -31,7 +31,7 @@ angular.module("checkoutModule")
         ) {
 
             var init, info, getDefaultAddress, getAddresses, enabledGuestCheckout,
-                getPaymentInfo, creditCardTypes, isValidSteps;
+                getPaymentInfo, isValidSteps;
 
 
             // Discounts and Giftcards
@@ -127,32 +127,6 @@ angular.module("checkoutModule")
                         });
                         $scope.paymentMethods = methods;
                     });
-
-                $scope.creditTypes = [
-                    {
-                        "Code": "VI",
-                        "Name": "Visa"
-                    },
-                    {
-                        "Code": "MC",
-                        "Name": "Master Card"
-                    },
-                    {
-                        "Code": "DS",
-                        "Name": "Discover"
-                    },
-                    {
-                        "Code": "AX",
-                        "Name": "American Express"
-                     }
-                ];
-
-                creditCardTypes = {
-                    'VI': [new RegExp('^4[0-9]{12}([0-9]{3})?$'), new RegExp('^[0-9]{3}$'), true],
-                    'MC': [new RegExp('^5[1-5][0-9]{14}$'), new RegExp('^[0-9]{3}$'), true],
-                    'AX': [new RegExp('^3[47][0-9]{13}$'), new RegExp('^[0-9]{3}$'), true],
-                    'DS': [new RegExp('^6(?:011|5[0-9]{2})[0-9]{12}$'), new RegExp('^[0-9]{3}$'), true]
-                };
 
                 info();
             };
@@ -497,7 +471,7 @@ angular.module("checkoutModule")
                             // also I'm not entirely convinced we use this properly in the view
                             payment.method.form.submited = true;
 
-                            if (payment.method.form.$valid && $scope.validateCcNumber()) {
+                            if (payment.method.form.$valid) {
                                 // Save off the method name
                                 checkoutService.savePaymentMethod({
                                     method: $scope.paymentMethod.selected.Code
@@ -638,10 +612,10 @@ angular.module("checkoutModule")
                 sendPostForm = function (method, response) {
                     var form;
 
-                    form = "<div class='hidden' id='auth_net_form'>" + response.result;
+                    form = "<div class='hidden' id='auth_net_form'>" + response.result  + "</div>";
                     form = form.replace("$CC_NUM", method.cc.number);
-                    form = form.replace("$CC_MONTH", method.cc["expire_month"].toString().length < 2 ? "0" + method.cc["expire_month"] : method.cc["expire_month"]);
-                    form = form.replace("$CC_YEAR", method.cc["expire_year"]) + "</div>";
+                    form = form.replace("$CC_MONTH", method.cc.expire_month);
+                    form = form.replace("$CC_YEAR", method.cc.expire_year);
 
                     $("body").append(form);
                     $("#auth_net_form").find("form").submit();
@@ -701,55 +675,6 @@ angular.module("checkoutModule")
                         $scope.message = commonUtilService.getMessage(null, "danger", checkoutValid.message);
                     }
                 });
-            };
-
-            // REFACTOR: this should be a directive
-            $scope.validateCcNumber = function () {
-                var i, payment, result;
-                result = false;
-
-                payment = getPaymentInfo();
-
-                var validateCreditCard = function (s) {
-                    /*jshint maxcomplexity:6 */
-                    // remove non-numerics
-                    var a, c, m, k, j, x, w, v;
-                    v = "0123456789";
-                    w = "";
-                    for (i = 0; i < s.length; i += 1) {
-                        x = s.charAt(i);
-                        if (v.indexOf(x, 0) !== -1) {
-                            w += x;
-                        }
-                    }
-                    // validate number
-                    j = w.length / 2;
-                    k = Math.floor(j);
-                    m = Math.ceil(j) - k;
-                    c = 0;
-                    for (i = 0; i < k; i += 1) {
-                        a = w.charAt(i * 2 + m) * 2;
-                        c += a > 9 ? Math.floor(a / 10 + a % 10) : a;
-                    }
-                    for (i = 0; i < k + m; i += 1) {
-                        c += w.charAt(i * 2 + 1 - m) * 1;
-                    }
-                    return (c % 10 === 0);
-                };
-
-                if (payment.method === null && payment.form === null) {
-                    return false;
-                }
-
-                if (creditCardTypes[payment.method.cc.type][0].test(payment.method.cc.number) === true) {
-                    result = validateCreditCard(payment.method.cc.number);
-                }
-
-                if (typeof payment.form !== "undefined") {
-                    payment.form.number.$invalidFormat = result;
-                }
-
-                return result;
             };
 
             function applyDiscount() {
