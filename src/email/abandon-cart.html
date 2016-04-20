@@ -1,0 +1,163 @@
+<!--
+Subject: "It looks like you forgot something in your cart"
+
+## Variables available in this template
+.Visitor
+    .Email
+    .FirstName
+    .LastName
+.Cart
+    .ID
+.Site
+  .Url - has trailing slash
+
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="css.css">
+  </head>
+  <body>
+    <!-- <inline-style-injection> -->
+    <table class="body">
+      <tr>
+        <td class="center" align="center" valign="top">
+          <center>
+
+            <!-- container-primary -->
+            <table class="container container-primary">
+              <tr>
+                <td>
+
+                  <!-- branding -->
+                  <table class="row">
+                    <tr>
+                      <td class="wrapper last">
+                        <table class="twelve columns">
+                          <tr>
+                            <td class="text-pad center">
+                              <a href="{{ .Site.Url }}">
+                                <img src="{{ .Site.Url }}images/logo_white.jpg"
+                                  class="center"
+                                  width="260"
+                                  height="95"
+                                  alt="Ultimo">
+                              </a>
+                            </td>
+                            <td class="expander"></td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                  <!-- /end branding -->
+
+                  <!-- header information  -->
+                  <table class="row">
+                    <tr>
+                      <td class="wrapper last">
+                        <table class="twelve columns">
+                          <tr>
+                            <td class="text-pad">
+                              <h1>Hold your horses!</h1>
+                              <p>
+                                It looks like you forgot something in your cart, don't forget to
+                                finish your purchase before items go out of stock.
+                              </p>
+                            </td>
+                            <td class="expander"></td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                  <!-- /end header information -->
+
+                  <!-- call to action -->
+                  <table class="row">
+                    <tr>
+                      <td class="wrapper hide-for-small">
+                        <table class="four columns">
+                          <tr>
+                            <td>&nbsp;</td>
+                            <td class="expander"></td>
+                          </tr>
+                        </table>
+                      </td>
+                      <td class="wrapper last">
+                        <table class="four columns">
+                          <tr>
+                            <td class="text-pad">
+                              <table class="button">
+                                <tr>
+                                  <td>
+                                    <a href="{{ .Site.Url }}/cart?ref=email-abandon">Back To My Cart</a>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                            <td class="expander"></td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                  <!-- /end call to action -->
+
+                  <!-- salutation -->
+                  <table class="row">
+                    <tr>
+                      <td class="wrapper last">
+                        <table class="twelve columns">
+                          <tr>
+                            <td class="center">
+                              <center>
+                                Thanks again for your business, Ultimo
+                              </center>
+                            </td>
+                            <td class="expander"></td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                  <!-- /end salutation -->
+
+                </td>
+              </tr>
+            </table>
+            <!-- /end container-primary -->
+
+            <!-- container-footer -->
+            <table class="container container-footer">
+              <tr>
+                <td>
+                  <table class="row">
+                    <tr>
+                      <td class="wrapper last">
+                        <table class="twelve columns">
+                          <tr>
+                            <td class="center">
+                              <center>
+                                <div>©2016 Ultimo, All Rights Reserved.</div>
+                              </center>
+                            </td>
+                            <td class="expander"></td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+            <!-- /end container-footer -->
+
+          </center>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
