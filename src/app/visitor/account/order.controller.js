@@ -48,7 +48,7 @@ angular.module("visitorModule")
         function fetchOrderList() {
             var data = {
                 "extra": "created_at,status,grand_total",
-                "limit": "0, 1000"
+                "limit": "0,1000"
             };
 
             visitorApiService.getOrderList(data).$promise
