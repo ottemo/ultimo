@@ -45,10 +45,16 @@ gulp.task('help', function() {
     return $.taskListing.withFilters(null, 'default')();
 });
 
+activate();
 
 //////////////////////////////
 
-gulp.task('readArgs', function readArgs(cb) {
+function activate() {
+    // no task selected
+    if (args._.length === 0) {
+        return;
+    }
+
     // Read the args, and set defaults
     config.env = args.env || 'local';
     config.configFile = args.config || 'staging';
@@ -75,9 +81,7 @@ gulp.task('readArgs', function readArgs(cb) {
     // Assign the application settings from the config folder
     // this read is sync
     config.settings = readConfig(config.configFile);
-
-    cb();
-});
+}
 
 /**
  * Read the settings from the right file
@@ -92,7 +96,7 @@ function readConfig(configFile) {
  * `gulp build --env=prod`
  */
 gulp.task('build', function build(cb) {
-    runSequence('clean', 'readArgs', 'config', 'compile', 'revision', cb);
+    runSequence('clean', 'config', 'compile', 'revision', cb);
 });
 
 /**
