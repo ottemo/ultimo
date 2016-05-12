@@ -33,14 +33,12 @@ angular.module("commonModule", [
 .config([
     "$routeProvider",
     "$locationProvider",
-    "$animateProvider",
     "cfpLoadingBarProvider",
     "$analyticsProvider",
     "REST_SERVER_URI",
     function(
         $routeProvider,
         $locationProvider,
-        $animateProvider,
         cfpLoadingBarProvider,
         $analyticsProvider,
         REST_SERVER_URI
@@ -74,9 +72,6 @@ angular.module("commonModule", [
 
         // loading bar configuration
         cfpLoadingBarProvider.includeSpinner = false;
-
-        // Don't monitor font awesome animation .fa-spin
-        $animateProvider.classNameFilter(/^((?!(fa-spin)).)*$/);
 
         // We trigger pageviews manually so that it doesn't fire
         // twice with SEO urls

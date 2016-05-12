@@ -1,24 +1,22 @@
-angular.module("checkoutModule")
+angular.module('checkoutModule')
 
-    .controller("checkoutAccordionController", [
-        "$scope",
-        "$location",
-        "$q",
-        "$interval",
-        "$timeout",
-        "checkoutApiService",
-        "visitorLoginService",
-        "cartService",
-        "coreStateService",
-        "coreCountryService",
-        "commonUtilService",
-        "checkoutService",
-        "giftCardsService",
+    .controller('checkoutAccordionController', [
+        '$scope',
+        '$location',
+        '$q',
+        '$timeout',
+        'checkoutApiService',
+        'visitorLoginService',
+        'cartService',
+        'coreStateService',
+        'coreCountryService',
+        'commonUtilService',
+        'checkoutService',
+        'giftCardsService',
         function (
             $scope,
             $location,
             $q,
-            $interval,
             $timeout,
             checkoutApiService,
             visitorLoginService,
@@ -32,7 +30,6 @@ angular.module("checkoutModule")
 
             var init, info, getDefaultAddress, getAddresses, enabledGuestCheckout,
                 getPaymentInfo, isValidSteps;
-
 
             // Discounts and Giftcards
             $scope.discounts = {
@@ -80,10 +77,10 @@ angular.module("checkoutModule")
                 $scope.totals = 0;
 
                 isValidSteps = {
-                    "billingAddress": false,
-                    "shippingAddress": false,
-                    "shippingMethod": false,
-                    "paymentMethod": false,
+                    'billingAddress': false,
+                    'shippingAddress': false,
+                    'shippingMethod': false,
+                    'paymentMethod': false,
                 };
 
                 // Addresses
@@ -92,17 +89,17 @@ angular.module("checkoutModule")
 
                 getDefaultAddress = function () {
                     return {
-                        "street": "",
-                        "city": "",
-                        "state": "",
-                        "phone": "",
-                        "zip_code": "",
-                        "company": "",
-                        "first_name": "",
-                        "last_name": "",
-                        "address_line1": "",
-                        "address_line2": "",
-                        "country": "US"
+                        'street': '',
+                        'city': '',
+                        'state': '',
+                        'phone': '',
+                        'zip_code': '',
+                        'company': '',
+                        'first_name': '',
+                        'last_name': '',
+                        'address_line1': '',
+                        'address_line2': '',
+                        'country': 'US'
                     };
                 };
 
@@ -123,7 +120,7 @@ angular.module("checkoutModule")
                     .then(function(methods){
                         // Flag methods that have a credit card form
                         angular.forEach(methods, function(method){
-                            method.isCreditCard = method.Type.split("_").indexOf("cc") >= 0;
+                            method.isCreditCard = method.Type.split('_').indexOf('cc') >= 0;
                         });
                         $scope.paymentMethods = methods;
                     });
@@ -158,20 +155,20 @@ angular.module("checkoutModule")
             $scope.init = function () {
 
                 // TODO: what is this for
-                if ("onepage" == checkoutService.getType()) {
-                    $location.path(checkoutService.getUrl().replace("#/", ""));
+                if ('onepage' == checkoutService.getType()) {
+                    $location.path(checkoutService.getUrl().replace('#/', ''));
                 }
 
                 cartService.init().then(function () {
                     if (cartService.getCountItems() === 0) {
-                        $location.path("/");
+                        $location.path('/');
                     } else {
 
                         if (!enabledGuestCheckout()) {
                             $scope.isGuestCheckout = false;
                             visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
                                 if (!isLoggedIn) {
-                                    $location.path("/");
+                                    $location.path('/');
                                 } else {
                                     getAddresses();
                                     init();
@@ -196,7 +193,6 @@ angular.module("checkoutModule")
                     }
                 });
 
-                $scope.$emit("add-breadcrumbs", {"label": "My Account", "url": "/account"});
                 $scope.$emit("add-breadcrumbs", {"label": "Checkout", "url": "/checkout"});
             };
 
@@ -337,7 +333,7 @@ angular.module("checkoutModule")
                 $('html, body').animate({
                     scrollTop: offset
                 }, 100);
-            }
+            };
 
             $scope.back = function (step) {
                 var $thisStep = $("#" + step);
@@ -479,14 +475,14 @@ angular.module("checkoutModule")
 
                                 // Save off the cc form
                                 checkoutService.saveAdditionalInfo({"cc": payment.method.cc})
-                                .then(function(resp){
-                                    if (resp.result === 'ok') {
-                                        // Update the checkout object and proceed
-                                        isValidSteps.paymentMethod = true;
-                                        info();
-                                        _accordionAnimation(step);
-                                    };
-                                });
+                                    .then(function(resp){
+                                        if (resp.result === 'ok') {
+                                            // Update the checkout object and proceed
+                                            isValidSteps.paymentMethod = true;
+                                            info();
+                                            _accordionAnimation(step);
+                                        };
+                                    });
                             }
                         } else {
                             // not a cc just continue
@@ -499,7 +495,7 @@ angular.module("checkoutModule")
                                     isValidSteps.paymentMethod = true;
                                     info();
                                     _accordionAnimation(step);
-                                };
+                                }
                             });
                         }
                     }
