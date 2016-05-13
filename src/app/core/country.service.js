@@ -244,5 +244,5 @@ angular.module("coreModule")
         // { "Code": "YE", "Name": "Yemen" },
         // { "Code": "ZM", "Name": "Zambia" },
         // { "Code": "ZW", "Name": "Zimbabwe" }
-    ]; 
+    ];
 }]);

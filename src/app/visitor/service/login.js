@@ -53,6 +53,7 @@ angular.module("visitorModule")
             };
 
             mapFields = {
+                'id': ['id','ID','_id'],
                 'facebook_id': ['facebook_id', 'facebookId', 'facebookID'],
                 'google_id': ['google_id', 'googleId', 'googleID'],
                 'billing_address_id': ['billing_address_id', 'billing_id', 'billingId', 'billingID'],

@@ -33,13 +33,13 @@ angular.module("visitorModule")
         $scope.states = coreStateService;
         $scope.message = '';
         $scope.save = save;
-        $scope.changeShippingAsDefault = changeShippingAsDefault; // REFACTOR: buggy implementation
-        $scope.changeBillingAsDefault = changeBillingAsDefault; // REFACTOR: buggy implementation
 
         // Sidebar, refactor
+        var activePath = $location.path();
         $scope.isActive = isActive;
 
-        var activePath = $location.path();
+        // Default address highlighting
+        $scope.isDefault = isDefault;
 
         activate();
 
@@ -84,16 +84,10 @@ angular.module("visitorModule")
                 }).$promise.then(
                     function(response) {
                         $scope.address = response.result || [];
-
-                        var shippingAddressId = (typeof $scope.visitor["shipping_address"] !== 'undefined' && $scope.visitor["shipping_address"] !== null) ?
-                            $scope.visitor["shipping_address"]._id : null;
-                        var billingAddressId = (typeof $scope.visitor["billing_address"] !== 'undefined' && $scope.visitor["billing_address"] !== null) ?
-                            $scope.visitor["billing_address"]._id : null;
-                        $scope.useAsDefaultShipping = (shippingAddressId && shippingAddressId === $scope.address._id) ? true : false;
-                        $scope.useAsDefaultBilling = (billingAddressId && billingAddressId === $scope.address._id) ? true : false;
+                        $scope.address.useAsDefaultShipping = ($scope.address._id == $scope.visitor.shipping_address_id)
+                        $scope.address.useAsDefaultBilling = ($scope.address._id == $scope.visitor.billing_address_id)
 
                         $('#parent_popup_address').modal('show');
-
                     }
                 );
             }
@@ -130,11 +124,13 @@ angular.module("visitorModule")
 
         // Add / Edit Address
         function getFullName(address) {
-            return address['zip_code'] +
-                ' ' + address.state +
-                ', ' + address.city +
-                ', ' + address['address_line1'] +
-                (address['address_line2'] ? ', ' + address['address_line2'] : '');
+            return [
+                address.address_line1 + (address.address_line2 ? ' ' + address.address_line2 : ''),
+                address.city,
+                address.state,
+                address.zip_code,
+                address.country
+            ].join(', ');
         }
 
         function clearForm() {
@@ -154,7 +150,8 @@ angular.module("visitorModule")
             }
 
             if (!id) {
-                $scope.address["visitor_id"] = visitorLoginService.getVisitorId();
+                id = visitorLoginService.getVisitorId();
+                $scope.address["visitor_id"] = id;
                 visitorApiService.saveAddress($scope.address, saveSuccess, errCallback);
             } else {
                 $scope.address.id = id;
@@ -163,6 +160,7 @@ angular.module("visitorModule")
 
             function saveSuccess(response) {
                 if (response.error === null) {
+                    updateDefaultAddress(response.result);
                     $scope.addresses.push({
                         'ID': response.result._id,
                         'Name': getFullName(response.result)
@@ -173,10 +171,11 @@ angular.module("visitorModule")
             }
 
             function updateSuccess(response) {
-                var i, addr;
+
                 if (response.error === null) {
-                    addr = response.result;
-                    for (i = 0; i < $scope.addresses.length; i += 1) {
+                    var addr = response.result;
+                    updateDefaultAddress(addr);
+                    for (var i = 0; i < $scope.addresses.length; i += 1) {
                         if ($scope.addresses[i].ID === addr._id) {
                             $scope.addresses[i].ID = addr._id;
                             $scope.addresses[i].Name = getFullName(addr);
@@ -187,50 +186,40 @@ angular.module("visitorModule")
                 $scope.message = commonUtilService.getMessage(null, 'success', 'Address was changed with success');
             }
 
+            function updateDefaultAddress(addr) {
+
+                // update default addresses
+                if ($scope.address.useAsDefaultBilling) {
+                    $scope.visitor.billing_address_id = addr._id;
+                }
+
+                if ($scope.address.useAsDefaultShipping) {
+                    $scope.visitor.shipping_address_id = addr._id;
+                }
+
+                // Clean off some props
+                delete $scope.visitor.billing_address;
+                delete $scope.visitor.shipping_address;
+                delete $scope.visitor.password;
+
+                visitorApiService.update($scope.visitor).$promise
+                    .then(function(response) {
+                        visitorLoginService.setLogin(response.result);
+                        $scope.visitor = visitorLoginService.getVisitor();
+                    });
+            }
+
             function errCallback() {}
         }
 
-        function changeShippingAsDefault(id) {
-            delete $scope.visitor["billing_address"];
-            delete $scope.visitor["shipping_address"];
-            delete $scope.visitor["password"];
-
-            if (!$scope.useAsDefaultShipping) {
-                $scope.visitor["shipping_address_id"] = "";
-            } else {
-                $scope.visitor["shipping_address_id"] = id;
-            }
-
-            visitorApiService.update($scope.visitor).$promise.then(
-                function(response) {
-                    visitorLoginService.setLogin(response.result);
-                    $scope.visitor = visitorLoginService.getVisitor();
-                }
-            );
-        }
-
-        function changeBillingAsDefault(id) {
-            delete $scope.visitor["billing_address"];
-            delete $scope.visitor["shipping_address"];
-            delete $scope.visitor["password"];
-
-            if (!$scope.useAsDefaultBilling) {
-                $scope.visitor["billing_address_id"] = "";
-            } else {
-                $scope.visitor["billing_address_id"] = id;
-            }
-            visitorApiService.update($scope.visitor).$promise.then(
-                function(response) {
-                    visitorLoginService.setLogin(response.result);
-                    $scope.visitor = visitorLoginService.getVisitor();
-                }
-            );
-        }
-
-        // REFACTOR: Sidebar code
         function isActive(path) {
-            return (activePath === path);
+            return (activePath === path)
         }
+
+        function isDefault(id) {
+            return (id == $scope.visitor.shipping_address_id || id == $scope.visitor.billing_address_id)
+        }
+
     }
 ]);
 
