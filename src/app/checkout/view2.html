@@ -693,7 +693,9 @@
                                     name="method.form"
                                     novalidate>
                                     <div class="well well-cc">
-                                        <div class="form-group form-cc__number">
+
+                                        <div class="form-group form-cc__number"
+                                            ng-class="{'has-error': method.form.number.$invalid && method.form.number.$touched}">
                                             <label for="paymentCardNumber">Card Number</label>
                                             <input type="text"
                                                 class="form-control"
@@ -703,13 +705,28 @@
                                                 cc-format
                                                 cc-eager-type
                                                 ng-model="method.cc.number"
-                                                required>
+                                                required />
                                         </div>
+
+                                        <div class="form-group form-cc__cvc"
+                                            ng-class="{'has-error': method.form.cvc.$invalid && method.form.cvc.$touched}">
+                                            <label for="paymentCardCVC">CVC</label>
+                                            <input type="text"
+                                                class="form-control"
+                                                id="paymentCardCVC"
+                                                name="cvc"
+                                                cc-cvc
+                                                ng-model="method.cc.cvc"
+                                                required />
+                                        </div>
+
+                                        <div class="clearfix"></div>
 
                                         <div class="form-cc__exp">
                                             <label>Expiration</label>
                                             <div class="">
-                                                <div class="form-group form-cc__exp-mm">
+                                                <div class="form-group form-cc__exp-mm"
+                                                    ng-class="{'has-error': method.form.expire_month.$invalid && method.form.expire_month.$touched}">
                                                     <label for="" class="sr-only">Expiration Month</label>
                                                     <select class="form-control"
                                                         ng-model="method.cc.expire_month"
@@ -733,7 +750,8 @@
 
                                                 <div class="form-group form-cc__exp-divider">/</div>
 
-                                                <div class="form-group form-cc__exp-yy">
+                                                <div class="form-group form-cc__exp-yy"
+                                                    ng-class="{'has-error': method.form.expire_year.$invalid && method.form.expire_year.$touched}">
                                                     <label for="" class="sr-only">Expiration Year</label>
                                                     <select class="form-control"
                                                         ng-model="method.cc.expire_year"
@@ -765,26 +783,32 @@
 
                                     <!-- error messaging -->
                                     <div class="has-error">
-                                        <div class="help-block">
+                                        <ul class="help-block">
 
                                             <!-- number errors -->
-                                            <div ng-show="method.form.number.$invalid && (method.form.submited || method.form.number.$touched)">
+                                            <li ng-show="method.form.number.$invalid && (method.form.submited || method.form.number.$touched)">
                                                 <div ng-show="method.form.number.$error.required">
                                                     Card number is required.
                                                 </div>
                                                 <div ng-show="method.form.number.$error.ccNumber">
                                                     The card number you entered is invalid.
                                                 </div>
-                                            </div>
+                                            </li>
 
                                             <!-- expiry errors -->
-                                            <div ng-show="method.form.expire_month.$invalid && (method.form.submited || method.form.expire_month.$touched)">
+                                            <li ng-show="method.form.expire_month.$invalid && (method.form.submited || method.form.expire_month.$touched)">
                                                 Expiration month is required.
-                                            </div>
-                                            <div ng-show="method.form.expire_year.$invalid && (method.form.submited || method.form.expire_year.$touched)">
+                                            </li>
+                                            <li ng-show="method.form.expire_year.$invalid && (method.form.submited || method.form.expire_year.$touched)">
                                                 Expiration year is required.
-                                            </div>
-                                        </div>
+                                            </li>
+
+                                            <!-- cvc errors -->
+                                            <li ng-show="method.form.cvc.$invalid && (method.form.submited || method.form.cvc.$touched)">
+                                                <div ng-show="method.form.cvc.$error.required">Security code is required.</div>
+                                                <div ng-show="method.form.cvc.$error.ccCvc">The security does not have the correct number of digits.</div>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </form>
                             </div>

@@ -54,6 +54,16 @@ $panel-checkout-step-heading-bg: $panel-default-heading-bg;
         font-weight: normal;
     }
 
+    @media (min-width: $screen-sm-min) {
+        .form-cc__number {
+            float: left;
+        }
+        .form-cc__cvc {
+            float: right;
+            width: 110px;
+        }
+    }
+
     .form-cc__exp {
         .form-group {
             display: inline-block;
