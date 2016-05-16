@@ -1,5 +1,5 @@
 /**
- *  Angular "checkoutModule" declaration
+ *  Angular 'checkoutModule' declaration
  */
 angular.module('checkoutModule', [
     'ngRoute',
@@ -10,35 +10,32 @@ angular.module('checkoutModule', [
     'credit-cards',
 ])
 
-.constant("ONEPAGE_URL", "/spcheckout")
-.constant("ACCORDION_URL", "/checkout")
+.constant('ONEPAGE_URL', '/spcheckout')
+.constant('ACCORDION_URL', '/checkout')
 
 .config([
-    "$routeProvider",
-    "$locationProvider",
-    "ONEPAGE_URL",
-    "ACCORDION_URL",
+    '$routeProvider', '$locationProvider', 'ONEPAGE_URL', 'ACCORDION_URL',
     function ($routeProvider, $locationProvider, ONEPAGE_URL, ACCORDION_URL) {
         $routeProvider
             .when(ONEPAGE_URL, {
-                title: "Checkout",
-                templateUrl: "/views/checkout/view.html",
-                controller: "checkoutOnepageController"
+                title: 'Checkout',
+                templateUrl: '/views/checkout/view.html',
+                controller: 'checkoutOnepageController'
             })
             .when(ACCORDION_URL, {
-                title: "Checkout",
-                templateUrl: "/views/checkout/view2.html",
-                controller: "checkoutAccordionController"
+                title: 'Checkout',
+                templateUrl: '/views/checkout/view2.html',
+                controller: 'checkoutAccordionController'
             })
             .when('/checkout/success/:orderId', {
-                title: "Checkout Success",
-                templateUrl: "/views/checkout/order-confirmation.html",
-                controller: "checkoutOrderConfirmationController"
+                title: 'Checkout Success',
+                templateUrl: '/views/checkout/order-confirmation.html',
+                controller: 'checkoutOrderConfirmationController'
             })
             .when('/checkout/success', {
-                title: "Checkout Success",
-                templateUrl: "/views/checkout/order-confirmation.html",
-                controller: "checkoutOrderConfirmationController"
+                title: 'Checkout Success',
+                templateUrl: '/views/checkout/order-confirmation.html',
+                controller: 'checkoutOrderConfirmationController'
             });
     }
 ]);
