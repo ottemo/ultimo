@@ -1,14 +1,7 @@
 <div class="home">
 
     <div class="">
-        <div ot-slider>
-            <div ng-repeat="slide in sliderContent track by $index">
-                <a ng-href="{{slide.link}}">
-                    <img class="img-fill"
-                        ng-src="{{slide.img}}" />
-                </a>
-            </div>
-        </div>
+        <div ot-cms-slider name="cms-slider" config="{dots: true}"></div>
     </div>
 
     <div class="home-tagline">
