@@ -1,10 +1,10 @@
-angular.module("checkoutModule")
+angular.module('checkoutModule')
 
-.controller("checkoutOrderConfirmationController", [
-    "$scope",
-    "$routeParams",
-    "$localStorage",
-    "visitorApiService",
+.controller('checkoutConfirmationController', [
+    '$scope',
+    '$routeParams',
+    '$localStorage',
+    'visitorApiService',
     function(
         $scope,
         $routeParams,

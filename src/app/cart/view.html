@@ -1,12 +1,11 @@
-<div class="container"
-    ng-init="init()">
+<div class="container">
 
     <div class="page-header">
         <div class="row">
             <div class="col-sm-8 col-md-6">
                 <h1>Cart</h1>
             </div>
-            <div class="hidden-xs col-sm-4 col-md-6" ng-show="it.getCountItems()">
+            <div class="hidden-xs col-sm-4 col-md-6" ng-show="cart.getCountItems()">
                 <div class="row">
                     <div class="hidden-sm col-md-6">
                         <a class="btn btn-lg btn-block btn-default"
@@ -26,7 +25,7 @@
     </div>
 
     <!-- we do *not* have items in cart -->
-    <div ng-hide="it.getCountItems()">
+    <div ng-hide="cart.getCountItems()">
         <p class="text-center">No items are currently in your cart.</p>
         <p class="text-center">
             <a class="btn btn-lg btn-primary"
@@ -37,7 +36,7 @@
     </div>
 
     <!-- we have items in cart -->
-    <div ng-show="it.getCountItems()">
+    <div ng-show="cart.getCountItems()">
         <!-- xs action -->
         <div class="visible-xs m-b">
             <a class="btn btn-lg btn-block btn-primary"
@@ -47,7 +46,7 @@
         </div>
 
         <!-- product row -->
-        <div ng-repeat="item in it.getItems()">
+        <div ng-repeat="item in cart.getItems()">
 
             <div class="row">
                 <!-- image -->
@@ -124,12 +123,12 @@
             <div class="col-md-6 col-md-push-6">
                 <div class="row cart-footer__items">
                     <div class="col-xs-6">Items in Cart:</div>
-                    <div class="col-xs-6 text-right">{{it.getTotalQuantity()}}</div>
+                    <div class="col-xs-6 text-right">{{cart.getTotalQuantity()}}</div>
                 </div>
 
                 <div class="row m-b cart-footer__subtotal">
                     <div class="col-xs-6">Subtotal:</div>
-                    <div class="col-xs-6 text-right">{{getSubtotal() | currency}}</div>
+                    <div class="col-xs-6 text-right">{{cart.getSubtotal() | currency}}</div>
                 </div>
 
                 <!-- actions -->

@@ -1,24 +1,21 @@
-angular.module("checkoutModule")
+angular.module('checkoutModule')
 
-    .service("checkoutService", [
-        "$q",
-        "$timeout",
-        "$interval",
-        "checkoutApiService",
-        "ONEPAGE_URL",
-        "ACCORDION_URL",
-        function ($q, $timeout, $interval, checkoutApiService, ONEPAGE_URL, ACCORDION_URL) {
+    .service('checkoutService', [
+        '$q',
+        '$timeout',
+        '$interval',
+        'checkoutApiService',
+        function ($q, $timeout, $interval, checkoutApiService) {
             // Variables
-            var checkout, allowedShippingMethods, allowedPaymentMethods, defaultType;
+            var checkout, allowedShippingMethods, allowedPaymentMethods;
 
             // Functions
-            var init, getUrl, getType, update, loadShippingMethods, loadPaymentMethods,
+            var init, update, loadShippingMethods, loadPaymentMethods,
                 saveBillingAddress, saveShippingAddress, saveShippingMethod, savePaymentMethod, discountApply, discountNeglect,
                 getCheckout, getAllowedPaymentMethods, getAllowedShippingMethods, saveAdditionalInfo, getAllowedGuestCheckout,
                 getMinimalCostShippingMethods;
 
             checkout = {};
-            defaultType = "accordion";
 
             loadShippingMethods = function () {
                 var defer = $q.defer();
@@ -65,6 +62,12 @@ angular.module("checkoutModule")
                 allowedPaymentMethods = [];
                 checkoutApiService.paymentMethods().$promise.then(function (response) {
                     allowedPaymentMethods = response.result || [];
+
+                    // Flag methods that have a credit card form
+                    angular.forEach(allowedPaymentMethods, function(method){
+                        method.isCreditCard = method.Type.split('_').indexOf('cc') >= 0;
+                    });
+
                     defer.resolve(allowedPaymentMethods);
                 });
 
@@ -185,14 +188,6 @@ angular.module("checkoutModule")
                 return checkoutApiService.discountNeglect(data).$promise;
             };
 
-            getUrl = function () {
-                return ("onepage" == getType()) ? ONEPAGE_URL : ACCORDION_URL;
-            };
-
-            getType = function () {
-                return 'accordion';
-            };
-
             getCheckout = function () {
                 return checkout;
             };
@@ -232,8 +227,6 @@ angular.module("checkoutModule")
             return {
                 "init": init,
                 "update": update,
-                "getUrl": getUrl,
-                "getType": getType,
                 "getAllowedPaymentMethods": getAllowedPaymentMethods,
                 "getAllowedShippingMethods": getAllowedShippingMethods,
                 "loadShippingMethods": loadShippingMethods,

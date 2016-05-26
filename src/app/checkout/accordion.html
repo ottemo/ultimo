@@ -967,12 +967,12 @@
                         <h3 class="panel-title">Order summary</h3>
                     </div>
                     <div class="panel-body">
-                        <div ng-controller="cartListController">
+                        <div>
                             <div class="product row"
-                                ng-repeat="item in it.getItems()">
+                                ng-repeat="item in cart.getItems()">
 
                                 <div class="col-md-4">
-                                    <img class="img-responsive"
+                                    <img class="img-thumbnail"
                                         ng-src="{{ item.product.image.thumb }}"
                                         err-src="placeholder.png"
                                         alt="{{item.product.name}}" />
@@ -980,30 +980,29 @@
 
                                 <div class="col-md-8">
                                     <!-- name -->
-                                    <h4>{{item.product.name}}</h4>
+                                    <h4 class="m-t-0">{{item.product.name}}</h4>
 
                                     <!-- description -->
                                     <ul class="list-unstyled"
                                         ng-if="item.hasOptions">
-                                        <li ng-repeat="(key, value) in item.options">
-                                            {{key}}
+                                        <li ng-repeat="(label, value) in item.options">
+                                            {{label}}:
                                             <span ng-switch="item.product.options[key].type">
                                                 <span ng-switch-when="date">{{value | date}}</span>
-                                            <span ng-switch-default>{{productService.getOptStr(value)}}</span>
+                                            <span ng-switch-default>{{value | productOptionString}}</span>
                                             </span>
                                         </li>
                                     </ul>
 
                                     <div class="row">
-                                        <!-- qty -->
                                         <div class="col-xs-6">Qty:{{item.qty}}</div>
-
-                                        <!-- price -->
                                         <div class="price text-right col-xs-6">{{item.product.price * item.qty | currency}}</div>
                                     </div>
                                 </div>
+
+                                <div class="clearfix"></div>
+                                <hr />
                             </div>
-                            <hr>
                         </div>
                         <div>
                             <table class="table-checkout-totals-side">
@@ -1036,5 +1035,4 @@
     </div>
 </div>
 
-<ng-include src="'/views/checkout/modal/checkout-purchase-success.html'"></ng-include>
 <ng-include src="'/views/checkout/modal/redirect.html'"></ng-include>

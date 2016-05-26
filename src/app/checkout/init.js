@@ -1,41 +1,37 @@
 /**
- *  Angular 'checkoutModule' declaration
+ *  checkoutModule
  */
 angular.module('checkoutModule', [
     'ngRoute',
     'ngResource',
     'ngStorage',
     'coreModule',
+
+    'cartModule',
     'giftCardsModule',
     'credit-cards',
+    'visitorModule',
 ])
 
-.constant('ONEPAGE_URL', '/spcheckout')
-.constant('ACCORDION_URL', '/checkout')
-
 .config([
-    '$routeProvider', '$locationProvider', 'ONEPAGE_URL', 'ACCORDION_URL',
-    function ($routeProvider, $locationProvider, ONEPAGE_URL, ACCORDION_URL) {
+    '$routeProvider', '$locationProvider',
+    function($routeProvider, $locationProvider) {
         $routeProvider
-            .when(ONEPAGE_URL, {
+            .when('/checkout', {
                 title: 'Checkout',
-                templateUrl: '/views/checkout/view.html',
-                controller: 'checkoutOnepageController'
-            })
-            .when(ACCORDION_URL, {
-                title: 'Checkout',
-                templateUrl: '/views/checkout/view2.html',
+                templateUrl: '/views/checkout/accordion.html',
                 controller: 'checkoutAccordionController'
             })
             .when('/checkout/success/:orderId', {
                 title: 'Checkout Success',
-                templateUrl: '/views/checkout/order-confirmation.html',
-                controller: 'checkoutOrderConfirmationController'
+                templateUrl: '/views/checkout/confirmation.html',
+                controller: 'checkoutConfirmationController'
             })
             .when('/checkout/success', {
                 title: 'Checkout Success',
-                templateUrl: '/views/checkout/order-confirmation.html',
-                controller: 'checkoutOrderConfirmationController'
+                templateUrl: '/views/checkout/confirmation.html',
+                controller: 'checkoutConfirmationController'
             });
     }
 ]);
+
