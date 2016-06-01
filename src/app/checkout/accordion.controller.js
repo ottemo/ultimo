@@ -9,8 +9,6 @@ angular.module('checkoutModule')
     'checkoutApiService',
     'visitorLoginService',
     'cartService',
-    'coreStateService',
-    'coreCountryService',
     'commonUtilService',
     'checkoutService',
     'giftCardsService',
@@ -23,8 +21,6 @@ angular.module('checkoutModule')
         checkoutApiService,
         visitorLoginService,
         cartService,
-        coreStateService,
-        coreCountryService,
         commonUtilService,
         checkoutService,
         giftCardsService
@@ -49,19 +45,14 @@ angular.module('checkoutModule')
 
         $scope.save = save;
 
-        // Guest user step
-        $scope.subAdditionalInfo = false; // REFACTOR: use the form.$submited prop
-
         // Addresses
-        $scope.countries = coreCountryService;
-        $scope.states = coreStateService;
-        $scope.useAsBilling = true;
+        $scope.addressSettings = { 
+            useShippingAsBilling: true 
+        };
         $scope.newBilling = newBilling;
         $scope.newShipping = newShipping;
         $scope.choiceBilling = choiceBilling;
         $scope.choiceShipping = choiceShipping;
-        $scope.subBillingAddress = false;  // REFACTOR: use the form.$submited prop
-        $scope.subShippingAddress = false; // REFACTOR: use the form.$submited prop
 
         // Shipping method
         $scope.shippingMethod = {
@@ -74,7 +65,6 @@ angular.module('checkoutModule')
             selected: false
         };
         $scope.paymentMethods = [];    // REFACTOR: nest under paymentMethod as options
-        $scope.subPaymentForm = false; // REFACTOR: use the form.$submited prop
 
         // Discounts and Giftcards
         $scope.discounts = {
@@ -194,13 +184,11 @@ angular.module('checkoutModule')
         }
 
         function newBilling() {
-            // Sets submitted billing form in false
-            $scope.subBillingAddress = false;
             // Sets a flag of form is not valid
             isValidSteps.billingAddress = false;
             // Initialise address by default
             $scope.checkout.billing_address = getDefaultAddress();
-            $scope.useAsBilling = false;
+            $scope.addressSettings.useShippingAsBilling = false;
 
             for (var field in $scope.checkout.billing_address) {
                 if ($scope.billingAddress.hasOwnProperty(field)) {
@@ -211,8 +199,6 @@ angular.module('checkoutModule')
         }
 
         function newShipping() {
-            // Sets submitted shipping form in false
-            $scope.subShippingAddress = false;
             // Sets a flag of form is not valid
             isValidSteps.shippingAddress = false;
             // Initialise address by default
@@ -275,7 +261,7 @@ angular.module('checkoutModule')
                                     $scope.shippingMethod.selected = $scope.shippingMethods[0]; // select first option
                                 });
                                 // sets billing address
-                                if ($scope.useAsBilling) {
+                                if ($scope.addressSettings.useShippingAsBilling) {
                                     $scope.choiceBilling(response.result);
                                 }
                             }
@@ -298,7 +284,7 @@ angular.module('checkoutModule')
                                     $scope.shippingMethod.selected = $scope.shippingMethods[0]; // select first option
                                 });
                                 // sets billing address
-                                if ($scope.useAsBilling) {
+                                if ($scope.addressSettings.useShippingAsBilling) {
                                     $scope.choiceBilling(response.result._id);
                                 }
                             } else {
@@ -342,7 +328,6 @@ angular.module('checkoutModule')
             };
 
             var actionBillingAddress = function () {
-                $scope.subBillingAddress = true;
                 if ($scope.billingAddress.$valid) {
                     isValidSteps.billingAddress = true;
 
@@ -370,10 +355,6 @@ angular.module('checkoutModule')
             };
 
             var actionShippingAddress = function () {
-
-                // REFACTOR: document / investigate what this is for
-                $scope.subShippingAddress = true;
-
                 if ($scope.shippingAddress.$valid) {
                     isValidSteps.shippingAddress = true;
 
@@ -389,7 +370,7 @@ angular.module('checkoutModule')
                                 $scope.shippingMethod.selected = $scope.shippingMethods[0];
                             });
 
-                            if ($scope.useAsBilling) {
+                            if ($scope.addressSettings.useShippingAsBilling) {
                                 checkoutService.saveBillingAddress($scope.checkout.shipping_address)
                                 .then(function (response) {
                                     if (response.error === null) {
@@ -428,7 +409,6 @@ angular.module('checkoutModule')
             };
 
             var actionPaymentMethod = function () {
-                $scope.subPaymentForm = true;
                 isValidSteps.paymentMethod = false;
 
                 // Zero dollar, proceed
@@ -443,11 +423,7 @@ angular.module('checkoutModule')
                     if ($scope.paymentMethod.selected.isCreditCard) {
 
                         var payment = getPaymentInfo();
-
-                        // REFACTOR: we are using our own proprietary "submited" instead
-                        // of angular's form.$submitted https://docs.angularjs.org/guide/forms
-                        // also I'm not entirely convinced we use this properly in the view
-                        payment.method.form.submited = true;
+                        payment.method.form.$submitted = true;
 
                         if (payment.method.form.$valid) {
                             // Save off the method name
@@ -485,9 +461,6 @@ angular.module('checkoutModule')
 
             var actionCustomerAdditionalInfo = function () {
                 // isValidSteps isn't used for this step
-                // REFACTOR: investigate / document what this is for
-                $scope.subAdditionalInfo = true;
-
                 if ($scope.isGuestCheckout && $scope.customerInfo.$valid) {
                     checkoutService.saveAdditionalInfo({
                         'customer_email': $scope.checkout.info.customer_email,
@@ -540,10 +513,6 @@ angular.module('checkoutModule')
                     status: true,
                     message: '',
                 };
-                $scope.subBillingAddress = true;
-                $scope.subShippingAddress = true;
-                $scope.subPaymentForm = true;
-                $scope.subAdditionalInfo = true;
 
                 getErrorMsg = function (step) {
                     /*jshint maxcomplexity:6 */

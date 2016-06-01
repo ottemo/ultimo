@@ -2,7 +2,7 @@
     ng-submit="formCtrl.$valid && onSubmit()"
     novalidate>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-sm-6">
 
             <!--First name-->
             <div class="form-group"
@@ -13,6 +13,7 @@
                     id="{{uid}}.first_name"
                     ng-model="formModel.first_name"
                     name="first_name"
+                    ng-disabled="formDisabled"
                     required />
 
                 <div class="help-block"
@@ -30,6 +31,7 @@
                     id="{{uid}}.last_name"
                     ng-model="formModel.last_name"
                     name="last_name"
+                    ng-disabled="formDisabled"
                     required />
 
                 <div ng-show="hasErr('last_name')"
@@ -45,7 +47,8 @@
                     class="form-control"
                     id="{{uid}}.company"
                     name="company"
-                    ng-model="formModel.company">
+                    ng-model="formModel.company"
+                    ng-disabled="formDisabled">
             </div>
 
             <!--Address 1-->
@@ -57,6 +60,7 @@
                     id="{{uid}}.address_line1"
                     name="address_line1"
                     ng-model="formModel.address_line1"
+                    ng-disabled="formDisabled"
                     required>
 
                 <div class="help-block"
@@ -72,11 +76,12 @@
                     class="form-control"
                     name="address_line2"
                     id="{{uid}}.address_line2"
-                    ng-model="formModel.address_line2">
+                    ng-model="formModel.address_line2"
+                    ng-disabled="formDisabled">
             </div>
 
         </div>
-        <div class="col-md-6">
+        <div class="col-sm-6">
 
             <!--Country-->
             <div class="form-group"
@@ -89,7 +94,8 @@
                         name="country"
                         ng-model="formModel.country"
                         required
-                        ng-options="c.Code as c.Name for c in countries">
+                        ng-options="c.Code as c.Name for c in countries"
+                        ng-disabled="formDisabled">
                     </select>
                 </div>
 
@@ -108,6 +114,7 @@
                     id="{{uid}}.city"
                     name="city"
                     ng-model="formModel.city"
+                    ng-disabled="formDisabled"
                     required>
 
                 <div class="help-block"
@@ -130,6 +137,7 @@
                     required
                     ng-model="formModel.state"
                     ng-options="c.Code as c.Name for c in states"
+                    ng-disabled="formDisabled"
                     ng-show="formModel.country === 'US'">
                 </select>
 
@@ -139,6 +147,7 @@
                     class="form-control"
                     required
                     ng-model="formModel.state"
+                    ng-disabled="formDisabled"
                     ng-show="formModel.country !== 'US'">
 
                 <div class="help-block"
@@ -156,6 +165,7 @@
                     name="zip_code"
                     type="text"
                     ng-model="formModel.zip_code"
+                    ng-disabled="formDisabled"
                     ot-zip-code
                     ot-zip-code-linked-country="{{formModel.country}}"
                     required>
@@ -176,6 +186,7 @@
                     id="{{uid}}.phone"
                     ng-model="formModel.phone"
                     name="phone"
+                    ng-disabled="formDisabled"
                     ot-telephone
                     ot-telephone-linked-country="{{formModel.country}}"
                     required />

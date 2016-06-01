@@ -7,6 +7,7 @@ angular.module('coreModule')
             scope: {
                 formCtrl: '=',
                 formModel: '=',
+                formDisabled: '=',
                 onSubmit: '&'
             },
             restrict: 'E',

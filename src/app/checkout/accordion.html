@@ -59,7 +59,7 @@
                                     </div>
                                     <!-- Email -->
                                     <div class="form-group"
-                                        ng-class="{ 'has-error' : customerInfo.email.$invalid && (subAdditionalInfo || customerInfo.email.$touched) }">
+                                        ng-class="{ 'has-error' : customerInfo.email.$invalid && (customerInfo.$submitted || customerInfo.email.$touched) }">
                                         <label for="customerInputEmail">Email*</label>
                                         <input type="email"
                                             class="form-control"
@@ -70,7 +70,7 @@
 
                                         <!-- error message -->
                                         <div class="help-block"
-                                            ng-show="customerInfo.email.$invalid && (subAdditionalInfo || customerInfo.email.$touched)">
+                                            ng-show="customerInfo.email.$invalid && (customerInfo.$submitted || customerInfo.email.$touched)">
                                             <div ng-show="customerInfo.email.$error.required">This field is required.</div>
                                             <div ng-show="customerInfo.email.$error.email">This email address is not properly formatted.</div>
                                         </div>
@@ -119,200 +119,11 @@
                     <div class="accordion">
 
                         <!-- Form to add shipping addresses -->
-                        <form name="shippingAddress"
-                            ng-submit="next('shippingAddress')"
-                            novalidate>
-                            <div class="row">
-                                <div class="col-sm-6">
-
-                                    <!--First name-->
-                                    <div class="form-group"
-                                        ng-class="{ 'has-error' : shippingAddress.first_name.$invalid && ( subShippingAddress || shippingAddress.first_name.$touched) }">
-                                        <label for="shippingInputFirstName">First Name*</label>
-                                        <input type="text"
-                                            class="form-control"
-                                            id="shippingInputFirstName"
-                                            name="first_name"
-                                            ng-model="checkout.shipping_address.first_name"
-                                            required
-                                            ng-disabled="checkout.shipping_address._id">
-
-                                        <div class="help-block"
-                                            ng-show="shippingAddress.first_name.$invalid && ( subShippingAddress || shippingAddress.first_name.$touched)">
-                                            This field is required.
-                                        </div>
-                                    </div>
-
-                                    <!--Last name-->
-                                    <div class="form-group"
-                                        ng-class="{ 'has-error' : shippingAddress.last_name.$invalid && ( subShippingAddress || shippingAddress.last_name.$touched) }">
-                                        <label for="shippingInputLastName">Last Name*</label>
-                                        <input type="text"
-                                            class="form-control"
-                                            id="shippingInputLastName"
-                                            name="last_name"
-                                            required
-                                            ng-model="checkout.shipping_address.last_name"
-                                            ng-disabled="checkout.shipping_address._id">
-
-                                        <div class="help-block"
-                                            ng-show="shippingAddress.last_name.$invalid && ( subShippingAddress || shippingAddress.last_name.$touched)">
-                                            This field is required.
-                                        </div>
-                                    </div>
-
-                                    <!--Company-->
-                                    <div class="form-group">
-                                        <label for="shippingInputCompany">Company Name</label>
-                                        <input type="text"
-                                            class="form-control"
-                                            id="shippingInputCompany"
-                                            name="company"
-                                            ng-model="checkout.shipping_address.company"
-                                            ng-disabled="checkout.shipping_address._id">
-                                    </div>
-
-                                    <!--Address 1-->
-                                    <div class="form-group"
-                                        ng-class="{ 'has-error' : shippingAddress.address1.$invalid && ( subShippingAddress || shippingAddress.address1.$touched) }">
-                                        <label for="shippingInputAddress">Address 1*</label>
-                                        <input type="text"
-                                            class="form-control"
-                                            id="shippingInputAddress"
-                                            name="address1"
-                                            ng-model="checkout.shipping_address.address_line1"
-                                            ng-disabled="checkout.shipping_address._id"
-                                            required>
-
-                                        <div class="help-block"
-                                            ng-show="shippingAddress.address1.$invalid && ( subShippingAddress || shippingAddress.address1.$touched)">
-                                            This field is required.
-                                        </div>
-                                    </div>
-
-                                    <!--Address 2-->
-                                    <div class="form-group">
-                                        <label for="shippingInputAddress2">Address 2</label>
-                                        <input type="text"
-                                            class="form-control"
-                                            id="shippingInputAddress2"
-                                            ng-model="checkout.shipping_address.address_line2"
-                                            ng-disabled="checkout.shipping_address._id">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-
-                                    <!--Country-->
-                                    <div class="form-group"
-                                        ng-class="{ 'has-error' : shippingAddress.country.$invalid && ( subShippingAddress || shippingAddress.country.$touched) }">
-                                        <label for="shippingAddressCity">Country*</label>
-
-                                        <select name="country"
-                                            class="form-control"
-                                            ng-model="checkout.shipping_address.country"
-                                            required
-                                            ng-options="c.Code as c.Name for c in countries"
-                                            ng-disabled="checkout.shipping_address._id">
-                                        </select>
-
-                                        <div class="help-block"
-                                            ng-show="shippingAddress.country.$invalid && ( subShippingAddress || shippingAddress.country.$touched)">
-                                            This field is required.
-                                        </div>
-                                    </div>
-
-                                    <!--City-->
-                                    <div class="form-group"
-                                        ng-class="{ 'has-error' : shippingAddress.city.$invalid && ( subShippingAddress || shippingAddress.city.$touched) }">
-                                        <label for="shippingAddressCity">City*</label>
-                                        <input type="text"
-                                            id="shippingAddressCity"
-                                            class="form-control"
-                                            name="city"
-                                            ng-model="checkout.shipping_address.city"
-                                            ng-disabled="checkout.shipping_address._id"
-                                            required>
-
-                                        <div class="help-block"
-                                            ng-show="shippingAddress.city.$invalid && ( subShippingAddress || shippingAddress.city.$touched)">
-                                            This field is required.
-                                        </div>
-                                    </div>
-
-                                    <!--State-->
-                                    <div class="form-group"
-                                        ng-class="{ 'has-error' : shippingAddress.state.$invalid && ( subShippingAddress || shippingAddress.state.$touched) }">
-                                        <label for="shippingAddressCity">
-                                            {{ checkout.shipping_address.country === 'US' ? 'State*' : 'State / Province / Region *'}}
-                                        </label>
-
-                                        <!-- US: States -->
-                                        <select name="state"
-                                            class="form-control"
-                                            required
-                                            ng-model="checkout.shipping_address.state"
-                                            ng-options="c.Code as c.Name for c in states"
-                                            ng-disabled="checkout.shipping_address._id"
-                                            ng-show="checkout.shipping_address.country === 'US'">
-                                        </select>
-
-                                        <!-- NON US: States / Regions -->
-                                        <input type="text"
-                                            name="state"
-                                            class="form-control"
-                                            required
-                                            ng-model="checkout.shipping_address.state"
-                                            ng-show="checkout.shipping_address.country !== 'US'">
-
-                                        <div class="help-block"
-                                            ng-show="shippingAddress.state.$invalid && ( subShippingAddress || shippingAddress.state.$touched)">
-                                            This field is required.
-                                        </div>
-                                    </div>
-
-                                    <!--Zip code-->
-                                    <div class="form-group"
-                                        ng-class="{ 'has-error' : shippingAddress.zip_code.$invalid && (subShippingAddress || shippingAddress.zip_code.$touched) }">
-                                        <label for="shippingAddressZip">Zip / Postal Code*</label>
-                                        <input type="text"
-                                            id="shippingAddressZip"
-                                            class="form-control"
-                                            name="zip_code"
-                                            ng-model="checkout.shipping_address.zip_code"
-                                            ng-disabled="checkout.shipping_address._id"
-                                            ot-zip-code
-                                            ot-zip-code-linked-country="{{checkout.shipping_address.country}}"
-                                            required>
-
-                                        <div class="help-block"
-                                            ng-show="shippingAddress.zip_code.$invalid && (subShippingAddress || shippingAddress.zip_code.$touched)">
-                                            <div ng-show="shippingAddress.zip_code.$error.required">This field is required.</div>
-                                            <div ng-show="shippingAddress.zip_code.$error.otZipCode">The provided zipcode is in an invalid format.</div>
-                                        </div>
-                                    </div>
-
-                                    <!--Phone-->
-                                    <div class="form-group"
-                                        ng-class="{ 'has-error' : shippingAddress.phone.$invalid && (subShippingAddress || shippingAddress.phone.$touched) }">
-                                        <label for="shippingAddressPhone">Phone*</label>
-                                        <input class="form-control"
-                                            type="text"
-                                            id="shippingAddressPhone"
-                                            name="phone"
-                                            ng-model="checkout.shipping_address.phone"
-                                            ng-disabled="checkout.shipping_address._id"
-                                            ot-telephone
-                                            ot-telephone-linked-country="{{checkout.shipping_address.country}}"
-                                            required>
-
-                                        <div class="help-block"
-                                            ng-show="shippingAddress.phone.$invalid && (subShippingAddress || shippingAddress.phone.$touched)">
-                                            <div ng-show="shippingAddress.phone.$error.required">This field is required.</div>
-                                            <div ng-show="shippingAddress.phone.$error.otTelephone">The telephone provided is in an invalid format.</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <ot-address-form
+                            form-ctrl="shippingAddress"
+                            form-model="checkout.shipping_address"
+                            form-disabled="checkout.shipping_address._id"
+                            on-submit="next('shippingAddress')">
 
                             <!-- shipping notes -->
                             <div class="form-group">
@@ -336,7 +147,7 @@
                                         <input type="checkbox"
                                             name="shippingUseAsBilling"
                                             id="shippingUseAsBilling"
-                                            ng-model="useAsBilling"> Use for billing address as well
+                                            ng-model="addressSettings.useShippingAsBilling"> Use for billing address as well
                                     </label>
                                 </div>
                             </div>
@@ -357,7 +168,7 @@
                                     Next step
                                 </button>
                             </div>
-                        </form>
+                        </ot-address-form>
                     </div>
                 </div>
             </div>
@@ -389,200 +200,11 @@
                     style="display:none">
                     <div class="accordion">
                         <!-- Form to add billing addresses -->
-                        <form name="billingAddress"
-                            ng-submit="next('billingAddress')"
-                            novalidate>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <!--First name-->
-                                    <div class="form-group"
-                                        ng-class="{ 'has-error' : billingAddress.first_name.$invalid && (subBillingAddress || billingAddress.first_name.$touched) }">
-                                        <label for="billingInputFirstName">First Name*</label>
-                                        <input type="text"
-                                            class="form-control"
-                                            id="billingInputFirstName"
-                                            name="first_name"
-                                            required
-                                            ng-model="checkout.billing_address.first_name"
-                                            ng-disabled="billing_address._id || useAsBilling">
-
-                                        <div class="help-block"
-                                            ng-show="billingAddress.first_name.$invalid && (subBillingAddress || billingAddress.first_name.$touched)">
-                                            This field is required.
-                                        </div>
-                                    </div>
-
-                                    <!--Last name-->
-                                    <div class="form-group"
-                                        ng-class="{ 'has-error' : billingAddress.last_name.$invalid && (subBillingAddress || billingAddress.last_name.$touched) }">
-                                        <label for="billingInputLastName">Last Name*</label>
-                                        <input type="text"
-                                            class="form-control"
-                                            id="billingInputLastName"
-                                            name="last_name"
-                                            required
-                                            ng-model="checkout.billing_address.last_name"
-                                            ng-disabled="billing_address._id || useAsBilling">
-
-                                        <div class="help-block"
-                                            ng-show="billingAddress.last_name.$invalid && (subBillingAddress || billingAddress.last_name.$touched)">
-                                            This field is required.
-                                        </div>
-                                    </div>
-
-                                    <!--Company-->
-                                    <div class="form-group">
-                                        <label for="billingInputCompany">Company Name</label>
-                                        <input type="text"
-                                            class="form-control"
-                                            id="billingInputCompany"
-                                            name="company"
-                                            ng-model="checkout.billing_address.company"
-                                            ng-disabled="checkout.billing_address._id || useAsBilling">
-                                    </div>
-
-                                    <!--Address 1-->
-                                    <div class="form-group"
-                                        ng-class="{ 'has-error' : billingAddress.address1.$invalid && (subBillingAddress || billingAddress.address1.$touched) }">
-                                        <label for="billingInputAddress">Address 1*</label>
-                                        <input type="text"
-                                            class="form-control"
-                                            id="billingInputAddress"
-                                            name="address1"
-                                            ng-model="checkout.billing_address.address_line1"
-                                            ng-disabled="checkout.billing_address._id || useAsBilling"
-                                            required>
-
-                                        <div class="help-block"
-                                            ng-show="billingAddress.address1.$invalid && (subBillingAddress || billingAddress.address1.$touched)">
-                                            This field is required.
-                                        </div>
-                                    </div>
-
-                                    <!--Address 2-->
-                                    <div class="form-group">
-                                        <label for="billingInputAddress2">Address 2</label>
-                                        <input type="text"
-                                            class="form-control"
-                                            id="billingInputAddress2"
-                                            ng-model="checkout.billing_address.address_line2"
-                                            ng-disabled="checkout.billing_address._id || useAsBilling">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-
-                                    <!--Country-->
-                                    <div class="form-group"
-                                        ng-class="{ 'has-error' : billingAddress.country.$invalid && (subBillingAddress || billingAddress.country.$touched) }">
-                                        <label for="billingAddressCity">Country*</label>
-
-                                        <select name="country"
-                                            class="form-control"
-                                            ng-model="checkout.billing_address.country"
-                                            required
-                                            ng-options="c.Code as c.Name for c in countries"
-                                            ng-disabled="checkout.billing_address._id || useAsBilling">
-                                        </select>
-
-                                        <div class="help-block"
-                                            ng-show="billingAddress.country.$invalid && (subBillingAddress || billingAddress.country.$touched)">
-                                            This field is required.
-                                        </div>
-                                    </div>
-
-                                    <!--City-->
-                                    <div class="form-group"
-                                        ng-class="{ 'has-error' : billingAddress.city.$invalid && (subBillingAddress || billingAddress.city.$touched) }">
-                                        <label for="billingAddressCity">City*</label>
-                                        <input type="text"
-                                            class="form-control"
-                                            id="billingAddressCity"
-                                            name="city"
-                                            ng-model="checkout.billing_address.city"
-                                            ng-disabled="checkout.billing_address._id || useAsBilling"
-                                            required>
-
-                                        <div class="help-block"
-                                            ng-show="billingAddress.city.$invalid && (subBillingAddress || billingAddress.city.$touched)">
-                                            This field is required.
-                                        </div>
-                                    </div>
-
-                                    <!--State-->
-                                    <div class="form-group"
-                                        ng-class="{ 'has-error' : billingAddress.state.$invalid && (subBillingAddress || billingAddress.state.$touched) }">
-                                        <label for="billingAddressCity">
-                                            {{ checkout.billing_address.country === 'US' ? 'State*' : 'State / Province / Region *'}}
-                                        </label>
-
-
-                                        <!-- US: States -->
-                                        <select name="state"
-                                            class="form-control"
-                                            ng-model="checkout.billing_address.state"
-                                            required
-                                            ng-options="c.Code as c.Name for c in states"
-                                            ng-disabled="checkout.billing_address._id || useAsBilling"
-                                            ng-show="checkout.billing_address.country === 'US'">
-                                        </select>
-
-                                        <!-- NON US: States / Regions -->
-                                        <input type="text"
-                                            name="state"
-                                            class="form-control"
-                                            required
-                                            ng-model="checkout.billing_address.state"
-                                            ng-show="checkout.billing_address.country !== 'US'">
-
-                                        <div class="help-block"
-                                            ng-show="billingAddress.state.$invalid && (subBillingAddress || billingAddress.state.$touched)">
-                                            This field is required.
-                                        </div>
-                                    </div>
-
-                                    <!--Zip code-->
-                                    <div class="form-group"
-                                        ng-class="{ 'has-error' : billingAddress.zip_code.$invalid && (subBillingAddress || billingAddress.zip_code.$touched) }">
-                                        <label for="billingAddressZip">Zip / Postal Code*</label>
-                                        <input type="text"
-                                            id="billingAddressZip"
-                                            class="form-control"
-                                            name="zip_code"
-                                            ng-model="checkout.billing_address.zip_code"
-                                            ng-disabled="billing_address._id || useAsBilling"
-                                            ot-zip-code
-                                            ot-zip-code-linked-country="{{checkout.billing_address.country}}"
-                                            required>
-
-                                        <div class="help-block"
-                                            ng-show="billingAddress.zip_code.$invalid && (subBillingAddress || billingAddress.zip_code.$touched)">
-                                            <div ng-show="billingAddress.zip_code.$error.required">This field is required.</div>
-                                            <div ng-show="billingAddress.zip_code.$error.otZipCode">Your zipcode is in an invalid format.</div>
-                                        </div>
-                                    </div>
-
-                                    <!--Phone-->
-                                    <div class="form-group"
-                                        ng-class="{ 'has-error' : billingAddress.phone.$invalid && (subBillingAddress || billingAddress.phone.$touched) }">
-                                        <label for="billingAddressPhone">Phone*</label>
-                                        <input type="text"
-                                            class="form-control"
-                                            id="billingAddressPhone"
-                                            name="phone"
-                                            ng-model="checkout.billing_address.phone"
-                                            ng-disabled="checkout.billing_address._id"
-                                            ot-telephone
-                                            ot-telephone-linked-country="{{checkout.billing_address.country}}"
-                                            required>
-
-                                        <div class="help-block"
-                                            ng-show="billingAddress.phone.$invalid && (subBillingAddress || billingAddress.phone.$touched)">
-                                            <div ng-show="billingAddress.phone.$error.required">This field is required.</div>
-                                            <div ng-show="billingAddress.phone.$error.otTelephone">The telephone provided is in an invalid format.</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <ot-address-form
+                            form-ctrl="billingAddress"
+                            form-model="checkout.billing_address"
+                            form-disabled="checkout.billing_address._id || addressSettings.useShippingAsBilling"
+                            on-submit="next('billingAddress')">
 
                             <div class="text-center">
                                 <!-- prev step -->
@@ -598,7 +220,7 @@
                                     Next step
                                 </button>
                             </div>
-                        </form>
+                        </ot-address-form>
                     </div>
                 </div>
             </div>
@@ -785,7 +407,7 @@
                                         <ul class="help-block">
 
                                             <!-- number errors -->
-                                            <li ng-show="method.form.number.$invalid && (method.form.submited || method.form.number.$touched)">
+                                            <li ng-show="method.form.number.$invalid && (method.form.$submitted || method.form.number.$touched)">
                                                 <div ng-show="method.form.number.$error.required">
                                                     Card number is required.
                                                 </div>
@@ -795,15 +417,15 @@
                                             </li>
 
                                             <!-- expiry errors -->
-                                            <li ng-show="method.form.expire_month.$invalid && (method.form.submited || method.form.expire_month.$touched)">
+                                            <li ng-show="method.form.expire_month.$invalid && (method.form.$submitted || method.form.expire_month.$touched)">
                                                 Expiration month is required.
                                             </li>
-                                            <li ng-show="method.form.expire_year.$invalid && (method.form.submited || method.form.expire_year.$touched)">
+                                            <li ng-show="method.form.expire_year.$invalid && (method.form.$submitted || method.form.expire_year.$touched)">
                                                 Expiration year is required.
                                             </li>
 
                                             <!-- cvc errors -->
-                                            <li ng-show="method.form.cvc.$invalid && (method.form.submited || method.form.cvc.$touched)">
+                                            <li ng-show="method.form.cvc.$invalid && (method.form.$submitted || method.form.cvc.$touched)">
                                                 <div ng-show="method.form.cvc.$error.required">Security code is required.</div>
                                                 <div ng-show="method.form.cvc.$error.ccCvc">The security does not have the correct number of digits.</div>
                                             </li>
