@@ -41,6 +41,11 @@ angular.module('cartModule')
         }
 
         function update(itemIdx, qty) {
+            qty = parseInt(qty);
+            if (!qty || qty < 1) {
+                qty = 1;
+            }
+
             // TODO: not sure why we are tracking number of requests
             cartService.increaseCountRequest();
             cartService.update(itemIdx, qty);
