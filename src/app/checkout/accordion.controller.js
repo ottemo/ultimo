@@ -46,8 +46,8 @@ angular.module('checkoutModule')
         $scope.save = save;
 
         // Addresses
-        $scope.addressSettings = { 
-            useShippingAsBilling: true 
+        $scope.addressSettings = {
+            useShippingAsBilling: true
         };
         $scope.newBilling = newBilling;
         $scope.newShipping = newShipping;
@@ -102,11 +102,19 @@ angular.module('checkoutModule')
                 getAddresses();
             });
 
+           checkoutService.loadSavedCC().then(function( res ){
+                if (res !== null){
+                    $scope.paymentMethods = $scope.paymentMethods.concat(res);
+                }
+            });
 
             // Load payment methods
             checkoutService.loadPaymentMethods().then(function(methods){
-                $scope.paymentMethods = methods;
+
+                //merge payment methods and tokens;
+                $scope.paymentMethods = methods.concat($scope.paymentMethods);
             });
+
 
             $scope.$emit('add-breadcrumbs', {'label': 'Checkout', 'url': '/checkout'});
         }
@@ -442,6 +450,28 @@ angular.module('checkoutModule')
                                     }
                                 });
                         }
+                    } else if ($scope.paymentMethod.selected.ID){ //if method is saved token
+                        var payment = getPaymentInfo();
+
+                        // Save off the method name
+                        checkoutService.savePaymentMethod({
+                            method: $scope.paymentMethod.selected.Desc
+                        });
+
+                        // Save off the cc form
+                        checkoutService.saveAdditionalInfo({
+                            'cc': {
+                                'id': $scope.paymentMethod.selected.ID
+                                }
+                            }).then(function(resp){
+                                if (resp.result === 'ok') {
+                                    // Update the checkout object and proceed
+                                    isValidSteps.paymentMethod = true;
+                                    info();
+                                    _accordionAnimation(step);
+                                }
+                            });
+
                     } else {
                         // not a cc just continue
                         checkoutService.savePaymentMethod({
@@ -565,6 +595,7 @@ angular.module('checkoutModule')
             };
 
             payment = getPaymentInfo();
+
             if (payment.form !== null && typeof payment.form !== 'undefined') {
                 payment.form.submited = true;
             }

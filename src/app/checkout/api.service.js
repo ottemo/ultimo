@@ -44,6 +44,10 @@ angular.module("checkoutModule")
                     method: "PUT",
                     url: REST_SERVER_URI + "/checkout"
                 },
+                "getSavedCC": {
+                    method: "GET",
+                    url: REST_SERVER_URI + "/visit/tokens"
+                },
                 "submit": {
                     method: "POST",
                     url: REST_SERVER_URI + "/checkout/submit"

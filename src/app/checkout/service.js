@@ -12,7 +12,7 @@ angular.module('checkoutModule')
             // Functions
             var init, update, loadShippingMethods, loadPaymentMethods,
                 saveBillingAddress, saveShippingAddress, saveShippingMethod, savePaymentMethod, discountApply, discountNeglect,
-                getCheckout, getAllowedPaymentMethods, getAllowedShippingMethods, saveAdditionalInfo, getAllowedGuestCheckout,
+                getCheckout, getAllowedPaymentMethods, getAllowedShippingMethods, saveAdditionalInfo, getAllowedGuestCheckout, loadSavedCC, allowedCC,
                 getMinimalCostShippingMethods;
 
             checkout = {};
@@ -71,6 +71,19 @@ angular.module('checkoutModule')
                     defer.resolve(allowedPaymentMethods);
                 });
 
+                return defer.promise;
+            };
+
+            // load saved Credit Cards
+            loadSavedCC = function () {
+                var defer = $q.defer();
+                allowedCC = [];
+
+                checkoutApiService.getSavedCC().$promise.then(function( res ){
+                    allowedCC = res.result;
+
+                    defer.resolve(allowedCC);
+                })
                 return defer.promise;
             };
 
@@ -231,6 +244,7 @@ angular.module('checkoutModule')
                 "getAllowedShippingMethods": getAllowedShippingMethods,
                 "loadShippingMethods": loadShippingMethods,
                 "loadPaymentMethods": loadPaymentMethods,
+                "loadSavedCC": loadSavedCC,
                 "getCheckout": getCheckout,
                 "saveShippingAddress": saveShippingAddress,
                 "saveBillingAddress": saveBillingAddress,
