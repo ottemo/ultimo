@@ -120,10 +120,74 @@ angular.module("commonModule")
             return date;
         };
 
+        /**
+         * Converts product options set from an object to an array
+         * Gets an option key from original object
+         * and assigns key value to the new <key> field in option
+         *
+         * @param options {Object}
+         * @returns {Array}
+         */
+        function processProductOptions(options) {
+            // Iterate over all product options and convert to an array
+            var result = _.map(options, function(option, optionKey) {
+
+                // Add key for each option
+                option.key = optionKey;
+
+                // Iterate over child options
+                option.options = _.map(option.options, function(childOption, childOptionKey) {
+                    // Add a key
+                    childOption.key = childOptionKey;
+
+                    return childOption;
+                });
+
+                // Sort child options
+                option.options = _.sortBy(option.options, 'order');
+
+                // Add a css Class to an option
+                option.cssClass = _.kebabCase('option-' + option.label);
+
+                return option;
+            });
+
+            // Sort the options by the order
+            result = _.sortBy(result, 'order');
+
+            return result;
+        }
+
+        /**
+         * Returns a label of selected product option
+         * @param {Object} option
+         * @returns {string}
+         */
+        function getOptionLabel (option) {
+            // If option is a field return option value
+            if (option.type === 'field') {
+                return option.value;
+
+                // If option is a multi-select return a list of labels
+            } else if (option.type === 'multi_select') {
+                return _.map(option.options, 'label').join(', ');
+
+                // In other cases (select, radio, subscription select)
+            } else {
+
+                // When it's a subscription select there is a full list of child options
+                // So we need to pick up the only one child option which have selected key
+                // And we need the same when it's a regular select or a radio
+                return _.find(option.options, {'key': option.value}).label;
+            }
+        }
+
         return {
-            "clone": cloneObj,
-            "getMessage": getMessage,
-            "getDate": getDate
+            clone: cloneObj,
+            getMessage: getMessage,
+            getDate: getDate,
+            processProductOptions: processProductOptions,
+            getOptionLabel: getOptionLabel
         };
     }
 );

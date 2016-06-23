@@ -38,6 +38,7 @@ angular.module('checkoutModule')
         $scope.cart = cartService;
         $scope.checkout = {};
         $scope.isGuestCheckout = false;
+        $scope.getOptionLabel = commonUtilService.getOptionLabel;
 
         // Accordion navigation
         $scope.back = back;

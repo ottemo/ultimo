@@ -1,8 +1,20 @@
 angular.module('cartModule')
 
 .controller('cartViewController', [
-    '$scope', 'cartService', 'visitorLoginService', 'pdpProductService', '$location',
-    function($scope, cartService, visitorLoginService, pdpProductService, $location) {
+    '$scope',
+    'cartService',
+    'visitorLoginService',
+    'pdpProductService',
+    'commonUtilService',
+    '$location',
+    function(
+        $scope,
+        cartService,
+        visitorLoginService,
+        pdpProductService,
+        commonUtilService,
+        $location
+    ) {
 
         $scope.cart = cartService;
         $scope.remove = remove;
@@ -10,6 +22,7 @@ angular.module('cartModule')
 
         $scope.productService = pdpProductService;
         $scope.qtyOptions = qtyOptions();
+        $scope.getOptionLabel = commonUtilService.getOptionLabel;
 
         activate();
 

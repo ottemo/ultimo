@@ -13,6 +13,8 @@ angular.module("visitorModule")
         $scope.ordersList = [];
         $scope.order = [];
 
+        $scope.getOptionLabel = commonUtilService.getOptionLabel;
+
         $scope.visitor = visitorLoginService.getVisitor();
 
         var activePath = $location.path();

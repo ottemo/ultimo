@@ -525,8 +525,12 @@
                                     <td>
                                         {{item.product.name}}
                                         <ul class="list-unstyled m-b-0">
-                                            <li ng-repeat="(label, value) in item.options">
-                                                {{ label }}: {{ value }}
+                                            <li ng-repeat="option in item.product.options">
+                                                {{option.label}}:
+                                                <span ng-switch="option.type">
+                                                    <span ng-switch-when="date">{{option.value | date}}</span>
+                                                    <span ng-switch-default>{{getOptionLabel(option)}}</span>
+                                                </span>
                                             </li>
                                             <li class="visible-xs">
                                                 Quantity: {{item.qty}}
@@ -606,11 +610,11 @@
                                     <!-- description -->
                                     <ul class="list-unstyled"
                                         ng-if="item.hasOptions">
-                                        <li ng-repeat="(label, value) in item.options">
-                                            {{label}}:
-                                            <span ng-switch="item.product.options[key].type">
-                                                <span ng-switch-when="date">{{value | date}}</span>
-                                            <span ng-switch-default>{{value | productOptionString}}</span>
+                                        <li ng-repeat="option in item.product.options">
+                                            {{option.label}}:
+                                            <span ng-switch="option.type">
+                                                <span ng-switch-when="date">{{option.value | date}}</span>
+                                                <span ng-switch-default>{{getOptionLabel(option)}}</span>
                                             </span>
                                         </li>
                                     </ul>

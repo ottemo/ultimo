@@ -12,7 +12,7 @@ angular.module("pdpModule")
 
             // Functions
             var getUrl, getRatingInfo, getDefaultRatingInfo, getAverageRating, setProduct, getProduct, applyOptions,
-                setOptions, getOptions, getOptStr;
+                setOptions, getOptions;
 
             type = "product";
 
@@ -104,17 +104,12 @@ angular.module("pdpModule")
                 return (typeof ratingInfo.averageValue !== "undefined" ? ratingInfo.averageValue : 0);
             };
 
-            getOptStr = function (value) {
-                return value instanceof Array ? value.join(", ") : value;
-            };
-
             return {
                 "getUrl": getUrl,
                 "setProduct": setProduct,
                 "getProduct": getProduct,
                 "setOptions": setOptions,
                 "getOptions": getOptions,
-                "getOptStr": getOptStr,
                 "applyOptions": applyOptions,
                 "getRatingInfo": getRatingInfo,
                 "getAverageRating": getAverageRating
