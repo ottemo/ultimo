@@ -5,8 +5,13 @@ angular.module("categoryModule")
 
 .service("categoryApiService", [
     "$resource",
+    "commonUtilService",
     "REST_SERVER_URI",
-    function($resource, REST_SERVER_URI) {
+    function(
+        $resource,
+        commonUtilService,
+        REST_SERVER_URI
+    ) {
 
         return $resource(REST_SERVER_URI, {}, {
             "getProductsByCategoryId": {
@@ -65,32 +70,11 @@ angular.module("categoryModule")
             products.forEach(function(product) {
                 // only perfrom assignment if options exist on the object
                 if (product.options) {
-                    product.options = processOptions(product.options);
-                };
+                    product.options = commonUtilService.processProductOptions(product.options);
+                }
             });
 
             return products;
-        }
-
-        // duplicate in pdp/service/api.js
-        function processOptions(allOptions) {
-
-            // Process and convert to array
-            var resp = _.map(allOptions, function(option, code) {
-
-                // Sort the option items
-                option.options = _.sortBy(option.options, 'order');
-
-                // Add a css Class
-                option.cssClass = _.kebabCase('option' + option.label);
-
-                return option;
-            });
-
-            // Now sort the options by the order
-            resp = _.sortBy(resp, 'order');
-
-            return resp;
         }
     }
 ]);

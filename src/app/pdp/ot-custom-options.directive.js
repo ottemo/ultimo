@@ -23,13 +23,13 @@ angular.module('pdpModule')
                 // select first option for radio
                 function selectFirstRadio(option) {
                     if (option.type === 'radio' && option.options[0]) {
-                        $scope.parent.options[option.label] = option.options[0].label;
+                        $scope.parent.options[option.key] = option.options[0].key;
                     }
                 }
 
                 /**
                  * checkbox options want to be in the format
-                 * {'Gift Card':['Gift Card']}
+                 * {"gift_card":["gift_card"]}
                  */
                 function toggleCheckbox(option) {
 
@@ -37,16 +37,16 @@ angular.module('pdpModule')
                     var selectedCheckboxes = [];
                     angular.forEach(option.options, function(optionItem) {
                         if (optionItem.selected) {
-                            selectedCheckboxes.push(optionItem.label);
+                            selectedCheckboxes.push(optionItem.key);
                         }
                     });
 
                     // If we have any selected boxes save them out
                     if (selectedCheckboxes.length) {
-                        $scope.parent.options[option.label] = selectedCheckboxes;
+                        $scope.parent.options[option.key] = selectedCheckboxes;
                     } else {
                         // Otherwise remove the whole option
-                        delete $scope.parent.options[option.label];
+                        delete $scope.parent.options[option.key];
                     }
                 }
             }

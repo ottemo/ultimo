@@ -2,7 +2,15 @@
  *  pdpApiService interaction service
  */
 angular.module("pdpModule")
-    .service('pdpApiService', ['$resource', 'REST_SERVER_URI', function ($resource, REST_SERVER_URI) {
+    .service('pdpApiService', [
+        '$resource',
+        'commonUtilService',
+        'REST_SERVER_URI',
+        function (
+            $resource,
+            commonUtilService,
+            REST_SERVER_URI
+        ) {
 
         return $resource(REST_SERVER_URI, {}, {
             'getProduct': {
@@ -51,7 +59,7 @@ angular.module("pdpModule")
         function transformProduct(data) {
             var resp = angular.fromJson(data);
             if (resp.result && resp.result.options) {
-                resp.result.options = processOptions(resp.result.options);
+                resp.result.options = commonUtilService.processProductOptions(resp.result.options);
             }
 
             return resp;
@@ -62,31 +70,10 @@ angular.module("pdpModule")
             if (resp.result) {
                 resp.result.forEach(function(product) {
                     if (product.options) {
-                        product.options = processOptions(product.options);
-                    };
+                        product.options = commonUtilService.processProductOptions(product.options);
+                    }
                 });
             }
-
-            return resp;
-        }
-
-        // duplicate in category/service/api.js
-        function processOptions(allOptions) {
-
-            // Process and convert to array
-            var resp = _.map(allOptions, function(option, code) {
-
-                // Sort the option items
-                option.options = _.sortBy(option.options, 'order');
-
-                // Add a css Class
-                option.cssClass = _.kebabCase('option'+option.label);
-
-                return option;
-            });
-
-            // Now sort the options by the order
-            resp = _.sortBy(resp, 'order');
 
             return resp;
         }
