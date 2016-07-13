@@ -4,7 +4,7 @@
   "description": "David Lawrence Storefront for the ottemo platform",
   "repository": {
     "type": "git",
-    "url": "git://github.com/ottemo/ultimo.git"
+    "url": "git://github.com/ottemo/davidlawrence.git"
   },
   "devDependencies": {
     "chalk": "^1.1.1",
