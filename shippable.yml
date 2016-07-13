@@ -7,7 +7,7 @@ cache: false
 
 env:
   global:
-    - SLACK_ORG=Ottemo PROJECT=David Lawrence
+    - SLACK_ORG=Ottemo PROJECT=Demo
     - secure: djBGeqERLMYTEeyc3O4Mk5j2RbwlmnobS1Ybr8IhjZv9cHOUxqD8zQwu2/e/fF70aq0AeO2b56U+11eqpds6sUydD3EONlTIMGQtW4P+INEuXVqqwKt8w4xyBt0XJKgd5U1sn/6RW23fi2phNetTvKz7U6V2mt/xFHJm6INerxIqN7cGLcUOmTz6zULdQX8+vYHSiKghK6UNxMbR94oPe0/qb35XrQJTM3wOrado9wUmw4QShUlKgUhUDVaQIIAD87uPpTrFAeA3Ecp2LD+aHrSDU+Ma/GdBEMhs/kOuv5NQOrHzZFVFcXKvGLaGKP9uOs0nVrraT96GRtyuyC7zLQ==
 
 install:
@@ -21,7 +21,7 @@ after_failure:
     - python slack_notifier.py --org $SLACK_ORG --project $PROJECT --token $SLACK_TOKEN
 
 after_success:
-    - REMOTE_HOST=dl.staging.ottemo.io bash deploy.sh
+    - REMOTE_HOST=demo.staging.ottemo.io bash deploy.sh
     - python slack_notifier.py --org $SLACK_ORG --project $PROJECT --token $SLACK_TOKEN -s
     
 notifications:

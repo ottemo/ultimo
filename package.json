@@ -1,7 +1,7 @@
 {
-  "name": "David Lawrence",
+  "name": "Ultimo",
   "version": "0.9.8",
-  "description": "David Lawrence Storefront for the ottemo platform",
+  "description": "Ultimo - Demo Storefront for the ottemo platform",
   "repository": {
     "type": "git",
     "url": "git://github.com/ottemo/ultimo.git"
