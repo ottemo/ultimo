@@ -2,7 +2,7 @@
 
 # SRCDIR
 HOME=/home/ottemo
-SRCDIR=$HOME/code/ultimo
+SRCDIR=$HOME/code/davidlawrence
 MEDIADIR=$HOME/media
 
 if [ "$BRANCH" == 'develop' ]; then

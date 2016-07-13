@@ -1,4 +1,4 @@
-Ultimo - Demo Store for the Ottemo Platform
+David Lawrence Store for the Ottemo Platform
 ==========
 
 ## License
