@@ -105,7 +105,8 @@ angular.module('checkoutModule')
 
            checkoutService.loadSavedCC().then(function( res ){
                 if (res !== null){
-                    $scope.paymentMethods = $scope.paymentMethods.concat(res);
+                    var result = _.uniq(res, 'ID');
+                    $scope.paymentMethods = $scope.paymentMethods.concat(result);
                 }
             });
 
