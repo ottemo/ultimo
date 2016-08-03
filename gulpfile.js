@@ -13,6 +13,9 @@ var siphonMQ = require('siphon-media-query');
 var $ = require('gulp-load-plugins')({
     lazy: true
 });
+var themes = require('./theme.config');
+var map = require('map-stream');
+var transform = require('vinyl-transform');
 
 /**
  * yargs variables can be passed in to alter the behavior of tasks
@@ -121,7 +124,7 @@ gulp.task('vet', function vet() {
  * Remove all build / temp files
  */
 gulp.task('clean', function clean(done) {
-    del([config.build], done);
+    del(config.build, done);
 });
 
 /**
@@ -139,7 +142,7 @@ gulp.task('config', function() {
 
     return gulp.src('config/config.js')
         .pipe($.replaceTask(replacePattern))
-        .pipe(gulp.dest(config.temp));
+        .pipe(gulp.dest(config.src));
 });
 
 /**
@@ -161,20 +164,22 @@ gulp.task('compile', [
  */
 gulp.task('compile_scripts', ['compile_scripts_app', 'compile_scripts_lib']);
 
-gulp.task('compile_scripts_app', function compile_scripts_app() {
+gulp.task('compile_scripts_app', ['getExtendable'], function compile_scripts_app() {
 
     // REFACTOR: This makes dev/staging/production different... :-1:
     // uglify + concat breaks sourcemaps so don't use it unless we are on production
     // https://github.com/terinjokes/gulp-uglify/issues/105
     if (config.isEnvProduction || config.isEnvStaging) {
-        return gulp.src(config.scripts.app)
+        return gulp.src(transformPaths(config.scripts.app))
             .pipe($.plumber(handleError))
             .pipe($.uglify(config.uglifySettings))
             .pipe($.plumber.stop())
+            .pipe(transform(transformParentCtrl))
             .pipe($.concat('main.js'))
             .pipe(gulp.dest(config.build + 'scripts'));
     } else {
-        return gulp.src(config.scripts.app)
+        return gulp.src(transformPaths(config.scripts.app))
+            .pipe(transform(transformParentCtrl))
             .pipe($.concat('main.js'))
             .pipe(gulp.dest(config.build + 'scripts'));
     }
@@ -225,7 +230,7 @@ gulp.task('compile_robots', function compile_robots() {
  * Compile oddball files
  */
 gulp.task('compile_misc', function compile_misc() {
-    return gulp.src(config.misc)
+    return gulp.src(transformPaths(config.misc))
         .pipe(gulp.dest(config.build));
 });
 
@@ -274,10 +279,10 @@ gulp.task('compile_fonts', function compile_fonts() {
  * Inline css for emails
  */
 gulp.task('compile_emails', function compile_emails() {
-    var css = fs.readFileSync('./src/email/css.css').toString();
+    var css = fs.readFileSync(config.email.style).toString();
     var mqCss = siphonMQ(css);
 
-    return gulp.src(config.email)
+    return gulp.src(config.email.html)
         .pipe($.inlineCss({
             applyStyleTags: false,       // currently removes trailing slashes on meta
         }))
@@ -306,7 +311,8 @@ gulp.task('compile_emails', function compile_emails() {
         .pipe($.rename({
             suffix: '.inline',
         }))
-        .pipe(gulp.dest('./src/email'));
+        .pipe(gulp.dest(config.email.root));
+
 });
 
 /**
@@ -324,7 +330,7 @@ gulp.task('serve_watch', function serve_watch() {
     gulp.watch(config.scripts.app,  ['compile_scripts_app']);
 
     // Emails
-    gulp.watch(config.email, ['compile_emails']);
+    gulp.watch(config.email.html, ['compile_emails']);
 });
 
 /**
@@ -368,7 +374,6 @@ gulp.task('revision', function revision() {
 });
 
 ////////////////////////////////
-
 function handleError(err) {
     logHead('Error');
     logBody('Plugin: ' + err.plugin);
@@ -411,3 +416,74 @@ function repeat(str, num) {
     }
     return resp;
 }
+
+//////////// Theming //////////////
+function transformPaths(_path){
+    var inputPath = [],
+        result;
+
+    if (!Array.isArray(_path)){
+        inputPath.push(_path)
+    } else {
+        inputPath = _path;
+    }
+
+    result = inputPath.slice(0);
+
+    for (var i = 0; i < inputPath.length; i++){
+        for (var j = 0; j < themes.themes.length; j++){
+            var themePath = inputPath[i].replace(themes.main, themes.themes[j]);
+            result.push(themePath);
+        }
+    }
+
+    return result
+}
+
+function getCtrlExtendPath(themes){
+    var result = [];
+
+    for (var i = 0; i < themes.length; i++){
+        var path = './src/' + themes[i] + '/**/*.extend.js';
+        result.push(path)
+    };
+
+    return result;
+}
+
+function transformParentCtrl(_path){
+  var reg_exp = /.controller\(\"(\w*)/;
+
+  if (themes.controllers.indexOf(_path) != -1){
+    return map(function(chunk, next){
+      var dataString = chunk.toString();
+          controllerName = dataString.match(reg_exp)[1],
+          newController = dataString.replace(controllerName, controllerName + 'Base');
+
+      return next(null, newController);
+    })
+  } else {
+    return map(function(chunk, next){
+      return next(null, chunk)
+    })
+  }
+}
+
+function getFileName(_path){
+    return _path.slice(_path.lastIndexOf('\\') + 1, _path.length);
+}
+
+gulp.task('getExtendable', function(){
+  gulp.src(getCtrlExtendPath(themes.themes))
+    .pipe(map(function(file, callback){
+      for (var i = 0; i < themes.themes.length; i++){
+        var theme = themes.themes[i];
+
+        if (file.path.includes(theme)){
+            var _path = file.path.replace(theme, themes.main).replace('.extend', '');
+            themes.controllers.push(_path);
+            callback(null, file)
+        }
+      }
+    }))
+})

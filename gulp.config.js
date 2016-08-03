@@ -3,19 +3,17 @@
 module.exports = function() {
 
     var src = './src/';
-    var app = src + 'app/';
-    var email = src +'email/';
-
-    var temp = './tmp/';
+    var app = src + 'base/';
+    var email = app +'_email/';
 
     var config = {
         // Reserved and written to in gulpfile.js
         env: '',
         settings: '',
-
+        themes: [],
         /************** Paths ****************/
         build: 'dist/',
-
+        src: src,
         // App
         fonts: app + '_fonts/**/*.{otf,svg,eot,ttf,woff,woff2}',
         html: {
@@ -50,7 +48,7 @@ module.exports = function() {
         },
         scripts: {
             app: [
-                temp + 'config.js', // this is a built file
+                src + 'config.js', // this is a built file
                 app + '**/init.js',
                 app + '**/*.js',
                 '!' + app + '_lib/**/*', // don't clobber lib
@@ -63,14 +61,15 @@ module.exports = function() {
         },
 
         // Emails
-        email: [
-            // ignore built files
-            email + '*.html',
-            '!' + email + '*.inline.html',
-        ],
-
-        // Temp
-        temp: temp,
+        email: {
+            root: email,
+            html: [
+                // ignore built files
+                email + '*.html',
+                '!' + email + '*.inline.html'
+            ],
+            style: email + 'css.css'
+        },
 
         /************** Settings ****************/
         node: {
