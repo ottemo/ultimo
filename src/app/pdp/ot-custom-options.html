@@ -114,7 +114,7 @@
                         <!-- Multi-select -->
                         <div ng-switch-when="multi_select"
                             class="form-group"
-                            ng-class="{'has-error': parent.submitted && customOptionsFormIn[option.key].$invalid}">
+                            ng-class="{'has-error': parent.submitted && !parent.options[option.key].length}">
 
                             <label class="option-set-label">
                                 {{option.label}}
@@ -126,17 +126,16 @@
                                 ng-repeat="optionItem in option.options">
                                 <label>
                                     <input type="checkbox"
-                                        name="{{option.key}}[]"
+                                        name="{{option.key}}_{{optionItem.key}}"
                                         value="{{optionItem.key}}"
                                         ng-change="toggleCheckbox(option)"
                                         ng-model="optionItem.selected"
-                                        ng-required="option.required" /> {{optionItem.label}}
+                                        ng-required="option.required && !parent.options[option.key].length" /> {{optionItem.label}}
                                 </label>
                             </div>
-
-                            <div ng-show="parent.submitted && customOptionsFormIn[option.key].$error.required"
+                            <div ng-show="parent.submitted && !parent.options[option.key].length"
                                 class="help-block">
-                                This field is required.
+                                At least one of these fields is required.
                             </div>
                         </div>
                     </div>
