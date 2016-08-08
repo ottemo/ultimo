@@ -1,6 +1,7 @@
 /*jshint node: true */
 
 var args = require('yargs').argv;
+var path = require('path');
 var colors = require('chalk');
 var config = require('./gulp.config')();
 var del = require('del');
@@ -83,6 +84,15 @@ function activate() {
     config.settings = readConfig(config.configFile);
 }
 
+
+gulp.task('merge_test', function() {
+    gulp.src([
+        'src/app/cart/**/*.js',
+        'src/base/cart/**/*.js',
+    ])
+        .pipe(gulp.dest('./dist'))
+});
+
 /**
  * Read the settings from the right file
  */
@@ -156,6 +166,7 @@ gulp.task('compile', [
     'compile_emails',
 ]);
 
+
 /**
  * Compile all javascript
  */
@@ -169,12 +180,16 @@ gulp.task('compile_scripts_app', function compile_scripts_app() {
     if (config.isEnvProduction || config.isEnvStaging) {
         return gulp.src(config.scripts.app)
             .pipe($.plumber(handleError))
+            .pipe(transform(function(filename) {
+                console.log(filename);
+            }))
             .pipe($.uglify(config.uglifySettings))
             .pipe($.plumber.stop())
             .pipe($.concat('main.js'))
             .pipe(gulp.dest(config.build + 'scripts'));
     } else {
         return gulp.src(config.scripts.app)
+            .pipe($.tap(inheritControllers))
             .pipe($.concat('main.js'))
             .pipe(gulp.dest(config.build + 'scripts'));
     }
@@ -206,7 +221,7 @@ gulp.task('compile_html_root', function() {
 
 gulp.task('compile_html_nonroot', function compile_html_nonroot() {
     return gulp.src(config.html.nonRoot)
-        .pipe($.changed(config.build + 'views/'))
+        //.pipe($.changed(config.build + 'views/'))
         .pipe(gulp.dest(config.build + 'views/'));
 });
 
@@ -239,12 +254,14 @@ gulp.task('compile_styles', function compile_styles() {
     return gulp.src(config.styles.root)
         .pipe($.sourcemaps.init())
         .pipe($.sass(config.sassSettings).on('error', $.sass.logError))
-        .pipe($.sourcemaps.write())
+        .pipe($.sourcemaps.write({sourceRoot: '.'}))
+        .pipe($.sourcemaps.init({loadMaps: true}))
         .pipe($.autoprefixer('last 2 version', 'safari 5', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
         .pipe($.if(isMinifyActive, $.cleanCss()))
         .pipe($.rename({
             suffix: '.min'
         }))
+        .pipe($.sourcemaps.write({sourceRoot: '.'}))
         .pipe(gulp.dest(config.build + 'styles/'));
 });
 
@@ -332,7 +349,6 @@ gulp.task('serve_watch', function serve_watch() {
  */
 gulp.task('serve_server', function serve_server() {
     var express = require('express');
-    var path = require('path');
     var app = express();
     var staticFolder = path.join(__dirname, config.build);
 
@@ -410,4 +426,34 @@ function repeat(str, num) {
         }
     }
     return resp;
+}
+
+
+// Controllers inheritance configs
+var ctrlConfig = {
+    ctrlRegex: /.*\.controller\.js$/,
+    ctrlNameRegex: /\.controller\(['"]([^'"]+)['"]/,
+    baseDir: config.src + config.base,
+    themeDir: config.src + config.theme,
+};
+
+// Prefix with '_' parent controllers in base theme
+// so that we can use the same name for child controllers in theme
+function inheritControllers(file) {
+    var fileName = path.basename(file.path);
+    var pathInTheme = path.relative(file.base, path.dirname(file.path));
+
+    // check if it's a base controller
+    if (path.relative(file.cwd, file.base) === ctrlConfig.baseDir &&
+        ctrlConfig.ctrlRegex.test(fileName)) {
+
+        // check if child controller exists in theme
+        var childCtrlPath = path.join(file.cwd, ctrlConfig.themeDir, pathInTheme, '_' + fileName);
+        try {
+            fs.statSync(childCtrlPath);
+            // add '_' prefix to controller name
+            file.contents = new Buffer(file.contents.toString().replace(ctrlConfig.ctrlNameRegex, '.controller(\'_$1\''));
+        }
+        catch(e) {}
+    }
 }
