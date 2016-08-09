@@ -16,15 +16,16 @@ angular.module('cartModule')
         $location
     ) {
 
+        $scope.activate = activate;
         $scope.cart = cartService;
         $scope.remove = remove;
         $scope.update = update; // qty
 
         $scope.productService = pdpProductService;
-        $scope.qtyOptions = qtyOptions();
         $scope.getOptionLabel = commonUtilService.getOptionLabel;
 
-        activate();
+        // Helper functions
+        $scope._getQtyOptions = _getQtyOptions;
 
         //////////////////////////////////////////////
 
@@ -46,6 +47,9 @@ angular.module('cartModule')
                 'label': 'Shopping Cart',
                 'url': '/cart'
             });
+
+            // Get qty options
+            $scope.qtyOptions = $scope._getQtyOptions();
         }
 
         function remove(itemIdx) {
@@ -64,7 +68,7 @@ angular.module('cartModule')
             cartService.update(itemIdx, qty);
         }
 
-        function qtyOptions() {
+        function _getQtyOptions() {
             var options = [];
             for (var i = 1; i < 10; i++) {
                 options.push({
