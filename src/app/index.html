@@ -25,7 +25,7 @@
 </head>
 <body ng-controller="appController"
     ng-class="{'is-logged-in': visitorProps.isLoggedIn}"
-    ot-route-class>
+    ot-route-class ng-init="activate()">
 
 <!--[if lt IE 9]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
