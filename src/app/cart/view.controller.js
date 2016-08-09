@@ -16,20 +16,13 @@ angular.module('cartModule')
         $location
     ) {
 
-        $scope.activate = activate;
         $scope.cart = cartService;
-        $scope.remove = remove;
-        $scope.update = update; // qty
-
         $scope.productService = pdpProductService;
         $scope.getOptionLabel = commonUtilService.getOptionLabel;
 
-        // Helper functions
-        $scope._getQtyOptions = _getQtyOptions;
-
         //////////////////////////////////////////////
 
-        function activate() {
+        $scope.activate = function() {
             // Redirect guests if guest checkout is disabled
             if (!angular.appConfig.hasGuestCheckout) {
                 visitorLoginService.isLoggedIn().then(function(isLoggedIn) {
@@ -50,14 +43,14 @@ angular.module('cartModule')
 
             // Get qty options
             $scope.qtyOptions = $scope._getQtyOptions();
-        }
+        };
 
-        function remove(itemIdx) {
+        $scope.remove = function(itemIdx) {
             cartService.increaseCountRequest();
             cartService.remove(itemIdx);
-        }
+        };
 
-        function update(itemIdx, qty) {
+        $scope.update = function(itemIdx, qty) {
             qty = parseInt(qty);
             if (!qty || qty < 1) {
                 qty = 1;
@@ -66,9 +59,9 @@ angular.module('cartModule')
             // TODO: not sure why we are tracking number of requests
             cartService.increaseCountRequest();
             cartService.update(itemIdx, qty);
-        }
+        };
 
-        function _getQtyOptions() {
+        $scope._getQtyOptions = function() {
             var options = [];
             for (var i = 1; i < 10; i++) {
                 options.push({

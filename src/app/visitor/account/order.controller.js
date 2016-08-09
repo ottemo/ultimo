@@ -17,13 +17,9 @@ angular.module("visitorModule")
 
         $scope.visitor = visitorLoginService.getVisitor();
 
-        var activePath = $location.path();
-
-        activate();
-
         //////////////////////////
 
-        function activate() {
+        $scope.activate = function() {
             // BREADCRUMBS
             $scope.$emit('add-breadcrumbs', {
                 'label': 'MyAccount',
@@ -41,13 +37,13 @@ angular.module("visitorModule")
             });
 
             if ($scope.orderId) {
-                fetchOrder();
+                $scope._fetchOrder();
             } else {
-                fetchOrderList();
+                $scope._fetchOrderList();
             }
-        }
+        };
 
-        function fetchOrderList() {
+        $scope._fetchOrderList = function() {
             var data = {
                 "extra": "created_at,status,grand_total",
                 "limit": "0,1000"
@@ -57,9 +53,9 @@ angular.module("visitorModule")
                 .then(function(response) {
                     $scope.ordersList = response.result || [];
                 });
-        }
+        };
 
-        function fetchOrder() {
+        $scope._fetchOrder = function() {
             var data = {
                 "orderID": $scope.orderId
             };
@@ -72,7 +68,7 @@ angular.module("visitorModule")
                         'url': '/account/order/' + $scope.orderId
                     });
                 });
-        }
+        };
 
         $scope.$watch('addedOrderId', function() {
             if (typeof $scope.addedOrderId !== 'undefined') {
@@ -85,7 +81,7 @@ angular.module("visitorModule")
         // REFACTOR:
         // Sidebar
         $scope.isActive = function(path) {
-            return (activePath === path);
+            return ($location.path() === path);
         };
 
     }

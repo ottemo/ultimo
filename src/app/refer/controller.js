@@ -19,7 +19,7 @@ angular.module('referModule')
             $scope.showSuccessMessage = false;
             $scope.showCaptchaMismatchMessage = false;
             $scope.showErrorMessage = false;
-        }
+        };
 
         $scope.submit = function() {
 

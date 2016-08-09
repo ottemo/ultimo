@@ -23,7 +23,6 @@ angular.module("visitorModule")
         // password reset validation key
         $scope.key = $routeParams.key || false;
 
-        $scope.reset = reset;
         $scope.isSubmitting = false;
         $scope.message = '';
 
@@ -33,7 +32,7 @@ angular.module("visitorModule")
         /**
          * Send the request to reset the password
          */
-        function reset() {
+        $scope.reset = function() {
             // Flag it to prevent double clicking, and visually communicate
             if ($scope.isSubmitting) {
                 return;

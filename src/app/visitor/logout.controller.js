@@ -7,28 +7,23 @@ angular.module("visitorModule")
     "cartService",
     function($scope, $window, visitorLoginService, cartService) {
 
-        activate();
-
-        //////////////////////
-        
-        function activate() {
-
+        $scope.activate = function() {
             // Log the user out and send them to the homepage
             visitorLoginService.isLoggedIn()
                 .then(function(isLoggedIn) {
-                    isLoggedIn ? logoutActions() : sendHome();
+                    isLoggedIn ? $scope.logoutActions() : $scope.sendHome();
             });
-        }
+        };
 
-        function logoutActions() {
+        $scope.logoutActions = function() {
             visitorLoginService.logout()
                 .then(cartService.reload)
-                .then(sendHome);
-        }
+                .then($scope.sendHome);
+        };
 
-        function sendHome() {
+        $scope.sendHome = function() {
             return $window.location.href = '/';
-        }
+        };
     }
 ]);
 

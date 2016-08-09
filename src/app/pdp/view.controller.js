@@ -156,41 +156,41 @@ angular.module("pdpModule")
 
                 if (angular.appConfig.hasGuestCheckout) {
                     if (!$scope.isAddingToCart) {
-                        addItem();
+                        $scope._addItem();
                     }
                 } else {
                     visitorLoginService.isLoggedIn().then(function (isLoggedIn) {
                         //TODO: if we don't have guest checkout enabled and they are not logged in we just drop them
                         if (isLoggedIn && !$scope.isAddingToCart) {
-                            addItem();
+                            $scope._addItem();
                         }
                     });
                 }
+            };
 
-                function addItem() {
-                    // Flag that we attempted to submit form
-                    // gets picked up by form error flags in otCustomOptions.html
-                    $scope.submitted = true; //REFACTOR
-                    $scope.isAddToCartSuccessful = false;
+            $scope._addItem = function() {
+                // Flag that we attempted to submit form
+                // gets picked up by form error flags in otCustomOptions.html
+                $scope.submitted = true; //REFACTOR
+                $scope.isAddToCartSuccessful = false;
 
-                    if ($scope.customOptionsForm && $scope.customOptionsForm.$valid) {
-                        // Flag that we are in the process of adding to cart, prevent double clicks
-                        $scope.isAddingToCart = true;
+                if ($scope.customOptionsForm && $scope.customOptionsForm.$valid) {
+                    // Flag that we are in the process of adding to cart, prevent double clicks
+                    $scope.isAddingToCart = true;
 
-                        cartService.add($scope.productId, $scope.qty, pdpProductService.getOptions())
-                            .then(function (response) {
-                                // Let them keep adding to cart now
-                                $scope.isAddingToCart = false;
-                                if (response.error !== null) {
-                                    $scope.messageOptions = commonUtilService.getMessage(response);
-                                } else {
-                                    // Show a success message
-                                    $scope.isAddToCartSuccessful = true;
-                                }
-                            });
-                    }
+                    cartService.add($scope.productId, $scope.qty, pdpProductService.getOptions())
+                        .then(function (response) {
+                            // Let them keep adding to cart now
+                            $scope.isAddingToCart = false;
+                            if (response.error !== null) {
+                                $scope.messageOptions = commonUtilService.getMessage(response);
+                            } else {
+                                // Show a success message
+                                $scope.isAddToCartSuccessful = true;
+                            }
+                        });
                 }
-            }
+            };
 
 
             /**
@@ -283,9 +283,7 @@ angular.module("pdpModule")
                         return a.rating < b.rating;
                     }
                 });
-
             };
-
         }
     ]
 );

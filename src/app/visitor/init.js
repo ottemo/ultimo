@@ -45,8 +45,8 @@ angular.module("visitorModule", [
             controller: "visitorLoginController"
         })
         .when("/logout", {
-            template: "",
-            controller: "visitorLogoutController"
+            template: "<i class='init-controller' ng-init='activate()'></i>",
+            controller: "visitorLogoutController",
         })
         .when("/registration", {
             title: "Register",

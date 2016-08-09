@@ -4,22 +4,18 @@ angular.module("commonModule")
     "$scope",
     "commonBreadcrumbsService",
     "cartService",
-    "visitorLoginService",
     function(
         $scope,
         commonBreadcrumbsService,
-        cartService,
-        visitorLoginService
+        cartService
     ) {
-        $scope.activate = activate;
 
         // Mobile menu toggle
         $scope.mobileNav = {isOpen: false};
-        $scope.getItemsInCart = getItemsInCart;
 
         ///////////////////////////////
 
-        function activate() {
+        $scope.activate = function() {
             $scope.$on("$locationChangeSuccess", function() {
                 // Handlers for breadcrumbs and SEO
                 commonBreadcrumbsService.clear();
@@ -35,10 +31,10 @@ angular.module("commonModule")
 
             // Cart initialization
             cartService.init();
-        }
+        };
 
-        function getItemsInCart() {
+        $scope.getItemsInCart = function() {
             return cartService.getTotalQuantity();
-        }
+        };
     }
 ]);

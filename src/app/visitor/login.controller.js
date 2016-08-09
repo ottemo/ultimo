@@ -45,6 +45,8 @@ angular.module("visitorModule")
             };
 
             $scope.init = function () {
+                $scope.login = visitorLoginService.getVisitor();
+
                 if (typeof $scope._verifyCode !== "undefined") {
                     visitorApiService.validate({"key": $scope._verifyCode}).$promise.then(function (response) {
                         if (response.error === null) {

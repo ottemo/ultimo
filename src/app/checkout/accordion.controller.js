@@ -25,15 +25,13 @@ angular.module('checkoutModule')
         checkoutService,
         giftCardsService
     ) {
-        var isValidSteps = {
+        $scope._isValidSteps = {
             'billingAddress': false,
             'shippingAddress': false,
             'shippingMethod': false,
             'paymentMethod': false,
             'discounts': true
         };
-
-        $scope.activate = activate;
 
         // General
         $scope.checkoutService = checkoutService;
@@ -42,20 +40,23 @@ angular.module('checkoutModule')
         $scope.isGuestCheckout = false;
         $scope.getOptionLabel = commonUtilService.getOptionLabel;
 
-        // Accordion navigation
-        $scope.back = back;
-        $scope.next = next;
-
-        $scope.save = save;
-
         // Addresses
         $scope.addressSettings = {
             useShippingAsBilling: true
         };
-        $scope.newBilling = newBilling;
-        $scope.newShipping = newShipping;
-        $scope.choiceBilling = choiceBilling;
-        $scope.choiceShipping = choiceShipping;
+        $scope.defaultAddress = {
+            'street': '',
+            'city': '',
+            'state': '',
+            'phone': '',
+            'zip_code': '',
+            'company': '',
+            'first_name': '',
+            'last_name': '',
+            'address_line1': '',
+            'address_line2': '',
+            'country': 'US'
+        };
 
         // Shipping method
         $scope.shippingMethod = {
@@ -71,24 +72,15 @@ angular.module('checkoutModule')
 
         // Discounts and Giftcards
         $scope.discounts = {
-            apply: applyDiscount,
             code: '',
             isVisible: false,
             message: false,
             isApplying: false,
         };
 
-        // Make private functions available in child controller scope
-        $scope._info = _info;
-        $scope._getDefaultAddress = _getDefaultAddress;
-        $scope._isGuestCheckoutEnabled = _isGuestCheckoutEnabled;
-        $scope._getAddresses = _getAddresses;
-        $scope._getPaymentInfo = _getPaymentInfo;
-        $scope._scrollTo = _scrollTo;
-
         /////////////////////
 
-        function activate() {
+        $scope.activate = function() {
             // Load checkout, and refresh cart
             $scope._info();
 
@@ -127,16 +119,16 @@ angular.module('checkoutModule')
 
 
             $scope.$emit('add-breadcrumbs', {'label': 'Checkout', 'url': '/checkout'});
-        }
+        };
 
         /**
          * Gets checkout information, makes sure the cart is up to date
          * @return {promise}
          */
-        function _info() {
+        $scope._info = function() {
             return checkoutService.update().then(function (checkout) {
                 $scope.checkout = checkout;
-                initAddressesData();
+                $scope._initAddressesData();
 
                 return cartService.reload().then(function(){
                     // If they don't have any items in cart redirect to the empty cart page
@@ -145,51 +137,35 @@ angular.module('checkoutModule')
                     }
                 });
             });
+        };
 
-            function initAddressesData() {
-                if ($scope.checkout.shipping_address === null) {
-                    $scope.checkout.shipping_address = $scope._getDefaultAddress();
-                }
-
-                if ($scope.checkout.billing_address === null) {
-                    $scope.checkout.billing_address = $scope._getDefaultAddress();
-                }
+        $scope._initAddressesData = function () {
+            if ($scope.checkout.shipping_address === null) {
+                $scope.checkout.shipping_address = $scope.defaultAddress;
             }
-        }
 
-        function _getDefaultAddress() {
-            return {
-                'street': '',
-                'city': '',
-                'state': '',
-                'phone': '',
-                'zip_code': '',
-                'company': '',
-                'first_name': '',
-                'last_name': '',
-                'address_line1': '',
-                'address_line2': '',
-                'country': 'US'
-            };
-        }
+            if ($scope.checkout.billing_address === null) {
+                $scope.checkout.billing_address = $scope.defaultAddress;
+            }
+        };
 
-        function _isGuestCheckoutEnabled() {
+        $scope._isGuestCheckoutEnabled = function() {
             return angular.appConfig.hasGuestCheckout;
-        }
+        };
 
         /**
          * Gets visitor addresses
          */
-        function _getAddresses() {
+        $scope._getAddresses = function() {
             return checkoutApiService.getAddresses().$promise
                 .then(function (response) {
                     var result = response.result || [];
                     $scope.addresses = result;
                 });
-        }
+        };
 
         // REFACTOR: we should just be able to use the $scope.paymentMethod.selected object
-        function _getPaymentInfo() {
+        $scope._getPaymentInfo = function() {
             var info = {
                 'method': null,
                 'form': null
@@ -199,13 +175,13 @@ angular.module('checkoutModule')
             info.form = $scope.paymentMethod.selected.form;
 
             return info;
-        }
+        };
 
-        function newBilling() {
+        $scope.newBilling = function() {
             // Sets a flag of form is not valid
-            isValidSteps.billingAddress = false;
+            $scope._isValidSteps.billingAddress = false;
             // Initialise address by default
-            $scope.checkout.billing_address = $scope._getDefaultAddress();
+            $scope.checkout.billing_address = $scope.defaultAddress;
             $scope.addressSettings.useShippingAsBilling = false;
 
             for (var field in $scope.checkout.billing_address) {
@@ -214,13 +190,13 @@ angular.module('checkoutModule')
                     $scope.billingAddress[field].$invalid = false;
                 }
             }
-        }
+        };
 
-        function newShipping() {
+        $scope.newShipping = function() {
             // Sets a flag of form is not valid
-            isValidSteps.shippingAddress = false;
+            $scope._isValidSteps.shippingAddress = false;
             // Initialise address by default
-            $scope.checkout.shipping_address = $scope._getDefaultAddress();
+            $scope.checkout.shipping_address = $scope.defaultAddress;
 
             for (var field in $scope.checkout.shipping_address) {
                 if ($scope.shippingAddress.hasOwnProperty(field)) {
@@ -228,17 +204,17 @@ angular.module('checkoutModule')
                     $scope.shippingAddress[field].$invalid = false;
                 }
             }
-        }
+        };
 
         // REFACTOR: This is currently only used for saved addresses, and probably isn't needed
-        function choiceBilling(billingId) {
+        $scope.choiceBilling = function(billingId) {
             // TODO: [aknox] these top level conditions can't be right,
             // why would we look at the shippingAddress form validity
             if ($scope.isGuestCheckout && $scope.shippingAddress.$valid) {
                 checkoutService.saveBillingAddress($scope.checkout.shipping_address).then(
                     function (response) {
                         if (response.error === null) {
-                            isValidSteps.billingAddress = true;
+                            $scope._isValidSteps.billingAddress = true;
                         }
                     }
                 );
@@ -247,7 +223,7 @@ angular.module('checkoutModule')
                 checkoutService.saveBillingAddress({'id': billingId}).then(
                     function (response) {
                         if (response.error === null) {
-                            isValidSteps.billingAddress = true;
+                            $scope._isValidSteps.billingAddress = true;
                         }
                     }
                 );
@@ -256,16 +232,16 @@ angular.module('checkoutModule')
                     checkoutService.saveBillingAddress($scope.checkout.shipping_address).then(
                         function (response) {
                             if (response.error === null) {
-                                isValidSteps.billingAddress = true;
+                                $scope._isValidSteps.billingAddress = true;
                             }
                         }
                     );
                 }
             }
-        }
+        };
 
         // REFACTOR: This is currently only used for saved addresses, and probably isn't needed
-        function choiceShipping (shippingId) {
+        $scope.choiceShipping = function(shippingId) {
             if ($scope.isGuestCheckout) {
                 checkoutService.saveShippingAddress($scope.checkout.shipping_address).then(
                     function (response) {
@@ -296,7 +272,7 @@ angular.module('checkoutModule')
                             // if all ok, must update allowed shipping methods list
                             // and must set billing address if set appropriate checkbox
                             if (response.error === null) {
-                                isValidSteps.shippingAddress = true;
+                                $scope._isValidSteps.shippingAddress = true;
                                 checkoutService.loadShippingMethods().then(function (methods) {
                                     $scope.shippingMethods = methods;
                                     $scope.shippingMethod.selected = $scope.shippingMethods[0]; // select first option
@@ -306,21 +282,21 @@ angular.module('checkoutModule')
                                     $scope.choiceBilling(response.result._id);
                                 }
                             } else {
-                                isValidSteps.billingAddress = false;
+                                $scope._isValidSteps.billingAddress = false;
                             }
                         });
                     }
                 );
             }
-        }
+        };
 
-        function _scrollTo($step){
+        $scope._scrollTo = function($step){
             $('html, body').animate({
                 scrollTop: $step.offset().top
             }, 100);
-        }
+        };
 
-        function back(step) {
+        $scope.back = function(step) {
             var $thisStep = $('#' + step);
             var $lastStep = $thisStep.prev('.panel');
 
@@ -329,288 +305,228 @@ angular.module('checkoutModule')
             $scope._scrollTo($lastStep);
             $thisStep.find('.panel-body').slideUp(500);
             $lastStep.find('.panel-body').slideDown(500);
-        }
+        };
 
-        function next(step) {
+        $scope.next = function(step) {
+            switch (step) {
+                case 'billingAddress':
+                    $scope._actionBillingAddress(step);
+                    break;
+                case 'shippingAddress':
+                    $scope._actionShippingAddress(step);
+                    break;
+                case 'shippingMethod':
+                    $scope._actionShippingMethod(step);
+                    break;
+                case 'paymentMethod':
+                    $scope._actionPaymentMethod(step);
+                    break;
+                case 'customerInfo':
+                    $scope._actionCustomerAdditionalInfo(step);
+                    break;
+                default:
+                    $scope._actionDefault(step);
+            }
+        };
 
-            var _accordionAnimation = function(step, skipOneStep) {
-                var $thisStep = $('#' + step);
-                var $nextStep = $thisStep.next('.panel');
-                if (skipOneStep) {
-                    $nextStep = $thisStep.next('.panel').next('.panel');
-                }
-                $thisStep.find('.panel-body').slideUp(600, function(){
-                    $scope._scrollTo($nextStep);
-                });
-                $nextStep.find('.panel-body').slideDown(500);
-            };
+        $scope._accordionAnimation = function(step, skipOneStep) {
+            var $thisStep = $('#' + step);
+            var $nextStep = $thisStep.next('.panel');
+            if (skipOneStep) {
+                $nextStep = $thisStep.next('.panel').next('.panel');
+            }
+            $thisStep.find('.panel-body').slideUp(600, function(){
+                $scope._scrollTo($nextStep);
+            });
+            $nextStep.find('.panel-body').slideDown(500);
+        };
 
-            var actionBillingAddress = function () {
-                if ($scope.billingAddress.$valid) {
-                    isValidSteps.billingAddress = true;
+        $scope._actionBillingAddress = function(step) {
+            if ($scope.billingAddress.$valid) {
+                $scope._isValidSteps.billingAddress = true;
 
-                    // REFACTOR: this condition could be worded better
-                    if (
-                        (
-                            !Boolean($scope.checkout.billing_address._id) &&
-                            !$scope.isGuestCheckout
-                        ) ||
-                        $scope.isGuestCheckout
-                    ) {
-                        checkoutService.saveBillingAddress($scope.checkout.billing_address)
-                            .then(function () {
-                                $scope._getAddresses(); //TODO: not sure this is necessary
-
-                                // update checkout
-                                $scope._info();
-                                _accordionAnimation(step);
-                            });
-                    } else {
-                        //TODO: Confirm that this is expected
-                        _accordionAnimation(step);
-                    }
-                }
-            };
-
-            var actionShippingAddress = function () {
-                if ($scope.shippingAddress.$valid) {
-                    isValidSteps.shippingAddress = true;
-
-                    //always persist shipping address in case there are shipping notes
-                    checkoutService.saveShippingAddress($scope.checkout.shipping_address)
+                // REFACTOR: this condition could be worded better
+                if (
+                    (
+                        !Boolean($scope.checkout.billing_address._id) &&
+                        !$scope.isGuestCheckout
+                    ) ||
+                    $scope.isGuestCheckout
+                ) {
+                    checkoutService.saveBillingAddress($scope.checkout.billing_address)
                         .then(function () {
                             $scope._getAddresses(); //TODO: not sure this is necessary
 
-                            checkoutService.loadShippingMethods().then(function (methods) {
-                                $scope.shippingMethods = methods;
+                            // update checkout
+                            $scope._info();
+                            $scope._accordionAnimation(step);
+                        });
+                } else {
+                    //TODO: Confirm that this is expected
+                    $scope._accordionAnimation(step);
+                }
+            }
+        };
 
-                                // select first option
-                                $scope.shippingMethod.selected = $scope.shippingMethods[0];
-                            });
+        $scope._actionShippingAddress = function(step) {
+            if ($scope.shippingAddress.$valid) {
+                $scope._isValidSteps.shippingAddress = true;
 
-                            if ($scope.addressSettings.useShippingAsBilling) {
-                                checkoutService.saveBillingAddress($scope.checkout.shipping_address)
+                //always persist shipping address in case there are shipping notes
+                checkoutService.saveShippingAddress($scope.checkout.shipping_address)
+                    .then(function () {
+                        $scope._getAddresses(); //TODO: not sure this is necessary
+
+                        checkoutService.loadShippingMethods().then(function (methods) {
+                            $scope.shippingMethods = methods;
+
+                            // select first option
+                            $scope.shippingMethod.selected = $scope.shippingMethods[0];
+                        });
+
+                        if ($scope.addressSettings.useShippingAsBilling) {
+                            checkoutService.saveBillingAddress($scope.checkout.shipping_address)
                                 .then(function (response) {
                                     if (response.error === null) {
-                                        isValidSteps.billingAddress = true;
+                                        $scope._isValidSteps.billingAddress = true;
                                     }
                                     // update checkout
                                     $scope._info();
 
                                     // skip billing address step
                                     var skipOneStep = true;
-                                    _accordionAnimation(step, skipOneStep);
+                                    $scope._accordionAnimation(step, skipOneStep);
                                 });
-                            } else {
-                                // update checkout
-                                $scope._info();
+                        } else {
+                            // update checkout
+                            $scope._info();
 
-                                // open billing address
-                                _accordionAnimation(step);
-                            }
-                        });
-                }
-            };
-
-            var actionShippingMethod = function() {
-                checkoutService.saveShippingMethod({
-                    'method': $scope.shippingMethod.selected.Method,
-                    'rate': $scope.shippingMethod.selected.Rate
-                }).then(function (response) {
-                    if (response.result === 'ok') {
-                        // update checkout
-                        $scope._info();
-                        isValidSteps.shippingMethod = true;
-                        _accordionAnimation(step);
-                    }
-                });
-            };
-
-            var actionPaymentMethod = function () {
-                isValidSteps.paymentMethod = false;
-
-                // Zero dollar, proceed
-                if ($scope.checkout.grandtotal <= 0) {
-                    isValidSteps.paymentMethod = true;
-                    $scope._info();
-                    _accordionAnimation(step);
-                }
-
-                if ($scope.paymentMethod.selected) {
-
-                    if ($scope.paymentMethod.selected.isCreditCard) {
-
-                        var payment = $scope._getPaymentInfo();
-                        payment.method.form.$submitted = true;
-
-                        if (payment.method.form.$valid) {
-                            // Save off the method name
-                            checkoutService.savePaymentMethod({
-                                method: $scope.paymentMethod.selected.Code
-                            });
-
-                            // Save off the cc form
-                            checkoutService.saveAdditionalInfo({'cc': payment.method.cc})
-                                .then(function(resp){
-                                    if (resp.result === 'ok') {
-                                        // Update the checkout object and proceed
-                                        isValidSteps.paymentMethod = true;
-                                        $scope._info();
-                                        _accordionAnimation(step);
-                                    }
-                                });
+                            // open billing address
+                            $scope._accordionAnimation(step);
                         }
-                    } else if ($scope.paymentMethod.selected.ID){ //if method is saved token
-                        var payment = $scope._getPaymentInfo();
+                    });
+            }
+        };
 
+        $scope._actionShippingMethod = function(step) {
+            checkoutService.saveShippingMethod({
+                'method': $scope.shippingMethod.selected.Method,
+                'rate': $scope.shippingMethod.selected.Rate
+            }).then(function (response) {
+                if (response.result === 'ok') {
+                    // update checkout
+                    $scope._info();
+                    $scope._isValidSteps.shippingMethod = true;
+                    $scope._accordionAnimation(step);
+                }
+            });
+        };
+
+        $scope._actionPaymentMethod = function (step) {
+            var payment;
+            $scope._isValidSteps.paymentMethod = false;
+
+            // Zero dollar, proceed
+            if ($scope.checkout.grandtotal <= 0) {
+                $scope._isValidSteps.paymentMethod = true;
+                $scope._info();
+                $scope._accordionAnimation(step);
+            }
+
+            if ($scope.paymentMethod.selected) {
+
+                if ($scope.paymentMethod.selected.isCreditCard) {
+
+                    payment = $scope._getPaymentInfo();
+                    payment.method.form.$submitted = true;
+
+                    if (payment.method.form.$valid) {
                         // Save off the method name
                         checkoutService.savePaymentMethod({
-                            method: $scope.paymentMethod.selected.Desc
+                            method: $scope.paymentMethod.selected.Code
                         });
 
                         // Save off the cc form
-                        checkoutService.saveAdditionalInfo({
-                            'cc': {
-                                'id': $scope.paymentMethod.selected.ID
-                                }
-                            }).then(function(resp){
+                        checkoutService.saveAdditionalInfo({'cc': payment.method.cc})
+                            .then(function(resp){
                                 if (resp.result === 'ok') {
                                     // Update the checkout object and proceed
-                                    isValidSteps.paymentMethod = true;
+                                    $scope._isValidSteps.paymentMethod = true;
                                     $scope._info();
-                                    _accordionAnimation(step);
+                                    $scope._accordionAnimation(step);
                                 }
                             });
+                    }
+                } else if ($scope.paymentMethod.selected.ID){ //if method is saved token
 
-                    } else {
-                        // not a cc just continue
-                        checkoutService.savePaymentMethod({
-                            method: $scope.paymentMethod.selected.Code
-                        })
+                    // Save off the method name
+                    checkoutService.savePaymentMethod({
+                        method: $scope.paymentMethod.selected.Desc
+                    });
+
+                    // Save off the cc form
+                    checkoutService.saveAdditionalInfo({
+                        'cc': {
+                            'id': $scope.paymentMethod.selected.ID
+                        }
+                    }).then(function(resp){
+                        if (resp.result === 'ok') {
+                            // Update the checkout object and proceed
+                            $scope._isValidSteps.paymentMethod = true;
+                            $scope._info();
+                            $scope._accordionAnimation(step);
+                        }
+                    });
+
+                } else {
+                    // not a cc just continue
+                    checkoutService.savePaymentMethod({
+                        method: $scope.paymentMethod.selected.Code
+                    })
                         .then(function(resp){
                             // update the checkout object and proceed
                             if (resp.result === 'ok') {
-                                isValidSteps.paymentMethod = true;
+                                $scope._isValidSteps.paymentMethod = true;
                                 $scope._info();
-                                _accordionAnimation(step);
+                                $scope._accordionAnimation(step);
                             }
                         });
-                    }
                 }
-            };
-
-            var actionCustomerAdditionalInfo = function () {
-                // isValidSteps isn't used for this step
-                if ($scope.isGuestCheckout && $scope.customerInfo.$valid) {
-                    checkoutService.saveAdditionalInfo({
-                        'customer_email': $scope.checkout.info.customer_email,
-                        'customer_name': $scope.checkout.info.customer_name
-                    }).then(function () {
-                        $scope._info();
-                        _accordionAnimation(step);
-                    });
-                }
-            };
-
-            var actionDefault = function () {
-                if (isValidSteps[step]) {
-                    _accordionAnimation(step);
-                }
-            };
-
-            switch (step) {
-                case 'billingAddress':
-                    actionBillingAddress();
-                    break;
-                case 'shippingAddress':
-                    actionShippingAddress();
-                    break;
-                case 'shippingMethod':
-                    actionShippingMethod();
-                    break;
-                case 'paymentMethod':
-                    actionPaymentMethod();
-                    break;
-                case 'customerInfo':
-                    actionCustomerAdditionalInfo();
-                    break;
-                default:
-                    actionDefault();
             }
+        };
 
-        }// jshint ignore:line
+        $scope._actionCustomerAdditionalInfo = function(step) {
+            // isValidSteps isn't used for this step
+            if ($scope.isGuestCheckout && $scope.customerInfo.$valid) {
+                checkoutService.saveAdditionalInfo({
+                    'customer_email': $scope.checkout.info.customer_email,
+                    'customer_name': $scope.checkout.info.customer_name
+                }).then(function () {
+                    $scope._info();
+                    $scope._accordionAnimation(step);
+                });
+            }
+        };
+
+        $scope._actionDefault = function(step) {
+            if ($scope._isValidSteps[step]) {
+                $scope._accordionAnimation(step);
+            }
+        };
 
         /**
          * Saves checkout
          */
-        function save() {
-            var payment, isValid, sendPostForm;
+        $scope.save = function() {
+            var payment = $scope._getPaymentInfo();
             $scope.message = '';
-            isValid = function () {
-                var result, message, getErrorMsg;
-                message = '';
-                result = {
-                    status: true,
-                    message: '',
-                };
-
-                getErrorMsg = function (step) {
-                    /*jshint maxcomplexity:6 */
-                    var msg = 'Please fill all required fields';
-
-                    switch (step) {
-                        case 'billingAddress':
-                            msg = 'Please fill all required fields in billing section <br />';
-                            break;
-                        case 'shippingAddress':
-                            msg = 'Please fill all required fields in shipping section <br />';
-                            break;
-                        case 'shippingMethod':
-                            msg = 'Please choose shipping method <br />';
-                            break;
-                        case 'paymentMethod':
-                            msg = 'Please choose payment method <br />';
-                            break;
-                        case 'additionalInfo':
-                            msg = 'Please fill all required fields in additional section <br />';
-                            break;
-                    }
-                    return msg;
-                };
-
-                for (var step in isValidSteps) {
-                    if (isValidSteps.hasOwnProperty(step) && !isValidSteps[step]) {
-                        message += getErrorMsg(step);
-                        result = {
-                            status: false,
-                            message: message
-                        };
-                    }
-                }
-
-                return result;
-            };
-
-            sendPostForm = function (method, response) {
-                var form;
-
-                form = "<div class='hidden' id='auth_net_form'>" + response.result + '</div>';
-                form = form.replace('$CC_NUM', method.cc.number);
-                form = form.replace('$CC_MONTH', method.cc.expire_month);
-                form = form.replace('$CC_YEAR', method.cc.expire_year);
-
-                $('body').append(form);
-                $('#auth_net_form').find('form').submit();
-                $('#auth_net_form').remove();
-            };
-
-            payment = $scope._getPaymentInfo();
 
             if (payment.form !== null && typeof payment.form !== 'undefined') {
                 payment.form.submited = true;
             }
+
             $scope._info().then(function () {
-                var checkoutValid = isValid();
+                var checkoutValid = $scope._isValid();
                 if (checkoutValid.status) {
                     $(this).parents('.confirm').css('display', 'none');
                     $('#processing').modal('show');
@@ -627,7 +543,7 @@ angular.module('checkoutModule')
                                     window.location.replace(response.redirect);
                                 } else if (isPostCC) {
                                     // Auth.net
-                                    sendPostForm(payment.method, response);
+                                    $scope._sendPostForm(payment.method, response);
                                 } else {
                                     // All Others; Zero Dollar, PayFlow Pro
                                     $scope._info().then(function() {
@@ -648,8 +564,6 @@ angular.module('checkoutModule')
                             }
                         });
 
-
-
                 } else {
                     $(this).parents('.confirm').css('display', 'block');
                     $('#processing').modal('hide');
@@ -658,7 +572,62 @@ angular.module('checkoutModule')
             });
         }
 
-        function applyDiscount() {
+        $scope._sendPostForm = function(method, response) {
+            var form = "<div class='hidden' id='auth_net_form'>" + response.result + '</div>';
+            form = form.replace('$CC_NUM', method.cc.number);
+            form = form.replace('$CC_MONTH', method.cc.expire_month);
+            form = form.replace('$CC_YEAR', method.cc.expire_year);
+
+            $('body').append(form);
+            $('#auth_net_form').find('form').submit();
+            $('#auth_net_form').remove();
+        };
+
+        $scope._isValid = function() {
+            var message = '',
+                result = {
+                status: true,
+                message: '',
+            };
+
+            for (var step in $scope._isValidSteps) {
+                if ($scope._isValidSteps.hasOwnProperty(step) && !$scope._isValidSteps[step]) {
+                    message += $scope._getErrorMsg(step);
+                    result = {
+                        status: false,
+                        message: message
+                    };
+                }
+            }
+
+            return result;
+        };
+
+        $scope._getErrorMsg = function(step) {
+            /*jshint maxcomplexity:6 */
+            var msg = 'Please fill all required fields';
+
+            switch (step) {
+                case 'billingAddress':
+                    msg = 'Please fill all required fields in billing section <br />';
+                    break;
+                case 'shippingAddress':
+                    msg = 'Please fill all required fields in shipping section <br />';
+                    break;
+                case 'shippingMethod':
+                    msg = 'Please choose shipping method <br />';
+                    break;
+                case 'paymentMethod':
+                    msg = 'Please choose payment method <br />';
+                    break;
+                case 'additionalInfo':
+                    msg = 'Please fill all required fields in additional section <br />';
+                    break;
+            }
+            return msg;
+        };
+
+        $scope.discounts.apply = function() {
             var errorMessage = 'The coupon code or giftcard code entered is not valid at this time.';
             var validationMessage = 'Please enter a coupon code or a giftcard code.';
             var code = $scope.discounts.code;
@@ -682,7 +651,7 @@ angular.module('checkoutModule')
             promises.push(giftCardsService.apply(code));
             promises.push(checkoutService.discountApply({'code' :code}));
 
-            allResolved(promises).then(function(responses){
+            $scope._allResolved(promises).then(function(responses){
                 $scope.discounts.isApplying = false;
 
                 var respSuccess = _.filter(responses, {'error': null});
@@ -693,41 +662,41 @@ angular.module('checkoutModule')
                     $scope.discounts.message = commonUtilService.getMessage(null, 'danger', errorMessage);
                 }
             });
+        };
 
-            // NOTE: $q.all will reject if one of the promises is bad, so we can't use it here
-            // and have instead replicateed $Q.allResolved
-            function allResolved(promises) {
-                var deferred = $q.defer(),
-                    counter = 0,
-                    results = [];
+        // NOTE: $q.all will reject if one of the promises is bad, so we can't use it here
+        // and have instead replicateed $Q.allResolved
+        $scope._allResolved = function(promises) {
+            var deferred = $q.defer(),
+                counter = 0,
+                results = [];
 
-                angular.forEach(promises, function(promise, key) {
-                    counter++;
-                    $q.when(promise).then(function(value) {
-                        if (results.hasOwnProperty(key)) {
-                            return;
-                        }
-                        results[key] = value;
-                        if (!(--counter)) {
-                            deferred.resolve(results);
-                        }
-                    }, function(reason) {
-                        if (results.hasOwnProperty(key)) {
-                            return;
-                        }
-                        results[key] = reason.data;
-                        if (!(--counter)) {
-                            deferred.resolve(results);
-                        }
-                    });
+            angular.forEach(promises, function(promise, key) {
+                counter++;
+                $q.when(promise).then(function(value) {
+                    if (results.hasOwnProperty(key)) {
+                        return;
+                    }
+                    results[key] = value;
+                    if (!(--counter)) {
+                        deferred.resolve(results);
+                    }
+                }, function(reason) {
+                    if (results.hasOwnProperty(key)) {
+                        return;
+                    }
+                    results[key] = reason.data;
+                    if (!(--counter)) {
+                        deferred.resolve(results);
+                    }
                 });
+            });
 
-                if (counter === 0) {
-                    deferred.resolve(results);
-                }
-
-                return deferred.promise;
+            if (counter === 0) {
+                deferred.resolve(results);
             }
-        }
+
+            return deferred.promise;
+        };
     }
 ]);

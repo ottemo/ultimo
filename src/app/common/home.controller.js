@@ -1,11 +1,9 @@
-(function() {
-    angular
-        .module("commonModule")
-        .controller("HomeController", ["$scope", HomeController]);
+angular.module("commonModule")
 
-    function HomeController($scope) {
+.controller("HomeController", [
+    function(
+    ) {
 
-    }
+}]);
 
-})();
 

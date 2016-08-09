@@ -17,14 +17,8 @@ angular.module("visitorModule")
         commonUtilService,
         coreCountryService
     ) {
-        // General
-        $scope.visitor = visitorLoginService.getVisitor();
-
         // Address List
         $scope.addresses = [];
-        $scope.remove = remove;
-        $scope.popUpOpen = popUpOpen;
-        $scope.setAsDefault = setAsDefault; // Not used
 
         // Edit / Add Form
         $scope.address = {};
@@ -32,20 +26,15 @@ angular.module("visitorModule")
         $scope.countries = coreCountryService;
         $scope.states = coreStateService;
         $scope.message = '';
-        $scope.save = save;
 
         // Sidebar, refactor
-        var activePath = $location.path();
-        $scope.isActive = isActive;
-
-        // Default address highlighting
-        $scope.isDefault = isDefault;
-
-        activate();
+        $scope.activePath = $location.path();
 
         //////////////////////////
 
-        function activate() {
+        $scope.activate = function() {
+            $scope.visitor = visitorLoginService.getVisitor();
+
             // BREADCRUMBS
             $scope.$emit('add-breadcrumbs', {
                 'label': 'myAccount',
@@ -70,11 +59,11 @@ angular.module("visitorModule")
                     var result = response.result || [];
                     $scope.addresses = result;
                 });
-        }
+        };
 
         // Listing Addresses
-        function popUpOpen(addressId) {
-            clearForm();
+        $scope.popUpOpen = function(addressId) {
+            $scope._clearForm();
 
             if (typeof addressId === 'undefined') {
                 $('#parent_popup_address').modal('show');
@@ -91,26 +80,24 @@ angular.module("visitorModule")
                     }
                 );
             }
-        }
+        };
 
-        function remove(id) {
-            var i;
-
+        $scope.remove = function(id) {
             visitorApiService.deleteAddress({
                 'addressID': id
             }, function(response) {
                 if (response.result === 'ok') {
-                    for (i = 0; i < $scope.addresses.length; i += 1) {
+                    for (var i = 0; i < $scope.addresses.length; i += 1) {
                         if ($scope.addresses[i].ID === id) {
                             $scope.addresses.splice(i, 1);
-                            clearForm();
+                            $scope._clearForm();
                         }
                     }
                 }
             });
-        }
+        };
 
-        function setAsDefault(id) {
+        $scope.setAsDefault = function(id) {
             visitorApiService.update({
                 'shipping_address_id': id
             }).$promise.then(
@@ -120,10 +107,10 @@ angular.module("visitorModule")
                     $scope.message = commonUtilService.getMessage(null, 'success', 'Address was selected as default with success');
                 }
             );
-        }
+        };
 
         // Add / Edit Address
-        function getFullName(address) {
+        $scope._getFullName = function(address) {
             return [
                 address.address_line1 + (address.address_line2 ? ' ' + address.address_line2 : ''),
                 address.city,
@@ -131,18 +118,18 @@ angular.module("visitorModule")
                 address.zip_code,
                 address.country
             ].join(', ');
-        }
+        };
 
-        function clearForm() {
+        $scope._clearForm = function() {
             $scope.message = '';
             $scope.address = {
                 'visitor_id': $scope.visitor._id
             };
             $scope.addressForm.$setPristine();
             $scope.addressForm.$setUntouched();
-        }
+        };
 
-        function save() {
+        $scope.save = function() {
             var id;
 
             if (typeof $scope.address !== 'undefined') {
@@ -152,71 +139,75 @@ angular.module("visitorModule")
             if (!id) {
                 id = visitorLoginService.getVisitorId();
                 $scope.address["visitor_id"] = id;
-                visitorApiService.saveAddress($scope.address, saveSuccess, errCallback);
+                visitorApiService.saveAddress($scope.address, $scope._saveSuccess, $scope._errCallback);
             } else {
                 $scope.address.id = id;
-                visitorApiService.addressUpdate($scope.address, updateSuccess, errCallback);
+                $scope.address.useAsDefaultBilling = $scope.address.useAsDefaultBilling ? true : null;
+                $scope.address.useAsDefaultShipping = $scope.address.useAsDefaultShipping ? true : null;
+                visitorApiService.addressUpdate($scope.address, $scope._updateSuccess, $scope._errCallback);
             }
+        };
 
-            function saveSuccess(response) {
-                if (response.error === null) {
-                    updateDefaultAddress(response.result);
-                    $scope.addresses.push({
-                        'ID': response.result._id,
-                        'Name': getFullName(response.result)
-                    });
-                }
-                $('#parent_popup_address').modal("hide");
-                $scope.message = commonUtilService.getMessage(null, 'success', 'New address was added with success');
+        $scope._saveSuccess = function(response) {
+            if (response.error === null) {
+                $scope._updateDefaultAddress(response.result);
+                $scope.addresses.push({
+                    'ID': response.result._id,
+                    'Name': $scope._getFullName(response.result)
+                });
             }
+            $('#parent_popup_address').modal("hide");
+            $scope.message = commonUtilService.getMessage(null, 'success', 'New address was added with success');
+        };
 
-            function updateSuccess(response) {
-
-                if (response.error === null) {
-                    var addr = response.result;
-                    updateDefaultAddress(addr);
-                    for (var i = 0; i < $scope.addresses.length; i += 1) {
-                        if ($scope.addresses[i].ID === addr._id) {
-                            $scope.addresses[i].ID = addr._id;
-                            $scope.addresses[i].Name = getFullName(addr);
-                        }
+        $scope._updateSuccess = function(response) {
+            if (response.error === null) {
+                var addr = response.result;
+                $scope._updateDefaultAddress(addr);
+                for (var i = 0; i < $scope.addresses.length; i += 1) {
+                    if ($scope.addresses[i].ID === addr._id) {
+                        $scope.addresses[i].ID = addr._id;
+                        $scope.addresses[i].Name = $scope._getFullName(addr);
                     }
                 }
-                $('#parent_popup_address').modal('hide');
-                $scope.message = commonUtilService.getMessage(null, 'success', 'Address was changed with success');
+            }
+            $('#parent_popup_address').modal('hide');
+            $scope.message = commonUtilService.getMessage(null, 'success', 'Address was changed with success');
+        };
+
+        $scope._updateDefaultAddress = function(addr) {
+            // update default addresses
+            if ($scope.address.useAsDefaultBilling) {
+                $scope.visitor.billing_address_id = addr._id;
+            } else if ($scope.visitor.billing_address_id === addr._id) {
+                $scope.visitor.billing_address_id = null;
             }
 
-            function updateDefaultAddress(addr) {
-
-                // update default addresses
-                if ($scope.address.useAsDefaultBilling) {
-                    $scope.visitor.billing_address_id = addr._id;
-                }
-
-                if ($scope.address.useAsDefaultShipping) {
-                    $scope.visitor.shipping_address_id = addr._id;
-                }
-
-                // Clean off some props
-                delete $scope.visitor.billing_address;
-                delete $scope.visitor.shipping_address;
-                delete $scope.visitor.password;
-
-                visitorApiService.update($scope.visitor).$promise
-                    .then(function(response) {
-                        visitorLoginService.setLogin(response.result);
-                        $scope.visitor = visitorLoginService.getVisitor();
-                    });
+            if ($scope.address.useAsDefaultShipping) {
+                $scope.visitor.shipping_address_id = addr._id;
+            } else if ($scope.visitor.shipping_address_id === addr._id) {
+                $scope.visitor.shipping_address_id = null;
             }
 
-            function errCallback() {}
-        }
+            // Clean off some props
+            delete $scope.visitor.billing_address;
+            delete $scope.visitor.shipping_address;
+            delete $scope.visitor.password;
 
-        function isActive(path) {
-            return (activePath === path)
-        }
+            visitorApiService.update($scope.visitor).$promise
+                .then(function(response) {
+                    visitorLoginService.setLogin(response.result);
+                    $scope.visitor = visitorLoginService.getVisitor();
+                });
+        };
 
-        function isDefault(id) {
+        $scope._errCallback = function() {};
+
+        $scope.isActive = function(path) {
+            return ($scope.activePath === path);
+        };
+
+        $scope.isDefault = function(id) {
             return (id == $scope.visitor.shipping_address_id || id == $scope.visitor.billing_address_id)
         }
 

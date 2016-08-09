@@ -7,13 +7,10 @@ angular.module("visitorModule")
     function($scope, $location, giftCardsService) {
 
         $scope.giftcode = '';
-        $scope.checkBalance = checkBalance;
-
-        $scope.isActive = isActive;
 
         ////////////////////////
 
-        function checkBalance() {
+        $scope.checkBalance = function() {
             if (!$scope.searching) {
                 $scope.searching = true;
 
@@ -29,11 +26,11 @@ angular.module("visitorModule")
                         $scope.giftcardDetails = response.result || false;
                     });
             }
-        }
+        };
 
         // REFACTOR
         // Sidebar, highlight active tab
-        function isActive(path) {
+        $scope.isActive = function(path) {
             return path === $location.path();
         }
     }
