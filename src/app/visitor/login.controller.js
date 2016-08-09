@@ -23,14 +23,12 @@ angular.module("visitorModule")
             cartService,
             commonUtilService
         ) {
-
-            $scope.login = visitorLoginService.getVisitor();
             $scope.loginCredentials = {};
-            var verifyCode = $routeParams["validate"];
+            $scope._verifyCode = $routeParams["validate"];
 
-            var VALIDATION_SUCCESS = "<b>Congratulations!</b><br /> You have finished registration and can now enter the site.";
-            var INVALIDATE_SUCCESS = "We sent you new activation code. Please check your email and click on the verification link.";
-            var FORGOT_SUCCESS = "If this email address exists in our system we'll send you instructions on resetting your password.";
+            $scope._VALIDATION_SUCCESS = "<b>Congratulations!</b><br /> You have finished registration and can now enter the site.";
+            $scope._INVALIDATE_SUCCESS = "We sent you new activation code. Please check your email and click on the verification link.";
+            $scope._FORGOT_SUCCESS = "If this email address exists in our system we'll send you instructions on resetting your password.";
 
             $scope.needBirthdayCheck = true;
             $scope.birthday = {
@@ -41,11 +39,16 @@ angular.module("visitorModule")
 
             //////////////////////////////////////////////
 
+            $scope.activate = function() {
+                $scope.login = visitorLoginService.getVisitor();
+
+            };
+
             $scope.init = function () {
-                if (typeof verifyCode !== "undefined") {
-                    visitorApiService.validate({"key": verifyCode}).$promise.then(function (response) {
+                if (typeof $scope._verifyCode !== "undefined") {
+                    visitorApiService.validate({"key": $scope._verifyCode}).$promise.then(function (response) {
                         if (response.error === null) {
-                            $scope.messageValidation = commonUtilService.getMessage(null, "success", VALIDATION_SUCCESS);
+                            $scope.messageValidation = commonUtilService.getMessage(null, "success", $scope._VALIDATION_SUCCESS);
                         } else {
                             $scope.messageValidation = commonUtilService.getMessage(response);
                         }
@@ -57,7 +60,7 @@ angular.module("visitorModule")
             $scope.sendForgotEmail = function () {
                 visitorApiService.forgotPassword({"email": $scope.forgotCredentials.email}).$promise.then(function (response) {
                     if (response.result === 'ok') {
-                        $scope.messageValidation = commonUtilService.getMessage(null, "success", FORGOT_SUCCESS);
+                        $scope.messageValidation = commonUtilService.getMessage(null, "success", $scope._FORGOT_SUCCESS);
                     } else {
                         $scope.messageValidation = commonUtilService.getMessage(response);
                     }
@@ -68,7 +71,7 @@ angular.module("visitorModule")
             $scope.sendInvalidateEmail = function () {
                 visitorApiService.invalidate({"email": $scope.invalidateCredentials.email}).$promise.then(function (response) {
                     if (response.result === 'ok') {
-                        $scope.messageValidation = commonUtilService.getMessage(null, "success", INVALIDATE_SUCCESS);
+                        $scope.messageValidation = commonUtilService.getMessage(null, "success", $scope._INVALIDATE_SUCCESS);
                     } else {
                         $scope.messageValidation = commonUtilService.getMessage(response);
                     }
@@ -103,7 +106,7 @@ angular.module("visitorModule")
                         // 1. fire off success action, redirects
                         visitorLoginService.isLoggedIn(true).then(function(){
                             cartService.reload();
-                            signInSuccess(false);
+                            $scope._signInSuccess(false);
                         });
                     } else {
                         $scope.message = commonUtilService.getMessage(response);
@@ -111,7 +114,7 @@ angular.module("visitorModule")
                 });
             };
 
-            var signInSuccess = function (isPopUp) {
+            $scope._signInSuccess = function (isPopUp) {
                 if (isPopUp) {
                     $route.reload();
                 } else {
@@ -129,7 +132,7 @@ angular.module("visitorModule")
                                 .then(function () {
                                     $('.modal').modal('hide');
                                     cartService.reload();
-                                    signInSuccess();
+                                    $scope._signInSuccess();
                                 });
                         } else {
                             $scope.message = commonUtilService.getMessage(response);
@@ -157,7 +160,7 @@ angular.module("visitorModule")
                                 //REFACTOR jquery
                                 $('.modal').modal('hide');
                                 cartService.reload();
-                                signInSuccess(isPopUp);
+                                $scope._signInSuccess(isPopUp);
                             });
                     });
                 }
@@ -176,7 +179,7 @@ angular.module("visitorModule")
                                 $('.modal').modal('hide');
                                 cartService.reload();
 
-                                signInSuccess();
+                                $scope._signInSuccess();
                             }
                         );
                     }
