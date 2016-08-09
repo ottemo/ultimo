@@ -15,7 +15,7 @@ angular.module("cmsModule", [
     .config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
         $routeProvider
             .when("/page/:id", {
-                templateUrl: "/views/cms/page.html",
+                templateUrl: "/views/cms/page.view.html",
                 controller: "cmsPageController"
             });
     }]);
