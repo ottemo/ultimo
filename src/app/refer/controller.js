@@ -5,15 +5,17 @@ angular.module('referModule')
     'referService',
     function($scope, referService) {
 
-        // Fetch the captcha for the page
-        referService.getCaptcha()
-            .then(function(imgData) {
-                $scope.captcha = imgData;
-            });
-
         $scope.isSubmitting = false;
 
-        function hideMessages() {
+        $scope.activate = function() {
+            // Fetch the captcha for the page
+            referService.getCaptcha()
+                .then(function(imgData) {
+                    $scope.captcha = imgData;
+                });
+        };
+
+        $scope._hideMessages = function() {
             $scope.showSuccessMessage = false;
             $scope.showCaptchaMismatchMessage = false;
             $scope.showErrorMessage = false;
@@ -25,7 +27,7 @@ angular.module('referModule')
             if ($scope.isSubmitting) { return; }
 
             $scope.isSubmitting = true;
-            hideMessages();
+            $scope._hideMessages();
 
             referService.post($scope.data)
                 .then(function(response) {
