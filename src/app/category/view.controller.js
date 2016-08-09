@@ -28,6 +28,8 @@ angular.module('categoryModule')
         SEARCH_KEY_NAME
     ) {
 
+        $scope.activate = activate;
+
         // Utilities
         $scope.productService = pdpProductService;
 
@@ -37,7 +39,7 @@ angular.module('categoryModule')
         $scope.productsList = [];
 
         // Pagination
-        $scope.currentPage = getPage();
+
         $scope.itemsPerPage = angular.appConfig.categoryItemsPerPage;
         $scope.pages = 0;
         $scope.totalItems = 0;
@@ -63,27 +65,41 @@ angular.module('categoryModule')
         $scope.addToCart = addToCart;
         $scope.openPopUp = openPopUp;
 
-        activate();
+        // Make private functions available in child controller scope
+        $scope._getCategory = _getCategory;
+        $scope._setFilters = _setFilters;
+        $scope._getLayered = _getLayered;
+        $scope._getProducts = _getProducts;
+        $scope._getCountProduct = _getCountProduct;
+        $scope._getSearchText = _getSearchText;
+        $scope._updateTree = _updateTree;
+        $scope._initWatchers = _initWatchers;
+        $scope._getPage = _getPage;
+        $scope._addCategoryCrumbs = _addCategoryCrumbs;
+        $scope._getParams = _getParams;
+        $scope._changeLocation = _changeLocation;
+        $scope._getFilters = _getFilters;
 
         ///////////////////////////////////////
 
         function activate() {
+            $scope.currentPage = $scope._getPage();
             //REFACTOR: if you move this it breaks your url
             // and we setFilters in getLayered as well
-            setFilters();
+            $scope._setFilters();
 
-            getCategory();
-            getLayered();
-            getProducts();
-            getCountProduct();
+            $scope._getCategory();
+            $scope._getLayered();
+            $scope._getProducts();
+            $scope._getCountProduct();
 
-            getSearchText();
-            updateTree();
+            $scope._getSearchText();
+            $scope._updateTree();
 
-            initWatchers();
-        };
+            $scope._initWatchers();
+        }
 
-        function getCategory() {
+        function _getCategory() {
             if ($scope.categoryId !== null) {
                 categoryApiService.load({
                     "id": $scope.categoryId
@@ -97,7 +113,7 @@ angular.module('categoryModule')
         /**
          * Gets layers for category
          */
-        function getLayered() {
+        function _getLayered() {
             categoryApiService.getLayered({
                 categoryID: $scope.categoryId
             }).$promise
@@ -107,15 +123,15 @@ angular.module('categoryModule')
                     angular.forEach(result, function(filterName){
                         $scope.filters[filterName] = {};
                     });
-                    setFilters();
+                    $scope._setFilters();
                 });
         };
 
         /**
          * Gets list of products
          */
-        function getProducts() {
-            var params = getParams();
+        function _getProducts() {
+            var params = $scope._getParams();
             params["categoryID"] = $scope.categoryId;
             categoryApiService.getProductsByCategoryId(params).$promise.then(function(response) {
                 var result = response.result || [];
@@ -126,8 +142,8 @@ angular.module('categoryModule')
         /**
          * Gets number items into collection
          */
-        function getCountProduct() {
-            var params = getParams(true);
+        function _getCountProduct() {
+            var params = $scope._getParams(true);
             params["categoryID"] = $scope.categoryId;
             categoryApiService.getCountProducts(params).$promise.then(function(response) {
                 var result = response.result || [];
@@ -136,7 +152,7 @@ angular.module('categoryModule')
             });
         };
 
-        function getPage() {
+        function _getPage() {
             var page = 0;
             var param = $location.search();
 
@@ -147,7 +163,7 @@ angular.module('categoryModule')
             return page;
         };
 
-        function addCategoryCrumbs() {
+        function _addCategoryCrumbs() {
             var list, i, category;
             list = categoryService.getChainCategories($scope.categoryId);
 
@@ -160,7 +176,7 @@ angular.module('categoryModule')
             }
         };
 
-        function getParams(withoutLimit) {
+        function _getParams(withoutLimit) {
             var search, result, key;
 
             result = {};
@@ -184,7 +200,7 @@ angular.module('categoryModule')
             return result;
         };
 
-        function updateTree() {
+        function _updateTree() {
             var categories = categoryService.getTree();
 
             if (!categories.length) {
@@ -193,11 +209,11 @@ angular.module('categoryModule')
                         var categories = response.result || [];
                         var tree = categoryService.setTree(categories);
                         setSubcategories(tree);
-                        addCategoryCrumbs();
+                        $scope._addCategoryCrumbs();
                     });
             } else {
                 setSubcategories(categories);
-                addCategoryCrumbs();
+                $scope._addCategoryCrumbs();
             }
 
             function setSubcategories(categories) {
@@ -206,23 +222,23 @@ angular.module('categoryModule')
             }
         }
 
-        function getSearchText() {
+        function _getSearchText() {
             if (typeof $routeParams[$scope.searchField] !== "undefined") {
                 $scope.searchText = $routeParams[$scope.searchField].trim("~").replace(/,/g, " ");
             }
         };
 
-        function changeLocation() {
+        function _changeLocation() {
             var filterStr, url;
-            filterStr = getFilters();
+            filterStr = $scope._getFilters();
             if (typeof filterStr !== "undefined") {
                 url = categoryService.getUrl($scope.categoryId);
                 categoryService.setFiltersInLocation(url, filterStr);
             }
         };
 
-        function initWatchers() {
-            $scope.$watch("filters", changeLocation, true);
+        function _initWatchers() {
+            $scope.$watch("filters", $scope._changeLocation, true);
 
             $scope.$watch("options", function() {
                 pdpProductService.setOptions($scope.options);
@@ -230,7 +246,7 @@ angular.module('categoryModule')
             }, true);
         };
 
-        function setFilters() {
+        function _setFilters() {
             var params, values, i, initFilter;
             params = $location.search();
             initFilter = function(attr) {
@@ -256,9 +272,9 @@ angular.module('categoryModule')
                 }
 
             }
-        };
+        }
 
-        function getFilters() {
+        function _getFilters() {
             var filters, prepareFilters, hasFilter;
             filters = [];
             hasFilter = false;
@@ -402,7 +418,7 @@ angular.module('categoryModule')
             $scope.clickMore = true;
             $scope.currentPage += 1;
 
-            var params = getParams();
+            var params = $scope._getParams();
             params["categoryID"] = $scope.categoryId;
 
             categoryApiService.getProductsByCategoryId(params).$promise.then(
