@@ -16,44 +16,40 @@ angular.module("pdpModule")
             // Product
             $scope.productId = $routeParams.id;
             $scope.product;
+            $scope.defaultProduct = {};
             $scope.options = {};
             $scope.customOptionsForm;
             $scope.qty = 1;
-            $scope.getTotal = getTotal;
 
             $scope.isAddingToCart = false;
             $scope.isAddToCartSuccessful = false;
-            $scope.addToCart = addToCart;
 
             // Ratings & Reviews
-            $scope.ratingInfo = getDefaultRatingInfo();
             $scope.reviewsList = [];
 
             // Related Products
             $scope.related = [];
 
-            activate();
-
             ///////////////////////////////////////////
 
-            function activate() {
-
+            $scope.activate = function activate() {
                 // REFACTOR: why store options in a service instead of on the
                 // product, idk
                 // BUG: if we don't clean out the options the pdpProductService tries to hold onto those
                 // options on page change
                 pdpProductService.setOptions({});
+                $scope.ratingInfo = $scope._getDefaultRatingInfo();
 
-                getProduct();
-                getReviews();
-                getRatingInfo();
-                initWatchers();
-            }
+                $scope._getProduct();
+                $scope._getReviews();
+                $scope._getRatingInfo();
+                $scope._initWatchers();
+            };
 
-            function initWatchers() {
+            $scope._initWatchers = function() {
                 $scope.$watch("ratingInfo", function () {
-                    getAverageValue();
-                    getStarsPercents();
+                    $scope._getAverageValue();
+                    $scope._getStarsPercents();
                 }, true);
 
                 // REFACTOR: ugh, the options are actually built out in the view
@@ -61,9 +57,9 @@ angular.module("pdpModule")
                 $scope.$watch('options', function(){
                     pdpProductService.setOptions($scope.options);
                 });
-            }
+            };
 
-            function getDefaultRatingInfo() {
+            $scope._getDefaultRatingInfo = function() {
                 return {
                     "stars_1": 0,
                     "stars_2": 0,
@@ -77,13 +73,9 @@ angular.module("pdpModule")
                     "threeStarPersent": 0,
                     "twoStarPersent": 0
                 };
-            }
+            };
 
-            function defaultProduct() {
-                return {};
-            }
-
-            function reinitializeStars() {
+            $scope._reinitializeStars = function() {
                 setTimeout(function () {
                     $("input.rating").each(function () {
 
@@ -104,10 +96,9 @@ angular.module("pdpModule")
                     });
 
                 }, 300);
-            }
+            };
 
-            function getAverageValue() {
-
+            $scope._getAverageValue = function() {
                 if (typeof $scope.ratingInfo === "undefined") {
                     return false;
                 }
@@ -121,9 +112,9 @@ angular.module("pdpModule")
                         (4 * $scope.ratingInfo['stars_4']) +
                         (5 * $scope.ratingInfo['stars_5'])) / ($scope.count);
                 }
-            }
+            };
 
-            function getStarsPercents() {
+            $scope._getStarsPercents = function() {
                 if (typeof $scope.ratingInfo === "undefined") {
                     return false;
                 }
@@ -133,12 +124,12 @@ angular.module("pdpModule")
                 $scope.ratingInfo.threeStarPersent = ($scope.ratingInfo['stars_3'] / $scope.count) * 100;
                 $scope.ratingInfo.fourStarPersent = ($scope.ratingInfo['stars_4'] / $scope.count) * 100;
                 $scope.ratingInfo.fifeStarPersent = ($scope.ratingInfo['stars_5'] / $scope.count) * 100;
-            }
+            };
 
-            function getProduct() {
+            $scope._getProduct = function() {
                 pdpApiService.getProduct({"productID": $scope.productId}).$promise.then(function (response) {
                     if (response.error === null) {
-                        var result = response.result || defaultProduct();
+                        var result = response.result || $scope.defaultProduct;
 
                         pdpProductService.setProduct(result);
                         $scope.product = pdpProductService.getProduct();
@@ -152,13 +143,13 @@ angular.module("pdpModule")
                         $location.path("/");
                     }
                 });
-            }
+            };
 
-            function getTotal() {
+            $scope.getTotal = function() {
                 return $scope.qty * $scope.product.price;
-            }
+            };
 
-            function addToCart($event) {
+            $scope.addToCart = function($event) {
                 // I think because we don't have an href in the link
                 // we get an odd bug where the link retains focus
                 $event.target.blur();
@@ -205,26 +196,26 @@ angular.module("pdpModule")
             /**
              * Gets reviews list
              */
-            function getReviews() {
+            $scope._getReviews = function() {
                 pdpApiService.reviewList({"productID": $scope.productId}).$promise.then(function (response) {
                     $scope.reviewsList = response.result || [];
                 });
-            }
+            };
 
             /**
              * Gets rating info
              */
-            function getRatingInfo() {
+            $scope._getRatingInfo =function() {
                 pdpApiService.ratingInfo({"productID": $scope.productId}).$promise.then(function (response) {
                     if (response.result instanceof Array) {
                         $scope.ratingInfo = response.result[0];
                     } else {
-                        $scope.ratingInfo = getDefaultRatingInfo();
+                        $scope.ratingInfo = $scope._getDefaultRatingInfo();
                     }
-                    getAverageValue();
-                    getStarsPercents();
+                    $scope._getAverageValue();
+                    $scope._getStarsPercents();
                 });
-            }
+            };
 
             /**
              * Gets title for review
@@ -263,7 +254,7 @@ angular.module("pdpModule")
                                 $scope.submittedReview = false;
                                 $scope.reviewForm.review.$pristine = true;
                                 $scope.review.stars = 0;
-                                reinitializeStars();
+                                $scope._reinitializeStars();
                             } else {
                                 $scope.messageReview = commonUtilService.getMessage(response);
                             }
