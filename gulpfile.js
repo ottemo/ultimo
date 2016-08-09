@@ -2,6 +2,7 @@
 
 var args = require('yargs').argv;
 var path = require('path');
+var glob = require('glob');
 var colors = require('chalk');
 var config = require('./gulp.config')();
 var del = require('del');
@@ -448,12 +449,12 @@ function inheritControllers(file) {
         ctrlConfig.ctrlRegex.test(fileName)) {
 
         // check if child controller exists in theme
-        var childCtrlPath = path.join(file.cwd, ctrlConfig.themeDir, pathInTheme, '_' + fileName);
-        try {
-            fs.statSync(childCtrlPath);
-            // add '_' prefix to controller name
+        var childCtrlPath = path.join(ctrlConfig.themeDir, pathInTheme, '_' + fileName);
+        var match = glob.sync(childCtrlPath);
+        if (match.length) {
+            console.log('rewrite parent for ', childCtrlPath);
+            // prefix parent controller name with underscore
             file.contents = new Buffer(file.contents.toString().replace(ctrlConfig.ctrlNameRegex, '.controller(\'_$1\''));
         }
-        catch(e) {}
     }
 }

@@ -1,15 +1,20 @@
 /*jshint node:true */
 
+var glob = require('glob');
+
 module.exports = function() {
     var src = 'src/',
         temp = './tmp/',
-        email = 'email/';
+        email = 'email/',
+        base = 'app',
+        theme = 'ultimo';
 
     var config = {
         src: src,
+
         // Themes
-        base: 'base',
-        theme: 'ultimo',
+        base: base,
+        theme: theme,
 
         // Reserved and written to in gulpfile.js
         env: '',
@@ -37,7 +42,7 @@ module.exports = function() {
             // Seems to break sourcemaps, so conditionally minify css in gulpfile
             // outputStyle: 'compressed',
             precision: 8,
-            includePaths: ['./src/theme', './src/app']
+            includePaths: ['./' + src + theme + '/', './' + src + base + '/']
         },
         uglifySettings: {
             mangle: false,
@@ -53,7 +58,11 @@ module.exports = function() {
     function setConfigPaths() {
         addThemePaths('./' + src + config.base + '/');
         addThemePaths('./' + src + config.theme + '/');
-        config.styles.root = './' + src + config.theme + '/app.scss';
+
+        // Styles root
+        var themeStylesRoot = './' + src + config.theme + '/app.scss';
+        var match = glob.sync(themeStylesRoot);
+        config.styles.root = (match.length) ? themeStylesRoot : './' + src + config.base + '/app.scss';
 
         return config;
     }
