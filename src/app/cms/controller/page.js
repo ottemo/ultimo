@@ -8,16 +8,17 @@ angular.module("cmsModule")
     "cmsPageService",
     function($scope, $routeParams, $location, cmsApiService, cmsPageService) {
 
+        $scope.activate = activate;
         $scope.pageId = $routeParams.id;
         $scope.page = {};
 
-        activate();
+        $scope._getPage = _getPage;
 
         /////////////////////////
         function activate() {
 
             // Get the page
-            getPage().then(function(page){
+            $scope._getPage().then(function(page){
                 $scope.page = page;
 
                 // BREADCRUMBS
@@ -28,7 +29,7 @@ angular.module("cmsModule")
             });
         }
 
-        function getPage() {
+        function _getPage() {
             return cmsApiService.getPage({"pageID": $scope.pageId}).$promise
                 .then(function(response){
                     if (response.error !== null) {
