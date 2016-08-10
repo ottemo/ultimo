@@ -1,16 +1,137 @@
-// Libs
+// Variables
 @import "_styles/var";
-@import "_styles/bootstrap";
-@import "_styles/font-awesome";
 
+////////////////////////////////////////////////////
+// Bootstrap
+////////////////////////////////////////////////////
+// Core variables
+@import "_styles/bootstrap/variables";
+// --------------------------------------------------
+// Mixins
+// --------------------------------------------------
+// Utilities
+@import "_styles/bootstrap/mixins/hide-text";
+@import "_styles/bootstrap/mixins/opacity";
+@import "_styles/bootstrap/mixins/image";
+@import "_styles/bootstrap/mixins/labels";
+@import "_styles/bootstrap/mixins/reset-filter";
+@import "_styles/bootstrap/mixins/resize";
+@import "_styles/bootstrap/mixins/responsive-visibility";
+@import "_styles/bootstrap/mixins/size";
+@import "_styles/bootstrap/mixins/tab-focus";
+@import "_styles/bootstrap/mixins/reset-text";
+@import "_styles/bootstrap/mixins/text-emphasis";
+@import "_styles/bootstrap/mixins/text-overflow";
+@import "_styles/bootstrap/mixins/vendor-prefixes";
 // Components
-@import "_styles/components";
+@import "_styles/bootstrap/mixins/alerts";
+@import "_styles/bootstrap/mixins/buttons";
+@import "_styles/bootstrap/mixins/panels";
+@import "_styles/bootstrap/mixins/pagination";
+@import "_styles/bootstrap/mixins/list-group";
+@import "_styles/bootstrap/mixins/nav-divider";
+@import "_styles/bootstrap/mixins/forms";
+@import "_styles/bootstrap/mixins/progress-bar";
+@import "_styles/bootstrap/mixins/table-row";
+// Skins
+@import "_styles/bootstrap/mixins/background-variant";
+@import "_styles/bootstrap/mixins/border-radius";
+@import "_styles/bootstrap/mixins/gradients";
+// Layout
+@import "_styles/bootstrap/mixins/clearfix";
+@import "_styles/bootstrap/mixins/center-block";
+@import "_styles/bootstrap/mixins/nav-vertical-align";
+@import "_styles/bootstrap/mixins/grid-framework";
+@import "_styles/bootstrap/mixins/grid";
+// Reset and dependencies
+@import "_styles/bootstrap/normalize";
+@import "_styles/bootstrap/print";
+// @import "_styles/bootstrap/glyphicons";
+// Core CSS
+@import "_styles/bootstrap/scaffolding";
+@import "_styles/bootstrap/type";
+@import "_styles/bootstrap/code";
+@import "_styles/bootstrap/grid";
+@import "_styles/bootstrap/tables";
+@import "_styles/bootstrap/forms";
+@import "_styles/bootstrap/buttons";
+// Components
+@import "_styles/bootstrap/component-animations";
+@import "_styles/bootstrap/dropdowns";
+@import "_styles/bootstrap/button-groups";
+@import "_styles/bootstrap/input-groups";
+@import "_styles/bootstrap/navs";
+@import "_styles/bootstrap/navbar";
+@import "_styles/bootstrap/breadcrumbs";
+@import "_styles/bootstrap/pagination";
+@import "_styles/bootstrap/pager";
+@import "_styles/bootstrap/labels";
+@import "_styles/bootstrap/badges";
+// @import "_styles/bootstrap/jumbotron";
+// @import "_styles/bootstrap/thumbnails";
+@import "_styles/bootstrap/alerts";
+@import "_styles/bootstrap/progress-bars";
+@import "_styles/bootstrap/media";
+@import "_styles/bootstrap/list-group";
+@import "_styles/bootstrap/panels";
+@import "_styles/bootstrap/responsive-embed";
+@import "_styles/bootstrap/wells";
+@import "_styles/bootstrap/close";
+// Components w/ JavaScript
+@import "_styles/bootstrap/modals";
+@import "_styles/bootstrap/tooltip";
+// @import "_styles/bootstrap/popovers";
+// @import "_styles/bootstrap/carousel";
+// Utility classes
+@import "_styles/bootstrap/utilities";
+@import "_styles/bootstrap/responsive-utilities";
 
+////////////////////////////////////////////////////
+//Font awesome
+////////////////////////////////////////////////////
+@import "_styles/font-awesome/variables";
+@import "_styles/font-awesome/mixins";
+@import "_styles/font-awesome/path";
+@import "_styles/font-awesome/core";
+@import "_styles/font-awesome/larger";
+@import "_styles/font-awesome/fixed-width";
+@import "_styles/font-awesome/list";
+@import "_styles/font-awesome/bordered-pulled";
+@import "_styles/font-awesome/animated";
+@import "_styles/font-awesome/rotated-flipped";
+@import "_styles/font-awesome/stacked";
+@import "_styles/font-awesome/icons";
+
+////////////////////////////////////////////////////
+// Components
+////////////////////////////////////////////////////
+@import "_styles/components/reboot";
+@import "_styles/components/utilities-spacing.scss";
+@import "_styles/components/animation";
+@import "_styles/components/buttons";
+@import "_styles/components/datepicker";
+@import "_styles/components/dropdown-hover";
+@import "_styles/components/forms";
+@import "_styles/components/images";
+@import "_styles/components/jquery.fancybox";
+@import "_styles/components/list-social";
+@import "_styles/components/loading-bar";
+@import "_styles/components/slider";
+@import "_styles/components/type";
+@import "_styles/components/shame";
+
+////////////////////////////////////////////////////
 // Modules
+////////////////////////////////////////////////////
 @import "cart/cart";
-@import "category/category";
+// Category Module
+@import "category/view";
+@import "category/sidebar";
+@import "category/modal/quick-view";
 @import "checkout/checkout";
-@import "common/common";
+@import "common/header";
+@import "common/footer";
+@import "common/home";
 @import "pdp/pdp";
 @import "refer/refer";
 @import "visitor/visitor";

@@ -24,8 +24,8 @@
     <link rel="stylesheet" href="/styles/app.min.css">
 </head>
 <body ng-controller="appController"
-    ng-class="{'is-logged-in': visitorProps.isLoggedIn}"
-    ot-route-class ng-init="activate()">
+      ng-class="{'is-logged-in': visitorProps.isLoggedIn}"
+      ot-route-class ng-init="activate()">
 
 <!--[if lt IE 9]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
@@ -33,14 +33,13 @@
 <![endif]-->
 
 <div id="content">
-
-    <ng-include src="'/views/common/header.html'"></ng-include>
+    <div ng-include="common/header.html"></div>
 
     <div class="content-wrapper">
         <ng-view autoscroll></ng-view>
     </div>
 
-    <ng-include src="'/views/common/footer.html'"></ng-include>
+    <div ng-include="common/footer.html"></div>
 
 </div>
 
@@ -53,14 +52,14 @@
 
 <!-- Tracking: Google Analytics -->
 <script>
-/* jshint ignore:start */
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    /* jshint ignore:start */
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-ga('create', '@@googleAnalyticsId', 'auto');
-/* jshint ignore:end */
+    ga('create', '@@googleAnalyticsId', 'auto');
+    /* jshint ignore:end */
 </script>
 
 </body>

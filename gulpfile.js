@@ -12,6 +12,7 @@ var md5 = require('md5');
 var modRewrite = require('connect-modrewrite');
 var runSequence = require('run-sequence');
 var siphonMQ = require('siphon-media-query');
+var nginclude = require('./gulp.nginclude');
 var $ = require('gulp-load-plugins')({
     lazy: true
 });
@@ -216,12 +217,14 @@ gulp.task('compile_html_root', function() {
 
     return gulp.src(config.html.root)
         .pipe($.replaceTask(replacePattern))
-        .pipe($.changed(config.build))
+        .pipe(nginclude({assetsDirs: [config.src + '/' + config.theme, config.src + '/' + config.base]}))
+        //.pipe($.changed(config.build))
         .pipe(gulp.dest(config.build));
 });
 
 gulp.task('compile_html_nonroot', function compile_html_nonroot() {
     return gulp.src(config.html.nonRoot)
+        .pipe(nginclude({assetsDirs: [config.src + '/' + config.theme, config.src + '/' + config.base]}))
         //.pipe($.changed(config.build + 'views/'))
         .pipe(gulp.dest(config.build + 'views/'));
 });
@@ -452,7 +455,6 @@ function inheritControllers(file) {
         var childCtrlPath = path.join(ctrlConfig.themeDir, pathInTheme, '_' + fileName);
         var match = glob.sync(childCtrlPath);
         if (match.length) {
-            console.log('rewrite parent for ', childCtrlPath);
             // prefix parent controller name with underscore
             file.contents = new Buffer(file.contents.toString().replace(ctrlConfig.ctrlNameRegex, '.controller(\'_$1\''));
         }

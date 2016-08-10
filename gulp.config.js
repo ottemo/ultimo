@@ -42,7 +42,7 @@ module.exports = function() {
             // Seems to break sourcemaps, so conditionally minify css in gulpfile
             // outputStyle: 'compressed',
             precision: 8,
-            includePaths: ['./' + src + theme + '/', './' + src + base + '/']
+            includePaths: [src + theme, src + base]
         },
         uglifySettings: {
             mangle: false,
