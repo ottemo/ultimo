@@ -1,9 +1,0 @@
-<ol class="breadcrumb">
-    <li ng-repeat="item in crumbs"
-        ng-class="{active: $last}">
-        <span ng-if="$last">{{item.label}}</span>
-        <a ng-if="!$last"
-            ng-href="{{item.url}}">{{item.label}}</a>
-    </li>
-</ol>
-
