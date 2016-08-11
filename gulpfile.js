@@ -166,28 +166,30 @@ gulp.task('compile', [
 gulp.task('compile_scripts', ['compile_scripts_app', 'compile_scripts_lib']);
 
 gulp.task('compile_scripts_app', function compile_scripts_app() {
+    // Load app config before other scripts
+    var scriptsAppPaths = applyThemesToPaths(config.scripts.app, config.app);
 
     // REFACTOR: This makes dev/staging/production different... :-1:
     // uglify + concat breaks sourcemaps so don't use it unless we are on production
     // https://github.com/terinjokes/gulp-uglify/issues/105
     if (config.isEnvProduction || config.isEnvStaging) {
-        return gulp.src(config.scripts.app)
+        return gulp.src(scriptsAppPaths)
             .pipe($.plumber(handleError))
-            .pipe($.tap(inheritControllers))
+            .pipe($.tap(makeParentControllerInheritable))
             .pipe($.uglify(config.uglifySettings))
             .pipe($.plumber.stop())
             .pipe($.concat('main.js'))
             .pipe(gulp.dest(config.build + 'scripts'));
     } else {
-        return gulp.src(config.scripts.app)
-            .pipe($.tap(inheritControllers))
+        return gulp.src(scriptsAppPaths)
+            .pipe($.tap(makeParentControllerInheritable))
             .pipe($.concat('main.js'))
             .pipe(gulp.dest(config.build + 'scripts'));
     }
 });
 
 gulp.task('compile_scripts_lib', function compile_scripts_lib() {
-    return gulp.src(config.scripts.lib)
+    return gulp.src(applyThemesToPaths(config.scripts.lib))
         .pipe($.concat('lib.js'))
         .pipe(gulp.dest(config.build + 'scripts'));
 });
@@ -204,7 +206,7 @@ gulp.task('compile_html_root', function() {
         }]
     };
 
-    return gulp.src(config.html.root)
+    return gulp.src(applyThemesToPaths(config.html.root))
         .pipe($.replaceTask(replacePattern))
         .pipe(nginclude({assetsDirs: [config.themePath, config.basePath]}))
         //.pipe($.changed(config.build))
@@ -212,7 +214,7 @@ gulp.task('compile_html_root', function() {
 });
 
 gulp.task('compile_html_nonroot', function compile_html_nonroot() {
-    return gulp.src(config.html.nonRoot)
+    return gulp.src(applyThemesToPaths(config.html.nonRoot))
         .pipe(nginclude({assetsDirs: [config.themePath, config.basePath]}))
         //.pipe($.changed(config.build + 'views/'))
         .pipe(gulp.dest(config.build + 'views/'));
@@ -224,7 +226,7 @@ gulp.task('compile_html_nonroot', function compile_html_nonroot() {
  */
 gulp.task('compile_robots', function compile_robots() {
     var robotPath = config.isEnvProduction ? config.robots.prod : config.robots.default;
-    return gulp.src(robotPath)
+    return gulp.src(applyThemesToPaths(robotPath))
         .pipe($.rename('robots.txt'))
         .pipe(gulp.dest(config.build));
 });
@@ -233,7 +235,7 @@ gulp.task('compile_robots', function compile_robots() {
  * Compile oddball files
  */
 gulp.task('compile_misc', function compile_misc() {
-    return gulp.src(config.misc)
+    return gulp.src(applyThemesToPaths(config.misc))
         .pipe(gulp.dest(config.build));
 });
 
@@ -243,8 +245,10 @@ gulp.task('compile_misc', function compile_misc() {
  */
 gulp.task('compile_styles', function compile_styles() {
     var isMinifyActive = config.isEnvProduction || config.isEnvStaging;
+    var useThemeStyles = glob.sync(config.themePath + '/' + config.styles.root).length !== 0;
+    var stylesRootTheme = (useThemeStyles) ? config.themePath : config.basePath;
 
-    return gulp.src(config.styles.root)
+    return gulp.src(stylesRootTheme + '/' + config.styles.root)
         .pipe($.sourcemaps.init())
         .pipe($.sass(config.sassSettings).on('error', $.sass.logError))
         .pipe($.sourcemaps.write({sourceRoot: '.'}))
@@ -266,7 +270,7 @@ gulp.task('compile_media', function compile_media() {
     var mediaBuild = config.build + 'images/';
     var isMinifyActive = config.isEnvProduction || config.isEnvStaging;
 
-    return gulp.src(config.media)
+    return gulp.src(applyThemesToPaths(config.media))
         //.pipe($.changed(mediaBuild))
         .pipe($.if(isMinifyActive, $.imagemin()))
         .pipe(gulp.dest(mediaBuild));
@@ -276,7 +280,7 @@ gulp.task('compile_media', function compile_media() {
  * Move fonts
  */
 gulp.task('compile_fonts', function compile_fonts() {
-    return gulp.src(config.fonts)
+    return gulp.src(applyThemesToPaths(config.fonts))
         .pipe(gulp.dest(config.build + 'fonts/'));
 });
 
@@ -326,12 +330,11 @@ gulp.task('serve_watch', function serve_watch() {
     gulp.start('serve_server');
 
     // App
-    gulp.watch(config.html.root,    ['compile_html_root']);
-    gulp.watch(config.html.nonRoot, ['compile_html_nonroot']);
-    gulp.watch(config.styles.all,   ['compile_styles']);
-    gulp.watch(config.scripts.lib,  ['compile_scripts_lib']);
-    gulp.watch(config.scripts.ie,   ['compile_scripts_ie']);
-    gulp.watch(config.scripts.app,  ['compile_scripts_app']);
+    gulp.watch(applyThemesToPaths(config.html.root),    ['compile_html_root']);
+    gulp.watch(applyThemesToPaths(config.html.nonRoot), ['compile_html_nonroot']);
+    gulp.watch(applyThemesToPaths(config.styles.all),   ['compile_styles']);
+    gulp.watch(applyThemesToPaths(config.scripts.lib),  ['compile_scripts_lib']);
+    gulp.watch(applyThemesToPaths(config.scripts.app),  ['compile_scripts_app']);
 
     // Emails
     gulp.watch(config.email.dest, ['compile_emails']);
@@ -421,35 +424,60 @@ function repeat(str, num) {
     return resp;
 }
 
-/**
- * Controller inheritance config
- */
-var ctrlConfig = {
-    ctrlRegex: /.*\.controller\.js$/,
-    ctrlNameRegex: /\.controller\(['"]([^'"]+)['"]/,
-    // trim slashes in paths
-    basePath: config.basePath.slice(2, -1),
-    themePath: config.themePath.slice(2, -1),
-};
+function applyThemesToPaths(paths, includePathBefore) {
+    var result = includePathBefore ? [includePathBefore] : [];
 
-/**
- * Prefix with '_' parent controllers in base theme
- * so that we can use the same name for child controllers in theme
- */
-function inheritControllers(file) {
-    var fileName = path.basename(file.path);
-    var pathInTheme = path.relative(file.base, path.dirname(file.path));
+    if (!Array.isArray(paths)) {
+        paths = [paths];
+    }
 
-    // check if it's a base controller
-    if (path.relative(file.cwd, file.base) === ctrlConfig.basePath &&
-        ctrlConfig.ctrlRegex.test(fileName)) {
+    paths.forEach(function(path) {
+        result.push(applyThemeToPath(path, config.basePath));
+        result.push(applyThemeToPath(path, config.themePath));
+    });
 
-        // check if child controller exists in theme
-        var childCtrlPath = path.join(ctrlConfig.themePath, pathInTheme, '_' + fileName);
-        var match = glob.sync(childCtrlPath);
-        if (match.length) {
-            // prefix parent controller name with underscore
-            file.contents = new Buffer(file.contents.toString().replace(ctrlConfig.ctrlNameRegex, '.controller(\'_$1\''));
+    return result;
+
+    function applyThemeToPath(path, theme) {
+        if (path.indexOf('!') !== -1) {
+            return '!' + theme + path.slice(1);
         }
+        return theme + path;
     }
 }
+
+
+var srcAbsolutePath = path.resolve(process.cwd(), config.src);
+
+function makeParentControllerInheritable(file) {
+    if (getFileTheme(file) === config.baseName && isController(file)) {
+        if (hasChildController(file)) {
+            addPrefixToControllerName(file);
+        }
+    }
+
+    function getFileTheme(file) {
+        return path.relative(srcAbsolutePath, file.base);
+    }
+
+    function isController(file) {
+        var regex = /.*controller.js$/;
+        return regex.test(file.path);
+    }
+
+    function hasChildController(file) {
+        var pathInTheme = path.relative(file.base, path.dirname(file.path)),
+            fileName = path.basename(file.path),
+            childControllerPath = path.join(config.themePath, pathInTheme, '_' + fileName),
+            matchChildController = glob.sync(childControllerPath);
+
+        return matchChildController.length !== 0;
+    }
+
+    function addPrefixToControllerName(file) {
+        var regex = /\.controller\(['"]([^'"]+)['"]/;
+        var content = file.contents.toString();
+        file.contents = new Buffer(content.replace(regex, '.controller(\'_$1\''));
+    }
+}
+
