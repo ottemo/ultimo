@@ -86,15 +86,6 @@ function activate() {
     config.settings = readConfig(config.configFile);
 }
 
-
-gulp.task('merge_test', function() {
-    gulp.src([
-        'src/app/cart/**/*.js',
-        'src/base/cart/**/*.js',
-    ])
-        .pipe(gulp.dest('./dist'))
-});
-
 /**
  * Read the settings from the right file
  */
@@ -182,9 +173,7 @@ gulp.task('compile_scripts_app', function compile_scripts_app() {
     if (config.isEnvProduction || config.isEnvStaging) {
         return gulp.src(config.scripts.app)
             .pipe($.plumber(handleError))
-            .pipe(transform(function(filename) {
-                console.log(filename);
-            }))
+            .pipe($.tap(inheritControllers))
             .pipe($.uglify(config.uglifySettings))
             .pipe($.plumber.stop())
             .pipe($.concat('main.js'))
@@ -217,14 +206,14 @@ gulp.task('compile_html_root', function() {
 
     return gulp.src(config.html.root)
         .pipe($.replaceTask(replacePattern))
-        .pipe(nginclude({assetsDirs: [config.src + '/' + config.theme, config.src + '/' + config.base]}))
+        .pipe(nginclude({assetsDirs: [config.themePath, config.basePath]}))
         //.pipe($.changed(config.build))
         .pipe(gulp.dest(config.build));
 });
 
 gulp.task('compile_html_nonroot', function compile_html_nonroot() {
     return gulp.src(config.html.nonRoot)
-        .pipe(nginclude({assetsDirs: [config.src + '/' + config.theme, config.src + '/' + config.base]}))
+        .pipe(nginclude({assetsDirs: [config.themePath, config.basePath]}))
         //.pipe($.changed(config.build + 'views/'))
         .pipe(gulp.dest(config.build + 'views/'));
 });
@@ -278,7 +267,7 @@ gulp.task('compile_media', function compile_media() {
     var isMinifyActive = config.isEnvProduction || config.isEnvStaging;
 
     return gulp.src(config.media)
-        .pipe($.changed(mediaBuild))
+        //.pipe($.changed(mediaBuild))
         .pipe($.if(isMinifyActive, $.imagemin()))
         .pipe(gulp.dest(mediaBuild));
 });
@@ -295,10 +284,10 @@ gulp.task('compile_fonts', function compile_fonts() {
  * Inline css for emails
  */
 gulp.task('compile_emails', function compile_emails() {
-    var css = fs.readFileSync('./src/email/css.css').toString();
+    var css = fs.readFileSync(config.email.styles).toString();
     var mqCss = siphonMQ(css);
 
-    return gulp.src(config.email)
+    return gulp.src(config.email.templates)
         .pipe($.inlineCss({
             applyStyleTags: false,       // currently removes trailing slashes on meta
         }))
@@ -327,7 +316,7 @@ gulp.task('compile_emails', function compile_emails() {
         .pipe($.rename({
             suffix: '.inline',
         }))
-        .pipe(gulp.dest('./src/email'));
+        .pipe(gulp.dest(config.email.dest));
 });
 
 /**
@@ -345,7 +334,7 @@ gulp.task('serve_watch', function serve_watch() {
     gulp.watch(config.scripts.app,  ['compile_scripts_app']);
 
     // Emails
-    gulp.watch(config.email, ['compile_emails']);
+    gulp.watch(config.email.dest, ['compile_emails']);
 });
 
 /**
@@ -432,27 +421,31 @@ function repeat(str, num) {
     return resp;
 }
 
-
-// Controllers inheritance configs
+/**
+ * Controller inheritance config
+ */
 var ctrlConfig = {
     ctrlRegex: /.*\.controller\.js$/,
     ctrlNameRegex: /\.controller\(['"]([^'"]+)['"]/,
-    baseDir: config.src + config.base,
-    themeDir: config.src + config.theme,
+    // trim slashes in paths
+    basePath: config.basePath.slice(2, -1),
+    themePath: config.themePath.slice(2, -1),
 };
 
-// Prefix with '_' parent controllers in base theme
-// so that we can use the same name for child controllers in theme
+/**
+ * Prefix with '_' parent controllers in base theme
+ * so that we can use the same name for child controllers in theme
+ */
 function inheritControllers(file) {
     var fileName = path.basename(file.path);
     var pathInTheme = path.relative(file.base, path.dirname(file.path));
 
     // check if it's a base controller
-    if (path.relative(file.cwd, file.base) === ctrlConfig.baseDir &&
+    if (path.relative(file.cwd, file.base) === ctrlConfig.basePath &&
         ctrlConfig.ctrlRegex.test(fileName)) {
 
         // check if child controller exists in theme
-        var childCtrlPath = path.join(ctrlConfig.themeDir, pathInTheme, '_' + fileName);
+        var childCtrlPath = path.join(ctrlConfig.themePath, pathInTheme, '_' + fileName);
         var match = glob.sync(childCtrlPath);
         if (match.length) {
             // prefix parent controller name with underscore
