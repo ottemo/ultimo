@@ -6,6 +6,7 @@
 *.sublime-project
 *.sublime-workspace
 
+/src/default
 app/bower_components
 app/bundle.js
 app/media

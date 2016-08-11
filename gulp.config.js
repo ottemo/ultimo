@@ -7,7 +7,7 @@ module.exports = function() {
         temp = './tmp/',
         email = './email/',
 
-        base = 'app/',
+        base = 'default/',
         theme = 'ultimo/';
 
     var config = {
