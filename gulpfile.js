@@ -115,7 +115,7 @@ gulp.task('serve', ['build'], function serve() {
  * Vet the code
  */
 gulp.task('vet', function vet() {
-    return gulp.src(config.scripts.app)
+    return gulp.src(applyThemesToPaths(config.scripts.app))
         .pipe($.jshint())
         .pipe($.jshint.reporter('jshint-stylish'));
 });
