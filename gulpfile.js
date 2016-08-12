@@ -439,7 +439,7 @@ function applyThemesToPaths(paths, includePathBefore) {
     return result;
 
     function applyThemeToPath(path, theme) {
-        if (path.indexOf('!') !== -1) {
+        if (path.indexOf('!') === 0) {
             return '!' + theme + path.slice(1);
         }
         return theme + path;
