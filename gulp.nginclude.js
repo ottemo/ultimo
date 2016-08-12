@@ -1,4 +1,7 @@
 /* jshint node:true */
+// https://www.npmjs.com/package/gulp-nginclude
+// Modified for themes use
+
 'use strict';
 
 var fs = require('fs');

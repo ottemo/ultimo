@@ -175,14 +175,14 @@ gulp.task('compile_scripts_app', function compile_scripts_app() {
     if (config.isEnvProduction || config.isEnvStaging) {
         return gulp.src(scriptsAppPaths)
             .pipe($.plumber(handleError))
-            .pipe($.tap(makeParentControllerInheritable))
+            .pipe($.tap(resolveControllersNames))
             .pipe($.uglify(config.uglifySettings))
             .pipe($.plumber.stop())
             .pipe($.concat('main.js'))
             .pipe(gulp.dest(config.build + 'scripts'));
     } else {
         return gulp.src(scriptsAppPaths)
-            .pipe($.tap(makeParentControllerInheritable))
+            .pipe($.tap(resolveControllersNames))
             .pipe($.concat('main.js'))
             .pipe(gulp.dest(config.build + 'scripts'));
     }
@@ -209,14 +209,12 @@ gulp.task('compile_html_root', function() {
     return gulp.src(applyThemesToPaths(config.html.root))
         .pipe($.replaceTask(replacePattern))
         .pipe(nginclude({assetsDirs: [config.themePath, config.basePath]}))
-        //.pipe($.changed(config.build))
         .pipe(gulp.dest(config.build));
 });
 
 gulp.task('compile_html_nonroot', function compile_html_nonroot() {
     return gulp.src(applyThemesToPaths(config.html.nonRoot))
         .pipe(nginclude({assetsDirs: [config.themePath, config.basePath]}))
-        //.pipe($.changed(config.build + 'views/'))
         .pipe(gulp.dest(config.build + 'views/'));
 });
 
@@ -245,10 +243,9 @@ gulp.task('compile_misc', function compile_misc() {
  */
 gulp.task('compile_styles', function compile_styles() {
     var isMinifyActive = config.isEnvProduction || config.isEnvStaging;
-    var useThemeStyles = glob.sync(config.themePath + '/' + config.styles.root).length !== 0;
-    var stylesRootTheme = (useThemeStyles) ? config.themePath : config.basePath;
+    var stylesRootTheme = (isThemeStylesRootPresent()) ? config.themePath : config.basePath;
 
-    return gulp.src(stylesRootTheme + '/' + config.styles.root)
+    return gulp.src(config.styles.root.replace('{{themeRoot}}', stylesRootTheme))
         .pipe($.sourcemaps.init())
         .pipe($.sass(config.sassSettings).on('error', $.sass.logError))
         .pipe($.sourcemaps.write({sourceRoot: '.'}))
@@ -262,6 +259,10 @@ gulp.task('compile_styles', function compile_styles() {
         .pipe(gulp.dest(config.build + 'styles/'));
 });
 
+function isThemeStylesRootPresent() {
+    return glob.sync(applyThemeToPath(config.styles.root, config.themePath)).length !== 0;
+}
+
 /**
  * Move and minify images / mixed-media
  */
@@ -271,7 +272,6 @@ gulp.task('compile_media', function compile_media() {
     var isMinifyActive = config.isEnvProduction || config.isEnvStaging;
 
     return gulp.src(applyThemesToPaths(config.media))
-        //.pipe($.changed(mediaBuild))
         .pipe($.if(isMinifyActive, $.imagemin()))
         .pipe(gulp.dest(mediaBuild));
 });
@@ -437,22 +437,26 @@ function applyThemesToPaths(paths, includePathBefore) {
     });
 
     return result;
+}
 
-    function applyThemeToPath(path, theme) {
-        if (path.indexOf('!') === 0) {
-            return '!' + theme + path.slice(1);
-        }
-        return theme + path;
-    }
+function applyThemeToPath(path, theme) {
+    return path.replace('{{themeRoot}}', theme);
 }
 
 
 var srcAbsolutePath = path.resolve(process.cwd(), config.src);
 
-function makeParentControllerInheritable(file) {
+/**
+ * For child controller we use the same name in AngularJS as for parent
+ * to avoid name conflicts we rename parent controllers
+ *
+ *    parent: checkoutAccordionController -> _checkoutAccordionController
+ *     child: checkoutAccordionController
+ */
+function resolveControllersNames(file) {
     if (getFileTheme(file) === config.baseName && isController(file)) {
         if (hasChildController(file)) {
-            addPrefixToControllerName(file);
+            prefixControllerName(file);
         }
     }
 
@@ -465,6 +469,9 @@ function makeParentControllerInheritable(file) {
         return regex.test(file.path);
     }
 
+    /**
+     * child controller filename must be prefixed with '_'
+     */
     function hasChildController(file) {
         var pathInTheme = path.relative(file.base, path.dirname(file.path)),
             fileName = path.basename(file.path),
@@ -474,7 +481,7 @@ function makeParentControllerInheritable(file) {
         return matchChildController.length !== 0;
     }
 
-    function addPrefixToControllerName(file) {
+    function prefixControllerName(file) {
         var regex = /\.controller\(['"]([^'"]+)['"]/;
         var content = file.contents.toString();
         file.contents = new Buffer(content.replace(regex, '.controller(\'_$1\''));

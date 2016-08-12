@@ -18,8 +18,8 @@ module.exports = function() {
 
         /************** Paths ****************/
         src: src,
-        basePath: src + base + '/',
-        themePath: src + theme + '/',
+        basePath: src + base,
+        themePath: src + theme,
         build: 'dist/',
 
         // Temp
@@ -39,52 +39,50 @@ module.exports = function() {
         app: temp + 'config.js',
 
         /************** Theme related paths ****************/
-        fonts: '_fonts/**/*.{otf,svg,eot,ttf,woff,woff2}',
+        fonts: '{{themeRoot}}/_fonts/**/*.{otf,svg,eot,ttf,woff,woff2}',
         html: {
-            root: '*.html',
+            root: '{{themeRoot}}/*.html',
             nonRoot: [
-                '**/*.html',
-                '!*.html',
+                '{{themeRoot}}/**/*.html',
+                '!{{themeRoot}}/*.html',
             ],
         },
         media: [
-            '_images/**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf}',
-            '**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf}',
-            '!_fonts/*',
+            '{{themeRoot}}/_images/**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf}',
+            '{{themeRoot}}/**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf}',
+            '!{{themeRoot}}/_fonts/*',
         ],
         misc: [
-            '*.{htaccess,ico,xml}',
-            'humans.txt',
+            '{{themeRoot}}/*.{htaccess,ico,xml}',
+            '{{themeRoot}}/humans.txt',
         ],
         robots: {
-            default: 'robots.dev.txt',
-            prod: 'robots.prod.txt',
+            default: '{{themeRoot}}/robots.dev.txt',
+            prod: '{{themeRoot}}/robots.prod.txt',
         },
         styles: {
-            root: 'app.scss',
+            root: '{{themeRoot}}/app.scss',
             all: [
-                '**/*.scss',
-                '**/*.css',
+                '{{themeRoot}}/**/*.scss',
+                '{{themeRoot}}/**/*.css',
             ],
         },
         scripts: {
             app: [
-                //temp + 'config.js', // this is a built file
-                '**/*init.js',
-                '**/*.js',
-                '!_lib/**/*', // don't clobber lib
+                '{{themeRoot}}/**/*init.js',
+                '{{themeRoot}}/**/*.js',
+                '!{{themeRoot}}/_lib/**/*', // don't clobber lib
             ],
             lib: [
-                '_lib/jquery.min.js',
-                '_lib/angular.min.js',
-                '_lib/**/*.min.js',
+                '{{themeRoot}}/_lib/jquery.min.js',
+                '{{themeRoot}}/_lib/angular.min.js',
+                '{{themeRoot}}/_lib/**/*.min.js',
             ],
         },
 
         /************** Settings ****************/
         node: {
             port: '8080',
-            lrPort: '35729', // not used?
         },
         sassSettings: {
             // Seems to break sourcemaps, so conditionally minify css in gulpfile
