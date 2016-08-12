@@ -331,7 +331,7 @@ gulp.task('serve_watch', function serve_watch() {
 
     // App
     gulp.watch(applyThemesToPaths(config.html.root),    ['compile_html_root']);
-    gulp.watch(applyThemesToPaths(config.html.nonRoot), ['compile_html_nonroot']);
+    gulp.watch(applyThemesToPaths(config.html.nonRoot), ['compile_html']);
     gulp.watch(applyThemesToPaths(config.styles.all),   ['compile_styles']);
     gulp.watch(applyThemesToPaths(config.scripts.lib),  ['compile_scripts_lib']);
     gulp.watch(applyThemesToPaths(config.scripts.app),  ['compile_scripts_app']);
