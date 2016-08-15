@@ -431,6 +431,20 @@
                                             </li>
                                         </ul>
                                     </div>
+
+                                    <!-- save cc token -->
+                                    <div class="form-group save-cc-token"
+                                         ng-if="!cart.hasSubscriptionItems() && !isGuestCheckout">
+                                        <div class="checkbox">
+                                            <label class="myCheckbox"
+                                                   for="saveCCToken">
+                                                <input type="checkbox"
+                                                       name="saveCCToken"
+                                                       id="saveCCToken"
+                                                       ng-model="method.cc.save"> Save this card for future orders
+                                            </label>
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                         </div>
