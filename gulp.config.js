@@ -69,7 +69,8 @@ module.exports = function() {
         },
         scripts: {
             app: [
-                '{{themeRoot}}/**/*init.js',
+                '{{themeRoot}}/**/init.js',
+                '{{themeRoot}}/**/_init.js',
                 '{{themeRoot}}/**/*.js',
                 '!{{themeRoot}}/_lib/**/*', // don't clobber lib
             ],
