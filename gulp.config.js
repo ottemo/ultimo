@@ -39,45 +39,45 @@ module.exports = function() {
         app: temp + 'config.js',
 
         /************** Theme related paths ****************/
-        fonts: '{{themeRoot}}/_fonts/**/*.{otf,svg,eot,ttf,woff,woff2}',
+        fonts: '_fonts/**/*.{otf,svg,eot,ttf,woff,woff2}',
         html: {
-            root: '{{themeRoot}}/*.html',
+            root: '*.html',
             nonRoot: [
-                '{{themeRoot}}/**/*.html',
-                '!{{themeRoot}}/*.html',
+                '**/*.html',
+                '!*.html',
             ],
         },
         media: [
-            '{{themeRoot}}/_images/**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf}',
-            '{{themeRoot}}/**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf}',
-            '!{{themeRoot}}/_fonts/*',
+            '_images/**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf}',
+            '**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf}',
+            '!_fonts/*',
         ],
         misc: [
-            '{{themeRoot}}/*.{htaccess,ico,xml}',
-            '{{themeRoot}}/humans.txt',
+            '*.{htaccess,ico,xml}',
+            'humans.txt',
         ],
         robots: {
-            default: '{{themeRoot}}/robots.dev.txt',
-            prod: '{{themeRoot}}/robots.prod.txt',
+            default: 'robots.dev.txt',
+            prod: 'robots.prod.txt',
         },
         styles: {
-            root: '{{themeRoot}}/app.scss',
+            root: 'app.scss',
             all: [
-                '{{themeRoot}}/**/*.scss',
-                '{{themeRoot}}/**/*.css',
+                '**/*.scss',
+                '**/*.css',
             ],
         },
         scripts: {
             app: [
-                '{{themeRoot}}/**/init.js',
-                '{{themeRoot}}/**/_init.js',
-                '{{themeRoot}}/**/*.js',
-                '!{{themeRoot}}/_lib/**/*', // don't clobber lib
+                '**/init.js',
+                '**/_init.js',
+                '**/*.js',
+                '!_lib/**/*', // don't clobber lib
             ],
             lib: [
-                '{{themeRoot}}/_lib/jquery.min.js',
-                '{{themeRoot}}/_lib/angular.min.js',
-                '{{themeRoot}}/_lib/**/*.min.js',
+                '_lib/jquery.min.js',
+                '_lib/angular.min.js',
+                '_lib/**/*.min.js',
             ],
         },
 

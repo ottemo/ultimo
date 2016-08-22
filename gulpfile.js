@@ -3,6 +3,7 @@
 var args = require('yargs').argv;
 var path = require('path');
 var glob = require('glob');
+var globArray = require('glob-array');
 var colors = require('chalk');
 var config = require('./gulp.config')();
 var del = require('del');
@@ -115,7 +116,7 @@ gulp.task('serve', ['build'], function serve() {
  * Vet the code
  */
 gulp.task('vet', function vet() {
-    return gulp.src(applyThemesToPaths(config.scripts.app))
+    return gulp.src(applyThemesToFiles(config.scripts.app))
         .pipe($.jshint())
         .pipe($.jshint.reporter('jshint-stylish'));
 });
@@ -167,7 +168,7 @@ gulp.task('compile_scripts', ['compile_scripts_app', 'compile_scripts_lib']);
 
 gulp.task('compile_scripts_app', function compile_scripts_app() {
     // Load app config before other scripts
-    var scriptsAppPaths = applyThemesToPaths(config.scripts.app, config.app);
+    var scriptsAppPaths = filterOverwrittenFiles(applyThemesToFiles(config.scripts.app, config.app));
 
     // REFACTOR: This makes dev/staging/production different... :-1:
     // uglify + concat breaks sourcemaps so don't use it unless we are on production
@@ -189,7 +190,8 @@ gulp.task('compile_scripts_app', function compile_scripts_app() {
 });
 
 gulp.task('compile_scripts_lib', function compile_scripts_lib() {
-    return gulp.src(applyThemesToPaths(config.scripts.lib))
+    var scriptsLibPaths = filterOverwrittenFiles(applyThemesToFiles(config.scripts.lib));
+    return gulp.src(scriptsLibPaths)
         .pipe($.concat('lib.js'))
         .pipe(gulp.dest(config.build + 'scripts'));
 });
@@ -206,14 +208,14 @@ gulp.task('compile_html_root', function() {
         }]
     };
 
-    return gulp.src(applyThemesToPaths(config.html.root))
+    return gulp.src(applyThemesToFiles(config.html.root))
         .pipe($.replaceTask(replacePattern))
         .pipe(nginclude({assetsDirs: [config.themePath, config.basePath]}))
         .pipe(gulp.dest(config.build));
 });
 
 gulp.task('compile_html_nonroot', function compile_html_nonroot() {
-    return gulp.src(applyThemesToPaths(config.html.nonRoot))
+    return gulp.src(applyThemesToFiles(config.html.nonRoot))
         .pipe(nginclude({assetsDirs: [config.themePath, config.basePath]}))
         .pipe(gulp.dest(config.build + 'views/'));
 });
@@ -224,7 +226,7 @@ gulp.task('compile_html_nonroot', function compile_html_nonroot() {
  */
 gulp.task('compile_robots', function compile_robots() {
     var robotPath = config.isEnvProduction ? config.robots.prod : config.robots.default;
-    return gulp.src(applyThemesToPaths(robotPath))
+    return gulp.src(applyThemesToFiles(robotPath))
         .pipe($.rename('robots.txt'))
         .pipe(gulp.dest(config.build));
 });
@@ -233,7 +235,7 @@ gulp.task('compile_robots', function compile_robots() {
  * Compile oddball files
  */
 gulp.task('compile_misc', function compile_misc() {
-    return gulp.src(applyThemesToPaths(config.misc))
+    return gulp.src(applyThemesToFiles(config.misc))
         .pipe(gulp.dest(config.build));
 });
 
@@ -245,7 +247,7 @@ gulp.task('compile_styles', function compile_styles() {
     var isMinifyActive = config.isEnvProduction || config.isEnvStaging;
     var stylesRootTheme = (isThemeStylesRootPresent()) ? config.themePath : config.basePath;
 
-    return gulp.src(config.styles.root.replace('{{themeRoot}}', stylesRootTheme))
+    return gulp.src(stylesRootTheme + '/' + config.styles.root)
         .pipe($.sourcemaps.init())
         .pipe($.sass(config.sassSettings).on('error', $.sass.logError))
         .pipe($.sourcemaps.write({sourceRoot: '.'}))
@@ -260,7 +262,7 @@ gulp.task('compile_styles', function compile_styles() {
 });
 
 function isThemeStylesRootPresent() {
-    return glob.sync(applyThemeToPath(config.styles.root, config.themePath)).length !== 0;
+    return glob.sync(applyThemeToFile(config.styles.root, config.themePath)).length !== 0;
 }
 
 /**
@@ -271,7 +273,7 @@ gulp.task('compile_media', function compile_media() {
     var mediaBuild = config.build + 'images/';
     var isMinifyActive = config.isEnvProduction || config.isEnvStaging;
 
-    return gulp.src(applyThemesToPaths(config.media))
+    return gulp.src(applyThemesToFiles(config.media))
         .pipe($.if(isMinifyActive, $.imagemin()))
         .pipe(gulp.dest(mediaBuild));
 });
@@ -280,7 +282,7 @@ gulp.task('compile_media', function compile_media() {
  * Move fonts
  */
 gulp.task('compile_fonts', function compile_fonts() {
-    return gulp.src(applyThemesToPaths(config.fonts))
+    return gulp.src(applyThemesToFiles(config.fonts))
         .pipe(gulp.dest(config.build + 'fonts/'));
 });
 
@@ -330,11 +332,11 @@ gulp.task('serve_watch', function serve_watch() {
     gulp.start('serve_server');
 
     // App
-    gulp.watch(applyThemesToPaths(config.html.root),    ['compile_html_root']);
-    gulp.watch(applyThemesToPaths(config.html.nonRoot), ['compile_html']);
-    gulp.watch(applyThemesToPaths(config.styles.all),   ['compile_styles']);
-    gulp.watch(applyThemesToPaths(config.scripts.lib),  ['compile_scripts_lib']);
-    gulp.watch(applyThemesToPaths(config.scripts.app),  ['compile_scripts_app']);
+    gulp.watch(applyThemesToFiles(config.html.root),    ['compile_html_root']);
+    gulp.watch(applyThemesToFiles(config.html.nonRoot), ['compile_html']);
+    gulp.watch(applyThemesToFiles(config.styles.all),   ['compile_styles']);
+    gulp.watch(applyThemesToFiles(config.scripts.lib),  ['compile_scripts_lib']);
+    gulp.watch(applyThemesToFiles(config.scripts.app),  ['compile_scripts_app']);
 
     // Emails
     gulp.watch(config.email.dest, ['compile_emails']);
@@ -424,7 +426,7 @@ function repeat(str, num) {
     return resp;
 }
 
-function applyThemesToPaths(paths, includePathBefore) {
+function applyThemesToFiles(paths, includePathBefore) {
     var result = includePathBefore ? [includePathBefore] : [];
 
     if (!Array.isArray(paths)) {
@@ -432,15 +434,19 @@ function applyThemesToPaths(paths, includePathBefore) {
     }
 
     paths.forEach(function(path) {
-        result.push(applyThemeToPath(path, config.basePath));
-        result.push(applyThemeToPath(path, config.themePath));
+        result.push(applyThemeToFile(path, config.basePath));
+        result.push(applyThemeToFile(path, config.themePath));
     });
 
     return result;
 }
 
-function applyThemeToPath(path, theme) {
-    return path.replace('{{themeRoot}}', theme);
+function applyThemeToFile(path, theme) {
+    if (path.indexOf('!') !== 0) {
+        return theme + '/' + path;
+    } else {
+        return '!' + theme + '/' + path.slice(1);
+    }
 }
 
 
@@ -461,7 +467,8 @@ function resolveControllersNames(file) {
     }
 
     function getFileTheme(file) {
-        return path.relative(srcAbsolutePath, file.base);
+        var relativePath = path.relative(srcAbsolutePath, file.path);
+        return relativePath.substring(0, relativePath.indexOf('/'));
     }
 
     function isController(file) {
@@ -473,7 +480,7 @@ function resolveControllersNames(file) {
      * child controller filename must be prefixed with '_'
      */
     function hasChildController(file) {
-        var pathInTheme = path.relative(file.base, path.dirname(file.path)),
+        var pathInTheme = path.relative(srcAbsolutePath + '/' + config.baseName, path.dirname(file.path)),
             fileName = path.basename(file.path),
             childControllerPath = path.join(config.themePath, pathInTheme, '_' + fileName),
             matchChildController = glob.sync(childControllerPath);
@@ -486,5 +493,22 @@ function resolveControllersNames(file) {
         var content = file.contents.toString();
         file.contents = new Buffer(content.replace(regex, '.controller(\'_$1\''));
     }
+}
+
+function filterOverwrittenFiles(src) {
+    var sourceFilesPaths = globArray.sync(src);
+    var themeFilesPaths = sourceFilesPaths.filter(function(path) {
+       return path.indexOf(config.themePath) === 0;
+    });
+
+    themeFilesPaths.forEach(function(path) {
+        var baseFilePath = path.replace(config.themePath, config.basePath);
+        var index = sourceFilesPaths.indexOf(baseFilePath);
+        if (index !== -1) {
+            sourceFilesPaths.splice(index, 1);
+        }
+    });
+
+    return sourceFilesPaths;
 }
 
