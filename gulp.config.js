@@ -1,86 +1,96 @@
 /*jshint node:true */
 
 module.exports = function() {
-
-    var src = './src/';
-    var app = src + 'app/';
-    var email = src +'email/';
-
-    var temp = './tmp/';
+    var src = './src/',
+        temp = './tmp/',
+        email = './email/',
+        base = 'default',
+        theme = 'ultimo';
 
     var config = {
+        // Themes
+        baseName: base,
+        themeName: theme,
+
         // Reserved and written to in gulpfile.js
         env: '',
         settings: '',
 
         /************** Paths ****************/
+        src: src,
+        basePath: src + base,
+        themePath: src + theme,
         build: 'dist/',
-
-        // App
-        fonts: app + '_fonts/**/*.{otf,svg,eot,ttf,woff,woff2}',
-        html: {
-            root: app + '*.html',
-            nonRoot: [
-                app + '**/*.html',
-                '!' + email + '**/*',
-                '!' + app + '*.html',
-            ],
-        },
-        media: [
-            // Ignore media, declaring the _images folder directly moves all of its contents
-            // without the container folder getting in the way
-            app + '_images/**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf}',
-            app + '**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf}',
-            '!' + app + '_fonts/*',
-        ],
-        misc: [
-            app + '*.{htaccess,ico,xml}',
-            app + 'humans.txt'
-        ],
-        robots: {
-            default: app + 'robots.dev.txt',
-            prod: app + 'robots.prod.txt',
-        },
-        styles: {
-            root: app + 'app.scss',
-            all: [
-                app + '**/*.scss',
-                app + '**/*.css',
-            ],
-        },
-        scripts: {
-            app: [
-                temp + 'config.js', // this is a built file
-                app + '**/init.js',
-                app + '**/*.js',
-                '!' + app + '_lib/**/*', // don't clobber lib
-            ],
-            lib: [
-                app + '_lib/jquery.min.js',
-                app + '_lib/angular.min.js',
-                app + '_lib/**/*.min.js',
-            ],
-        },
-
-        // Emails
-        email: [
-            // ignore built files
-            email + '*.html',
-            '!' + email + '*.inline.html',
-        ],
 
         // Temp
         temp: temp,
 
+        // Emails
+        email: {
+            templates: [
+                // ignore built files
+                email + '*.html',
+                '!' + email + '*.inline.html',
+            ],
+            styles: email + 'css.css',
+            dest: email,
+        },
+
+        app: temp + 'config.js',
+
+        /************** Theme related paths ****************/
+        fonts: '_fonts/**/*.{otf,svg,eot,ttf,woff,woff2}',
+        html: {
+            root: '*.html',
+            nonRoot: [
+                '**/*.html',
+                '!*.html',
+            ],
+        },
+        media: [
+            '_images/**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf}',
+            '**/*.{png,gif,jpg,jpeg,ico,svg,mp4,ogv,webm,pdf}',
+            '!_fonts/*',
+        ],
+        misc: [
+            '*.{htaccess,ico,xml}',
+            'humans.txt',
+        ],
+        robots: {
+            default: 'robots.dev.txt',
+            prod: 'robots.prod.txt',
+        },
+        styles: {
+            root: 'app.scss',
+            all: [
+                '**/*.scss',
+                '**/*.css',
+            ],
+        },
+        scripts: {
+            app: [
+                '**/init.js',
+                '**/_init.js',
+                '**/*.js',
+                '!_lib/**/*', // don't clobber lib
+            ],
+            lib: [
+                '_lib/jquery.min.js',
+                '_lib/angular.min.js',
+                '_lib/**/*.min.js',
+            ],
+        },
+
         /************** Settings ****************/
         node: {
             port: '8080',
-            lrPort: '35729', // not used?
         },
         sassSettings: {
             // Seems to break sourcemaps, so conditionally minify css in gulpfile
             // outputStyle: 'compressed',
             precision: 8,
+            // Search imported styles in theme at first and then in base
+            includePaths: [src + theme + '/', src + base + '/']
         },
         uglifySettings: {
             mangle: false,
