@@ -41,7 +41,7 @@
                         </h2>
                         <a class="product-box-price"
                             ng-href="{{::productService.getUrl(product._id)}}">
-                            {{::product.price | currency}}
+                            {{::product.price | currency}} {{::product.qty}}
                         </a>
                     </div>
                 </div>
