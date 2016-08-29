@@ -1,9 +1,6 @@
 /*jshint node: true */
 
 var args = require('yargs').argv;
-var path = require('path');
-var glob = require('glob');
-var globArray = require('glob-array');
 var colors = require('chalk');
 var config = require('./gulp.config')();
 var del = require('del');
@@ -13,7 +10,6 @@ var md5 = require('md5');
 var modRewrite = require('connect-modrewrite');
 var runSequence = require('run-sequence');
 var siphonMQ = require('siphon-media-query');
-var nginclude = require('./gulp.nginclude');
 var $ = require('gulp-load-plugins')({
     lazy: true
 });
@@ -116,7 +112,7 @@ gulp.task('serve', ['build'], function serve() {
  * Vet the code
  */
 gulp.task('vet', function vet() {
-    return gulp.src(applyThemesToFiles(config.scripts.app))
+    return gulp.src(config.scripts.app)
         .pipe($.jshint())
         .pipe($.jshint.reporter('jshint-stylish'));
 });
@@ -160,38 +156,32 @@ gulp.task('compile', [
     'compile_emails',
 ]);
 
-
 /**
  * Compile all javascript
  */
 gulp.task('compile_scripts', ['compile_scripts_app', 'compile_scripts_lib']);
 
 gulp.task('compile_scripts_app', function compile_scripts_app() {
-    // Load app config before other scripts
-    var scriptsAppPaths = filterOverwrittenFiles(applyThemesToFiles(config.scripts.app, config.app));
 
     // REFACTOR: This makes dev/staging/production different... :-1:
     // uglify + concat breaks sourcemaps so don't use it unless we are on production
     // https://github.com/terinjokes/gulp-uglify/issues/105
     if (config.isEnvProduction || config.isEnvStaging) {
-        return gulp.src(scriptsAppPaths)
+        return gulp.src(config.scripts.app)
             .pipe($.plumber(handleError))
-            .pipe($.tap(resolveControllersNames))
             .pipe($.uglify(config.uglifySettings))
             .pipe($.plumber.stop())
             .pipe($.concat('main.js'))
             .pipe(gulp.dest(config.build + 'scripts'));
     } else {
-        return gulp.src(scriptsAppPaths)
-            .pipe($.tap(resolveControllersNames))
+        return gulp.src(config.scripts.app)
             .pipe($.concat('main.js'))
             .pipe(gulp.dest(config.build + 'scripts'));
     }
 });
 
 gulp.task('compile_scripts_lib', function compile_scripts_lib() {
-    var scriptsLibPaths = filterOverwrittenFiles(applyThemesToFiles(config.scripts.lib));
-    return gulp.src(scriptsLibPaths)
+    return gulp.src(config.scripts.lib)
         .pipe($.concat('lib.js'))
         .pipe(gulp.dest(config.build + 'scripts'));
 });
@@ -208,15 +198,15 @@ gulp.task('compile_html_root', function() {
         }]
     };
 
-    return gulp.src(applyThemesToFiles(config.html.root))
+    return gulp.src(config.html.root)
         .pipe($.replaceTask(replacePattern))
-        .pipe(nginclude({assetsDirs: [config.themePath, config.basePath]}))
+        .pipe($.changed(config.build))
         .pipe(gulp.dest(config.build));
 });
 
 gulp.task('compile_html_nonroot', function compile_html_nonroot() {
-    return gulp.src(applyThemesToFiles(config.html.nonRoot))
-        .pipe(nginclude({assetsDirs: [config.themePath, config.basePath]}))
+    return gulp.src(config.html.nonRoot)
+        .pipe($.changed(config.build + 'views/'))
         .pipe(gulp.dest(config.build + 'views/'));
 });
 
@@ -226,7 +216,7 @@ gulp.task('compile_html_nonroot', function compile_html_nonroot() {
  */
 gulp.task('compile_robots', function compile_robots() {
     var robotPath = config.isEnvProduction ? config.robots.prod : config.robots.default;
-    return gulp.src(applyThemesToFiles(robotPath))
+    return gulp.src(robotPath)
         .pipe($.rename('robots.txt'))
         .pipe(gulp.dest(config.build));
 });
@@ -235,7 +225,7 @@ gulp.task('compile_robots', function compile_robots() {
  * Compile oddball files
  */
 gulp.task('compile_misc', function compile_misc() {
-    return gulp.src(applyThemesToFiles(config.misc))
+    return gulp.src(config.misc)
         .pipe(gulp.dest(config.build));
 });
 
@@ -245,25 +235,18 @@ gulp.task('compile_misc', function compile_misc() {
  */
 gulp.task('compile_styles', function compile_styles() {
     var isMinifyActive = config.isEnvProduction || config.isEnvStaging;
-    var stylesRootTheme = (isThemeStylesRootPresent()) ? config.themePath : config.basePath;
 
-    return gulp.src(stylesRootTheme + '/' + config.styles.root)
+    return gulp.src(config.styles.root)
         .pipe($.sourcemaps.init())
         .pipe($.sass(config.sassSettings).on('error', $.sass.logError))
-        .pipe($.sourcemaps.write({sourceRoot: '.'}))
-        .pipe($.sourcemaps.init({loadMaps: true}))
+        .pipe($.sourcemaps.write())
         .pipe($.autoprefixer('last 2 version', 'safari 5', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
         .pipe($.if(isMinifyActive, $.cleanCss()))
         .pipe($.rename({
             suffix: '.min'
         }))
-        .pipe($.sourcemaps.write({sourceRoot: '.'}))
         .pipe(gulp.dest(config.build + 'styles/'));
 });
-
-function isThemeStylesRootPresent() {
-    return glob.sync(applyThemeToFile(config.styles.root, config.themePath)).length !== 0;
-}
 
 /**
  * Move and minify images / mixed-media
@@ -273,7 +256,8 @@ gulp.task('compile_media', function compile_media() {
     var mediaBuild = config.build + 'images/';
     var isMinifyActive = config.isEnvProduction || config.isEnvStaging;
 
-    return gulp.src(applyThemesToFiles(config.media))
+    return gulp.src(config.media)
+        .pipe($.changed(mediaBuild))
         .pipe($.if(isMinifyActive, $.imagemin()))
         .pipe(gulp.dest(mediaBuild));
 });
@@ -282,7 +266,7 @@ gulp.task('compile_media', function compile_media() {
  * Move fonts
  */
 gulp.task('compile_fonts', function compile_fonts() {
-    return gulp.src(applyThemesToFiles(config.fonts))
+    return gulp.src(config.fonts)
         .pipe(gulp.dest(config.build + 'fonts/'));
 });
 
@@ -290,10 +274,10 @@ gulp.task('compile_fonts', function compile_fonts() {
  * Inline css for emails
  */
 gulp.task('compile_emails', function compile_emails() {
-    var css = fs.readFileSync(config.email.styles).toString();
+    var css = fs.readFileSync('./src/email/css.css').toString();
     var mqCss = siphonMQ(css);
 
-    return gulp.src(config.email.templates)
+    return gulp.src(config.email)
         .pipe($.inlineCss({
             applyStyleTags: false,       // currently removes trailing slashes on meta
         }))
@@ -322,7 +306,7 @@ gulp.task('compile_emails', function compile_emails() {
         .pipe($.rename({
             suffix: '.inline',
         }))
-        .pipe(gulp.dest(config.email.dest));
+        .pipe(gulp.dest('./src/email'));
 });
 
 /**
@@ -332,14 +316,15 @@ gulp.task('serve_watch', function serve_watch() {
     gulp.start('serve_server');
 
     // App
-    gulp.watch(applyThemesToFiles(config.html.root),    ['compile_html_root']);
-    gulp.watch(applyThemesToFiles(config.html.nonRoot), ['compile_html']);
-    gulp.watch(applyThemesToFiles(config.styles.all),   ['compile_styles']);
-    gulp.watch(applyThemesToFiles(config.scripts.lib),  ['compile_scripts_lib']);
-    gulp.watch(applyThemesToFiles(config.scripts.app),  ['compile_scripts_app']);
+    gulp.watch(config.html.root,    ['compile_html_root']);
+    gulp.watch(config.html.nonRoot, ['compile_html_nonroot']);
+    gulp.watch(config.styles.all,   ['compile_styles']);
+    gulp.watch(config.scripts.lib,  ['compile_scripts_lib']);
+    gulp.watch(config.scripts.ie,   ['compile_scripts_ie']);
+    gulp.watch(config.scripts.app,  ['compile_scripts_app']);
 
     // Emails
-    gulp.watch(config.email.dest, ['compile_emails']);
+    gulp.watch(config.email, ['compile_emails']);
 });
 
 /**
@@ -347,6 +332,7 @@ gulp.task('serve_watch', function serve_watch() {
  */
 gulp.task('serve_server', function serve_server() {
     var express = require('express');
+    var path = require('path');
     var app = express();
     var staticFolder = path.join(__dirname, config.build);
 
@@ -425,90 +411,3 @@ function repeat(str, num) {
     }
     return resp;
 }
-
-function applyThemesToFiles(paths, includePathBefore) {
-    var result = includePathBefore ? [includePathBefore] : [];
-
-    if (!Array.isArray(paths)) {
-        paths = [paths];
-    }
-
-    paths.forEach(function(path) {
-        result.push(applyThemeToFile(path, config.basePath));
-        result.push(applyThemeToFile(path, config.themePath));
-    });
-
-    return result;
-}
-
-function applyThemeToFile(path, theme) {
-    if (path.indexOf('!') !== 0) {
-        return theme + '/' + path;
-    } else {
-        return '!' + theme + '/' + path.slice(1);
-    }
-}
-
-
-var srcAbsolutePath = path.resolve(process.cwd(), config.src);
-
-/**
- * For child controller we use the same name in AngularJS as for parent
- * to avoid name conflicts we rename parent controllers
- *
- *    parent: checkoutAccordionController -> _checkoutAccordionController
- *     child: checkoutAccordionController
- */
-function resolveControllersNames(file) {
-    if (getFileTheme(file) === config.baseName && isController(file)) {
-        if (hasChildController(file)) {
-            prefixControllerName(file);
-        }
-    }
-
-    function getFileTheme(file) {
-        var relativePath = path.relative(srcAbsolutePath, file.path);
-        return relativePath.substring(0, relativePath.indexOf('/'));
-    }
-
-    function isController(file) {
-        var regex = /.*controller.js$/;
-        return regex.test(file.path);
-    }
-
-    /**
-     * child controller filename must be prefixed with '_'
-     */
-    function hasChildController(file) {
-        var pathInTheme = path.relative(srcAbsolutePath + '/' + config.baseName, path.dirname(file.path)),
-            fileName = path.basename(file.path),
-            childControllerPath = path.join(config.themePath, pathInTheme, '_' + fileName),
-            matchChildController = glob.sync(childControllerPath);
-
-        return matchChildController.length !== 0;
-    }
-
-    function prefixControllerName(file) {
-        var regex = /\.controller\(['"]([^'"]+)['"]/;
-        var content = file.contents.toString();
-        file.contents = new Buffer(content.replace(regex, '.controller(\'_$1\''));
-    }
-}
-
-function filterOverwrittenFiles(src) {
-    var sourceFilesPaths = globArray.sync(src);
-    var themeFilesPaths = sourceFilesPaths.filter(function(path) {
-       return path.indexOf(config.themePath) === 0;
-    });
-
-    themeFilesPaths.forEach(function(path) {
-        var baseFilePath = path.replace(config.themePath, config.basePath);
-        var index = sourceFilesPaths.indexOf(baseFilePath);
-        if (index !== -1) {
-            sourceFilesPaths.splice(index, 1);
-        }
-    });
-
-    return sourceFilesPaths;
-}
-

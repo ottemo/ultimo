@@ -1,0 +1,16 @@
+.nav__header {
+    text-transform: uppercase;
+}
+
+.nav--categories {
+    margin-bottom: 20px;
+
+    > li > a {
+        padding: 5px 10px;
+    }
+}
+
+.nav--cat-layers > li > .checkbox {
+    margin: 10px;
+    color: #555;
+}

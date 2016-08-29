@@ -1,0 +1,5 @@
+# robotstxt.org
+
+User-agent: *
+Disallow: /
+Sitemap: https://demo.ottemo.io/sitemap.xml

@@ -1,0 +1,76 @@
+.category .form-group--search {
+    margin: 6px 0 20px 0;
+}
+
+//col-xs-6 col-sm-4 col-lg-3
+.product-box {
+    position: relative;
+    margin-bottom: 20px;
+
+    // col-xs-6
+    @media (max-width: $screen-xs-max) {
+        &:nth-child(2n+1) {
+            clear: left;
+        }
+    }
+
+    // col-sm-4 col-md-4
+    @media (min-width: $screen-sm-min) and (max-width: $screen-md-max) {
+        &:nth-child(3n+1) {
+            clear: left;
+        }
+    }
+
+    // col-lg-3
+    @media (min-width: $screen-lg-min) {
+        &:nth-child(4n+1) {
+            clear: left;
+        }
+    }
+
+    .product-box-img {
+        display: block;
+    }
+    .product-box-description {
+        min-height: 70px;
+    }
+    .product-box-name,
+    .product-box-price {
+        text-align: center;
+        display: block;
+    }
+    .product-box-name {
+        font-size: 15px;
+        font-weight: normal;
+        margin: 0;
+        padding-top: 21px;
+        a {
+            color: $gray-base;
+        }
+    }
+    .product-box-name a,
+    .product-box-price {
+        &:hover {
+            text-decoration: none;
+        }
+    }
+    .product-box-price {
+        color: $gray;
+    }
+
+    .btn-quick-view {
+        display: none;
+        z-index: 1;
+        position: absolute;
+        width: 80%;
+        left: 10%;
+        bottom: 30%;
+    }
+
+    // only show the quick view button if you are on lg
+    @media (min-width: $screen-md-min) {
+        &:hover .btn-quick-view {
+            display: block;
+        }
+    }
+}

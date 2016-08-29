@@ -1,0 +1,114 @@
+// Variables
+$panel-checkout-step-border: $panel-default-border;
+$panel-checkout-step-text: $panel-default-text;
+$panel-checkout-step-heading-bg: $panel-default-heading-bg;
+
+// Styles
+.panel--checkout-step {
+    @include panel-variant($panel-checkout-step-border, $panel-checkout-step-text, $panel-checkout-step-heading-bg, $panel-checkout-step-border);
+
+    // We want these step panels to sit right on top of each other
+    margin-bottom: -1px;
+
+    // We don't have a "collapsed" class to key off of, so to avoid a double border
+    // when collapsed we'll move the border to the body
+    > .panel-heading {
+        border-bottom: 0;
+    }
+    .panel-body {
+        border-top: 1px solid $panel-checkout-step-border;
+    }
+    .panel-title .dropdown {
+        display: inline-block;
+    }
+}
+
+.table-checkout-totals-side {
+    width: 100%;
+    max-width: 100%;
+    th,td {
+        padding: 2px 0;
+    }
+    th {
+        font-weight: normal;
+        text-align: left;
+    }
+    td {
+        text-align: right;
+    }
+
+    .grand-total-row th,
+    .grand-total-row td {
+        font-weight: bold;
+    }
+}
+
+.well-cc {
+    position: relative;
+    max-width: 340px;
+    border-radius: 10px;
+}
+
+.form-cc {
+    label {
+        font-weight: normal;
+    }
+
+    @media (min-width: $screen-sm-min) {
+        .form-cc__number {
+            float: left;
+            width: 170px;
+        }
+        .form-cc__cvc {
+            float: right;
+            width: 70px;
+        }
+    }
+
+    .form-cc__exp {
+        .form-group {
+            display: inline-block;
+            margin-bottom: 0;
+            vertical-align: middle;
+        }
+        .form-control {
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+
+    .form-cc__exp-divider {
+        width: 5%;
+        text-align: center;
+    }
+    .form-cc__exp-mm,
+    .form-cc__exp-yy {
+        width: 45%;
+    }
+
+    @media (min-width: $screen-sm-min) {
+        .form-cc__exp {
+            float: right;
+
+            .form-cc__exp-divider,
+            .form-cc__exp-mm,
+            .form-cc__exp-yy {
+                width: auto;
+            }
+            .form-control {
+                width: auto;
+            }
+        }
+    }
+
+    .form-cc__type {
+        position: absolute;
+        bottom: 0;
+        left: 20px;
+        border-width: 1px 1px 0 1px;
+        border-style: solid;
+        border-color: #ddd;
+        background-color: #fdfdfd;
+        padding: 6px 10px;
+    }
+}
