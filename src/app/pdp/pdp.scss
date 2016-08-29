@@ -1,0 +1,36 @@
+/**
+ * PDP
+ */
+
+/**
+ * columns
+ */
+@media (min-width: $screen-md-min) {
+    // center columns vertically
+    .pdp-flex-container {
+        display: flex;
+        align-items: center;
+    }
+    .pdp-left {
+        text-align: center;
+    }
+}
+
+.pdp-img-container {
+    display: block;
+    margin: 0 auto;
+    &:focus {
+        outline: 0;
+    }
+}
+
+/**
+ * Forms
+ */
+
+@media (min-width: $screen-sm-min) {
+
+    .pdp-radio-group .radio {
+        margin-right: 15px;
+    }
+}

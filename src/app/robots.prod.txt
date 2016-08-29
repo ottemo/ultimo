@@ -1,0 +1,10 @@
+# robotstxt.org
+
+User-agent: *
+Disallow: /checkout/*
+Disallow: /cart/*
+Disallow: /not-found/*
+Disallow: /account/*
+Disallow: /catalog/product_compare/*
+
+Sitemap: https://demo.ottemo.io/sitemap.xml

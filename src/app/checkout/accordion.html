@@ -1,0 +1,663 @@
+<div class="container">
+    <div class="page-header">
+        <h1>Checkout</h1>
+    </div>
+
+    <!-- Ultimo specific-->
+    <div class="alert alert-warning" role="alert">
+        <p>
+            This is a demo storefront running on <a href="http://ottemo.io" target="_blank">Ottemo</a>, the mobile cloud commerce platform. <br>
+            Orders will not be fullfilled and no money will be collected. Please do not enter any valid payment details.
+        </p>
+    </div>
+
+    <div class="row">
+        <!-- main panel -->
+        <div class="col-xs-12 col-md-8">
+
+            <!-- Guest checkout user credential form -->
+            <div id="customerInfo"
+                class="panel panel--checkout-step"
+                ng-show="isGuestCheckout">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Customer info
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="accordion">
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h3>Register or Log in</h3>
+                                <div>Register with us for easy access to your order history and status:</div>
+                                <br />
+                                <ul>
+                                    <li>
+                                        <a href="/registration">Register</a>
+                                    </li>
+                                    <li>
+                                        <a href="/login">Log In</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-6">
+
+                                <!-- Form for logged out customers; grab their name and email -->
+                                <form name="customerInfo"
+                                    ng-submit="next('customerInfo')"
+                                    novalidate>
+                                    <h3>Continue As Guest</h3>
+                                    <!-- Name -->
+                                    <div class="form-group">
+                                        <label for="customerInputName">Name</label>
+                                        <input type="text"
+                                            class="form-control"
+                                            id="customerInputName"
+                                            name="name"
+                                            ng-model="checkout.info.customer_name" />
+                                    </div>
+                                    <!-- Email -->
+                                    <div class="form-group"
+                                        ng-class="{ 'has-error' : customerInfo.email.$invalid && (customerInfo.$submitted || customerInfo.email.$touched) }">
+                                        <label for="customerInputEmail">Email*</label>
+                                        <input type="email"
+                                            class="form-control"
+                                            id="customerInputEmail"
+                                            name="email"
+                                            ng-model="checkout.info.customer_email"
+                                            required />
+
+                                        <!-- error message -->
+                                        <div class="help-block"
+                                            ng-show="customerInfo.email.$invalid && (customerInfo.$submitted || customerInfo.email.$touched)">
+                                            <div ng-show="customerInfo.email.$error.required">This field is required.</div>
+                                            <div ng-show="customerInfo.email.$error.email">This email address is not properly formatted.</div>
+                                        </div>
+
+                                    </div>
+                                    <div class="text-center">
+                                        <!-- next step -->
+                                        <button class="next btn btn-primary btn-block-xs"
+                                            type="submit">
+                                            Next step
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shipping Block -->
+            <div id="shippingAddress"
+                class="panel panel--checkout-step">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Ship to
+                        <div class="dropdown" ng-if="!isGuestCheckout">
+                            <button class="btn btn-xs btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
+                                <li role="presentation" ng-repeat="addr in addresses">
+                                    <a role="menuitem" tabindex="-1" href ng-click="choiceShipping(addr.ID)">{{addr.Name}}</a>
+                                </li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href ng-click="newShipping()">New</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </h3>
+                </div>
+
+                <div class="panel-body"
+                    style="display:none;">
+                    <div class="accordion">
+
+                        <!-- Form to add shipping addresses -->
+                        <ot-address-form
+                            form-ctrl="shippingAddress"
+                            form-model="checkout.shipping_address"
+                            form-disabled="checkout.shipping_address._id"
+                            on-submit="next('shippingAddress')">
+
+                            <!-- shipping notes -->
+                            <div class="form-group">
+                                <label for="shippingNotes">Shipping Notes</label>
+                                <textarea name="notes"
+                                    id="shippingNotes"
+                                    class="form-control"
+                                    rows="3"
+                                    maxlength="256"
+                                    ng-model="checkout.shipping_address.notes"></textarea>
+                                <span class="help-block">
+                                {{ checkout.shipping_address.notes ? checkout.shipping_address.notes.length + ' / ' : '' }}256 characters
+                                </span>
+                            </div>
+
+                            <!-- use for billing -->
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label class="myCheckbox"
+                                        for="shippingUseAsBilling">
+                                        <input type="checkbox"
+                                            name="shippingUseAsBilling"
+                                            id="shippingUseAsBilling"
+                                            ng-model="addressSettings.useShippingAsBilling"> Use for billing address as well
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- actions -->
+                            <div class="text-center">
+                                <!-- prev step -->
+                                <button class="back btn btn-default btn-block-xs"
+                                    ng-click="back('shippingAddress')"
+                                    ng-if="isGuestCheckout"
+                                    type="button">
+                                    Prev step
+                                </button>
+
+                                <!-- next step -->
+                                <button class="next btn btn-primary btn-block-xs"
+                                    type="submit">
+                                    Next step
+                                </button>
+                            </div>
+                        </ot-address-form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Billing Block -->
+            <div id="billingAddress"
+                class="panel panel--checkout-step">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Bill to
+                        <div class="dropdown" ng-if="!isGuestCheckout">
+                            <button class="btn btn-xs btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
+                                <li role="presentation" ng-repeat="addr in addresses">
+                                    <a role="menuitem" tabindex="-1" ng-click="choiceBilling(addr.ID)">{{addr.Name}}</a>
+                                </li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="" ng-click="newBilling()">New</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </h3>
+                </div>
+
+                <div class="panel-body"
+                    style="display:none">
+                    <div class="accordion">
+                        <!-- Form to add billing addresses -->
+                        <ot-address-form
+                            form-ctrl="billingAddress"
+                            form-model="checkout.billing_address"
+                            form-disabled="checkout.billing_address._id || addressSettings.useShippingAsBilling"
+                            on-submit="next('billingAddress')">
+
+                            <div class="text-center">
+                                <!-- prev step -->
+                                <button class="back btn btn-default btn-block-xs"
+                                    ng-click="back('billingAddress')"
+                                    type="button">
+                                    Prev step
+                                </button>
+
+                                <!-- next step -->
+                                <button class="next btn btn-primary btn-block-xs"
+                                    type="submit">
+                                    Next step
+                                </button>
+                            </div>
+                        </ot-address-form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shipping Method -->
+            <div id="shippingMethod"
+                class="panel panel--checkout-step">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Shipping Method
+                    </h3>
+                </div>
+                <div class="panel-body"
+                    style="display:none">
+                    <div class="accordion">
+                        <form novalidate>
+
+                            <div class="radio"
+                                ng-repeat="method in shippingMethods">
+                                <label>
+                                    <input type="radio"
+                                        name="shipping_method"
+                                        ng-value="method"
+                                        ng-model="shippingMethod.selected"> {{method.Name}}
+                                </label>
+                            </div>
+
+                            <p><small>*Additional country duties and taxes may apply for purchases outside of the United States.</small></p>
+
+                            <div class="text-center">
+                                <!-- prev step -->
+                                <button class="back btn btn-default btn-block-xs"
+                                    ng-click="back('shippingMethod')"
+                                    type="button">
+                                    Prev step
+                                </button>
+
+                                <!-- next step -->
+                                <button class="next btn btn-primary btn-block-xs"
+                                    ng-click="next('shippingMethod')"
+                                    type="submit">
+                                    Next step
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Method -->
+            <div id="paymentMethod"
+                class="panel panel--checkout-step">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Payment Method
+                    </h3>
+                </div>
+                <div class="panel-body"
+                    style="display:none">
+                    <div class="accordion">
+
+                        <!-- Ultimo Specific -->
+                        <div class="alert alert-danger" role="alert">
+                            <p>
+                                This is a demo storefront running on the Ottemo platform.
+                                Please use a test credit card or the "check/money order" payment method.
+                                <br>
+                                <ul>
+                                    <li>Visa: <code>4111 1111 1111 1111</code></li>
+                                    <li>American Express: <code>3700 000000 00002</code></li>
+                                    <li>Discover: <code>6011 0009 9013 9424</code></li>
+                                </ul>
+                            </p>
+                        </div>
+
+                        <div ng-show="checkout.grandtotal > 0"
+                            ng-repeat="method in paymentMethods" >
+                            <div class="radio">
+                                <label>
+                                    <input type="radio"
+                                        name="test"
+                                        ng-value="method"
+                                        ng-model="paymentMethod.selected"> {{method.Name}}
+                                </label>
+                            </div>
+
+                            <div class="radio-subform paypal"
+                                ng-if="method.isCreditCard"
+                                ng-show="paymentMethod.selected.Code === method.Code">
+                                <form class="form-cc"
+                                    name="method.form"
+                                    novalidate>
+                                    <div class="well well-cc">
+
+                                        <div class="form-group form-cc__number"
+                                            ng-class="{'has-error': method.form.number.$invalid && method.form.number.$touched}">
+                                            <label for="paymentCardNumber">Card Number</label>
+                                            <input type="text"
+                                                class="form-control"
+                                                id="paymentCardNumber"
+                                                name="number"
+                                                cc-number
+                                                cc-format
+                                                cc-eager-type
+                                                ng-model="method.cc.number"
+                                                required />
+                                        </div>
+
+                                        <div class="form-group form-cc__cvc"
+                                            ng-class="{'has-error': method.form.cvc.$invalid && method.form.cvc.$touched}">
+                                            <label for="paymentCardCVC">CVC</label>
+                                            <input type="text"
+                                                class="form-control"
+                                                id="paymentCardCVC"
+                                                name="cvc"
+                                                cc-cvc
+                                                ng-model="method.cc.cvc"
+                                                required />
+                                        </div>
+
+                                        <div class="clearfix"></div>
+
+                                        <div class="form-cc__exp">
+                                            <label>Expiration</label>
+                                            <div class="">
+                                                <div class="form-group form-cc__exp-mm"
+                                                    ng-class="{'has-error': method.form.expire_month.$invalid && method.form.expire_month.$touched}">
+                                                    <label for="" class="sr-only">Expiration Month</label>
+                                                    <select class="form-control"
+                                                        ng-model="method.cc.expire_month"
+                                                        name="expire_month"
+                                                        required>
+                                                        <option value="">MM</option>
+                                                        <option value="01">01</option>
+                                                        <option value="02">02</option>
+                                                        <option value="03">03</option>
+                                                        <option value="04">04</option>
+                                                        <option value="05">05</option>
+                                                        <option value="06">06</option>
+                                                        <option value="07">07</option>
+                                                        <option value="08">08</option>
+                                                        <option value="09">09</option>
+                                                        <option value="10">10</option>
+                                                        <option value="11">11</option>
+                                                        <option value="12">12</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group form-cc__exp-divider">/</div>
+
+                                                <div class="form-group form-cc__exp-yy"
+                                                    ng-class="{'has-error': method.form.expire_year.$invalid && method.form.expire_year.$touched}">
+                                                    <label for="" class="sr-only">Expiration Year</label>
+                                                    <select class="form-control"
+                                                        ng-model="method.cc.expire_year"
+                                                        name="expire_year"
+                                                        required>
+                                                        <option value="">YY</option>
+                                                        <option value="2016">16</option>
+                                                        <option value="2017">17</option>
+                                                        <option value="2018">18</option>
+                                                        <option value="2019">19</option>
+                                                        <option value="2020">20</option>
+                                                        <option value="2021">21</option>
+                                                        <option value="2022">22</option>
+                                                        <option value="2023">23</option>
+                                                        <option value="2024">24</option>
+                                                        <option value="2025">25</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-cc__type hidden-xs"
+                                            ng-show="method.form.number.$ccEagerType">
+                                            {{method.form.number.$ccEagerType}}
+                                        </div>
+
+                                        <div class="clearfix"></div>
+                                    </div>
+
+                                    <!-- error messaging -->
+                                    <div class="has-error">
+                                        <ul class="help-block">
+
+                                            <!-- number errors -->
+                                            <li ng-show="method.form.number.$invalid && (method.form.$submitted || method.form.number.$touched)">
+                                                <div ng-show="method.form.number.$error.required">
+                                                    Card number is required.
+                                                </div>
+                                                <div ng-show="method.form.number.$error.ccNumber">
+                                                    The card number you entered is invalid.
+                                                </div>
+                                            </li>
+
+                                            <!-- expiry errors -->
+                                            <li ng-show="method.form.expire_month.$invalid && (method.form.$submitted || method.form.expire_month.$touched)">
+                                                Expiration month is required.
+                                            </li>
+                                            <li ng-show="method.form.expire_year.$invalid && (method.form.$submitted || method.form.expire_year.$touched)">
+                                                Expiration year is required.
+                                            </li>
+
+                                            <!-- cvc errors -->
+                                            <li ng-show="method.form.cvc.$invalid && (method.form.$submitted || method.form.cvc.$touched)">
+                                                <div ng-show="method.form.cvc.$error.required">Security code is required.</div>
+                                                <div ng-show="method.form.cvc.$error.ccCvc">The security does not have the correct number of digits.</div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div ng-show="checkout.grandtotal <= 0">
+                            <p>No payment method is required, your grand total is $0.00</p>
+                        </div>
+
+                        <!-- discounts & giftcards -->
+                        <div class="form-group">
+                            <label class="small"
+                                for="discount-giftcard"
+                                ng-click="discounts.isVisible = !discounts.isVisible">
+                                <i class="fa fa-caret-down"></i>
+                                Add a gift card or promotion code
+                            </label>
+                            <div class="input-group" ng-show="discounts.isVisible">
+                                <input type="text"
+                                    id="discount-giftcard"
+                                    class="form-control"
+                                    placeholder="Enter code"
+                                    ng-model="discounts.code" />
+                                <span class="input-group-btn">
+                                    <button type="button"
+                                        class="btn btn-default"
+                                        ng-click="discounts.apply()"
+                                        ng-disabled="discounts.isApplying">
+                                        <i class="fa fa-circle-o-notch fa-spin"
+                                            ng-show="discounts.isApplying">
+                                        </i>
+                                        Apply
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <ot-message-manager item="discounts.message"></ot-message-manager>
+
+                        <div ng-show="checkout.discounts.length">
+                            Applied Discounts
+                            <ul>
+                                <li ng-repeat="discount in checkout.discounts">
+                                    {{discount.Amount | currency}} - {{discount.Code}}
+                                    <!-- {{discount.Type}} -->
+                                    <!-- <a ng-click="discounts.neglect(discount.Code, discount.Type)"
+                                        title="remove">
+                                        <i class="fa fa-times"></i>
+                                    </a> -->
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="text-center">
+                            <!-- prev step -->
+                            <button class="back btn btn-default btn-block-xs"
+                                ng-click="back('paymentMethod')">
+                                Prev step
+                            </button>
+
+                            <!-- next step -->
+                            <button class="next btn btn-primary btn-block-xs"
+                                ng-click="next('paymentMethod')">
+                                Next step
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- review -->
+            <div id="review"
+                class="panel panel--checkout-step">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Order Review
+                    </h3>
+                </div>
+                <div class="panel-body"
+                    style="display:none">
+                    <div class="accordion">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th class="hidden-xs">Price</th>
+                                    <th class="hidden-xs">Quantity</th>
+                                    <th class="text-right">Totals</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in cart.getItems()">
+                                    <td>
+                                        {{item.product.name}}
+                                        <ul class="list-unstyled m-b-0">
+                                            <li ng-repeat="option in item.product.options">
+                                                {{option.label}}:
+                                                <span ng-switch="option.type">
+                                                    <span ng-switch-when="date">{{option.value | date}}</span>
+                                                    <span ng-switch-default>{{getOptionLabel(option)}}</span>
+                                                </span>
+                                            </li>
+                                            <li class="visible-xs">
+                                                Quantity: {{item.qty}}
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td class="hidden-xs">{{item.product.price | currency}}</td>
+                                    <td class="hidden-xs">{{item.qty}}</td>
+                                    <td class="text-right">{{item.product.price * item.qty | currency}}</td>
+                                </tr>
+                            </tbody>
+                            <tbody>
+                                <td colspan="2" class="hidden-xs"></td>
+                                <td>
+                                    <div>Subtotal</div>
+                                    <div>Tax</div>
+                                    <div>Shipping</div>
+                                    <div ng-if="checkout.discount_amount">Discounts</div>
+                                    <div>Total</div>
+                                </td>
+                                <td class="text-right">
+                                    <div>{{checkout.subtotal | currency}}</div>
+                                    <div>{{checkout.tax_amount | currency}}</div>
+                                    <div>{{checkout.shipping_amount | currency}}</div>
+                                    <div ng-if="checkout.discount_amount">({{checkout.discount_amount | currency}})</div>
+                                    <div>{{checkout.grandtotal | currency}}</div>
+                                </td>
+                            </tbody>
+                        </table>
+
+
+                        <div class="clearfix"></div>
+
+                        <ot-message-manager item="message"></ot-message-manager>
+
+                        <div class="text-center">
+                            <!-- prev step -->
+                            <button class="back btn btn-default btn-block-xs"
+                                ng-click="back('review')">
+                                Prev step
+                            </button>
+
+                            <!-- next step -->
+                            <button class="next btn btn-primary btn-block-xs"
+                                ng-click="save()">
+                                Confirm purchase
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- sidebar -->
+        <div class="col-md-4 hidden-xs hidden-sm">
+            <div class="checkout">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Order summary</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div>
+                            <div class="product row"
+                                ng-repeat="item in cart.getItems()">
+
+                                <div class="col-md-4">
+                                    <img class="img-thumbnail"
+                                        ng-src="{{ item.product.image.thumb }}"
+                                        err-src="placeholder.png"
+                                        alt="{{item.product.name}}" />
+                                </div>
+
+                                <div class="col-md-8">
+                                    <!-- name -->
+                                    <h4 class="m-t-0">{{item.product.name}}</h4>
+
+                                    <!-- description -->
+                                    <ul class="list-unstyled"
+                                        ng-if="item.hasOptions">
+                                        <li ng-repeat="option in item.product.options">
+                                            {{option.label}}:
+                                            <span ng-switch="option.type">
+                                                <span ng-switch-when="date">{{option.value | date}}</span>
+                                                <span ng-switch-default>{{getOptionLabel(option)}}</span>
+                                            </span>
+                                        </li>
+                                    </ul>
+
+                                    <div class="row">
+                                        <div class="col-xs-6">Qty:{{item.qty}}</div>
+                                        <div class="price text-right col-xs-6">{{item.product.price * item.qty | currency}}</div>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix"></div>
+                                <hr />
+                            </div>
+                        </div>
+                        <div>
+                            <table class="table-checkout-totals-side">
+                                <tr>
+                                    <th>Subtotal:</th>
+                                    <td>{{checkout.subtotal | currency}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Tax:</th>
+                                    <td>{{checkout.tax_amount | currency}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Shipping:</th>
+                                    <td>{{checkout.shipping_amount | currency}}</td>
+                                </tr>
+                                <tr ng-if="checkout.discount_amount">
+                                    <th>Discounts</th>
+                                    <td>({{checkout.discount_amount | currency}})</td>
+                                </tr>
+                                <tr class="grand-total-row">
+                                    <th>Total</th>
+                                    <td>{{checkout.grandtotal | currency}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-include src="'/views/checkout/modal/redirect.html'"></ng-include>

@@ -1,0 +1,126 @@
+<div class="navbar navbar-default navbar-fixed-top"
+    role="navigation"
+    bs-navbar>
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-toggle"
+                ng-click="mobileNav.isOpen = !mobileNav.isOpen">
+                <i class="fa fa-fw fa-bars"></i>
+            </a>
+            <a href="/cart"
+                class="navbar-toggle">
+                <i class="fa fa-fw fa-shopping-cart"></i>
+            </a>
+
+            <a class="navbar-brand"
+                href="/">
+                <img alt="Ultimo"
+                    src="/images/logo.png">
+                <span class="sr-only">Ultimo</span>
+            </a>
+        </div>
+
+        <div class="navbar-collapse collapse"
+            ng-class="{in: mobileNav.isOpen}">
+
+            <!-- Utility Navigation -->
+            <ul class="nav navbar-nav navbar-util hidden-xs">
+                <li class="social-link">
+                    <a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a>
+                </li>
+                <li class="social-link">
+                    <a href="https://twitter.com"><i class="fa fa-twitter"></i></a>
+                </li>
+                <li class="social-link">
+                    <a href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a>
+                </li>
+                <li ng-if="!visitorProps.isLoggedIn"
+                    data-match-route="^/login">
+                    <a href="/login">Login / Register</a>
+                </li>
+                <li ng-if="visitorProps.isLoggedIn"
+                    data-match-route="^/account">
+                    <a href="/account">My Account</a>
+                </li>
+                <li data-match-route="^/cart">
+                    <a href="/cart">
+                        My Cart ({{getItemsInCart()}})
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Main Navigation -->
+            <ul class="nav navbar-nav navbar-main">
+                <li uib-dropdown
+                    data-match-route="^/mens">
+                    <a uib-dropdown-toggle>
+                        Men's <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/mens">All Men's</a></li>
+                        <li><a href="/mens/tops">Tops</a></li>
+                        <li><a href="/mens/bottoms">Bottoms</a></li>
+                        <li><a href="/mens/shoes">Shoes</a></li>
+                    </ul>
+                </li>
+                <li uib-dropdown
+                    data-match-route="^/womens">
+                    <a uib-dropdown-toggle>
+                        Women's <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/womens">All Women's</a></li>
+                        <li><a href="/womens/tops">Tops</a></li>
+                        <li><a href="/womens/bottoms">Bottoms</a></li>
+                        <li><a href="/womens/shoes">Shoes</a></li>
+                    </ul>
+                </li>
+                <li uib-dropdown
+                    data-match-route="^/footwear">
+                    <a uib-dropdown-toggle>
+                        Footwear <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/footwear">All Footwear</a></li>
+                        <li><a href="/footwear/youth">Youth</a></li>
+                        <li><a href="/footwear/womens">Women's</a></li>
+                        <li><a href="/footwear/mens">Men's</a></li>
+                    </ul>
+                </li>
+                <li uib-dropdown
+                    data-match-route="^/accessories">
+                    <a uib-dropdown-toggle>
+                        Accessories <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/accessories">All Accessories</a></li>
+                        <li><a href="/accessories/headwear">Headwear</a></li>
+                        <li><a href="/accessories/jewelry">Jewelry</a></li>
+                        <li><a href="/accessories/bags-wallets">Bags / Wallets</a></li>
+                        <li><a href="/accessories/socks">Socks</a></li>
+                    </ul>
+                </li>
+                <li data-match-route="^/contact">
+                    <a href="/contact">Contact</a>
+                </li>
+                <li data-match-route="^/about-us">
+                    <a href="/about-us">About</a>
+                </li>
+
+                <!-- Additional mobile menu items, since the util nav is hidden -->
+                <li class="visible-xs"
+                    ng-show="!visitorProps.isLoggedIn">
+                    <a href="/login">Login</a>
+                </li>
+
+                <li class="visible-xs"
+                    ng-show="visitorProps.isLoggedIn">
+                    <a href="/account">My Account</a>
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+</div>
+

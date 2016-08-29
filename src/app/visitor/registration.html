@@ -1,0 +1,154 @@
+<div class="container">
+
+    <div class="page-header">
+        <h1>Registration</h1>
+    </div>
+
+    <!-- error message -->
+    <ot-message-manager item="message"></ot-message-manager>
+
+    <h4 class="text-center">Social Registration</h4>
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
+            <div class="row">
+                <div class="col-xs-6">
+                    <a class="btn btn-block btn-default"
+                        ng-click="googleLogin()">
+                        <i class="fa fa-google-plus"></i> Google+
+                    </a>
+                </div>
+                <div class="col-xs-6">
+                    <a class="btn btn-block btn-default"
+                        ng-click="facebookLogin()">
+                        <i class="fa fa-facebook"></i> Facebook
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <p class="text-center">- or -</p>
+
+    <h4 class="text-center">Email Registration</h4>
+    <form name="register"
+        ng-submit="register.$valid && save()"
+        novalidate>
+        <div class="row">
+            <div class="col-md-6">
+
+                <!-- first name field-->
+                <div class="form-group"
+                    ng-class="{ 'has-error' : register.fname.$invalid && (register.$submitted || register.fname.$touched) }">
+                    <label for="FirstName">First Name *</label>
+                    <input type="text"
+                        class="form-control"
+                        id="FirstName"
+                        ng-model="login.fname"
+                        name="fname"
+                        required />
+
+                    <!-- error message -->
+                    <div class="help-block"
+                        ng-show="register.fname.$invalid && (register.$submitted || register.fname.$touched)">
+                        This field is required.
+                    </div>
+                </div>
+
+                <!-- last name field -->
+                <div class="form-group"
+                    ng-class="{ 'has-error' : register.lname.$invalid && (register.$submitted || register.lname.$touched) }">
+                    <label for="LastName">Last Name *</label>
+                    <input type="text"
+                        class="form-control"
+                        id="LastName"
+                        ng-model="login.lname"
+                        name="lname"
+                        required />
+
+                    <!-- error message -->
+                    <div class="help-block"
+                        ng-show="register.lname.$invalid && (register.$submitted || register.lname.$touched)">
+                        This field is required.
+                    </div>
+                </div>
+
+                <!-- email field -->
+                <div class="form-group"
+                    ng-class="{ 'has-error' : register.email.$invalid && (register.$submitted || register.email.$touched) }">
+                    <label for="email">Email Address *</label>
+                    <input id="email"
+                        type="email"
+                        class="form-control"
+                        name="email"
+                        ng-model="login.email"
+                        required />
+
+                    <!-- error message -->
+                    <div class="help-block"
+                        ng-show="register.email.$invalid && (register.$submitted || register.email.$touched)">
+                        <div ng-show="register.email.$error.required">This field is required.</div>
+                        <div ng-show="register.email.$error.email">This email address is not properly formatted.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <!-- password field -->
+                <div class="form-group"
+                    ng-class="{ 'has-error' : register.password.$invalid && (register.$submitted || register.password.$touched) }">
+                    <label for="password">Password *</label>
+                    <input id="password"
+                        type="password"
+                        class="form-control"
+                        name="password"
+                        ng-model="login.password"
+                        ot-password
+                        required
+                        autocomplete="off" />
+
+                    <!-- error message -->
+                    <div class="help-block"
+                        ng-show="register.password.$invalid && (register.$submitted || register.password.$touched)">
+                        <div ng-show="register.password.$error.required">This field is required.</div>
+                        <div ng-show="register.password.$error.otPasswordMinLength">Passwords must be a minimum of 6 characters.</div>
+                        <div ng-show="register.password.$error.otPasswordCommon">You entered one of the 50 most common passwords, please try something more secure.</div>
+                    </div>
+                </div>
+
+                <!-- password confirm field -->
+                <div class="form-group"
+                    ng-class="{ 'has-error' : register.confirm_password.$invalid && (register.$submitted || register.confirm_password.$touched) }">
+                    <label for="confirm_password">Password confirm *</label>
+                    <input id="confirm_password"
+                        type="password"
+                        class="form-control"
+                        name="confirm_password"
+                        ng-model="login.confirm_password"
+                        ot-match="login.password"
+                        required
+                        autocomplete="off" />
+
+                    <!-- error message -->
+                    <div class="help-block"
+                        ng-show="register.$submitted || register.confirm_password.$touched">
+                        <div ng-show="register.confirm_password.$error.required">This field is required.</div>
+                        <div ng-show="register.confirm_password.$error.match">The two passwords don't match.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- submit button -->
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
+                <button type="submit"
+                    class="btn btn-primary btn-block">
+                    Register
+                </button>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+

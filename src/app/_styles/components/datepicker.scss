@@ -1,0 +1,58 @@
+$datepickerGridColor: #999;
+$datepickerHeaderDayColor: #999;
+
+.datepicker-wrap {
+    /**
+     * Overall
+     */
+    table:focus {
+        outline: 0;
+    }
+
+    @media (max-width: $screen-sm-max) {
+        table {
+            width: 100%;
+        }
+    }
+
+
+    /**
+     * Mode Row
+     */
+    .datepicker__row--mode {
+        .btn {
+            color: #999;
+            opacity: 1; // ignore disabled styling work
+        }
+    }
+
+    /**
+     * Day Header Row
+     */
+    th {
+        color: $datepickerHeaderDayColor;
+    }
+
+    /**
+     * Days
+     */
+    td {
+        border: 1px solid $datepickerGridColor;
+    }
+
+    // Square up our buttons
+    .btn-sm {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .btn {
+        border-color: transparent !important;
+        border-radius: 0;
+    }
+
+    // The selected day can get muted styles if you have a different
+    // month selected
+    .btn-info .text-muted {
+        color: $btn-info-color;
+    }
+}
