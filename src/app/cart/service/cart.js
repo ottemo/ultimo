@@ -260,7 +260,6 @@ angular.module('cartModule')
             'getItemsForMiniCart': getItemsForMiniCart,
             'getCountItems': getCountItems,
             'getTotalQuantity': getTotalQuantity,
-
             'getSubtotal': getSubtotal,
             'setSubtotal': setSubtotal,
             'getSalesTax': getSalesTax,
