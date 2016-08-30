@@ -6,7 +6,7 @@ angular.module('cartModule')
 
         var cachedCart, items, visitorId, subtotal, saleTax, shipping, total, activeRequests, initScope,
             addItem, init, reload, loadCartInfo, getItems, remove, update,
-            hasSubscriptionItems, getSubtotal, getSalesTax, getShipping, getTotal,
+            getSubtotal, getSalesTax, getShipping, getTotal,
             setSubtotal, setSalesTax, setShipping, setTotal, getCountItems,
             getItemsForMiniCart, getTotalQuantity, getItem, increaseCountRequest, decreaseCountRequest;
 
@@ -60,16 +60,6 @@ angular.module('cartModule')
             }
 
             return res;
-        };
-
-        hasSubscriptionItems = function() {
-            return !!_.filter(items, isActiveSubscription).length;
-
-            ///////////////
-
-            function isActiveSubscription(o) {
-                return o.options && o.options.subscription && o.options.subscription !== 'just_once';
-            }
         };
 
         getSubtotal = function () {
@@ -270,8 +260,6 @@ angular.module('cartModule')
             'getItemsForMiniCart': getItemsForMiniCart,
             'getCountItems': getCountItems,
             'getTotalQuantity': getTotalQuantity,
-            'hasSubscriptionItems': hasSubscriptionItems,
-
             'getSubtotal': getSubtotal,
             'setSubtotal': setSubtotal,
             'getSalesTax': getSalesTax,
