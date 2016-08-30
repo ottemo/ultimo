@@ -441,6 +441,11 @@ angular.module('checkoutModule')
                                 method: $scope.paymentMethod.selected.Code
                             });
 
+                            // Always save cc token if there are subscriptions in the cart
+                            if (cartService.hasSubscriptionItems()) {
+                                payment.method.cc.save = true;
+                            }
+
                             // Save off the cc form
                             checkoutService.saveAdditionalInfo({'cc': payment.method.cc})
                                 .then(function(resp){
