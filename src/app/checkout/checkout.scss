@@ -57,11 +57,10 @@ $panel-checkout-step-heading-bg: $panel-default-heading-bg;
     @media (min-width: $screen-sm-min) {
         .form-cc__number {
             float: left;
-            width: 170px;
         }
         .form-cc__cvc {
             float: right;
-            width: 70px;
+            width: 100px;
         }
     }
 

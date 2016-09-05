@@ -12,7 +12,7 @@ angular.module('checkoutModule')
             // Functions
             var init, update, loadShippingMethods, loadPaymentMethods,
                 saveBillingAddress, saveShippingAddress, saveShippingMethod, savePaymentMethod, discountApply, discountNeglect,
-                getCheckout, getAllowedPaymentMethods, getAllowedShippingMethods, saveAdditionalInfo, getAllowedGuestCheckout, loadSavedCC, allowedCC,
+                getCheckout, getAllowedPaymentMethods, getAllowedShippingMethods, saveAdditionalInfo, getAllowedGuestCheckout, loadSavedCC,
                 getMinimalCostShippingMethods;
 
             checkout = {};
@@ -77,13 +77,13 @@ angular.module('checkoutModule')
             // load saved Credit Cards
             loadSavedCC = function () {
                 var defer = $q.defer();
-                allowedCC = [];
+                var allowedCC = [];
 
                 checkoutApiService.getSavedCC().$promise.then(function( res ){
                     allowedCC = res.result;
 
                     defer.resolve(allowedCC);
-                })
+                });
                 return defer.promise;
             };
 
