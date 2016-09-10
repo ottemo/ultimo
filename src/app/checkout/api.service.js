@@ -70,10 +70,14 @@ angular.module("checkoutModule")
                     method: "POST",
                     url: REST_SERVER_URI + "/cart/coupons"
                 },
-                "discountNeglect": {
+
+                // remove discount from checkout
+                "removeDiscount": {
                     method: "DELETE",
                     url: REST_SERVER_URI + "/cart/coupons/:code"
-                }
+                },
+
+
             });
         }
     ]);

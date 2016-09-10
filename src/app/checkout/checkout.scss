@@ -116,3 +116,9 @@ $panel-checkout-step-heading-bg: $panel-default-heading-bg;
 .save-cc-token {
     margin-top: -10px;
 }
+
+.accordion {
+    li > a.btn-link {
+        margin-left: 20px;
+    }
+}

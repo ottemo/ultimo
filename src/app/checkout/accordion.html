@@ -488,11 +488,13 @@
                             <ul>
                                 <li ng-repeat="discount in checkout.discounts">
                                     {{discount.Amount | currency}} - {{discount.Code}}
-                                    <!-- {{discount.Type}} -->
-                                    <!-- <a ng-click="discounts.neglect(discount.Code, discount.Type)"
+                                     <a class="btn-link"
+                                        ng-if="canRemoveDiscount(discount)"
+                                        ng-click="discounts.remove(discount)"
                                         title="remove">
-                                        <i class="fa fa-times"></i>
-                                    </a> -->
+                                             <i class="fa fa-close"></i>
+                                             <span class="cart-item__product-remove-text">Remove</span>
+                                    </a>
                                 </li>
                             </ul>
                         </div>

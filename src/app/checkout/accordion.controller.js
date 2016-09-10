@@ -11,7 +11,7 @@ angular.module('checkoutModule')
     'cartService',
     'commonUtilService',
     'checkoutService',
-    'giftCardsService',
+    'giftcardsApiService',
     function (
         $scope,
         $location,
@@ -23,7 +23,7 @@ angular.module('checkoutModule')
         cartService,
         commonUtilService,
         checkoutService,
-        giftCardsService
+        giftcardsApiService
     ) {
         var isValidSteps = {
             'billingAddress': false,
@@ -70,11 +70,13 @@ angular.module('checkoutModule')
         // Discounts and Giftcards
         $scope.discounts = {
             apply: applyDiscount,
+            remove: removeDiscount,
             code: '',
             isVisible: false,
             message: false,
             isApplying: false,
         };
+        $scope.canRemoveDiscount = canRemoveDiscount;
 
         activate();
 
@@ -671,8 +673,8 @@ angular.module('checkoutModule')
             $scope.discounts.isApplying = true;
 
             // Apply this as a giftcard and a coupon
-            promises.push(giftCardsService.apply(code));
-            promises.push(checkoutService.discountApply({'code' :code}));
+            promises.push(giftcardsApiService.apply({'giftcode': code}));
+            promises.push(checkoutService.discountApply({'code': code}));
 
             allResolved(promises).then(function(responses){
                 $scope.discounts.isApplying = false;
@@ -719,6 +721,60 @@ angular.module('checkoutModule')
                 }
 
                 return deferred.promise;
+            }
+        }
+
+        function canRemoveDiscount(discount) {
+            if (!discount || !discount.Labels || !discount.Labels[0]) return false;
+
+            var removableDiscountTypes = {
+                'D': true,
+                'GC': true
+            };
+
+            return discount.Labels[0] in removableDiscountTypes;
+        }
+
+        function removeDiscount(discount){
+            if (!discount.Labels || !discount.Labels[0]) return;
+            var discountType = discount.Labels[0];
+
+            var errorMessage = 'Removing of coupon code or giftcard code is not avalable at this time.';
+            var giftcardMessage = 'Your giftcard was removed successfully!';
+            var couponMessage = 'Your coupon code was removed successfully!';
+
+            switch(discountType) {
+                // type Discount
+                case 'D':
+                    checkoutApiService.removeDiscount({'code': discount.Code}).$promise
+                        .then(function(response) {
+                            if (response.error === null) {
+
+                                info();
+                                $scope.discounts.code = '';
+                                $scope.discounts.message = commonUtilService.getMessage(null, 'success', couponMessage);
+
+                            } else {
+                                $scope.discounts.message = commonUtilService.getMessage(null, 'danger', errorMessage);
+                            }
+                        });
+                    break;
+
+                // type gift-card
+                case 'GC':
+                    giftcardsApiService.remove({'giftcode': discount.Code}).$promise
+                        .then(function(response) {
+                            if (response.error === null) {
+
+                                info();
+                                $scope.discounts.code = '';
+                                $scope.discounts.message = commonUtilService.getMessage(null, 'success', giftcardMessage);
+
+                            } else {
+                                $scope.discounts.message = commonUtilService.getMessage(null, 'danger', errorMessage);
+                            }
+                        });
+                    break;
             }
         }
     }
