@@ -1,0 +1,174 @@
+<!-- add token modal -->
+<div class="modal fade"
+     id="credit-card-new-popup"
+     tabindex="-1"
+     role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button data-dismiss="modal"
+                        class="close"
+                        type="button">
+                    <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">Add Credit Card</h4>
+            </div>
+            <div class="modal-body">
+
+                <!-- note: this is also outside the modal -->
+                <!-- error message -->
+                <ot-message-manager item="message"></ot-message-manager>
+
+                <div class="radio-subform paypal">
+                    <form class="form-cc"
+                          name="creditCardForm.controller"
+                          novalidate
+                          ng-submit="creditCardForm.controller.$valid && save()">
+
+                        <div class="form-group form-cc__able-methods">
+                            <div ng-repeat="tokenAbleMethod in paymentMethods.tokenAble" ng-show="paymentMethods.tokenAble.length > 1">
+                                <label>
+                                    <input type="radio"
+                                           ng-model="creditCardForm.model.payment_method"
+                                           name="tokenAbleMethods"
+                                           ng-value="tokenAbleMethod.Code"/> {{tokenAbleMethod.Name}}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="well well-cc">
+
+                            <div class="form-group form-cc__number"
+                                 ng-class="{'has-error': creditCardForm.controller.number.$invalid && creditCardForm.controller.number.$touched}">
+                                <label for="paymentCardNumber">Card Number</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="paymentCardNumber"
+                                       name="number"
+                                       cc-number
+                                       cc-format
+                                       cc-eager-type
+                                       ng-model="creditCardForm.model.cc.number"
+                                       required />
+                            </div>
+
+                            <div class="form-group form-cc__cvc"
+                                 ng-class="{'has-error': creditCardForm.controller.cvc.$invalid && creditCardForm.controller.cvc.$touched}">
+                                <label for="paymentCardCVC">CVC</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="paymentCardCVC"
+                                       name="cvc"
+                                       cc-cvc
+                                       ng-model="creditCardForm.model.cc.cvc"
+                                       required />
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                            <div class="form-cc__exp">
+                                <label>Expiration</label>
+                                <div class="">
+                                    <div class="form-group form-cc__exp-mm"
+                                         ng-class="{'has-error': creditCardForm.controller.expire_month.$invalid && creditCardForm.controller.expire_month.$touched}">
+                                        <label for="" class="sr-only">Expiration Month</label>
+                                        <select class="form-control"
+                                                ng-model="creditCardForm.model.cc.expire_month"
+                                                name="expire_month"
+                                                required>
+                                            <option value="">MM</option>
+                                            <option value="01">01</option>
+                                            <option value="02">02</option>
+                                            <option value="03">03</option>
+                                            <option value="04">04</option>
+                                            <option value="05">05</option>
+                                            <option value="06">06</option>
+                                            <option value="07">07</option>
+                                            <option value="08">08</option>
+                                            <option value="09">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group form-cc__exp-divider">/</div>
+
+                                    <div class="form-group form-cc__exp-yy"
+                                         ng-class="{'has-error': creditCardForm.controller.expire_year.$invalid && creditCardForm.controller.expire_year.$touched}">
+                                        <label for="" class="sr-only">Expiration Year</label>
+                                        <select class="form-control"
+                                                ng-model="creditCardForm.model.cc.expire_year"
+                                                name="expire_year"
+                                                required>
+                                            <option value="">YY</option>
+                                            <option value="2016">16</option>
+                                            <option value="2017">17</option>
+                                            <option value="2018">18</option>
+                                            <option value="2019">19</option>
+                                            <option value="2020">20</option>
+                                            <option value="2021">21</option>
+                                            <option value="2022">22</option>
+                                            <option value="2023">23</option>
+                                            <option value="2024">24</option>
+                                            <option value="2025">25</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-cc__type hidden-xs"
+                                 ng-show="creditCardForm.controller.number.$ccEagerType">
+                                {{creditCardForm.controller.number.$ccEagerType}}
+                            </div>
+
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <!-- error messaging -->
+                        <div class="has-error">
+                            <ul class="help-block">
+
+                                <!-- number errors -->
+                                <li ng-show="creditCardForm.controller.number.$invalid && (creditCardForm.controller.$submitted || creditCardForm.controller.number.$touched)">
+                                    <div ng-show="creditCardForm.controller.number.$error.required">
+                                        Card number is required.
+                                    </div>
+                                    <div ng-show="creditCardForm.controller.number.$error.ccNumber">
+                                        The card number you entered is invalid.
+                                    </div>
+                                </li>
+
+                                <!-- expiry errors -->
+                                <li ng-show="creditCardForm.controller.expire_month.$invalid && (creditCardForm.controller.$submitted || creditCardForm.controller.expire_month.$touched)">
+                                    Expiration month is required.
+                                </li>
+                                <li ng-show="creditCardForm.controller.expire_year.$invalid && (creditCardForm.controller.$submitted || creditCardForm.controller.expire_year.$touched)">
+                                    Expiration year is required.
+                                </li>
+
+                                <!-- cvc errors -->
+                                <li ng-show="creditCardForm.controller.cvc.$invalid && (creditCardForm.controller.$submitted || creditCardForm.controller.cvc.$touched)">
+                                    <div ng-show="creditCardForm.controller.cvc.$error.required">Security code is required.</div>
+                                    <div ng-show="creditCardForm.controller.cvc.$error.ccCvc">The security does not have the correct number of digits.</div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <button type="button"
+                                data-dismiss="modal"
+                                class="btn btn-default">
+                            Close
+                        </button>
+
+                        <button type="submit"
+                                class="btn btn-primary">
+                            Save
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

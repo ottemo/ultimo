@@ -70,6 +70,21 @@ angular.module("visitorModule")
             method: "DELETE",
             url: REST_SERVER_URI + "/visit/address/:addressID"
         },
+        "getTokens": {
+            method: "GET",
+            params: {
+                extra: 'type,number,expiration_date'
+            },
+            url: REST_SERVER_URI + "/visit/tokens"
+        },
+        "saveToken": {
+            method: "POST",
+            url: REST_SERVER_URI + "/visit/tokens"
+        },
+        "deleteToken": {
+            method: "DELETE",
+            url: REST_SERVER_URI + "/visit/tokens/:tokenID"
+        },
         "getOrderList": {
             method: "GET",
             url: REST_SERVER_URI + "/visit/orders"

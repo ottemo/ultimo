@@ -19,6 +19,11 @@ angular.module("visitorModule", [
             templateUrl: "/views/visitor/account/address.html",
             controller: "visitorAccountAddressController"
         })
+        .when("/account/creditcards", {
+            title: "Tokens",
+            templateUrl: "/views/visitor/account/tokens.html",
+            controller: "visitorAccountTokensController"
+        })
         .when("/account/gift-cards", {
             title: "Gift Cards",
             templateUrl: "/views/visitor/account/gift-cards.html",
