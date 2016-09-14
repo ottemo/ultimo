@@ -102,7 +102,7 @@
                 </span>
             </div>
 
-            <div ng-show="product.qty > 0">
+            <div ng-show="!product.inventory.qty || product.inventory.qty > 0">
                 <!-- custom options -->
                 <ot-custom-options item="product"
                     object="this"></ot-custom-options>
@@ -133,7 +133,7 @@
             </div>
 
             <a class="btn btn-default disabled"
-                ng-show="product.qty == 0">
+                ng-show="product.inventory.qty === 0">
                 <i class="fa fa-shopping-cart"></i> Sold Out
             </a>
 
