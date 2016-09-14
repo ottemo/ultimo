@@ -19,9 +19,11 @@
                     itemtype="http://schema.org/Product">
 
                     <a class="btn btn-default btn-quick-view"
+                        ng-if="product.qty > 0"
                         ng-click="openPopUp(product)">
                         <i class="fa fa-search-plus"></i> Quick View
                     </a>
+                    <a ng-if="product.qty == 0" class="btn btn-default disabled">sold out</a>
 
                     <a class="product-box-img r-container r-container-square"
                         ng-href="{{::productService.getUrl(product._id)}}">
