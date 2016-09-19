@@ -4,9 +4,7 @@
         itemscope
         itemtype="http://schema.org/Product">
 
-        <a ng-if="product.inventory === null ||
-                  product.inventory.qty === 0 ||
-                  product.qty == 0"
+        <a ng-if="product.qty === 0"
             class="btn btn-default disabled">
             sold out
         </a>

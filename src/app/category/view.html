@@ -19,16 +19,13 @@
                     itemtype="http://schema.org/Product">
 
                     <a class="btn btn-default btn-quick-view"
-                        ng-if="product.inventory.qty > 0 ||
-                               product.qty > 0 ||
-                               ( product.inventory == undefined && product.qty == undefined )"
+                        ng-if="product.qty !== 0"
                         ng-click="openPopUp(product)">
                         <i class="fa fa-search-plus"></i> Quick View
                     </a>
-                    <a ng-if="product.inventory === null ||
-                          product.inventory.qty === 0 ||
-                          product.qty == 0">
-                          sold out
+                    <a class="btn btn-default disabled"
+                        ng-if="product.qty === 0">
+                        sold out
                     </a>
 
                     <a class="product-box-img r-container r-container-square"
