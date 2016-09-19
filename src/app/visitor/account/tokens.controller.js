@@ -34,7 +34,7 @@ angular.module("visitorModule")
         $scope.creditCardForm = {
             model: {}
         };
-        $scope.message = '';
+        $scope.newCreditCardMessage = '';
         $scope.save = save;
         $scope.parseDate = parseDate;
 
@@ -96,6 +96,7 @@ angular.module("visitorModule")
 
         function popUpOpen() {
             $('#credit-card-new-popup').modal("show");
+            $scope.newCreditCardMessage = '';
             $scope.creditCardForm.controller.$setPristine();
             $scope.creditCardForm.controller.$setUntouched();
             $scope.creditCardForm.controller.$rollbackViewValue();
@@ -117,7 +118,7 @@ angular.module("visitorModule")
                         $scope.getTokens();
                         $('#credit-card-new-popup').modal("hide");
                     } else {
-                        $scope.message = commonUtilService.getMessage(response);
+                        $scope.newCreditCardMessage = commonUtilService.getMessage(response);
                     }
                 });
         }
