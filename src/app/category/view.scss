@@ -58,13 +58,16 @@
         color: $gray;
     }
 
-    .btn-quick-view {
-        display: none;
+    .btn {
         z-index: 1;
         position: absolute;
         width: 80%;
         left: 10%;
         bottom: 30%;
+    }
+
+    .btn-quick-view {
+        display: none;
     }
 
     // only show the quick view button if you are on lg

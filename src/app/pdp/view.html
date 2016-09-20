@@ -102,33 +102,40 @@
                 </span>
             </div>
 
-            <!-- custom options -->
-            <ot-custom-options item="product"
-                object="this"></ot-custom-options>
- 
-            <!-- Quantity -->
-            <div class="form-group">
-                <label for="qty"
-                    class="control-label">Qty:</label>
-                <input type="text"
-                    id="qty"
-                    class="form-control"
-                    placeholder="1"
-                    value="{{qty}}"
-                    ng-model="qty"
-                    ng-change="update(idx, qty)">
+            <div ng-show="product.qty !== 0">
+                <!-- custom options -->
+                <ot-custom-options item="product"
+                    object="this"></ot-custom-options>
+
+                <!-- Quantity -->
+                <div class="form-group">
+                    <label for="qty"
+                        class="control-label">Qty:</label>
+                    <input type="text"
+                        id="qty"
+                        class="form-control"
+                        placeholder="1"
+                        value="{{qty}}"
+                        ng-model="qty"
+                        ng-change="update(idx, qty)">
+                </div>
+
+                <!-- add to cart button -->
+                <div class="form-group">
+                    <a class="btn btn-primary btn-block"
+                        ng-class="{disabled: isAddingToCart}"
+                        ng-click="addToCart($event)">
+                        Add to cart
+                        <i class="fa fa-circle-o-notch fa-spin"
+                        ng-show="isAddingToCart"></i>
+                    </a>
+                </div>
             </div>
 
-            <!-- add to cart button -->
-            <div class="form-group">
-                <a class="btn btn-primary btn-block"
-                    ng-class="{disabled: isAddingToCart}"
-                    ng-click="addToCart($event)">
-                    Add to cart
-                    <i class="fa fa-circle-o-notch fa-spin"
-                    ng-show="isAddingToCart"></i>
-                </a>
-            </div>
+            <a class="btn btn-default disabled"
+                ng-show="product.qty === 0">
+                <i class="fa fa-shopping-cart"></i> Sold Out
+            </a>
 
             <!-- error message -->
             <ot-message-manager item="messageOptions"></ot-message-manager>

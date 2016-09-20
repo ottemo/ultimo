@@ -4,6 +4,11 @@
         itemscope
         itemtype="http://schema.org/Product">
 
+        <a ng-if="product.qty === 0"
+            class="btn btn-default disabled">
+            sold out
+        </a>
+
         <a class="product-box-img r-container r-container-square"
             ng-href="{{::productService.getUrl(product._id)}}">
             <img class="r-target"
