@@ -5,6 +5,9 @@ angular.module("commonModule")
         var methods = {
             "getRewriteUrls": {
                 method: "GET",
+                params: {
+                    extra: 'url,type,rewrite'
+                },
                 url: REST_SERVER_URI + "/seo/items"
             }
         };

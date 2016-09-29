@@ -37,8 +37,8 @@ angular.module("commonModule")
 
                 var i;
                 for (i = 0; i < rules.length; i += 1) {
-                    if (rules[i].type === type && rules[i].rewrite === id) {
-                        return rules[i].url;
+                    if (rules[i].Extra.type === type && rules[i].Extra.rewrite === id) {
+                        return rules[i].Extra.url;
                     }
                 }
                 return false;
