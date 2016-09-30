@@ -36,23 +36,16 @@
                 <div ng-bind-html="product.description"></div>
 
                 <!-- social links -->
-                <ul class="list-social">
-                    <li>share:</li>
-                    <li>
-                        <a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a>
-                    </li>
-                    <li>
-                        <a href="https://twitter.com"><i class="fa fa-twitter"></i></a>
-                    </li>
-                    <li>
-                        <a href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a>
-                    </li>
-                    <!-- <li>
-                        <a href="mailto:">
-                            <i class="fa fa-envelope fa-fw"></i>
-                        </a>
-                    </li> -->
-                </ul>
+                <ot-social-links class="text-center"
+                     title="Share:"
+                     image="{{product.images[0].small}}"
+                     text="{{product.name}}"
+                     googleplus
+                     twitter
+                     pinterest
+                     facebook>
+                </ot-social-links>
+
             </div>
         </div>
 
@@ -68,15 +61,6 @@
                             itemprop="image" />
                     </a>
                 </div>
-
-                <!-- test code -->
-                <!-- <div ng-repeat="img in [1,2,3,4]">
-                    <a class="pdp-img-container js-pdp-img"
-                        href="http://placehold.it/1000x1430">
-                        <img ng-src="//placehold.it/1000x1430"
-                            class="img-fill" />
-                    </a>
-                </div> -->
             </div>
         </div>
 
@@ -151,18 +135,15 @@
             </div>
 
             <!-- social links -->
-            <ul class="hidden-md hidden-lg text-center list-social">
-                <li>share:</li>
-                <li>
-                    <a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a>
-                </li>
-                <li>
-                    <a href="https://twitter.com"><i class="fa fa-twitter"></i></a>
-                </li>
-                <li>
-                    <a href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a>
-                </li>
-            </ul>
+            <ot-social-links class="hidden-md hidden-lg text-center"
+                title="Share:"
+                image="{{product.images[0].small}}"
+                text="{{product.name}}"
+                googleplus
+                twitter
+                pinterest
+                facebook>
+            </ot-social-links>
         </div>
     </div>
 

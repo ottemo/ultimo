@@ -1,0 +1,30 @@
+<!-- social links -->
+<ul class="list-social">
+    <li ng-if="title">
+        {{title}}
+    </li>
+    <li ng-if="twitter">
+        <a href="https://twitter.com/intent/tweet?url={{pageUrl}}&text={{text}}"
+           target="_blank" title="Share in Twitter">
+            <i class="fa fa-twitter"></i>
+        </a>
+    </li>
+    <li ng-if="pinterest">
+        <a href="http://pinterest.com/pin/create/button/?url={{pageUrl}}&description={{text}}&media={{image}}"
+           target="_blank" title="Share in Pinterest">
+            <i class="fa fa-pinterest"></i>
+        </a>
+    </li>
+    <li ng-if="googlePlus">
+        <a href="https://plus.google.com/share?url={{pageUrl}}"
+           target="_blank" title="Share in Google+">
+            <i class="fa fa-google-plus"></i>
+        </a>
+    </li>
+    <li ng-if="facebook">
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{pageUrl}}"
+           target="_blank" title="Share in Facebook+">
+            <i class="fa fa-facebook"></i>
+        </a>
+    </li>
+</ul>
