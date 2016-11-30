@@ -538,6 +538,7 @@ angular.module('checkoutModule')
          * Saves checkout
          */
         function save() {
+            $scope.isProcessingOrder = true;
             var payment, isValid, sendPostForm;
             $scope.message = '';
             isValid = function () {
@@ -619,9 +620,11 @@ angular.module('checkoutModule')
                                 if (isRemote) {
                                     // PayPal Express
                                     window.location.replace(response.redirect);
+                                    $scope.isProcessingOrder = false;
                                 } else if (isPostCC) {
                                     // Auth.net
                                     sendPostForm(payment.method, response);
+                                    $scope.isProcessingOrder = false;
                                 } else {
                                     // All Others; Zero Dollar, PayFlow Pro
                                     info().then(function() {
@@ -630,6 +633,7 @@ angular.module('checkoutModule')
                                             //TODO: clean this up with angular modals and promises
                                             $('#processing').modal('hide');
                                             $timeout(function() {
+                                                $scope.isProcessingOrder = false;
                                                 $location.path('/checkout/success/' + purchase._id);
                                             }, 600);
                                         });
@@ -639,6 +643,7 @@ angular.module('checkoutModule')
                                 $(this).parents('.confirm').css('display', 'block');
                                 $('#processing').modal('hide');
                                 $scope.message = commonUtilService.getMessage(response);
+                                $scope.isProcessingOrder = false;
                             }
                         });
 
