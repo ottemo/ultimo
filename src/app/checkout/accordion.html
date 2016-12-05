@@ -97,130 +97,109 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         Ship to
-                        <div class="dropdown" ng-if="!isGuestCheckout">
-                            <button class="btn btn-xs btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
-                                <li role="presentation" ng-repeat="addr in addresses">
-                                    <a role="menuitem" tabindex="-1" href ng-click="choiceShipping(addr.ID)">{{addr.Name}}</a>
-                                </li>
-                                <li role="presentation" class="divider"></li>
-                                <li role="presentation">
-                                    <a role="menuitem" tabindex="-1" href ng-click="newShipping()">New</a>
-                                </li>
-                            </ul>
-                        </div>
                     </h3>
                 </div>
 
                 <div class="panel-body"
                     style="display:none;">
                     <div class="accordion">
+                        <ot-checkout-address-manager
+                            manager="shippingAddressManager"
+                            on-submit="next('shippingAddress')"
+                            address-type="shipping"
+                            visitor-props="checkoutVisitorProps"
+                            modal-address-manager="modalAddress"
+                            get-empty-address="getEmptyAddress">
+                        </ot-checkout-address-manager>
 
-                        <!-- Form to add shipping addresses -->
-                        <ot-address-form
-                            form-ctrl="shippingAddress"
-                            form-model="checkout.shipping_address"
-                            form-disabled="checkout.shipping_address._id"
-                            on-submit="next('shippingAddress')">
+                        <hr>
 
-                            <!-- shipping notes -->
-                            <div class="form-group">
-                                <label for="shippingNotes">Shipping Notes</label>
-                                <textarea name="notes"
-                                    id="shippingNotes"
-                                    class="form-control"
-                                    rows="3"
-                                    maxlength="256"
-                                    ng-model="checkout.shipping_address.notes"></textarea>
-                                <span class="help-block">
-                                {{ checkout.shipping_address.notes ? checkout.shipping_address.notes.length + ' / ' : '' }}256 characters
-                                </span>
+                        <!-- shipping notes -->
+                        <div class="form-group">
+                            <label for="shippingNotes">Shipping Notes</label>
+                            <textarea name="notes"
+                                      id="shippingNotes"
+                                      class="form-control"
+                                      rows="3"
+                                      maxlength="256"
+                                      ng-model="checkout.shipping_address.notes"></textarea>
+                            <span class="help-block">
+                            {{ checkout.shipping_address.notes ? checkout.shipping_address.notes.length + ' / ' : '' }}256 characters
+                            </span>
+                        </div>
+
+                        <!-- use for billing -->
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label class="myCheckbox"
+                                       for="shippingUseAsBilling">
+                                    <input type="checkbox"
+                                           name="shippingUseAsBilling"
+                                           id="shippingUseAsBilling"
+                                           ng-model="addressSettings.useShippingAsBilling"> Use for billing address as well
+                                </label>
                             </div>
+                        </div>
 
-                            <!-- use for billing -->
-                            <div class="form-group">
-                                <div class="checkbox">
-                                    <label class="myCheckbox"
-                                        for="shippingUseAsBilling">
-                                        <input type="checkbox"
-                                            name="shippingUseAsBilling"
-                                            id="shippingUseAsBilling"
-                                            ng-model="addressSettings.useShippingAsBilling"> Use for billing address as well
-                                    </label>
-                                </div>
-                            </div>
-
-                            <!-- actions -->
-                            <div class="text-center">
-                                <!-- prev step -->
-                                <button class="back btn btn-default btn-block-xs"
+                        <!-- actions -->
+                        <div class="text-center">
+                            <!-- prev step -->
+                            <button class="back btn btn-default btn-block-xs"
                                     ng-click="back('shippingAddress')"
                                     ng-if="isGuestCheckout"
                                     type="button">
-                                    Prev step
-                                </button>
+                                Prev step
+                            </button>
 
-                                <!-- next step -->
-                                <button class="next btn btn-primary btn-block-xs"
-                                    type="submit">
-                                    Next step
-                                </button>
-                            </div>
-                        </ot-address-form>
+                            <!-- next step -->
+                            <button class="next btn btn-primary btn-block-xs"
+                                    type="submit"
+                                    ng-click="next('shippingAddress')">
+                                Next step
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Billing Block -->
             <div id="billingAddress"
-                class="panel panel--checkout-step">
+                 class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         Bill to
-                        <div class="dropdown" ng-if="!isGuestCheckout">
-                            <button class="btn btn-xs btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
-                                <li role="presentation" ng-repeat="addr in addresses">
-                                    <a role="menuitem" tabindex="-1" ng-click="choiceBilling(addr.ID)">{{addr.Name}}</a>
-                                </li>
-                                <li role="presentation" class="divider"></li>
-                                <li role="presentation">
-                                    <a role="menuitem" tabindex="-1" href="" ng-click="newBilling()">New</a>
-                                </li>
-                            </ul>
-                        </div>
                     </h3>
                 </div>
 
                 <div class="panel-body"
-                    style="display:none">
+                     style="display:none">
                     <div class="accordion">
-                        <!-- Form to add billing addresses -->
-                        <ot-address-form
-                            form-ctrl="billingAddress"
-                            form-model="checkout.billing_address"
-                            form-disabled="checkout.billing_address._id || addressSettings.useShippingAsBilling"
-                            on-submit="next('billingAddress')">
 
-                            <div class="text-center">
-                                <!-- prev step -->
-                                <button class="back btn btn-default btn-block-xs"
+                        <ot-checkout-address-manager
+                            manager="billingAddressManager"
+                            on-submit="next('billingAddress')"
+                            address-type="billing"
+                            visitor-props="checkoutVisitorProps"
+                            modal-address-manager="modalAddress"
+                            get-empty-address="getEmptyAddress">
+                        </ot-checkout-address-manager>
+
+                        <div class="text-center">
+                            <!-- prev step -->
+                            <button class="back btn btn-default btn-block-xs"
                                     ng-click="back('billingAddress')"
                                     type="button">
-                                    Prev step
-                                </button>
+                                Prev step
+                            </button>
 
-                                <!-- next step -->
-                                <button class="next btn btn-primary btn-block-xs"
+                            <!-- next step -->
+                            <button class="next btn btn-primary btn-block-xs"
+                                    ng-click="next('billingAddress')"
                                     type="submit">
-                                    Next step
-                                </button>
-                            </div>
-                        </ot-address-form>
+                                Next step
+                            </button>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -677,3 +656,4 @@
 </div>
 
 <ng-include src="'/views/checkout/modal/redirect.html'"></ng-include>
+<ng-include src="'/views/checkout/modal/modal-address.html'"></ng-include>

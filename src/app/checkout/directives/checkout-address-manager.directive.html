@@ -1,0 +1,111 @@
+<table class="table table-hover" ng-show="isAreaVisible('preview')">
+    <tbody>
+    <tr>
+        <td ng-click="actions.editCurrentAddress()">
+            <div> {{currentAddress.first_name}} {{currentAddress.last_name}} </div>
+            <div> {{currentAddress.address_line1}} {{currentAddress.address_line2}} </div>
+            <div>
+                {{currentAddress.city}} {{currentAddress.state}}
+                {{currentAddress.zip_code}} {{currentAddress.country}}
+            </div>
+        </td>
+        <td class="text-right"
+            ng-click="actions.editCurrentAddress()">
+            <a href="#" class="underlined">Change</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<h4 ng-show="isAreaVisible('list')">
+    Saved addresses
+</h4>
+
+<div ng-show="isAreaVisible('list')">
+    <form>
+        <table class="table table-hover">
+            <tbody>
+            <tr ng-repeat="address in visitorProps.addresses"
+                ng-class="{ active: address.ID == currentAddress._id }">
+                <td ng-click="actions.selectSavedAddress(address.ID)">
+                    <label>
+                        <input type="radio"
+                               name="savedAddress"
+                               ng-checked="address.ID === currentAddress._id"
+                            />
+                        {{address.Name}}
+                    </label>
+                </td>
+                <td class="text-right">
+                    <a href="#" class="underlined" ng-click="actions.editSavedAddress(address.ID)">Edit</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"
+                    ng-click="actions.selectNewAddress()">
+                    <a href="#" class="underlined"
+                       ng-class="{ 'active': isShowForm }">
+                        + Add new address
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+
+<div ng-show="isAreaVisible('list') && isAreaVisible('form')">
+    <hr>
+    <h4> Current address </h4>
+</div>
+
+<ot-address-form ng-show="isAreaVisible('form')"
+                 form-ctrl="newAddressManager.controller"
+                 form-model="newAddressManager.model"
+                 on-submit="newAddressManager.actionSubmit()">
+
+    <div class="row">
+        <!--<div class="col-sm-8">-->
+        <div ng-if="!visitorProps.isGuest">
+            <!-- save address -->
+            <div class="col-sm-6">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"
+                               ng-model="newAddressManager.model.saveInAccount">
+                        save this address
+                    </label>
+                </div>
+            </div>
+
+
+            <!-- default shipping address -->
+            <div class="col-sm-6" ng-show="newAddressManager.model.saveInAccount">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"
+                               ng-model="newAddressManager.model.isDefaultShipping">
+                        use as default shipping address
+                    </label>
+                </div>
+            </div>
+
+            <!-- default billing address -->
+            <div class="col-sm-6 col-sm-push-6 default-billing-wrapper"
+                 ng-show="newAddressManager.model.saveInAccount">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"
+                               ng-model="newAddressManager.model.isDefaultBilling">
+                        use as default billing address
+                    </label>
+                </div>
+            </div>
+
+        </div>
+
+        <button type="submit" ng-hide="true">Submit</button>
+    </div>
+    <!--</div>-->
+
+</ot-address-form>

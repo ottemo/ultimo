@@ -52,10 +52,6 @@ angular.module("checkoutModule")
                     method: "POST",
                     url: REST_SERVER_URI + "/checkout/submit"
                 },
-                "getAddresses": {
-                    method: "GET",
-                    url: REST_SERVER_URI + "/visit/addresses"
-                },
                 "info": {
                     method: "GET",
                     url: REST_SERVER_URI + "/checkout"

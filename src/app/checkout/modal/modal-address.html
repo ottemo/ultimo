@@ -1,0 +1,60 @@
+<div class="modal fade"
+     id="modal-address"
+     tabindex="-1"
+     role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button data-dismiss="modal"
+                        class="close"
+                        type="button">
+                    <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">{{address._id}} Address</h4>
+            </div>
+            <div class="modal-body">
+
+                <ot-address-form
+                    form-ctrl="modalAddress.controller"
+                    form-model="modalAddress.model"
+                    on-submit="modalAddress.actionUseAddress()">
+                    <button type="submit" ng-hide="true"></button>
+                </ot-address-form>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div ng-if="!isGuestCheckout">
+                            <!-- Default Billing Address -->
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"
+                                           name="isDefaultBilling"
+                                           ng-model="modalAddress.model.isDefaultBilling">
+                                    use as default billing address
+                                </label>
+                            </div>
+
+                            <!-- default shipping address -->
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"
+                                           name="isDefaultShipping"
+                                           ng-model="modalAddress.model.isDefaultShipping">
+                                    use as default shipping address
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <button type="button"
+                                ng-click="modalAddress.actionSaveAddress()"
+                                class="next btn btn-primary btn-block-xs pull-right col-sm-12 col-md-6">
+                            save and use
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -117,6 +117,12 @@ $panel-checkout-step-heading-bg: $panel-default-heading-bg;
     margin-top: -10px;
 }
 
+@media (min-width: $screen-sm-min) {
+    .default-billing-wrapper .checkbox {
+        margin-top: 0;
+    }
+}
+
 .accordion {
     li > a.btn-link {
         margin-left: 20px;
